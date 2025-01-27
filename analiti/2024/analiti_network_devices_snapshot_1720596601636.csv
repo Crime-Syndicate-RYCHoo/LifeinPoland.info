@@ -1,0 +1,32 @@
+IP Addresses,MAC Addresses,Manufacturers,Trusted,Alias,DNS Names,NetBios Names,SSDP Manufacturers,SSDP Models,SSDP Names,SSDP UDNs,SNMP Names,mDNS Services,HTTP Servers,Ping (AVG)
+172.31.0.22,08:00:27:d6:ea:1e,PCS Systemtechnik GmbH,false,,,DESKTOP-NDABFST,,,,,,,,11.474115
+172.31.0.30,08:00:27:91:38:da,PCS Systemtechnik GmbH,false,,,,,,,,,,,1.37599
+172.31.0.41,68:05:ca:17:45:9b,Intel Corporate,false,,,SYMFONIA,,,,,,,,10.638803
+172.31.0.49,24:5e:be:61:01:2c,"QNAP Systems, Inc.",false,,,NAS-ZAWOJA,,,,,,"_workstation._tcp (port 9, name: NAS-ZAWOJA)",,2.55849
+172.31.0.81,20:47:47:84:32:a2,Dell Inc.,false,,,WIN-5U1176CS0GH,,,,,,,,
+172.31.0.100,00:0b:82:9a:6b:cc,"Grandstream Networks, Inc.",false,,,,,,,,,,Loading Web Application (mini_httpd/1.30 26Oct2018),2.668021
+172.31.0.101,00:0b:82:9a:6b:ce,"Grandstream Networks, Inc.",false,,,,,,,,,,Loading Web Application (mini_httpd/1.30 26Oct2018),
+172.31.0.102,00:0b:82:9a:6b:ca,"Grandstream Networks, Inc.",false,,,,,,,,,,Loading Web Application (mini_httpd/1.30 26Oct2018),12.342033
+172.31.0.103,00:0b:82:9a:6b:cb,"Grandstream Networks, Inc.",false,,,,,,,,,,Loading Web Application (mini_httpd/1.30 26Oct2018),1.865677
+172.31.0.104,00:0b:82:9a:6b:d0,"Grandstream Networks, Inc.",false,,,,,,,,,,Loading Web Application (mini_httpd/1.30 26Oct2018),2.202501
+172.31.0.105,00:0b:82:9a:6b:d6,"Grandstream Networks, Inc.",false,,,,,,,,,,Loading Web Application (mini_httpd/1.30 26Oct2018),5.929897
+172.31.0.106,00:0b:82:9a:6b:cf,"Grandstream Networks, Inc.",false,,,,,,,,,,Loading Web Application (mini_httpd/1.30 26Oct2018),2.570156
+172.31.0.107,00:0b:82:dd:97:48,"Grandstream Networks, Inc.",false,,,,,,,,,,Loading Web Application (mini_httpd/1.30 26Oct2018),1.349323
+172.31.0.108,00:0b:82:9a:6b:cd,"Grandstream Networks, Inc.",false,,,,,,,,,,Loading Web Application (mini_httpd/1.30 26Oct2018),12.156199
+172.31.1.1,,,false,,,,,,,,,,,
+172.31.1.2,60:e3:27:50:db:5b,"TP-LINK TECHNOLOGIES CO.,LTD.",false,,,,,,,,,,Loading... (Web Switch),
+"[""172.31.1.10"",""172.31.1.20""]","[""00:08:9b:cb:50:bd"",""00:08:9b:cb:50:bc""]","[""ICP Electronics Inc."",""Fujitsu Technology Solutions GmbH""]",false,,,NAS-IPC,Fujitsu Technology Solutions GmbH,Q800,NAS-IPC,356da505-0570-4d47-8f8e-530f001d0244,,,400 Bad Request (Apache),
+172.31.1.13,c8:15:4e:3b:53:30,Intel Corporate,false,,,,,,,,,,,
+172.31.1.19,,,false,,,,,,,,,,,
+172.31.1.21,90:1b:0e:b1:6d:ce,Fujitsu Technology Solutions GmbH,false,,,,,,,,,,,
+172.31.1.28,6c:2b:59:c9:57:5f,Dell Inc.,false,,,B214YY2,,,,,,,,5.016146
+172.31.1.31,0c:8b:fd:68:f7:77,Intel Corporate,false,,,,,,,,,,,
+172.31.1.34,,,false,,,,,,,,,,,
+172.31.1.40,10:02:b5:4f:6b:f4,Intel Corporate,false,,,,,,,,,,,
+172.31.1.109,80:38:96:ca:f8:96,SHARP Corporation,false,,,,,,,,SHARP MX-2630N,,,1.7317195
+172.31.1.126,c8:21:58:b7:10:83,Intel Corporate,false,,,DELL-SNOWICKA,,,,,,,,
+172.31.1.220,fc:b6:9d:0c:5c:21,"Zhejiang Dahua Technology Co., Ltd.",false,,,,,,,,,,,3.234479
+172.31.1.225,00:46:b8:02:d0:0c,,false,,,,,IPCamera,IPCamera - umksmtwbfiu9,Upnp-IPCamera-umksmtwbfiu9,,,,1.883177
+172.31.1.254,,,false,,,,,,,,,,,
+172.31.3.101,18:fd:74:db:b1:c5,Routerboard.com,false,,,,,,,,,,,3.580521
+172.31.3.102,00:0c:42:a2:df:a4,Routerboard.com,false,,,,,,,,,,,
