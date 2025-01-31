@@ -1,0 +1,386 @@
+
+
+'use strict';
+{
+  const globals = this;
+  const django = globals.django || (globals.django = {});
+
+  
+  django.pluralidx = function(n) {
+    const v = (n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);
+    if (typeof v === 'boolean') {
+      return v ? 1 : 0;
+    } else {
+      return v;
+    }
+  };
+  
+
+  /* gettext library */
+
+  django.catalog = django.catalog || {};
+  
+  const newcatalog = {
+    "%(num)s error": [
+      "%(num)s b\u0142\u0105d",
+      "%(num)s b\u0142\u0119dy",
+      "%(num)s b\u0142\u0119d\u00f3w"
+    ],
+    "%(num)s pixel": [
+      "%(num)s piksel",
+      "%(num)s pikseli",
+      "%(num)s pikseli"
+    ],
+    "%(sel)s of %(cnt)s selected": [
+      "Wybrano %(sel)s z %(cnt)s",
+      "Wybrano %(sel)s z %(cnt)s",
+      "Wybrano %(sel)s z %(cnt)s"
+    ],
+    "%s selected option not visible": [
+      "%s wybrana opcja jest ukryta",
+      "%s wybrane opcje s\u0105 ukryte",
+      "%s wybranych opcji jest ukrytych"
+    ],
+    "%s%": "%s%",
+    "(%(number)s new items in this menu)": "(%(number)s nowe pozycje w tym menu)",
+    "(1 new item in this menu)": "(1 nowa pozycja w tym menu)",
+    "(New)": "(Nowy)",
+    "6 a.m.": "6 rano",
+    "6 p.m.": "6 po po\u0142udniu",
+    "A little creepy": "Troch\u0119 przera\u017caj\u0105ce",
+    "AGE-RESTRICTED CONTENT": "TRE\u015aCI OGRANICZONE WIEKOWO",
+    "ANIMAL ABUSE": "ZN\u0118CANIE SI\u0118 NAD ZWIERZ\u0118TAMI",
+    "Add a comment": "Dodaj komentarz",
+    "Alt text": "Tekst alternatywny",
+    "Apply editor lock": "Zastosuj blokad\u0119 edytorsk\u0105",
+    "April": "Kwiecie\u0144",
+    "Are you sure?": "Czy jeste\u015b pewny?",
+    "August": "Sierpie\u0144",
+    "Australia": "Australia",
+    "Austria": "Austria",
+    "Available %s": "Dost\u0119pne %s",
+    "Bangladesh": "Bangladesz",
+    "Blocks": "Bloki",
+    "Brazil": "Brazylia",
+    "Broken link": "Zepsuty link",
+    "CHILD SAFETY": "BEZPIECZE\u0143STWO DZIECI",
+    "COVID-19 MISINFORMATION": "DEZINFORMACJA NA TEMAT COVID-19",
+    "Canada": "Kanada",
+    "Cancel": "Anuluj",
+    "Change %s": "Zmie\u0144 %s",
+    "Change document": "Zmie\u0144 dokument",
+    "Change image": "Zmie\u0144 obraz",
+    "Change page": "Zmie\u0144 stron\u0119",
+    "Changed": "Zmieniono",
+    "Character count:": "Liczba znak\u00f3w:",
+    "Choose": "Wybierz",
+    "Choose a %s": "Wybierz %s",
+    "Choose a Date": "Wybierz Dat\u0119",
+    "Choose a Time": "Wybierz Czas",
+    "Choose a document": "Wybierz dokument",
+    "Choose a page": "Wybierz stron\u0119",
+    "Choose a time": "Wybierz czas",
+    "Choose all": "Wybierz wszystkie",
+    "Choose an image": "Wybierz obraz",
+    "Chosen %s": "Wybrane %s",
+    "Click to choose all %s at once.": "Kliknij, aby wybra\u0107 jednocze\u015bnie wszystkie %s.",
+    "Click to remove all chosen %s at once.": "Kliknij, aby usun\u0105\u0107 jednocze\u015bnie wszystkie wybrane %s.",
+    "Close": "Zamknij",
+    "Collapse all": "Zwi\u0144 wszystkie",
+    "Comment": "Komentarz",
+    "Convert to alias page": "Konwertuj na alias strony",
+    "Copied": "Skopiowano",
+    "Creepiness label followed by an exclamation mark\u0004%(label)s!": "%(label)s!",
+    "Czechia": "Czechy",
+    "Dashboard": "Kokpit",
+    "December": "Grudzie\u0144",
+    "Decorative image": "Obrazek dekoracyjny",
+    "Delete": "Usu\u0144",
+    "Delete error": "B\u0142\u0105d usuwania",
+    "Deleting": "Usuwanie",
+    "Denmark": "Dania",
+    "Download PO file": "Pobierz plik PO",
+    "Download PO file and input translations offline": "Pobierz plik PO i wprowad\u017a t\u0142umaczenia offline",
+    "Edit": "Edytuj",
+    "Edit '%(title)s'": "Edytuj '%(title)s'",
+    "Edit this %s": "Edytuj ten %s",
+    "Edit this document": "Edytuj ten dokument",
+    "Edit this image": "Edytuj obraz",
+    "Edit this page": "Edytuj t\u0119 stron\u0119",
+    "Edit your account": "Edytuj swoje konto",
+    "Enter your comments...": "Dodaj komentarz\u2026",
+    "Enter your reply...": "Dodaj odpowied\u017a\u2026",
+    "Error while sending preview data.": "B\u0142\u0105d podczas przesy\u0142ania danych do podgl\u0105du.",
+    "Expand all": "Rozwi\u0144 wszytkie",
+    "FAKE ENGAGEMENT": "FA\u0141SZYWE ZAANGA\u017bOWANIE",
+    "FIREARMS": "BRO\u0143 PALNA",
+    "February": "Luty",
+    "Fetching %s information...": "Pobieranie informacji o %s...",
+    "Fetching document information...": "Pobieranie informacji na temat dokumentu...",
+    "Fetching image information...": "Pobieranie informacji na temat obrazu",
+    "Fetching page information...": "Pobieranie informacji na temat strony...",
+    "Filter": "Filtr",
+    "Finland": "Finlandia",
+    "Focus comment": "Wyr\u00f3\u017cnij komentarz",
+    "France": "Francja",
+    "Germany": "Niemcy",
+    "HARASSMENT & CYBERBULLYING": "N\u0118KANIE I\u00a0CYBERPRZEMOC",
+    "HARMFUL OR DANGEROUS CONTENT": "SZKODLIWE LUB NIEBEZPIECZNE TRE\u015aCI",
+    "HATE SPEECH": "MOWA NIENAWI\u015aCI",
+    "Hide": "Ukryj",
+    "Horizontal line": "Linia pozioma",
+    "IMPERSONATION": "PODSZYWANIE SI\u0118",
+    "India": "Indie",
+    "Indonesia": "Indonezja",
+    "Insert a block": "Dodaj blok",
+    "Ireland": "Irlandia",
+    "Italy": "W\u0142ochy",
+    "January": "Stycze\u0144",
+    "Japan": "Japonia",
+    "July": "Lipiec",
+    "June": "Czerwiec",
+    "Line break": "Nowa linia",
+    "Loading\u2026": "Wczytywanie...",
+    "Lock": "Zablokuj",
+    "MISINFORMATION": "DEZINFORMACJA",
+    "Main menu": "G\u0142\u00f3wne menu",
+    "March": "Marzec",
+    "May": "Maj",
+    "Mexico": "Meksyk",
+    "Midnight": "P\u00f3\u0142noc",
+    "Missing document": "Brakuj\u0105cy dokument",
+    "More actions": "Wi\u0119cej akcji",
+    "NUDITY & SEXUAL CONTENT": "NAGO\u015a\u0106 I\u00a0TRE\u015aCI SEKSUALNE",
+    "Navigate to...": "Przejd\u017a do\u2026",
+    "Netherlands": "Holandia",
+    "New Zealand": "Nowa Zelandia",
+    "No results": "Brak wynik\u00f3w",
+    "Noon": "Po\u0142udnie",
+    "Norway": "Norwegia",
+    "Not creepy": "Nieprzera\u017caj\u0105ce",
+    "Not translated": "Nie przet\u0142umaczone",
+    "Note: You are %s hour ahead of server time.": [
+      "Uwaga: Czas lokalny jest przesuni\u0119ty o %s godzin\u0119 do przodu w stosunku do czasu serwera.",
+      "Uwaga: Czas lokalny jest przesuni\u0119ty o %s godziny do przodu w stosunku do czasu serwera.",
+      "Uwaga: Czas lokalny jest przesuni\u0119ty o %s godzin do przodu w stosunku do czasu serwera."
+    ],
+    "Note: You are %s hour behind server time.": [
+      "Uwaga: Czas lokalny jest przesuni\u0119ty o %s godzin\u0119 do ty\u0142u w stosunku do czasu serwera.",
+      "Uwaga: Czas lokalny jest przesuni\u0119ty o %s godziny do ty\u0142u w stosunku do czasu serwera.",
+      "Uwaga: Czas lokalny jest przesuni\u0119ty o %s godzin do ty\u0142u w stosunku do czasu serwera."
+    ],
+    "November": "Listopad",
+    "Now": "Teraz",
+    "OTHER": "INNE",
+    "October": "Pa\u017adziernik",
+    "Other": "Inne",
+    "Page": "Strona",
+    "Page explorer": "Przegl\u0105darka stron",
+    "Pages": "Strony",
+    "Pin toolbar": "Zakotwicz pasek narz\u0119dzi",
+    "Poland": "Polska",
+    "Portugal": "Portugalia",
+    "Preview": "Podgl\u0105d",
+    "Publish in ": "Opublikuj w",
+    "Publishing...": "Publikowanie...",
+    "Recommendation": "Polecane",
+    "Regrets Per 10000 Videos": "Liczba \u017cali na 10000 film\u00f3w",
+    "Reload saved content": "Od\u015bwie\u017c zapisan\u0105 zawarto\u015b\u0107",
+    "Reload the page": "Od\u015bwie\u017c stron\u0119",
+    "Remove": "Usu\u0144",
+    "Remove all": "Usu\u0144 wszystkie",
+    "Remove editor lock": "Usu\u0144 blokad\u0119 edytorsk\u0105",
+    "Reply": "Odpowiedz",
+    "Report this error to your website administrator with the following information:": "Zg\u0142o\u015b ten b\u0142\u0105d administratorowi strony wraz z poni\u017csz\u0105 informacj\u0105:",
+    "Resolve": "Rozwi\u0105\u017c",
+    "Retry": "Pon\u00f3w",
+    "Revert to %s version": "Przywr\u00f3\u0107 wersj\u0119 %s",
+    "SPAM, DECEPTIVE PRACTICES": "SPAM, PR\u00d3BY OSZUSTWA",
+    "Save": "Zapisz",
+    "Save error": "B\u0142\u0105d zapisu",
+    "Save the page to add this comment": "Zapisz stron\u0119 aby doda\u0107 komentarz",
+    "Save the page to save this comment": "Zapisz stron\u0119 aby doda\u0107 komentarz",
+    "Save the page to save this reply": "Zapisz stron\u0119 aby zapisa\u0107 odpowied\u017a",
+    "Saving...": "Zapisywanie...",
+    "Search": "Wyszukiwanie",
+    "Search options\u2026": "Opcje szukania\u2026",
+    "See all": "Zobacz wszystkie",
+    "September": "Wrzesie\u0144",
+    "Server Error": "B\u0142\u0105d serwera",
+    "Server error": "B\u0142\u0105d serwera",
+    "Show": "Poka\u017c",
+    "Show error": "Poka\u017c b\u0142\u0105d",
+    "Show latest content": "Poka\u017c ostatni\u0105 zawarto\u015b\u0107",
+    "Somewhat creepy": "Ca\u0142kiem przera\u017caj\u0105ce",
+    "South Africa": "Republika Po\u0142udniowej Afryki",
+    "Spain": "Hiszpania",
+    "Split block": "Roz\u0142am blok",
+    "Stop Synced translation": "Zatrzymaj zsynchronizowane t\u0142umaczenie",
+    "Super creepy": "Ogromnie przera\u017caj\u0105ce",
+    "Sweden": "Szwecja",
+    "Switzerland": "Szwajcaria",
+    "The editor just crashed. Content has been reset to the last saved version.": "Edytor napotka\u0142 b\u0142\u0105d. Zawarto\u015b\u0107 zosta\u0142a cofni\u0119ta do ostatniej zapisanej wersji.",
+    "There are unsaved segments. Please save or cancel them before leaving.": "Istniej\u0105 niezapisane fragmenty. Zapisz lub anuluj je przed wyj\u015bciem.",
+    "This field is required.": "To pole jest wymagane.",
+    "This is the list of available %s. You may choose some by selecting them in the box below and then clicking the \"Choose\" arrow between the two boxes.": "To lista dost\u0119pnych %s. Aby wybra\u0107 pozycje, zaznacz je i kliknij strza\u0142k\u0119 \u201eWybierz\u201d pomi\u0119dzy listami.",
+    "This is the list of chosen %s. You may remove some by selecting them in the box below and then clicking the \"Remove\" arrow between the two boxes.": "To lista wybranych %s. Aby usun\u0105\u0107, zaznacz pozycje wybrane do usuni\u0119cia i kliknij strza\u0142k\u0119 \u201eUsu\u0144\u201d pomi\u0119dzy listami.",
+    "Today": "Dzisiaj",
+    "Toggle side panel": "Rozszerzanie bocznego panelu",
+    "Toggle sidebar": "Rozszerzanie bocznej nawigacji",
+    "Tomorrow": "Jutro",
+    "Translate": "T\u0142umacz",
+    "Translate all missing strings with ": "Przet\u0142umacz wszystkie brakuj\u0105ce ci\u0105gi na",
+    "Translate with ": "Przet\u0142umacz z",
+    "Turkey": "Turcja",
+    "Type into this box to filter down the list of available %s.": "Wpisz co\u015b tutaj, aby wyfiltrowa\u0107 list\u0119 dost\u0119pnych %s.",
+    "Type into this box to filter down the list of selected %s.": "Wpisz co\u015b tutaj, aby wyfiltrowa\u0107 list\u0119 wybranych %s.",
+    "Unfocus comment": "Usu\u0144 wyr\u00f3\u017cnienie komentarza",
+    "United Kingdom": "Zjednoczone Kr\u00f3lestwo",
+    "United States": "Stany Zjednoczone",
+    "Unlock": "Odblokuj",
+    "Unpin toolbar": "Uwolnij pasek narz\u0119dzi",
+    "Unpublish": "Odpublikuj",
+    "Upload PO file": "Wgraj plik PO",
+    "Upload translated PO file to submit translations": "Wgraj przet\u0142umaczony plik PO do wys\u0142anych t\u0142umacze\u0144",
+    "Uses %s version": "U\u017cywa wersji %s ",
+    "VIOLENT CRIMINAL ORGS": "BRUTALNE ORGANIZACJE PRZEST\u0118PCZE",
+    "VIOLENT OR GRAPHIC CONTENT": "BRUTALNE LUB OBRAZOWE TRE\u015aCI",
+    "Very creepy": "Bardzo przera\u017caj\u0105ce",
+    "View child pages of '%(title)s'": "Wy\u015bwietl podstrony dla '%(title)s'",
+    "Write something or type \u2018/\u2019 to insert a block": "Wpisz co\u015b lub naci\u015bnij '/' by wstawi\u0107 blok",
+    "Yesterday": "Wczoraj",
+    "You have selected an action, and you haven\u2019t made any changes on individual fields. You\u2019re probably looking for the Go button rather than the Save button.": "Wybrano akcj\u0119, lecz nie dokonano \u017cadnych zmian w polach. Prawdopodobnie szukasz przycisku \u201eWykonaj\u201d, a nie \u201eZapisz\u201d.",
+    "You have selected an action, but you haven\u2019t saved your changes to individual fields yet. Please click OK to save. You\u2019ll need to re-run the action.": "Wybrano akcj\u0119, lecz cz\u0119\u015b\u0107 zmian w polach nie zosta\u0142a zachowana. Kliknij OK, aby zapisa\u0107. Aby wykona\u0107 akcj\u0119, nale\u017cy j\u0105 ponownie uruchomi\u0107.",
+    "You have unsaved changes on individual editable fields. If you run an action, your unsaved changes will be lost.": "Zmiany w niekt\u00f3rych polach nie zosta\u0142y zachowane. Po wykonaniu akcji, zmiany te zostan\u0105 utracone.",
+    "[DELETED]": "[USUNI\u0118TE]",
+    "abbrev. month April\u0004Apr": "Kwi",
+    "abbrev. month August\u0004Aug": "Sie",
+    "abbrev. month December\u0004Dec": "Gru",
+    "abbrev. month February\u0004Feb": "Lut",
+    "abbrev. month January\u0004Jan": "Sty",
+    "abbrev. month July\u0004Jul": "Lip",
+    "abbrev. month June\u0004Jun": "Cze",
+    "abbrev. month March\u0004Mar": "Mar",
+    "abbrev. month May\u0004May": "Maj",
+    "abbrev. month November\u0004Nov": "Lis",
+    "abbrev. month October\u0004Oct": "Pa\u017a",
+    "abbrev. month September\u0004Sep": "Wrz",
+    "one letter Friday\u0004F": "P",
+    "one letter Monday\u0004M": "P",
+    "one letter Saturday\u0004S": "S",
+    "one letter Sunday\u0004S": "N",
+    "one letter Thursday\u0004T": "C",
+    "one letter Tuesday\u0004T": "W",
+    "one letter Wednesday\u0004W": "\u015a",
+    "segments translated": "segmenty przet\u0142umaczone"
+  };
+  for (const key in newcatalog) {
+    django.catalog[key] = newcatalog[key];
+  }
+  
+
+  if (!django.jsi18n_initialized) {
+    django.gettext = function(msgid) {
+      const value = django.catalog[msgid];
+      if (typeof value === 'undefined') {
+        return msgid;
+      } else {
+        return (typeof value === 'string') ? value : value[0];
+      }
+    };
+
+    django.ngettext = function(singular, plural, count) {
+      const value = django.catalog[singular];
+      if (typeof value === 'undefined') {
+        return (count == 1) ? singular : plural;
+      } else {
+        return value.constructor === Array ? value[django.pluralidx(count)] : value;
+      }
+    };
+
+    django.gettext_noop = function(msgid) { return msgid; };
+
+    django.pgettext = function(context, msgid) {
+      let value = django.gettext(context + '\x04' + msgid);
+      if (value.includes('\x04')) {
+        value = msgid;
+      }
+      return value;
+    };
+
+    django.npgettext = function(context, singular, plural, count) {
+      let value = django.ngettext(context + '\x04' + singular, context + '\x04' + plural, count);
+      if (value.includes('\x04')) {
+        value = django.ngettext(singular, plural, count);
+      }
+      return value;
+    };
+
+    django.interpolate = function(fmt, obj, named) {
+      if (named) {
+        return fmt.replace(/%\(\w+\)s/g, function(match){return String(obj[match.slice(2,-2)])});
+      } else {
+        return fmt.replace(/%s/g, function(match){return String(obj.shift())});
+      }
+    };
+
+
+    /* formatting library */
+
+    django.formats = {
+    "DATETIME_FORMAT": "j E Y H:i",
+    "DATETIME_INPUT_FORMATS": [
+      "%d.%m.%Y %H:%M:%S",
+      "%d.%m.%Y %H:%M:%S.%f",
+      "%d.%m.%Y %H:%M",
+      "%Y-%m-%d %H:%M:%S",
+      "%Y-%m-%d %H:%M:%S.%f",
+      "%Y-%m-%d %H:%M",
+      "%Y-%m-%d"
+    ],
+    "DATE_FORMAT": "j E Y",
+    "DATE_INPUT_FORMATS": [
+      "%d.%m.%Y",
+      "%d.%m.%y",
+      "%y-%m-%d",
+      "%Y-%m-%d"
+    ],
+    "DECIMAL_SEPARATOR": ",",
+    "FIRST_DAY_OF_WEEK": 1,
+    "MONTH_DAY_FORMAT": "j E",
+    "NUMBER_GROUPING": 3,
+    "SHORT_DATETIME_FORMAT": "d-m-Y  H:i",
+    "SHORT_DATE_FORMAT": "d-m-Y",
+    "THOUSAND_SEPARATOR": "\u00a0",
+    "TIME_FORMAT": "H:i",
+    "TIME_INPUT_FORMATS": [
+      "%H:%M:%S",
+      "%H:%M:%S.%f",
+      "%H:%M"
+    ],
+    "YEAR_MONTH_FORMAT": "F Y"
+  };
+
+    django.get_format = function(format_type) {
+      const value = django.formats[format_type];
+      if (typeof value === 'undefined') {
+        return format_type;
+      } else {
+        return value;
+      }
+    };
+
+    /* add to global namespace */
+    globals.pluralidx = django.pluralidx;
+    globals.gettext = django.gettext;
+    globals.ngettext = django.ngettext;
+    globals.gettext_noop = django.gettext_noop;
+    globals.pgettext = django.pgettext;
+    globals.npgettext = django.npgettext;
+    globals.interpolate = django.interpolate;
+    globals.get_format = django.get_format;
+
+    django.jsi18n_initialized = true;
+  }
+};
+

@@ -1,0 +1,171 @@
+
+if (typeof wFORMS.behaviors.validation.messages === 'undefined') {
+    wFORMS.behaviors.validation.messages = {};
+};
+
+(function () {
+    var key, tmp;
+    for (key in (tmp = {
+        oneRequired: "Wypełnienie sekcji jest wymagane.",
+        isRequired: "To pole jest wymagane.",
+        isAlpha: "Tekst musi składać się tylko ze znaków alfabetycznych (a-z, A-Z). Cyfry są niedozwolone.",
+        isEmail: "Podany adres jest nieprawidłowy.",
+        isInteger: "Prosimy podać numer (bez ułamków).",
+        isFloat: "Prosimy podać numer (np. 1.9).",
+        isAlphanum: "Użyj tylko znaków alfa-numerycznych [a-z 0-9].",
+        isDate: "Podana data jest nieprawidłowa.",
+        isDateTime: "Wygląda na niewłaściwe data/czas.",
+        isTime: "Wygląda na niewłaściwy czas.",
+        isPhone: "Proszę wprowadzić poprawny numer telefonu.",
+        isCustom: "Proszę wprowadzić poprawną wartość.",
+        isHostname: "This does not appear to be a valid hostname.",
+        wordCount: "To pole przekracza limit słów.",
+        wordsRemPos: "pozostało słów",
+        wordsRemNeg: "słowa/słów powyżej limitu",
+        notification_0: "%% błędów wykrytych. Twój formularz nie został wysłany. Prosimy o sprawdzenie podanych informacji.",
+        notification: "%% błędów wykrytych. Twój formularz nie został wysłany. Prosimy o sprawdzenie podanych informacji.",
+        isPasswordStrong: "Please choose a more secure password. Passwords must contain 8 or more characters, with at least 1 letter (a to z), 1 number (0 to 9), and 1 symbol (like \'%\', \'$\' or \'!\').",
+        isPasswordMedium: "Proszę wybrać bardziej bezpieczne hasło. Hasło musi zawierać cztery lub więcej znaków, z co najmniej jedną literą (a do z) i jedną liczba (0 do 9).",
+        isPasswordWeak: "Twoje hasło nie może być puste.",
+        isPasswordConfirmed: "Twoja hasło i pole potwierdzenie się nie zgadzają.",
+        unableToAuthenticate: "Unable to authenticate, please try again.",
+        unableToSave: "Unable to save this response.",
+        rangeNumber: {
+            max: "Wartość musi być mniejsza niż górna granica %1.",
+            min: "Wartość musi być większa niż dolna granica %1.",
+            both: "The entered value must be between %1 - %2"
+        },
+        rangeDate: {
+            max: "Data musi być %1 lub wcześniejsza.",
+            min: "Data musi być %1 lub późniejsza.",
+            both: "Data ta musi być między %1 - %2.",
+            cont: "To pole określa zakres dat dla %1.",
+            dep: "Nie można potwierdzić daty. To pole jest uzależnione od %1.",
+            link: "inne pole"
+        },
+        wait: "Proszę czekać..."
+    })) {
+        wFORMS.behaviors.validation.messages[key] = tmp[key];
+    }
+})();
+
+if (typeof wFORMS.footer === 'undefined') {
+    wFORMS.footer = {messages: {}};
+};
+
+// add translations for new gdpr links
+wFORMS.footer.messages = {
+    contactInformation: "Contact Information",
+    gdprRights: "Your Rights Under GDPR"
+}
+
+wFORMS.behaviors.lengthPrompt.messages = "Pozostało %1 znaków.";
+
+wFORMS.behaviors.repeat.MESSAGES = {
+    ADD_CAPTION: "Dodaj kolejną odpowiedź",
+    ADD_TITLE: "Wykonaj duplikat tej sekcji lub zapytania.",
+    REMOVE_CAPTION: "Usuń",
+    REMOVE_TITLE: "Przenieś tą sekcję lub zapytanie",
+    REMOVE_WARNING: "Czy na pewno chcesz usunąć tę sekcję? Wszystkie dane w tej sekcji zostaną utracone."
+};
+
+
+
+(function () {
+    var key, tmp;
+    for (key in (tmp = {
+        CAPTION_NEXT: 'Następna Strona',
+        CAPTION_PREVIOUS: 'Poprzednia Strona',
+        CAPTION_UNLOAD: 'Wszystkie dane wprowadzone NA KAŻDEJ STRONIE tego formularza zostaną UTRACONE',
+        NAV_LABEL: 'Strona: ',
+        TAB_LABEL: 'Strona '
+    })) {
+        wFORMS.behaviors.paging.MESSAGES[key] = tmp[key];
+    }
+})();
+
+
+
+// Alpha Input Validation:
+wFORMS.behaviors.validation.instance.prototype.validateAlpha = function (element, value) {
+    var reg = /^[a-zA-Z\s\u00C0-\u00FF\u0100-\u017F]+$/;
+    return this.isEmpty(value) || reg.test(value);
+};
+// Alphanumeric Input Validation:
+wFORMS.behaviors.validation.instance.prototype.validateAlphanum = function (element, value) {
+    var reg = /^[\u0030-\u0039a-zA-Z\s\u00C0-\u00FF\u0100-\u017F]+$/;
+    return this.isEmpty(value) || reg.test(value);
+};
+
+wFORMS.behaviors.autoformat.NUMERIC_REGEX = new RegExp("[0-9]");
+wFORMS.behaviors.autoformat.ALPHABETIC_REGEX = new RegExp("[a-zA-Z\s\u00C0-\u00FF\u0100-\u017F]");
+
+// Calendar
+if (!wFORMS.helpers.calendar) {
+    wFORMS.helpers.calendar = {};
+};
+if (!wFORMS.helpers.calendar.locale) {
+    wFORMS.helpers.calendar.locale = {};
+};
+var cfg = wFORMS.helpers.calendar.locale;
+
+cfg.TITLE = 'Wybierz datę';
+cfg.START_WEEKDAY = 1;
+cfg.MONTHS_LONG = ['Styczeń',
+    'Luty',
+    'Marzec',
+    'Kwiecień',
+    'Maj',
+    'Czerwiec',
+    'Lipiec',
+    'Sierpień',
+    'Wrzesień',
+    'Październik',
+    'Listopad',
+    'Grudzień'
+];
+cfg.WEEKDAYS_SHORT = ['Ni',
+    'Po',
+    'Wt',
+    'Śr',
+    'Cz',
+    'Pi',
+    'So'
+];
+cfg.MDY_DAY_POSITION = 1;
+cfg.MDY_MONTH_POSITION = 2;
+cfg.MDY_YEAR_POSITION = 3;
+cfg.DATE_FIELD_DELIMITER = '.';
+
+// Autosuggest
+(function () {
+    var key, tmp;
+    for (key in (tmp = {
+        NO_RESULTS: 'Nie znaleziono wyników',
+        SHOWING_OF: 'Pokazywanie %1 z %2',
+        CONTINUE_TYPING: 'Kontynuuj pisanie, aby zawęzić opcje'
+    })) {
+        if (wFORMS.behaviors.autosuggest) {
+            wFORMS.behaviors.autosuggest.MESSAGES[key] = tmp[key];
+        }
+    }
+})();
+
+// Numeric formatting information
+var wFormsNumericLocaleFormattingInfo = {"decimal_point":",","thousands_sep":"","int_curr_symbol":"PLN ","currency_symbol":"z\u0142","mon_decimal_point":",","mon_thousands_sep":".","positive_sign":"","negative_sign":"-","int_frac_digits":2,"frac_digits":2,"p_cs_precedes":0,"p_sep_by_space":1,"n_cs_precedes":0,"n_sep_by_space":1,"p_sign_posn":1,"n_sign_posn":1,"grouping":[],"mon_grouping":[3,3]};
+
+// Response Caching Feature
+(function () {
+    var key, tmp;
+    for (key in (tmp = {
+        DIALOG_TITLE: 'Save Responses for Use in Future Submissions',
+        DIALOG_INFO: 'The creator of this form has allowed you to save responses to the following questions. If you click the <b>Save Responses for Reuse</b> button, these responses will be saved in your local browser storage. You can remove the response at any time by clearing your local browser storage. If you submit new, different responses, you will be asked if you want to update your saved responses.',
+        CONFIRM_CACHE: 'Save Selected Responses for Reuse',
+        CANCEL_CACHE: 'Don\'t Save Any Response for Reuse',
+        DO_NOT_ASK_AGAIN: 'Don\'t ask again',
+    })) {
+        if (wFORMS.behaviors.responseCaching) {
+            wFORMS.behaviors.responseCaching.MESSAGES[key] = tmp[key];
+        }
+    }
+})();

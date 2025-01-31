@@ -1,0 +1,3113 @@
+From: <Saved by Blink>
+Snapshot-Content-Location: http://127.0.0.3/videos/add
+Subject: Error: CSRF token from either the request body or request headers did not match or is missing.
+Date: Fri, 31 Jan 2025 20:28:53 +0100
+MIME-Version: 1.0
+Content-Type: multipart/related;
+	type="text/html";
+	boundary="----MultipartBoundary--Gw3WbDD2eiRRIA0RAf4BP2qvfB46NCZspXCi0DaDeK----"
+
+
+------MultipartBoundary--Gw3WbDD2eiRRIA0RAf4BP2qvfB46NCZspXCi0DaDeK----
+Content-Type: text/html
+Content-ID: <frame-4DB718E64F9E0766FA02FB610699CA91@mhtml.blink>
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://127.0.0.3/videos/add
+
+<!DOCTYPE html><html><head><meta http-equiv=3D"Content-Type" content=3D"tex=
+t/html; charset=3DUTF-8"><link rel=3D"stylesheet" type=3D"text/css" href=3D=
+"cid:css-ecdc566f-b370-4336-8fd0-cd78c2abc924@mhtml.blink" /><link rel=3D"s=
+tylesheet" type=3D"text/css" href=3D"cid:css-0d248585-fd37-48a5-888a-7fa163=
+a7613a@mhtml.blink" />
+        <meta name=3D"viewport" content=3D"width=3Ddevice-width, initial-sc=
+ale=3D1.0">
+    <title>
+        Error: CSRF token from either the request body or request headers d=
+id not match or is missing.    </title>
+    <link href=3D"http://127.0.0.3/favicon.ico" type=3D"image/x-icon" rel=
+=3D"icon"><link href=3D"http://127.0.0.3/favicon.ico" type=3D"image/x-icon"=
+ rel=3D"shortcut icon">   =20
+   =20
+
+</head>
+<body>
+    <header>
+                <h1 class=3D"header-title">
+            <span>CSRF token from either the request body or request header=
+s did not match or is missing.</span>
+            <a>=F0=9F=93=8B</a>
+        </h1>
+                <span class=3D"header-type">Cake\Http\Exception\InvalidCsrf=
+TokenException</span>
+    </header>
+    <div class=3D"error-content">
+       =20
+       =20
+       =20
+    <div class=3D"stack-frame">
+                <span class=3D"stack-frame-file">
+            CORE\src\Http\Middleware\CsrfProtectionMiddleware.php at line 3=
+81        </span>
+                    <a href=3D"phpstorm://open?file=3DC:\wamp64\apps\bhp1\v=
+endor\cakephp\cakephp\src\Http\Middleware\CsrfProtectionMiddleware.php&amp;=
+line=3D381" class=3D"stack-frame-edit">(edit)</a>       =20
+        <table class=3D"code-excerpt" cellspacing=3D"0" cellpadding=3D"0">
+                    <tbody><tr>
+                <td class=3D"excerpt-number" data-number=3D"377"></td>
+                <td class=3D"excerpt-line"><pre><code style=3D"color: #0000=
+00"><span style=3D"color: #0000BB">        </span><span style=3D"color: #00=
+7700">if (</span><span style=3D"color: #0000BB">hash_equals</span><span sty=
+le=3D"color: #007700">(</span><span style=3D"color: #0000BB">$header</span>=
+<span style=3D"color: #007700">, </span><span style=3D"color: #0000BB">$coo=
+kie</span><span style=3D"color: #007700">)) {</span></code></pre></td>
+            </tr>
+                    <tr>
+                <td class=3D"excerpt-number" data-number=3D"378"></td>
+                <td class=3D"excerpt-line"><pre><code style=3D"color: #0000=
+00"><span style=3D"color: #0000BB">            </span><span style=3D"color:=
+ #007700">return;</span></code></pre></td>
+            </tr>
+                    <tr>
+                <td class=3D"excerpt-number" data-number=3D"379"></td>
+                <td class=3D"excerpt-line"><pre><code style=3D"color: #0000=
+00"><span style=3D"color: #0000BB">        </span><span style=3D"color: #00=
+7700">}</span></code></pre></td>
+            </tr>
+                    <tr>
+                <td class=3D"excerpt-number" data-number=3D"380"></td>
+                <td class=3D"excerpt-line"><pre><code style=3D"color: #0000=
+00"><span style=3D"color: #0000BB"></span></code></pre></td>
+            </tr>
+                    <tr>
+                <td class=3D"excerpt-number" data-number=3D"381"></td>
+                <td class=3D"excerpt-line"><span class=3D"code-highlight"><=
+pre><code style=3D"color: #000000"><span style=3D"color: #0000BB">        <=
+/span><span style=3D"color: #007700">throw new </span><span style=3D"color:=
+ #0000BB">InvalidCsrfTokenException</span><span style=3D"color: #007700">(<=
+/span><span style=3D"color: #0000BB">__d</span><span style=3D"color: #00770=
+0">(</span></code></pre></span></td>
+            </tr>
+                    <tr>
+                <td class=3D"excerpt-number" data-number=3D"382"></td>
+                <td class=3D"excerpt-line"><pre><code style=3D"color: #0000=
+00"><span style=3D"color: #0000BB">            </span><span style=3D"color:=
+ #DD0000">'cake'</span><span style=3D"color: #007700">,</span></code></pre>=
+</td>
+            </tr>
+                    <tr>
+                <td class=3D"excerpt-number" data-number=3D"383"></td>
+                <td class=3D"excerpt-line"><pre><code style=3D"color: #0000=
+00"><span style=3D"color: #0000BB">            </span><span style=3D"color:=
+ #DD0000">'CSRF token from either the request body or request headers did n=
+ot match or is missing.'</span><span style=3D"color: #007700">,</span></cod=
+e></pre></td>
+            </tr>
+                    <tr>
+                <td class=3D"excerpt-number" data-number=3D"384"></td>
+                <td class=3D"excerpt-line"><pre><code style=3D"color: #0000=
+00"><span style=3D"color: #0000BB">        </span><span style=3D"color: #00=
+7700">));</span></code></pre></td>
+            </tr>
+                    <tr>
+                <td class=3D"excerpt-number" data-number=3D"385"></td>
+                <td class=3D"excerpt-line"><pre><code style=3D"color: #0000=
+00"><span style=3D"color: #0000BB">    </span><span style=3D"color: #007700=
+">}</span></code></pre></td>
+            </tr>
+                </tbody></table>
+    </div>
+
+    <ul class=3D"stack-frames">
+            <li id=3D"stack-frame-0-0" class=3D"stack-frame vendor-frame">
+            <div class=3D"stack-frame-header">
+                <button data-frame-id=3D"0-0" class=3D"stack-frame-toggle">
+                    =E2=96=BC
+                </button>
+
+                <div class=3D"stack-frame-header-content">
+                    <span class=3D"stack-frame-file">
+                        CORE\src\Http\Middleware\CsrfProtectionMiddleware.p=
+hp                    </span>
+
+                                            <span class=3D"stack-frame-line=
+">
+                            <span class=3D"stack-frame-label">at line</span=
+>165                        </span>
+                   =20
+                    <span class=3D"stack-function">
+                                                    <span class=3D"stack-fr=
+ame-label">in</span>
+                                                                           =
+ Cake\Http\Middleware\CsrfProtectionMiddleware-&gt;_validateToken          =
+                                  </span>
+
+                                            <a href=3D"phpstorm://open?file=
+=3DC:\wamp64\apps\bhp1\vendor\cakephp\cakephp\src\Http\Middleware\CsrfProte=
+ctionMiddleware.php&amp;line=3D165" class=3D"stack-frame-edit">(edit)</a>  =
+                                  </div>
+            </div>
+            <div class=3D"stack-frame-contents" id=3D"stack-frame-details-0=
+-0" style=3D"display: none">
+                <table class=3D"code-excerpt" cellspacing=3D"0" cellpadding=
+=3D"0">
+                                                    <tbody><tr>
+                        <td class=3D"excerpt-number" data-number=3D"161"></=
+td>
+                        <td class=3D"excerpt-line"><pre><code style=3D"colo=
+r: #000000"><span style=3D"color: #0000BB">            </span><span style=
+=3D"color: #007700">return </span><span style=3D"color: #0000BB">$this</spa=
+n><span style=3D"color: #007700">-&gt;</span><span style=3D"color: #0000BB"=
+>_addTokenCookie</span><span style=3D"color: #007700">(</span><span style=
+=3D"color: #0000BB">$token</span><span style=3D"color: #007700">, </span><s=
+pan style=3D"color: #0000BB">$request</span><span style=3D"color: #007700">=
+, </span><span style=3D"color: #0000BB">$response</span><span style=3D"colo=
+r: #007700">);</span></code></pre></td>
+                    </tr>
+                                    <tr>
+                        <td class=3D"excerpt-number" data-number=3D"162"></=
+td>
+                        <td class=3D"excerpt-line"><pre><code style=3D"colo=
+r: #000000"><span style=3D"color: #0000BB">        </span><span style=3D"co=
+lor: #007700">}</span></code></pre></td>
+                    </tr>
+                                    <tr>
+                        <td class=3D"excerpt-number" data-number=3D"163"></=
+td>
+                        <td class=3D"excerpt-line"><pre><code style=3D"colo=
+r: #000000"><span style=3D"color: #0000BB"></span></code></pre></td>
+                    </tr>
+                                    <tr>
+                        <td class=3D"excerpt-number" data-number=3D"164"></=
+td>
+                        <td class=3D"excerpt-line"><pre><code style=3D"colo=
+r: #000000"><span style=3D"color: #0000BB">        </span><span style=3D"co=
+lor: #007700">if (</span><span style=3D"color: #0000BB">$hasData</span><spa=
+n style=3D"color: #007700">) {</span></code></pre></td>
+                    </tr>
+                                    <tr>
+                        <td class=3D"excerpt-number" data-number=3D"165"></=
+td>
+                        <td class=3D"excerpt-line"><span class=3D"code-high=
+light"><pre><code style=3D"color: #000000"><span style=3D"color: #0000BB"> =
+           $this</span><span style=3D"color: #007700">-&gt;</span><span sty=
+le=3D"color: #0000BB">_validateToken</span><span style=3D"color: #007700">(=
+</span><span style=3D"color: #0000BB">$request</span><span style=3D"color: =
+#007700">);</span></code></pre></span></td>
+                    </tr>
+                                    <tr>
+                        <td class=3D"excerpt-number" data-number=3D"166"></=
+td>
+                        <td class=3D"excerpt-line"><pre><code style=3D"colo=
+r: #000000"><span style=3D"color: #0000BB">            $request </span><spa=
+n style=3D"color: #007700">=3D </span><span style=3D"color: #0000BB">$this<=
+/span><span style=3D"color: #007700">-&gt;</span><span style=3D"color: #000=
+0BB">_unsetTokenField</span><span style=3D"color: #007700">(</span><span st=
+yle=3D"color: #0000BB">$request</span><span style=3D"color: #007700">);</sp=
+an></code></pre></td>
+                    </tr>
+                                    <tr>
+                        <td class=3D"excerpt-number" data-number=3D"167"></=
+td>
+                        <td class=3D"excerpt-line"><pre><code style=3D"colo=
+r: #000000"><span style=3D"color: #0000BB">        </span><span style=3D"co=
+lor: #007700">}</span></code></pre></td>
+                    </tr>
+                                    <tr>
+                        <td class=3D"excerpt-number" data-number=3D"168"></=
+td>
+                        <td class=3D"excerpt-line"><pre><code style=3D"colo=
+r: #000000"><span style=3D"color: #0000BB"></span></code></pre></td>
+                    </tr>
+                                    <tr>
+                        <td class=3D"excerpt-number" data-number=3D"169"></=
+td>
+                        <td class=3D"excerpt-line"><pre><code style=3D"colo=
+r: #000000"><span style=3D"color: #0000BB">        </span><span style=3D"co=
+lor: #007700">return </span><span style=3D"color: #0000BB">$handler</span><=
+span style=3D"color: #007700">-&gt;</span><span style=3D"color: #0000BB">ha=
+ndle</span><span style=3D"color: #007700">(</span><span style=3D"color: #00=
+00BB">$request</span><span style=3D"color: #007700">);</span></code></pre><=
+/td>
+                    </tr>
+                                </tbody></table>
+
+                <a href=3D"http://127.0.0.3/videos/add#" class=3D"stack-fra=
+me-args" data-target=3D"stack-args-0-0">Toggle Arguments</a>
+                <div id=3D"stack-args-0-0" class=3D"stack-args" style=3D"di=
+splay: none;">
+                                            <div class=3D"cake-debug"><div =
+class=3D"cake-debug"><span class=3D"cake-debug-object" id=3D"cake-db-object=
+-679d23c14b9ca2.87832149-0"><span class=3D"cake-debug-punct">object(</span>=
+<span class=3D"cake-debug-class">Cake\Http\ServerRequest</span><span class=
+=3D"cake-debug-punct">) id:</span><span class=3D"cake-debug-number">0</span=
+><span class=3D"cake-debug-punct"> {</span><samp class=3D"cake-debug-object=
+-props">
+  <span class=3D"cake-debug-prop"><span class=3D"cake-debug-property">trust=
+Proxy</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=3D=
+"cake-debug-const">false</span></span>
+  <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">pro=
+tected</span> <span class=3D"cake-debug-property">params</span><span class=
+=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-array"><spa=
+n class=3D"cake-debug-punct">[</span><samp class=3D"cake-debug-array-items"=
+>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'controller'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span =
+class=3D"cake-debug-string">'Videos'</span><span class=3D"cake-debug-punct"=
+>,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'action'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span clas=
+s=3D"cake-debug-string">'add'</span><span class=3D"cake-debug-punct">,</spa=
+n></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'pass'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-array"><span class=3D"cake-debug-punct">[</span><samp class=
+=3D"cake-debug-array-items"></samp>
+    <span class=3D"cake-debug-punct">]</span></span><span class=3D"cake-deb=
+ug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'plugin'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span clas=
+s=3D"cake-debug-const">null</span><span class=3D"cake-debug-punct">,</span>=
+</span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'_matchedRoute'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><sp=
+an class=3D"cake-debug-string">'/{controller}/{action}/*'</span><span class=
+=3D"cake-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'_ext'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-const">null</span><span class=3D"cake-debug-punct">,</span><=
+/span></samp>
+  <span class=3D"cake-debug-punct">]</span></span></span>
+  <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">pro=
+tected</span> <span class=3D"cake-debug-property">data</span><span class=3D=
+"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-array"><span c=
+lass=3D"cake-debug-punct">[</span><samp class=3D"cake-debug-array-items"></=
+samp>
+  <span class=3D"cake-debug-punct">]</span></span></span>
+  <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">pro=
+tected</span> <span class=3D"cake-debug-property">query</span><span class=
+=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-array"><spa=
+n class=3D"cake-debug-punct">[</span><samp class=3D"cake-debug-array-items"=
+></samp>
+  <span class=3D"cake-debug-punct">]</span></span></span>
+  <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">pro=
+tected</span> <span class=3D"cake-debug-property">cookies</span><span class=
+=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-array"><spa=
+n class=3D"cake-debug-punct">[</span><samp class=3D"cake-debug-array-items"=
+>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'csrfToken'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span c=
+lass=3D"cake-debug-string">'KDAleI8a41YuPnfg1rekfmE0MTJlNjA0ZDM1M2YzNThiMmJ=
+iMjJkZWMzYjgyMmRmMGQ3NjFlYTk=3D'</span><span class=3D"cake-debug-punct">,</=
+span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'PHPSESSID'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span c=
+lass=3D"cake-debug-string">'cjotnj211ndtf2uoobb8kr55rm'</span><span class=
+=3D"cake-debug-punct">,</span></span></samp>
+  <span class=3D"cake-debug-punct">]</span></span></span>
+  <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">pro=
+tected</span> <span class=3D"cake-debug-property">_environment</span><span =
+class=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-array"=
+><span class=3D"cake-debug-punct">[</span><samp class=3D"cake-debug-array-i=
+tems">
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'REDIRECT_STATUS'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><=
+span class=3D"cake-debug-string">'200'</span><span class=3D"cake-debug-punc=
+t">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'HTTP_HOST'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span c=
+lass=3D"cake-debug-string">'127.0.0.3'</span><span class=3D"cake-debug-punc=
+t">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'HTTP_CONNECTION'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><=
+span class=3D"cake-debug-string">'keep-alive'</span><span class=3D"cake-deb=
+ug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'CONTENT_LENGTH'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><s=
+pan class=3D"cake-debug-string">'87859281'</span><span class=3D"cake-debug-=
+punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'HTTP_CACHE_CONTROL'</span><span class=3D"cake-debug-punct"> =3D&gt; </spa=
+n><span class=3D"cake-debug-string">'max-age=3D0'</span><span class=3D"cake=
+-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'HTTP_SEC_CH_UA'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><s=
+pan class=3D"cake-debug-string">'"Not(A:Brand";v=3D"99", "Microsoft Edge";v=
+=3D"133", "Chromium";v=3D"133"'</span><span class=3D"cake-debug-punct">,</s=
+pan></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'HTTP_SEC_CH_UA_MOBILE'</span><span class=3D"cake-debug-punct"> =3D&gt; </=
+span><span class=3D"cake-debug-string">'?0'</span><span class=3D"cake-debug=
+-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'HTTP_SEC_CH_UA_PLATFORM'</span><span class=3D"cake-debug-punct"> =3D&gt; =
+</span><span class=3D"cake-debug-string">'"Windows"'</span><span class=3D"c=
+ake-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'HTTP_ORIGIN'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span=
+ class=3D"cake-debug-string">'http://127.0.0.3'</span><span class=3D"cake-d=
+ebug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'CONTENT_TYPE'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><spa=
+n class=3D"cake-debug-string">'multipart/form-data; boundary=3D----WebKitFo=
+rmBoundary8Rq5OE9bTatKcx4Y'</span><span class=3D"cake-debug-punct">,</span>=
+</span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'HTTP_UPGRADE_INSECURE_REQUESTS'</span><span class=3D"cake-debug-punct"> =
+=3D&gt; </span><span class=3D"cake-debug-string">'1'</span><span class=3D"c=
+ake-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'HTTP_USER_AGENT'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><=
+span class=3D"cake-debug-string">'Mozilla/5.0 (Windows NT 10.0; Win64; x64)=
+ AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36 Edg/=
+133.0.0.0'</span><span class=3D"cake-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'HTTP_ACCEPT'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span=
+ class=3D"cake-debug-string">'text/html,application/xhtml+xml,application/x=
+ml;q=3D0.9,image/avif,image/webp,image/apng,*/*;q=3D0.8,application/signed-=
+exchange;v=3Db3;q=3D0.7'</span><span class=3D"cake-debug-punct">,</span></s=
+pan>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'HTTP_SEC_FETCH_SITE'</span><span class=3D"cake-debug-punct"> =3D&gt; </sp=
+an><span class=3D"cake-debug-string">'same-origin'</span><span class=3D"cak=
+e-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'HTTP_SEC_FETCH_MODE'</span><span class=3D"cake-debug-punct"> =3D&gt; </sp=
+an><span class=3D"cake-debug-string">'navigate'</span><span class=3D"cake-d=
+ebug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'HTTP_SEC_FETCH_USER'</span><span class=3D"cake-debug-punct"> =3D&gt; </sp=
+an><span class=3D"cake-debug-string">'?1'</span><span class=3D"cake-debug-p=
+unct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'HTTP_SEC_FETCH_DEST'</span><span class=3D"cake-debug-punct"> =3D&gt; </sp=
+an><span class=3D"cake-debug-string">'document'</span><span class=3D"cake-d=
+ebug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'HTTP_REFERER'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><spa=
+n class=3D"cake-debug-string">'http://127.0.0.3/videos/add'</span><span cla=
+ss=3D"cake-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'HTTP_ACCEPT_ENCODING'</span><span class=3D"cake-debug-punct"> =3D&gt; </s=
+pan><span class=3D"cake-debug-string">'gzip, deflate, br, zstd'</span><span=
+ class=3D"cake-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'HTTP_ACCEPT_LANGUAGE'</span><span class=3D"cake-debug-punct"> =3D&gt; </s=
+pan><span class=3D"cake-debug-string">'pl,en;q=3D0.9,en-GB;q=3D0.8,en-US;q=
+=3D0.7,ru;q=3D0.6'</span><span class=3D"cake-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'HTTP_COOKIE'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span=
+ class=3D"cake-debug-string">'csrfToken=3DKDAleI8a41YuPnfg1rekfmE0MTJlNjA0Z=
+DM1M2YzNThiMmJiMjJkZWMzYjgyMmRmMGQ3NjFlYTk%3D; PHPSESSID=3Dcjotnj211ndtf2uo=
+obb8kr55rm'</span><span class=3D"cake-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'PATH'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-string">'C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\=
+Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSS=
+H\;C:\Program Files\dotnet\;C:\Program Files\Intel\WiFi\bin\;C:\Program Fil=
+es\Common Files\Intel\WirelessCommon\;C:\Program Files (x86)\Intel\Intel(R)=
+ Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Managemen=
+t Engine Components\DAL;C:\Program Files\PuTTY\;C:\Program Files (x86)\Gpg4=
+win\..\GnuPG\bin;C:\Program Files (x86)\WinSCP\;C:\Program Files\Git\cmd;C:=
+\WINDOWS\system32\config\systemprofile\AppData\Local\Microsoft\WindowsApps'=
+</span><span class=3D"cake-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'SystemRoot'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span =
+class=3D"cake-debug-string">'C:\WINDOWS'</span><span class=3D"cake-debug-pu=
+nct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'COMSPEC'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span cla=
+ss=3D"cake-debug-string">'C:\WINDOWS\system32\cmd.exe'</span><span class=3D=
+"cake-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'PATHEXT'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span cla=
+ss=3D"cake-debug-string">'.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;=
+.MSC'</span><span class=3D"cake-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'WINDIR'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span clas=
+s=3D"cake-debug-string">'C:\WINDOWS'</span><span class=3D"cake-debug-punct"=
+>,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'SERVER_SIGNATURE'</span><span class=3D"cake-debug-punct"> =3D&gt; </span>=
+<span class=3D"cake-debug-string">'&lt;address&gt;Apache/2.4.62 (Win64) PHP=
+/8.3.14 mod_fcgid/2.3.10-dev Server at 127.0.0.3 Port 80&lt;/address&gt;
+'</span><span class=3D"cake-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'SERVER_SOFTWARE'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><=
+span class=3D"cake-debug-string">'Apache/2.4.62 (Win64) PHP/8.3.14 mod_fcgi=
+d/2.3.10-dev'</span><span class=3D"cake-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'SERVER_NAME'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span=
+ class=3D"cake-debug-string">'127.0.0.3'</span><span class=3D"cake-debug-pu=
+nct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'SERVER_ADDR'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span=
+ class=3D"cake-debug-string">'127.0.0.3'</span><span class=3D"cake-debug-pu=
+nct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'SERVER_PORT'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span=
+ class=3D"cake-debug-string">'80'</span><span class=3D"cake-debug-punct">,<=
+/span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'REMOTE_ADDR'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span=
+ class=3D"cake-debug-string">'127.0.0.1'</span><span class=3D"cake-debug-pu=
+nct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'DOCUMENT_ROOT'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><sp=
+an class=3D"cake-debug-string">'C:/wamp64/apps/bhp1/webroot'</span><span cl=
+ass=3D"cake-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'REQUEST_SCHEME'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><s=
+pan class=3D"cake-debug-string">'http'</span><span class=3D"cake-debug-punc=
+t">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'CONTEXT_PREFIX'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><s=
+pan class=3D"cake-debug-string">''</span><span class=3D"cake-debug-punct">,=
+</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'CONTEXT_DOCUMENT_ROOT'</span><span class=3D"cake-debug-punct"> =3D&gt; </=
+span><span class=3D"cake-debug-string">'C:/wamp64/apps/bhp1/webroot'</span>=
+<span class=3D"cake-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'SERVER_ADMIN'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><spa=
+n class=3D"cake-debug-string">'wampserver@wampserver.invalid'</span><span c=
+lass=3D"cake-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'SCRIPT_FILENAME'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><=
+span class=3D"cake-debug-string">'C:/wamp64/apps/bhp1/webroot/index.php'</s=
+pan><span class=3D"cake-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'REMOTE_PORT'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span=
+ class=3D"cake-debug-string">'59923'</span><span class=3D"cake-debug-punct"=
+>,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'REDIRECT_URL'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><spa=
+n class=3D"cake-debug-string">'/videos/add'</span><span class=3D"cake-debug=
+-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'GATEWAY_INTERFACE'</span><span class=3D"cake-debug-punct"> =3D&gt; </span=
+><span class=3D"cake-debug-string">'CGI/1.1'</span><span class=3D"cake-debu=
+g-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'SERVER_PROTOCOL'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><=
+span class=3D"cake-debug-string">'HTTP/1.1'</span><span class=3D"cake-debug=
+-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'REQUEST_METHOD'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><s=
+pan class=3D"cake-debug-string">'POST'</span><span class=3D"cake-debug-punc=
+t">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'QUERY_STRING'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><spa=
+n class=3D"cake-debug-string">''</span><span class=3D"cake-debug-punct">,</=
+span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'REQUEST_URI'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span=
+ class=3D"cake-debug-string">'/videos/add'</span><span class=3D"cake-debug-=
+punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'SCRIPT_NAME'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span=
+ class=3D"cake-debug-string">'/index.php'</span><span class=3D"cake-debug-p=
+unct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'PHP_SELF'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span cl=
+ass=3D"cake-debug-string">'/index.php'</span><span class=3D"cake-debug-punc=
+t">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'REQUEST_TIME_FLOAT'</span><span class=3D"cake-debug-punct"> =3D&gt; </spa=
+n><span class=3D"cake-debug-visibility">(float)</span> <span class=3D"cake-=
+debug-number">1738351553.0537</span><span class=3D"cake-debug-punct">,</spa=
+n></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'REQUEST_TIME'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><spa=
+n class=3D"cake-debug-visibility">(int)</span> <span class=3D"cake-debug-nu=
+mber">1738351553</span><span class=3D"cake-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'ORIGINAL_REQUEST_METHOD'</span><span class=3D"cake-debug-punct"> =3D&gt; =
+</span><span class=3D"cake-debug-string">'POST'</span><span class=3D"cake-d=
+ebug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'HTTPS'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-const">false</span><span class=3D"cake-debug-punct">,</span>=
+</span></samp>
+  <span class=3D"cake-debug-punct">]</span></span></span>
+  <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">pro=
+tected</span> <span class=3D"cake-debug-property">base</span><span class=3D=
+"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-string">''</sp=
+an></span>
+  <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">pro=
+tected</span> <span class=3D"cake-debug-property">webroot</span><span class=
+=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-string">'/'=
+</span></span>
+  <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">pro=
+tected</span> <span class=3D"cake-debug-property">trustedProxies</span><spa=
+n class=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-arra=
+y"><span class=3D"cake-debug-punct">[</span><samp class=3D"cake-debug-array=
+-items"></samp>
+  <span class=3D"cake-debug-punct">]</span></span></span>
+  <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">pro=
+tected</span> <span class=3D"cake-debug-property">_detectors</span><span cl=
+ass=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-array"><=
+span class=3D"cake-debug-punct">[</span><samp class=3D"cake-debug-array-ite=
+ms">
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'get'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-array"><span class=3D"cake-debug-punct">[</span><samp class=
+=3D"cake-debug-array-items">
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'env'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-string">'REQUEST_METHOD'</span><span class=3D"cake-debug-pun=
+ct">,</span></span>
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'value'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span cla=
+ss=3D"cake-debug-string">'GET'</span><span class=3D"cake-debug-punct">,</sp=
+an></span></samp>
+    <span class=3D"cake-debug-punct">]</span></span><span class=3D"cake-deb=
+ug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'post'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-array"><span class=3D"cake-debug-punct">[</span><samp class=
+=3D"cake-debug-array-items">
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'env'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-string">'REQUEST_METHOD'</span><span class=3D"cake-debug-pun=
+ct">,</span></span>
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'value'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span cla=
+ss=3D"cake-debug-string">'POST'</span><span class=3D"cake-debug-punct">,</s=
+pan></span></samp>
+    <span class=3D"cake-debug-punct">]</span></span><span class=3D"cake-deb=
+ug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'put'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-array"><span class=3D"cake-debug-punct">[</span><samp class=
+=3D"cake-debug-array-items">
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'env'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-string">'REQUEST_METHOD'</span><span class=3D"cake-debug-pun=
+ct">,</span></span>
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'value'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span cla=
+ss=3D"cake-debug-string">'PUT'</span><span class=3D"cake-debug-punct">,</sp=
+an></span></samp>
+    <span class=3D"cake-debug-punct">]</span></span><span class=3D"cake-deb=
+ug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'patch'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-array"><span class=3D"cake-debug-punct">[</span><samp class=
+=3D"cake-debug-array-items">
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'env'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-string">'REQUEST_METHOD'</span><span class=3D"cake-debug-pun=
+ct">,</span></span>
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'value'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span cla=
+ss=3D"cake-debug-string">'PATCH'</span><span class=3D"cake-debug-punct">,</=
+span></span></samp>
+    <span class=3D"cake-debug-punct">]</span></span><span class=3D"cake-deb=
+ug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'delete'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span clas=
+s=3D"cake-debug-array"><span class=3D"cake-debug-punct">[</span><samp class=
+=3D"cake-debug-array-items">
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'env'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-string">'REQUEST_METHOD'</span><span class=3D"cake-debug-pun=
+ct">,</span></span>
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'value'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span cla=
+ss=3D"cake-debug-string">'DELETE'</span><span class=3D"cake-debug-punct">,<=
+/span></span></samp>
+    <span class=3D"cake-debug-punct">]</span></span><span class=3D"cake-deb=
+ug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'head'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-array"><span class=3D"cake-debug-punct">[</span><samp class=
+=3D"cake-debug-array-items">
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'env'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-string">'REQUEST_METHOD'</span><span class=3D"cake-debug-pun=
+ct">,</span></span>
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'value'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span cla=
+ss=3D"cake-debug-string">'HEAD'</span><span class=3D"cake-debug-punct">,</s=
+pan></span></samp>
+    <span class=3D"cake-debug-punct">]</span></span><span class=3D"cake-deb=
+ug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'options'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span cla=
+ss=3D"cake-debug-array"><span class=3D"cake-debug-punct">[</span><samp clas=
+s=3D"cake-debug-array-items">
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'env'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-string">'REQUEST_METHOD'</span><span class=3D"cake-debug-pun=
+ct">,</span></span>
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'value'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span cla=
+ss=3D"cake-debug-string">'OPTIONS'</span><span class=3D"cake-debug-punct">,=
+</span></span></samp>
+    <span class=3D"cake-debug-punct">]</span></span><span class=3D"cake-deb=
+ug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'https'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-array"><span class=3D"cake-debug-punct">[</span><samp class=
+=3D"cake-debug-array-items">
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'env'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-string">'HTTPS'</span><span class=3D"cake-debug-punct">,</sp=
+an></span>
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'options'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span c=
+lass=3D"cake-debug-array"><span class=3D"cake-debug-punct">[</span><samp cl=
+ass=3D"cake-debug-array-items">
+        <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-str=
+ing">''</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-special">[maximum depth reached]</span><span class=3D"cake-d=
+ebug-punct">,</span></span></samp>
+      <span class=3D"cake-debug-punct">]</span></span><span class=3D"cake-d=
+ebug-punct">,</span></span></samp>
+    <span class=3D"cake-debug-punct">]</span></span><span class=3D"cake-deb=
+ug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'ajax'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-array"><span class=3D"cake-debug-punct">[</span><samp class=
+=3D"cake-debug-array-items">
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'env'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-string">'HTTP_X_REQUESTED_WITH'</span><span class=3D"cake-de=
+bug-punct">,</span></span>
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'value'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span cla=
+ss=3D"cake-debug-string">'XMLHttpRequest'</span><span class=3D"cake-debug-p=
+unct">,</span></span></samp>
+    <span class=3D"cake-debug-punct">]</span></span><span class=3D"cake-deb=
+ug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'json'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-array"><span class=3D"cake-debug-punct">[</span><samp class=
+=3D"cake-debug-array-items">
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'accept'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span cl=
+ass=3D"cake-debug-array"><span class=3D"cake-debug-punct">[</span><samp cla=
+ss=3D"cake-debug-array-items">
+        <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-str=
+ing">''</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-special">[maximum depth reached]</span><span class=3D"cake-d=
+ebug-punct">,</span></span></samp>
+      <span class=3D"cake-debug-punct">]</span></span><span class=3D"cake-d=
+ebug-punct">,</span></span>
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'param'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span cla=
+ss=3D"cake-debug-string">'_ext'</span><span class=3D"cake-debug-punct">,</s=
+pan></span>
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'value'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span cla=
+ss=3D"cake-debug-string">'json'</span><span class=3D"cake-debug-punct">,</s=
+pan></span></samp>
+    <span class=3D"cake-debug-punct">]</span></span><span class=3D"cake-deb=
+ug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'xml'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-array"><span class=3D"cake-debug-punct">[</span><samp class=
+=3D"cake-debug-array-items">
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'accept'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span cl=
+ass=3D"cake-debug-array"><span class=3D"cake-debug-punct">[</span><samp cla=
+ss=3D"cake-debug-array-items">
+        <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-str=
+ing">''</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-special">[maximum depth reached]</span><span class=3D"cake-d=
+ebug-punct">,</span></span></samp>
+      <span class=3D"cake-debug-punct">]</span></span><span class=3D"cake-d=
+ebug-punct">,</span></span>
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'exclude'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span c=
+lass=3D"cake-debug-array"><span class=3D"cake-debug-punct">[</span><samp cl=
+ass=3D"cake-debug-array-items">
+        <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-str=
+ing">''</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-special">[maximum depth reached]</span><span class=3D"cake-d=
+ebug-punct">,</span></span></samp>
+      <span class=3D"cake-debug-punct">]</span></span><span class=3D"cake-d=
+ebug-punct">,</span></span>
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'param'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span cla=
+ss=3D"cake-debug-string">'_ext'</span><span class=3D"cake-debug-punct">,</s=
+pan></span>
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'value'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span cla=
+ss=3D"cake-debug-string">'xml'</span><span class=3D"cake-debug-punct">,</sp=
+an></span></samp>
+    <span class=3D"cake-debug-punct">]</span></span><span class=3D"cake-deb=
+ug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'mobile'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span clas=
+s=3D"cake-debug-object" id=3D"cake-db-object-679d23c14b9ca2.87832149-1"><sp=
+an class=3D"cake-debug-punct">object(</span><span class=3D"cake-debug-class=
+">Closure</span><span class=3D"cake-debug-punct">) id:</span><span class=3D=
+"cake-debug-number">1</span><span class=3D"cake-debug-punct"> {</span><samp=
+ class=3D"cake-debug-object-props"></samp>
+    <span class=3D"cake-debug-punct">}</span></span><span class=3D"cake-deb=
+ug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'tablet'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span clas=
+s=3D"cake-debug-object" id=3D"cake-db-object-679d23c14b9ca2.87832149-2"><sp=
+an class=3D"cake-debug-punct">object(</span><span class=3D"cake-debug-class=
+">Closure</span><span class=3D"cake-debug-punct">) id:</span><span class=3D=
+"cake-debug-number">2</span><span class=3D"cake-debug-punct"> {</span><samp=
+ class=3D"cake-debug-object-props"></samp>
+    <span class=3D"cake-debug-punct">}</span></span><span class=3D"cake-deb=
+ug-punct">,</span></span></samp>
+  <span class=3D"cake-debug-punct">]</span></span></span>
+  <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">pro=
+tected</span> <span class=3D"cake-debug-property">_detectorCache</span><spa=
+n class=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-arra=
+y"><span class=3D"cake-debug-punct">[</span><samp class=3D"cake-debug-array=
+-items"></samp>
+  <span class=3D"cake-debug-punct">]</span></span></span>
+  <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">pro=
+tected</span> <span class=3D"cake-debug-property">stream</span><span class=
+=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-object" id=
+=3D"cake-db-object-679d23c14b9ca2.87832149-3"><span class=3D"cake-debug-pun=
+ct">object(</span><span class=3D"cake-debug-class">Laminas\Diactoros\Stream=
+</span><span class=3D"cake-debug-punct">) id:</span><span class=3D"cake-deb=
+ug-number">3</span><span class=3D"cake-debug-punct"> {</span><samp class=3D=
+"cake-debug-object-props">
+    <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">p=
+rotected</span> <span class=3D"cake-debug-property">resource</span><span cl=
+ass=3D"cake-debug-punct"> =3D&gt; </span>(resource (stream)) Resource id #4=
+</span>
+    <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">p=
+rotected</span> <span class=3D"cake-debug-property">stream</span><span clas=
+s=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-string">'p=
+hp://input'</span></span></samp>
+  <span class=3D"cake-debug-punct">}</span></span></span>
+  <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">pro=
+tected</span> <span class=3D"cake-debug-property">uri</span><span class=3D"=
+cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-object" id=3D"c=
+ake-db-object-679d23c14b9ca2.87832149-4"><span class=3D"cake-debug-punct">o=
+bject(</span><span class=3D"cake-debug-class">Laminas\Diactoros\Uri</span><=
+span class=3D"cake-debug-punct">) id:</span><span class=3D"cake-debug-numbe=
+r">4</span><span class=3D"cake-debug-punct"> {</span><samp class=3D"cake-de=
+bug-object-props">
+    <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">p=
+rotected</span> <span class=3D"cake-debug-property">allowedSchemes</span><s=
+pan class=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-ar=
+ray"><span class=3D"cake-debug-punct">[</span><samp class=3D"cake-debug-arr=
+ay-items">
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">''</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=3D=
+"cake-debug-special">[maximum depth reached]</span><span class=3D"cake-debu=
+g-punct">,</span></span></samp>
+    <span class=3D"cake-debug-punct">]</span></span></span>
+    <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">p=
+rivate</span> <span class=3D"cake-debug-property">scheme</span><span class=
+=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-string">'ht=
+tp'</span></span>
+    <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">p=
+rivate</span> <span class=3D"cake-debug-property">userInfo</span><span clas=
+s=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-string">''=
+</span></span>
+    <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">p=
+rivate</span> <span class=3D"cake-debug-property">host</span><span class=3D=
+"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-string">'127.0=
+.0.3'</span></span>
+    <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">p=
+rivate</span> <span class=3D"cake-debug-property">port</span><span class=3D=
+"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-const">null</s=
+pan></span>
+    <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">p=
+rivate</span> <span class=3D"cake-debug-property">path</span><span class=3D=
+"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-string">'/vide=
+os/add'</span></span>
+    <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">p=
+rivate</span> <span class=3D"cake-debug-property">query</span><span class=
+=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-string">''<=
+/span></span>
+    <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">p=
+rivate</span> <span class=3D"cake-debug-property">fragment</span><span clas=
+s=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-string">''=
+</span></span>
+    <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">p=
+rivate</span> <span class=3D"cake-debug-property">uriString</span><span cla=
+ss=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-const">nu=
+ll</span></span></samp>
+  <span class=3D"cake-debug-punct">}</span></span></span>
+  <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">pro=
+tected</span> <span class=3D"cake-debug-property">session</span><span class=
+=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-object" id=
+=3D"cake-db-object-679d23c14b9ca2.87832149-5"><span class=3D"cake-debug-pun=
+ct">object(</span><span class=3D"cake-debug-class">Cake\Http\Session</span>=
+<span class=3D"cake-debug-punct">) id:</span><span class=3D"cake-debug-numb=
+er">5</span><span class=3D"cake-debug-punct"> {</span><samp class=3D"cake-d=
+ebug-object-props">
+    <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">p=
+rotected</span> <span class=3D"cake-debug-property">_engine</span><span cla=
+ss=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-const">nu=
+ll</span></span>
+    <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">p=
+rotected</span> <span class=3D"cake-debug-property">_started</span><span cl=
+ass=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-const">f=
+alse</span></span>
+    <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">p=
+rotected</span> <span class=3D"cake-debug-property">_lifetime</span><span c=
+lass=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-visibil=
+ity">(int)</span> <span class=3D"cake-debug-number">0</span></span>
+    <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">p=
+rotected</span> <span class=3D"cake-debug-property">_isCLI</span><span clas=
+s=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-const">fal=
+se</span></span>
+    <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">p=
+rotected</span> <span class=3D"cake-debug-property">headerSentInfo</span><s=
+pan class=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-co=
+nst">null</span></span></samp>
+  <span class=3D"cake-debug-punct">}</span></span></span>
+  <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">pro=
+tected</span> <span class=3D"cake-debug-property">flash</span><span class=
+=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-object" id=
+=3D"cake-db-object-679d23c14b9ca2.87832149-6"><span class=3D"cake-debug-pun=
+ct">object(</span><span class=3D"cake-debug-class">Cake\Http\FlashMessage</=
+span><span class=3D"cake-debug-punct">) id:</span><span class=3D"cake-debug=
+-number">6</span><span class=3D"cake-debug-punct"> {</span><samp class=3D"c=
+ake-debug-object-props">
+    <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">p=
+rotected</span> <span class=3D"cake-debug-property">_defaultConfig</span><s=
+pan class=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-ar=
+ray"><span class=3D"cake-debug-punct">[</span><samp class=3D"cake-debug-arr=
+ay-items">
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">''</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=3D=
+"cake-debug-special">[maximum depth reached]</span><span class=3D"cake-debu=
+g-punct">,</span></span></samp>
+    <span class=3D"cake-debug-punct">]</span></span></span>
+    <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">p=
+rotected</span> <span class=3D"cake-debug-property">session</span><span cla=
+ss=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-ref"><spa=
+n class=3D"cake-debug-punct">object(</span><span class=3D"cake-debug-class"=
+>Cake\Http\Session</span><span class=3D"cake-debug-punct">) </span><a class=
+=3D"cake-debug-ref" href=3D"http://127.0.0.3/videos/add#cake-db-object-679d=
+23c14b9ca2.87832149-5">id: 5</a><span class=3D"cake-debug-punct"> {}</span>=
+</span></span>
+    <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">p=
+rotected</span> <span class=3D"cake-debug-property">_config</span><span cla=
+ss=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-array"><s=
+pan class=3D"cake-debug-punct">[</span><samp class=3D"cake-debug-array-item=
+s">
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">''</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=3D=
+"cake-debug-special">[maximum depth reached]</span><span class=3D"cake-debu=
+g-punct">,</span></span></samp>
+    <span class=3D"cake-debug-punct">]</span></span></span>
+    <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">p=
+rotected</span> <span class=3D"cake-debug-property">_configInitialized</spa=
+n><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debu=
+g-const">true</span></span></samp>
+  <span class=3D"cake-debug-punct">}</span></span></span>
+  <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">pro=
+tected</span> <span class=3D"cake-debug-property">attributes</span><span cl=
+ass=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-array"><=
+span class=3D"cake-debug-punct">[</span><samp class=3D"cake-debug-array-ite=
+ms">
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'route'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-object" id=3D"cake-db-object-679d23c14b9ca2.87832149-7"><spa=
+n class=3D"cake-debug-punct">object(</span><span class=3D"cake-debug-class"=
+>Cake\Routing\Route\DashedRoute</span><span class=3D"cake-debug-punct">) id=
+:</span><span class=3D"cake-debug-number">7</span><span class=3D"cake-debug=
+-punct"> {</span><samp class=3D"cake-debug-object-props"></samp>
+    <span class=3D"cake-debug-punct">}</span></span><span class=3D"cake-deb=
+ug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'csrfToken'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span c=
+lass=3D"cake-debug-string">'OKm7n6y9tN9VAjaMJSHhkzC9MDWxBJpBoZi/6HQKyrvVi60=
+E0pLiCxeYiJ0pBcP56iEIOJY/xMAQmZ7nI6dXiXs8QWzzlkXtUYkBB9QyqnXFq4rbEjn/g7e5z2=
+bgoIZudKvqpRs3p5/aRT8Op1ql+Q=3D=3D'</span><span class=3D"cake-debug-punct">=
+,</span></span></samp>
+  <span class=3D"cake-debug-punct">]</span></span></span>
+  <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">pro=
+tected</span> <span class=3D"cake-debug-property">emulatedAttributes</span>=
+<span class=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-=
+array"><span class=3D"cake-debug-punct">[</span><samp class=3D"cake-debug-a=
+rray-items">
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-visibil=
+ity">(int)</span> <span class=3D"cake-debug-number">0</span><span class=3D"=
+cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-string">'sessio=
+n'</span><span class=3D"cake-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-visibil=
+ity">(int)</span> <span class=3D"cake-debug-number">1</span><span class=3D"=
+cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-string">'flash'=
+</span><span class=3D"cake-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-visibil=
+ity">(int)</span> <span class=3D"cake-debug-number">2</span><span class=3D"=
+cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-string">'webroo=
+t'</span><span class=3D"cake-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-visibil=
+ity">(int)</span> <span class=3D"cake-debug-number">3</span><span class=3D"=
+cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-string">'base'<=
+/span><span class=3D"cake-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-visibil=
+ity">(int)</span> <span class=3D"cake-debug-number">4</span><span class=3D"=
+cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-string">'params=
+'</span><span class=3D"cake-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-visibil=
+ity">(int)</span> <span class=3D"cake-debug-number">5</span><span class=3D"=
+cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-string">'here'<=
+/span><span class=3D"cake-debug-punct">,</span></span></samp>
+  <span class=3D"cake-debug-punct">]</span></span></span>
+  <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">pro=
+tected</span> <span class=3D"cake-debug-property">uploadedFiles</span><span=
+ class=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-array=
+"><span class=3D"cake-debug-punct">[</span><samp class=3D"cake-debug-array-=
+items"></samp>
+  <span class=3D"cake-debug-punct">]</span></span></span>
+  <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">pro=
+tected</span> <span class=3D"cake-debug-property">protocol</span><span clas=
+s=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-const">nul=
+l</span></span>
+  <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">pro=
+tected</span> <span class=3D"cake-debug-property">requestTarget</span><span=
+ class=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-const=
+">null</span></span></samp>
+<span class=3D"cake-debug-punct">}</span></span></div></div>
+                                    </div>
+            </div>
+        </li>
+            <li id=3D"stack-frame-0-1" class=3D"stack-frame vendor-frame">
+            <div class=3D"stack-frame-header">
+                <button data-frame-id=3D"0-1" class=3D"stack-frame-toggle">
+                    =E2=96=BC
+                </button>
+
+                <div class=3D"stack-frame-header-content">
+                    <span class=3D"stack-frame-file">
+                        CORE\src\Http\Runner.php                    </span>
+
+                                            <span class=3D"stack-frame-line=
+">
+                            <span class=3D"stack-frame-label">at line</span=
+>82                        </span>
+                   =20
+                    <span class=3D"stack-function">
+                                                    <span class=3D"stack-fr=
+ame-label">in</span>
+                                                                           =
+ Cake\Http\Middleware\CsrfProtectionMiddleware-&gt;process                 =
+                           </span>
+
+                                            <a href=3D"phpstorm://open?file=
+=3DC:\wamp64\apps\bhp1\vendor\cakephp\cakephp\src\Http\Runner.php&amp;line=
+=3D82" class=3D"stack-frame-edit">(edit)</a>                               =
+     </div>
+            </div>
+            <div class=3D"stack-frame-contents" id=3D"stack-frame-details-0=
+-1" style=3D"display: none">
+                <table class=3D"code-excerpt" cellspacing=3D"0" cellpadding=
+=3D"0">
+                                                    <tbody><tr>
+                        <td class=3D"excerpt-number" data-number=3D"78"></t=
+d>
+                        <td class=3D"excerpt-line"><pre><code style=3D"colo=
+r: #000000"><span style=3D"color: #0000BB">        </span><span style=3D"co=
+lor: #007700">if (</span><span style=3D"color: #0000BB">$this</span><span s=
+tyle=3D"color: #007700">-&gt;</span><span style=3D"color: #0000BB">queue</s=
+pan><span style=3D"color: #007700">-&gt;</span><span style=3D"color: #0000B=
+B">valid</span><span style=3D"color: #007700">()) {</span></code></pre></td=
+>
+                    </tr>
+                                    <tr>
+                        <td class=3D"excerpt-number" data-number=3D"79"></t=
+d>
+                        <td class=3D"excerpt-line"><pre><code style=3D"colo=
+r: #000000"><span style=3D"color: #0000BB">            $middleware </span><=
+span style=3D"color: #007700">=3D </span><span style=3D"color: #0000BB">$th=
+is</span><span style=3D"color: #007700">-&gt;</span><span style=3D"color: #=
+0000BB">queue</span><span style=3D"color: #007700">-&gt;</span><span style=
+=3D"color: #0000BB">current</span><span style=3D"color: #007700">();</span>=
+</code></pre></td>
+                    </tr>
+                                    <tr>
+                        <td class=3D"excerpt-number" data-number=3D"80"></t=
+d>
+                        <td class=3D"excerpt-line"><pre><code style=3D"colo=
+r: #000000"><span style=3D"color: #0000BB">            $this</span><span st=
+yle=3D"color: #007700">-&gt;</span><span style=3D"color: #0000BB">queue</sp=
+an><span style=3D"color: #007700">-&gt;</span><span style=3D"color: #0000BB=
+">next</span><span style=3D"color: #007700">();</span></code></pre></td>
+                    </tr>
+                                    <tr>
+                        <td class=3D"excerpt-number" data-number=3D"81"></t=
+d>
+                        <td class=3D"excerpt-line"><pre><code style=3D"colo=
+r: #000000"><span style=3D"color: #0000BB"></span></code></pre></td>
+                    </tr>
+                                    <tr>
+                        <td class=3D"excerpt-number" data-number=3D"82"></t=
+d>
+                        <td class=3D"excerpt-line"><span class=3D"code-high=
+light"><pre><code style=3D"color: #000000"><span style=3D"color: #0000BB"> =
+           </span><span style=3D"color: #007700">return </span><span style=
+=3D"color: #0000BB">$middleware</span><span style=3D"color: #007700">-&gt;<=
+/span><span style=3D"color: #0000BB">process</span><span style=3D"color: #0=
+07700">(</span><span style=3D"color: #0000BB">$request</span><span style=3D=
+"color: #007700">, </span><span style=3D"color: #0000BB">$this</span><span =
+style=3D"color: #007700">);</span></code></pre></span></td>
+                    </tr>
+                                    <tr>
+                        <td class=3D"excerpt-number" data-number=3D"83"></t=
+d>
+                        <td class=3D"excerpt-line"><pre><code style=3D"colo=
+r: #000000"><span style=3D"color: #0000BB">        </span><span style=3D"co=
+lor: #007700">}</span></code></pre></td>
+                    </tr>
+                                    <tr>
+                        <td class=3D"excerpt-number" data-number=3D"84"></t=
+d>
+                        <td class=3D"excerpt-line"><pre><code style=3D"colo=
+r: #000000"><span style=3D"color: #0000BB"></span></code></pre></td>
+                    </tr>
+                                    <tr>
+                        <td class=3D"excerpt-number" data-number=3D"85"></t=
+d>
+                        <td class=3D"excerpt-line"><pre><code style=3D"colo=
+r: #000000"><span style=3D"color: #0000BB">        </span><span style=3D"co=
+lor: #007700">if (</span><span style=3D"color: #0000BB">$this</span><span s=
+tyle=3D"color: #007700">-&gt;</span><span style=3D"color: #0000BB">fallback=
+Handler</span><span style=3D"color: #007700">) {</span></code></pre></td>
+                    </tr>
+                                    <tr>
+                        <td class=3D"excerpt-number" data-number=3D"86"></t=
+d>
+                        <td class=3D"excerpt-line"><pre><code style=3D"colo=
+r: #000000"><span style=3D"color: #0000BB">            </span><span style=
+=3D"color: #007700">return </span><span style=3D"color: #0000BB">$this</spa=
+n><span style=3D"color: #007700">-&gt;</span><span style=3D"color: #0000BB"=
+>fallbackHandler</span><span style=3D"color: #007700">-&gt;</span><span sty=
+le=3D"color: #0000BB">handle</span><span style=3D"color: #007700">(</span><=
+span style=3D"color: #0000BB">$request</span><span style=3D"color: #007700"=
+>);</span></code></pre></td>
+                    </tr>
+                                </tbody></table>
+
+                <a href=3D"http://127.0.0.3/videos/add#" class=3D"stack-fra=
+me-args" data-target=3D"stack-args-0-1">Toggle Arguments</a>
+                <div id=3D"stack-args-0-1" class=3D"stack-args" style=3D"di=
+splay: none;">
+                                            <div class=3D"cake-debug"><div =
+class=3D"cake-debug"><span class=3D"cake-debug-object" id=3D"cake-db-object=
+-679d23c14e82e8.86655424-0"><span class=3D"cake-debug-punct">object(</span>=
+<span class=3D"cake-debug-class">Cake\Http\ServerRequest</span><span class=
+=3D"cake-debug-punct">) id:</span><span class=3D"cake-debug-number">0</span=
+><span class=3D"cake-debug-punct"> {</span><samp class=3D"cake-debug-object=
+-props">
+  <span class=3D"cake-debug-prop"><span class=3D"cake-debug-property">trust=
+Proxy</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=3D=
+"cake-debug-const">false</span></span>
+  <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">pro=
+tected</span> <span class=3D"cake-debug-property">params</span><span class=
+=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-array"><spa=
+n class=3D"cake-debug-punct">[</span><samp class=3D"cake-debug-array-items"=
+>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'controller'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span =
+class=3D"cake-debug-string">'Videos'</span><span class=3D"cake-debug-punct"=
+>,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'action'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span clas=
+s=3D"cake-debug-string">'add'</span><span class=3D"cake-debug-punct">,</spa=
+n></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'pass'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-array"><span class=3D"cake-debug-punct">[</span><samp class=
+=3D"cake-debug-array-items"></samp>
+    <span class=3D"cake-debug-punct">]</span></span><span class=3D"cake-deb=
+ug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'plugin'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span clas=
+s=3D"cake-debug-const">null</span><span class=3D"cake-debug-punct">,</span>=
+</span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'_matchedRoute'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><sp=
+an class=3D"cake-debug-string">'/{controller}/{action}/*'</span><span class=
+=3D"cake-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'_ext'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-const">null</span><span class=3D"cake-debug-punct">,</span><=
+/span></samp>
+  <span class=3D"cake-debug-punct">]</span></span></span>
+  <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">pro=
+tected</span> <span class=3D"cake-debug-property">data</span><span class=3D=
+"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-array"><span c=
+lass=3D"cake-debug-punct">[</span><samp class=3D"cake-debug-array-items"></=
+samp>
+  <span class=3D"cake-debug-punct">]</span></span></span>
+  <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">pro=
+tected</span> <span class=3D"cake-debug-property">query</span><span class=
+=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-array"><spa=
+n class=3D"cake-debug-punct">[</span><samp class=3D"cake-debug-array-items"=
+></samp>
+  <span class=3D"cake-debug-punct">]</span></span></span>
+  <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">pro=
+tected</span> <span class=3D"cake-debug-property">cookies</span><span class=
+=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-array"><spa=
+n class=3D"cake-debug-punct">[</span><samp class=3D"cake-debug-array-items"=
+>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'csrfToken'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span c=
+lass=3D"cake-debug-string">'KDAleI8a41YuPnfg1rekfmE0MTJlNjA0ZDM1M2YzNThiMmJ=
+iMjJkZWMzYjgyMmRmMGQ3NjFlYTk=3D'</span><span class=3D"cake-debug-punct">,</=
+span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'PHPSESSID'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span c=
+lass=3D"cake-debug-string">'cjotnj211ndtf2uoobb8kr55rm'</span><span class=
+=3D"cake-debug-punct">,</span></span></samp>
+  <span class=3D"cake-debug-punct">]</span></span></span>
+  <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">pro=
+tected</span> <span class=3D"cake-debug-property">_environment</span><span =
+class=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-array"=
+><span class=3D"cake-debug-punct">[</span><samp class=3D"cake-debug-array-i=
+tems">
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'REDIRECT_STATUS'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><=
+span class=3D"cake-debug-string">'200'</span><span class=3D"cake-debug-punc=
+t">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'HTTP_HOST'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span c=
+lass=3D"cake-debug-string">'127.0.0.3'</span><span class=3D"cake-debug-punc=
+t">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'HTTP_CONNECTION'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><=
+span class=3D"cake-debug-string">'keep-alive'</span><span class=3D"cake-deb=
+ug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'CONTENT_LENGTH'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><s=
+pan class=3D"cake-debug-string">'87859281'</span><span class=3D"cake-debug-=
+punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'HTTP_CACHE_CONTROL'</span><span class=3D"cake-debug-punct"> =3D&gt; </spa=
+n><span class=3D"cake-debug-string">'max-age=3D0'</span><span class=3D"cake=
+-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'HTTP_SEC_CH_UA'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><s=
+pan class=3D"cake-debug-string">'"Not(A:Brand";v=3D"99", "Microsoft Edge";v=
+=3D"133", "Chromium";v=3D"133"'</span><span class=3D"cake-debug-punct">,</s=
+pan></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'HTTP_SEC_CH_UA_MOBILE'</span><span class=3D"cake-debug-punct"> =3D&gt; </=
+span><span class=3D"cake-debug-string">'?0'</span><span class=3D"cake-debug=
+-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'HTTP_SEC_CH_UA_PLATFORM'</span><span class=3D"cake-debug-punct"> =3D&gt; =
+</span><span class=3D"cake-debug-string">'"Windows"'</span><span class=3D"c=
+ake-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'HTTP_ORIGIN'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span=
+ class=3D"cake-debug-string">'http://127.0.0.3'</span><span class=3D"cake-d=
+ebug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'CONTENT_TYPE'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><spa=
+n class=3D"cake-debug-string">'multipart/form-data; boundary=3D----WebKitFo=
+rmBoundary8Rq5OE9bTatKcx4Y'</span><span class=3D"cake-debug-punct">,</span>=
+</span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'HTTP_UPGRADE_INSECURE_REQUESTS'</span><span class=3D"cake-debug-punct"> =
+=3D&gt; </span><span class=3D"cake-debug-string">'1'</span><span class=3D"c=
+ake-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'HTTP_USER_AGENT'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><=
+span class=3D"cake-debug-string">'Mozilla/5.0 (Windows NT 10.0; Win64; x64)=
+ AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36 Edg/=
+133.0.0.0'</span><span class=3D"cake-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'HTTP_ACCEPT'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span=
+ class=3D"cake-debug-string">'text/html,application/xhtml+xml,application/x=
+ml;q=3D0.9,image/avif,image/webp,image/apng,*/*;q=3D0.8,application/signed-=
+exchange;v=3Db3;q=3D0.7'</span><span class=3D"cake-debug-punct">,</span></s=
+pan>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'HTTP_SEC_FETCH_SITE'</span><span class=3D"cake-debug-punct"> =3D&gt; </sp=
+an><span class=3D"cake-debug-string">'same-origin'</span><span class=3D"cak=
+e-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'HTTP_SEC_FETCH_MODE'</span><span class=3D"cake-debug-punct"> =3D&gt; </sp=
+an><span class=3D"cake-debug-string">'navigate'</span><span class=3D"cake-d=
+ebug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'HTTP_SEC_FETCH_USER'</span><span class=3D"cake-debug-punct"> =3D&gt; </sp=
+an><span class=3D"cake-debug-string">'?1'</span><span class=3D"cake-debug-p=
+unct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'HTTP_SEC_FETCH_DEST'</span><span class=3D"cake-debug-punct"> =3D&gt; </sp=
+an><span class=3D"cake-debug-string">'document'</span><span class=3D"cake-d=
+ebug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'HTTP_REFERER'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><spa=
+n class=3D"cake-debug-string">'http://127.0.0.3/videos/add'</span><span cla=
+ss=3D"cake-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'HTTP_ACCEPT_ENCODING'</span><span class=3D"cake-debug-punct"> =3D&gt; </s=
+pan><span class=3D"cake-debug-string">'gzip, deflate, br, zstd'</span><span=
+ class=3D"cake-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'HTTP_ACCEPT_LANGUAGE'</span><span class=3D"cake-debug-punct"> =3D&gt; </s=
+pan><span class=3D"cake-debug-string">'pl,en;q=3D0.9,en-GB;q=3D0.8,en-US;q=
+=3D0.7,ru;q=3D0.6'</span><span class=3D"cake-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'HTTP_COOKIE'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span=
+ class=3D"cake-debug-string">'csrfToken=3DKDAleI8a41YuPnfg1rekfmE0MTJlNjA0Z=
+DM1M2YzNThiMmJiMjJkZWMzYjgyMmRmMGQ3NjFlYTk%3D; PHPSESSID=3Dcjotnj211ndtf2uo=
+obb8kr55rm'</span><span class=3D"cake-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'PATH'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-string">'C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\=
+Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSS=
+H\;C:\Program Files\dotnet\;C:\Program Files\Intel\WiFi\bin\;C:\Program Fil=
+es\Common Files\Intel\WirelessCommon\;C:\Program Files (x86)\Intel\Intel(R)=
+ Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Managemen=
+t Engine Components\DAL;C:\Program Files\PuTTY\;C:\Program Files (x86)\Gpg4=
+win\..\GnuPG\bin;C:\Program Files (x86)\WinSCP\;C:\Program Files\Git\cmd;C:=
+\WINDOWS\system32\config\systemprofile\AppData\Local\Microsoft\WindowsApps'=
+</span><span class=3D"cake-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'SystemRoot'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span =
+class=3D"cake-debug-string">'C:\WINDOWS'</span><span class=3D"cake-debug-pu=
+nct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'COMSPEC'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span cla=
+ss=3D"cake-debug-string">'C:\WINDOWS\system32\cmd.exe'</span><span class=3D=
+"cake-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'PATHEXT'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span cla=
+ss=3D"cake-debug-string">'.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;=
+.MSC'</span><span class=3D"cake-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'WINDIR'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span clas=
+s=3D"cake-debug-string">'C:\WINDOWS'</span><span class=3D"cake-debug-punct"=
+>,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'SERVER_SIGNATURE'</span><span class=3D"cake-debug-punct"> =3D&gt; </span>=
+<span class=3D"cake-debug-string">'&lt;address&gt;Apache/2.4.62 (Win64) PHP=
+/8.3.14 mod_fcgid/2.3.10-dev Server at 127.0.0.3 Port 80&lt;/address&gt;
+'</span><span class=3D"cake-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'SERVER_SOFTWARE'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><=
+span class=3D"cake-debug-string">'Apache/2.4.62 (Win64) PHP/8.3.14 mod_fcgi=
+d/2.3.10-dev'</span><span class=3D"cake-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'SERVER_NAME'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span=
+ class=3D"cake-debug-string">'127.0.0.3'</span><span class=3D"cake-debug-pu=
+nct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'SERVER_ADDR'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span=
+ class=3D"cake-debug-string">'127.0.0.3'</span><span class=3D"cake-debug-pu=
+nct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'SERVER_PORT'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span=
+ class=3D"cake-debug-string">'80'</span><span class=3D"cake-debug-punct">,<=
+/span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'REMOTE_ADDR'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span=
+ class=3D"cake-debug-string">'127.0.0.1'</span><span class=3D"cake-debug-pu=
+nct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'DOCUMENT_ROOT'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><sp=
+an class=3D"cake-debug-string">'C:/wamp64/apps/bhp1/webroot'</span><span cl=
+ass=3D"cake-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'REQUEST_SCHEME'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><s=
+pan class=3D"cake-debug-string">'http'</span><span class=3D"cake-debug-punc=
+t">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'CONTEXT_PREFIX'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><s=
+pan class=3D"cake-debug-string">''</span><span class=3D"cake-debug-punct">,=
+</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'CONTEXT_DOCUMENT_ROOT'</span><span class=3D"cake-debug-punct"> =3D&gt; </=
+span><span class=3D"cake-debug-string">'C:/wamp64/apps/bhp1/webroot'</span>=
+<span class=3D"cake-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'SERVER_ADMIN'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><spa=
+n class=3D"cake-debug-string">'wampserver@wampserver.invalid'</span><span c=
+lass=3D"cake-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'SCRIPT_FILENAME'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><=
+span class=3D"cake-debug-string">'C:/wamp64/apps/bhp1/webroot/index.php'</s=
+pan><span class=3D"cake-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'REMOTE_PORT'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span=
+ class=3D"cake-debug-string">'59923'</span><span class=3D"cake-debug-punct"=
+>,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'REDIRECT_URL'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><spa=
+n class=3D"cake-debug-string">'/videos/add'</span><span class=3D"cake-debug=
+-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'GATEWAY_INTERFACE'</span><span class=3D"cake-debug-punct"> =3D&gt; </span=
+><span class=3D"cake-debug-string">'CGI/1.1'</span><span class=3D"cake-debu=
+g-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'SERVER_PROTOCOL'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><=
+span class=3D"cake-debug-string">'HTTP/1.1'</span><span class=3D"cake-debug=
+-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'REQUEST_METHOD'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><s=
+pan class=3D"cake-debug-string">'POST'</span><span class=3D"cake-debug-punc=
+t">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'QUERY_STRING'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><spa=
+n class=3D"cake-debug-string">''</span><span class=3D"cake-debug-punct">,</=
+span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'REQUEST_URI'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span=
+ class=3D"cake-debug-string">'/videos/add'</span><span class=3D"cake-debug-=
+punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'SCRIPT_NAME'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span=
+ class=3D"cake-debug-string">'/index.php'</span><span class=3D"cake-debug-p=
+unct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'PHP_SELF'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span cl=
+ass=3D"cake-debug-string">'/index.php'</span><span class=3D"cake-debug-punc=
+t">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'REQUEST_TIME_FLOAT'</span><span class=3D"cake-debug-punct"> =3D&gt; </spa=
+n><span class=3D"cake-debug-visibility">(float)</span> <span class=3D"cake-=
+debug-number">1738351553.0537</span><span class=3D"cake-debug-punct">,</spa=
+n></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'REQUEST_TIME'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><spa=
+n class=3D"cake-debug-visibility">(int)</span> <span class=3D"cake-debug-nu=
+mber">1738351553</span><span class=3D"cake-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'ORIGINAL_REQUEST_METHOD'</span><span class=3D"cake-debug-punct"> =3D&gt; =
+</span><span class=3D"cake-debug-string">'POST'</span><span class=3D"cake-d=
+ebug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'HTTPS'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-const">false</span><span class=3D"cake-debug-punct">,</span>=
+</span></samp>
+  <span class=3D"cake-debug-punct">]</span></span></span>
+  <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">pro=
+tected</span> <span class=3D"cake-debug-property">base</span><span class=3D=
+"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-string">''</sp=
+an></span>
+  <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">pro=
+tected</span> <span class=3D"cake-debug-property">webroot</span><span class=
+=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-string">'/'=
+</span></span>
+  <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">pro=
+tected</span> <span class=3D"cake-debug-property">trustedProxies</span><spa=
+n class=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-arra=
+y"><span class=3D"cake-debug-punct">[</span><samp class=3D"cake-debug-array=
+-items"></samp>
+  <span class=3D"cake-debug-punct">]</span></span></span>
+  <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">pro=
+tected</span> <span class=3D"cake-debug-property">_detectors</span><span cl=
+ass=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-array"><=
+span class=3D"cake-debug-punct">[</span><samp class=3D"cake-debug-array-ite=
+ms">
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'get'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-array"><span class=3D"cake-debug-punct">[</span><samp class=
+=3D"cake-debug-array-items">
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'env'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-string">'REQUEST_METHOD'</span><span class=3D"cake-debug-pun=
+ct">,</span></span>
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'value'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span cla=
+ss=3D"cake-debug-string">'GET'</span><span class=3D"cake-debug-punct">,</sp=
+an></span></samp>
+    <span class=3D"cake-debug-punct">]</span></span><span class=3D"cake-deb=
+ug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'post'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-array"><span class=3D"cake-debug-punct">[</span><samp class=
+=3D"cake-debug-array-items">
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'env'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-string">'REQUEST_METHOD'</span><span class=3D"cake-debug-pun=
+ct">,</span></span>
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'value'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span cla=
+ss=3D"cake-debug-string">'POST'</span><span class=3D"cake-debug-punct">,</s=
+pan></span></samp>
+    <span class=3D"cake-debug-punct">]</span></span><span class=3D"cake-deb=
+ug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'put'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-array"><span class=3D"cake-debug-punct">[</span><samp class=
+=3D"cake-debug-array-items">
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'env'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-string">'REQUEST_METHOD'</span><span class=3D"cake-debug-pun=
+ct">,</span></span>
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'value'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span cla=
+ss=3D"cake-debug-string">'PUT'</span><span class=3D"cake-debug-punct">,</sp=
+an></span></samp>
+    <span class=3D"cake-debug-punct">]</span></span><span class=3D"cake-deb=
+ug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'patch'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-array"><span class=3D"cake-debug-punct">[</span><samp class=
+=3D"cake-debug-array-items">
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'env'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-string">'REQUEST_METHOD'</span><span class=3D"cake-debug-pun=
+ct">,</span></span>
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'value'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span cla=
+ss=3D"cake-debug-string">'PATCH'</span><span class=3D"cake-debug-punct">,</=
+span></span></samp>
+    <span class=3D"cake-debug-punct">]</span></span><span class=3D"cake-deb=
+ug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'delete'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span clas=
+s=3D"cake-debug-array"><span class=3D"cake-debug-punct">[</span><samp class=
+=3D"cake-debug-array-items">
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'env'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-string">'REQUEST_METHOD'</span><span class=3D"cake-debug-pun=
+ct">,</span></span>
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'value'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span cla=
+ss=3D"cake-debug-string">'DELETE'</span><span class=3D"cake-debug-punct">,<=
+/span></span></samp>
+    <span class=3D"cake-debug-punct">]</span></span><span class=3D"cake-deb=
+ug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'head'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-array"><span class=3D"cake-debug-punct">[</span><samp class=
+=3D"cake-debug-array-items">
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'env'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-string">'REQUEST_METHOD'</span><span class=3D"cake-debug-pun=
+ct">,</span></span>
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'value'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span cla=
+ss=3D"cake-debug-string">'HEAD'</span><span class=3D"cake-debug-punct">,</s=
+pan></span></samp>
+    <span class=3D"cake-debug-punct">]</span></span><span class=3D"cake-deb=
+ug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'options'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span cla=
+ss=3D"cake-debug-array"><span class=3D"cake-debug-punct">[</span><samp clas=
+s=3D"cake-debug-array-items">
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'env'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-string">'REQUEST_METHOD'</span><span class=3D"cake-debug-pun=
+ct">,</span></span>
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'value'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span cla=
+ss=3D"cake-debug-string">'OPTIONS'</span><span class=3D"cake-debug-punct">,=
+</span></span></samp>
+    <span class=3D"cake-debug-punct">]</span></span><span class=3D"cake-deb=
+ug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'https'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-array"><span class=3D"cake-debug-punct">[</span><samp class=
+=3D"cake-debug-array-items">
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'env'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-string">'HTTPS'</span><span class=3D"cake-debug-punct">,</sp=
+an></span>
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'options'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span c=
+lass=3D"cake-debug-array"><span class=3D"cake-debug-punct">[</span><samp cl=
+ass=3D"cake-debug-array-items">
+        <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-str=
+ing">''</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-special">[maximum depth reached]</span><span class=3D"cake-d=
+ebug-punct">,</span></span></samp>
+      <span class=3D"cake-debug-punct">]</span></span><span class=3D"cake-d=
+ebug-punct">,</span></span></samp>
+    <span class=3D"cake-debug-punct">]</span></span><span class=3D"cake-deb=
+ug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'ajax'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-array"><span class=3D"cake-debug-punct">[</span><samp class=
+=3D"cake-debug-array-items">
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'env'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-string">'HTTP_X_REQUESTED_WITH'</span><span class=3D"cake-de=
+bug-punct">,</span></span>
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'value'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span cla=
+ss=3D"cake-debug-string">'XMLHttpRequest'</span><span class=3D"cake-debug-p=
+unct">,</span></span></samp>
+    <span class=3D"cake-debug-punct">]</span></span><span class=3D"cake-deb=
+ug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'json'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-array"><span class=3D"cake-debug-punct">[</span><samp class=
+=3D"cake-debug-array-items">
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'accept'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span cl=
+ass=3D"cake-debug-array"><span class=3D"cake-debug-punct">[</span><samp cla=
+ss=3D"cake-debug-array-items">
+        <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-str=
+ing">''</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-special">[maximum depth reached]</span><span class=3D"cake-d=
+ebug-punct">,</span></span></samp>
+      <span class=3D"cake-debug-punct">]</span></span><span class=3D"cake-d=
+ebug-punct">,</span></span>
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'param'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span cla=
+ss=3D"cake-debug-string">'_ext'</span><span class=3D"cake-debug-punct">,</s=
+pan></span>
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'value'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span cla=
+ss=3D"cake-debug-string">'json'</span><span class=3D"cake-debug-punct">,</s=
+pan></span></samp>
+    <span class=3D"cake-debug-punct">]</span></span><span class=3D"cake-deb=
+ug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'xml'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-array"><span class=3D"cake-debug-punct">[</span><samp class=
+=3D"cake-debug-array-items">
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'accept'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span cl=
+ass=3D"cake-debug-array"><span class=3D"cake-debug-punct">[</span><samp cla=
+ss=3D"cake-debug-array-items">
+        <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-str=
+ing">''</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-special">[maximum depth reached]</span><span class=3D"cake-d=
+ebug-punct">,</span></span></samp>
+      <span class=3D"cake-debug-punct">]</span></span><span class=3D"cake-d=
+ebug-punct">,</span></span>
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'exclude'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span c=
+lass=3D"cake-debug-array"><span class=3D"cake-debug-punct">[</span><samp cl=
+ass=3D"cake-debug-array-items">
+        <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-str=
+ing">''</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-special">[maximum depth reached]</span><span class=3D"cake-d=
+ebug-punct">,</span></span></samp>
+      <span class=3D"cake-debug-punct">]</span></span><span class=3D"cake-d=
+ebug-punct">,</span></span>
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'param'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span cla=
+ss=3D"cake-debug-string">'_ext'</span><span class=3D"cake-debug-punct">,</s=
+pan></span>
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'value'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span cla=
+ss=3D"cake-debug-string">'xml'</span><span class=3D"cake-debug-punct">,</sp=
+an></span></samp>
+    <span class=3D"cake-debug-punct">]</span></span><span class=3D"cake-deb=
+ug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'mobile'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span clas=
+s=3D"cake-debug-object" id=3D"cake-db-object-679d23c14e82e8.86655424-1"><sp=
+an class=3D"cake-debug-punct">object(</span><span class=3D"cake-debug-class=
+">Closure</span><span class=3D"cake-debug-punct">) id:</span><span class=3D=
+"cake-debug-number">1</span><span class=3D"cake-debug-punct"> {</span><samp=
+ class=3D"cake-debug-object-props"></samp>
+    <span class=3D"cake-debug-punct">}</span></span><span class=3D"cake-deb=
+ug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'tablet'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span clas=
+s=3D"cake-debug-object" id=3D"cake-db-object-679d23c14e82e8.86655424-2"><sp=
+an class=3D"cake-debug-punct">object(</span><span class=3D"cake-debug-class=
+">Closure</span><span class=3D"cake-debug-punct">) id:</span><span class=3D=
+"cake-debug-number">2</span><span class=3D"cake-debug-punct"> {</span><samp=
+ class=3D"cake-debug-object-props"></samp>
+    <span class=3D"cake-debug-punct">}</span></span><span class=3D"cake-deb=
+ug-punct">,</span></span></samp>
+  <span class=3D"cake-debug-punct">]</span></span></span>
+  <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">pro=
+tected</span> <span class=3D"cake-debug-property">_detectorCache</span><spa=
+n class=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-arra=
+y"><span class=3D"cake-debug-punct">[</span><samp class=3D"cake-debug-array=
+-items"></samp>
+  <span class=3D"cake-debug-punct">]</span></span></span>
+  <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">pro=
+tected</span> <span class=3D"cake-debug-property">stream</span><span class=
+=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-object" id=
+=3D"cake-db-object-679d23c14e82e8.86655424-3"><span class=3D"cake-debug-pun=
+ct">object(</span><span class=3D"cake-debug-class">Laminas\Diactoros\Stream=
+</span><span class=3D"cake-debug-punct">) id:</span><span class=3D"cake-deb=
+ug-number">3</span><span class=3D"cake-debug-punct"> {</span><samp class=3D=
+"cake-debug-object-props">
+    <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">p=
+rotected</span> <span class=3D"cake-debug-property">resource</span><span cl=
+ass=3D"cake-debug-punct"> =3D&gt; </span>(resource (stream)) Resource id #4=
+</span>
+    <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">p=
+rotected</span> <span class=3D"cake-debug-property">stream</span><span clas=
+s=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-string">'p=
+hp://input'</span></span></samp>
+  <span class=3D"cake-debug-punct">}</span></span></span>
+  <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">pro=
+tected</span> <span class=3D"cake-debug-property">uri</span><span class=3D"=
+cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-object" id=3D"c=
+ake-db-object-679d23c14e82e8.86655424-4"><span class=3D"cake-debug-punct">o=
+bject(</span><span class=3D"cake-debug-class">Laminas\Diactoros\Uri</span><=
+span class=3D"cake-debug-punct">) id:</span><span class=3D"cake-debug-numbe=
+r">4</span><span class=3D"cake-debug-punct"> {</span><samp class=3D"cake-de=
+bug-object-props">
+    <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">p=
+rotected</span> <span class=3D"cake-debug-property">allowedSchemes</span><s=
+pan class=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-ar=
+ray"><span class=3D"cake-debug-punct">[</span><samp class=3D"cake-debug-arr=
+ay-items">
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">''</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=3D=
+"cake-debug-special">[maximum depth reached]</span><span class=3D"cake-debu=
+g-punct">,</span></span></samp>
+    <span class=3D"cake-debug-punct">]</span></span></span>
+    <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">p=
+rivate</span> <span class=3D"cake-debug-property">scheme</span><span class=
+=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-string">'ht=
+tp'</span></span>
+    <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">p=
+rivate</span> <span class=3D"cake-debug-property">userInfo</span><span clas=
+s=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-string">''=
+</span></span>
+    <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">p=
+rivate</span> <span class=3D"cake-debug-property">host</span><span class=3D=
+"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-string">'127.0=
+.0.3'</span></span>
+    <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">p=
+rivate</span> <span class=3D"cake-debug-property">port</span><span class=3D=
+"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-const">null</s=
+pan></span>
+    <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">p=
+rivate</span> <span class=3D"cake-debug-property">path</span><span class=3D=
+"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-string">'/vide=
+os/add'</span></span>
+    <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">p=
+rivate</span> <span class=3D"cake-debug-property">query</span><span class=
+=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-string">''<=
+/span></span>
+    <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">p=
+rivate</span> <span class=3D"cake-debug-property">fragment</span><span clas=
+s=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-string">''=
+</span></span>
+    <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">p=
+rivate</span> <span class=3D"cake-debug-property">uriString</span><span cla=
+ss=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-const">nu=
+ll</span></span></samp>
+  <span class=3D"cake-debug-punct">}</span></span></span>
+  <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">pro=
+tected</span> <span class=3D"cake-debug-property">session</span><span class=
+=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-object" id=
+=3D"cake-db-object-679d23c14e82e8.86655424-5"><span class=3D"cake-debug-pun=
+ct">object(</span><span class=3D"cake-debug-class">Cake\Http\Session</span>=
+<span class=3D"cake-debug-punct">) id:</span><span class=3D"cake-debug-numb=
+er">5</span><span class=3D"cake-debug-punct"> {</span><samp class=3D"cake-d=
+ebug-object-props">
+    <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">p=
+rotected</span> <span class=3D"cake-debug-property">_engine</span><span cla=
+ss=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-const">nu=
+ll</span></span>
+    <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">p=
+rotected</span> <span class=3D"cake-debug-property">_started</span><span cl=
+ass=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-const">f=
+alse</span></span>
+    <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">p=
+rotected</span> <span class=3D"cake-debug-property">_lifetime</span><span c=
+lass=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-visibil=
+ity">(int)</span> <span class=3D"cake-debug-number">0</span></span>
+    <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">p=
+rotected</span> <span class=3D"cake-debug-property">_isCLI</span><span clas=
+s=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-const">fal=
+se</span></span>
+    <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">p=
+rotected</span> <span class=3D"cake-debug-property">headerSentInfo</span><s=
+pan class=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-co=
+nst">null</span></span></samp>
+  <span class=3D"cake-debug-punct">}</span></span></span>
+  <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">pro=
+tected</span> <span class=3D"cake-debug-property">flash</span><span class=
+=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-object" id=
+=3D"cake-db-object-679d23c14e82e8.86655424-6"><span class=3D"cake-debug-pun=
+ct">object(</span><span class=3D"cake-debug-class">Cake\Http\FlashMessage</=
+span><span class=3D"cake-debug-punct">) id:</span><span class=3D"cake-debug=
+-number">6</span><span class=3D"cake-debug-punct"> {</span><samp class=3D"c=
+ake-debug-object-props">
+    <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">p=
+rotected</span> <span class=3D"cake-debug-property">_defaultConfig</span><s=
+pan class=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-ar=
+ray"><span class=3D"cake-debug-punct">[</span><samp class=3D"cake-debug-arr=
+ay-items">
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">''</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=3D=
+"cake-debug-special">[maximum depth reached]</span><span class=3D"cake-debu=
+g-punct">,</span></span></samp>
+    <span class=3D"cake-debug-punct">]</span></span></span>
+    <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">p=
+rotected</span> <span class=3D"cake-debug-property">session</span><span cla=
+ss=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-ref"><spa=
+n class=3D"cake-debug-punct">object(</span><span class=3D"cake-debug-class"=
+>Cake\Http\Session</span><span class=3D"cake-debug-punct">) </span><a class=
+=3D"cake-debug-ref" href=3D"http://127.0.0.3/videos/add#cake-db-object-679d=
+23c14e82e8.86655424-5">id: 5</a><span class=3D"cake-debug-punct"> {}</span>=
+</span></span>
+    <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">p=
+rotected</span> <span class=3D"cake-debug-property">_config</span><span cla=
+ss=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-array"><s=
+pan class=3D"cake-debug-punct">[</span><samp class=3D"cake-debug-array-item=
+s">
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">''</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=3D=
+"cake-debug-special">[maximum depth reached]</span><span class=3D"cake-debu=
+g-punct">,</span></span></samp>
+    <span class=3D"cake-debug-punct">]</span></span></span>
+    <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">p=
+rotected</span> <span class=3D"cake-debug-property">_configInitialized</spa=
+n><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debu=
+g-const">true</span></span></samp>
+  <span class=3D"cake-debug-punct">}</span></span></span>
+  <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">pro=
+tected</span> <span class=3D"cake-debug-property">attributes</span><span cl=
+ass=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-array"><=
+span class=3D"cake-debug-punct">[</span><samp class=3D"cake-debug-array-ite=
+ms">
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'route'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-object" id=3D"cake-db-object-679d23c14e82e8.86655424-7"><spa=
+n class=3D"cake-debug-punct">object(</span><span class=3D"cake-debug-class"=
+>Cake\Routing\Route\DashedRoute</span><span class=3D"cake-debug-punct">) id=
+:</span><span class=3D"cake-debug-number">7</span><span class=3D"cake-debug=
+-punct"> {</span><samp class=3D"cake-debug-object-props"></samp>
+    <span class=3D"cake-debug-punct">}</span></span><span class=3D"cake-deb=
+ug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'csrfToken'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span c=
+lass=3D"cake-debug-string">'OKm7n6y9tN9VAjaMJSHhkzC9MDWxBJpBoZi/6HQKyrvVi60=
+E0pLiCxeYiJ0pBcP56iEIOJY/xMAQmZ7nI6dXiXs8QWzzlkXtUYkBB9QyqnXFq4rbEjn/g7e5z2=
+bgoIZudKvqpRs3p5/aRT8Op1ql+Q=3D=3D'</span><span class=3D"cake-debug-punct">=
+,</span></span></samp>
+  <span class=3D"cake-debug-punct">]</span></span></span>
+  <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">pro=
+tected</span> <span class=3D"cake-debug-property">emulatedAttributes</span>=
+<span class=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-=
+array"><span class=3D"cake-debug-punct">[</span><samp class=3D"cake-debug-a=
+rray-items">
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-visibil=
+ity">(int)</span> <span class=3D"cake-debug-number">0</span><span class=3D"=
+cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-string">'sessio=
+n'</span><span class=3D"cake-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-visibil=
+ity">(int)</span> <span class=3D"cake-debug-number">1</span><span class=3D"=
+cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-string">'flash'=
+</span><span class=3D"cake-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-visibil=
+ity">(int)</span> <span class=3D"cake-debug-number">2</span><span class=3D"=
+cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-string">'webroo=
+t'</span><span class=3D"cake-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-visibil=
+ity">(int)</span> <span class=3D"cake-debug-number">3</span><span class=3D"=
+cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-string">'base'<=
+/span><span class=3D"cake-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-visibil=
+ity">(int)</span> <span class=3D"cake-debug-number">4</span><span class=3D"=
+cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-string">'params=
+'</span><span class=3D"cake-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-visibil=
+ity">(int)</span> <span class=3D"cake-debug-number">5</span><span class=3D"=
+cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-string">'here'<=
+/span><span class=3D"cake-debug-punct">,</span></span></samp>
+  <span class=3D"cake-debug-punct">]</span></span></span>
+  <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">pro=
+tected</span> <span class=3D"cake-debug-property">uploadedFiles</span><span=
+ class=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-array=
+"><span class=3D"cake-debug-punct">[</span><samp class=3D"cake-debug-array-=
+items"></samp>
+  <span class=3D"cake-debug-punct">]</span></span></span>
+  <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">pro=
+tected</span> <span class=3D"cake-debug-property">protocol</span><span clas=
+s=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-const">nul=
+l</span></span>
+  <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">pro=
+tected</span> <span class=3D"cake-debug-property">requestTarget</span><span=
+ class=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-const=
+">null</span></span></samp>
+<span class=3D"cake-debug-punct">}</span></span></div></div>
+                                            <div class=3D"cake-debug"><div =
+class=3D"cake-debug"><span class=3D"cake-debug-object" id=3D"cake-db-object=
+-679d23c14f44d9.77152518-0"><span class=3D"cake-debug-punct">object(</span>=
+<span class=3D"cake-debug-class">Cake\Http\Runner</span><span class=3D"cake=
+-debug-punct">) id:</span><span class=3D"cake-debug-number">0</span><span c=
+lass=3D"cake-debug-punct"> {</span><samp class=3D"cake-debug-object-props">
+  <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">pro=
+tected</span> <span class=3D"cake-debug-property">queue</span><span class=
+=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-object" id=
+=3D"cake-db-object-679d23c14f44d9.77152518-1"><span class=3D"cake-debug-pun=
+ct">object(</span><span class=3D"cake-debug-class">Cake\Http\MiddlewareQueu=
+e</span><span class=3D"cake-debug-punct">) id:</span><span class=3D"cake-de=
+bug-number">1</span><span class=3D"cake-debug-punct"> {</span><samp class=
+=3D"cake-debug-object-props">
+    <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">p=
+rotected</span> <span class=3D"cake-debug-property">position</span><span cl=
+ass=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-visibili=
+ty">(int)</span> <span class=3D"cake-debug-number">6</span></span>
+    <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">p=
+rotected</span> <span class=3D"cake-debug-property">queue</span><span class=
+=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-array"><spa=
+n class=3D"cake-debug-punct">[</span><samp class=3D"cake-debug-array-items"=
+>
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">''</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=3D=
+"cake-debug-special">[maximum depth reached]</span><span class=3D"cake-debu=
+g-punct">,</span></span></samp>
+    <span class=3D"cake-debug-punct">]</span></span></span>
+    <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">p=
+rotected</span> <span class=3D"cake-debug-property">container</span><span c=
+lass=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-object"=
+ id=3D"cake-db-object-679d23c14f44d9.77152518-2"><span class=3D"cake-debug-=
+punct">object(</span><span class=3D"cake-debug-class">Cake\Core\Container</=
+span><span class=3D"cake-debug-punct">) id:</span><span class=3D"cake-debug=
+-number">2</span><span class=3D"cake-debug-punct"> {</span><samp class=3D"c=
+ake-debug-object-props"></samp>
+    <span class=3D"cake-debug-punct">}</span></span></span></samp>
+  <span class=3D"cake-debug-punct">}</span></span></span>
+  <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">pro=
+tected</span> <span class=3D"cake-debug-property">fallbackHandler</span><sp=
+an class=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-obj=
+ect" id=3D"cake-db-object-679d23c14f44d9.77152518-3"><span class=3D"cake-de=
+bug-punct">object(</span><span class=3D"cake-debug-class">App\Application</=
+span><span class=3D"cake-debug-punct">) id:</span><span class=3D"cake-debug=
+-number">3</span><span class=3D"cake-debug-punct"> {</span><samp class=3D"c=
+ake-debug-object-props">
+    <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">p=
+rotected</span> <span class=3D"cake-debug-property">configDir</span><span c=
+lass=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-string"=
+>'C:\wamp64\apps\bhp1/config\'</span></span>
+    <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">p=
+rotected</span> <span class=3D"cake-debug-property">plugins</span><span cla=
+ss=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-object" i=
+d=3D"cake-db-object-679d23c14f44d9.77152518-4"><span class=3D"cake-debug-pu=
+nct">object(</span><span class=3D"cake-debug-class">Cake\Core\PluginCollect=
+ion</span><span class=3D"cake-debug-punct">) id:</span><span class=3D"cake-=
+debug-number">4</span><span class=3D"cake-debug-punct"> {</span><samp class=
+=3D"cake-debug-object-props"></samp>
+    <span class=3D"cake-debug-punct">}</span></span></span>
+    <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">p=
+rotected</span> <span class=3D"cake-debug-property">controllerFactory</span=
+><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug=
+-const">null</span></span>
+    <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">p=
+rotected</span> <span class=3D"cake-debug-property">container</span><span c=
+lass=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-ref"><s=
+pan class=3D"cake-debug-punct">object(</span><span class=3D"cake-debug-clas=
+s">Cake\Core\Container</span><span class=3D"cake-debug-punct">) </span><a c=
+lass=3D"cake-debug-ref" href=3D"http://127.0.0.3/videos/add#cake-db-object-=
+679d23c14f44d9.77152518-2">id: 2</a><span class=3D"cake-debug-punct"> {}</s=
+pan></span></span>
+    <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">p=
+rotected</span> <span class=3D"cake-debug-property">_eventManager</span><sp=
+an class=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-obj=
+ect" id=3D"cake-db-object-679d23c14f44d9.77152518-5"><span class=3D"cake-de=
+bug-punct">object(</span><span class=3D"cake-debug-class">Cake\Event\EventM=
+anager</span><span class=3D"cake-debug-punct">) id:</span><span class=3D"ca=
+ke-debug-number">5</span><span class=3D"cake-debug-punct"> {</span><samp cl=
+ass=3D"cake-debug-object-props"></samp>
+    <span class=3D"cake-debug-punct">}</span></span></span>
+    <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">p=
+rotected</span> <span class=3D"cake-debug-property">_eventClass</span><span=
+ class=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-strin=
+g">'Cake\Event\Event'</span></span></samp>
+  <span class=3D"cake-debug-punct">}</span></span></span></samp>
+<span class=3D"cake-debug-punct">}</span></span></div></div>
+                                    </div>
+            </div>
+        </li>
+            <li id=3D"stack-frame-0-2" class=3D"stack-frame vendor-frame">
+            <div class=3D"stack-frame-header">
+                <button data-frame-id=3D"0-2" class=3D"stack-frame-toggle">
+                    =E2=96=BC
+                </button>
+
+                <div class=3D"stack-frame-header-content">
+                    <span class=3D"stack-frame-file">
+                        CORE\src\Http\Middleware\BodyParserMiddleware.php  =
+                  </span>
+
+                                            <span class=3D"stack-frame-line=
+">
+                            <span class=3D"stack-frame-label">at line</span=
+>162                        </span>
+                   =20
+                    <span class=3D"stack-function">
+                                                    <span class=3D"stack-fr=
+ame-label">in</span>
+                                                                           =
+ Cake\Http\Runner-&gt;handle                                            </s=
+pan>
+
+                                            <a href=3D"phpstorm://open?file=
+=3DC:\wamp64\apps\bhp1\vendor\cakephp\cakephp\src\Http\Middleware\BodyParse=
+rMiddleware.php&amp;line=3D162" class=3D"stack-frame-edit">(edit)</a>      =
+                              </div>
+            </div>
+            <div class=3D"stack-frame-contents" id=3D"stack-frame-details-0=
+-2" style=3D"display: none">
+                <table class=3D"code-excerpt" cellspacing=3D"0" cellpadding=
+=3D"0">
+                                                    <tbody><tr>
+                        <td class=3D"excerpt-number" data-number=3D"158"></=
+td>
+                        <td class=3D"excerpt-line"><pre><code style=3D"colo=
+r: #000000"><span style=3D"color: #0000BB">        </span><span style=3D"co=
+lor: #007700">}</span></code></pre></td>
+                    </tr>
+                                    <tr>
+                        <td class=3D"excerpt-number" data-number=3D"159"></=
+td>
+                        <td class=3D"excerpt-line"><pre><code style=3D"colo=
+r: #000000"><span style=3D"color: #0000BB">        </span><span style=3D"co=
+lor: #007700">[</span><span style=3D"color: #0000BB">$type</span><span styl=
+e=3D"color: #007700">] =3D </span><span style=3D"color: #0000BB">explode</s=
+pan><span style=3D"color: #007700">(</span><span style=3D"color: #DD0000">'=
+;'</span><span style=3D"color: #007700">, </span><span style=3D"color: #000=
+0BB">$request</span><span style=3D"color: #007700">-&gt;</span><span style=
+=3D"color: #0000BB">getHeaderLine</span><span style=3D"color: #007700">(</s=
+pan><span style=3D"color: #DD0000">'Content-Type'</span><span style=3D"colo=
+r: #007700">));</span></code></pre></td>
+                    </tr>
+                                    <tr>
+                        <td class=3D"excerpt-number" data-number=3D"160"></=
+td>
+                        <td class=3D"excerpt-line"><pre><code style=3D"colo=
+r: #000000"><span style=3D"color: #0000BB">        $type </span><span style=
+=3D"color: #007700">=3D </span><span style=3D"color: #0000BB">strtolower</s=
+pan><span style=3D"color: #007700">(</span><span style=3D"color: #0000BB">$=
+type</span><span style=3D"color: #007700">);</span></code></pre></td>
+                    </tr>
+                                    <tr>
+                        <td class=3D"excerpt-number" data-number=3D"161"></=
+td>
+                        <td class=3D"excerpt-line"><pre><code style=3D"colo=
+r: #000000"><span style=3D"color: #0000BB">        </span><span style=3D"co=
+lor: #007700">if (!isset(</span><span style=3D"color: #0000BB">$this</span>=
+<span style=3D"color: #007700">-&gt;</span><span style=3D"color: #0000BB">p=
+arsers</span><span style=3D"color: #007700">[</span><span style=3D"color: #=
+0000BB">$type</span><span style=3D"color: #007700">])) {</span></code></pre=
+></td>
+                    </tr>
+                                    <tr>
+                        <td class=3D"excerpt-number" data-number=3D"162"></=
+td>
+                        <td class=3D"excerpt-line"><span class=3D"code-high=
+light"><pre><code style=3D"color: #000000"><span style=3D"color: #0000BB"> =
+           </span><span style=3D"color: #007700">return </span><span style=
+=3D"color: #0000BB">$handler</span><span style=3D"color: #007700">-&gt;</sp=
+an><span style=3D"color: #0000BB">handle</span><span style=3D"color: #00770=
+0">(</span><span style=3D"color: #0000BB">$request</span><span style=3D"col=
+or: #007700">);</span></code></pre></span></td>
+                    </tr>
+                                    <tr>
+                        <td class=3D"excerpt-number" data-number=3D"163"></=
+td>
+                        <td class=3D"excerpt-line"><pre><code style=3D"colo=
+r: #000000"><span style=3D"color: #0000BB">        </span><span style=3D"co=
+lor: #007700">}</span></code></pre></td>
+                    </tr>
+                                    <tr>
+                        <td class=3D"excerpt-number" data-number=3D"164"></=
+td>
+                        <td class=3D"excerpt-line"><pre><code style=3D"colo=
+r: #000000"><span style=3D"color: #0000BB"></span></code></pre></td>
+                    </tr>
+                                    <tr>
+                        <td class=3D"excerpt-number" data-number=3D"165"></=
+td>
+                        <td class=3D"excerpt-line"><pre><code style=3D"colo=
+r: #000000"><span style=3D"color: #0000BB">        $parser </span><span sty=
+le=3D"color: #007700">=3D </span><span style=3D"color: #0000BB">$this</span=
+><span style=3D"color: #007700">-&gt;</span><span style=3D"color: #0000BB">=
+parsers</span><span style=3D"color: #007700">[</span><span style=3D"color: =
+#0000BB">$type</span><span style=3D"color: #007700">];</span></code></pre><=
+/td>
+                    </tr>
+                                    <tr>
+                        <td class=3D"excerpt-number" data-number=3D"166"></=
+td>
+                        <td class=3D"excerpt-line"><pre><code style=3D"colo=
+r: #000000"><span style=3D"color: #0000BB">        $result </span><span sty=
+le=3D"color: #007700">=3D </span><span style=3D"color: #0000BB">$parser</sp=
+an><span style=3D"color: #007700">(</span><span style=3D"color: #0000BB">$r=
+equest</span><span style=3D"color: #007700">-&gt;</span><span style=3D"colo=
+r: #0000BB">getBody</span><span style=3D"color: #007700">()-&gt;</span><spa=
+n style=3D"color: #0000BB">getContents</span><span style=3D"color: #007700"=
+>());</span></code></pre></td>
+                    </tr>
+                                </tbody></table>
+
+                <a href=3D"http://127.0.0.3/videos/add#" class=3D"stack-fra=
+me-args" data-target=3D"stack-args-0-2">Toggle Arguments</a>
+                <div id=3D"stack-args-0-2" class=3D"stack-args" style=3D"di=
+splay: none;">
+                                            <div class=3D"cake-debug"><div =
+class=3D"cake-debug"><span class=3D"cake-debug-object" id=3D"cake-db-object=
+-679d23c150a5d5.30371481-0"><span class=3D"cake-debug-punct">object(</span>=
+<span class=3D"cake-debug-class">Cake\Http\ServerRequest</span><span class=
+=3D"cake-debug-punct">) id:</span><span class=3D"cake-debug-number">0</span=
+><span class=3D"cake-debug-punct"> {</span><samp class=3D"cake-debug-object=
+-props">
+  <span class=3D"cake-debug-prop"><span class=3D"cake-debug-property">trust=
+Proxy</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=3D=
+"cake-debug-const">false</span></span>
+  <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">pro=
+tected</span> <span class=3D"cake-debug-property">params</span><span class=
+=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-array"><spa=
+n class=3D"cake-debug-punct">[</span><samp class=3D"cake-debug-array-items"=
+>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'controller'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span =
+class=3D"cake-debug-string">'Videos'</span><span class=3D"cake-debug-punct"=
+>,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'action'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span clas=
+s=3D"cake-debug-string">'add'</span><span class=3D"cake-debug-punct">,</spa=
+n></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'pass'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-array"><span class=3D"cake-debug-punct">[</span><samp class=
+=3D"cake-debug-array-items"></samp>
+    <span class=3D"cake-debug-punct">]</span></span><span class=3D"cake-deb=
+ug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'plugin'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span clas=
+s=3D"cake-debug-const">null</span><span class=3D"cake-debug-punct">,</span>=
+</span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'_matchedRoute'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><sp=
+an class=3D"cake-debug-string">'/{controller}/{action}/*'</span><span class=
+=3D"cake-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'_ext'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-const">null</span><span class=3D"cake-debug-punct">,</span><=
+/span></samp>
+  <span class=3D"cake-debug-punct">]</span></span></span>
+  <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">pro=
+tected</span> <span class=3D"cake-debug-property">data</span><span class=3D=
+"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-array"><span c=
+lass=3D"cake-debug-punct">[</span><samp class=3D"cake-debug-array-items"></=
+samp>
+  <span class=3D"cake-debug-punct">]</span></span></span>
+  <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">pro=
+tected</span> <span class=3D"cake-debug-property">query</span><span class=
+=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-array"><spa=
+n class=3D"cake-debug-punct">[</span><samp class=3D"cake-debug-array-items"=
+></samp>
+  <span class=3D"cake-debug-punct">]</span></span></span>
+  <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">pro=
+tected</span> <span class=3D"cake-debug-property">cookies</span><span class=
+=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-array"><spa=
+n class=3D"cake-debug-punct">[</span><samp class=3D"cake-debug-array-items"=
+>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'csrfToken'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span c=
+lass=3D"cake-debug-string">'KDAleI8a41YuPnfg1rekfmE0MTJlNjA0ZDM1M2YzNThiMmJ=
+iMjJkZWMzYjgyMmRmMGQ3NjFlYTk=3D'</span><span class=3D"cake-debug-punct">,</=
+span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'PHPSESSID'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span c=
+lass=3D"cake-debug-string">'cjotnj211ndtf2uoobb8kr55rm'</span><span class=
+=3D"cake-debug-punct">,</span></span></samp>
+  <span class=3D"cake-debug-punct">]</span></span></span>
+  <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">pro=
+tected</span> <span class=3D"cake-debug-property">_environment</span><span =
+class=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-array"=
+><span class=3D"cake-debug-punct">[</span><samp class=3D"cake-debug-array-i=
+tems">
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'REDIRECT_STATUS'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><=
+span class=3D"cake-debug-string">'200'</span><span class=3D"cake-debug-punc=
+t">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'HTTP_HOST'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span c=
+lass=3D"cake-debug-string">'127.0.0.3'</span><span class=3D"cake-debug-punc=
+t">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'HTTP_CONNECTION'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><=
+span class=3D"cake-debug-string">'keep-alive'</span><span class=3D"cake-deb=
+ug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'CONTENT_LENGTH'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><s=
+pan class=3D"cake-debug-string">'87859281'</span><span class=3D"cake-debug-=
+punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'HTTP_CACHE_CONTROL'</span><span class=3D"cake-debug-punct"> =3D&gt; </spa=
+n><span class=3D"cake-debug-string">'max-age=3D0'</span><span class=3D"cake=
+-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'HTTP_SEC_CH_UA'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><s=
+pan class=3D"cake-debug-string">'"Not(A:Brand";v=3D"99", "Microsoft Edge";v=
+=3D"133", "Chromium";v=3D"133"'</span><span class=3D"cake-debug-punct">,</s=
+pan></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'HTTP_SEC_CH_UA_MOBILE'</span><span class=3D"cake-debug-punct"> =3D&gt; </=
+span><span class=3D"cake-debug-string">'?0'</span><span class=3D"cake-debug=
+-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'HTTP_SEC_CH_UA_PLATFORM'</span><span class=3D"cake-debug-punct"> =3D&gt; =
+</span><span class=3D"cake-debug-string">'"Windows"'</span><span class=3D"c=
+ake-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'HTTP_ORIGIN'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span=
+ class=3D"cake-debug-string">'http://127.0.0.3'</span><span class=3D"cake-d=
+ebug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'CONTENT_TYPE'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><spa=
+n class=3D"cake-debug-string">'multipart/form-data; boundary=3D----WebKitFo=
+rmBoundary8Rq5OE9bTatKcx4Y'</span><span class=3D"cake-debug-punct">,</span>=
+</span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'HTTP_UPGRADE_INSECURE_REQUESTS'</span><span class=3D"cake-debug-punct"> =
+=3D&gt; </span><span class=3D"cake-debug-string">'1'</span><span class=3D"c=
+ake-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'HTTP_USER_AGENT'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><=
+span class=3D"cake-debug-string">'Mozilla/5.0 (Windows NT 10.0; Win64; x64)=
+ AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36 Edg/=
+133.0.0.0'</span><span class=3D"cake-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'HTTP_ACCEPT'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span=
+ class=3D"cake-debug-string">'text/html,application/xhtml+xml,application/x=
+ml;q=3D0.9,image/avif,image/webp,image/apng,*/*;q=3D0.8,application/signed-=
+exchange;v=3Db3;q=3D0.7'</span><span class=3D"cake-debug-punct">,</span></s=
+pan>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'HTTP_SEC_FETCH_SITE'</span><span class=3D"cake-debug-punct"> =3D&gt; </sp=
+an><span class=3D"cake-debug-string">'same-origin'</span><span class=3D"cak=
+e-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'HTTP_SEC_FETCH_MODE'</span><span class=3D"cake-debug-punct"> =3D&gt; </sp=
+an><span class=3D"cake-debug-string">'navigate'</span><span class=3D"cake-d=
+ebug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'HTTP_SEC_FETCH_USER'</span><span class=3D"cake-debug-punct"> =3D&gt; </sp=
+an><span class=3D"cake-debug-string">'?1'</span><span class=3D"cake-debug-p=
+unct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'HTTP_SEC_FETCH_DEST'</span><span class=3D"cake-debug-punct"> =3D&gt; </sp=
+an><span class=3D"cake-debug-string">'document'</span><span class=3D"cake-d=
+ebug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'HTTP_REFERER'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><spa=
+n class=3D"cake-debug-string">'http://127.0.0.3/videos/add'</span><span cla=
+ss=3D"cake-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'HTTP_ACCEPT_ENCODING'</span><span class=3D"cake-debug-punct"> =3D&gt; </s=
+pan><span class=3D"cake-debug-string">'gzip, deflate, br, zstd'</span><span=
+ class=3D"cake-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'HTTP_ACCEPT_LANGUAGE'</span><span class=3D"cake-debug-punct"> =3D&gt; </s=
+pan><span class=3D"cake-debug-string">'pl,en;q=3D0.9,en-GB;q=3D0.8,en-US;q=
+=3D0.7,ru;q=3D0.6'</span><span class=3D"cake-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'HTTP_COOKIE'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span=
+ class=3D"cake-debug-string">'csrfToken=3DKDAleI8a41YuPnfg1rekfmE0MTJlNjA0Z=
+DM1M2YzNThiMmJiMjJkZWMzYjgyMmRmMGQ3NjFlYTk%3D; PHPSESSID=3Dcjotnj211ndtf2uo=
+obb8kr55rm'</span><span class=3D"cake-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'PATH'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-string">'C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\=
+Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSS=
+H\;C:\Program Files\dotnet\;C:\Program Files\Intel\WiFi\bin\;C:\Program Fil=
+es\Common Files\Intel\WirelessCommon\;C:\Program Files (x86)\Intel\Intel(R)=
+ Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Managemen=
+t Engine Components\DAL;C:\Program Files\PuTTY\;C:\Program Files (x86)\Gpg4=
+win\..\GnuPG\bin;C:\Program Files (x86)\WinSCP\;C:\Program Files\Git\cmd;C:=
+\WINDOWS\system32\config\systemprofile\AppData\Local\Microsoft\WindowsApps'=
+</span><span class=3D"cake-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'SystemRoot'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span =
+class=3D"cake-debug-string">'C:\WINDOWS'</span><span class=3D"cake-debug-pu=
+nct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'COMSPEC'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span cla=
+ss=3D"cake-debug-string">'C:\WINDOWS\system32\cmd.exe'</span><span class=3D=
+"cake-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'PATHEXT'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span cla=
+ss=3D"cake-debug-string">'.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;=
+.MSC'</span><span class=3D"cake-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'WINDIR'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span clas=
+s=3D"cake-debug-string">'C:\WINDOWS'</span><span class=3D"cake-debug-punct"=
+>,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'SERVER_SIGNATURE'</span><span class=3D"cake-debug-punct"> =3D&gt; </span>=
+<span class=3D"cake-debug-string">'&lt;address&gt;Apache/2.4.62 (Win64) PHP=
+/8.3.14 mod_fcgid/2.3.10-dev Server at 127.0.0.3 Port 80&lt;/address&gt;
+'</span><span class=3D"cake-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'SERVER_SOFTWARE'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><=
+span class=3D"cake-debug-string">'Apache/2.4.62 (Win64) PHP/8.3.14 mod_fcgi=
+d/2.3.10-dev'</span><span class=3D"cake-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'SERVER_NAME'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span=
+ class=3D"cake-debug-string">'127.0.0.3'</span><span class=3D"cake-debug-pu=
+nct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'SERVER_ADDR'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span=
+ class=3D"cake-debug-string">'127.0.0.3'</span><span class=3D"cake-debug-pu=
+nct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'SERVER_PORT'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span=
+ class=3D"cake-debug-string">'80'</span><span class=3D"cake-debug-punct">,<=
+/span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'REMOTE_ADDR'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span=
+ class=3D"cake-debug-string">'127.0.0.1'</span><span class=3D"cake-debug-pu=
+nct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'DOCUMENT_ROOT'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><sp=
+an class=3D"cake-debug-string">'C:/wamp64/apps/bhp1/webroot'</span><span cl=
+ass=3D"cake-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'REQUEST_SCHEME'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><s=
+pan class=3D"cake-debug-string">'http'</span><span class=3D"cake-debug-punc=
+t">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'CONTEXT_PREFIX'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><s=
+pan class=3D"cake-debug-string">''</span><span class=3D"cake-debug-punct">,=
+</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'CONTEXT_DOCUMENT_ROOT'</span><span class=3D"cake-debug-punct"> =3D&gt; </=
+span><span class=3D"cake-debug-string">'C:/wamp64/apps/bhp1/webroot'</span>=
+<span class=3D"cake-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'SERVER_ADMIN'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><spa=
+n class=3D"cake-debug-string">'wampserver@wampserver.invalid'</span><span c=
+lass=3D"cake-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'SCRIPT_FILENAME'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><=
+span class=3D"cake-debug-string">'C:/wamp64/apps/bhp1/webroot/index.php'</s=
+pan><span class=3D"cake-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'REMOTE_PORT'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span=
+ class=3D"cake-debug-string">'59923'</span><span class=3D"cake-debug-punct"=
+>,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'REDIRECT_URL'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><spa=
+n class=3D"cake-debug-string">'/videos/add'</span><span class=3D"cake-debug=
+-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'GATEWAY_INTERFACE'</span><span class=3D"cake-debug-punct"> =3D&gt; </span=
+><span class=3D"cake-debug-string">'CGI/1.1'</span><span class=3D"cake-debu=
+g-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'SERVER_PROTOCOL'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><=
+span class=3D"cake-debug-string">'HTTP/1.1'</span><span class=3D"cake-debug=
+-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'REQUEST_METHOD'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><s=
+pan class=3D"cake-debug-string">'POST'</span><span class=3D"cake-debug-punc=
+t">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'QUERY_STRING'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><spa=
+n class=3D"cake-debug-string">''</span><span class=3D"cake-debug-punct">,</=
+span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'REQUEST_URI'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span=
+ class=3D"cake-debug-string">'/videos/add'</span><span class=3D"cake-debug-=
+punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'SCRIPT_NAME'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span=
+ class=3D"cake-debug-string">'/index.php'</span><span class=3D"cake-debug-p=
+unct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'PHP_SELF'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span cl=
+ass=3D"cake-debug-string">'/index.php'</span><span class=3D"cake-debug-punc=
+t">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'REQUEST_TIME_FLOAT'</span><span class=3D"cake-debug-punct"> =3D&gt; </spa=
+n><span class=3D"cake-debug-visibility">(float)</span> <span class=3D"cake-=
+debug-number">1738351553.0537</span><span class=3D"cake-debug-punct">,</spa=
+n></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'REQUEST_TIME'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><spa=
+n class=3D"cake-debug-visibility">(int)</span> <span class=3D"cake-debug-nu=
+mber">1738351553</span><span class=3D"cake-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'ORIGINAL_REQUEST_METHOD'</span><span class=3D"cake-debug-punct"> =3D&gt; =
+</span><span class=3D"cake-debug-string">'POST'</span><span class=3D"cake-d=
+ebug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'HTTPS'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-const">false</span><span class=3D"cake-debug-punct">,</span>=
+</span></samp>
+  <span class=3D"cake-debug-punct">]</span></span></span>
+  <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">pro=
+tected</span> <span class=3D"cake-debug-property">base</span><span class=3D=
+"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-string">''</sp=
+an></span>
+  <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">pro=
+tected</span> <span class=3D"cake-debug-property">webroot</span><span class=
+=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-string">'/'=
+</span></span>
+  <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">pro=
+tected</span> <span class=3D"cake-debug-property">trustedProxies</span><spa=
+n class=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-arra=
+y"><span class=3D"cake-debug-punct">[</span><samp class=3D"cake-debug-array=
+-items"></samp>
+  <span class=3D"cake-debug-punct">]</span></span></span>
+  <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">pro=
+tected</span> <span class=3D"cake-debug-property">_detectors</span><span cl=
+ass=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-array"><=
+span class=3D"cake-debug-punct">[</span><samp class=3D"cake-debug-array-ite=
+ms">
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'get'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-array"><span class=3D"cake-debug-punct">[</span><samp class=
+=3D"cake-debug-array-items">
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'env'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-string">'REQUEST_METHOD'</span><span class=3D"cake-debug-pun=
+ct">,</span></span>
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'value'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span cla=
+ss=3D"cake-debug-string">'GET'</span><span class=3D"cake-debug-punct">,</sp=
+an></span></samp>
+    <span class=3D"cake-debug-punct">]</span></span><span class=3D"cake-deb=
+ug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'post'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-array"><span class=3D"cake-debug-punct">[</span><samp class=
+=3D"cake-debug-array-items">
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'env'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-string">'REQUEST_METHOD'</span><span class=3D"cake-debug-pun=
+ct">,</span></span>
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'value'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span cla=
+ss=3D"cake-debug-string">'POST'</span><span class=3D"cake-debug-punct">,</s=
+pan></span></samp>
+    <span class=3D"cake-debug-punct">]</span></span><span class=3D"cake-deb=
+ug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'put'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-array"><span class=3D"cake-debug-punct">[</span><samp class=
+=3D"cake-debug-array-items">
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'env'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-string">'REQUEST_METHOD'</span><span class=3D"cake-debug-pun=
+ct">,</span></span>
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'value'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span cla=
+ss=3D"cake-debug-string">'PUT'</span><span class=3D"cake-debug-punct">,</sp=
+an></span></samp>
+    <span class=3D"cake-debug-punct">]</span></span><span class=3D"cake-deb=
+ug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'patch'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-array"><span class=3D"cake-debug-punct">[</span><samp class=
+=3D"cake-debug-array-items">
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'env'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-string">'REQUEST_METHOD'</span><span class=3D"cake-debug-pun=
+ct">,</span></span>
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'value'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span cla=
+ss=3D"cake-debug-string">'PATCH'</span><span class=3D"cake-debug-punct">,</=
+span></span></samp>
+    <span class=3D"cake-debug-punct">]</span></span><span class=3D"cake-deb=
+ug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'delete'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span clas=
+s=3D"cake-debug-array"><span class=3D"cake-debug-punct">[</span><samp class=
+=3D"cake-debug-array-items">
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'env'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-string">'REQUEST_METHOD'</span><span class=3D"cake-debug-pun=
+ct">,</span></span>
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'value'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span cla=
+ss=3D"cake-debug-string">'DELETE'</span><span class=3D"cake-debug-punct">,<=
+/span></span></samp>
+    <span class=3D"cake-debug-punct">]</span></span><span class=3D"cake-deb=
+ug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'head'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-array"><span class=3D"cake-debug-punct">[</span><samp class=
+=3D"cake-debug-array-items">
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'env'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-string">'REQUEST_METHOD'</span><span class=3D"cake-debug-pun=
+ct">,</span></span>
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'value'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span cla=
+ss=3D"cake-debug-string">'HEAD'</span><span class=3D"cake-debug-punct">,</s=
+pan></span></samp>
+    <span class=3D"cake-debug-punct">]</span></span><span class=3D"cake-deb=
+ug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'options'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span cla=
+ss=3D"cake-debug-array"><span class=3D"cake-debug-punct">[</span><samp clas=
+s=3D"cake-debug-array-items">
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'env'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-string">'REQUEST_METHOD'</span><span class=3D"cake-debug-pun=
+ct">,</span></span>
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'value'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span cla=
+ss=3D"cake-debug-string">'OPTIONS'</span><span class=3D"cake-debug-punct">,=
+</span></span></samp>
+    <span class=3D"cake-debug-punct">]</span></span><span class=3D"cake-deb=
+ug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'https'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-array"><span class=3D"cake-debug-punct">[</span><samp class=
+=3D"cake-debug-array-items">
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'env'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-string">'HTTPS'</span><span class=3D"cake-debug-punct">,</sp=
+an></span>
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'options'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span c=
+lass=3D"cake-debug-array"><span class=3D"cake-debug-punct">[</span><samp cl=
+ass=3D"cake-debug-array-items">
+        <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-str=
+ing">''</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-special">[maximum depth reached]</span><span class=3D"cake-d=
+ebug-punct">,</span></span></samp>
+      <span class=3D"cake-debug-punct">]</span></span><span class=3D"cake-d=
+ebug-punct">,</span></span></samp>
+    <span class=3D"cake-debug-punct">]</span></span><span class=3D"cake-deb=
+ug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'ajax'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-array"><span class=3D"cake-debug-punct">[</span><samp class=
+=3D"cake-debug-array-items">
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'env'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-string">'HTTP_X_REQUESTED_WITH'</span><span class=3D"cake-de=
+bug-punct">,</span></span>
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'value'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span cla=
+ss=3D"cake-debug-string">'XMLHttpRequest'</span><span class=3D"cake-debug-p=
+unct">,</span></span></samp>
+    <span class=3D"cake-debug-punct">]</span></span><span class=3D"cake-deb=
+ug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'json'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-array"><span class=3D"cake-debug-punct">[</span><samp class=
+=3D"cake-debug-array-items">
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'accept'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span cl=
+ass=3D"cake-debug-array"><span class=3D"cake-debug-punct">[</span><samp cla=
+ss=3D"cake-debug-array-items">
+        <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-str=
+ing">''</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-special">[maximum depth reached]</span><span class=3D"cake-d=
+ebug-punct">,</span></span></samp>
+      <span class=3D"cake-debug-punct">]</span></span><span class=3D"cake-d=
+ebug-punct">,</span></span>
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'param'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span cla=
+ss=3D"cake-debug-string">'_ext'</span><span class=3D"cake-debug-punct">,</s=
+pan></span>
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'value'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span cla=
+ss=3D"cake-debug-string">'json'</span><span class=3D"cake-debug-punct">,</s=
+pan></span></samp>
+    <span class=3D"cake-debug-punct">]</span></span><span class=3D"cake-deb=
+ug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'xml'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-array"><span class=3D"cake-debug-punct">[</span><samp class=
+=3D"cake-debug-array-items">
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'accept'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span cl=
+ass=3D"cake-debug-array"><span class=3D"cake-debug-punct">[</span><samp cla=
+ss=3D"cake-debug-array-items">
+        <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-str=
+ing">''</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-special">[maximum depth reached]</span><span class=3D"cake-d=
+ebug-punct">,</span></span></samp>
+      <span class=3D"cake-debug-punct">]</span></span><span class=3D"cake-d=
+ebug-punct">,</span></span>
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'exclude'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span c=
+lass=3D"cake-debug-array"><span class=3D"cake-debug-punct">[</span><samp cl=
+ass=3D"cake-debug-array-items">
+        <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-str=
+ing">''</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-special">[maximum depth reached]</span><span class=3D"cake-d=
+ebug-punct">,</span></span></samp>
+      <span class=3D"cake-debug-punct">]</span></span><span class=3D"cake-d=
+ebug-punct">,</span></span>
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'param'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span cla=
+ss=3D"cake-debug-string">'_ext'</span><span class=3D"cake-debug-punct">,</s=
+pan></span>
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">'value'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span cla=
+ss=3D"cake-debug-string">'xml'</span><span class=3D"cake-debug-punct">,</sp=
+an></span></samp>
+    <span class=3D"cake-debug-punct">]</span></span><span class=3D"cake-deb=
+ug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'mobile'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span clas=
+s=3D"cake-debug-object" id=3D"cake-db-object-679d23c150a5d5.30371481-1"><sp=
+an class=3D"cake-debug-punct">object(</span><span class=3D"cake-debug-class=
+">Closure</span><span class=3D"cake-debug-punct">) id:</span><span class=3D=
+"cake-debug-number">1</span><span class=3D"cake-debug-punct"> {</span><samp=
+ class=3D"cake-debug-object-props"></samp>
+    <span class=3D"cake-debug-punct">}</span></span><span class=3D"cake-deb=
+ug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'tablet'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span clas=
+s=3D"cake-debug-object" id=3D"cake-db-object-679d23c150a5d5.30371481-2"><sp=
+an class=3D"cake-debug-punct">object(</span><span class=3D"cake-debug-class=
+">Closure</span><span class=3D"cake-debug-punct">) id:</span><span class=3D=
+"cake-debug-number">2</span><span class=3D"cake-debug-punct"> {</span><samp=
+ class=3D"cake-debug-object-props"></samp>
+    <span class=3D"cake-debug-punct">}</span></span><span class=3D"cake-deb=
+ug-punct">,</span></span></samp>
+  <span class=3D"cake-debug-punct">]</span></span></span>
+  <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">pro=
+tected</span> <span class=3D"cake-debug-property">_detectorCache</span><spa=
+n class=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-arra=
+y"><span class=3D"cake-debug-punct">[</span><samp class=3D"cake-debug-array=
+-items"></samp>
+  <span class=3D"cake-debug-punct">]</span></span></span>
+  <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">pro=
+tected</span> <span class=3D"cake-debug-property">stream</span><span class=
+=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-object" id=
+=3D"cake-db-object-679d23c150a5d5.30371481-3"><span class=3D"cake-debug-pun=
+ct">object(</span><span class=3D"cake-debug-class">Laminas\Diactoros\Stream=
+</span><span class=3D"cake-debug-punct">) id:</span><span class=3D"cake-deb=
+ug-number">3</span><span class=3D"cake-debug-punct"> {</span><samp class=3D=
+"cake-debug-object-props">
+    <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">p=
+rotected</span> <span class=3D"cake-debug-property">resource</span><span cl=
+ass=3D"cake-debug-punct"> =3D&gt; </span>(resource (stream)) Resource id #4=
+</span>
+    <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">p=
+rotected</span> <span class=3D"cake-debug-property">stream</span><span clas=
+s=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-string">'p=
+hp://input'</span></span></samp>
+  <span class=3D"cake-debug-punct">}</span></span></span>
+  <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">pro=
+tected</span> <span class=3D"cake-debug-property">uri</span><span class=3D"=
+cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-object" id=3D"c=
+ake-db-object-679d23c150a5d5.30371481-4"><span class=3D"cake-debug-punct">o=
+bject(</span><span class=3D"cake-debug-class">Laminas\Diactoros\Uri</span><=
+span class=3D"cake-debug-punct">) id:</span><span class=3D"cake-debug-numbe=
+r">4</span><span class=3D"cake-debug-punct"> {</span><samp class=3D"cake-de=
+bug-object-props">
+    <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">p=
+rotected</span> <span class=3D"cake-debug-property">allowedSchemes</span><s=
+pan class=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-ar=
+ray"><span class=3D"cake-debug-punct">[</span><samp class=3D"cake-debug-arr=
+ay-items">
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">''</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=3D=
+"cake-debug-special">[maximum depth reached]</span><span class=3D"cake-debu=
+g-punct">,</span></span></samp>
+    <span class=3D"cake-debug-punct">]</span></span></span>
+    <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">p=
+rivate</span> <span class=3D"cake-debug-property">scheme</span><span class=
+=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-string">'ht=
+tp'</span></span>
+    <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">p=
+rivate</span> <span class=3D"cake-debug-property">userInfo</span><span clas=
+s=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-string">''=
+</span></span>
+    <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">p=
+rivate</span> <span class=3D"cake-debug-property">host</span><span class=3D=
+"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-string">'127.0=
+.0.3'</span></span>
+    <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">p=
+rivate</span> <span class=3D"cake-debug-property">port</span><span class=3D=
+"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-const">null</s=
+pan></span>
+    <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">p=
+rivate</span> <span class=3D"cake-debug-property">path</span><span class=3D=
+"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-string">'/vide=
+os/add'</span></span>
+    <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">p=
+rivate</span> <span class=3D"cake-debug-property">query</span><span class=
+=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-string">''<=
+/span></span>
+    <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">p=
+rivate</span> <span class=3D"cake-debug-property">fragment</span><span clas=
+s=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-string">''=
+</span></span>
+    <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">p=
+rivate</span> <span class=3D"cake-debug-property">uriString</span><span cla=
+ss=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-const">nu=
+ll</span></span></samp>
+  <span class=3D"cake-debug-punct">}</span></span></span>
+  <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">pro=
+tected</span> <span class=3D"cake-debug-property">session</span><span class=
+=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-object" id=
+=3D"cake-db-object-679d23c150a5d5.30371481-5"><span class=3D"cake-debug-pun=
+ct">object(</span><span class=3D"cake-debug-class">Cake\Http\Session</span>=
+<span class=3D"cake-debug-punct">) id:</span><span class=3D"cake-debug-numb=
+er">5</span><span class=3D"cake-debug-punct"> {</span><samp class=3D"cake-d=
+ebug-object-props">
+    <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">p=
+rotected</span> <span class=3D"cake-debug-property">_engine</span><span cla=
+ss=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-const">nu=
+ll</span></span>
+    <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">p=
+rotected</span> <span class=3D"cake-debug-property">_started</span><span cl=
+ass=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-const">f=
+alse</span></span>
+    <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">p=
+rotected</span> <span class=3D"cake-debug-property">_lifetime</span><span c=
+lass=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-visibil=
+ity">(int)</span> <span class=3D"cake-debug-number">0</span></span>
+    <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">p=
+rotected</span> <span class=3D"cake-debug-property">_isCLI</span><span clas=
+s=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-const">fal=
+se</span></span>
+    <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">p=
+rotected</span> <span class=3D"cake-debug-property">headerSentInfo</span><s=
+pan class=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-co=
+nst">null</span></span></samp>
+  <span class=3D"cake-debug-punct">}</span></span></span>
+  <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">pro=
+tected</span> <span class=3D"cake-debug-property">flash</span><span class=
+=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-object" id=
+=3D"cake-db-object-679d23c150a5d5.30371481-6"><span class=3D"cake-debug-pun=
+ct">object(</span><span class=3D"cake-debug-class">Cake\Http\FlashMessage</=
+span><span class=3D"cake-debug-punct">) id:</span><span class=3D"cake-debug=
+-number">6</span><span class=3D"cake-debug-punct"> {</span><samp class=3D"c=
+ake-debug-object-props">
+    <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">p=
+rotected</span> <span class=3D"cake-debug-property">_defaultConfig</span><s=
+pan class=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-ar=
+ray"><span class=3D"cake-debug-punct">[</span><samp class=3D"cake-debug-arr=
+ay-items">
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">''</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=3D=
+"cake-debug-special">[maximum depth reached]</span><span class=3D"cake-debu=
+g-punct">,</span></span></samp>
+    <span class=3D"cake-debug-punct">]</span></span></span>
+    <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">p=
+rotected</span> <span class=3D"cake-debug-property">session</span><span cla=
+ss=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-ref"><spa=
+n class=3D"cake-debug-punct">object(</span><span class=3D"cake-debug-class"=
+>Cake\Http\Session</span><span class=3D"cake-debug-punct">) </span><a class=
+=3D"cake-debug-ref" href=3D"http://127.0.0.3/videos/add#cake-db-object-679d=
+23c150a5d5.30371481-5">id: 5</a><span class=3D"cake-debug-punct"> {}</span>=
+</span></span>
+    <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">p=
+rotected</span> <span class=3D"cake-debug-property">_config</span><span cla=
+ss=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-array"><s=
+pan class=3D"cake-debug-punct">[</span><samp class=3D"cake-debug-array-item=
+s">
+      <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-strin=
+g">''</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=3D=
+"cake-debug-special">[maximum depth reached]</span><span class=3D"cake-debu=
+g-punct">,</span></span></samp>
+    <span class=3D"cake-debug-punct">]</span></span></span>
+    <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">p=
+rotected</span> <span class=3D"cake-debug-property">_configInitialized</spa=
+n><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debu=
+g-const">true</span></span></samp>
+  <span class=3D"cake-debug-punct">}</span></span></span>
+  <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">pro=
+tected</span> <span class=3D"cake-debug-property">attributes</span><span cl=
+ass=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-array"><=
+span class=3D"cake-debug-punct">[</span><samp class=3D"cake-debug-array-ite=
+ms">
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-string"=
+>'route'</span><span class=3D"cake-debug-punct"> =3D&gt; </span><span class=
+=3D"cake-debug-object" id=3D"cake-db-object-679d23c150a5d5.30371481-7"><spa=
+n class=3D"cake-debug-punct">object(</span><span class=3D"cake-debug-class"=
+>Cake\Routing\Route\DashedRoute</span><span class=3D"cake-debug-punct">) id=
+:</span><span class=3D"cake-debug-number">7</span><span class=3D"cake-debug=
+-punct"> {</span><samp class=3D"cake-debug-object-props"></samp>
+    <span class=3D"cake-debug-punct">}</span></span><span class=3D"cake-deb=
+ug-punct">,</span></span></samp>
+  <span class=3D"cake-debug-punct">]</span></span></span>
+  <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">pro=
+tected</span> <span class=3D"cake-debug-property">emulatedAttributes</span>=
+<span class=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-=
+array"><span class=3D"cake-debug-punct">[</span><samp class=3D"cake-debug-a=
+rray-items">
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-visibil=
+ity">(int)</span> <span class=3D"cake-debug-number">0</span><span class=3D"=
+cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-string">'sessio=
+n'</span><span class=3D"cake-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-visibil=
+ity">(int)</span> <span class=3D"cake-debug-number">1</span><span class=3D"=
+cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-string">'flash'=
+</span><span class=3D"cake-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-visibil=
+ity">(int)</span> <span class=3D"cake-debug-number">2</span><span class=3D"=
+cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-string">'webroo=
+t'</span><span class=3D"cake-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-visibil=
+ity">(int)</span> <span class=3D"cake-debug-number">3</span><span class=3D"=
+cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-string">'base'<=
+/span><span class=3D"cake-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-visibil=
+ity">(int)</span> <span class=3D"cake-debug-number">4</span><span class=3D"=
+cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-string">'params=
+'</span><span class=3D"cake-debug-punct">,</span></span>
+    <span class=3D"cake-debug-array-item"><span class=3D"cake-debug-visibil=
+ity">(int)</span> <span class=3D"cake-debug-number">5</span><span class=3D"=
+cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-string">'here'<=
+/span><span class=3D"cake-debug-punct">,</span></span></samp>
+  <span class=3D"cake-debug-punct">]</span></span></span>
+  <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">pro=
+tected</span> <span class=3D"cake-debug-property">uploadedFiles</span><span=
+ class=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-array=
+"><span class=3D"cake-debug-punct">[</span><samp class=3D"cake-debug-array-=
+items"></samp>
+  <span class=3D"cake-debug-punct">]</span></span></span>
+  <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">pro=
+tected</span> <span class=3D"cake-debug-property">protocol</span><span clas=
+s=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-const">nul=
+l</span></span>
+  <span class=3D"cake-debug-prop"><span class=3D"cake-debug-visibility">pro=
+tected</span> <span class=3D"cake-debug-property">requestTarget</span><span=
+ class=3D"cake-debug-punct"> =3D&gt; </span><span class=3D"cake-debug-const=
+">null</span></span></samp>
+<span class=3D"cake-debug-punct">}</span></span></div></div>
+                                    </div>
+            </div>
+        </li>
+            <li id=3D"stack-frame-0-3" class=3D"stack-frame vendor-frame">
+            <div class=3D"stack-frame-header">
+                <button data-frame-id=3D"0-3" class=3D"stack-frame-toggle">
+                    =E2=96=BC
+                </button>
+
+                <div class=3D"stack-frame-header-content">
+                    <span class=3D"stack-frame-file">
+                        CORE\src\Http\Runner.php                    </span>
+
+                                            <span class=3D"stack-frame-line=
+">
+                            <span class=3D"stack-frame-label">at line</span=
+>82                        </span>
+                   =20
+                    <span class=3D"stack-function">
+                                                    <span class=3D"stack-fr=
+ame-label">in</span>
+                                                                           =
+ Cake\Http\Middleware\BodyParserMiddleware-&gt;process                     =
+                       </span>
+
+                                            <a href=3D"phpstorm://open?file=
+=3DC:\wamp64\apps\bhp1\vendor\cakephp\cakephp\src\Http\Runner.php&amp;line=
+=3D82" class=3D"stack-frame-edit">(edit)</a>                               =
+     </div>
+            </div>
+            <div class=3D"stack-frame-contents" id=3D"stack-frame-details-0=
+-3" style=3D"display: none">
+                <table class=3D"code-excerpt" cellspacing=3D"0" cellpadding=
+=3D"0">
+                                                    <tbody><tr>
+                        <td class=3D"excerpt-number" data-number=3D"78"></t=
+d>
+                        <td class=3D"excerpt-line"><pre><code style=3D"colo=
+r: #000000"><span style=3D"color: #0000BB">        </span><span style=3D"co=
+lor: #007700">if (</span><span style=3D"color: #0000BB">$this</span><span s=
+tyle=3D"color: #007700">-&gt;</span><span style=3D"color: #0000BB">queue</s=
+pan><span style=3D"color: #007700">-&gt;</span><span style=3D"color: #0000B=
+B">valid</span><span style=3D"color: #007700">()) {</span></code></pre></td=
+>
+                    </tr>
+                                    <tr>
+                        <td class=3D"excerpt-number" data-number=3D"79"></t=
+d>
+                        <td class=3D"excerpt-line"><pre><code style=3D"colo=
+r: #000000"><span style=3D"color: #0000BB">            $middleware </span><=
+span style=3D"color: #007700">=3D </span><span style=3D"color: #0000BB">$th=
+is</span><span style=3D"color: #007700">-&gt;</span><span style=3D"color: #=
+0000BB">queue</span><span style=3D"color: #007700">-&gt;</span><span style=
+=3D"color: #0000BB">current</span><span style=3D"color: #007700">();</span>=
+</code></pre></td>
+                    </tr>
+                                    <tr>
+                        <td class=3D"excerpt-number" data-number=3D"80"></t=
+d>
+                        <td class=3D"excerpt-line"><pre><code style=3D"colo=
+r: #000000"><span style=3D"color: #0000BB">            $this</span><span st=
+yle=3D"color: #007700">-&gt;</span><span style=3D"color: #0000BB">queue</sp=
+an><span style=3D"color: #007700">-&gt;</span><span style=3D"color: #0000BB=
+">next</span><span style=3D"color: #007700">();</span></code></pre></td>
+                    </tr>
+                                    <tr>
+                        <td class=3D"excerpt-number" data-number=3D"81"></t=
+d>
+                        <td class=3D"excerpt-line"><pre><code style=3D"colo=
+r: #000000"><span style=3D"color: #0000BB"></span></code></pre></td>
+                    </tr>
+                                    <tr>
+                        <td class=3D"excerpt-number" data-number=3D"82"></t=
+d>
+                        <td class=3D"excerpt-line"><span class=3D"code-high=
+light"><pre><code style=3D"color: #000000"><span style=3D"color: #0000BB"> =
+           </span><span style=3D"color: #007700">return </span><span style=
+=3D"color: #0000BB">$middleware</span><span style=3D"color: #007700">-&gt;<=
+/span><span style=3D"color: #0000BB">process</span><span style=3D"color: #0=
+07700">(</span><span style=3D"color: #0000BB">$request</span><span style=3D=
+"color: #007700">, </span><span style=3D"color: #0000BB">$this</span><span =
+style=3D"color: #007700">);</span></code></pre></span></td>
+                    </tr>
+                                    <tr>
+                        <td class=3D"excerpt-number" data-number=3D"83"></t=
+d>
+                        <td class=3D"excerpt-line"><pre><code style=3D"colo=
+r: #000000"><span style=3D"color: #0000BB">        </span><span style=3D"co=
+lor: #007700">}</span></code></pre></td>
+                    </tr>
+                                    <tr>
+                        <td class=3D"excerpt-number" data-number=3D"84"></t=
+d>
+                        <td class=3D"excerpt-line"><pre><code style=3D"colo=
+r: #000000"><span style=3D"color: #0000BB"></span></code></pre></td>
+                    </tr>
+                                    <tr>
+                        <td class=3D"excerpt-number" data-number=3D"85"></t=
+d>
+                        <td class=3D"excerpt-line"><pre><code style=3D"colo=
+r: #000000"><span style=3D"color: #0000BB">        </span><span style=3D"co=
+lor: #007700">if (</span><span style=3D"color: #0000BB">$this</span><span s=
+tyle=3D"color: #007700">-&gt;</span><span style=3D"color: #0000BB">fallback=
+Handler</span><span style=3D"color: #007700">) {</span></code></pre></td>
+                    </tr>
+                                    <tr>
+                        <td class=3D"excerpt-number" data-number=3D"86"></t=
+d>
+                        <td class=3D"excerpt-line"><pre><code style=3D"colo=
+r: #000000"><span style=3D"color: #0000BB">            </span><span style=
+=3D"color: #007700">return </span><span style=3D"color: #0000BB">$this</spa=
+n><span style=3D"color: #007700">-&gt;</span><span style=3D"color: #0000BB"=
+>fallbackHandler</span><span style=3D"color: #007700">-&gt;</span><span sty=
+le=3D"color: #0000BB">handle</span><span style=3D"color: #007700">(</span><=
+span style=3D"color: #0000BB">$request</span><span style=3D"color: #007700"=
+>);</span></code></pre></td>
+                    </tr>
+                                </tbody></table>
+
+                <a href=3D"http://127.0.0.3/videos/add#" class=3D"stack-fra=
+me-args" data-target=3D"stack-args-0-3">Toggle Arguments</a>
+                <div id=3D"stack-args-0-3" class=3D"stack-args" style=3D"di=
+splay: none;">
+                                            <div class=3D"cake-debug"></div=
+></div></div></li></ul></div></body></html>
+------MultipartBoundary--Gw3WbDD2eiRRIA0RAf4BP2qvfB46NCZspXCi0DaDeK----
+Content-Type: text/css
+Content-Transfer-Encoding: quoted-printable
+Content-Location: cid:css-0d248585-fd37-48a5-888a-7fa163a7613a@mhtml.blink
+
+@charset "utf-8";
+
+.cake-debug { --color-bg: #ecece9; --color-highlight-bg: #fcf8e3; --color-c=
+ontrol-bg: hsla(0, 0%, 50%, 0.2); --color-blue: #4070a0; --color-green: #0b=
+6125; --color-grey: #5f5f5f; --color-orange: #c44f24; --color-violet: #a71d=
+5d; --color-dark-grey: #222; --color-cyan: #234aa0; --color-red: #d33c44; -=
+-indent: 20px; font-family: monospace; background: var(--color-bg); padding=
+: 5px; line-height: 16px; font-size: 14px; margin-bottom: 10px; position: r=
+elative; }
+
+.cake-debug:last-child { margin-bottom: 0px; }
+
+.cake-debug-object { display: inline; }
+
+.cake-debug-object[data-highlighted=3D"true"], .cake-debug-object[data-high=
+lighted=3D"true"] samp { background: var(--color-highlight-bg); }
+
+.cake-debug-object-props, .cake-debug-array-items { display: block; }
+
+.cake-debug-prop, .cake-debug-array-item { display: block; padding-left: va=
+r(--indent); min-height: 18px; }
+
+[data-hidden=3D"true"] { display: none; }
+
+.cake-debug-collapse { display: inline-block; width: 14px; height: 14px; ve=
+rtical-align: middle; border-radius: 3px; color: var(--color-blue); backgro=
+und-size: ; background-attachment: ; background-origin: ; background-clip: =
+; background-color: ; background-image: url("data:image/svg+xml;utf8,%3Csvg=
+%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20height%3D%2212%22%2=
+0width%3D%2212%22%20viewBox%3D%220%200%2012%2012%22%3E%3Cpolygon%20points%3=
+D%223%2C1%203%2C11%208%2C6%22 style%3D%22fill%3A%234070a0%3B%22%2F%3E%3C%2F=
+svg%3E"); background-position: 2px 1px; background-repeat: no-repeat; }
+
+.cake-debug-collapse[data-open=3D"true"] { transform: rotate(90deg); }
+
+.cake-debug-copy { position: absolute; top: 0px; right: 0px; padding: 6px; =
+background: var(--color-control-bg); color: var(--color-blue); border-radiu=
+s: 0px 0px 0px 3px; }
+
+.cake-debug-class { color: var(--color-cyan); }
+
+.cake-debug-property { color: var(--color-dark-grey); }
+
+.cake-debug-visibility { color: var(--color-violet); }
+
+.cake-debug-punct { color: var(--color-grey); }
+
+.cake-debug-string { color: var(--color-green); white-space: pre-wrap; }
+
+.cake-debug-number { color: var(--color-blue); font-weight: bold; }
+
+.cake-debug-const { color: var(--color-orange); font-weight: bold; }
+
+.cake-debug-ref { color: var(--color-red); }
+
+.cake-debug-special { color: var(--color-red); font-style: italic; }
+------MultipartBoundary--Gw3WbDD2eiRRIA0RAf4BP2qvfB46NCZspXCi0DaDeK----
+Content-Type: text/css
+Content-Transfer-Encoding: quoted-printable
+Content-Location: cid:css-ecdc566f-b370-4336-8fd0-cd78c2abc924@mhtml.blink
+
+@charset "utf-8";
+
+* { box-sizing: border-box; }
+
+:root { --typeface: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif; --t=
+ypeface-mono: consolas, monospace; --border-radius: 5px; --layout-padding: =
+30px; --layout-vertical-gap: 20px; --color-vendor-frame: #7c7c7c; --breakpo=
+int-tablet: 810px; }
+
+@media (max-width: 810px) {
+  :root { --layout-padding: 20px; }
+}
+
+body { font-family: var(--typeface); color: rgb(64, 64, 65); background: rg=
+b(245, 247, 250); font-size: 14px; letter-spacing: 0.01em; line-height: 1.6=
+; padding: 0px 0px 40px; margin: 0px; height: 100%; }
+
+header { flex: 1 1 0%; background-color: rgb(211, 60, 71); color: rgb(255, =
+255, 255); padding: var(--layout-padding); }
+
+.header-title { display: flex; align-items: center; font-size: 30px; margin=
+: 0px; }
+
+.header-title a { font-size: 18px; cursor: pointer; margin-left: 10px; user=
+-select: none; }
+
+.header-title code { margin: 0px 10px; }
+
+.header-description { display: block; font-size: 18px; line-height: 1.2; ma=
+rgin-bottom: var(--layout-vertical-gap); }
+
+.header-type { display: block; font-size: 16px; }
+
+.header-help a { color: rgb(255, 255, 255); }
+
+.error-content { padding: var(--layout-padding); }
+
+.code-dump, pre { background: rgb(255, 255, 255); border-radius: var(--bord=
+er-radius); padding: 5px; white-space: pre-wrap; margin: 0px; }
+
+.error, .error-subheading { border-radius: var(--border-radius); font-size:=
+ 18px; margin-top: 0px; padding: var(--layout-vertical-gap) 16px; }
+
+.error-subheading { color: rgb(255, 255, 255); background-color: rgb(49, 15=
+1, 149); }
+
+.error-subheading strong { color: rgb(255, 255, 255); background-color: rgb=
+(79, 209, 197); border-radius: 9999px; padding: 4px 12px; margin-right: 8px=
+; }
+
+.error { color: rgb(255, 255, 255); background: rgb(39, 121, 189); }
+
+.error strong { color: rgb(255, 255, 255); background-color: rgb(108, 178, =
+235); border-radius: 9999px; padding: 4px 12px; margin-right: 8px; }
+
+.stack-trace { list-style: none; margin: 0px; padding: 0px; }
+
+.stack-exception-header { margin: 36px 0px 12px 8px; }
+
+.stack-exception-caused { font-size: 1.6em; display: block; margin-bottom: =
+var(--layout-vertical-gap); }
+
+.stack-exception-type { display: block; font-family: var(--typeface-mono); =
+}
+
+.stack-exception-message { margin-bottom: 10px; font-size: 1.2em; font-weig=
+ht: bold; }
+
+.stack-frames { list-style: none; padding: 0px; margin: 0px; border-radius:=
+ var(--border-radius); }
+
+.stack-frame { background: rgb(234, 234, 234); padding: 10px; border-bottom=
+: 2px solid rgb(245, 247, 250); overflow: hidden; }
+
+.vendor-frame { background: rgb(241, 241, 241); }
+
+.stack-frame:first-child { border-radius: var(--border-radius) var(--border=
+-radius) 0 0; }
+
+.stack-frame:last-child { border-radius: 0 0 var(--border-radius) var(--bor=
+der-radius); border-bottom: none; margin-bottom: 0px; }
+
+.stack-frame a { color: rgb(33, 33, 33); text-decoration: none; }
+
+.stack-frame.active { background: rgb(245, 247, 250); }
+
+.stack-frame a:hover { text-decoration: underline; }
+
+.stack-frame-header { display: flex; align-items: center; gap: 10px; }
+
+.stack-frame-header-content { display: flex; gap: 8px; }
+
+.vendor-frame .stack-frame-header-content, .vendor-frame .stack-frame-heade=
+r-content a { color: var(--color-vendor-frame); }
+
+@media (max-width: 810px) {
+  .stack-frame-header-content { flex-direction: column; }
+}
+
+.stack-function, .stack-frame-file, .stack-frame-line, .stack-file { font-f=
+amily: var(--typeface-mono); }
+
+.stack-file { font-size: 0.9em; white-space: nowrap; text-overflow: ellipsi=
+s; overflow: hidden; direction: rtl; }
+
+.stack-frame-file { word-break: break-all; }
+
+.stack-frame-label { font-family: var(--typeface); font-weight: normal; mar=
+gin: 0px 5px 0px 0px; font-size: 0.9em; }
+
+.stack-function .stack-frame-label { margin: 0px; }
+
+.stack-frame-edit { margin: 0px 5px 0px 0px; }
+
+.stack-frame-toggle { cursor: pointer; color: rgb(82, 82, 82); border: 1px =
+solid rgb(210, 210, 210); border-radius: var(--border-radius); height: 28px=
+; width: 28px; background: rgb(245, 247, 250); line-height: 1.5; }
+
+.stack-frame-toggle.active { transform: rotate(180deg); }
+
+.stack-frame-header .stack-frame-toggle { opacity: 0.7; }
+
+.stack-frame-args { display: block; margin: 10px 0px 0px; }
+
+.stack-frame-args:hover { color: rgb(211, 60, 71); }
+
+.stack-args h4 { margin-top: 0px; }
+
+.error-suggestion { margin-bottom: var(--layout-vertical-gap); }
+
+.code-excerpt { width: 100%; margin: 10px 0px 0px; background: rgb(254, 254=
+, 254); }
+
+.code-highlight { display: block; background: rgb(255, 245, 157); padding-l=
+eft: 4px; }
+
+.excerpt-line { padding: 0px; }
+
+.code-highlight > pre, .excerpt-line > pre { padding: 0px; background: none=
+; }
+
+.excerpt-line > code { padding-left: 4px; }
+
+.excerpt-number { background: rgb(246, 246, 246); width: 50px; text-align: =
+right; color: rgb(102, 102, 102); border-right: 1px solid rgb(221, 221, 221=
+); padding: 2px 4px; }
+
+.excerpt-number::after { content: attr(data-number); }
+
+table { text-align: left; }
+
+th, td { padding: 4px; }
+
+th { border-bottom: 1px solid rgb(204, 204, 204); }
+
+.cake-debug { margin-top: 10px; }
+------MultipartBoundary--Gw3WbDD2eiRRIA0RAf4BP2qvfB46NCZspXCi0DaDeK------

@@ -1,0 +1,19 @@
+formId = 0;
+            if (document.querySelector("div.wForm > form[role=\"form\"]")) {
+                if (parseInt(document.querySelector("div.wForm > form[role=\"form\"]").getAttribute("id")) !== 0) {
+                    formId = parseInt(document.querySelector("div.wForm > form[role=\"form\"]").getAttribute("id"));
+                } else {
+                    formId = parseInt(document.querySelector("div.wForm > form[role=\"form\"] input[name=\"tfa_dbFormId\"]").value);
+                }
+            }
+
+            fetch("https://mozillafoundation.tfaforms.net/api_v2/sst/copy-and-paste", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                    url: document.location.href,
+                    form_id: formId ?? null,
+                })
+            });

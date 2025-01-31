@@ -1,0 +1,1498 @@
+<!DOCTYPE html>
+<!-- saved from url=(0027)http://127.0.0.3/videos/add -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        Error: CSRF token from either the request body or request headers did not match or is missing.    </title>
+    <link href="http://127.0.0.3/favicon.ico" type="image/x-icon" rel="icon"><link href="http://127.0.0.3/favicon.ico" type="image/x-icon" rel="shortcut icon">    <style>
+    * {
+        box-sizing: border-box;
+    }
+    :root {
+        --typeface: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+        --typeface-mono: consolas, monospace;
+
+        --border-radius: 5px;
+        --layout-padding: 30px;
+        --layout-vertical-gap: 20px;
+
+        --color-vendor-frame: #7c7c7c;
+
+        --breakpoint-tablet: 810px;
+    }
+
+    /* Smaller viewport variations */
+    @media (max-width: 810px) {
+        :root {
+            --layout-padding: 20px;
+        }
+    }
+
+    body {
+        font-family: var(--typeface);
+        color: #404041;
+        background: #F5F7FA;
+        font-size: 14px;
+        letter-spacing: .01em;
+        line-height: 1.6;
+        padding: 0 0 40px;
+        margin: 0;
+        height: 100%;
+    }
+    header {
+        flex: 1;
+        background-color: #D33C47;
+        color: #ffffff;
+        padding: var(--layout-padding);
+    }
+    .header-title {
+        display: flex;
+        align-items: center;
+        font-size: 30px;
+        margin: 0;
+    }
+    .header-title a {
+        font-size: 18px;
+        cursor: pointer;
+        margin-left: 10px;
+        user-select: none;
+    }
+    .header-title code {
+        margin: 0 10px;
+    }
+    .header-description {
+        display: block;
+        font-size: 18px;
+        line-height: 1.2;
+        margin-bottom: var(--layout-vertical-gap);
+    }
+    .header-type {
+        display: block;
+        font-size: 16px;
+    }
+    .header-help a {
+        color: #fff;
+    }
+    .error-content {
+        padding: var(--layout-padding);
+    }
+
+    .code-dump,
+    pre {
+        background: #fff;
+        border-radius: var(--border-radius);
+        padding: 5px;
+        white-space: pre-wrap;
+        margin: 0;
+    }
+
+    .error,
+    .error-subheading {
+        border-radius: var(--border-radius);
+        font-size: 18px;
+        margin-top: 0;
+        padding: var(--layout-vertical-gap) 16px;
+    }
+    .error-subheading {
+        color: #fff;
+        background-color: #319795;
+    }
+    .error-subheading strong {
+        color: #fff;
+        background-color: #4fd1c5;
+        border-radius: 9999px;
+        padding: 4px 12px;
+        margin-right: 8px;
+    }
+    .error {
+        color: #fff;
+        background: #2779BD;
+    }
+    .error strong {
+        color: #fff;
+        background-color: #6CB2EB;
+        border-radius: 9999px;
+        padding: 4px 12px;
+        margin-right: 8px;
+    }
+
+    .stack-trace {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    /* Previous exception blocks */
+    .stack-exception-header {
+        margin: 36px 0 12px 8px;
+    }
+    .stack-exception-caused {
+        font-size: 1.6em;
+        display: block;
+        margin-bottom: var(--layout-vertical-gap);
+    }
+    .stack-exception-type {
+        display: block;
+        font-family: var(--typeface-mono);
+    }
+    .stack-exception-message {
+        margin-bottom: 10px;
+        font-size: 1.2em;
+        font-weight: bold;
+    }
+
+    .stack-frames {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        border-radius: var(--border-radius);
+    }
+    .stack-frame {
+        padding: 10px;
+        background: #eaeaea;
+        padding: 10px;
+        border-bottom: 2px solid #f5f7fa;
+        overflow: hidden;
+    }
+    .vendor-frame {
+        background: #f1f1f1;
+    }
+    .stack-frame:first-child {
+        border-radius: var(--border-radius) var(--border-radius) 0 0;
+    }
+    .stack-frame:last-child {
+        border-radius: 0 0 var(--border-radius) var(--border-radius);
+        border-bottom: none;
+        margin-bottom: 0;
+    }
+    .stack-frame a {
+        color: #212121;
+        text-decoration: none;
+    }
+    .stack-frame.active {
+        background: #F5F7FA;
+    }
+    .stack-frame a:hover {
+        text-decoration: underline;
+    }
+
+    /* Stack frame headers */
+    .stack-frame-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .stack-frame-header-content {
+        display: flex;
+        gap: 8px;
+    }
+    .vendor-frame .stack-frame-header-content,
+    .vendor-frame .stack-frame-header-content  a {
+        color: var(--color-vendor-frame);
+    }
+    @media (max-width: 810px) {
+        .stack-frame-header-content {
+            flex-direction: column;
+        }
+    }
+    .stack-function,
+    .stack-frame-file,
+    .stack-frame-line,
+    .stack-file {
+        font-family: var(--typeface-mono);
+    }
+    .stack-file {
+        font-size: 0.9em;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        direction: rtl;
+    }
+    .stack-frame-file {
+        word-break: break-all;
+    }
+    .stack-frame-label {
+        font-family: var(--typeface);
+        font-weight: normal;
+        margin: 0 5px 0 0;
+        font-size: 0.9em;
+    }
+    .stack-function .stack-frame-label {
+        margin: 0;
+    }
+
+    .stack-frame-edit {
+        margin: 0 5px 0 0;
+    }
+    .stack-frame-toggle {
+        cursor: pointer;
+        color: #525252;
+        border: 1px solid #d2d2d2;
+        border-radius: var(--border-radius);
+        height: 28px;
+        width: 28px;
+        background: #F5F7FA;
+        line-height: 1.5;
+    }
+    .stack-frame-toggle.active {
+        transform: rotate(180deg);
+    }
+    .stack-frame-header .stack-frame-toggle {
+        opacity: 0.7;
+    }
+
+    .stack-frame-args {
+        display: block;
+        margin: 10px 0 0 0;
+    }
+    .stack-frame-args:hover {
+        color: #D33C47;
+    }
+    .stack-args h4 {
+        margin-top: 0;
+    }
+
+    /* Suggestion and help context */
+    .error-suggestion {
+        margin-bottom: var(--layout-vertical-gap);
+    }
+
+    /* Code excerpts */
+    .code-excerpt {
+        width: 100%;
+        margin: 10px 0 0 0;
+        background: #fefefe;
+    }
+    .code-highlight {
+        display: block;
+        background: #fff59d;
+        padding-left: 4px;
+    }
+    .excerpt-line {
+        padding: 0;
+    }
+    /* php 8.3 adds pre around highlighted code */
+    .code-highlight > pre,
+    .excerpt-line > pre {
+        padding: 0;
+        background: none;
+    }
+    .excerpt-line > code {
+        padding-left: 4px;
+    }
+    .excerpt-number {
+        background: #f6f6f6;
+        width: 50px;
+        text-align: right;
+        color: #666;
+        border-right: 1px solid #ddd;
+        padding: 2px 4px;
+    }
+    .excerpt-number:after {
+        content: attr(data-number);
+    }
+    table {
+        text-align: left;
+    }
+    th, td {
+        padding: 4px;
+    }
+    th {
+        border-bottom: 1px solid #ccc;
+    }
+
+    .cake-debug {
+        margin-top: 10px;
+    }
+    </style>
+    <style>
+    .cake-debug {
+        --color-bg: #ecece9;
+        --color-highlight-bg: #fcf8e3;
+        --color-control-bg: hsla(0, 0%, 50%, 0.2);
+
+        --color-blue: #4070a0;
+        --color-green: #0b6125;
+        --color-grey: #5f5f5f;
+        --color-orange: #c44f24;
+        --color-violet: #a71d5d;
+
+        --color-dark-grey: #222;
+        --color-cyan: #234aa0;
+        --color-red: #d33c44;
+
+        --indent: 20px;
+
+        font-family: monospace;
+        background: var(--color-bg);
+        padding: 5px;
+        line-height: 16px;
+        font-size: 14px;
+        margin-bottom: 10px;
+        position: relative;
+    }
+
+    .cake-debug:last-child {
+        margin-bottom: 0;
+    }
+
+    .cake-debug-object {
+        display: inline;
+    }
+
+    .cake-debug-object[data-highlighted=true],
+    .cake-debug-object[data-highlighted=true] samp {
+        background: var(--color-highlight-bg);
+    }
+
+    /*
+    Array item container and each items are blocks so
+    nesting works.
+    */
+    .cake-debug-object-props,
+    .cake-debug-array-items {
+        display: block;
+    }
+
+    .cake-debug-prop,
+    .cake-debug-array-item {
+        display: block;
+        padding-left: var(--indent);
+        min-height: 18px;
+    }
+
+    /** Collapser buttons **/
+    [data-hidden=true] {
+        display: none;
+    }
+
+    .cake-debug-collapse {
+        display: inline-block;
+        width: 14px;
+        height: 14px;
+        vertical-align: middle;
+        border-radius: 3px;
+        color: var(--color-blue);
+
+        background: var(--color-control-bg);
+        /* Image is an rawurlencoded SVG */
+        background-image: url("data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20height%3D%2212%22%20width%3D%2212%22%20viewBox%3D%220%200%2012%2012%22%3E%3Cpolygon%20points%3D%223%2C1%203%2C11%208%2C6%22 style%3D%22fill%3A%234070a0%3B%22%2F%3E%3C%2Fsvg%3E");
+        background-position: 2px 1px;
+        background-repeat: no-repeat;
+    }
+
+    .cake-debug-collapse[data-open=true] {
+        transform: rotate(90deg);
+    }
+
+    /* Copy button */
+    .cake-debug-copy {
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 6px;
+        background: var(--color-control-bg);
+        color: var(--color-blue);
+        border-radius: 0 0 0 3px;
+    }
+
+    /* Textual elements */
+    .cake-debug-class {
+        color: var(--color-cyan);
+    }
+
+    .cake-debug-property {
+        color: var(--color-dark-grey);
+    }
+
+    .cake-debug-visibility {
+        color: var(--color-violet);
+    }
+
+    .cake-debug-punct {
+        color: var(--color-grey);
+    }
+
+    .cake-debug-string {
+        color: var(--color-green);
+        white-space: pre-wrap;
+    }
+
+    .cake-debug-number {
+        color: var(--color-blue);
+        font-weight: bold;
+    }
+
+    .cake-debug-const {
+        color: var(--color-orange);
+        font-weight: bold;
+    }
+
+    .cake-debug-ref {
+        color: var(--color-red);
+    }
+
+    .cake-debug-special {
+        color: var(--color-red);
+        font-style: italic;
+    }
+</style>
+<script>
+    (function (win, doc) {
+
+        function initialize() {
+            createCollapsibles(doc.querySelectorAll('.cake-debug-array-items'));
+            createCollapsibles(doc.querySelectorAll('.cake-debug-object-props'));
+            attachRefEvents(doc.querySelectorAll('.cake-debug'));
+            openBlocks(doc.querySelectorAll('.cake-debug[data-open-all="true"]'));
+            attachCopyButton(doc.querySelectorAll('.cake-debug'));
+        }
+
+        // Add a name on window so DebugKit can add controls to dump blocks
+        win.__cakeDebugBlockInit = initialize;
+
+        /**
+         * Open all the collapsed sections in a block.
+         */
+        function openBlocks(blocks) {
+            blocks.forEach(function (block) {
+                block.querySelectorAll('.cake-debug-collapse[data-open="false"]').forEach(function (el) {
+                    el.click();
+                });
+            });
+        }
+
+        /**
+         * Create collapse toggles and attach events
+         */
+        function createCollapsibles(nodes) {
+            nodes.forEach(function (node) {
+                // Hide the childnode container if it is not
+                // a direct parent of the container.
+                if (!node.parentNode.parentNode.classList.contains('cake-debug')) {
+                    node.dataset.hidden = true;
+                }
+
+                // Don't show toggles for empty arrays/objects
+                if (node.childNodes.length == 0) {
+                    return;
+                }
+
+                let collapser = doc.createElement('a');
+                collapser.classList.add('cake-debug-collapse');
+                collapser.dataset.open = !node.dataset.hidden;
+                collapser.setAttribute('href', '#')
+                collapser.setAttribute('title', 'Toggle items');
+
+                // Add open/close behavior
+                collapser.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    node.dataset.hidden = node.dataset.hidden === 'true' ? 'false' : 'true';
+                    collapser.dataset.open = collapser.dataset.open === 'true' ? 'false' : 'true';
+                });
+
+                node.parentNode.insertBefore(collapser, node);
+            });
+        }
+
+        /**
+         * When ref links are clicked open the path to that
+         * element and highlight the reference
+         */
+        function attachRefEvents(nodes) {
+            nodes.forEach(function (container) {
+                let refLinks = container.querySelectorAll('.cake-debug-ref');
+                refLinks.forEach(function (ref) {
+                    ref.addEventListener('click', function (event) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                        let target = document.getElementById(ref.getAttribute('href').substr(1));
+                        openPath(container, target);
+                    });
+                });
+            });
+        }
+
+        function openPath(container, target) {
+            // Open the target element
+            let expander = target.querySelector('.cake-debug-collapse');
+            if (expander.dataset.open === 'false') {
+                expander.click();
+            }
+            container.querySelectorAll('.cake-debug-object').forEach(function (el) {
+                el.dataset.highlighted = 'false';
+            })
+            target.dataset.highlighted = 'true';
+
+            let current = target;
+            // Traverse up the tree opening all closed containers.
+            while (true) {
+                let parent = current.parentNode;
+                if (parent == container) {
+                    break;
+                }
+                if (parent.classList.contains('cake-debug-object') || parent.classList.contains('cake-debug-array')) {
+                    expander = parent.querySelector('.cake-debug-collapse');
+                    if (expander.dataset.open === 'false') {
+                        expander.click();
+                    }
+                }
+                current = parent;
+            }
+        }
+
+        // https://www.30secondsofcode.org/js/s/copy-to-clipboard
+        function copyToClipboard (str) {
+            let el = document.createElement('textarea');
+            el.value = str;
+            el.setAttribute('readonly', '');
+            el.style.position = 'absolute';
+            el.style.left = '-9999px';
+            document.body.appendChild(el);
+            let selected = document.getSelection().rangeCount > 0 ? document.getSelection().getRangeAt(0) : false;
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
+            if (selected) {
+                document.getSelection().removeAllRanges();
+                document.getSelection().addRange(selected);
+            }
+        }
+
+        function attachCopyButton(nodes) {
+            nodes.forEach(function (container) {
+                let copy = doc.createElement('a');
+                copy.classList.add('cake-debug-copy');
+                copy.setAttribute('href', '#');
+                copy.setAttribute('title', 'Copy contents of debug output');
+                copy.appendChild(doc.createTextNode('Copy'));
+
+                // Add copy behavior
+                copy.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    let lineNo = '';
+                    if (container.parentNode && container.parentNode.classList.contains('cake-debug')) {
+                        let line = container.parentNode.querySelector('span');
+                        lineNo = line.textContent + "\n";
+                    }
+
+                    // Chop off last 4 to exclude copy button text.
+                    copyToClipboard(lineNo + container.textContent.substring(0, container.textContent.length - 4));
+                });
+
+                container.appendChild(copy);
+            });
+        }
+
+        doc.addEventListener('DOMContentLoaded', initialize);
+    }(window, document))
+</script>
+</head>
+<body>
+    <header>
+                <h1 class="header-title">
+            <span>CSRF token from either the request body or request headers did not match or is missing.</span>
+            <a>📋</a>
+        </h1>
+                <span class="header-type">Cake\Http\Exception\InvalidCsrfTokenException</span>
+    </header>
+    <div class="error-content">
+        
+        
+        
+    <div class="stack-frame">
+                <span class="stack-frame-file">
+            CORE\src\Http\Middleware\CsrfProtectionMiddleware.php at line 381        </span>
+                    <a href="phpstorm://open?file=C:\wamp64\apps\bhp1\vendor\cakephp\cakephp\src\Http\Middleware\CsrfProtectionMiddleware.php&amp;line=381" class="stack-frame-edit">(edit)</a>        
+        <table class="code-excerpt" cellspacing="0" cellpadding="0">
+                    <tbody><tr>
+                <td class="excerpt-number" data-number="377"></td>
+                <td class="excerpt-line"><pre><code style="color: #000000"><span style="color: #0000BB">        </span><span style="color: #007700">if (</span><span style="color: #0000BB">hash_equals</span><span style="color: #007700">(</span><span style="color: #0000BB">$header</span><span style="color: #007700">, </span><span style="color: #0000BB">$cookie</span><span style="color: #007700">)) {</span></code></pre></td>
+            </tr>
+                    <tr>
+                <td class="excerpt-number" data-number="378"></td>
+                <td class="excerpt-line"><pre><code style="color: #000000"><span style="color: #0000BB">            </span><span style="color: #007700">return;</span></code></pre></td>
+            </tr>
+                    <tr>
+                <td class="excerpt-number" data-number="379"></td>
+                <td class="excerpt-line"><pre><code style="color: #000000"><span style="color: #0000BB">        </span><span style="color: #007700">}</span></code></pre></td>
+            </tr>
+                    <tr>
+                <td class="excerpt-number" data-number="380"></td>
+                <td class="excerpt-line"><pre><code style="color: #000000"><span style="color: #0000BB"></span></code></pre></td>
+            </tr>
+                    <tr>
+                <td class="excerpt-number" data-number="381"></td>
+                <td class="excerpt-line"><span class="code-highlight"><pre><code style="color: #000000"><span style="color: #0000BB">        </span><span style="color: #007700">throw new </span><span style="color: #0000BB">InvalidCsrfTokenException</span><span style="color: #007700">(</span><span style="color: #0000BB">__d</span><span style="color: #007700">(</span></code></pre></span></td>
+            </tr>
+                    <tr>
+                <td class="excerpt-number" data-number="382"></td>
+                <td class="excerpt-line"><pre><code style="color: #000000"><span style="color: #0000BB">            </span><span style="color: #DD0000">'cake'</span><span style="color: #007700">,</span></code></pre></td>
+            </tr>
+                    <tr>
+                <td class="excerpt-number" data-number="383"></td>
+                <td class="excerpt-line"><pre><code style="color: #000000"><span style="color: #0000BB">            </span><span style="color: #DD0000">'CSRF token from either the request body or request headers did not match or is missing.'</span><span style="color: #007700">,</span></code></pre></td>
+            </tr>
+                    <tr>
+                <td class="excerpt-number" data-number="384"></td>
+                <td class="excerpt-line"><pre><code style="color: #000000"><span style="color: #0000BB">        </span><span style="color: #007700">));</span></code></pre></td>
+            </tr>
+                    <tr>
+                <td class="excerpt-number" data-number="385"></td>
+                <td class="excerpt-line"><pre><code style="color: #000000"><span style="color: #0000BB">    </span><span style="color: #007700">}</span></code></pre></td>
+            </tr>
+                </tbody></table>
+    </div>
+
+    <ul class="stack-frames">
+            <li id="stack-frame-0-0" class="stack-frame vendor-frame">
+            <div class="stack-frame-header">
+                <button data-frame-id="0-0" class="stack-frame-toggle">
+                    ▼
+                </button>
+
+                <div class="stack-frame-header-content">
+                    <span class="stack-frame-file">
+                        CORE\src\Http\Middleware\CsrfProtectionMiddleware.php                    </span>
+
+                                            <span class="stack-frame-line">
+                            <span class="stack-frame-label">at line</span>165                        </span>
+                    
+                    <span class="stack-function">
+                                                    <span class="stack-frame-label">in</span>
+                                                                            Cake\Http\Middleware\CsrfProtectionMiddleware-&gt;_validateToken                                            </span>
+
+                                            <a href="phpstorm://open?file=C:\wamp64\apps\bhp1\vendor\cakephp\cakephp\src\Http\Middleware\CsrfProtectionMiddleware.php&amp;line=165" class="stack-frame-edit">(edit)</a>                                    </div>
+            </div>
+            <div class="stack-frame-contents" id="stack-frame-details-0-0" style="display: none">
+                <table class="code-excerpt" cellspacing="0" cellpadding="0">
+                                                    <tbody><tr>
+                        <td class="excerpt-number" data-number="161"></td>
+                        <td class="excerpt-line"><pre><code style="color: #000000"><span style="color: #0000BB">            </span><span style="color: #007700">return </span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">_addTokenCookie</span><span style="color: #007700">(</span><span style="color: #0000BB">$token</span><span style="color: #007700">, </span><span style="color: #0000BB">$request</span><span style="color: #007700">, </span><span style="color: #0000BB">$response</span><span style="color: #007700">);</span></code></pre></td>
+                    </tr>
+                                    <tr>
+                        <td class="excerpt-number" data-number="162"></td>
+                        <td class="excerpt-line"><pre><code style="color: #000000"><span style="color: #0000BB">        </span><span style="color: #007700">}</span></code></pre></td>
+                    </tr>
+                                    <tr>
+                        <td class="excerpt-number" data-number="163"></td>
+                        <td class="excerpt-line"><pre><code style="color: #000000"><span style="color: #0000BB"></span></code></pre></td>
+                    </tr>
+                                    <tr>
+                        <td class="excerpt-number" data-number="164"></td>
+                        <td class="excerpt-line"><pre><code style="color: #000000"><span style="color: #0000BB">        </span><span style="color: #007700">if (</span><span style="color: #0000BB">$hasData</span><span style="color: #007700">) {</span></code></pre></td>
+                    </tr>
+                                    <tr>
+                        <td class="excerpt-number" data-number="165"></td>
+                        <td class="excerpt-line"><span class="code-highlight"><pre><code style="color: #000000"><span style="color: #0000BB">            $this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">_validateToken</span><span style="color: #007700">(</span><span style="color: #0000BB">$request</span><span style="color: #007700">);</span></code></pre></span></td>
+                    </tr>
+                                    <tr>
+                        <td class="excerpt-number" data-number="166"></td>
+                        <td class="excerpt-line"><pre><code style="color: #000000"><span style="color: #0000BB">            $request </span><span style="color: #007700">= </span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">_unsetTokenField</span><span style="color: #007700">(</span><span style="color: #0000BB">$request</span><span style="color: #007700">);</span></code></pre></td>
+                    </tr>
+                                    <tr>
+                        <td class="excerpt-number" data-number="167"></td>
+                        <td class="excerpt-line"><pre><code style="color: #000000"><span style="color: #0000BB">        </span><span style="color: #007700">}</span></code></pre></td>
+                    </tr>
+                                    <tr>
+                        <td class="excerpt-number" data-number="168"></td>
+                        <td class="excerpt-line"><pre><code style="color: #000000"><span style="color: #0000BB"></span></code></pre></td>
+                    </tr>
+                                    <tr>
+                        <td class="excerpt-number" data-number="169"></td>
+                        <td class="excerpt-line"><pre><code style="color: #000000"><span style="color: #0000BB">        </span><span style="color: #007700">return </span><span style="color: #0000BB">$handler</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">handle</span><span style="color: #007700">(</span><span style="color: #0000BB">$request</span><span style="color: #007700">);</span></code></pre></td>
+                    </tr>
+                                </tbody></table>
+
+                <a href="http://127.0.0.3/videos/add#" class="stack-frame-args" data-target="stack-args-0-0">Toggle Arguments</a>
+                <div id="stack-args-0-0" class="stack-args" style="display: none;">
+                                            <div class="cake-debug"><div class="cake-debug"><span class="cake-debug-object" id="cake-db-object-679d1f3642f443.73943447-0"><span class="cake-debug-punct">object(</span><span class="cake-debug-class">Cake\Http\ServerRequest</span><span class="cake-debug-punct">) id:</span><span class="cake-debug-number">0</span><span class="cake-debug-punct"> {</span><samp class="cake-debug-object-props">
+  <span class="cake-debug-prop"><span class="cake-debug-property">trustProxy</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-const">false</span></span>
+  <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">params</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'controller'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'Videos'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'action'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'add'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'pass'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items"></samp>
+    <span class="cake-debug-punct">]</span></span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'plugin'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-const">null</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'_matchedRoute'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'/{controller}/{action}/*'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'_ext'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-const">null</span><span class="cake-debug-punct">,</span></span></samp>
+  <span class="cake-debug-punct">]</span></span></span>
+  <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">data</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items"></samp>
+  <span class="cake-debug-punct">]</span></span></span>
+  <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">query</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items"></samp>
+  <span class="cake-debug-punct">]</span></span></span>
+  <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">cookies</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'csrfToken'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'KDAleI8a41YuPnfg1rekfmE0MTJlNjA0ZDM1M2YzNThiMmJiMjJkZWMzYjgyMmRmMGQ3NjFlYTk='</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'PHPSESSID'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'cjotnj211ndtf2uoobb8kr55rm'</span><span class="cake-debug-punct">,</span></span></samp>
+  <span class="cake-debug-punct">]</span></span></span>
+  <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">_environment</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'REDIRECT_STATUS'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'200'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'HTTP_HOST'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'127.0.0.3'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'HTTP_CONNECTION'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'keep-alive'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'CONTENT_LENGTH'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'88082158'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'HTTP_CACHE_CONTROL'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'max-age=0'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'HTTP_SEC_CH_UA'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'"Not(A:Brand";v="99", "Microsoft Edge";v="133", "Chromium";v="133"'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'HTTP_SEC_CH_UA_MOBILE'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'?0'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'HTTP_SEC_CH_UA_PLATFORM'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'"Windows"'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'HTTP_ORIGIN'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'http://127.0.0.3'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'CONTENT_TYPE'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'multipart/form-data; boundary=----WebKitFormBoundaryJs2chBFkU2Bzp7LN'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'HTTP_UPGRADE_INSECURE_REQUESTS'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'1'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'HTTP_USER_AGENT'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36 Edg/133.0.0.0'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'HTTP_ACCEPT'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'HTTP_SEC_FETCH_SITE'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'same-origin'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'HTTP_SEC_FETCH_MODE'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'navigate'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'HTTP_SEC_FETCH_USER'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'?1'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'HTTP_SEC_FETCH_DEST'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'document'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'HTTP_REFERER'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'http://127.0.0.3/videos/add'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'HTTP_ACCEPT_ENCODING'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'gzip, deflate, br, zstd'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'HTTP_ACCEPT_LANGUAGE'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'pl,en;q=0.9,en-GB;q=0.8,en-US;q=0.7,ru;q=0.6'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'HTTP_COOKIE'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'csrfToken=KDAleI8a41YuPnfg1rekfmE0MTJlNjA0ZDM1M2YzNThiMmJiMjJkZWMzYjgyMmRmMGQ3NjFlYTk%3D; PHPSESSID=cjotnj211ndtf2uoobb8kr55rm'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'PATH'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\dotnet\;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\PuTTY\;C:\Program Files (x86)\Gpg4win\..\GnuPG\bin;C:\Program Files (x86)\WinSCP\;C:\Program Files\Git\cmd;C:\WINDOWS\system32\config\systemprofile\AppData\Local\Microsoft\WindowsApps'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'SystemRoot'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'C:\WINDOWS'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'COMSPEC'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'C:\WINDOWS\system32\cmd.exe'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'PATHEXT'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'WINDIR'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'C:\WINDOWS'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'SERVER_SIGNATURE'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'&lt;address&gt;Apache/2.4.62 (Win64) PHP/8.3.14 mod_fcgid/2.3.10-dev Server at 127.0.0.3 Port 80&lt;/address&gt;
+'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'SERVER_SOFTWARE'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'Apache/2.4.62 (Win64) PHP/8.3.14 mod_fcgid/2.3.10-dev'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'SERVER_NAME'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'127.0.0.3'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'SERVER_ADDR'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'127.0.0.3'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'SERVER_PORT'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'80'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'REMOTE_ADDR'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'127.0.0.1'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'DOCUMENT_ROOT'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'C:/wamp64/apps/bhp1/webroot'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'REQUEST_SCHEME'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'http'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'CONTEXT_PREFIX'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">''</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'CONTEXT_DOCUMENT_ROOT'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'C:/wamp64/apps/bhp1/webroot'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'SERVER_ADMIN'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'wampserver@wampserver.invalid'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'SCRIPT_FILENAME'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'C:/wamp64/apps/bhp1/webroot/index.php'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'REMOTE_PORT'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'62920'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'REDIRECT_URL'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'/videos/add'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'GATEWAY_INTERFACE'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'CGI/1.1'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'SERVER_PROTOCOL'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'HTTP/1.1'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'REQUEST_METHOD'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'POST'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'QUERY_STRING'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">''</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'REQUEST_URI'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'/videos/add'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'SCRIPT_NAME'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'/index.php'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'PHP_SELF'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'/index.php'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'REQUEST_TIME_FLOAT'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-visibility">(float)</span> <span class="cake-debug-number">1738350390.0125</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'REQUEST_TIME'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-visibility">(int)</span> <span class="cake-debug-number">1738350390</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'ORIGINAL_REQUEST_METHOD'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'POST'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'HTTPS'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-const">false</span><span class="cake-debug-punct">,</span></span></samp>
+  <span class="cake-debug-punct">]</span></span></span>
+  <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">base</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">''</span></span>
+  <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">webroot</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'/'</span></span>
+  <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">trustedProxies</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items"></samp>
+  <span class="cake-debug-punct">]</span></span></span>
+  <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">_detectors</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'get'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'env'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'REQUEST_METHOD'</span><span class="cake-debug-punct">,</span></span>
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'value'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'GET'</span><span class="cake-debug-punct">,</span></span></samp>
+    <span class="cake-debug-punct">]</span></span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'post'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'env'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'REQUEST_METHOD'</span><span class="cake-debug-punct">,</span></span>
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'value'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'POST'</span><span class="cake-debug-punct">,</span></span></samp>
+    <span class="cake-debug-punct">]</span></span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'put'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'env'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'REQUEST_METHOD'</span><span class="cake-debug-punct">,</span></span>
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'value'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'PUT'</span><span class="cake-debug-punct">,</span></span></samp>
+    <span class="cake-debug-punct">]</span></span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'patch'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'env'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'REQUEST_METHOD'</span><span class="cake-debug-punct">,</span></span>
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'value'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'PATCH'</span><span class="cake-debug-punct">,</span></span></samp>
+    <span class="cake-debug-punct">]</span></span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'delete'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'env'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'REQUEST_METHOD'</span><span class="cake-debug-punct">,</span></span>
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'value'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'DELETE'</span><span class="cake-debug-punct">,</span></span></samp>
+    <span class="cake-debug-punct">]</span></span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'head'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'env'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'REQUEST_METHOD'</span><span class="cake-debug-punct">,</span></span>
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'value'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'HEAD'</span><span class="cake-debug-punct">,</span></span></samp>
+    <span class="cake-debug-punct">]</span></span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'options'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'env'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'REQUEST_METHOD'</span><span class="cake-debug-punct">,</span></span>
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'value'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'OPTIONS'</span><span class="cake-debug-punct">,</span></span></samp>
+    <span class="cake-debug-punct">]</span></span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'https'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'env'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'HTTPS'</span><span class="cake-debug-punct">,</span></span>
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'options'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+        <span class="cake-debug-array-item"><span class="cake-debug-string">''</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-special">[maximum depth reached]</span><span class="cake-debug-punct">,</span></span></samp>
+      <span class="cake-debug-punct">]</span></span><span class="cake-debug-punct">,</span></span></samp>
+    <span class="cake-debug-punct">]</span></span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'ajax'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'env'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'HTTP_X_REQUESTED_WITH'</span><span class="cake-debug-punct">,</span></span>
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'value'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'XMLHttpRequest'</span><span class="cake-debug-punct">,</span></span></samp>
+    <span class="cake-debug-punct">]</span></span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'json'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'accept'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+        <span class="cake-debug-array-item"><span class="cake-debug-string">''</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-special">[maximum depth reached]</span><span class="cake-debug-punct">,</span></span></samp>
+      <span class="cake-debug-punct">]</span></span><span class="cake-debug-punct">,</span></span>
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'param'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'_ext'</span><span class="cake-debug-punct">,</span></span>
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'value'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'json'</span><span class="cake-debug-punct">,</span></span></samp>
+    <span class="cake-debug-punct">]</span></span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'xml'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'accept'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+        <span class="cake-debug-array-item"><span class="cake-debug-string">''</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-special">[maximum depth reached]</span><span class="cake-debug-punct">,</span></span></samp>
+      <span class="cake-debug-punct">]</span></span><span class="cake-debug-punct">,</span></span>
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'exclude'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+        <span class="cake-debug-array-item"><span class="cake-debug-string">''</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-special">[maximum depth reached]</span><span class="cake-debug-punct">,</span></span></samp>
+      <span class="cake-debug-punct">]</span></span><span class="cake-debug-punct">,</span></span>
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'param'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'_ext'</span><span class="cake-debug-punct">,</span></span>
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'value'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'xml'</span><span class="cake-debug-punct">,</span></span></samp>
+    <span class="cake-debug-punct">]</span></span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'mobile'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-object" id="cake-db-object-679d1f3642f443.73943447-1"><span class="cake-debug-punct">object(</span><span class="cake-debug-class">Closure</span><span class="cake-debug-punct">) id:</span><span class="cake-debug-number">1</span><span class="cake-debug-punct"> {</span><samp class="cake-debug-object-props"></samp>
+    <span class="cake-debug-punct">}</span></span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'tablet'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-object" id="cake-db-object-679d1f3642f443.73943447-2"><span class="cake-debug-punct">object(</span><span class="cake-debug-class">Closure</span><span class="cake-debug-punct">) id:</span><span class="cake-debug-number">2</span><span class="cake-debug-punct"> {</span><samp class="cake-debug-object-props"></samp>
+    <span class="cake-debug-punct">}</span></span><span class="cake-debug-punct">,</span></span></samp>
+  <span class="cake-debug-punct">]</span></span></span>
+  <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">_detectorCache</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items"></samp>
+  <span class="cake-debug-punct">]</span></span></span>
+  <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">stream</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-object" id="cake-db-object-679d1f3642f443.73943447-3"><span class="cake-debug-punct">object(</span><span class="cake-debug-class">Laminas\Diactoros\Stream</span><span class="cake-debug-punct">) id:</span><span class="cake-debug-number">3</span><span class="cake-debug-punct"> {</span><samp class="cake-debug-object-props">
+    <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">resource</span><span class="cake-debug-punct"> =&gt; </span>(resource (stream)) Resource id #4</span>
+    <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">stream</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'php://input'</span></span></samp>
+  <span class="cake-debug-punct">}</span></span></span>
+  <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">uri</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-object" id="cake-db-object-679d1f3642f443.73943447-4"><span class="cake-debug-punct">object(</span><span class="cake-debug-class">Laminas\Diactoros\Uri</span><span class="cake-debug-punct">) id:</span><span class="cake-debug-number">4</span><span class="cake-debug-punct"> {</span><samp class="cake-debug-object-props">
+    <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">allowedSchemes</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+      <span class="cake-debug-array-item"><span class="cake-debug-string">''</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-special">[maximum depth reached]</span><span class="cake-debug-punct">,</span></span></samp>
+    <span class="cake-debug-punct">]</span></span></span>
+    <span class="cake-debug-prop"><span class="cake-debug-visibility">private</span> <span class="cake-debug-property">scheme</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'http'</span></span>
+    <span class="cake-debug-prop"><span class="cake-debug-visibility">private</span> <span class="cake-debug-property">userInfo</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">''</span></span>
+    <span class="cake-debug-prop"><span class="cake-debug-visibility">private</span> <span class="cake-debug-property">host</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'127.0.0.3'</span></span>
+    <span class="cake-debug-prop"><span class="cake-debug-visibility">private</span> <span class="cake-debug-property">port</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-const">null</span></span>
+    <span class="cake-debug-prop"><span class="cake-debug-visibility">private</span> <span class="cake-debug-property">path</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'/videos/add'</span></span>
+    <span class="cake-debug-prop"><span class="cake-debug-visibility">private</span> <span class="cake-debug-property">query</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">''</span></span>
+    <span class="cake-debug-prop"><span class="cake-debug-visibility">private</span> <span class="cake-debug-property">fragment</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">''</span></span>
+    <span class="cake-debug-prop"><span class="cake-debug-visibility">private</span> <span class="cake-debug-property">uriString</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-const">null</span></span></samp>
+  <span class="cake-debug-punct">}</span></span></span>
+  <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">session</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-object" id="cake-db-object-679d1f3642f443.73943447-5"><span class="cake-debug-punct">object(</span><span class="cake-debug-class">Cake\Http\Session</span><span class="cake-debug-punct">) id:</span><span class="cake-debug-number">5</span><span class="cake-debug-punct"> {</span><samp class="cake-debug-object-props">
+    <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">_engine</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-const">null</span></span>
+    <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">_started</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-const">false</span></span>
+    <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">_lifetime</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-visibility">(int)</span> <span class="cake-debug-number">0</span></span>
+    <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">_isCLI</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-const">false</span></span>
+    <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">headerSentInfo</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-const">null</span></span></samp>
+  <span class="cake-debug-punct">}</span></span></span>
+  <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">flash</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-object" id="cake-db-object-679d1f3642f443.73943447-6"><span class="cake-debug-punct">object(</span><span class="cake-debug-class">Cake\Http\FlashMessage</span><span class="cake-debug-punct">) id:</span><span class="cake-debug-number">6</span><span class="cake-debug-punct"> {</span><samp class="cake-debug-object-props">
+    <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">_defaultConfig</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+      <span class="cake-debug-array-item"><span class="cake-debug-string">''</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-special">[maximum depth reached]</span><span class="cake-debug-punct">,</span></span></samp>
+    <span class="cake-debug-punct">]</span></span></span>
+    <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">session</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-ref"><span class="cake-debug-punct">object(</span><span class="cake-debug-class">Cake\Http\Session</span><span class="cake-debug-punct">) </span><a class="cake-debug-ref" href="http://127.0.0.3/videos/add#cake-db-object-679d1f3642f443.73943447-5">id: 5</a><span class="cake-debug-punct"> {}</span></span></span>
+    <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">_config</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+      <span class="cake-debug-array-item"><span class="cake-debug-string">''</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-special">[maximum depth reached]</span><span class="cake-debug-punct">,</span></span></samp>
+    <span class="cake-debug-punct">]</span></span></span>
+    <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">_configInitialized</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-const">true</span></span></samp>
+  <span class="cake-debug-punct">}</span></span></span>
+  <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">attributes</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'route'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-object" id="cake-db-object-679d1f3642f443.73943447-7"><span class="cake-debug-punct">object(</span><span class="cake-debug-class">Cake\Routing\Route\DashedRoute</span><span class="cake-debug-punct">) id:</span><span class="cake-debug-number">7</span><span class="cake-debug-punct"> {</span><samp class="cake-debug-object-props"></samp>
+    <span class="cake-debug-punct">}</span></span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'csrfToken'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'5jNJfqe/Ai5exf3jVeFMchvNPtkEQ24UYXyMGYPF9YxB/LzoCVN2CJE4NvsbsRXluMiGxVoA14HOA2wGKKXheHD7igODVugMevkP62F1XiAFT7kq5fbAtCPO3oo7YRJt8gtUwymDcYOIrLHza2W2uA=='</span><span class="cake-debug-punct">,</span></span></samp>
+  <span class="cake-debug-punct">]</span></span></span>
+  <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">emulatedAttributes</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+    <span class="cake-debug-array-item"><span class="cake-debug-visibility">(int)</span> <span class="cake-debug-number">0</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'session'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-visibility">(int)</span> <span class="cake-debug-number">1</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'flash'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-visibility">(int)</span> <span class="cake-debug-number">2</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'webroot'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-visibility">(int)</span> <span class="cake-debug-number">3</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'base'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-visibility">(int)</span> <span class="cake-debug-number">4</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'params'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-visibility">(int)</span> <span class="cake-debug-number">5</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'here'</span><span class="cake-debug-punct">,</span></span></samp>
+  <span class="cake-debug-punct">]</span></span></span>
+  <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">uploadedFiles</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items"></samp>
+  <span class="cake-debug-punct">]</span></span></span>
+  <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">protocol</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-const">null</span></span>
+  <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">requestTarget</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-const">null</span></span></samp>
+<span class="cake-debug-punct">}</span></span></div></div>
+                                    </div>
+            </div>
+        </li>
+            <li id="stack-frame-0-1" class="stack-frame vendor-frame">
+            <div class="stack-frame-header">
+                <button data-frame-id="0-1" class="stack-frame-toggle">
+                    ▼
+                </button>
+
+                <div class="stack-frame-header-content">
+                    <span class="stack-frame-file">
+                        CORE\src\Http\Runner.php                    </span>
+
+                                            <span class="stack-frame-line">
+                            <span class="stack-frame-label">at line</span>82                        </span>
+                    
+                    <span class="stack-function">
+                                                    <span class="stack-frame-label">in</span>
+                                                                            Cake\Http\Middleware\CsrfProtectionMiddleware-&gt;process                                            </span>
+
+                                            <a href="phpstorm://open?file=C:\wamp64\apps\bhp1\vendor\cakephp\cakephp\src\Http\Runner.php&amp;line=82" class="stack-frame-edit">(edit)</a>                                    </div>
+            </div>
+            <div class="stack-frame-contents" id="stack-frame-details-0-1" style="display: none">
+                <table class="code-excerpt" cellspacing="0" cellpadding="0">
+                                                    <tbody><tr>
+                        <td class="excerpt-number" data-number="78"></td>
+                        <td class="excerpt-line"><pre><code style="color: #000000"><span style="color: #0000BB">        </span><span style="color: #007700">if (</span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">queue</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">valid</span><span style="color: #007700">()) {</span></code></pre></td>
+                    </tr>
+                                    <tr>
+                        <td class="excerpt-number" data-number="79"></td>
+                        <td class="excerpt-line"><pre><code style="color: #000000"><span style="color: #0000BB">            $middleware </span><span style="color: #007700">= </span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">queue</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">current</span><span style="color: #007700">();</span></code></pre></td>
+                    </tr>
+                                    <tr>
+                        <td class="excerpt-number" data-number="80"></td>
+                        <td class="excerpt-line"><pre><code style="color: #000000"><span style="color: #0000BB">            $this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">queue</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">next</span><span style="color: #007700">();</span></code></pre></td>
+                    </tr>
+                                    <tr>
+                        <td class="excerpt-number" data-number="81"></td>
+                        <td class="excerpt-line"><pre><code style="color: #000000"><span style="color: #0000BB"></span></code></pre></td>
+                    </tr>
+                                    <tr>
+                        <td class="excerpt-number" data-number="82"></td>
+                        <td class="excerpt-line"><span class="code-highlight"><pre><code style="color: #000000"><span style="color: #0000BB">            </span><span style="color: #007700">return </span><span style="color: #0000BB">$middleware</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">process</span><span style="color: #007700">(</span><span style="color: #0000BB">$request</span><span style="color: #007700">, </span><span style="color: #0000BB">$this</span><span style="color: #007700">);</span></code></pre></span></td>
+                    </tr>
+                                    <tr>
+                        <td class="excerpt-number" data-number="83"></td>
+                        <td class="excerpt-line"><pre><code style="color: #000000"><span style="color: #0000BB">        </span><span style="color: #007700">}</span></code></pre></td>
+                    </tr>
+                                    <tr>
+                        <td class="excerpt-number" data-number="84"></td>
+                        <td class="excerpt-line"><pre><code style="color: #000000"><span style="color: #0000BB"></span></code></pre></td>
+                    </tr>
+                                    <tr>
+                        <td class="excerpt-number" data-number="85"></td>
+                        <td class="excerpt-line"><pre><code style="color: #000000"><span style="color: #0000BB">        </span><span style="color: #007700">if (</span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">fallbackHandler</span><span style="color: #007700">) {</span></code></pre></td>
+                    </tr>
+                                    <tr>
+                        <td class="excerpt-number" data-number="86"></td>
+                        <td class="excerpt-line"><pre><code style="color: #000000"><span style="color: #0000BB">            </span><span style="color: #007700">return </span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">fallbackHandler</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">handle</span><span style="color: #007700">(</span><span style="color: #0000BB">$request</span><span style="color: #007700">);</span></code></pre></td>
+                    </tr>
+                                </tbody></table>
+
+                <a href="http://127.0.0.3/videos/add#" class="stack-frame-args" data-target="stack-args-0-1">Toggle Arguments</a>
+                <div id="stack-args-0-1" class="stack-args" style="display: none;">
+                                            <div class="cake-debug"><div class="cake-debug"><span class="cake-debug-object" id="cake-db-object-679d1f3645adc3.48520621-0"><span class="cake-debug-punct">object(</span><span class="cake-debug-class">Cake\Http\ServerRequest</span><span class="cake-debug-punct">) id:</span><span class="cake-debug-number">0</span><span class="cake-debug-punct"> {</span><samp class="cake-debug-object-props">
+  <span class="cake-debug-prop"><span class="cake-debug-property">trustProxy</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-const">false</span></span>
+  <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">params</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'controller'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'Videos'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'action'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'add'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'pass'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items"></samp>
+    <span class="cake-debug-punct">]</span></span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'plugin'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-const">null</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'_matchedRoute'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'/{controller}/{action}/*'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'_ext'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-const">null</span><span class="cake-debug-punct">,</span></span></samp>
+  <span class="cake-debug-punct">]</span></span></span>
+  <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">data</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items"></samp>
+  <span class="cake-debug-punct">]</span></span></span>
+  <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">query</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items"></samp>
+  <span class="cake-debug-punct">]</span></span></span>
+  <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">cookies</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'csrfToken'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'KDAleI8a41YuPnfg1rekfmE0MTJlNjA0ZDM1M2YzNThiMmJiMjJkZWMzYjgyMmRmMGQ3NjFlYTk='</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'PHPSESSID'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'cjotnj211ndtf2uoobb8kr55rm'</span><span class="cake-debug-punct">,</span></span></samp>
+  <span class="cake-debug-punct">]</span></span></span>
+  <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">_environment</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'REDIRECT_STATUS'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'200'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'HTTP_HOST'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'127.0.0.3'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'HTTP_CONNECTION'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'keep-alive'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'CONTENT_LENGTH'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'88082158'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'HTTP_CACHE_CONTROL'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'max-age=0'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'HTTP_SEC_CH_UA'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'"Not(A:Brand";v="99", "Microsoft Edge";v="133", "Chromium";v="133"'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'HTTP_SEC_CH_UA_MOBILE'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'?0'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'HTTP_SEC_CH_UA_PLATFORM'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'"Windows"'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'HTTP_ORIGIN'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'http://127.0.0.3'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'CONTENT_TYPE'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'multipart/form-data; boundary=----WebKitFormBoundaryJs2chBFkU2Bzp7LN'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'HTTP_UPGRADE_INSECURE_REQUESTS'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'1'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'HTTP_USER_AGENT'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36 Edg/133.0.0.0'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'HTTP_ACCEPT'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'HTTP_SEC_FETCH_SITE'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'same-origin'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'HTTP_SEC_FETCH_MODE'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'navigate'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'HTTP_SEC_FETCH_USER'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'?1'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'HTTP_SEC_FETCH_DEST'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'document'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'HTTP_REFERER'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'http://127.0.0.3/videos/add'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'HTTP_ACCEPT_ENCODING'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'gzip, deflate, br, zstd'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'HTTP_ACCEPT_LANGUAGE'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'pl,en;q=0.9,en-GB;q=0.8,en-US;q=0.7,ru;q=0.6'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'HTTP_COOKIE'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'csrfToken=KDAleI8a41YuPnfg1rekfmE0MTJlNjA0ZDM1M2YzNThiMmJiMjJkZWMzYjgyMmRmMGQ3NjFlYTk%3D; PHPSESSID=cjotnj211ndtf2uoobb8kr55rm'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'PATH'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\dotnet\;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\PuTTY\;C:\Program Files (x86)\Gpg4win\..\GnuPG\bin;C:\Program Files (x86)\WinSCP\;C:\Program Files\Git\cmd;C:\WINDOWS\system32\config\systemprofile\AppData\Local\Microsoft\WindowsApps'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'SystemRoot'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'C:\WINDOWS'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'COMSPEC'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'C:\WINDOWS\system32\cmd.exe'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'PATHEXT'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'WINDIR'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'C:\WINDOWS'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'SERVER_SIGNATURE'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'&lt;address&gt;Apache/2.4.62 (Win64) PHP/8.3.14 mod_fcgid/2.3.10-dev Server at 127.0.0.3 Port 80&lt;/address&gt;
+'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'SERVER_SOFTWARE'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'Apache/2.4.62 (Win64) PHP/8.3.14 mod_fcgid/2.3.10-dev'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'SERVER_NAME'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'127.0.0.3'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'SERVER_ADDR'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'127.0.0.3'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'SERVER_PORT'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'80'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'REMOTE_ADDR'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'127.0.0.1'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'DOCUMENT_ROOT'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'C:/wamp64/apps/bhp1/webroot'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'REQUEST_SCHEME'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'http'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'CONTEXT_PREFIX'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">''</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'CONTEXT_DOCUMENT_ROOT'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'C:/wamp64/apps/bhp1/webroot'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'SERVER_ADMIN'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'wampserver@wampserver.invalid'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'SCRIPT_FILENAME'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'C:/wamp64/apps/bhp1/webroot/index.php'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'REMOTE_PORT'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'62920'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'REDIRECT_URL'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'/videos/add'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'GATEWAY_INTERFACE'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'CGI/1.1'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'SERVER_PROTOCOL'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'HTTP/1.1'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'REQUEST_METHOD'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'POST'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'QUERY_STRING'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">''</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'REQUEST_URI'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'/videos/add'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'SCRIPT_NAME'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'/index.php'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'PHP_SELF'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'/index.php'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'REQUEST_TIME_FLOAT'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-visibility">(float)</span> <span class="cake-debug-number">1738350390.0125</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'REQUEST_TIME'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-visibility">(int)</span> <span class="cake-debug-number">1738350390</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'ORIGINAL_REQUEST_METHOD'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'POST'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'HTTPS'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-const">false</span><span class="cake-debug-punct">,</span></span></samp>
+  <span class="cake-debug-punct">]</span></span></span>
+  <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">base</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">''</span></span>
+  <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">webroot</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'/'</span></span>
+  <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">trustedProxies</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items"></samp>
+  <span class="cake-debug-punct">]</span></span></span>
+  <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">_detectors</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'get'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'env'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'REQUEST_METHOD'</span><span class="cake-debug-punct">,</span></span>
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'value'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'GET'</span><span class="cake-debug-punct">,</span></span></samp>
+    <span class="cake-debug-punct">]</span></span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'post'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'env'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'REQUEST_METHOD'</span><span class="cake-debug-punct">,</span></span>
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'value'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'POST'</span><span class="cake-debug-punct">,</span></span></samp>
+    <span class="cake-debug-punct">]</span></span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'put'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'env'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'REQUEST_METHOD'</span><span class="cake-debug-punct">,</span></span>
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'value'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'PUT'</span><span class="cake-debug-punct">,</span></span></samp>
+    <span class="cake-debug-punct">]</span></span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'patch'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'env'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'REQUEST_METHOD'</span><span class="cake-debug-punct">,</span></span>
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'value'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'PATCH'</span><span class="cake-debug-punct">,</span></span></samp>
+    <span class="cake-debug-punct">]</span></span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'delete'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'env'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'REQUEST_METHOD'</span><span class="cake-debug-punct">,</span></span>
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'value'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'DELETE'</span><span class="cake-debug-punct">,</span></span></samp>
+    <span class="cake-debug-punct">]</span></span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'head'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'env'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'REQUEST_METHOD'</span><span class="cake-debug-punct">,</span></span>
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'value'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'HEAD'</span><span class="cake-debug-punct">,</span></span></samp>
+    <span class="cake-debug-punct">]</span></span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'options'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'env'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'REQUEST_METHOD'</span><span class="cake-debug-punct">,</span></span>
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'value'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'OPTIONS'</span><span class="cake-debug-punct">,</span></span></samp>
+    <span class="cake-debug-punct">]</span></span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'https'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'env'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'HTTPS'</span><span class="cake-debug-punct">,</span></span>
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'options'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+        <span class="cake-debug-array-item"><span class="cake-debug-string">''</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-special">[maximum depth reached]</span><span class="cake-debug-punct">,</span></span></samp>
+      <span class="cake-debug-punct">]</span></span><span class="cake-debug-punct">,</span></span></samp>
+    <span class="cake-debug-punct">]</span></span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'ajax'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'env'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'HTTP_X_REQUESTED_WITH'</span><span class="cake-debug-punct">,</span></span>
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'value'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'XMLHttpRequest'</span><span class="cake-debug-punct">,</span></span></samp>
+    <span class="cake-debug-punct">]</span></span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'json'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'accept'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+        <span class="cake-debug-array-item"><span class="cake-debug-string">''</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-special">[maximum depth reached]</span><span class="cake-debug-punct">,</span></span></samp>
+      <span class="cake-debug-punct">]</span></span><span class="cake-debug-punct">,</span></span>
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'param'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'_ext'</span><span class="cake-debug-punct">,</span></span>
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'value'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'json'</span><span class="cake-debug-punct">,</span></span></samp>
+    <span class="cake-debug-punct">]</span></span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'xml'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'accept'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+        <span class="cake-debug-array-item"><span class="cake-debug-string">''</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-special">[maximum depth reached]</span><span class="cake-debug-punct">,</span></span></samp>
+      <span class="cake-debug-punct">]</span></span><span class="cake-debug-punct">,</span></span>
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'exclude'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+        <span class="cake-debug-array-item"><span class="cake-debug-string">''</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-special">[maximum depth reached]</span><span class="cake-debug-punct">,</span></span></samp>
+      <span class="cake-debug-punct">]</span></span><span class="cake-debug-punct">,</span></span>
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'param'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'_ext'</span><span class="cake-debug-punct">,</span></span>
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'value'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'xml'</span><span class="cake-debug-punct">,</span></span></samp>
+    <span class="cake-debug-punct">]</span></span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'mobile'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-object" id="cake-db-object-679d1f3645adc3.48520621-1"><span class="cake-debug-punct">object(</span><span class="cake-debug-class">Closure</span><span class="cake-debug-punct">) id:</span><span class="cake-debug-number">1</span><span class="cake-debug-punct"> {</span><samp class="cake-debug-object-props"></samp>
+    <span class="cake-debug-punct">}</span></span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'tablet'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-object" id="cake-db-object-679d1f3645adc3.48520621-2"><span class="cake-debug-punct">object(</span><span class="cake-debug-class">Closure</span><span class="cake-debug-punct">) id:</span><span class="cake-debug-number">2</span><span class="cake-debug-punct"> {</span><samp class="cake-debug-object-props"></samp>
+    <span class="cake-debug-punct">}</span></span><span class="cake-debug-punct">,</span></span></samp>
+  <span class="cake-debug-punct">]</span></span></span>
+  <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">_detectorCache</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items"></samp>
+  <span class="cake-debug-punct">]</span></span></span>
+  <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">stream</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-object" id="cake-db-object-679d1f3645adc3.48520621-3"><span class="cake-debug-punct">object(</span><span class="cake-debug-class">Laminas\Diactoros\Stream</span><span class="cake-debug-punct">) id:</span><span class="cake-debug-number">3</span><span class="cake-debug-punct"> {</span><samp class="cake-debug-object-props">
+    <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">resource</span><span class="cake-debug-punct"> =&gt; </span>(resource (stream)) Resource id #4</span>
+    <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">stream</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'php://input'</span></span></samp>
+  <span class="cake-debug-punct">}</span></span></span>
+  <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">uri</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-object" id="cake-db-object-679d1f3645adc3.48520621-4"><span class="cake-debug-punct">object(</span><span class="cake-debug-class">Laminas\Diactoros\Uri</span><span class="cake-debug-punct">) id:</span><span class="cake-debug-number">4</span><span class="cake-debug-punct"> {</span><samp class="cake-debug-object-props">
+    <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">allowedSchemes</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+      <span class="cake-debug-array-item"><span class="cake-debug-string">''</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-special">[maximum depth reached]</span><span class="cake-debug-punct">,</span></span></samp>
+    <span class="cake-debug-punct">]</span></span></span>
+    <span class="cake-debug-prop"><span class="cake-debug-visibility">private</span> <span class="cake-debug-property">scheme</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'http'</span></span>
+    <span class="cake-debug-prop"><span class="cake-debug-visibility">private</span> <span class="cake-debug-property">userInfo</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">''</span></span>
+    <span class="cake-debug-prop"><span class="cake-debug-visibility">private</span> <span class="cake-debug-property">host</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'127.0.0.3'</span></span>
+    <span class="cake-debug-prop"><span class="cake-debug-visibility">private</span> <span class="cake-debug-property">port</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-const">null</span></span>
+    <span class="cake-debug-prop"><span class="cake-debug-visibility">private</span> <span class="cake-debug-property">path</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'/videos/add'</span></span>
+    <span class="cake-debug-prop"><span class="cake-debug-visibility">private</span> <span class="cake-debug-property">query</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">''</span></span>
+    <span class="cake-debug-prop"><span class="cake-debug-visibility">private</span> <span class="cake-debug-property">fragment</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">''</span></span>
+    <span class="cake-debug-prop"><span class="cake-debug-visibility">private</span> <span class="cake-debug-property">uriString</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-const">null</span></span></samp>
+  <span class="cake-debug-punct">}</span></span></span>
+  <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">session</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-object" id="cake-db-object-679d1f3645adc3.48520621-5"><span class="cake-debug-punct">object(</span><span class="cake-debug-class">Cake\Http\Session</span><span class="cake-debug-punct">) id:</span><span class="cake-debug-number">5</span><span class="cake-debug-punct"> {</span><samp class="cake-debug-object-props">
+    <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">_engine</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-const">null</span></span>
+    <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">_started</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-const">false</span></span>
+    <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">_lifetime</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-visibility">(int)</span> <span class="cake-debug-number">0</span></span>
+    <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">_isCLI</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-const">false</span></span>
+    <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">headerSentInfo</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-const">null</span></span></samp>
+  <span class="cake-debug-punct">}</span></span></span>
+  <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">flash</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-object" id="cake-db-object-679d1f3645adc3.48520621-6"><span class="cake-debug-punct">object(</span><span class="cake-debug-class">Cake\Http\FlashMessage</span><span class="cake-debug-punct">) id:</span><span class="cake-debug-number">6</span><span class="cake-debug-punct"> {</span><samp class="cake-debug-object-props">
+    <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">_defaultConfig</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+      <span class="cake-debug-array-item"><span class="cake-debug-string">''</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-special">[maximum depth reached]</span><span class="cake-debug-punct">,</span></span></samp>
+    <span class="cake-debug-punct">]</span></span></span>
+    <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">session</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-ref"><span class="cake-debug-punct">object(</span><span class="cake-debug-class">Cake\Http\Session</span><span class="cake-debug-punct">) </span><a class="cake-debug-ref" href="http://127.0.0.3/videos/add#cake-db-object-679d1f3645adc3.48520621-5">id: 5</a><span class="cake-debug-punct"> {}</span></span></span>
+    <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">_config</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+      <span class="cake-debug-array-item"><span class="cake-debug-string">''</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-special">[maximum depth reached]</span><span class="cake-debug-punct">,</span></span></samp>
+    <span class="cake-debug-punct">]</span></span></span>
+    <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">_configInitialized</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-const">true</span></span></samp>
+  <span class="cake-debug-punct">}</span></span></span>
+  <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">attributes</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'route'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-object" id="cake-db-object-679d1f3645adc3.48520621-7"><span class="cake-debug-punct">object(</span><span class="cake-debug-class">Cake\Routing\Route\DashedRoute</span><span class="cake-debug-punct">) id:</span><span class="cake-debug-number">7</span><span class="cake-debug-punct"> {</span><samp class="cake-debug-object-props"></samp>
+    <span class="cake-debug-punct">}</span></span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'csrfToken'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'5jNJfqe/Ai5exf3jVeFMchvNPtkEQ24UYXyMGYPF9YxB/LzoCVN2CJE4NvsbsRXluMiGxVoA14HOA2wGKKXheHD7igODVugMevkP62F1XiAFT7kq5fbAtCPO3oo7YRJt8gtUwymDcYOIrLHza2W2uA=='</span><span class="cake-debug-punct">,</span></span></samp>
+  <span class="cake-debug-punct">]</span></span></span>
+  <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">emulatedAttributes</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+    <span class="cake-debug-array-item"><span class="cake-debug-visibility">(int)</span> <span class="cake-debug-number">0</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'session'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-visibility">(int)</span> <span class="cake-debug-number">1</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'flash'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-visibility">(int)</span> <span class="cake-debug-number">2</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'webroot'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-visibility">(int)</span> <span class="cake-debug-number">3</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'base'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-visibility">(int)</span> <span class="cake-debug-number">4</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'params'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-visibility">(int)</span> <span class="cake-debug-number">5</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'here'</span><span class="cake-debug-punct">,</span></span></samp>
+  <span class="cake-debug-punct">]</span></span></span>
+  <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">uploadedFiles</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items"></samp>
+  <span class="cake-debug-punct">]</span></span></span>
+  <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">protocol</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-const">null</span></span>
+  <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">requestTarget</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-const">null</span></span></samp>
+<span class="cake-debug-punct">}</span></span></div></div>
+                                            <div class="cake-debug"><div class="cake-debug"><span class="cake-debug-object" id="cake-db-object-679d1f3646f7c7.53383076-0"><span class="cake-debug-punct">object(</span><span class="cake-debug-class">Cake\Http\Runner</span><span class="cake-debug-punct">) id:</span><span class="cake-debug-number">0</span><span class="cake-debug-punct"> {</span><samp class="cake-debug-object-props">
+  <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">queue</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-object" id="cake-db-object-679d1f3646f7c7.53383076-1"><span class="cake-debug-punct">object(</span><span class="cake-debug-class">Cake\Http\MiddlewareQueue</span><span class="cake-debug-punct">) id:</span><span class="cake-debug-number">1</span><span class="cake-debug-punct"> {</span><samp class="cake-debug-object-props">
+    <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">position</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-visibility">(int)</span> <span class="cake-debug-number">6</span></span>
+    <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">queue</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+      <span class="cake-debug-array-item"><span class="cake-debug-string">''</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-special">[maximum depth reached]</span><span class="cake-debug-punct">,</span></span></samp>
+    <span class="cake-debug-punct">]</span></span></span>
+    <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">container</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-object" id="cake-db-object-679d1f3646f7c7.53383076-2"><span class="cake-debug-punct">object(</span><span class="cake-debug-class">Cake\Core\Container</span><span class="cake-debug-punct">) id:</span><span class="cake-debug-number">2</span><span class="cake-debug-punct"> {</span><samp class="cake-debug-object-props"></samp>
+    <span class="cake-debug-punct">}</span></span></span></samp>
+  <span class="cake-debug-punct">}</span></span></span>
+  <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">fallbackHandler</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-object" id="cake-db-object-679d1f3646f7c7.53383076-3"><span class="cake-debug-punct">object(</span><span class="cake-debug-class">App\Application</span><span class="cake-debug-punct">) id:</span><span class="cake-debug-number">3</span><span class="cake-debug-punct"> {</span><samp class="cake-debug-object-props">
+    <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">configDir</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'C:\wamp64\apps\bhp1/config\'</span></span>
+    <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">plugins</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-object" id="cake-db-object-679d1f3646f7c7.53383076-4"><span class="cake-debug-punct">object(</span><span class="cake-debug-class">Cake\Core\PluginCollection</span><span class="cake-debug-punct">) id:</span><span class="cake-debug-number">4</span><span class="cake-debug-punct"> {</span><samp class="cake-debug-object-props"></samp>
+    <span class="cake-debug-punct">}</span></span></span>
+    <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">controllerFactory</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-const">null</span></span>
+    <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">container</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-ref"><span class="cake-debug-punct">object(</span><span class="cake-debug-class">Cake\Core\Container</span><span class="cake-debug-punct">) </span><a class="cake-debug-ref" href="http://127.0.0.3/videos/add#cake-db-object-679d1f3646f7c7.53383076-2">id: 2</a><span class="cake-debug-punct"> {}</span></span></span>
+    <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">_eventManager</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-object" id="cake-db-object-679d1f3646f7c7.53383076-5"><span class="cake-debug-punct">object(</span><span class="cake-debug-class">Cake\Event\EventManager</span><span class="cake-debug-punct">) id:</span><span class="cake-debug-number">5</span><span class="cake-debug-punct"> {</span><samp class="cake-debug-object-props"></samp>
+    <span class="cake-debug-punct">}</span></span></span>
+    <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">_eventClass</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'Cake\Event\Event'</span></span></samp>
+  <span class="cake-debug-punct">}</span></span></span></samp>
+<span class="cake-debug-punct">}</span></span></div></div>
+                                    </div>
+            </div>
+        </li>
+            <li id="stack-frame-0-2" class="stack-frame vendor-frame">
+            <div class="stack-frame-header">
+                <button data-frame-id="0-2" class="stack-frame-toggle">
+                    ▼
+                </button>
+
+                <div class="stack-frame-header-content">
+                    <span class="stack-frame-file">
+                        CORE\src\Http\Middleware\BodyParserMiddleware.php                    </span>
+
+                                            <span class="stack-frame-line">
+                            <span class="stack-frame-label">at line</span>162                        </span>
+                    
+                    <span class="stack-function">
+                                                    <span class="stack-frame-label">in</span>
+                                                                            Cake\Http\Runner-&gt;handle                                            </span>
+
+                                            <a href="phpstorm://open?file=C:\wamp64\apps\bhp1\vendor\cakephp\cakephp\src\Http\Middleware\BodyParserMiddleware.php&amp;line=162" class="stack-frame-edit">(edit)</a>                                    </div>
+            </div>
+            <div class="stack-frame-contents" id="stack-frame-details-0-2" style="display: none">
+                <table class="code-excerpt" cellspacing="0" cellpadding="0">
+                                                    <tbody><tr>
+                        <td class="excerpt-number" data-number="158"></td>
+                        <td class="excerpt-line"><pre><code style="color: #000000"><span style="color: #0000BB">        </span><span style="color: #007700">}</span></code></pre></td>
+                    </tr>
+                                    <tr>
+                        <td class="excerpt-number" data-number="159"></td>
+                        <td class="excerpt-line"><pre><code style="color: #000000"><span style="color: #0000BB">        </span><span style="color: #007700">[</span><span style="color: #0000BB">$type</span><span style="color: #007700">] = </span><span style="color: #0000BB">explode</span><span style="color: #007700">(</span><span style="color: #DD0000">';'</span><span style="color: #007700">, </span><span style="color: #0000BB">$request</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getHeaderLine</span><span style="color: #007700">(</span><span style="color: #DD0000">'Content-Type'</span><span style="color: #007700">));</span></code></pre></td>
+                    </tr>
+                                    <tr>
+                        <td class="excerpt-number" data-number="160"></td>
+                        <td class="excerpt-line"><pre><code style="color: #000000"><span style="color: #0000BB">        $type </span><span style="color: #007700">= </span><span style="color: #0000BB">strtolower</span><span style="color: #007700">(</span><span style="color: #0000BB">$type</span><span style="color: #007700">);</span></code></pre></td>
+                    </tr>
+                                    <tr>
+                        <td class="excerpt-number" data-number="161"></td>
+                        <td class="excerpt-line"><pre><code style="color: #000000"><span style="color: #0000BB">        </span><span style="color: #007700">if (!isset(</span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">parsers</span><span style="color: #007700">[</span><span style="color: #0000BB">$type</span><span style="color: #007700">])) {</span></code></pre></td>
+                    </tr>
+                                    <tr>
+                        <td class="excerpt-number" data-number="162"></td>
+                        <td class="excerpt-line"><span class="code-highlight"><pre><code style="color: #000000"><span style="color: #0000BB">            </span><span style="color: #007700">return </span><span style="color: #0000BB">$handler</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">handle</span><span style="color: #007700">(</span><span style="color: #0000BB">$request</span><span style="color: #007700">);</span></code></pre></span></td>
+                    </tr>
+                                    <tr>
+                        <td class="excerpt-number" data-number="163"></td>
+                        <td class="excerpt-line"><pre><code style="color: #000000"><span style="color: #0000BB">        </span><span style="color: #007700">}</span></code></pre></td>
+                    </tr>
+                                    <tr>
+                        <td class="excerpt-number" data-number="164"></td>
+                        <td class="excerpt-line"><pre><code style="color: #000000"><span style="color: #0000BB"></span></code></pre></td>
+                    </tr>
+                                    <tr>
+                        <td class="excerpt-number" data-number="165"></td>
+                        <td class="excerpt-line"><pre><code style="color: #000000"><span style="color: #0000BB">        $parser </span><span style="color: #007700">= </span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">parsers</span><span style="color: #007700">[</span><span style="color: #0000BB">$type</span><span style="color: #007700">];</span></code></pre></td>
+                    </tr>
+                                    <tr>
+                        <td class="excerpt-number" data-number="166"></td>
+                        <td class="excerpt-line"><pre><code style="color: #000000"><span style="color: #0000BB">        $result </span><span style="color: #007700">= </span><span style="color: #0000BB">$parser</span><span style="color: #007700">(</span><span style="color: #0000BB">$request</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getBody</span><span style="color: #007700">()-&gt;</span><span style="color: #0000BB">getContents</span><span style="color: #007700">());</span></code></pre></td>
+                    </tr>
+                                </tbody></table>
+
+                <a href="http://127.0.0.3/videos/add#" class="stack-frame-args" data-target="stack-args-0-2">Toggle Arguments</a>
+                <div id="stack-args-0-2" class="stack-args" style="display: none;">
+                                            <div class="cake-debug"><div class="cake-debug"><span class="cake-debug-object" id="cake-db-object-679d1f3648bfe1.37372445-0"><span class="cake-debug-punct">object(</span><span class="cake-debug-class">Cake\Http\ServerRequest</span><span class="cake-debug-punct">) id:</span><span class="cake-debug-number">0</span><span class="cake-debug-punct"> {</span><samp class="cake-debug-object-props">
+  <span class="cake-debug-prop"><span class="cake-debug-property">trustProxy</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-const">false</span></span>
+  <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">params</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'controller'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'Videos'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'action'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'add'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'pass'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items"></samp>
+    <span class="cake-debug-punct">]</span></span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'plugin'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-const">null</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'_matchedRoute'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'/{controller}/{action}/*'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'_ext'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-const">null</span><span class="cake-debug-punct">,</span></span></samp>
+  <span class="cake-debug-punct">]</span></span></span>
+  <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">data</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items"></samp>
+  <span class="cake-debug-punct">]</span></span></span>
+  <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">query</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items"></samp>
+  <span class="cake-debug-punct">]</span></span></span>
+  <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">cookies</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'csrfToken'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'KDAleI8a41YuPnfg1rekfmE0MTJlNjA0ZDM1M2YzNThiMmJiMjJkZWMzYjgyMmRmMGQ3NjFlYTk='</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'PHPSESSID'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'cjotnj211ndtf2uoobb8kr55rm'</span><span class="cake-debug-punct">,</span></span></samp>
+  <span class="cake-debug-punct">]</span></span></span>
+  <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">_environment</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'REDIRECT_STATUS'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'200'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'HTTP_HOST'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'127.0.0.3'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'HTTP_CONNECTION'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'keep-alive'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'CONTENT_LENGTH'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'88082158'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'HTTP_CACHE_CONTROL'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'max-age=0'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'HTTP_SEC_CH_UA'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'"Not(A:Brand";v="99", "Microsoft Edge";v="133", "Chromium";v="133"'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'HTTP_SEC_CH_UA_MOBILE'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'?0'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'HTTP_SEC_CH_UA_PLATFORM'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'"Windows"'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'HTTP_ORIGIN'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'http://127.0.0.3'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'CONTENT_TYPE'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'multipart/form-data; boundary=----WebKitFormBoundaryJs2chBFkU2Bzp7LN'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'HTTP_UPGRADE_INSECURE_REQUESTS'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'1'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'HTTP_USER_AGENT'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36 Edg/133.0.0.0'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'HTTP_ACCEPT'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'HTTP_SEC_FETCH_SITE'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'same-origin'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'HTTP_SEC_FETCH_MODE'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'navigate'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'HTTP_SEC_FETCH_USER'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'?1'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'HTTP_SEC_FETCH_DEST'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'document'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'HTTP_REFERER'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'http://127.0.0.3/videos/add'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'HTTP_ACCEPT_ENCODING'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'gzip, deflate, br, zstd'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'HTTP_ACCEPT_LANGUAGE'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'pl,en;q=0.9,en-GB;q=0.8,en-US;q=0.7,ru;q=0.6'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'HTTP_COOKIE'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'csrfToken=KDAleI8a41YuPnfg1rekfmE0MTJlNjA0ZDM1M2YzNThiMmJiMjJkZWMzYjgyMmRmMGQ3NjFlYTk%3D; PHPSESSID=cjotnj211ndtf2uoobb8kr55rm'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'PATH'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\dotnet\;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\PuTTY\;C:\Program Files (x86)\Gpg4win\..\GnuPG\bin;C:\Program Files (x86)\WinSCP\;C:\Program Files\Git\cmd;C:\WINDOWS\system32\config\systemprofile\AppData\Local\Microsoft\WindowsApps'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'SystemRoot'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'C:\WINDOWS'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'COMSPEC'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'C:\WINDOWS\system32\cmd.exe'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'PATHEXT'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'WINDIR'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'C:\WINDOWS'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'SERVER_SIGNATURE'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'&lt;address&gt;Apache/2.4.62 (Win64) PHP/8.3.14 mod_fcgid/2.3.10-dev Server at 127.0.0.3 Port 80&lt;/address&gt;
+'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'SERVER_SOFTWARE'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'Apache/2.4.62 (Win64) PHP/8.3.14 mod_fcgid/2.3.10-dev'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'SERVER_NAME'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'127.0.0.3'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'SERVER_ADDR'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'127.0.0.3'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'SERVER_PORT'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'80'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'REMOTE_ADDR'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'127.0.0.1'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'DOCUMENT_ROOT'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'C:/wamp64/apps/bhp1/webroot'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'REQUEST_SCHEME'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'http'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'CONTEXT_PREFIX'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">''</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'CONTEXT_DOCUMENT_ROOT'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'C:/wamp64/apps/bhp1/webroot'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'SERVER_ADMIN'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'wampserver@wampserver.invalid'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'SCRIPT_FILENAME'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'C:/wamp64/apps/bhp1/webroot/index.php'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'REMOTE_PORT'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'62920'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'REDIRECT_URL'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'/videos/add'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'GATEWAY_INTERFACE'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'CGI/1.1'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'SERVER_PROTOCOL'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'HTTP/1.1'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'REQUEST_METHOD'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'POST'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'QUERY_STRING'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">''</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'REQUEST_URI'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'/videos/add'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'SCRIPT_NAME'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'/index.php'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'PHP_SELF'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'/index.php'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'REQUEST_TIME_FLOAT'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-visibility">(float)</span> <span class="cake-debug-number">1738350390.0125</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'REQUEST_TIME'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-visibility">(int)</span> <span class="cake-debug-number">1738350390</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'ORIGINAL_REQUEST_METHOD'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'POST'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'HTTPS'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-const">false</span><span class="cake-debug-punct">,</span></span></samp>
+  <span class="cake-debug-punct">]</span></span></span>
+  <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">base</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">''</span></span>
+  <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">webroot</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'/'</span></span>
+  <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">trustedProxies</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items"></samp>
+  <span class="cake-debug-punct">]</span></span></span>
+  <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">_detectors</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'get'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'env'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'REQUEST_METHOD'</span><span class="cake-debug-punct">,</span></span>
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'value'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'GET'</span><span class="cake-debug-punct">,</span></span></samp>
+    <span class="cake-debug-punct">]</span></span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'post'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'env'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'REQUEST_METHOD'</span><span class="cake-debug-punct">,</span></span>
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'value'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'POST'</span><span class="cake-debug-punct">,</span></span></samp>
+    <span class="cake-debug-punct">]</span></span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'put'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'env'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'REQUEST_METHOD'</span><span class="cake-debug-punct">,</span></span>
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'value'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'PUT'</span><span class="cake-debug-punct">,</span></span></samp>
+    <span class="cake-debug-punct">]</span></span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'patch'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'env'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'REQUEST_METHOD'</span><span class="cake-debug-punct">,</span></span>
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'value'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'PATCH'</span><span class="cake-debug-punct">,</span></span></samp>
+    <span class="cake-debug-punct">]</span></span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'delete'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'env'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'REQUEST_METHOD'</span><span class="cake-debug-punct">,</span></span>
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'value'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'DELETE'</span><span class="cake-debug-punct">,</span></span></samp>
+    <span class="cake-debug-punct">]</span></span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'head'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'env'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'REQUEST_METHOD'</span><span class="cake-debug-punct">,</span></span>
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'value'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'HEAD'</span><span class="cake-debug-punct">,</span></span></samp>
+    <span class="cake-debug-punct">]</span></span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'options'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'env'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'REQUEST_METHOD'</span><span class="cake-debug-punct">,</span></span>
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'value'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'OPTIONS'</span><span class="cake-debug-punct">,</span></span></samp>
+    <span class="cake-debug-punct">]</span></span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'https'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'env'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'HTTPS'</span><span class="cake-debug-punct">,</span></span>
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'options'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+        <span class="cake-debug-array-item"><span class="cake-debug-string">''</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-special">[maximum depth reached]</span><span class="cake-debug-punct">,</span></span></samp>
+      <span class="cake-debug-punct">]</span></span><span class="cake-debug-punct">,</span></span></samp>
+    <span class="cake-debug-punct">]</span></span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'ajax'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'env'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'HTTP_X_REQUESTED_WITH'</span><span class="cake-debug-punct">,</span></span>
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'value'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'XMLHttpRequest'</span><span class="cake-debug-punct">,</span></span></samp>
+    <span class="cake-debug-punct">]</span></span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'json'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'accept'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+        <span class="cake-debug-array-item"><span class="cake-debug-string">''</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-special">[maximum depth reached]</span><span class="cake-debug-punct">,</span></span></samp>
+      <span class="cake-debug-punct">]</span></span><span class="cake-debug-punct">,</span></span>
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'param'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'_ext'</span><span class="cake-debug-punct">,</span></span>
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'value'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'json'</span><span class="cake-debug-punct">,</span></span></samp>
+    <span class="cake-debug-punct">]</span></span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'xml'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'accept'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+        <span class="cake-debug-array-item"><span class="cake-debug-string">''</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-special">[maximum depth reached]</span><span class="cake-debug-punct">,</span></span></samp>
+      <span class="cake-debug-punct">]</span></span><span class="cake-debug-punct">,</span></span>
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'exclude'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+        <span class="cake-debug-array-item"><span class="cake-debug-string">''</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-special">[maximum depth reached]</span><span class="cake-debug-punct">,</span></span></samp>
+      <span class="cake-debug-punct">]</span></span><span class="cake-debug-punct">,</span></span>
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'param'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'_ext'</span><span class="cake-debug-punct">,</span></span>
+      <span class="cake-debug-array-item"><span class="cake-debug-string">'value'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'xml'</span><span class="cake-debug-punct">,</span></span></samp>
+    <span class="cake-debug-punct">]</span></span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'mobile'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-object" id="cake-db-object-679d1f3648bfe1.37372445-1"><span class="cake-debug-punct">object(</span><span class="cake-debug-class">Closure</span><span class="cake-debug-punct">) id:</span><span class="cake-debug-number">1</span><span class="cake-debug-punct"> {</span><samp class="cake-debug-object-props"></samp>
+    <span class="cake-debug-punct">}</span></span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'tablet'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-object" id="cake-db-object-679d1f3648bfe1.37372445-2"><span class="cake-debug-punct">object(</span><span class="cake-debug-class">Closure</span><span class="cake-debug-punct">) id:</span><span class="cake-debug-number">2</span><span class="cake-debug-punct"> {</span><samp class="cake-debug-object-props"></samp>
+    <span class="cake-debug-punct">}</span></span><span class="cake-debug-punct">,</span></span></samp>
+  <span class="cake-debug-punct">]</span></span></span>
+  <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">_detectorCache</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items"></samp>
+  <span class="cake-debug-punct">]</span></span></span>
+  <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">stream</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-object" id="cake-db-object-679d1f3648bfe1.37372445-3"><span class="cake-debug-punct">object(</span><span class="cake-debug-class">Laminas\Diactoros\Stream</span><span class="cake-debug-punct">) id:</span><span class="cake-debug-number">3</span><span class="cake-debug-punct"> {</span><samp class="cake-debug-object-props">
+    <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">resource</span><span class="cake-debug-punct"> =&gt; </span>(resource (stream)) Resource id #4</span>
+    <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">stream</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'php://input'</span></span></samp>
+  <span class="cake-debug-punct">}</span></span></span>
+  <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">uri</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-object" id="cake-db-object-679d1f3648bfe1.37372445-4"><span class="cake-debug-punct">object(</span><span class="cake-debug-class">Laminas\Diactoros\Uri</span><span class="cake-debug-punct">) id:</span><span class="cake-debug-number">4</span><span class="cake-debug-punct"> {</span><samp class="cake-debug-object-props">
+    <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">allowedSchemes</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+      <span class="cake-debug-array-item"><span class="cake-debug-string">''</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-special">[maximum depth reached]</span><span class="cake-debug-punct">,</span></span></samp>
+    <span class="cake-debug-punct">]</span></span></span>
+    <span class="cake-debug-prop"><span class="cake-debug-visibility">private</span> <span class="cake-debug-property">scheme</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'http'</span></span>
+    <span class="cake-debug-prop"><span class="cake-debug-visibility">private</span> <span class="cake-debug-property">userInfo</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">''</span></span>
+    <span class="cake-debug-prop"><span class="cake-debug-visibility">private</span> <span class="cake-debug-property">host</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'127.0.0.3'</span></span>
+    <span class="cake-debug-prop"><span class="cake-debug-visibility">private</span> <span class="cake-debug-property">port</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-const">null</span></span>
+    <span class="cake-debug-prop"><span class="cake-debug-visibility">private</span> <span class="cake-debug-property">path</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'/videos/add'</span></span>
+    <span class="cake-debug-prop"><span class="cake-debug-visibility">private</span> <span class="cake-debug-property">query</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">''</span></span>
+    <span class="cake-debug-prop"><span class="cake-debug-visibility">private</span> <span class="cake-debug-property">fragment</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">''</span></span>
+    <span class="cake-debug-prop"><span class="cake-debug-visibility">private</span> <span class="cake-debug-property">uriString</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-const">null</span></span></samp>
+  <span class="cake-debug-punct">}</span></span></span>
+  <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">session</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-object" id="cake-db-object-679d1f3648bfe1.37372445-5"><span class="cake-debug-punct">object(</span><span class="cake-debug-class">Cake\Http\Session</span><span class="cake-debug-punct">) id:</span><span class="cake-debug-number">5</span><span class="cake-debug-punct"> {</span><samp class="cake-debug-object-props">
+    <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">_engine</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-const">null</span></span>
+    <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">_started</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-const">false</span></span>
+    <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">_lifetime</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-visibility">(int)</span> <span class="cake-debug-number">0</span></span>
+    <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">_isCLI</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-const">false</span></span>
+    <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">headerSentInfo</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-const">null</span></span></samp>
+  <span class="cake-debug-punct">}</span></span></span>
+  <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">flash</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-object" id="cake-db-object-679d1f3648bfe1.37372445-6"><span class="cake-debug-punct">object(</span><span class="cake-debug-class">Cake\Http\FlashMessage</span><span class="cake-debug-punct">) id:</span><span class="cake-debug-number">6</span><span class="cake-debug-punct"> {</span><samp class="cake-debug-object-props">
+    <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">_defaultConfig</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+      <span class="cake-debug-array-item"><span class="cake-debug-string">''</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-special">[maximum depth reached]</span><span class="cake-debug-punct">,</span></span></samp>
+    <span class="cake-debug-punct">]</span></span></span>
+    <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">session</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-ref"><span class="cake-debug-punct">object(</span><span class="cake-debug-class">Cake\Http\Session</span><span class="cake-debug-punct">) </span><a class="cake-debug-ref" href="http://127.0.0.3/videos/add#cake-db-object-679d1f3648bfe1.37372445-5">id: 5</a><span class="cake-debug-punct"> {}</span></span></span>
+    <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">_config</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+      <span class="cake-debug-array-item"><span class="cake-debug-string">''</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-special">[maximum depth reached]</span><span class="cake-debug-punct">,</span></span></samp>
+    <span class="cake-debug-punct">]</span></span></span>
+    <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">_configInitialized</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-const">true</span></span></samp>
+  <span class="cake-debug-punct">}</span></span></span>
+  <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">attributes</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+    <span class="cake-debug-array-item"><span class="cake-debug-string">'route'</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-object" id="cake-db-object-679d1f3648bfe1.37372445-7"><span class="cake-debug-punct">object(</span><span class="cake-debug-class">Cake\Routing\Route\DashedRoute</span><span class="cake-debug-punct">) id:</span><span class="cake-debug-number">7</span><span class="cake-debug-punct"> {</span><samp class="cake-debug-object-props"></samp>
+    <span class="cake-debug-punct">}</span></span><span class="cake-debug-punct">,</span></span></samp>
+  <span class="cake-debug-punct">]</span></span></span>
+  <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">emulatedAttributes</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items">
+    <span class="cake-debug-array-item"><span class="cake-debug-visibility">(int)</span> <span class="cake-debug-number">0</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'session'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-visibility">(int)</span> <span class="cake-debug-number">1</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'flash'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-visibility">(int)</span> <span class="cake-debug-number">2</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'webroot'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-visibility">(int)</span> <span class="cake-debug-number">3</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'base'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-visibility">(int)</span> <span class="cake-debug-number">4</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'params'</span><span class="cake-debug-punct">,</span></span>
+    <span class="cake-debug-array-item"><span class="cake-debug-visibility">(int)</span> <span class="cake-debug-number">5</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-string">'here'</span><span class="cake-debug-punct">,</span></span></samp>
+  <span class="cake-debug-punct">]</span></span></span>
+  <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">uploadedFiles</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-array"><span class="cake-debug-punct">[</span><samp class="cake-debug-array-items"></samp>
+  <span class="cake-debug-punct">]</span></span></span>
+  <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">protocol</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-const">null</span></span>
+  <span class="cake-debug-prop"><span class="cake-debug-visibility">protected</span> <span class="cake-debug-property">requestTarget</span><span class="cake-debug-punct"> =&gt; </span><span class="cake-debug-const">null</span></span></samp>
+<span class="cake-debug-punct">}</span></span></div></div>
+                                    </div>
+            </div>
+        </li>
+            <li id="stack-frame-0-3" class="stack-frame vendor-frame">
+            <div class="stack-frame-header">
+                <button data-frame-id="0-3" class="stack-frame-toggle">
+                    ▼
+                </button>
+
+                <div class="stack-frame-header-content">
+                    <span class="stack-frame-file">
+                        CORE\src\Http\Runner.php                    </span>
+
+                                            <span class="stack-frame-line">
+                            <span class="stack-frame-label">at line</span>82                        </span>
+                    
+                    <span class="stack-function">
+                                                    <span class="stack-frame-label">in</span>
+                                                                            Cake\Http\Middleware\BodyParserMiddleware-&gt;process                                            </span>
+
+                                            <a href="phpstorm://open?file=C:\wamp64\apps\bhp1\vendor\cakephp\cakephp\src\Http\Runner.php&amp;line=82" class="stack-frame-edit">(edit)</a>                                    </div>
+            </div>
+            <div class="stack-frame-contents" id="stack-frame-details-0-3" style="display: none">
+                <table class="code-excerpt" cellspacing="0" cellpadding="0">
+                                                    <tbody><tr>
+                        <td class="excerpt-number" data-number="78"></td>
+                        <td class="excerpt-line"><pre><code style="color: #000000"><span style="color: #0000BB">        </span><span style="color: #007700">if (</span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">queue</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">valid</span><span style="color: #007700">()) {</span></code></pre></td>
+                    </tr>
+                                    <tr>
+                        <td class="excerpt-number" data-number="79"></td>
+                        <td class="excerpt-line"><pre><code style="color: #000000"><span style="color: #0000BB">            $middleware </span><span style="color: #007700">= </span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">queue</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">current</span><span style="color: #007700">();</span></code></pre></td>
+                    </tr>
+                                    <tr>
+                        <td class="excerpt-number" data-number="80"></td>
+                        <td class="excerpt-line"><pre><code style="color: #000000"><span style="color: #0000BB">            $this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">queue</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">next</span><span style="color: #007700">();</span></code></pre></td>
+                    </tr>
+                                    <tr>
+                        <td class="excerpt-number" data-number="81"></td>
+                        <td class="excerpt-line"><pre><code style="color: #000000"><span style="color: #0000BB"></span></code></pre></td>
+                    </tr>
+                                    <tr>
+                        <td class="excerpt-number" data-number="82"></td>
+                        <td class="excerpt-line"><span class="code-highlight"><pre><code style="color: #000000"><span style="color: #0000BB">            </span><span style="color: #007700">return </span><span style="color: #0000BB">$middleware</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">process</span><span style="color: #007700">(</span><span style="color: #0000BB">$request</span><span style="color: #007700">, </span><span style="color: #0000BB">$this</span><span style="color: #007700">);</span></code></pre></span></td>
+                    </tr>
+                                    <tr>
+                        <td class="excerpt-number" data-number="83"></td>
+                        <td class="excerpt-line"><pre><code style="color: #000000"><span style="color: #0000BB">        </span><span style="color: #007700">}</span></code></pre></td>
+                    </tr>
+                                    <tr>
+                        <td class="excerpt-number" data-number="84"></td>
+                        <td class="excerpt-line"><pre><code style="color: #000000"><span style="color: #0000BB"></span></code></pre></td>
+                    </tr>
+                                    <tr>
+                        <td class="excerpt-number" data-number="85"></td>
+                        <td class="excerpt-line"><pre><code style="color: #000000"><span style="color: #0000BB">        </span><span style="color: #007700">if (</span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">fallbackHandler</span><span style="color: #007700">) {</span></code></pre></td>
+                    </tr>
+                                    <tr>
+                        <td class="excerpt-number" data-number="86"></td>
+                        <td class="excerpt-line"><pre><code style="color: #000000"><span style="color: #0000BB">            </span><span style="color: #007700">return </span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">fallbackHandler</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">handle</span><span style="color: #007700">(</span><span style="color: #0000BB">$request</span><span style="color: #007700">);</span></code></pre></td>
+                    </tr>
+                                </tbody></table>
+
+                <a href="http://127.0.0.3/videos/add#" class="stack-frame-args" data-target="stack-args-0-3">Toggle Arguments</a>
+                <div id="stack-args-0-3" class="stack-args" style="display: none;">
+                                            <div class="cake-debug"></div></div></div></li></ul></div></body></html>
