@@ -1,0 +1,542 @@
+<!doctype html>
+<html lang="pl_PL">
+<head>
+    <meta charset="UTF-8">
+    <title>Faktura | Doładowania PayU</title>
+            <meta name="description"  content="Do każdego zrealizowanego zamówienia należy odrębnie zgłaszać żądanie wystawienia faktury VAT. Prosimy o podanie odpowiednich danych.">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=0.25, maximum-scale=1.6, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="csrf-token" content="8ukMEgEL4RVetep1psCZidjbkNOzAmm1mznh7ltD">
+    <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.ico">
+    <link rel="icon" type="image/png" href="/assets/images/favicon-16x16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="/assets/images/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/assets/images/favicon-96x96.png" sizes="96x96">
+    <link href="/assets/images/apple-touch-icon.png" rel="apple-touch-icon">
+    <link rel="stylesheet" href="/assets/css/all-dbd66869a3.css">
+
+        <!-- OneTrust Cookies Consent Notice start for doladowania.payu.pl -->
+        <script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js"  type="text/javascript" charset="UTF-8" data-domain-script="588c2e19-0ae9-4f3c-9de2-ee613fd744f2" ></script>
+        <script type="text/javascript">
+            function OptanonWrapper() { }
+        </script>
+        <!-- OneTrust Cookies Consent Notice end for doladowania.payu.pl -->
+    
+    <script type="text/javascript">
+        var userLogged = false;
+        var unexpectedError = "messages.errors.system";
+    </script>
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o), m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-3951208-6', { 'cookieDomain': 'doladowania.payu.pl' } );
+        ga('send', 'pageview');
+    </script>
+</head>
+<body>
+
+<!-- ### Stage L1 (img1 - 6) / L2 ###  -->
+<div id="stage" class="doladowania-l1 img5 ">
+    <!-- ### Header ###  -->
+<header>
+    <!-- ### Navbar - white ###  -->
+    <div class="payu-navbar navbar navbar-default navbar-fixed-top" id="header">
+        <div class="container-fluid">
+            <div class="navbar-header">
+
+                                <a href="#payu-account-login" class="login-xs collapsed visible-xs fl" data-toggle="collapse">
+                    <i class="payu-glyphicon payu-glyphicon-login"></i> Zaloguj
+                </a>
+                
+                <a href="/" class="navbar-brand">
+                    <img src="/assets/images/logo-payu-topups.svg" alt="PayU" class="hidden-xs"/>
+                    <img src="/assets/images/logo-payu.svg" alt="PayU" class="visible-xs"/>
+                </a>
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu" aria-expanded="false">
+                    <span class="sr-only">Menu</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <i class="close">&times;</i>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse" id="main-menu">
+                <ul class="nav navbar-nav main-nav pull-right">
+                    <li class="menu-item">
+                        <a href="/status-transakcji">Sprawdź status transakcji</a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="/promocje">Promocje</a>
+                    </li>
+                    <li class="menu-item visible-xs">
+                        <a href="/faktura">Faktury</a>
+                    </li>
+                    <li class="menu-item visible-xs">
+                        <a href="/regulamin.pdf">Regulamin</a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="/pomoc">Pomoc</a>
+                    </li>
+                    <li class="menu-item visible-xs">
+                        <a href="/reklamacje">Reklamacje</a>
+                    </li>
+                                    </ul>
+            </div>
+        </div>
+
+    </div>
+    <!-- ### /Navbar - white ###  -->
+
+</header>
+<!-- ### /Header ###  -->
+    <!-- ### Navbar - green ###  -->
+<div class="payu-secondary-bar secondary-bar bg-green">
+    <div class="container-fluid cf">
+        <div class="info h5 mt-0 mb-0 fl visible-lg">
+            Zaloguj się. Zalogowani doładowują szybciej!
+        </div>
+        <div class="button-wrapper bodycopy2 fr">
+            <a href="#payu-account-login" class="btn-login payuaccount hidden-xs collapsed fl" data-toggle="collapse">
+                Zaloguj kontem PayU
+            </a>
+
+        </div>
+    </div>
+</div>
+<!-- ### /Navbar - green ###  -->
+
+<!-- ### Payu account login collapse ### -->
+<div id="payu-account-login" class="collapse fade ">
+    <div class="bg-primary1 text-center">
+        <div class="container-fluid pt-30 pb-50">
+            <div class="row">
+                <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1">
+                    <img src="/assets/images/logo-payu-white.svg" alt="PayU" />
+                    <p class="mt-20 mb-40">
+                        Logując się akceptujesz <a href="/regulamin.pdf" target="_blank">Regulamin</a> i&nbsp;wyrażasz zgodę na udostępnienie metod płatności zapamiętanych na Twoim koncie PayU.
+                    </p>
+                    <form action="https://doladowania.payu.pl/auth/payu" method="post" class="payu-form payu-form-lg validate-form mb-50">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group mb-10 ">
+                                    <input class="form-control required email" type="email" name="username" placeholder="Wpisz e-mail" value="" />
+                                </div>
+                                <div class="form-group ">
+                                    <input class="form-control required" type="password" name="password" placeholder="Wpisz hasło" value="" />
+                                </div>
+                                
+                                
+                            </div>
+
+                            <div class="col-sm-6">
+                                <button type="submit" class="btn index-md mt-30">
+                                    Zaloguj
+                                </button>
+                            </div>
+                        </div>
+                        <input type="hidden" name="_token" value="8ukMEgEL4RVetep1psCZidjbkNOzAmm1mznh7ltD">
+                    </form>
+                    <div class="row">
+                        <div class="col-sm-6 text-left">
+                            <a href="https://secure.payu.com/user/register?source=paygms" class="account-support register" target="_blank">
+                                <i class="payu-glyphicon payu-glyphicon-login"></i> Nie masz konta? <strong>Załóż</strong>
+                            </a>
+                        </div>
+                        <div class="col-sm-6 text-left">
+                            <a href="https://secure.payu.com/user/password/remind?source=paygms" class="account-support restore-password" target="_blank">
+                                <i class="glyphicon glyphicon-lock"></i> Nie pamiętasz hasła? <strong>Kliknij</strong>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ### /Payu account login collapse ### -->
+    <div class="section-invoice-form pt-30 pb-30">
+    <div class="container-fluid">
+
+        <form class="invoice-form validate-form payu-form" action="https://doladowania.payu.pl/faktura" method="POST">
+
+            <div class="row mb-20">
+                <div class="col-md-6 col-md-offset-3 col-sm-10 col-sm-offset-1">
+
+                <p>Po każdym doładowaniu trzeba oddzielnie wypełnić formularz wystawienia faktury VAT.</p>
+
+                    
+                    <div class="form-group ">
+                        <label for="order">Numer zamówienia <em>*</em></label>
+                        <input type="text" class="form-control required" value="4J555YGNT25" name="order" id="order">
+                        <div class="validation-error" id="order-error"></div>
+                    </div>
+
+                    <div class="form-group ">
+                        <label for="phone">Numer telefonu komórkowego</label>
+                        <input type="text" class="form-control phone-mask phone" value="882723907" name="phone" id="phone" maxlength="15" placeholder="___ ___ ___" data-mobile-type="number" pattern="[0-9]*">
+                        <div class="validation-error" id="phone-error"></div>
+                    </div>
+
+                    <div class="form-group ">
+                        <label for="tin">NIP</label>
+                        <input type="text" class="form-control tin" value="" name="tin" id="tin" maxlength="20">
+                                            </div>
+
+                    <div class="form-group ">
+                        <label for="invoiceFrequency">Tryb fakturowania <em>*</em></label>
+                        <select class="form-control required" name="invoiceFrequency" id="invoiceFrequency">
+                            <option value="">- wybierz -</option>
+                            <option value="DAILY" >Indywidualnie - do każdej transkacji</option>
+                            <option value="MONTHLY" disabled="disabled" >Zbiorczo - miesięcznie - opcja dostępna po wypełnieniu pola NIP</option>
+                        </select>
+                                            </div>
+
+                    <h4>Dane na fakturze</h4>
+
+                    <div class="form-group ">
+                        <label for="invoiceAddress_name">Imię i Nazwisko / Nazwa firmy <em>*</em></label>
+                        <input type="text" class="form-control required" value="" name="invoiceAddress_name" id="invoiceAddress_name">
+                                            </div>
+
+                    <div class="form-group ">
+                        <label for="invoiceAddress_street">Adres <em>*</em></label>
+                        <input type="text" class="form-control required" value="" name="invoiceAddress_street" id="invoiceAddress_street">
+                                            </div>
+
+                    <div class="form-group ">
+                        <label for="invoiceAddress_postalCode">Kod pocztowy <em>*</em></label>
+                        <input type="text" class="form-control postcode required" value="" name="invoiceAddress_postalCode" id="invoiceAddress_postalCode" maxlength="10">
+                                            </div>
+
+                    <div class="form-group ">
+                        <label for="invoiceAddress_city">Miejscowość <em>*</em></label>
+                        <input type="text" class="form-control required" value="" name="invoiceAddress_city" id="invoiceAddress_city">
+                                            </div>
+
+                    <div class="form-group ">
+                        <label for="invoiceAddress_country">Kraj <em>*</em></label>
+                        <select name="invoiceAddress_country" id="invoiceAddress_country" class="form-control required">
+                            <option value="AF">Afganistan</option>
+                            <option value="AL">Albania</option>
+                            <option value="DZ">Algieria</option>
+                            <option value="AD">Andora</option>
+                            <option value="AO">Angola</option>
+                            <option value="AI">Anguilla</option>
+                            <option value="AQ">Antarktyka</option>
+                            <option value="AG">Antigua i Barbuda</option>
+                            <option value="SA">Arabia Saudyjska</option>
+                            <option value="AR">Argentyna</option>
+                            <option value="AM">Armenia</option>
+                            <option value="AW">Aruba</option>
+                            <option value="AU">Australia</option>
+                            <option value="AT">Austria</option>
+                            <option value="AZ">Azerbejdżan</option>
+                            <option value="BS">Bahamy</option>
+                            <option value="BH">Bahrajn</option>
+                            <option value="BD">Bangladesz</option>
+                            <option value="BB">Barbados</option>
+                            <option value="BE">Belgia</option>
+                            <option value="BZ">Belize</option>
+                            <option value="BJ">Benin</option>
+                            <option value="BM">Bermudy</option>
+                            <option value="BT">Bhutan</option>
+                            <option value="BY">Białoruś</option>
+                            <option value="BO">Boliwia</option>
+                            <option value="BQ">Bonaire, Sint Eustatius i Saba</option>
+                            <option value="BA">Bośnia i Hercegowina</option>
+                            <option value="BW">Botswana</option>
+                            <option value="BR">Brazylia</option>
+                            <option value="BN">Brunei</option>
+                            <option value="IO">Brytyjskie Terytorium Oceanu Indyjskiego</option>
+                            <option value="VG">Brytyjskie Wyspy Dziewicze</option>
+                            <option value="BG">Bułgaria</option>
+                            <option value="BF">Burkina Faso</option>
+                            <option value="BI">Burundi</option>
+                            <option value="CL">Chile</option>
+                            <option value="CN">Chiny</option>
+                            <option value="HR">Chorwacja</option>
+                            <option value="CW">Curaçao</option>
+                            <option value="CY">Cypr</option>
+                            <option value="TD">Czad</option>
+                            <option value="ME">Czarnogóra</option>
+                            <option value="CZ">Czechy</option>
+                            <option value="UM">Dalekie Wyspy Mniejsze Stanów Zjednoczonych</option>
+                            <option value="DK">Dania</option>
+                            <option value="CD">Demokratyczna Republika Konga</option>
+                            <option value="DM">Dominika</option>
+                            <option value="DO">Dominikana</option>
+                            <option value="DJ">Dżibuti</option>
+                            <option value="EG">Egipt</option>
+                            <option value="EC">Ekwador</option>
+                            <option value="ER">Erytrea</option>
+                            <option value="EE">Estonia</option>
+                            <option value="ET">Etiopia</option>
+                            <option value="FK">Falklandy</option>
+                            <option value="FJ">Fidżi</option>
+                            <option value="PH">Filipiny</option>
+                            <option value="FI">Finlandia</option>
+                            <option value="FR">Francja</option>
+                            <option value="TF">Francuskie Terytoria Południowe i Antarktyczne</option>
+                            <option value="GA">Gabon</option>
+                            <option value="GM">Gambia</option>
+                            <option value="GS">Georgia Południowa i Sandwich Południowy</option>
+                            <option value="GH">Ghana</option>
+                            <option value="GI">Gibraltar</option>
+                            <option value="GR">Grecja</option>
+                            <option value="GD">Grenada</option>
+                            <option value="GL">Grenlandia</option>
+                            <option value="GE">Gruzja</option>
+                            <option value="GU">Guam</option>
+                            <option value="GG">Guernsey</option>
+                            <option value="GF">Gujana Francuska</option>
+                            <option value="GY">Gujana</option>
+                            <option value="GP">Gwadelupa</option>
+                            <option value="GT">Gwatemala</option>
+                            <option value="GW">Gwinea Bissau</option>
+                            <option value="GQ">Gwinea Równikowa</option>
+                            <option value="GN">Gwinea</option>
+                            <option value="HT">Haiti</option>
+                            <option value="ES">Hiszpania</option>
+                            <option value="NL">Holandia</option>
+                            <option value="HN">Honduras</option>
+                            <option value="HK">Hongkong</option>
+                            <option value="IN">Indie</option>
+                            <option value="ID">Indonezja</option>
+                            <option value="IQ">Irak</option>
+                            <option value="IR">Iran</option>
+                            <option value="IE">Irlandia</option>
+                            <option value="IS">Islandia</option>
+                            <option value="IL">Izrael</option>
+                            <option value="JM">Jamajka</option>
+                            <option value="JP">Japonia</option>
+                            <option value="YE">Jemen</option>
+                            <option value="JE">Jersey</option>
+                            <option value="JO">Jordania</option>
+                            <option value="KY">Kajmany</option>
+                            <option value="KH">Kambodża</option>
+                            <option value="CM">Kamerun</option>
+                            <option value="CA">Kanada</option>
+                            <option value="QA">Katar</option>
+                            <option value="KZ">Kazachstan</option>
+                            <option value="KE">Kenia</option>
+                            <option value="KG">Kirgistan</option>
+                            <option value="KI">Kiribati</option>
+                            <option value="CO">Kolumbia</option>
+                            <option value="KM">Komory</option>
+                            <option value="CG">Kongo</option>
+                            <option value="KR">Korea Południowa</option>
+                            <option value="KP">Korea Północna</option>
+                            <option value="CR">Kostaryka</option>
+                            <option value="CU">Kuba</option>
+                            <option value="KW">Kuwejt</option>
+                            <option value="LA">Laos</option>
+                            <option value="LS">Lesotho</option>
+                            <option value="LB">Liban</option>
+                            <option value="LR">Liberia</option>
+                            <option value="LY">Libia</option>
+                            <option value="LI">Liechtenstein</option>
+                            <option value="LT">Litwa</option>
+                            <option value="LU">Luksemburg</option>
+                            <option value="LV">Łotwa</option>
+                            <option value="MK">Macedonia</option>
+                            <option value="MG">Madagaskar</option>
+                            <option value="YT">Majotta</option>
+                            <option value="MO">Makau</option>
+                            <option value="MW">Malawi</option>
+                            <option value="MV">Malediwy</option>
+                            <option value="MY">Malezja</option>
+                            <option value="ML">Mali</option>
+                            <option value="MT">Malta</option>
+                            <option value="MP">Mariany Północne</option>
+                            <option value="MA">Maroko</option>
+                            <option value="MQ">Martynika</option>
+                            <option value="MR">Mauretania</option>
+                            <option value="MU">Mauritius</option>
+                            <option value="MX">Meksyk</option>
+                            <option value="FM">Mikronezja</option>
+                            <option value="MM">Mjanma</option>
+                            <option value="MD">Mołdawia</option>
+                            <option value="MC">Monako</option>
+                            <option value="MN">Mongolia</option>
+                            <option value="MS">Montserrat</option>
+                            <option value="MZ">Mozambik</option>
+                            <option value="NA">Namibia</option>
+                            <option value="NR">Nauru</option>
+                            <option value="NP">Nepal</option>
+                            <option value="DE">Niemcy</option>
+                            <option value="NE">Niger</option>
+                            <option value="NG">Nigeria</option>
+                            <option value="NI">Nikaragua</option>
+                            <option value="NU">Niue</option>
+                            <option value="NF">Norfolk</option>
+                            <option value="NO">Norwegia</option>
+                            <option value="NC">Nowa Kaledonia</option>
+                            <option value="NZ">Nowa Zelandia</option>
+                            <option value="OM">Oman</option>
+                            <option value="PK">Pakistan</option>
+                            <option value="PW">Palau</option>
+                            <option value="PS">Palestyna</option>
+                            <option value="PA">Panama</option>
+                            <option value="PG">Papua-Nowa Gwinea</option>
+                            <option value="PY">Paragwaj</option>
+                            <option value="PE">Peru</option>
+                            <option value="PN">Pitcairn</option>
+                            <option value="PF">Polinezja Francuska</option>
+                            <option selected="selected" value="PL">Polska</option>
+                            <option value="PR">Portoryko</option>
+                            <option value="PT">Portugalia</option>
+                            <option value="ZA">Republika Południowej Afryki</option>
+                            <option value="CF">Republika Środkowoafrykańska</option>
+                            <option value="CV">Republika Zielonego Przylądka</option>
+                            <option value="RE">Reunion</option>
+                            <option value="RU">Rosja</option>
+                            <option value="RO">Rumunia</option>
+                            <option value="RW">Rwanda</option>
+                            <option value="EH">Sahara Zachodnia</option>
+                            <option value="KN">Saint Kitts i Nevis</option>
+                            <option value="LC">Saint Lucia</option>
+                            <option value="VC">Saint Vincent i Grenadyny</option>
+                            <option value="BL">Saint-Barthélemy</option>
+                            <option value="MF">Saint-Martin</option>
+                            <option value="PM">Saint-Pierre i Miquelon</option>
+                            <option value="SV">Salwador</option>
+                            <option value="AS">Samoa Amerykańskie</option>
+                            <option value="WS">Samoa</option>
+                            <option value="SM">San Marino</option>
+                            <option value="SN">Senegal</option>
+                            <option value="RS">Serbia</option>
+                            <option value="SC">Seszele</option>
+                            <option value="SL">Sierra Leone</option>
+                            <option value="SG">Singapur</option>
+                            <option value="SX">Sint Maarten</option>
+                            <option value="SK">Słowacja</option>
+                            <option value="SI">Słowenia</option>
+                            <option value="SO">Somalia</option>
+                            <option value="LK">Sri Lanka</option>
+                            <option value="US">Stany Zjednoczone</option>
+                            <option value="SZ">Suazi</option>
+                            <option value="SD">Sudan</option>
+                            <option value="SS">Sudan Południowy</option>
+                            <option value="SR">Surinam</option>
+                            <option value="SJ">Svalbard i Jan Mayen</option>
+                            <option value="SY">Syria</option>
+                            <option value="CH">Szwajcaria</option>
+                            <option value="SE">Szwecja</option>
+                            <option value="TJ">Tadżykistan</option>
+                            <option value="TH">Tajlandia</option>
+                            <option value="TW">Tajwan</option>
+                            <option value="TZ">Tanzania</option>
+                            <option value="TL">Timor Wschodni</option>
+                            <option value="TG">Togo</option>
+                            <option value="TK">Tokelau</option>
+                            <option value="TO">Tonga</option>
+                            <option value="TT">Trynidad i Tobago</option>
+                            <option value="TN">Tunezja</option>
+                            <option value="TR">Turcja</option>
+                            <option value="TM">Turkmenistan</option>
+                            <option value="TC">Turks i Caicos</option>
+                            <option value="TV">Tuvalu</option>
+                            <option value="UG">Uganda</option>
+                            <option value="UA">Ukraina</option>
+                            <option value="UY">Urugwaj</option>
+                            <option value="UZ">Uzbekistan</option>
+                            <option value="VU">Vanuatu</option>
+                            <option value="WF">Wallis i Futuna</option>
+                            <option value="VA">Watykan</option>
+                            <option value="VE">Wenezuela</option>
+                            <option value="HU">Węgry</option>
+                            <option value="GB">Wielka Brytania</option>
+                            <option value="VN">Wietnam</option>
+                            <option value="IT">Włochy</option>
+                            <option value="CI">Wybrzeże Kości Słoniowej</option>
+                            <option value="BV">Wyspa Bouveta</option>
+                            <option value="CX">Wyspa Bożego Narodzenia</option>
+                            <option value="IM">Wyspa Man</option>
+                            <option value="SH">Wyspa Świętej Heleny, Wyspa Wniebowstąpienia i Tristan da Cunha</option>
+                            <option value="AX">Wyspy Alandzkie</option>
+                            <option value="CK">Wyspy Cooka</option>
+                            <option value="VI">Wyspy Dziewicze Stanów Zjednoczonych</option>
+                            <option value="HM">Wyspy Heard i McDonalda</option>
+                            <option value="CC">Wyspy Kokosowe</option>
+                            <option value="MH">Wyspy Marshalla</option>
+                            <option value="FO">Wyspy Owcze</option>
+                            <option value="SB">Wyspy Salomona</option>
+                            <option value="ST">Wyspy Świętego Tomasza i Książęca</option>
+                            <option value="ZM">Zambia</option>
+                            <option value="ZW">Zimbabwe</option>
+                            <option value="AE">Zjednoczone Emiraty Arabskie</option>
+                        </select>
+                                            </div>
+
+                    <div class="row">
+                        <div class="text-center mb-30">
+                            <div class="submit-wrapper mt-20 mb-20">
+                                <button type="submit" class="btn index">Wyślij</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <input type="hidden" name="_token" value="8ukMEgEL4RVetep1psCZidjbkNOzAmm1mznh7ltD">
+            </div>
+        </form>
+    </div>
+</div>
+    <!-- ### section footer-terms ### -->
+<section class="payu-footer-terms bg-darker pt-30 pb-30 hidden-xs">
+    <div class="container-fluid text-center bodycopy2">
+        <div class="row">
+            <div class="col-lg-6">
+                <h4 class="mt-10 mb-30">W czym jeszcze moglibyśmy pomóc?</h4>
+            </div>
+            <div class="col-lg-6">
+                <a href="/regulamin.pdf" class="btn-footer doc" target="_blank"><span></span>Regulamin</a>
+                <a href="/faktura" class="btn-footer invoice"><span></span>Faktury</a>
+                <a href="https://poland.payu.com/pomoc/" class="btn-footer service" target="_blank"><span></span>Reklamacje</a>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ### /section footer-terms ### --><!-- ### section footer ### -->
+<section class="payu-footer bg-dark pt-30 pb-80">
+    <div class="container-fluid text-center">
+        © 2025 PayU Wszelkie prawa zastrzeżone <a href="http://www.payu.pl" target="_blank">www.payu.pl</a>
+    </div>
+</section>
+<!-- ### /section footer ### --></div>
+<!-- ### /Stage ###  -->
+
+
+<script type="text/javascript" src="/assets/vendors.js"></script>
+<script type="text/javascript" src="/assets/js/app-95aba3bf4a.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $.extend($.validator.messages, {
+            required: 'Pole jest wymagane.',
+            email: 'Nieprawidłowy adres e-mail.',
+            emailFull: 'Nieprawidłowy adres e-mail.',
+            date: ':attribute nie jest w formacie :format.',
+            number: ':attribute musi być liczbą.',
+            digits: ':attribute musi składać się z :digits cyfr.',
+            counterNumber: 'Niepoprawny kod kreskowy.',
+            range: 'Kwota doładowania musi mieścić się w zakresie {0} - {1}.',
+            max: 'Wartość nie może być większa niż {0}.',
+            min: 'Wartości musi być większa niż {0}.',
+            maxlength: 'Wprowadź mniej niż {0} znak&oacute;w.',
+            minlength: 'Wprowadź przynajmniej {0} znak&oacute;w.',
+            phone: 'Podaj poprawny numer telefonu',
+            cardValidity: 'Niepoprawny numer karty.',
+            cardTypes: 'Akceptujemy karty Visa, MasterCard, Maestro.',
+            month: 'Niepoprawna data.',
+            year: 'Niepoprawna data.',
+            pastdate: 'Niepoprawna data.',
+            cvv: 'Kod znajdziesz na odwrocie karty.',
+            checkboxRequired: "Zaakceptowanie regulaminu jest wymagane.",
+            acceptanceRequired: 'Musisz zaakceptować.',
+            tin: 'Podaj poprawny NIP',
+            postCode: 'Niepoprawny kod pocztowy',
+            money: 'Niepoprawna kwota'
+        });
+    })
+</script></body>
+</html>
