@@ -1,0 +1,130 @@
+const p4GaEvents = {
+    initialized: false,
+    userAgreed: false,
+    eventsPool: [],
+    pushEvent: function (event) {
+        if (this.initialized && this.userAgreed) {
+            dataLayer.push(event);
+        } else if (!this.initialized) {
+            this.eventsPool.push(event);
+        }
+    },
+    setUserAgree: function (userAgree) {
+        this.initialized = true;
+        this.userAgreed = userAgree;
+        if (userAgree) {
+            this.eventsPool.forEach(event => dataLayer.push(event));
+            this.eventsPool = [];
+        }
+    }
+}
+
+function pushEnteredPageEvent(pageStep, clientType) {
+    // fires GA event when user visits some login flow page
+    p4GaEvents.pushEvent({
+        event: 'login',
+        login_step: pageStep,
+        login_action: 'display',
+        login_client_type: clientType,
+        login_system: 'web'
+    });
+}
+
+function pushNextButtonEvent() {
+    // fires GA event on "Dalej" button was clicked
+    p4GaEvents.pushEvent({
+        event: 'login',
+        login_step: '1',
+        login_action: 'next',
+        login_client_type: '',
+        login_system: 'web'
+    });
+}
+
+function pushInternalErrorEvent(pageStep, clientType) {
+    // fires GA event when system error appears
+    p4GaEvents.pushEvent({
+        event: 'login',
+        login_step: pageStep,
+        login_action: 'error',
+        login_client_type: clientType,
+        login_system: 'web'
+    });
+}
+
+function pushLoginDataIncorrectErrorEvent(pageStep, clientType) {
+    // fires GA event when user provides incorrect PESEL, password or OTP
+    p4GaEvents.pushEvent({
+        event: 'login',
+        login_step: pageStep,
+        login_action: 'error_incorrect',
+        login_client_type: clientType,
+        login_system: 'web'
+    });
+}
+
+function pushLoginButtonEvent(pageStep, clientType) {
+    // fires GA event on "Zaloguj się" button was clicked
+    p4GaEvents.pushEvent({
+        event: 'login',
+        login_step: pageStep,
+        login_action:'login',
+        login_client_type: clientType,
+        login_system:'web'
+    });
+}
+
+function pushChangeAuthMethodEvent() {
+    // fires GA event on "Chcę zmienić metodę autoryzacji na kod SMS" link was clicked
+    p4GaEvents.pushEvent({
+        event: 'login',
+        login_step: '2',
+        login_action:'change_sms',
+        login_client_type:'b2c',
+        login_system:'web'
+    });
+}
+
+function pushGoToStartEvent(pageStep, clientType) {
+    // fires GA event on "Zacznij od nowa" link was clicked
+    p4GaEvents.pushEvent({
+        event: 'login',
+        login_step: pageStep,
+        login_action:'from_start',
+        login_client_type: clientType,
+        login_system:'web'
+    });
+}
+
+function pushResendOtpEvent() {
+    // fires GA event on "Wyślij mi kod jeszcze raz" link was clicked
+    p4GaEvents.pushEvent({
+        event: 'login',
+        login_step: '3',
+        login_action:'re_send',
+        login_client_type:'b2c',
+        login_system:'web'
+    });
+}
+
+function pushCannotReceiveOtpEvent() {
+    // fires GA event on "Nie mogę odebrać kodu SMS" link was clicked
+    p4GaEvents.pushEvent({
+        event: 'login',
+        login_step: '3',
+        login_action: 'back',
+        login_client_type: 'b2c',
+        login_system: 'web'
+    });
+}
+
+function pushForgotPasswordEvent() {
+    // fires GA event on "Nie pamiętasz hasła?" link was clicked
+    p4GaEvents.pushEvent({
+        event: 'login',
+        login_step: '4',
+        login_action:'pass_recovery',
+        login_client_type:'b2b',
+        login_system:'web'
+    });
+}

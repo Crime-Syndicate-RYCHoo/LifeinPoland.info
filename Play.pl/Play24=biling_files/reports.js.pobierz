@@ -1,0 +1,238 @@
+/**
+ * @name Reports
+ * @author kfb
+ *
+ * Basic usage:
+ * var reports = new Reports();
+ * reports.init();
+ *
+ * additionally you can use methods like app.methodName();
+ *
+ * Advanced usage:
+ * var reports = new Reports({
+ *      "additionalOption": "thatCanOvervriteDefaults"
+ * });
+ *
+ */
+function Reports(opts) {
+    var _cfg;
+    var _root;
+
+    //defining defaults and extending/overwriting it with inputted parameters
+    this.config = $.extend({}, opts);
+
+    /*Methods definition*/
+    this.log = function() {
+        console.log(_cfg);
+    }
+    /*
+        INITIALIZE
+    */
+    this.init = function() {
+    	//assign _root and cofig variables
+    	_root = this;
+    	_cfg = this.config;
+
+        //bind events on init
+        $(document).ready(function() {
+            _root.bindEvents();
+        });
+    }
+    //method for bindings events
+    this.bindEvents = function() {
+        /**
+         * bindings
+         */
+      $('.billingReportOrderButton').live('click', function(){
+        if (typeof readOnly !== 'undefined'){
+          return;
+        }
+        PlaySCB.globalStore.storeValue('otp_callback',function() {
+          loadFancy('billingGroupReportsOrder', _root.newReport.callback);
+        });
+        otp.check();
+        return false;
+      });
+         
+      $('#change_msisdns').live('click', function(){
+        $('#everyMsisdns').val("0");
+        return false;
+      });
+
+         
+      $('#cancel_change_msisdns').live('click', function(){
+        $('#everyMsisdns').val("1");
+  			return false;
+ 		  });
+         
+		$('#billingReportsSearch').click(function(){
+			$('#reportsForm').submit();
+			return false;
+		});
+
+		$('#offLineBillingReportsSearch').click(function(){
+			if (typeof readOnly !== 'undefined'){
+				return;
+			}
+			
+			$.fancybox.showActivity();
+			$('#fancybox-overlay').css({
+				'background-color' : '#000',
+				'opacity' : 0.6,
+				'height' : $(document).height(),
+				'z-index' : '1100'
+			});
+
+			$('#billingGroupReportsForm').submit();
+			return false;
+		});
+		
+		$('ul.customDropdownOptions.phoneReportType li').live('click', function(){
+			$('.toggleCategory').hide();
+            $('a.toggleNumbers:eq(0)').show();
+            $('a.toggleNumbers:eq(1)').hide();
+			$('div[rel=toggleNumbers]').hide();
+			var val = $(this).attr('rel');
+			$('li.category'+val).show();
+		});
+
+		$('select[name=phoneReportType], select[name=virtualGroup]').live('change',function(){
+			_root.chooseScope();
+		});
+
+		$('.renewReportTrigger').live('click', function(){
+			var reportId = $(this).siblings(".reportId").val();
+            //adding reportId to modal
+            /*$("#reportRenew").remove("#reportRenewId").append('<input type="hidden" id="reportRenewId" value="'+reportId+'" />');*/
+			
+			$("#reportRenew").find("#reportRenewChooseId").remove();
+			$("#reportRenew").append('<input type="hidden" id="reportRenewChooseId" value="'+reportId+'" />');
+			
+			_root.checkNumbersToRenew.showModal();
+		});
+
+		$('#setNumbersToRenew').live('click', function(){
+			var reportId = $("#reportRenewChooseId").val();
+
+			_root.setNumbersToRenew.dwr( reportId );
+
+		});
+    }
+    this.newReport = function() {}
+        this.newReport.callback = function( ) {
+            adminReportsOffline();
+        }
+    this.checkNumbersToRenew = function() {}
+        // renew report modal
+        this.checkNumbersToRenew.showModal = function() {
+            loadFancy("#reportRenew", _root.checkNumbersToRenew.showTable() );
+        }
+        /*
+            Check MSISDN's to renew
+        */
+        this.checkNumbersToRenew.showTable = function() {
+            // Checking if table exists
+            if($('#REPORT_RENEWTable').length > 0) {
+                tableServiceRenewReport = new TableService();
+                tableServiceRenewReport.enable({
+                    tableType : 'REPORT_RENEW'
+                });
+                //Get table data
+                tableServiceRenewReport.getData(true);
+            }
+        }
+        this.checkNumbersToRenew.selectAll = function() {
+            $("#REPORT_RENEWTable .all:not(:checked)").siblings('span.checkbox').trigger('click')
+        }
+    /*
+        Set MSISDN's to renew 
+    */
+    this.setNumbersToRenew = function() {}
+        //send DWR with numbers to renew modal
+        this.setNumbersToRenew.dwr = function( reportId ) {
+            
+            billingReportRenewService.changeReportStatus(reportId, {
+                callback : function(response) {
+                    var resp = response.responseStatus.status;  // 0 - error; 
+                                                                // 1 = success; 
+                                                                // 5 = changes in progress;
+                    if ( resp == 1 ) {
+                        _root.setNumbersToRenew.callback();
+                    } 
+                    else if (resp == 2){
+                        errMsg = response.responseStatus.messages.error;                    
+                        _root.setNumbersToRenew.inlineError( errMsg );
+                    }
+                    else {
+                    	errMsg = response.responseStatus.messages.error;                    
+                        _root.setNumbersToRenew.error( errMsg );
+                    }
+                },
+                errorHandler: function(msg, exception, response) {
+                  dwrHandler.errorHandler(msg, exception, response);
+                }
+            });
+        }
+        this.setNumbersToRenew.callback = function( element, html ) {
+        	//show summary
+        	loadFancy("#summaryBox", function() {
+                //reload page
+                $("#summaryBox").append('<input type="hidden" id="reloadServices" val="1"/>');
+            });
+        }
+        //error in modalbox
+        this.setNumbersToRenew.error = function( errMsg ) {
+            //show error
+            $("#reportErrorBox p:first").text( errMsg );
+            loadFancy("#reportErrorBox", function() {});
+        }
+        //inline error
+        this.setNumbersToRenew.inlineError = function( errMsg ) {
+            $("#reportRenew .actions").before('<span class="err">'+errMsg+'</span>');
+            //show error
+            $("#reportRenew .err:first").text( errMsg );
+        }
+    // helpers for forms in new report modal
+    this.chooseScope = function() {
+        $('.selectNumbers table tbody').find('tr').remove();
+
+		if($.trim($('select[name=phoneReportType]').val()) == '0'){
+            // Checking if table exists
+            if($('#REPORT_NEWTable').length > 0) {
+                tableServiceNewReport = new TableService();
+                tableServiceNewReport.enable({
+                    tableType : 'REPORT_NEW'
+                });
+                //Get table data
+                tableServiceNewReport.getData(true);
+            }		
+		}
+    }
+}
+
+//declaration of variables needed in TableService bean
+var tableServiceRenewReport, tableServiceNewReport;
+
+//declaration and initialization of Report
+var reports = new Reports();
+reports.init();
+
+
+
+/*                      *
+*                       *
+*   DOCUMENT READY      *
+*                       *
+*                       */
+
+$(document).ready(function(){
+
+	if($('#reportsForm').length > 0) {
+		jQuery('.days').focus(function() {
+			jQuery(this).parent().prev().find('input[type=radio]').attr('checked', 'checked');
+	        jQuery('.period .styleRadio').removeClass('checked');
+	        jQuery(this).parent().prev().find('.styleRadio ').addClass('checked');
+	    });
+	}
+
+});

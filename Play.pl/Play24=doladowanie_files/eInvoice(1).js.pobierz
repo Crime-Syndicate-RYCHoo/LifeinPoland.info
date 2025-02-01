@@ -1,0 +1,201 @@
+/**
+ * Created by PWR on 2014-07-07.
+ */
+
+
+var eInvoice = new function () {
+  var _root = this,
+    _cfg = $.extend({
+      payForInvoicesUrl: 'PayForInvoices'
+    });
+
+  var _payNowChangeCheckBox = function () {
+    var $this = $(this),
+      table = $this.closest('table');
+    
+    var showVindicationInfo = $('#showVindicationInfo').length > 0 ? true : false;
+    
+    if (showVindicationInfo) {
+      var isChecked = $(this).attr('checked');
+      if (isChecked == undefined) {
+    	  $('#showVindicationInfo').remove();
+      	  loadFancy('#vindicationInfoModal')
+      }
+    }
+
+    _root.runPayNow(table);
+  };
+
+  this.runPayNow = function (table) {
+    table = $(table);
+
+    if (table != null && table.attr('id') != null && table.attr('id') == 'INVOICES_UNPAIDTable') {
+
+    	var toPay = table.find('input[data-toggle=payNowCheck]:checked'),
+        payForInvoicesUrl = [],
+        totalCost = 0;
+
+    	toPay.each(function (index, item) {
+
+    		var $item = $(item),
+          	cost = $item.attr('data-cost').replace(' zł', '').replace(',', '.');
+          if($item.attr('data-automatic') !== 'true') {
+            if ($item.attr('data-url-hash') !== "" && $item.attr('data-url-hash') !== undefined) {
+              payForInvoicesUrl.push($item.attr('data-url-hash'));
+            }
+            totalCost += cost * 1;
+          }
+    	});
+    	
+    	var isEbppActive = $('#ebppActive').length > 0 ? true : false;
+    	var isPaymentOrderActive = $('#paymentOrderActive').length > 0 ? true : false; 
+    	
+      if (payForInvoicesUrl.length > 0) {
+    	  payForInvoicesUrl = _cfg.payForInvoicesUrl + '?invoices=' + payForInvoicesUrl.join(',');
+    	  _cfg.payForInvoicesBtn.attr('href', payForInvoicesUrl);
+
+    	  if (!(isEbppActive || isPaymentOrderActive)) {
+    		  _cfg.payForInvoicesBtn.removeClass('disabled'); 
+    	  }
+      } else {
+    	  _cfg.payForInvoicesBtn.attr('href', '#');
+
+    	  if (!(isEbppActive || isPaymentOrderActive)) {
+    		  _cfg.payForInvoicesBtn.addClass('disabled'); 
+    	  }
+      }
+      table.closest('.row-fluid').find('#summaryPayNow').html(totalCost.toFixed(2).replace('.', ',') + ' zł');
+    }    
+  };
+
+  this.payNowAnimation = function () {
+    if (sessionStorage.getItem('payNow') === 'true'){
+      $('html, body').animate({
+        scrollTop: $('#payNow' ).offset().top-$(window).height()/2
+      }, 500);
+    }
+
+    var currentLocation = location.href.split('/');
+    currentLocation = currentLocation.pop();
+
+    if (currentLocation == "Invoices" || currentLocation == "Invoices#payNow") {
+      sessionStorage.setItem('payNow', 'false');
+    }
+  };
+
+  var _bindEvents = function () {
+    $('section#invoices').on('click', '.action .downloadEInvoice', function () {
+      PlaySCB.gaWrap( 'Play24 - faktury', 'Pobierz', 'Pobierz e-fakture');
+    });
+
+    $('section#invoices').on('click', '#INVOICESTable .icoZoom.downloadEInvoice', function () {
+      PlaySCB.gaWrap( 'Play24 - faktury', 'Pobierz', 'Pobierz e-fakture');
+    });
+
+    $('section#invoices').on('click', '#INVOICES_UNPAIDTable .pl10.f20.font-ci.icon-doc-inv', function () {
+      PlaySCB.gaWrap( 'Play24 - faktury', 'Pobierz', 'Pobierz e-fakture');
+    });
+
+    $('section#invoices').on('click', '#INVOICES_PAIDTable .pl10.f20.font-ci.icon-doc-inv', function () {
+      PlaySCB.gaWrap( 'Play24 - faktury', 'Pobierz', 'Pobierz e-fakture');
+    });
+
+    $('section#invoices').on('click', 'table.folding-table tr.standard', function () {
+      var $this = $(this),
+        _this = this,
+        $details = $this.next().find($this.attr('href')),
+        $tableBody = $details.find('table tbody'),
+        $indicator = $tableBody.find('.localTableIndicator'),
+        invoiceId = $this.attr('data-invoice-id'),
+        $invoiceBar = $("#" + $this.data("relBar")),
+        inputClick = $this.find('input:hover, a:hover, .css-label:hover, [data-toggle=tooltip]:hover');
+
+      if (inputClick.length === 0) {
+
+        $this.toggleClass('highlite icons-highlighted');
+        if ($invoiceBar.size()) {
+          $invoiceBar.toggleClass('selected');
+        }
+
+        if ($indicator.size()) {
+          $tableBody.html('<tr class="localTableIndicator"><td></td></tr>');
+          PlaySCB.loader.show($tableBody.find('tr td'));
+          invoiceRemoteService.getInvoiceDetails(invoiceId, {
+            callback: function (response) {
+              setTimeout(function () {
+                $tableBody.html(response.view);
+                $tableBody.find('.tooltip').tooltip({clickToClose: true});
+              }, 100);
+            },
+            errorHandler: function(msg, exception, response) {
+              dwrHandler.errorHandler(msg, exception, response);
+            }
+          });
+        }
+      }
+    });
+    
+    $('#suspensionContent').on('click', '#payNowPointer', function(event){
+      sessionStorage.setItem('payNow', 'true');
+      var currentLocation = location.href.split('/');
+      currentLocation = currentLocation.pop();
+      if(currentLocation == "Payments" || currentLocation == "Payments#") {
+        event.preventDefault();
+        location.href = 'Invoices';
+      }
+
+      _root.payNowAnimation();
+      return false;
+    });
+
+
+
+    $('.payForInvoices').on('click', function () {
+    	var $this = $(this);
+    	if (!$this.hasClass('disabled')) {
+    		PlaySCB.gaWrap( 'Play24 - faktury', 'Płatności', 'Zapłać teraz');
+    	}	
+    });
+
+    $('section#invoices').on('change', 'input[data-toggle=payNowCheck]', _payNowChangeCheckBox);
+
+    _cfg.payForInvoicesBtn.on('click', function (e) {
+    	
+      if ($(this).hasClass('disabled')) {
+        e.preventDefault();
+        return false;
+      } else {
+
+        if ($('input[data-toggle=payNowCheck]:checked').length === 0) {
+          e.preventDefault();
+          return false;
+        }
+      }
+    });
+
+  };
+
+  this.init = function (opts) {
+    _cfg = $.extend(_cfg, {
+      payForInvoicesBtn: $('section#invoices .payForInvoices')
+    },  opts);
+
+
+
+    $(document).ready(function () {
+
+      _bindEvents();
+
+      setTimeout(function(){
+        _root.payNowAnimation();
+      }, 1000);
+
+
+
+    });
+  };
+
+
+
+  this.init();
+}

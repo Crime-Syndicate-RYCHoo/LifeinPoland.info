@@ -1,0 +1,72 @@
+
+PlaySCB.component = new function () {
+	var _root = this;
+
+	this.init = function (opts) {
+	    $(document).ready(function () {
+	      _root.bindEvents();
+	      $("#componentRegulationsEmail").blur();
+	    });
+	};
+	  
+	this.bindEvents = function () {
+		
+		$('.regulationsAcceptSection').find('.customCheckbox .checkbox').on('click', function() {
+			  
+			if ($(this).hasClass('checked')) {
+				$(this).removeClass('checked');
+			} else {
+			    $(this).addClass('checked');
+			}
+
+		});
+
+		$("#componentRegulationsEmail").focus(function() {
+	        if ($(this).val() == $(this)[0].title)
+	        {
+	            $(this).val("");
+	        }
+	    });
+			    
+	    $("#componentRegulationsEmail").blur(function() {
+	        if ($(this).val() == "") {
+	            $(this).val($(this)[0].title);
+	        }
+	        
+	    });
+	    
+	};
+	
+	this.validateForm = function() {
+        var valid = true;
+
+        $('div .regulationsAcceptSection .err, div .regulationsEmailSection .err').hide();
+
+        if($('#componentRegulationsEmail').length && !_root.checkEmail($('#componentRegulationsEmail').val())) {
+            $('div .regulationsEmailSection .err').show(0.3);
+            valid = false;
+        }
+
+        return valid;
+	}
+
+  this.validateMsisdn = function(msisdn) {
+    reg1 = /^((\+)?48)?\d{9}$/;
+    reg2 = /^(((\+)?48)\s)?\d{3}\s\d{3}\s\d{3}$/;
+    return reg1.test(msisdn) || reg2.test(msisdn);
+  }
+
+  this.checkEmail = function(value) {
+		reg = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,}$/;
+		return reg.test(value);
+  }
+
+  this.checkMsisdn = function(newValue, currentValue) {
+		newValue = newValue.replace(/\s/g, '');
+		if(newValue.length == 9)
+			newValue = "48" + newValue;
+		return !(newValue === currentValue);
+  }
+
+
+}

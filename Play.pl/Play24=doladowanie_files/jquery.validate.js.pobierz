@@ -1,0 +1,581 @@
+﻿/**
+ * jQuery validate plugin
+ * @name jquery.validate.js
+ * @author www.k2.pl
+ */
+(function(jQuery) {
+jQuery.fn.validate = function(options) {
+		
+  	var defaults = {
+		minLength: '',
+	    maxLength: '',
+		minValue: 0,
+		maxValue: 0,
+		passwordLength: 9,
+		postCodeLength: 6,
+		firstChar: '0',
+		passwordChars: '0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZ',
+		labelMinLength: 'Minimalna ilość znaków: ',
+		labelReqLength: 'Wymagana ilość znaków: ',
+		labelMaxLength: 'Maksymalna ilość znaków: ',
+		labelMinValue: 'Minimalna wartość: ',
+		labelMaxValue: 'Maksymalna wartość: ',
+		labelEmail: 'Wprowadzono błędny adres e-mail',
+		labelPostCode: 'Wprowadzono błędny kod pocztowy',
+		labelId: 'Wprowadzono błędny numer dowodu osobistego',
+		labelId3Chars: 'Pierwsze 3 znaki muszą być drukowaną literą',
+		labelId6Chars: 'Ostatnie 6 znaków musi być cyfrą',
+		labelPesel: 'Wprowadzono błędny numer PESEL',
+		labelNip: 'Wprowadzono błędny numer NIP',
+		labelRegon: 'Wprowadzono błędny numer REGON',
+		labelOnlyNumbers: ' może zawierać tylko liczby',
+		labelOnlyNumbersDotComa: ' może zawierać tylko cyfry, przcinek lub kropkę',
+		labelDate: 'Wprowadzona data jest nieprawidłowa',
+		labelOnlyAlpha: ' może zawierać tylko litery',
+		labelOnlyAlphaNum: ' może zawierać tylko znaki alfanumeryczne',
+		labelHasAlphaNum: ' musi zawierać znaki alfanumeryczne',
+		labelWhiteSpace: ' zawiera białe znaki',
+		labelField: 'Pole ',
+		labelFieldsCompare: ' nie zgadza się z polem ',
+		labelSelect: 'Proszę wybrać: ',
+		labelCheckbox: 'Proszę zaznaczyć wymagane pole',
+		labelIdExpDate: 'Proszę wybrać poprawną datę ważności dokumentu',
+		labelRequired: 'To pole jest wymagane',
+		labelHtml: '',
+		classParagraph: 'underInputErr',
+		classSpan: 'err',
+		classErrField: 'err',
+		errLabel: true
+  	};
+  	
+  	jQuery.extend(defaults, options);
+	
+	var init = function(elem) {
+		var $elem = jQuery(elem);
+		if (defaults.rule.indexOf('vClearValidation') !='-1') clearValidationLabel($elem);
+		if (defaults.errLabel && $elem.nextAll('.'+defaults.classParagraph).length == 0) $elem.parent().append('<p class="'+defaults.classParagraph+'" style="display:none"></p>');
+	}
+	
+	var initBaseFunction = function(elem) {         
+		clearValidationLabel(elem);
+		if (defaults.rule.indexOf('vClearValidation') == '-1') {
+			removeWhiteSpace(elem);
+			if (defaults.rule.indexOf('vFirstChar') !='-1') removeFirstChar(elem);
+			if (defaults.rule.indexOf('vSingleSpace') !='-1') removeSingleSpace(elem);
+			if (defaults.rule.indexOf('vMinLength') !='-1') checkLength(elem,'min');
+			if (defaults.rule.indexOf('vMaxLength') !='-1') checkLength(elem,'max');
+			if (defaults.rule.indexOf('vMinValue') !='-1') checkValue(elem,'min');
+			if (defaults.rule.indexOf('vMaxValue') !='-1') checkValue(elem,'max');
+			if (defaults.rule.indexOf('vCapitalize') !='-1') checkCapitalize(elem); 
+			if (defaults.rule.indexOf('vEmail') !='-1') checkEmail(elem);
+			if (defaults.rule.indexOf('vId') !='-1') checkId(elem);
+			if (defaults.rule.indexOf('vPesel') !='-1') checkPesel(elem);
+			if (defaults.rule.indexOf('vNip') !='-1') checkNip(elem);
+			if (defaults.rule.indexOf('vRegon') !='-1') checkRegon(elem);
+			if (defaults.rule.indexOf('vIfNumber') !='-1') checkIfNumber(elem);            
+			if (defaults.rule.indexOf('vIfNrDotComa') !='-1') checkIfNumberDotComa(elem);
+			if (defaults.rule.indexOf('vIfAlpha') !='-1') checkIfAlpha(elem);
+			if (defaults.rule.indexOf('vIfNumAlpha') !='-1') checkIfAlphaNum(elem);
+			if (defaults.rule.indexOf('vHasNumAlpha') !='-1') checkHasAlphaNum(elem);
+			if (defaults.rule.indexOf('vCheckbox') !='-1') checkCheckbox(elem);
+			if (defaults.rule.indexOf('vSelect') !='-1') checkSelect(elem);
+			if (defaults.rule.indexOf('vDate') !='-1') checkDate(elem);
+			if (defaults.rule.indexOf('vComparePrev') !='-1') comparePrev(elem);
+			if (defaults.rule.indexOf('vPostCode') !='-1') checkPostCode(elem);
+			if (defaults.rule.indexOf('vIdExpDate') !='-1') checkIdExpDate(elem);
+			if (defaults.rule.indexOf('vRequired') !='-1') checkRequired(elem);
+		}
+	}
+	
+	var initFocusFunction = function(elem) {
+		if (defaults.rule.indexOf('vRandomPassword') !='-1') randomPassword(elem);
+	}
+	
+	var initKeyupFunction = function(elem) {
+		if (defaults.rule.indexOf('vNextFocus') !='-1') nextFocus(elem);
+		if (defaults.rule.indexOf('vPrevFocus') !='-1') prevFocus(elem);
+	}
+	
+	var initChangeFunction = function(elem) {
+		if (defaults.rule.indexOf('vClearValidation') == '-1') {
+			if (defaults.rule.indexOf('vSelect') !='-1'){ clearValidationLabel(elem); checkSelect(elem); }
+			if (defaults.rule.indexOf('vIdExpDate') !='-1'){ clearValidationLabel(elem); checkIdExpDate(elem); }
+		}
+	}
+	
+	var initClickFunction = function(elem) {
+		if (defaults.rule.indexOf('vClearValidation') == '-1') {
+			if (defaults.rule.indexOf('vCheckbox') !='-1'){ clearValidationLabel(elem); checkCheckbox(elem); }
+			if (defaults.rule.indexOf('vPrevFocus') !='-1') prevFocus(elem,'click');
+		}
+	}
+  	
+  	var events = function(elem) {
+		var $elem = jQuery(elem);
+		var $form = jQuery('#'+$elem.parents('form').attr('id'));
+		
+		if (defaults.rule.indexOf('vIdExpDate') =='-1'){
+			$elem.blur(function() {
+				initBaseFunction($elem);
+			});
+		}else{
+			$elem.children().eq(2).blur(function() {
+				initBaseFunction($elem);
+			});
+		}
+		
+		$elem.focus(function() {
+			initFocusFunction($elem);
+		});
+		$elem.keyup(function(event) {
+			initKeyupFunction($elem);
+		});
+		$elem.click(function() {
+			initClickFunction($elem);
+		});
+		if (defaults.rule.indexOf('vIdExpDate') =='-1'){
+			$elem.change(function() {
+				initChangeFunction($elem);
+			});
+		}else{
+			$elem.find('select').change(function() {
+				initChangeFunction($elem);
+			});
+		}
+		$form.submit(function() {
+			initBaseFunction($elem);
+		});
+    };
+
+	var checkIdExpDate = function(_this){
+		/* dość specyficzny mechanizm sprawdzający poprawność daty ważności dokumentu tożsamości */
+		var day = _this.find('select').eq(0),
+			month = _this.find('select').eq(1),
+			year = _this.children().eq(2);
+		/*console.log('sprawdzenie: day = ' + 
+					day.val() + ' ' + (day.val() == '' || day.val() == '*') + ' month = ' +
+					month.val() + ' ' + (month.val() == '' || month.val() == '*') + ' year = ' +
+					year.val() + (!/^[0-9]{4}$/.test(year.val())));*/
+		if( (day.val() == '' || day.val() == '*') || 
+			(month.val() == '' || month.val() == '*') ||
+			(!/^[0-9]{4}$/.test(year.val())) ){
+			showValidationLabel(_this, defaults.labelIdExpDate);
+		};		
+	};
+		
+	var checkLength = function(_this, param) {
+		var valueLength = _this.val().length;
+		var lengthIf = param == 'min' ? valueLength < defaults.minLength : valueLength > defaults.maxLength;
+		
+		if (defaults.rule.indexOf('vPostCode') !='-1') {
+		} else if (lengthIf) {
+			var valueLabel = defaults.labelReqLength + defaults.minLength;
+			if (defaults.minLength == defaults.maxLength) {
+				showValidationLabel(_this, valueLabel);
+			} else {
+				var valueLabel = param == 'min' ? defaults.labelMinLength + defaults.minLength : defaults.labelMaxLength + defaults.maxLength;
+				showValidationLabel(_this, valueLabel);
+			}
+			return false;
+		}
+	};
+	
+	var checkValue = function(_this, param) {
+		var value = _this.val();
+		var valueIf = param == 'min' ? value < defaults.minValue : value > defaults.maxValue;
+		
+		if ( defaults.rule.indexOf('vStopAfterFirstError') ==='-1' || ( defaults.rule.indexOf('vStopAfterFirstError') !=='-1' && !checkIfPreviousErrors(_this) ) ) {
+			if ( ( defaults.rule.indexOf('vIfNumber') !='-1' || defaults.rule.indexOf('noNrCheck') !='-1' ) && valueIf) {
+				var valueLabel = param == 'min' ? defaults.labelMinValue + defaults.minValue : defaults.labelMaxValue + defaults.maxValue;
+				showValidationLabel(_this, valueLabel);
+			}
+		}
+	};
+	
+	var checkCapitalize = function(_this) {
+		var value = _this.val(),
+			firstLetter = value.slice(0,1);
+		_this.val(firstLetter.toUpperCase() + value.substring(1));
+	}
+	
+	var checkEmail = function(_this) {
+		var value = _this.val(),
+			reg =  /^([\w-\.\+]+)?\w([\w-\.\+]+)?@([\w-]+\.)+[\w-]{2,}$/;
+			
+		if (!reg.test(value)) {showValidationLabel(_this, defaults.labelEmail);return false;}
+	}
+	
+	var checkPostCode = function(_this) {
+		var value = _this.val(),
+			reg = /^[0-9]{2}\-[0-9]{3}$/;
+		
+		if (!reg.test(value)) {showValidationLabel(_this, defaults.labelPostCode);return false;}
+	}
+	
+	var checkId = function(_this) {
+		var value = _this.val(),
+			cartNumber = value.split(''),
+			points = 0,
+			chars = 'ABCDEFGHIJKLMNOPQRSTUWXYZ',
+			charsPoints = [7,3,1,0,7,3,1,7,3];
+
+		if (cartNumber.length == 9) {
+			for (var i=0; i<3; i++) {
+				if (cartNumber[i].charCodeAt(0) >= 65 && cartNumber[i].charCodeAt(0) <= 122) {			  			  	
+					points += (chars.indexOf(cartNumber[i].toUpperCase()) + 10) * charsPoints[i];						
+				} else {
+					showValidationLabel(_this, defaults.labelId3Chars);
+					_this.val(value.toUpperCase());
+					return false;
+				}			
+			}
+			
+			for (var i=3; i<9; i++) {
+				if (cartNumber[i].charCodeAt(0) >= 48 && cartNumber[i].charCodeAt(0) <= 57) {			  
+				  points += cartNumber[i] * charsPoints[i];
+				} else {
+					showValidationLabel(_this, defaults.labelId6Chars);
+					_this.val(value.toUpperCase());
+					return false;
+				}			
+			}
+			
+			if (points % 10 == cartNumber[3]) {
+				_this.val(value.toUpperCase());
+				return true;
+			} else {
+				showValidationLabel(_this, defaults.labelId);
+				_this.val(value.toUpperCase());
+				return false;
+			}
+
+		} else {
+			//showValidationLabel(_this, defaults.labelId);
+		}
+	}
+	
+	var checkPesel = function(_this) {
+		var value = _this.val(),
+			arr = value.split(''),
+			ratio = parseInt(arr[0])*1;
+			
+		value+='';
+		ratio += parseInt(arr[1])*3;
+		ratio += parseInt(arr[2])*7;
+		ratio += parseInt(arr[3])*9;
+		ratio += parseInt(arr[4])*1;
+		ratio += parseInt(arr[5])*3;
+		ratio += parseInt(arr[6])*7;
+		ratio += parseInt(arr[7])*9;
+		ratio += parseInt(arr[8])*1;
+		ratio += parseInt(arr[9])*3;
+		var controlInt = 10 - ratio % 10, 
+			controlSum = parseInt(value.substr(10,1));
+		if (controlInt != controlSum) {
+			showValidationLabel(_this, defaults.labelPesel);
+			return false;
+		}
+	}
+	
+	var checkNip = function(_this) {
+		var value = _this.val(),
+			controlSum = 0;
+		value+='';
+		value = value.replace(/[^0-9]+/g,'');
+
+		controlSum+=parseInt(value.charAt(0))*6;
+		controlSum+=parseInt(value.charAt(1))*5;
+		controlSum+=parseInt(value.charAt(2))*7;
+		controlSum+=parseInt(value.charAt(3))*2;
+		controlSum+=parseInt(value.charAt(4))*3;
+		controlSum+=parseInt(value.charAt(5))*4;
+		controlSum+=parseInt(value.charAt(6))*5;
+		controlSum+=parseInt(value.charAt(7))*6;
+		controlSum+=parseInt(value.charAt(8))*7;
+		
+		if ((controlSum % 11) != parseInt(value.charAt(9))) {
+			showValidationLabel(_this, defaults.labelNip);
+			return false;
+		}
+	}
+	
+	var checkRegon = function(_this) {
+        var REGON = _this.val();//[]; /* 11 */
+        var valid = 0;
+        var REGONlength = 0;
+        
+        var checkSum9 = function(){
+            var sum = 8 * parseInt(REGON.charAt(0)) +
+	                  9 * parseInt(REGON.charAt(1)) +
+		              2 * parseInt(REGON.charAt(2)) +
+		              3 * parseInt(REGON.charAt(3)) +
+		              4 * parseInt(REGON.charAt(4)) +
+		              5 * parseInt(REGON.charAt(5)) +
+		              6 * parseInt(REGON.charAt(6)) +
+		              7 * parseInt(REGON.charAt(7));
+		    sum %= 11;
+			
+		    if( sum == 10 ){ sum = 0; }
+		    if( sum == parseInt(REGON.charAt(8)) ){ return 1; }else{ return 0; }
+        };
+
+        var checkSum14 = function(){
+            var sum = 2 * parseInt(REGON.charAt(0)) +
+	                  4 * parseInt(REGON.charAt(1)) +
+		              8 * parseInt(REGON.charAt(2)) +
+		              5 * parseInt(REGON.charAt(3)) +
+		              0 * parseInt(REGON.charAt(4)) +
+		              9 * parseInt(REGON.charAt(5)) +
+		              7 * parseInt(REGON.charAt(6)) +
+		              3 * parseInt(REGON.charAt(7)) +
+		              6 * parseInt(REGON.charAt(8)) +
+		              1 * parseInt(REGON.charAt(9)) +
+		              2 * parseInt(REGON.charAt(10)) +
+		              4 * parseInt(REGON.charAt(11)) +
+		              8 * parseInt(REGON.charAt(12));
+	        sum %= 11;
+	        if (sum == 10) {
+		        sum = 0;
+	        }
+	        if (sum == parseInt(REGON.charAt(13))) {
+		        return 1;
+	        }else{
+		        return 0;
+	        }
+        };
+        
+        var checkSum = function(){
+            if (REGONLength == 9) {
+		        return checkSum9();
+	        }else{
+		        return (checkSum9() && checkSum14());
+	        }
+        };	
+	
+        
+        if ((REGON.length != 9) && (REGON.length != 14)) {
+            valid = 0;
+        }else {
+            REGONLength = REGON.length;
+            for (i = 0; i < REGONLength; i++){
+	            REGON[i] = REGON[i] - 48;
+            }
+            if (checkSum()) {
+	            valid = 1;
+            }else {
+	            valid = 0;
+            }
+        }
+        if( valid == 0 ){ 
+			showValidationLabel(_this, defaults.labelRegon);
+            return false;
+        }
+        
+	}
+	
+	var checkIfNumber = function(_this) {
+		var value = _this.val(),
+			reg = /^[0-9]+$/;
+		if (!reg.test(value)) {
+			var valueLabel = defaults.labelHtml != '' ? defaults.labelHtml : _this.prevAll('label').html();
+			var valueLabel = valueLabel + defaults.labelOnlyNumbers,
+				valueLabel = valueLabel.replace('*', '');
+			showValidationLabel(_this, valueLabel);
+			return false;
+		}
+	}
+    
+	var checkIfNumberDotComa = function(_this) {
+		var value = _this.val(),
+			reg = /^[0-9,.]+$/;
+		if (!reg.test(value) && value.length > 0) {
+			var valueLabel = defaults.labelHtml != '' ? defaults.labelHtml : _this.prevAll('label').html();
+			var valueLabel = valueLabel + defaults.labelOnlyNumbersDotComa,
+				valueLabel = valueLabel.replace('*', '');
+			showValidationLabel(_this, valueLabel);
+			return false;
+		}
+	}
+	var checkRequired = function(_this) {
+		var value = _this.val();
+		if (value.length <= 0) {
+			showValidationLabel(_this, defaults.labelRequired);
+			return false;
+		}
+	}
+	
+	var checkIfAlpha = function(_this) {
+		var value = _this.val(),
+			reg = /^[a-zA-ZąćęłńóśżźĄĆĘŁŃÓŚŻŹ -]+$/;
+		if (value != '') {
+			if (!reg.test(value)) {
+				var valueLabel = defaults.labelHtml != '' ? defaults.labelHtml : _this.prevAll('label').html();
+				var valueLabel = valueLabel + defaults.labelOnlyAlpha,
+					valueLabel = valueLabel.replace('*', '');
+				showValidationLabel(_this, valueLabel);
+				return false;
+			}
+		}
+	}
+	
+	var checkIfAlphaNum = function(_this) {
+		var value = _this.val(),
+			reg = /^[a-zA-Z0-9ąćęłńóśżźĄĆĘŁŃÓŚŻŹ() .,]+$/;
+		if (value != '') {
+			if (!reg.test(value)) {
+				var valueLabel = defaults.labelHtml != '' ? defaults.labelHtml : _this.prevAll('label').html();
+				var valueLabel = valueLabel + defaults.labelOnlyAlphaNum,
+					valueLabel = valueLabel.replace('*', '');
+				showValidationLabel(_this, valueLabel);
+				return false;
+			}
+		}
+	}
+	
+    var checkHasAlphaNum = function(_this) {
+		var value = _this.val(),
+			reg = /^.*[a-zA-Z0-9ąćęłńóśżźĄĆĘŁŃÓŚŻŹ]+.*$/;
+		if (value != '') {
+			if (!reg.test(value)) {
+				var valueLabel = defaults.labelHtml != '' ? defaults.labelHtml : _this.prevAll('label').html();
+				var valueLabel = valueLabel + defaults.labelHasAlphaNum,
+					valueLabel = valueLabel.replace('*', '');
+				showValidationLabel(_this, valueLabel);
+				return false;
+			}
+		}
+	}
+	
+	var removeFirstChar = function(_this) {
+		var value = _this.val();
+		if (value.charAt(0) == defaults.firstChar) {
+			var value = ltrim(trim(value, defaults.firstChar));
+			_this.val(value);
+		}
+	}
+	
+	var removeSingleSpace = function(_this) {
+		var value = _this.val();
+		_this.val(value.split(' ').join(''));
+	}
+	
+	var removeWhiteSpace = function(_this) {
+		var value = _this.val(),
+			reg = /^\s+$/;
+		if (reg.test(value)) {
+			var valueLabel = defaults.labelHtml != '' ? defaults.labelHtml : _this.prevAll('label').html();
+			var valueLabel = valueLabel + defaults.labelWhiteSpace,
+				valueLabel = valueLabel.replace('*', '');
+			showValidationLabel(_this, valueLabel);
+			return false;
+		}
+	}
+	
+	var randomPassword = function(_this) {
+		var value = _this.val();
+		if (value == '') {
+			var value = ''
+			for (var i = 0; i < defaults.passwordLength; i++) {
+				var randomNumber = Math.floor(Math.random() * defaults.passwordChars.length);
+				value += defaults.passwordChars.substring(randomNumber,randomNumber+1);
+			}
+			_this.val(value);
+		}
+	}
+	
+	var comparePrev = function(_this) {
+		var valueLabel = defaults.labelField + _this.prev('label').html() + defaults.labelFieldsCompare + _this.parent().prev().find('label').html(),
+			valueLabel = valueLabel.replace('*', '');
+		if (_this.val() != _this.parent().prev().find('input').val()) {
+			showValidationLabel(_this, valueLabel);
+		}
+	}
+
+	var nextFocus = function(_this) {
+		var value = _this.val();
+		if (value.length >= defaults.maxLength) {_this.next('input').focus();}
+	}
+	
+	var prevFocus = function(_this,action) {
+		var value = _this.val();
+		if (action == 'click') {
+			var prevLength = _this.prev('input').val().length;
+			var prevMaxLength = _this.prev('input').attr('maxlength');
+			if (value.length == '' && prevLength < prevMaxLength) {
+				_this.prev('input').focus();
+			}
+		} else if (value.length == '') {
+			_this.prev('input').focus();
+		}
+	}
+
+	var checkSelect = function(_this) {
+		//var value = _this.find('li.selected').attr('rel');
+		var value = _this.find('option:selected').attr('value');
+		var valueLabel = defaults.labelHtml != '' ? defaults.labelHtml : _this.parent().prevAll('label').html(); /* _this=p, więc p.parent(div).prev() = label */
+		var	valueLabel = defaults.labelSelect + valueLabel,
+			valueLabel = valueLabel.replace('*', '');
+		if (value == '' || value == '*') {showValidationLabel(_this, valueLabel);return false;}
+	}
+	
+	var checkCheckbox = function(_this) {
+		if (defaults.rule.indexOf('vCheckbox') !='-1') { 
+			if (_this.is(":checked")) {
+				clearValidationLabel(_this);
+			} else {
+				showValidationLabel(_this, defaults.labelCheckbox);
+				return false;
+			}
+		}
+	}
+	
+	var checkDate = function(_this){
+	    var value = _this.val(),
+	        reg = /^(19|20)\d\d[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$/i;
+	    if (!reg.test(value)) {
+           showValidationLabel(_this, defaults.labelDate);
+        }
+    }
+	
+	var trim = function(str, chars) {
+		return ltrim(rtrim(str, chars), chars);
+	}
+ 
+	var ltrim = function(str, chars) {
+		chars = chars || "\\s";
+		return str.replace(new RegExp("^[" + chars + "]+", "g"), "");
+	}
+ 
+	var rtrim = function(str, chars) {
+		chars = chars || "\\s";
+		return str.replace(new RegExp("[" + chars + "]+$", "g"), "");
+	}
+
+	var showValidationLabel = function(_this, valueLabel) {
+		_this.nextAll('.'+defaults.classParagraph).css({'display':'block'}).append('<span class="'+defaults.classSpan+'">'+valueLabel+'</span>');
+		if (defaults.rule.indexOf('vIdExpDate') =='-1') _this.addClass(defaults.classErrField);
+		if (defaults.rule.indexOf('vIdExpDate') !='-1') _this.find('p.customDropdownLabel, input').addClass(defaults.classErrField);
+		if (defaults.rule.indexOf('vSelect') !='-1') _this.prevAll().addClass(defaults.classErrField);
+		if (defaults.rule.indexOf('vCheckbox') !='-1') _this.next().addClass(defaults.classErrField);
+		if (defaults.rule.indexOf('vPostCode') !='-1') _this.prevAll('input').addClass(defaults.classErrField); _this.nextAll('input').addClass(defaults.classErrField);
+	}
+	
+	var clearValidationLabel = function(_this) {
+		_this.parent().find('.'+defaults.classParagraph).html('').hide();
+		_this.removeClass(defaults.classErrField);
+		if (defaults.rule.indexOf('vIdExpDate') !='-1') _this.find('p.customDropdownLabel, input').removeClass(defaults.classErrField);
+		if (defaults.rule.indexOf('vSelect') !='-1') _this.prev().removeClass(defaults.classErrField);
+		if (defaults.rule.indexOf('vCheckbox') !='-1') _this.next().removeClass(defaults.classErrField);
+		if (defaults.rule.indexOf('vPostCode') !='-1') _this.prevAll('input').removeClass(defaults.classErrField); _this.nextAll('input').removeClass(defaults.classErrField);
+	}
+
+	var checkIfPreviousErrors = function(_this) {
+		if ( _this.nextAll('.'+defaults.classParagraph+':visible').length > 0 ) {
+			return true;
+		}
+		return false;
+	}
+  	
+  	return this.each(function() {init(this);events(this);});
+};
+})(jQuery);

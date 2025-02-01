@@ -1,0 +1,413 @@
+/**
+ * @name submissions
+ * @author kfb + some old code
+ *
+ * Basic usage:
+ * var submissions = new Submissions();
+ * submissions.init();
+ *
+ * additionally you can use methods like submissions.methodName();
+ *
+ * Advanced usage:
+ * var submissions = new Submissions({
+ *      "additionalOption": "thatCanOvervriteDefaults"
+ * });
+ */
+
+var autoSave;
+
+PlaySCB.submissions = new function(){
+  var _cfg;
+  var _root;
+
+  //defining defaults and extending/overwriting it with inputted parameters
+
+  /*
+      INITIALIZE
+  */
+  this.init = function() {
+    //assign _root and cofig variables
+    _root = this;
+    _cfg = this.config;
+
+    var timeout = '';
+    var contentStorage = $('#complainForm').html();
+    var registered = false;
+
+    //on DOM ready
+    $(document).ready(function() {
+      PlaySCB.loader.show("#complainsOpenedTableDiv");
+      PlaySCB.loader.show("#complainsClosedTableDiv");
+      setTimeout(function() {
+        _root.initialLoadComplainClosedPage(parseInt($('#complainsPageClosed').val()));
+        _root.initialLoadComplainOpenedPage(parseInt($('#complainsPageOpen').val()));
+      }, 100);
+
+      //bind events
+      _root.bindEvents();
+    });
+  }
+
+  /*
+      Bind Events
+  */
+  this.bindEvents = function() {
+    $('#hiddenOpenComplainsReload').click(function() {
+      var openedPageNum = 0;
+      if($('#pageNumberOpen').val()) {
+        openedPageNum = parseInt($('#pageNumberOpen').val());
+      }
+      _root.loadComplainOpenedPage(openedPageNum, false);
+    });
+
+    //show complain details
+    $('section#complains').on('click','[data-toggle=collapse].showComplainDetails', function(){
+      var _this = $(this),
+        complainId = _this.attr('data-complain-id'),
+        target = $(_this.attr('data-target')),
+        td = target.closest('td').toggleClass('p0');
+
+      if(_this.attr('data-show') == "false"){
+        PlaySCB.loader.show(target);
+        complainRemoteService.getComplainDetails(complainId,{
+          callback:function(response) {
+            if(response.responseStatus.status == 1 ){
+              target.html(response.view);
+              jQuery(target.selector+' .addCommentButton.disabled').tooltip({noClose: true, clickToClose: false, type: 'simple', addClass: 'left'});
+              _root.complain.details.resizeTextareas(target);
+              PlaySCB.loader.hide(target);
+            } else {
+              exceptionHandler();
+            }
+          },
+          errorHandler: function(msg, exception, response) {
+            //handle DWR error
+            PlaySCB.loader.hide(target);
+            dwrHandler.errorHandler(msg, exception, response);
+          }
+        });
+        _this.attr('data-show', "true");
+      }
+    });
+
+    //remove temporary complain
+    $('.removeComplain').live("click", function(){
+      //remove temporary complain using DWR
+      _root.complain.remove();
+      //remove row
+      $(this).parents("tr:first").remove();
+      // if we have removed last one we should refresh
+      if ( $("#COMPLAINSClosedTable tbody tr").length < 1 ) {
+        tableService['#COMPLAINS'].getData();
+      }
+    });
+
+    /* anuluj/zamknij */
+    $('body').one('click', '#fancybox-content .cancel', function() {
+      $('body').on('click', '#fancybox-content .cancel', function(e) {
+    	PlaySCB.gaWrap( 'Play24 - zgłoszenia', 'Nowe zgłoszenie', 'Anuluj');
+    	  
+    	$('#fancybox-close').trigger('click', ['cancel']);
+      });
+    });
+    $('body').on('click', '#fancybox-close', function(e ,params) {
+      if(params !== 'cancel'){
+    	PlaySCB.gaWrap( 'Play24 - zgłoszenia', 'Nowe zgłoszenie', 'Zamknij');
+      }
+
+      if($('#complainForm').length > 0){
+        $('ul.customDropdownOptions.category').remove();
+        $('ul.customDropdownOptions.coplain-opinion').remove();
+
+      }
+      _root.complain.remove();
+      _root.complain.resetForm();
+    });
+
+    /* ~select.customSelect change */
+    $('.customDropdownOptions.category li').live('click',function() {
+      if ( $(this).attr('rel') != '0') {
+        kat = $(this).attr('rel');
+
+        $('#complainForm span.err').hide();
+        $('#complainForm textarea').removeClass('err');
+        $('#complainForm textScroll').removeClass('errScroll');
+        $('#complainForm .categoryLabel').nextAll('li').hide();
+        $('#complainForm .form'+kat).show();
+      }
+      else {
+        $('#complainForm span.err').hide();
+        $('#complainForm textarea').removeClass('err');
+        $('#complainForm textScroll').removeClass('errScroll');
+        $('#complainForm .categoryLabel').nextAll('li').hide();
+      }
+    });
+
+    $('body').on('click', '#complainsOpenedTableDiv .pagination .next', function(){
+      var currentPage = parseInt($('#pageNumberOpen').val());
+      _root.loadComplainOpenedPage(currentPage + 1, true);
+    });
+
+    $('body').on('click', '#complainsClosedTableDiv .pagination .next', function(){
+      var currentPage = parseInt($('#pageNumberClosed').val());
+      _root.loadComplainClosedPage(currentPage + 1, true);
+    });
+
+    $('body').on('click', '#complainsOpenedTableDiv .pagination .prev', function(){
+      var currentPage = parseInt($('#pageNumberOpen').val());
+      _root.loadComplainOpenedPage(currentPage - 1, true);
+    }) ;
+
+    $('body').on('click', '#complainsClosedTableDiv .pagination .prev', function(){
+      var currentPage = parseInt($('#pageNumberClosed').val());
+      _root.loadComplainClosedPage(currentPage - 1, true);
+    }) ;
+
+    $('body').on('click', '#complainsOpenedTableDiv .pagination .firstPage', function(){
+      _root.loadComplainOpenedPage(0, true);
+    });
+
+    $('body').on('click', '#complainsClosedTableDiv .pagination .firstPage', function(){
+      _root.loadComplainClosedPage(0, true);
+    });
+
+    //walidacja textarea
+    $('textarea').live('change keyup keydown',function() {
+        textarea_val = $(this).val();
+        if ( textarea_val.length > 10000 ) {
+          textarea_val = textarea_val.substr(0,10000);
+          $(this).val(textarea_val);
+        }
+      });
+
+    $('body').on('click', '.addCommentButton', function() {
+      if($(this).hasClass('disabled')) {
+        return false;
+      }
+      var requestId = $(this).parent().parent('.problem').parent().attr('id');
+      _root.complain.commentModal(requestId);
+    });
+
+    $('body').on('click', '#createNewComment', function() {
+      var textarea = $('#complainsCommentForm textarea[name=complainComment]');
+      if(textarea.val().trim().length === 0) {
+          textarea.addClass('err').next().addClass('errScroll');
+          textarea.parent().addClass('errorParagraph');
+        $('#complainsCommentForm .error').show();
+        return false;
+      } else {
+          textarea.removeClass('err').next().removeClass('errScroll');
+          textarea.parent().removeClass('errorParagraph');
+        $('#complainsCommentForm .error').hide();
+      }
+
+      var requestId = $('#complainsCommentForm input[type=hidden][name=requestId]').val();
+      var comment = textarea.val().trim();
+
+      $('#complainsCommentForm .err').text('').hide();
+      _root.complain.sendComment(requestId, comment);
+    });
+  }
+
+  this.showComplainModal = function(categoryId, categoryName) {
+    PlaySCB.gaWrap( 'Play24 - zgłoszenia', 'Napisz do konsultanta', categoryName);
+    // show complain modal
+    _root.complain.modal(categoryId);
+  }
+
+  this.loadComplainOpenedPage = function(pageNum, clearFocus){
+    _root.showIndicatorForOpenedComplaints();
+    complainRemoteService.findComplains(pageNum, 'OPENED', clearFocus, {
+      callback:_root.loadComplainOpenedCallback,
+      errorHandler: function(msg, exception, response) {
+        //handle DWR error
+        dwrHandler.errorHandler(msg, exception, response);
+      }
+    });
+  }
+
+  this.loadComplainClosedPage = function(pageNum, clearFocus){
+    _root.showIndicatorForClosedComplaints();
+    complainRemoteService.findComplains(pageNum, 'CLOSED', clearFocus, {
+      callback:_root.loadComplainClosedCallback,
+      errorHandler: function(msg, exception, response) {
+        //handle DWR error
+        dwrHandler.errorHandler(msg, exception, response);
+      }
+    });
+  }
+
+  this.loadComplainOpenedCallback = function(response) {
+    //check if we should open modal with temporary complain
+    $('#newcomission').removeClass('disabled');
+
+    if(response.responseStatus.status == 1 ){
+      var $container = $('#complainsOpenedTableDiv');
+      $('#COMPLAINSOpenedTable tbody').html(response.view);
+
+      var isEmpty = $('#COMPLAINSOpenedTable tbody').find('tr.bb0, tr.bb1').length === 0;
+      $('#COMPLAINSOpenedTable thead').toggle(!isEmpty).css('visibility', !isEmpty ? 'visible' : 'hidden');
+      $('#complainsOpenedTableDiv').toggleClass('mt35', !isEmpty);
+
+      PlaySCB.loader.hide("#complainsOpenedTableDiv");
+
+      _root.complain.checkTemporaryComplain();
+      _root.complain.checkComplainFocus('#complainsOpenedTableDiv');
+
+      jQuery('#complainsOpenedTableDiv .addCommentButton.disabled').tooltip({noClose: true, clickToClose: false, type: 'simple', addClass: 'reportsTooltip', minusLeft: 46});
+    } else {
+      exceptionHandler();
+    }
+  }
+
+  this.loadComplainClosedCallback = function(response) {
+    //check if we should open modal with temporary complain
+    $('#newcomission').removeClass('disabled');
+
+    if(response.responseStatus.status == 1 ){
+      $('#COMPLAINSClosedTable tbody').html(response.view);
+
+      var isEmpty = $('#COMPLAINSClosedTable tbody').find('tr.bb0, tr.bb1').length === 0;
+      $('#COMPLAINSClosedTable thead').toggle(!isEmpty).css('visibility', !isEmpty ? 'visible' : 'hidden');
+      $('#complainsClosedTableDiv').toggleClass('mt35', !isEmpty);
+
+      PlaySCB.loader.hide('#complainsClosedTableDiv');
+
+      if(response.responseStatus.messages.refreshBoth === "true") {
+        var openedPageNum = 0;
+        if($('#pageNumberOpen').val()) {
+          openedPageNum = parseInt($('#pageNumberOpen').val());
+        }
+        _root.loadComplainOpenedPage(openedPageNum, false);
+      }
+
+      _root.complain.checkTemporaryComplain();
+      _root.complain.checkComplainFocus('#complainsClosedTableDiv');
+
+    } else {
+      exceptionHandler();
+    }
+  }
+
+  this.initialLoadComplainOpenedPage = function(pageNum){
+    _root.showIndicatorForOpenedComplaints();
+    complainRemoteService.findComplains(pageNum, 'OPENED', false, {
+      callback:_root.loadComplainOpenedCallback,
+      errorHandler: function(msg, exception, response) {
+        //handle DWR error
+        dwrHandler.errorHandler(msg, exception, response);
+      },
+      async: false
+    });
+  }
+
+  this.initialLoadComplainClosedPage = function(pageNum){
+    complainRemoteService.findComplains(pageNum, 'CLOSED', false, {
+      callback:_root.initialLoadComplainClosedCallback,
+      errorHandler: function(msg, exception, response) {
+        //handle DWR error
+        dwrHandler.errorHandler(msg, exception, response);
+      },
+      async: false
+    });
+  }
+
+  this.initialLoadComplainClosedCallback = function(response) {
+    //check if we should open modal with temporary complain
+    $('#newcomission').removeClass('disabled');
+
+    if(response.responseStatus.status == 1 ){
+      $('#COMPLAINSClosedTable tbody').html(response.view);
+
+      var isEmpty = $('#COMPLAINSClosedTable tbody').find('tr.bb0, tr.bb1').length === 0;
+      $('#COMPLAINSClosedTable thead').toggle(!isEmpty).css('visibility', !isEmpty ? 'visible' : 'hidden');
+      $('#complainsClosedTableDiv').toggleClass('mt35', !isEmpty);
+
+      PlaySCB.loader.hide('#complainsClosedTableDiv');
+
+      _root.complain.checkTemporaryComplain();
+      _root.complain.checkComplainFocus('#complainsClosedTableDiv');
+
+    } else {
+      exceptionHandler();
+    }
+  }
+
+  this.showIndicatorForOpenedComplaints = function(){
+      PlaySCB.loader.show("#complainsOpenedTableDiv");
+  }
+
+  this.showIndicatorForClosedComplaints = function(){
+      PlaySCB.loader.show("#complainsClosedTableDiv");
+  }
+
+  /*
+      Complains
+  */
+
+  this.complain = function() {}
+
+  this.complain.checkComplainFocus = function(requestsTable) {
+    var $element = $(requestsTable).find("#focusedRequest").parent();
+    if($element.size()) {
+      var winHeight = $(window).height();
+      var elemTop = $element.offset().top;
+      $(window).scrollTop(elemTop - winHeight / 2);
+      setTimeout( function() {$element.find("a").click();}, 100);
+    }
+  }
+
+
+  //show comment modal
+  this.complain.commentModal = function(requestId) {
+    complainRemoteService.getComplainCommentForm(requestId,{
+      callback:function(response) {
+        if(response.responseStatus.status == 1 ){
+          $('#commentForm').html(response.view);
+          _root.complain.details.setTextareaHeight($('#complainsCommentForm textarea.description'));
+          loadFancy('#commentForm', function() {$('#complainsCommentForm textarea.description').next().remove();});
+        } else {
+          exceptionHandler();
+        }
+      },
+      errorHandler: function(msg, exception, response) {
+        //handle DWR error
+        dwrHandler.errorHandler(msg, exception, response);
+      }
+    });
+  }
+
+  //show new error
+  this.complain.showNewErrorInfo = function() {
+
+    $('#formError p').hide();
+    loadFancy('#formError');
+  }
+
+  this.complain.showRegisteredFormErrorInfo = function() {
+
+    $('#formError p').hide();
+    $('#formError p.registeredFormErrorMessage').show();
+    loadFancy('#formError');
+  }
+
+  this.complain.details = {}
+
+  this.complain.details.resizeTextareas = function(element) {
+    _root.complain.details.setTextareaHeight(element.find('.problem textarea.complainDescription'));
+    _root.complain.details.setTextareaHeight(element.find('.problem .comments textarea.commentArea'));
+  }
+
+  this.complain.details.setTextareaHeight = function(textarea) {
+    if(textarea.length === 1 && textarea.get(0).scrollHeight > textarea.height()) {
+      textarea.height(textarea.get(0).scrollHeight);
+    } else if(textarea.length > 1) {
+      textarea.each(function(index) {
+        if($(this).get(0).scrollHeight > $(this).height())
+        $(this).height($(this).get(0).scrollHeight);
+      });
+    }
+  }
+
+  this.init();
+}

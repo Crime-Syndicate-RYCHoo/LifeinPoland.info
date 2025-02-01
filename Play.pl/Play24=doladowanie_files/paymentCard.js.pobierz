@@ -1,0 +1,190 @@
+/**
+ * Created by PMI on 2015-08-11.
+ */
+ function paymentCard() {
+    var self = this;
+
+    var _cfg = $.extend({status: {ok : 'OK'}});
+
+    this._bindEvents = function () {
+        $(_cfg.detailsButton).on('click', self.paymentCardDetails);
+    }
+
+    this.verifyOtp = function(callback) {
+      PlaySCB.globalStore.storeValue('otp_callback', callback);
+      // check otp
+      otp.check();
+    }
+
+    this.paymentCardOn = function() {
+        $('.paymentOn').removeClass('paymentEdit');
+        PlaySCB.globalLoader.show();
+        paymentCardDwrService.getOnOffMessages({
+            callback: function(data){
+                self.setOnOffModalContent($(_cfg.modal), data.data);
+                loadFancy(_cfg.modal);
+                PlaySCB.globalLoader.hide();
+            },
+            errorHandler: function(msg, exception, response){
+                dwrHandler.errorHandler(msg, exception, response);
+                PlaySCB.globalLoader.hide();
+            }
+        });
+
+    }
+
+    this.paymentCardOff = function() {
+        $('.paymentOn').removeClass('paymentEdit');
+        PlaySCB.globalLoader.show();
+        paymentCardDwrService.getOnOffMessages({
+            callback: function(data){
+                self.setOnOffModalContent($(_cfg.modal), data.data);
+                loadFancy(_cfg.modal);
+                PlaySCB.globalLoader.hide();
+            },
+            errorHandler: function(msg, exception, response){
+                dwrHandler.errorHandler(msg, exception, response);
+                PlaySCB.globalLoader.hide();
+            }
+        });
+    }
+
+    this.paymentCardDetails = function() {
+        $('.paymentOn').removeClass('paymentEdit');
+        PlaySCB.globalLoader.show();
+        paymentCardDwrService.getDetails({
+            callback: function(data){
+                self.setDetailsModalContent($(_cfg.modalModify), data.data);
+                loadFancy(_cfg.modalModify);
+                PlaySCB.globalLoader.hide();
+            },
+            errorHandler: function(msg, exception, response){
+                dwrHandler.errorHandler(msg, exception, response);
+                PlaySCB.globalLoader.hide();
+            }
+        });
+    },
+    paymentCardActivations = function() {
+      PlaySCB.globalLoader.show();
+      paymentsActivationsRemote.getActivationsHistory('CP', {
+        callback: function(data){
+          $(_cfg.modalActivations).html(data.view);
+          loadFancy(_cfg.modalActivations);
+          PlaySCB.globalLoader.hide();
+        },
+        errorHandler: function(msg, exception, response){
+          dwrHandler.errorHandler(msg, exception, response);
+          PlaySCB.globalLoader.hide();
+        }
+      });
+    },
+    /**
+     * Fill on/off modal with content from backend
+     * @param $modal
+     * @param data
+     */
+    this.setOnOffModalContent = function($modal, data) {
+        $modal.find('div.detailsList').hide();
+        $modal.find('.modal-header').html(data.modalHeader);
+        $modal.find('.tile-header').html(data.title);
+        $modal.find('.desc').html(data.desc);
+        self.setupPriceDisplay($modal, data);
+        $modal.find('.modal-action .next').html(data.nextButton);
+        if(data.nextButtonUrl) {
+          $modal.find('.modal-action a.next-step').off('click', self.sendPaymentCardOffReq);
+          //$modal.find('.actions a.next-step').attr('href', data.nextButtonUrl);
+          $modal.find('.modal-action a.next-step').on('click', function() {
+            $(this).off();
+            self.verifyOtp(function () {
+              window.location = data.nextButtonUrl;
+            })
+          });
+        } else {
+          $modal.find('.modal-action a.next-step').on('click', function() {
+            self.verifyOtp(self.sendPaymentCardOffReq);
+          });
+          $modal.find('.modal-action a.next-step').attr('href', 'javascript:void(0);');
+        }
+    }
+
+    /**
+     * Set the details modal content - show proper list and render the content
+     * @param $modal
+     * @param data
+     */
+    this.setDetailsModalContent = function($modal, data) {
+      self.setEditDetailsModalContent($modal, data);
+    }
+
+    this.setEditDetailsModalContent = function($modal, data) {
+        $modal.find('.modal-action a.next-step').off('click');
+        $('.paymentOn').addClass('paymentEdit');
+        // $('#fancybox-wrap').width(720).css('left', $('#fancybox-wrap').offset().left - 85+'px');
+        // $('#fancybox-content').width(600);
+        $modal.find('.modal-action a.next-step').on('click', function () {
+            $(this).off();  //prevent multiple clicks...
+            self.verifyOtp(function () {
+                window.location = data.nextButtonUrl;
+            });
+        });
+    }
+
+    this.setupPriceDisplay = function($modal, data) {
+      if (data.priceDesc && data.price) {
+        $modal.find('p.info.priceRow').show();
+        $modal.find('.priceRow .priceDesc').html(data.priceDesc);
+        $modal.find('.priceRow .price').html(data.price);
+        $modal.find('.priceRow span#dot').show();
+      } else {
+        $modal.find('p.info.priceRow').show();
+        $modal.find('.priceRow .priceDesc').html('');
+        $modal.find('.priceRow .price').html('');
+        $modal.find('.priceRow span#dot').hide();
+      }
+    }
+
+    this.sendPaymentCardOffReq = function() {
+        $('.paymentOn').removeClass('paymentEdit');
+        $(this).off(); //remove click evt listener to prevent messages spamming
+        var modal = $(_cfg.modal);
+        PlaySCB.globalLoader.show();
+        paymentCardDwrService.switchPaymentCardOff({
+            callback: function(data){
+                if(data.data.status == _cfg.status.ok) {
+                    $('td#paymentCardStatus').removeClass('on').removeClass('off').addClass('inProgress').html('<span>W trakcie zmiany</span>');
+                    $('a#paymentCardOnOffButton').remove();
+                    $('a#paymentCardDetailsButton').remove();
+                    $(_cfg.modalSummary  + ' .summary-header').text('Zlecenie przyjęte do realizacji');
+                    $(_cfg.modalSummary  + ' p').text('Usługa zostanie wyłączona w ciągu 24 godzin.');
+                    loadFancy(_cfg.modalSummary);
+                }
+                PlaySCB.globalLoader.hide();
+                $('#paymentCardActivationsModify').remove();
+                $('#paymentCardActivationsDeactivate').remove();
+            },
+            errorHandler: function(msg, exception, response){
+                dwrHandler.errorHandler(msg, exception, response);
+                PlaySCB.globalLoader.hide();
+            }
+        });
+    }
+
+    this.init = function (opts) {
+        _cfg = $.extend(_cfg, {
+            detailsButton: '#paymentCardActivationsModify',
+            modal: '#paymentCardModal',
+            modalModify: '#paymentCardModifyModal',
+            modalSummary: '#paymentCardModalSummary',
+            modalActivations: '#paymentsActivationsModal'
+        },  opts);
+
+        $(document).ready(function () {
+            self._bindEvents();
+            //setTimeout(function(){ }, 1000);
+        });
+    }
+
+};
+
+var paymentCard = new paymentCard();
+paymentCard.init();

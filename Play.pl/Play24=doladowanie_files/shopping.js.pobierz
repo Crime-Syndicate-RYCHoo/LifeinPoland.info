@@ -1,0 +1,139 @@
+$(document).ready(function(){
+	
+	$('.shoppingPromotion-button').click(function(){
+		loadFancy('#shoppingPromotionForm');
+		return false
+	});
+	
+	$('td.action .purchaseDetails').live('click', function(){
+		var id = $(this).attr('rel');
+		shoppingRemoteService.getPurchaseDetails(id, {
+			callback : function(response) {
+				var resp = response.responseStatus.status;  // 0 - error;
+																										// 1 = success;
+				if ( resp == 1 ) {
+					var purchaseAmount = response.responseStatus.messages.purchaseAmount;
+					var purchaseFinish = response.responseStatus.messages.purchaseFinish;
+					var purchaseDate = response.responseStatus.messages.purchaseDate;
+					var purchaseDescr = response.responseStatus.messages.purchaseDescr;
+
+					$("#shoppingDetailsForm #purchaseAmount").text(purchaseAmount);
+					$("#shoppingDetailsForm #purchaseFinish").text(purchaseFinish);
+					$("#shoppingDetailsForm #purchaseDate").text(purchaseDate);
+					$("#shoppingDetailsForm #purchaseDescr").text(purchaseDescr);
+
+					var purchaseShopName = response.responseStatus.messages.purchaseShopName;
+					if (response.responseStatus.messages.purchaseUrlAddress != null) {
+						var urlAddress = response.responseStatus.messages.purchaseUrlAddress;
+						var urlName = response.responseStatus.messages.purchaseUrlName;
+						var link = purchaseShopName + ' / <a class="shoppingLink" target="_blank" href="' + urlAddress + '">' + urlName + '</a>'
+						$("#shoppingDetailsForm #purchaseShopName").text('');
+						$("#shoppingDetailsForm #purchaseShopName").append(link);
+					} else {
+						$("#shoppingDetailsForm #purchaseShopName").text(purchaseShopName);
+					}
+
+
+					//$("#shoppingDetailsForm #purchaseShopName").text(purchaseShopName);
+					//if (purchaseShopName && !purchaseShopName.match(/^http([s]?):\/\/.*/)) {
+					//	$("#shoppingDetailsForm #purchaseShopName").attr("href", "http://" + purchaseShopName);
+					//} else {
+					//	$("#shoppingDetailsForm #purchaseShopName").attr("href", purchaseShopName);
+					//}*/
+
+					loadFancy('#shoppingDetailsForm');
+				return false;
+				}
+				else {
+					loadFancy('#shoppingError');
+				return false;
+				}
+			},
+      errorHandler: function(msg, exception, response) {
+        dwrHandler.errorHandler(msg, exception, response);
+      }
+		});
+		
+	});
+	
+	$('.shoppingSearchBeanButton').live('click', function(){
+		var bean = new ShoppingSearchBean(), tableType = $("section#shoppingHistory input[name='tableType']").val();
+		bean.filter = true;
+		bean.datePeriod = $('input[name=radioChoose]:checked').val();
+		bean.dateFrom = $('input[name=dateFrom]').val();
+		bean.dateTo = $('input[name=dateTo]').val();
+		bean.description = $('input[name=purchaseSearchDescr]').val();
+		bean.amountFrom = $('input[name=purchaseSearchAmountFrom]').val();
+		bean.amountTo = $('input[name=purchaseSearchAmountTo]').val();
+		bean.lastDays = $('input[name=periodSinceCount]').val();
+		
+		shoppingRemoteService.search(
+			bean,
+			{
+				callback: function(response) {
+					var resp = response.responseStatus.status;
+					$('span.errAmount').remove();
+					
+					if (resp == 1) {
+						tableService[tableType].setParameters(response);
+						tableService[tableType].appendData(response);
+						FormService.showValidationErrors(response);
+					} else if (resp == 2) {
+						var data = response.responseStatus.messages;
+						
+						$.each(data, function(i, item) {
+						    $('input[name="' + i + '"]').addClass('err');
+						    if (i == 'purchaseSearchAmountFrom' || i == 'purchaseSearchAmountTo') {
+						    	$('input[name="' + i + '"]').parent().append('<span class="errAmount">' + data[i] + '</span>');
+						    } else {
+						    	$('input[name="' + i + '"]').parent().append('<span class="err">' + data[i] + '</span>');
+						    }
+						});
+					}
+					
+				},
+        errorHandler: function(msg, exception, response) {
+          dwrHandler.errorHandler(msg, exception, response);
+        }
+			}
+		);
+	});
+	
+	$('input[name=purchaseSearchAmountFrom]').keyup(function () {     
+		  this.value = this.value.replace(/[^0-9\.]/g,'');
+	});
+	
+	$('input[name=purchaseSearchAmountTo]').keyup(function () {     
+		  this.value = this.value.replace(/[^0-9\.]/g,'');
+	});
+	
+	$('input[name=periodSinceCount]').keyup(function () {     
+		  this.value = this.value.replace(/[^0-9\.]/g,'');
+	});
+	
+	if(jQuery('.from').length) {
+		var from = [];
+        from = jQuery('.from').val().split('-');
+        from = from[1]+'/'+from[0]+'/'+from[2];
+        from = new Date(from);
+        jQuery('.to').dpSetStartDate(from.addDays(0).asString());
+        
+        jQuery('.from').bind('dpClosed', function(e, selectedDates) {
+            var d = selectedDates[0];
+            if (d) {
+                d = new Date(d);
+                to = jQuery('.to').val().split('-');
+                to = to[1]+'/'+to[0]+'/'+to[2];
+                to = new Date(to);
+                jQuery('.to').dpSetStartDate(d.addDays(0).asString());
+                if (d >= to) {
+                    to = d.addDays(0);
+                    to = to.asString('dd-mm-yyyy');
+                    jQuery('.to').dpSetSelected(to);
+                }
+                
+            }
+        });
+    }
+	
+});

@@ -1,0 +1,257 @@
+/**
+ * Created with IntelliJ IDEA.
+ * User: PWR
+ * Date: 07.11.13
+ * Time: 14:29
+ * To change this template use File | Settings | File Templates.
+ */
+
+
+if(!PlaySCB.myAccount){
+  PlaySCB.myAccount = {};
+}
+
+PlaySCB.myAccount.Messages = new function(){
+  var _root = this,
+    _cfg = {
+      containerId: 'messages',
+      messageContent: 'li',
+      messageModalId: 'messageModal'
+    };
+
+  /* initialize element */
+  this.init = function(opts) {
+    _cfg = $.extend(_cfg, opts);
+
+    _cfg.container = $('#'+_cfg.containerId);
+
+    $(document).ready(function(){
+      getMessages();
+    });
+
+  };
+
+  /* bind actions for element */
+  this.bind = function(){
+    _cfg.more.on('click', _root.more);
+    _cfg.closeMessage.on('click', hideMessage);
+
+    $('body').on('click', '#'+_cfg.messageModalId + " .closeBtn", function() {
+      var messageId = $('#'+_cfg.messageModalId+' #messageId').val();
+      var messageType = $('#'+_cfg.messageModalId+' #messageType').val();
+      if (messageId != undefined && messageType != undefined) {
+        messageRemoteService.tagMessageAsCancelled(messageType, messageId, {
+          errorHandler: function(msg, exception, response) {
+            dwrHandler.errorHandler(msg, exception, response);
+          }
+        });
+      }
+      PlaySCB.modal.hideAll();
+    })
+    $('body').on('click', '#'+_cfg.messageModalId + " .closingLink", function() {
+      var messageId = $('#'+_cfg.messageModalId+' #messageId').val();
+      var messageType = $('#'+_cfg.messageModalId+' #messageType').val();
+      if (messageId != undefined && messageType != undefined) {
+        messageRemoteService.tagMessageAsCancelled(messageType, messageId, {
+          errorHandler: function(msg, exception, response) {
+            dwrHandler.errorHandler(msg, exception, response);
+          }
+        });
+      }
+      PlaySCB.modal.hideAll();
+    })
+
+    $('body').on('click', '#fancybox-close', function() {
+      if($('#fancybox-close').parent().find('#fancybox-content #messageModal').size() == 0) {
+        return;
+      }
+      var messageId = $('#'+_cfg.messageModalId+' #messageId').val();
+      var messageType = $('#'+_cfg.messageModalId+' #messageType').val();
+      if (messageId != undefined && messageType != undefined) {
+        messageRemoteService.tagMessageAsCancelled(messageType, messageId, {
+          errorHandler: function(msg, exception, response) {
+            dwrHandler.errorHandler(msg, exception, response);
+          }
+        });
+      }
+      PlaySCB.modal.hideAll();
+    })
+  };
+
+  /* unbind actions for element */
+  this.unbind = function(){
+    _cfg.more.unbind('click');
+    _cfg.closeMessage.unbind('click');
+  };
+
+  /* more click action */
+  this.more = function(){
+    var text = _cfg.more.find('.text');
+
+    if(!_cfg.elListCnt.hasClass('opened')) {
+
+      console.log($('#elListCnt').find('ul').outerHeight());
+      _cfg.elListCnt.animate({height:$('#elListCnt').find('ul').outerHeight(true) - 1}, 300);
+
+      text.addClass('up').removeClass('down').toggleClass('zwin').html('Zwiń panel');
+    } else {
+
+      _cfg.elListCnt.animate({height: $('#elListCnt').find('li:eq(0)').outerHeight(true) - 1}, 300);
+      text.addClass('down').removeClass('up').toggleClass('zwin').html('Pokaż wszystkie');
+    }
+    _cfg.elListCnt.toggleClass('opened');
+    if ( typeof IFE != 'undefined' && IFE && IFE.event ) {
+      setTimeout(function () {
+        var modalHeight = parseInt(_cfg.elListCnt.outerHeight(), 10),
+        modalOffsetTop = parseInt(_cfg.elListCnt.offset().top, 10);
+
+        modalHeight = modalHeight + modalOffsetTop;
+        IFE.event('resize', {height: modalHeight});
+      }, 300);
+    }
+  };
+
+  this.appendMessages = function(view){
+    _cfg.container.append(view);
+    _root.checkMessages();
+    _root.bind();
+    _cfg.container.show();
+
+    if(_cfg.showPopup) {
+      var message = _cfg.container.find('div.popup-message').first();
+      var messageTitle = message.find('div.title').html();
+      var messageContent = message.find('div.content').html();
+      var messageId = message.find('div.messageId').text();
+      var messageType = message.find('div.messageType').text();
+      _root.messageShow(messageTitle, messageContent, messageId, messageType);
+    }
+  };
+
+  /* display modalbox with message */
+  this.messageShow = function(title, content, messageId, messageType){
+    var messageModal = $('#'+_cfg.messageModalId);
+    messageModal.find('h3').html(title);
+    messageModal.find('.text p').html(content);
+    messageModal.find('#messageId').val(messageId);
+    messageModal.find('#messageType').val(messageType);
+
+    PlaySCB.modal.show('#'+_cfg.messageModalId);
+  }
+
+  this.checkMessages = function() {
+    _cfg.more = _cfg.container.find('#more');
+    _cfg.elListCnt = _cfg.container.find('#elListCnt');
+    _cfg.elListCntChildren = _cfg.container.find('li');
+    _cfg.closeMessage = _cfg.elListCntChildren.find('.linkPointer2.close');
+    _cfg.showMessage = _cfg.elListCntChildren.find('.linkPointer2.show');
+    _cfg.showPopup = _cfg.container.find('div.popup-message').size();
+
+      var nr = _cfg.elListCntChildren.length;
+
+      switch(nr){
+        case 0:
+          _cfg.elListCnt.animate({height:0}, 300);
+          _cfg.more.addClass('disabled');
+          _cfg.more.slideUp(300);
+          break;
+        case 1:
+          _cfg.elListCnt.animate({height:$('#elListCnt').find('ul').outerHeight(true) - 1}, 300);
+          _cfg.more.addClass('disabled');
+          _cfg.more.slideUp(300);
+          break;
+        default:
+          _cfg.elListCnt.animate({height:$('#elListCnt').find('li:eq(0)').outerHeight(true) - 1}, 300);
+          _cfg.more.find('.text').removeClass('up').addClass('down').removeClass('disabled');
+          _cfg.more.slideDown(300);
+          break;
+      }
+  }
+
+  this.collapseMessage = function() {
+    var text = _cfg.more.find('.text');
+
+    if(_cfg.elListCnt.hasClass('opened')) {
+
+      text.addClass('down').removeClass('up').toggleClass('zwin').html('Pokaż wszystkie');
+      _cfg.elListCnt.animate({height: 43}, 300);
+      _cfg.elListCnt.toggleClass('opened');
+
+    }
+  }
+
+  var getMessages = function(){
+
+    PlaySCB.loader.show(_cfg.container);
+    _cfg.container.find('#elListCnt').remove();
+    _cfg.container.find('#more').remove();
+
+    messageRemoteService.getMessages({
+      callback:function(messages) {
+
+        PlaySCB.loader.hide(_cfg.container);
+        if(messages.view){
+          _root.appendMessages(messages.view);
+          initializeMessages();
+
+          //var $view = $(messages.view);
+		  //$view.find('.arte-alert').remove();
+		  //console.log($view.html);
+          
+        }
+      },
+      errorHandler: function(msg, exception, response) {
+
+        PlaySCB.loader.hide(_cfg.container);
+        //handle DWR error
+        dwrHandler.errorHandler(msg, exception, response);
+      }
+    });
+  };
+  
+  var hideMessage = function(){
+    var _this = $(this),
+      controls = _this.closest('.controls'),
+      messageId = controls.attr('data-message-id'),
+      messageType = controls.attr('data-message-type'),
+      messageTitle = controls.attr('data-message-title');
+
+    messageRemoteService.hideMessage(messageType, messageId, {
+      callback:function(response) {
+        if(response.responseStatus.status == 1 ){
+          messageRemove(_this.closest(_cfg.messageContent));
+        } else {
+          exceptionHandler();
+        }
+      },
+      errorHandler: function(msg, exception, response) {
+        //handle DWR error
+        dwrHandler.errorHandler(msg, exception, response);
+      }
+    });
+
+  };
+
+  var messageRemove = function(elem){
+    if ( $('#elListCnt').find('li').length-1 == 1 ) {
+      _cfg.more.remove();
+    }
+    if ( $('#elListCnt').find('li').length-1 == 0 ) {
+      $('#elListCnt ul').append("<li class='noMessages'>Brak wiadomości użytkownika</li>");
+    }
+
+    elem.slideUp(300, function(){
+      elem.remove();
+    });
+    if ( $('#elListCnt').find('li').length > 1 ) {
+      if(_cfg.elListCnt.hasClass('opened')){
+        _cfg.elListCnt.animate({
+          height:($('#elListCnt').find('li').length-1)*44
+        }, 300);
+      }
+    }
+
+  };
+
+
+  this.init();
+};

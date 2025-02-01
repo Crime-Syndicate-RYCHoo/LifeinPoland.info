@@ -1,0 +1,204 @@
+/**
+ * Created by mma on 2016-01-22.
+ */
+
+function PaymentActivations(opts) {
+  var cfg;
+  var _root;
+
+  this.config = $.extend({
+    "root": this,
+    "paymentActivationsModal": "#paymentsActivationsModal"
+  }, opts);
+
+  this.init = function () {
+    //assign _root and cofig variables
+    _root = this;
+    cfg = this.config;
+
+    //bind events on init
+    _root.bindEvents();
+  }
+
+  this.verifyOtp = function(callback) {
+    PlaySCB.globalStore.storeValue('otp_callback', callback);
+    // check otp
+    var otp = new Otp();
+    otp.init();
+    otp.check();
+  }
+
+  this.bindEvents = function() {
+
+    $('#paymentOrderActivationsButton').click(function() {
+      _root.showActivationsDetails('DD');
+    });
+
+    $("#paymentCardActivationsButton").click(function() {
+      if(typeof readonly !== 'undefined') {
+        return;
+      }
+      _root.showActivationsDetails('CEP');
+    });
+
+    $('#paymentsActivationsHistoryModal').on('click', '#paymentOrderActivationsButtonBack', function () {
+      _root.showActivationsDetails('DD');
+    });
+
+    $('#paymentsActivationsHistoryModal').on('click', '#paymentCardActivationsButtonBack', function () {
+      _root.showActivationsDetails('CEP');
+    });
+
+    $('#paymentsActivationsModal').on('click', '#paymentCardActHistoryButton', function () {
+      _root.showActivationsHistory('CEP');
+    });
+
+    $('#paymentsActivationsModal').on('click', '#paymentOrderActHistoryButton', function () {
+      _root.showActivationsHistory('DD');
+    });
+
+    $('body').on('click', '#paymentOrderActivationsActivate', function() {
+      _root.showPaymentActivate();
+    })
+
+
+    $('body').on('click', '#paymentOrderActivationsDeactivate', function () {
+      _root.showPaymentDeactivate();
+    });
+
+    $('body').on('click', '#paymentOrderActivationsModify', function () {
+      _root.showPaymentModify();
+    });
+
+    // payment card
+    $('.financesPaymentCardOffModal').click(function () {
+      _root.showPaymentCardDeactivate();
+    });
+
+    $('body').on('click', '#paymentCardActivationsActivate', function () {
+      _root.showPaymentCardActivate();
+    });
+
+    $('body').on('click', 'a.linkPointer.paymentCardOn', function () {
+      _root.showPaymentCardActivate();
+    });
+
+    $('body').on('click', '#paymentCardOnOffButton', function() {
+      _root.showPaymentCardActivate();
+    });
+
+    $('body').on('click', '#paymentCardOnOffWarningButton', function() {
+      PlaySCB.modal.show('#paymentCardOnOffModal');
+    });
+
+    $('body').on('click', '#paymentCardActivationsDeactivate', function () {
+      _root.showPaymentCardDeactivate();
+    });
+
+
+    if($('#showActivations').size()) {
+      _root.showActivationsDetails($('#showActivations').val());
+    }
+
+    $('#paymentsActivationsHistoryModal').on('click', 'table.folding-table i.tooltip.icon-attention', function(e) {
+      e.stopImmediatePropagation();
+    });
+
+    $('#financePaymentModifyPDF').live('click', function (e) {
+        $('#financePaymentDeactivatePDF').trigger('click');
+        $('#financePaymentActivatePDF').trigger('click');
+        e.stopImmediatePropagation();
+    })
+
+    $('#paymentsActivationsHistoryModal').on('click', 'table.folding-table tr.standard', function () {
+      var isHighlighted = $(this).hasClass('highlite');
+      if(!isHighlighted) {
+        var highlighted = $('#paymentsActivationsHistoryModal').find('tr.highlite');
+        highlighted.next('tr').find('div.collapse').addClass('in').css('display', 'none');
+        highlighted.find('i.icon-down-dir').removeClass('icon-down-dir').addClass('icon-right-dir');
+        highlighted.removeClass('highlite');
+
+      }
+      $(this).toggleClass('highlite', !isHighlighted);
+    });
+  }
+
+
+  this.showActivationsDetails = function(activationsType) {
+    PlaySCB.globalLoader.show();
+    $('.paymentOn').removeClass('paymentEdit');
+    paymentsActivationsRemote.getActivationsDetails(activationsType, {
+      callback: function(data){
+        if(data.responseStatus && data.responseStatus.status==="0") {
+          loadFancy('#exceptionMessage');
+        } else {
+          $('#paymentsActivationsModal').html(data.view);
+          loadFancy('#paymentsActivationsModal');
+        }
+        PlaySCB.globalLoader.hide();
+      },
+      errorHandler: function(msg, exception, response){
+        dwrHandler.errorHandler(msg, exception, response);
+        PlaySCB.globalLoader.hide();
+      }
+    });
+  }
+
+  this.showActivationsHistory = function(activationsType) {
+    PlaySCB.globalLoader.show();
+    paymentsActivationsRemote.getActivationsHistory(activationsType, {
+      callback: function(data){
+        if(data.responseStatus && data.responseStatus.status==="0") {
+          loadFancy('#exceptionMessage');
+        } else {
+          $('#paymentsActivationsHistoryModal').html(data.view);
+          loadFancy('#paymentsActivationsHistoryModal');
+        }
+        PlaySCB.globalLoader.hide();
+      },
+      errorHandler: function(msg, exception, response){
+        dwrHandler.errorHandler(msg, exception, response);
+        PlaySCB.globalLoader.hide();
+      }
+    });
+  }
+
+  this.showPaymentActivate = function() {
+    loadFancy('financePaymentActivate');
+  }
+
+  this.showPaymentDeactivate = function() {
+    loadFancy('financePaymentDeactivate');
+  }
+
+  this.showPaymentModify = function() {
+    loadFancy('financePaymentModify');
+  }
+
+  this.showPaymentCardModify = function () {
+    if(paymentCard) {
+      paymentCard.paymentCardDetails();
+    } else {
+      console.log("showPaymentCardModify - paymentCard not initialized");
+    }
+  }
+
+  this.showPaymentCardDeactivate = function () {
+    if(paymentCard) {
+      paymentCard.paymentCardOff();
+    } else {
+      console.log("showPaymentCardDeactivate - paymentCard not initialized");
+    }
+  }
+
+  this.showPaymentCardActivate = function () {
+    if(paymentCard) {
+      paymentCard.paymentCardOn();
+    } else {
+      console.log("showPaymentCardActivate - paymentCard not initialized");
+    }
+  }
+}
+
+var paymentActivations = new PaymentActivations();
+paymentActivations.init();

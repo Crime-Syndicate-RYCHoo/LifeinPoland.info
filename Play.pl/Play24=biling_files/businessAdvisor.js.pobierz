@@ -1,0 +1,86 @@
+$(function() {
+    $('#showBusinessAdvisorFancy').live('click', function(){
+        PlaySCB.globalLoader.show();
+        getBusinessAdvisors();
+        //loadFancy('adminGroupEdit?type=edit&edit='+$(this).attr('rel'), comboBox)
+        return false;
+    });
+    function getBusinessAdvisors() {
+        businessAdvisorsRemoteService.getBusinessAdvisors(
+            {
+                callback: advisorSuccess,
+                errorHandler:
+                    function(msg, exception, response) {
+                        $('#BusinessAdvisorModal').html('<div class="modal-content"><div class="modal-header">Wystąpił błąd.</div>' +
+                        '<div class="modal-body">' +
+                        '<div class="level">' +
+                        '<div>Nie udało się pobrać danych Twojego doradcy biznesowego. Spróbuj później.</div>' +
+                        '</div>' +
+                        '</div></div>');
+                        loadFancy('#BusinessAdvisorModal');
+                        PlaySCB.globalLoader.hide();
+                    }
+            }
+        );
+    }
+
+function advisorSuccess(response) {
+    $('#BusinessAdvisorModal').html(response.view);
+    var advisor = $('#BusinessAdvisorModal').find('#businessAdvisor');
+    var isAdvisor = advisor.length > 0;
+    var deputyAdvisor = $('#BusinessAdvisorModal').find('#businessDeputyAdvisor');
+    var isDeputyAdvisor = deputyAdvisor.length > 0;
+    var executor = $('#BusinessAdvisorModal').find('#businessExecutor');
+    var isExecutor = executor.length > 0;
+
+    if (!isAdvisor && !isDeputyAdvisor && !isExecutor) {
+        var win = Utils.openLink('http://dlafirm.play.pl/sme/');
+        if(!(win == null || typeof(win) === 'undefined')) {
+          win.focus();
+        }
+        PlaySCB.globalLoader.hide();
+        return;
+    } else if (isAdvisor && isDeputyAdvisor && !isExecutor) {
+        advisor.hide();
+        // deputyAdvisor.find('.link-play24').parent().addClass('linkPointer2');
+        deputyAdvisor.find('.link').text('W zastępstwie za: ' + getName(advisor));
+        deputyAdvisor.find('.link').on('click', function() {
+            deputyAdvisor.hide();
+            advisor.show()
+        });
+        // advisor.find('.link').parent().addClass('linkPointer2');
+        advisor.find('.link').text('Zastępca: ' + getName(deputyAdvisor));
+        advisor.find('.link').on('click', function() {
+            advisor.hide();
+            deputyAdvisor.show();
+        });
+
+    } else if (isAdvisor && isDeputyAdvisor && isExecutor) {
+        advisor.hide();
+        deputyAdvisor.hide();
+        if (deputyAdvisor.find('.advisorEmail').html() != executor.find('.advisorEmail').html()) {
+            deputyAdvisor.hide();
+            // executor.find('.link').parent().addClass('linkPointer2');
+            executor.find('.link').text('Zastępca: ' + getName(deputyAdvisor));
+            executor.find('.link').on('click', function() {
+                executor.hide();
+                deputyAdvisor.show();
+            });
+            // deputyAdvisor.find('.link').parent().addClass('linkPointer2');
+            deputyAdvisor.find('.link').text('Realizujący: ' + getName(executor));
+            deputyAdvisor.find('.link').on('click', function() {
+                deputyAdvisor.hide();
+                executor.show()
+            });
+        }
+    }
+
+    loadFancy('#BusinessAdvisorModal');
+    PlaySCB.globalLoader.hide();
+
+    function getName(element) {
+        return element.find('.name').html();
+    }
+}
+
+});

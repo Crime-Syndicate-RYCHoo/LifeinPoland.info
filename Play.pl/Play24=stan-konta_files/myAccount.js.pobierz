@@ -1,0 +1,564 @@
+/**
+ * @name ChangeLimits
+ * @author kfb
+ *
+ * Basic usage:
+ * var changeLimits = new ChangeLimits();
+ * changeLimits.init();
+ *
+ * additionally you can use methods like changeLimits.methodName();
+ *
+ * Advanced usage:
+ * var changeLimits = new ChangeLimits({
+ *      "additionalOption": "thatCanOvervriteDefaults"
+ * });ń
+ *
+ */
+function ChangeLimits(opts) {
+    var _cfg;
+    var _root;
+
+    //defining defaults and extending/overwriting it with inputted parameters
+    this.config = $.extend({}, opts);
+
+    /*Methods definition*/
+    this.log = function() {
+        console.log(_cfg);
+    }
+    /*
+        INITIALIZE
+    */
+    this.init = function() {
+        //assign _root and cofig variables
+        _root = this;
+        _cfg = this.config;
+        
+        //bind events on init
+        _root.bindEvents();
+    }
+    this.bindEvents = function() {
+        $(document).ready(function() {
+        	
+            // Change limits modal
+            $('.action .showGroupMembersTrigger, #ballancesModalBox .showGroupMembersTrigger, #ADMIN_ACCOUNTSdetails .showGroupMembersTrigger').live('click', function(event) {
+                event.preventDefault();
+
+                var groupType = $(this).find(".groupType").val() || "";
+                var shortName = $(this).find(".shortName").val() || "";
+                var billingId = $(this).find(".billingId").val() || "";
+                var href = $(this).attr("href");
+
+                $('.balanceBillingId').val(billingId);
+
+                //check limits
+                _root.checkGroupMembers(groupType, shortName, href);
+            });
+
+            //Change label
+            $('.changeLabel').live('click', function() {
+                var contener = $(this).parents('tr:first').next('.sliderTr');
+                var pm = $(this).parent().siblings('.pm');
+                pm.find('.checkMsisdnLimitsTrigger').show();
+                pm.removeClass('disabled');
+                //hide other opened sections
+                contener.children("td").hide();
+            });
+            // Slider bindings
+            $('#changeLimits td.pm').live('click', function(event) {
+                event.preventDefault();
+                var that = $(this);
+                var msisdn = that.parent('tr').find(".msisdn").text();
+                var contener = that.parent('tr').next('.sliderTr');
+                var siblings = that.parent('tr').siblings('.sliderTr');
+                var label = that.siblings(".label.change");
+                
+                if(that.hasClass('disabled')) {
+                	return false;
+                }
+
+                //show other's .checkMsisdnLimitsTrigger
+                that.parents("tbody").find(".checkMsisdnLimitsTrigger").show();                
+                that.parents('tbody').find("td.pm").removeClass("disabled");
+                //hide "Pokaz limit" link
+                that.find(".checkMsisdnLimitsTrigger").hide();
+                that.addClass("disabled");
+
+                //hide other opened sections
+                siblings.children("td").hide();
+                $('.afterOk, .noSlider, .loadIndicator').hide();
+                PlaySCB.loader.hide('.loadIndicator');
+                //show loading
+                PlaySCB.loader.show(contener.nextAll().find('.loadIndicator').first().css('display', 'table-cell').show());
+
+                if ( label.length > 0 ) {
+                    label.find(".remove").click();
+                }
+
+                _root.checkMsisdnLimits( msisdn, that );
+            });
+
+            $('.limiter input').live('keyup keydown keypress', function(evt){
+                var contener = $(this).parents('td')
+                var charCode = (evt.which) ? evt.which : evt.keyCode;
+                    /* if ( !(charCode >= 48 && charCode <= 57) && !(charCode >= 37 && charCode <= 46) && charCode !== 8  && charCode !== 188 )
+                        return false;*/
+                    var unit = $(".unit").val()
+                    var n=($(this).val()).match(/[0-9]{1,}/g);
+ 					if (n) {
+ 						$(this).val(n[0]);
+ 						$(this).parents('td').find('.userLimit').text(n[0] + ' ' + unit);
+ 					} else {
+						if (($(this).val()) != '') {
+							$(this).val('0');
+							$(this).parents('td').find('.userLimit').text('0' + ' ' + unit);
+						}
+ 					}
+
+                    if( parseInt($(this).val()) < 0 || $(this).val() == ',') {
+                        $(this).val('0');
+                        $(this).parents('td').find('.userLimit').text('0' + ' ' + unit);
+                    }
+                    var maxLimit = _root.getBalanceDisplayValue($(".maxGroupLimitValue").val(), unit);
+                    if( parseInt($(this).val()) > maxLimit || $(this).val() == maxLimit+',1' || $(this).val() == maxLimit+',' ) {
+                        $(this).val(maxLimit);
+                        $(this).parents('td').find('.userLimit').text(maxLimit + ' ' + unit);
+                    }
+                    if( $(this).val().length == 0 ) {
+                        $(this).parents('td').find('.userLimit').text('0' + ' ' + unit);
+                    }
+                    if( /^0([0-9])/.test($(this).val()) && $(this).val().indexOf(',') == -1  || $(this).val().search(/(\,\,)/) != -1) {
+                       $(this).val('0');
+                       $(this).parents('td').find('.userLimit').text('0' + ' ' + unit);
+                       $('.sliderContainer', contener).addClass('reset');
+                        $('.sliderHandle', contener).stop(true, true).css('left', '0');
+                        $('.sliderActiveTrack', contener).stop(true, true).css('width', '0 !important');
+                        $('.userLimit', contener).stop(true, true);
+                    }
+
+
+                    $('.userLimit', $(this).parents('td'));
+            });
+
+            $('.actionsDiv .afterOk').live('click', function() {
+                var that = $(this);
+                var limit = that.parents("td:first").find(".limiter .sliderInput input").val();
+                _root.setUserLimit( limit, that );
+                return false;
+            });
+
+            $('td .hideSlider, .closeAll').live('click', function() {
+                //hide parent
+                $(this).parents('td:first').addClass('hide').hide();
+                PlaySCB.loader.hide('.loadIndicator');
+                $('.afterOk, .noSlider, .loadIndicator').hide();
+                //show "Pokaz limit" link
+                $(this).parents('tbody').find(".checkMsisdnLimitsTrigger").show();
+                $(this).parents('tbody').find("td.pm").removeClass("disabled");
+                return false;
+            });
+
+            $('#primeBannerBtn').click(function() {
+              window.location.href = 'Services?category=PL24_PRIME';
+            });
+
+            $('#profilingAgreementBtn').click(function() {
+                $('#prAgreementConfirm').attr('disabled', false);
+                loadFancy('#prAgreementModal');
+            });
+
+            $("#prAgreementConfirm").click(function () {
+                if ($(this).attr('disabled')) {
+                    return;
+                }
+                $(this).attr("disabled", true);
+                //$.fancybox.showActivity();
+
+                PlaySCB.globalStore.storeValue("otp_callback", function() {
+                    agreementsRemoteService.toggleAgreementChange('PR_AGREEMENT', {
+                      callback: function (response) {
+                          if (response.responseStatus.status == _STATUS_OK) {
+                              $("#prAgreementModalResult div p.serviceStatus").removeClass("off").addClass("on").text(response.responseStatus.messages['summary']);
+
+                              $('#profilingBanner').slideUp(200, function() {
+                                  $('#profilingBanner').remove();
+                              });
+
+                              loadFancy("#prAgreementModalResult");
+                          } else {
+                              loadFancy("#exceptionMessage");
+                          }
+                  //        $.fancybox.hideActivity();
+                      },
+                      errorHandler: function(msg, exception, response) {
+                        dwrHandler.errorHandler(msg, exception, response);
+                      }
+                    });
+                });
+                otp.check();
+            });
+
+
+            $('.prime-close').click(function () {
+            //PlaySCB.globalLoader.show();
+            cookieRemoteService.addMsisdnToPrimeBannerShownList({
+              callback: function (response) {
+                //PlaySCB.globalLoader.hide();
+                if (response.responseStatus.status === '1') {
+                  $('#primeBanner').slideUp(200).remove();
+                } else {
+                  loadFancy('#exceptionMessage');
+                }
+              },
+              errorHandler: function(msg, exception, response) {
+                dwrHandler.errorHandler(msg, exception, response);
+              },
+              exceptionHandler: function(msg, exception, response) {
+                dwrHandler.errorHandler(msg, exception, response);
+              }
+            });
+            });
+
+            $('.profiling-close').click(function () {
+                //PlaySCB.globalLoader.show();
+                cookieRemoteService.addMsisdnToProfilingBannerShownList({
+                  callback: function (response) {
+                      //PlaySCB.globalLoader.hide();
+                      if (response.responseStatus.status === '1') {
+                          $('#profilingBanner').animate({height: '0px', opacity: '0.0'}, 200);
+                          setTimeout(function() {
+                              $('#profilingBanner').remove();
+                          }, 300);
+                      } else {
+                          loadFancy('#exceptionMessage');
+                      }
+                  },
+                  errorHandler: function(msg, exception, response) {
+                    dwrHandler.errorHandler(msg, exception, response);
+                  },
+                  exceptionHandler: function(msg, exception, response) {
+                    dwrHandler.errorHandler(msg, exception, response);
+                  }
+                });
+            });
+
+            $('#ssoQuizHelpLink').click(function() {
+                loadFancy('#ssoQuizHelpModal');
+            });
+        });
+    }
+    /*
+        Check group members
+    */
+    this.checkGroupMembers = function( groupType, shortName, href ) {
+    	var bean = new DataForGroupMembers();
+    	bean.groupType = groupType;
+    	bean.shortName = shortName;
+    	
+    	balanceRemoteService.prepareDataForGroupMembers(bean, {
+            callback : function(response) {
+                var resp = response.responseStatus.status;  // 0 - error;
+                                                            // 1 = success;
+                                                            // 2 = validation;
+                if ( resp == 1 ) {
+                    loadFancy( href, _root.checkGroupMembersCallback );
+                }
+                else {
+                    errMsg = response.responseStatus.messages.error;
+                    _root.checkGroupMembersError( errMsg );
+                }
+            },
+            errorHandler: function(msg, exception, response) {
+              dwrHandler.errorHandler(msg, exception, response);
+            }
+        });
+    }
+    this.checkGroupMembersCallback = function() {
+        //clearing search
+        $("#groupMembersSearch").val("Znajdź numer").live('keyup keydown keypress', function(e){
+        	if (e.keyCode == 13) {
+				tableServiceInModal = new TableService();
+				tableServiceInModal.enable({
+					tableType : 'GROUP_MEMBERS'
+				});
+        		tableServiceInModal.showIndicator();
+        		SearchBean.groupMembersSearchData();
+                return false;
+            }
+
+        });
+		// Checking if table exists
+        if($('#GROUP_MEMBERSTable').length > 0) {
+            tableServiceInModal = new TableService();
+            tableServiceInModal.enable({
+                tableType : 'GROUP_MEMBERS'
+            });
+            //Get table data
+            tableServiceInModal.getData(true);
+        }
+       
+
+        pm();
+    }
+    //error in modalbox
+    this.checkGroupMembersError = function(errMsg) {                   
+        $("#checkGroupMembersError .modal-body > p").text( errMsg );
+        // show validation error modal
+        loadFancy('#checkGroupMembersError');
+    }
+    /*
+        Check limits
+    */
+    this.checkMsisdnLimits = function( msisdn, element ) {
+
+        var billingId = $('.balanceBillingId').val();
+
+        balanceRemoteService.prepareBalanceModel(msisdn, billingId, {
+            callback : function(response) {
+                PlaySCB.loader.hide('.loadIndicator');
+                $('.loadIndicator').hide();
+                var resp = response.responseStatus.status;  // 0 - error; 
+                                                            // 1 = success; 
+                                                            // 5 = changes in progress;
+                if ( resp == 1 ) {
+                    _root.checkMsisdnLimitsCallback( element, response.view );
+                }
+                else {
+                    errMsg = response.responseStatus.messages.error;                    
+                    _root.checkMsisdnLimitsError( errMsg, element );
+                }
+            },
+            errorHandler: function(msg, exception, response) {
+              dwrHandler.errorHandler(msg, exception, response);
+            }
+        });
+    }
+    this.checkMsisdnLimitsCallback = function( element, html ) {
+
+        var contener = element.parent('tr').next('.sliderTr');
+        //replace HTML content
+        contener.find(".sliderContener").html( html );
+        //init slider
+        _root.initSlider( element );
+
+    }
+    //error in modalbox
+    this.checkMsisdnLimitsError = function( errMsg, element ) {
+        var contener = element.parent('tr').next('.sliderTr');
+        var noSlider = contener.find(".noSlider");
+        contener.children("td").hide();
+        noSlider.find("p:first").html( errMsg );
+        noSlider.css('display', 'table-cell').show();
+    }
+
+    this.getBalanceDisplayValue = function (value, unit) {
+        if(unit == "MB") {
+            return Math.round(Number(value) /(1024*1024));
+        } else {
+            return value;
+        }
+    }
+
+    /*
+        Slider
+    */
+    this.initSlider = function( element ) {
+
+        var that = element;
+        var contener = that.parent('tr').next('.sliderTr').children('.sliderContener');
+        var unit = contener.find(".unit").val();
+        var maxLimit = _root.getBalanceDisplayValue(contener.find(".maxGroupLimitValue").val(), unit);
+        var userLimit = _root.getBalanceDisplayValue(contener.find(".nextMaximumSpendingValue").val(), unit);
+
+        that.parent('tr').next('.sliderTr').children("td").hide();
+        contener.find(".sliderContener").css('display', 'table-cell');
+
+        $('.limitRight').text(maxLimit + ' ' + unit);
+        contener.removeClass('hide').show();
+
+        if(contener.hasClass('sliderContener')){
+            _cfg.currentSlider = $('.limitSlider', contener).customSlider({
+                type:'default',
+                value: {max:maxLimit},
+                input: {
+                    display:'none',
+                    division: 1
+                },
+                callback: {
+                    onDrag: function(){
+                        var size = (parseInt($('.limitSlider .sliderInput input', contener).val()));
+                        size = String(size).replace('.', ',');
+
+                        $('div .limiter input', contener).val( size );
+                        $('.userLimit', contener).text( size + ' ' + unit);
+                        $('.userLimit', contener);
+                    },
+                    onKeyUp: function(){
+                        var size = (parseInt($('.limitSlider .sliderInput input', contener).val()));
+                        size = String(size).replace('.', ',');
+                        $('.userLimit', contener);
+                        $('.userLimit', contener).text( $('.sliderInput input', contener).val() + ' ' + unit);
+                    },
+                    onDrop: function(v){
+                        $('div .limiter input', contener).val( parseInt($('.limitSlider .sliderInput input', contener).val()));
+                        $('div .limiter input', contener).val($('div .limiter input', contener).val().replace('.', ','))
+                        $('.userLimit', contener).text( $('.sliderInput input', contener).val() + ' ' + unit);
+                        $('.userLimit', contener);
+                    },
+                    onAnimateEnd: function(){
+                        $('.userLimit', contener);
+                        if($('.sliderContainer', contener).hasClass('reset')){
+                            $('.sliderHandle', contener).css('left', '0');
+                            $('.sliderActiveTrack', contener).css('width', '0');
+                            $('.userLimit', contener);
+                            $('.sliderContainer', contener).removeClass('reset');
+                        }
+                    },
+                    ready: function(){
+
+                        if( $('.limiter input', contener).length == 0 ){
+                            $('.limiter', contener).html('').append($('.sliderInput', contener).clone(true).attr('maxlength','1'))
+                        }
+                        $('div .sliderInput, div .limiter input', contener).show();
+                        $('div input', contener).bind('keydown keyup',function(){
+                            $('.userLimit', contener);
+                        });
+
+                        //setting default value
+                        $('.limiter .sliderInput input', contener).val( userLimit ).keyup();
+
+                        if(maxLimit == 0) {
+                            $('.slider').addClass('disabled');
+                            $('.sliderInput input').attr('disabled', 'disabled');
+                            $('.sliderTr .primary').addClass('disabled');
+                        }
+
+                    }
+                }
+            });
+        }
+    }
+    /*
+        Set user limit
+    */
+    this.setUserLimit = function( limit, element ) {
+
+        PlaySCB.loader.show('#fancybox-outer');
+
+        balanceRemoteService.setNextMaximumSpendingLimit(limit, {
+            callback : function(response) {
+                PlaySCB.loader.hide('#fancybox-outer');
+                element.parents('td:first').hide();
+                PlaySCB.loader.hide('#fancybox-outer');
+
+                var resp = response.responseStatus.status;  // 0 = error; 
+                                                            // 1 = success; 
+                                                            // 2 = error
+                                                            // 6 = no change
+                if ( resp == 1 ) {
+                    _root.setUserLimitCallback( element );
+                }
+                else if ( resp == 6 ) {
+                    //show "Pokaz limit" link
+                    element.parents('tbody:first').find(".checkMsisdnLimitsTrigger").show();
+                    element.parents('tbody:first').find("td.pm").removeClass("disabled");
+                    //do nothing ( slider section already hidden )
+                    errMsg = response.responseStatus.messages.error;
+                    _root.setUserLimitError( errMsg, element );
+                }
+                else {
+                    errMsg = response.responseStatus.messages.error;                    
+                    _root.setUserLimitError( errMsg, element );
+                }
+            },
+            errorHandler: function(msg, exception, response) {
+              dwrHandler.errorHandler(msg, exception, response);
+            }
+        });
+    }
+    this.setUserLimitCallback = function( element ) {
+        var contener = element.parents('tr').nextAll().find('td.afterOk').first().css('display', 'table-cell').show();
+    }
+    //error in modalbox
+    this.setUserLimitError = function( errMsg, element ) {
+        var contener = element.parents('tr:first');
+        var noSlider = contener.nextAll().find('td.noSlider').first();
+        contener.children("td").hide();
+        noSlider.find("div").first().html( errMsg );
+        noSlider.css('display', 'table-cell').show();
+    }
+}
+
+/*
+    Declaration of changeLimits
+*/
+if (typeof readOnly === 'undefined'){
+    var changeLimits = new ChangeLimits();
+    changeLimits.init();
+}
+
+
+/*                      *
+*                       *
+*   DOCUMENT READY      *
+*                       *
+*                       */
+$(document).ready(function(){
+
+	$('DIV#myAccountContentLeft TABLE TR TD A.tooltipHelp').hover(
+		function(event){
+			clearTimeout(interval);
+			$("#tooltipBox").hide();
+
+			var title = $(this).next().html();
+			var content = $(this).next().next().html();
+
+			if ( title ) {
+				content = "<strong>"+ title +"</strong><br /><br />" + content;
+			}
+
+			$('DIV#tooltipBox #tooltipText').html(content);
+			if ($.browser.msie) {
+				move4 = 4;
+			}
+			else {
+				move4 = 0;
+			}
+
+			$("#tooltipBox").css({"top":(findPosY($(this).get(0))-($("#tooltipBox").height()-125))-move4, "left":findPosX($(this).get(0))-255}).show();
+  	    },
+  	    function(){
+  			clearTimeout(interval)
+            interval = setTimeout("$('#tooltipBox').hide();",1000)
+  		}
+  	);
+
+	$('DIV#myAccountContentLeft TABLE TR TD A.tooltipHelp').click(function(){
+		return false;
+	});
+
+	$('.numberToSmsCodes').click(function () {
+        PlaySCB.loader.show('#fancybox-outer');
+
+        cookieRemoteService.createCookieWithMaxValue({
+          callback: function (response) {
+              $.fancybox.close();
+          },
+          errorHandler: function(msg, exception, response) {
+            dwrHandler.errorHandler(msg, exception, response);
+          }
+        });
+    });
+
+	$('body').on('click', '#postpaidGroupDetails', function() {
+        loadFancy('#postpaidGroupsMemberModal', undefined, undefined, 32, true);
+    });
+
+  if($('#prepaidRegisterWarningModal').length) {
+    loadFancy('#prepaidRegisterWarningModal');
+  }
+
+  if($('#numberToSmsCodesModal').length) {
+      loadFancy('#numberToSmsCodesModal', undefined, undefined, undefined, false);
+  }
+
+});

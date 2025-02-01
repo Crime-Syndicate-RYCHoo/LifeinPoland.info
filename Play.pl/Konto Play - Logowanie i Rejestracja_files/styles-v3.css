@@ -1,0 +1,583 @@
+
+@font-face {
+    font-family: Manrope;
+    src: url(https://media-play.pl/binaries/web/fonts/Manrope-Regular.woff2);
+}
+
+@font-face {
+    font-family: Manrope;
+    src: url(https://media-play.pl/binaries/web/fonts/Manrope-Bold.woff2);
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: "icomoon";
+    src: url('../icons/icomoon.woff') format("woff"), url('../icons/icomoon.ttf') format("truetype"), url('../icons/icomoon.svg') format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    box-sizing: border-box;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    font-weight: 500;
+    font-family: Manrope, Arial, sans-serif !important;
+    color: #1F1F1F;
+    background-color: #fff;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0)
+}
+
+body *, body *::before, body *::after {
+    box-sizing: border-box;
+    font: inherit;
+    margin: 0;
+    padding: 0
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: none;
+
+    min-height: 100vh;
+}
+
+input[type=checkbox] {
+    margin-right: 0.25rem;
+}
+
+* {
+    font-family: Manrope, sans-serif !important;
+}
+
+input {
+    margin: 0 !important;
+    border-radius: 8px !important;
+    border-color: #999 !important;
+}
+
+.button {
+    height: 56px;
+    background-color: #6c43bf;
+    border-radius: 8px !important;
+}
+
+.list-entry-button {
+    font-size: 1rem !important;
+    color: black;
+    text-align: left;
+}
+
+.flex-center-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flex {
+    display: flex;
+}
+
+.flex-end {
+    align-self: flex-end;
+}
+
+.flex-grow {
+    flex: 1;
+}
+
+.flex-col {
+    flex-direction: column;
+}
+
+.flex-row {
+    flex-direction: row
+}
+
+.flex-wrap {
+    flex-wrap: wrap;
+}
+
+.flex-horizontal {
+    flex-flow: column;
+}
+
+.flex-wrap-desktop {
+    flex-wrap: wrap;
+}
+
+.flex-wrap-desktop > *:not(:last-child) {
+    margin-right: 0 !important;
+}
+
+.section-title {
+    margin-top: 1rem !important;
+    margin-bottom: 1rem !important;
+}
+
+.section-info {
+    font-weight: bold;
+    text-align: center;
+}
+
+.section-component {
+    margin: 0 0.5rem;
+    padding: 0;
+}
+
+.section-form {
+    min-width: 260px;
+}
+
+.title {
+    padding: 12px;
+    text-align: center;
+}
+
+.title-big {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.login-img {
+    border-radius: 8px;
+}
+
+.button {
+    margin: 0 0 0.5rem;
+    min-width: 120px;
+    width: 100%;
+}
+
+.floating-label {
+    margin: 0 0 0.5rem;
+    width: 100%;
+}
+
+@media (min-width:641px)  {
+    .button {
+        width: auto;
+    }
+    .flex-wrap-desktop {
+        flex-wrap: nowrap !important;
+    }
+    .flex-wrap-desktop > *:not(:last-child) {
+        margin-right: 0.5rem !important;
+    }
+    .section-form {
+        width: 420px;
+    }
+}
+
+.list-element {
+
+    flex-grow: 1;
+    font-weight: bold;
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 20px;
+    height: 64px;
+
+    border: 1px solid #E5E5E5;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.list-element > button {
+    font-size: 1.5rem;
+    padding: 8px;
+}
+
+.list-container {
+
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    margin-bottom: 8px;
+    transition-duration: 0.4s;
+
+    /*border: 1px solid #E5E5E5;*/
+    border-radius: 12px;
+
+    background-color: rgba(108, 67, 191, 0.8);
+}
+
+.list-container-del {
+    width: 0;
+    overflow-x: hidden;
+    /*height: 64px;*/
+    /*border-top-left-radius: 12px;*/
+    /*border-bottom-left-radius: 12px;*/
+    /*margin-right: 6px;*/
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.0rem;
+    color: white;
+    transition: all 0.4s;
+    height: 64px;
+    border-radius: 12px;
+}
+
+.list-container-del:hover {
+    cursor: pointer;
+}
+
+.list-container[data-anim=true] > .list-container-del {
+    font-size: 1.5rem;
+    width: 48px;
+}
+
+/* - - - MARGINS - - - - */
+
+.ml-1 {
+    margin-left: 0.5rem !important;
+}
+
+.mr-1 {
+    margin-right: 0.5rem !important;
+}
+
+.mt-1 {
+    margin-top: 0.5rem !important;
+}
+
+.mb-1 {
+    margin-bottom: 0.5rem !important;
+}
+
+.mt-2 {
+    margin-top: 1rem !important;
+}
+
+.mb-2 {
+    margin-bottom: 1rem !important;
+}
+
+.mx-1 {
+    margin-top: 0.5rem !important;
+    margin-bottom: 0.5rem !important;
+}
+
+.my-1 {
+    margin-left: 0.5rem !important;
+    margin-right: 0.5rem !important;
+}
+
+.mx-2 {
+    margin-top: 1rem !important;
+    margin-bottom: 1rem !important;
+}
+
+.my-2 {
+    margin-left: 1rem !important;
+    margin-right: 1rem !important;
+}
+
+.mx-3 {
+    margin-top: 2rem !important;
+    margin-bottom: 2rem !important;
+}
+
+.my-3 {
+    margin-left: 2rem !important;
+    margin-right: 2rem !important;
+}
+
+/* - - - - SWITCH - - - - */
+
+.input-switch-container {
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.input-switch-link > span:hover {
+    cursor: pointer;
+}
+
+.input-switch-link > span {
+    margin-left: 0.5rem;
+    font-weight: bold;
+    color: #505050;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 34px;
+    height: 20px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* The slider */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked+.slider {
+    background-color: #6c43bf;
+}
+
+input:focus+.slider {
+    box-shadow: 0 0 1px #6c43bf;
+}
+
+input:checked+.slider:before {
+    -webkit-transform: translateX(14px);
+    -ms-transform: translateX(14px);
+    transform: translateX(14px);
+}
+
+/* Rounded sliders */
+.slider.round {
+    border-radius: 32px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+
+/* --------- LEGACY --------- */
+.select-btn {
+    margin: 0 0 1rem;
+    font-size: 16px;
+    font-weight: bold;
+    color: #48227c;
+    background-color: transparent;
+    border: 1px solid #48227c;
+    padding: 10px !important;
+    border-radius: 4px !important;
+    text-align: center;
+    display: block;
+    line-height: 1;
+
+    transition-duration: 0.4s;
+    cursor: pointer;
+    position: relative;
+}
+.select-btn:hover {
+    color: white;
+    background-color: #48227c;
+}
+.select-btn > div {
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    flex-flow: row;
+}
+.profile-del {
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+}
+.profile-del:hover {
+    background: rgba(255, 255, 255, 0.8);
+    color: #48227c;
+    border-top-right-radius: 4px !important;
+    border-bottom-right-radius: 4px !important;
+}
+
+/* tooltip */
+
+.p4-tooltip {
+    position: relative;
+}
+
+.p4-tooltip .p4-tooltip-text {
+    visibility: hidden;
+    width: 240px;
+    background-color: #222;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 16px;
+    position: absolute;
+    z-index: 1;
+    bottom: 150%;
+    left: 50%;
+    margin-left: -120px;
+}
+
+.p4-tooltip .p4-tooltip-text::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #222 transparent transparent transparent;
+}
+
+.p4-tooltip:hover .p4-tooltip-text {
+    visibility: visible;
+}
+
+/*[data-icon]:before {*/
+/*    font-family: "icomoon", serif !important;*/
+/*    content: attr(data-icon);*/
+/*    speak: none;*/
+/*    font-weight: normal;*/
+/*    font-variant: normal;*/
+/*    text-transform: none;*/
+/*    line-height: 1;*/
+/*    -webkit-font-smoothing: antialiased;*/
+/*}*/
+
+body {
+    justify-content: center !important;
+    background-image: none !important;
+}
+
+.error-msg-text:hover {
+    cursor: pointer;
+}
+
+.error-msg-text::after {
+    content: "\E668";
+    /*content: "\E621";*/
+    /*content: "\E646";*/
+    color: #aaa;
+    font-family: icomoon;
+    margin: 0 0.4rem;
+}
+
+.form-message {
+    bottom: -24px !important;
+}
+
+.mt-3 {
+    margin-top: 1.5rem !important;
+}
+
+span.keep-together {
+    white-space: nowrap;
+}
+
+div.banner-container {
+    margin: auto;
+    position: relative;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    max-width: 520px;
+}
+div.banner-content {
+    padding: 16px;
+}
+.banner-text {
+    display: inline-block;
+}
+.banner-title {
+    color: #1F1F1F;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 30px;
+}
+.banner-description {
+    color: #707070;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 21px;
+}
+div.banner-store-container {
+    margin-top: 12px;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+img.banner-store-logo {
+    height: 32px;
+}
+div.banner-phone {
+    margin-bottom: -16px;
+    margin-left: 16px;
+}
+img.phone {
+    width: 150px;
+    height: auto;
+}
+img.samsung-logo {
+    height: 112px;
+    width: auto;
+}
+
+.banner-samsung-content {
+    padding: 0 !important;
+    gap: 26px;
+}
+
+.banner-samsung-content-text {
+    min-width: 317px;
+}
+
+@media only screen and (max-width: 640px) {
+    .banner-samsung-content {
+        padding: 10px 0 10px 16px !important;
+        gap: 0;
+    }
+
+    .banner-samsung-content-text {
+        min-width: 0;
+    }
+
+    img.phone {
+        width: 110px;
+    }
+    .mobile-flex-no-grow {
+        flex: none !important;
+    }
+    div.banner-store-container {
+        flex-direction: column;
+        gap: 16px;
+    }
+    img.phone {
+        content: url('../images/banner/asset_play24_mobile.png');
+    }
+    img.samsung-logo {
+        width: auto;
+        height: 124px;
+        content: url('../images/banner-samsung/samsung-mobile.png');
+    }
+}
+

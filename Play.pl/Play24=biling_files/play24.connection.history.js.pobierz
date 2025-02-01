@@ -1,0 +1,310 @@
+/**
+ * Created with IntelliJ IDEA.
+ * User: PWR
+ * Date: 19.11.13
+ * Time: 09:50
+ * To change this template use File | Settings | File Templates.
+ */
+
+if ( !PlaySCB.connection ) {
+  PlaySCB.connection = {};
+}
+
+PlaySCB.connection.history = new function(){
+  var _root = this,
+    _cfg = {
+      content: $("section#connectionHistory"),
+      clickedElement: null,
+      autoReload: false
+    };
+
+  /* initialize element */
+  this.init = function(opts) {
+    _cfg = $.extend(_cfg, opts);
+
+    _cfg.showStatistic = false;
+    _cfg.initAdressBook = false;
+    _bindEvents();
+  };
+
+  var _bindEvents = function() {
+    _adressBookAddContactBindEvents();
+    var fromField = _cfg.content.find('.from'), toField = _cfg.content.find('.to');
+
+    if(fromField.length) {
+      from = fromField.val().split('-');
+      from = from[1]+'/'+from[0]+'/'+from[2];
+      from = new Date(from);
+      toField.dpSetStartDate(from.addDays(0).asString());
+
+      fromField.bind('dpClosed', function(e, selectedDates) {
+        var d = selectedDates[0];
+        if (d) {
+          d = new Date(d);
+          to = toField.val().split('-');
+          to = to[1]+'/'+to[0]+'/'+to[2];
+          to = new Date(to);
+          toField.dpSetStartDate(d.addDays(0).asString());
+          if (d >= to) {
+            to = d.addDays(0);
+            to = to.asString('dd-mm-yyyy');
+            toField.dpSetSelected(to);
+          }
+        }
+      });
+    }
+
+    _cfg.content.on('click', '[data-toggle=addNumberToContact]', _addNumberToContact);
+    _cfg.content.on('focus', '.days', _daysFocus);
+    _cfg.content.on('focus', '.from, .to', _fromToFocus);
+    _cfg.content.on('click', '.toggleContent', _toggleContentClick);
+    _cfg.content.on('click', '.callsSearch .searchBeanButton', _searchButtonClick);
+    _cfg.content.on('click', '#summation a.showStatistic', _showStatistic);
+
+    _cfg.content.on('click', '#fromAddresBook', function(){
+      if(_cfg.initAdressBook === false){
+        if($('#contactListToAddresBook').length) {
+          AddressBookListService.enable({
+            bookListType : 'ADDRESS_BOOK_RADIO',
+            customType : ''
+          });
+        }
+        _cfg.initAdressBook = true;
+      }
+
+      PlaySCB.modal.show('#contactListToAddresBook', function() {
+        $('.importList').bind('change', function() {
+          var count = $('.importList input:checked').length;
+          $('#data .info strong').text(count);
+        });
+      }, importList);
+
+      _fromAdressBookBindEvents();
+      return false;
+    });
+
+    $('body').on('change', '.importList input[type=radio]', function() {
+      var oldRadio = $(this).parent().parent().find('span.checked');
+      if(oldRadio.length > 0) {
+          oldRadio.removeClass('checked');
+      }
+      var newRadio = $(this).parent().find('label.css-label-radio').find('span.styleRadio');
+      if(newRadio.length > 0) {
+          newRadio.addClass('checked');
+      }
+    });
+
+    $('tbody').on('mouseover', '.td4 .tooltip', function() {
+        var that = $(this);
+        setTimeout(function() {
+            that.trigger('click');
+        },100);
+    }).on('mouseout', '.td4 .tooltip', function() {
+        $('#tooltipClose').trigger('click');
+    });
+
+    $('#advancedCriteriaBtn').click(function() {
+      $(this).find('span').toggleClass('hide');
+    });
+
+  };
+
+  var _addNumberToContact = function(){
+
+    var _this = $(this), phoneNumber = _this.attr('data-phone');
+
+
+    $('#tooltipClose').trigger('click')
+    $('div#adressBookAddContact span.error').empty().hide();
+    _cfg.clickedElement = $(this);
+    $('#adressBookAddContact').addClass('connectionHistoryAdd');
+    $('#adressBookAddContact').find('input[name="number"]').val(phoneNumber);
+
+    $('#adressBookAddContact .phoneTypeRow').find('q').text($('#adressBookAddContact .phoneTypeRow select option:selected').text())
+
+    PlaySCB.modal.show('#adressBookAddContact');
+    return false;
+  }
+
+  var _daysFocus = function(){
+    _cfg.content.find('.period .styleRadio').removeClass('checked');
+    var radio = $(this).prev('.radio');
+    radio.find('input[type=radio]').attr('checked', 'checked');
+    radio.find('.styleRadio').addClass('checked');
+  }
+
+  var _fromToFocus = function(){
+    _cfg.content.find('.period .styleRadio').removeClass('checked');
+    var radio = $(this).prevAll('.radio.date');
+      radio.find('input[type=radio]').attr('checked', 'checked');
+      radio.find('.styleRadio ').addClass('checked');
+  }
+
+  var _loadStatistic = function(){
+    var contentStat = _cfg.content.find('#statistic');
+
+    PlaySCB.loader.show(contentStat);
+
+    var bean = new ConnectionsSearchBean();
+    var form = new ConnectionsFormBean();
+
+    form.radioChoose = $('input[name="radioChoose"]:checked').val();
+    form.periodSinceCount = $('input[name="periodSinceCount"]').val();
+    form.dateFrom = $('input[name="dateFrom"]').val();
+    form.dateTo = $('input[name="dateTo"]').val();
+    form.phoneNumber = $('input[name="phoneNumber"]').val();
+    form.connectionType = $('select[name="connectionType"]').val();
+    form.callDirection = $('select[name="callDirection"]').val();
+    form.balanceName = $('select[name="balanceName"]').val();
+
+    bean.data = form;
+
+
+    connectionsRemoteService.createReport( bean, {
+      callback: function(response) {
+        contentStat.find('li').remove();
+        contentStat.append(response.view);
+        PlaySCB.loader.hide(contentStat);
+      },
+      errorHandler: function(msg, exception, response) {
+
+        PlaySCB.loader.hide(contentStat);
+        //handle DWR error
+        dwrHandler.errorHandler(msg, exception, response);
+      }
+    });
+  }
+
+  var _toggleContentClick = function(){
+    var _this = $(this),
+      state, alternativeState,
+      rel = $( '.'+ _this.attr('rel') );
+
+    if ( _this.hasClass('opened') ) {
+      state = "opened";
+      alternativeState = "closed";
+    }
+    else {
+      state = "closed";
+      alternativeState = "opened";
+    }
+
+    rel.slideToggle(300, 'swing')
+      .removeClass('closed');
+    _this.removeClass(state)
+      .addClass(alternativeState);
+  }
+
+  var _searchButtonClick = function(){
+    if(_cfg.autoReload == true && _cfg.showStatistic == true){
+      _loadStatistic();
+    } else {
+      if(!_cfg.content.find('#showStatistic').hasClass('fold')){
+        _cfg.content.find('#summation a.showStatistic').trigger('click');
+      }
+      _cfg.showStatistic = false;
+    }
+  }
+
+  var _showStatistic = function(){
+    if(_cfg.showStatistic === false){
+      _cfg.showStatistic = true;
+      _loadStatistic();
+    }
+  }
+
+  var _fromAdressBookBindEvents = function(){
+
+    $('body').one('click', '#contactListToAddresBook a#adressBookList-cancel, #adressBookAddContact a.close', function(){
+      $('#contactListToAddresBook SPAN.error').hide();
+      $('#contactListToAddresBook #addressBookInput').removeClass('err');
+
+      PlaySCB.modal.hide();
+      return false;
+    });
+
+    $('body').on('click', '#contactListToAddresBook a#adressBookList-save', function(){
+      var clicked = $('#contactListToAddresBook').find('input[type=radio]:checked');
+      if (!clicked.length){
+        $('#contactListToAddresBook SPAN.error').show();
+        $('#contactListToAddresBook #addressBookInput').addClass('err');
+
+      }
+      else{
+        var temp = clicked.next('label').find('span.n').text()
+          .replace(/ (komórkowy)/g,'')
+          .replace(/ (domowy)/g,'')
+          .replace(/ (służbowy)/g,'')
+          .replace(/ (firmowy)/g,'')
+          .replace(/ (stacjonarny)/g,'')
+          .replace(/(\s*)/g,'');
+        $('#phoneNumber').val(temp);
+        $('#contactListToAddresBook SPAN.error').hide();
+        $('#contactListToAddresBook #addressBookInput').removeClass('err');
+        $.fancybox.close();
+      }
+      return false;
+    });
+  }
+
+  var _adressBookAddContactBindEvents = function(){
+
+    var cleanModalBox = function(){
+      $('div#adressBookAddContact INPUT[name=number]').val('');
+      $('div#adressBookAddContact SELECT[name=type]').val('');
+      $('div#adressBookAddContact INPUT[name=lastName]').val('');
+      $('div#adressBookAddContact INPUT[name=firstName]').val('');
+      $('div#adressBookAddContact INPUT[name=name]').val('');
+      $('div#adressBookAddContact span.err').remove();
+      $('div#adressBookAddContact INPUT').removeClass('err');
+    }
+
+    $('body').on('click', '#adressBookAddContact #adressBookAddContact-cancel', function(){
+      $('#adressBookAddContact').removeClass('connectionHistoryAdd');
+      cleanModalBox();
+      PlaySCB.modal.hide('#adressBookAddContact');
+      return false;
+    });
+
+    $('body').on('click', '#adressBookAddContact #adressBookAddContact-save', function(){
+      addressBookService.saveAddressEntry(
+        $('div#adressBookAddContact.connectionHistoryAdd INPUT[name=number]').val(),
+        $('div#adressBookAddContact.connectionHistoryAdd SELECT[name=type]').val(),
+        $('div#adressBookAddContact.connectionHistoryAdd INPUT[name=lastName]').val(),
+        $('div#adressBookAddContact.connectionHistoryAdd INPUT[name=firstName]').val(),
+        $('div#adressBookAddContact.connectionHistoryAdd INPUT[name=name]').val(),
+        $('div#adressBookAddContact.connectionHistoryAdd INPUT[name=country]').val(),
+        $('div#adressBookAddContact.connectionHistoryAdd INPUT[name=state]').val(),
+        $('div#adressBookAddContact.connectionHistoryAdd INPUT[name=companyName]').val(),
+        {
+          callback: function(response) {
+
+            $('input, select, p').removeClass('err');
+            $('span.err').remove();
+
+            var atempt = 1;
+            for (key in response){
+              atempt = 0;
+              $('input[name="'+key+'"]').addClass('err');
+              $('input[name="'+key+'"]').parent().append('<span class="err">'+response[key]+'</span>');
+            }
+            if (atempt == 1) {
+              $('#adressBookAddContact').removeClass('connectionHistoryAdd');
+              cleanModalBox();
+              _cfg.clickedElement.hide();
+              PlaySCB.modal.hide('#adressBookAddContact');
+              PlaySCB.globalLoader.show();
+              location.reload();
+            }
+          },
+          errorHandler: function(msg, exception, response) {
+            dwrHandler.errorHandler(msg, exception, response);
+          }
+        });
+      return false;
+    });
+  }
+
+
+  this.init();
+}

@@ -1,0 +1,215 @@
+function initializeMessages(){
+	
+	var accordItem = $('.arte-accord-item');
+	var accordTrigger = accordItem.find('.arte-trigger');
+	var accordContent = accordItem.find('.arte-content');
+
+	$(accordTrigger).on('click', function(){
+		
+		if (accordNumber > 0) {
+		
+			if (!$(this).hasClass('withoutContent')) {
+				var thisContent = $(this).next();
+				$(accordTrigger).not('.arte-main-trigger').removeClass('active');
+				$(accordTrigger).not('.arte-main-trigger').removeClass('highlighted');
+				$('.arte-main-content').find(accordContent).not(thisContent).slideUp(250).removeClass('expanded');
+				$(this).parents('.arte-main-content').find(accordTrigger).removeClass('active');
+				$(this).addClass('active');
+				
+				var currentContent = $(this).next();
+				if(currentContent.hasClass('expanded')){
+					$(currentContent).slideUp(250).removeClass('expanded');
+					$(currentContent).prev().removeClass('active').find('a span').text('Pokaż');
+				} else {
+					$(currentContent).slideDown(250).addClass('expanded');
+					$(currentContent).prev().addClass('highlighted');
+					
+					var messageBox = $(this).closest('.arte-accord-item');
+					var messageId = $(messageBox).attr('data-message-id');
+					var messageType = $(messageBox).attr('data-message-type');
+					
+					if (messageId != undefined && messageId !== '-1' && messageType != undefined) {
+						messageRemoteService.tagMessageAsReaded(messageType, messageId,{
+              errorHandler: function(msg, exception, response) {
+                dwrHandler.errorHandler(msg, exception, response);
+              }
+            });
+					
+						var messageTextSpan = $(messageBox).find('.trigger-title');
+					
+						if ($(messageTextSpan).hasClass('unread-message')) {
+							$(messageTextSpan).removeClass('unread-message');
+							
+							var alertBox = $('.arte-alert[data-message-id=' + messageId + ']');
+							
+							if ($(alertBox).length == 1) {
+								$(alertBox).remove();
+							}
+							
+							updateUnreadMessagesNum();
+						}	
+					}	
+				}
+	
+				var triggerText = $(this).find('a span');
+				if($(this).hasClass('active')){
+					$(accordTrigger).find('a span').text('Pokaż');
+					triggerText.text('Zwiń');
+				}
+			}
+		}
+	});
+
+
+	var innerAccord = $('.arte-main-content .arte-accord-item'),
+		accordNumber = $(innerAccord).length;
+	
+	function countAccordItems(){
+		if (accordNumber >= 4) {
+			if(!$('.expand-all').length){
+				$('.arte-main-content').append('<section class="expand-all"><span>Pokaż wszystkie <i></i></span></section>');
+				$(innerAccord).slice(3).wrapAll('<div class="accord-rest"></div>');
+			}
+		};
+	}
+	countAccordItems();
+
+	
+	function testState(){
+		if(!$(document).find('section.expand-all').hasClass('expanded')){
+			$('section.expand-all').find('span').text('Pokaż wszystkie');
+		} else {
+			$('section.expand-all').find('span').text('Zwiń');
+		}
+	};
+	testState();
+
+
+	var expander = $(document).find('section.expand-all');
+	$(expander).on('click',function(){
+		$(this).toggleClass('expanded');
+		$('.accord-rest').slideToggle(250);
+		$('.accord-rest').find(accordContent).slideUp(250).removeClass('expanded');
+		$('.accord-rest').find(accordTrigger).removeClass('active');
+		testState();
+	});
+
+	function updateUnreadMessagesNum() {
+		var numberOfNewMessages = parseInt($('#numberOfNewMessages').text());
+		if (numberOfNewMessages > 0) {
+			var numberOfUnreadMessages = numberOfNewMessages - 1;
+			$('#numberOfNewMessages').text(numberOfUnreadMessages);
+			if(numberOfUnreadMessages == 1) {
+				$('#unreadMessagesLabel').text('nowa');
+			} else if(numberOfUnreadMessages >= 2 && numberOfUnreadMessages <= 4) {
+				$('#unreadMessagesLabel').text('nowe');
+			} else {
+				$('#unreadMessagesLabel').text('nowych');
+			}
+		}
+	}
+
+
+	// Recalculate quantity of elements
+	function recalcItems(){
+		var tempContent = $('.accord-rest').html();
+		$('.accord-rest').remove();
+		$('.expand-all').before(tempContent);
+	}
+	
+	// Delete accord item
+	var remove = $('a.remove-item-btn');
+	remove.on('click' ,function(){
+		var messageBox = $(this).closest('.arte-accord-item');
+	
+		var messageId = $(messageBox).attr('data-message-id');
+		var messageType = $(messageBox).attr('data-message-type');
+
+    messageRemoteService.tagMessageAsCancelled(messageType, messageId, {
+      errorHandler: function(msg, exception, response) {
+        dwrHandler.errorHandler(msg, exception, response);
+      }
+    });
+		
+		
+		if ($(messageBox).parent('.accord-rest').length > 0) {
+			$(messageBox).remove();
+		} else {
+		    if (accordNumber > 2) {
+				$(messageBox).remove();
+				var lastMessageBoxInMainSection = $('.arte-accord-item')[2];
+				var firstMessageBoxInRestSection = $('.arte-accord-item')[3];
+				$(firstMessageBoxInRestSection).insertAfter($(lastMessageBoxInMainSection));
+		    } else {
+				$(messageBox).remove();
+		    }
+		}
+		
+		var numberOfMessages = parseInt($('#numberOfMessages').text());
+		if (numberOfMessages > 0) {
+			$('#numberOfMessages').text(numberOfMessages - 1);
+		}
+		
+		// Decrease quantity of elements
+		accordNumber--;
+		
+		// if less then 4 elements - remove expand all button
+		if (accordNumber < 4) {
+			$('.expand-all').remove();
+			$('.accord-rest').show();
+		}
+		
+		if (accordNumber < 1) {
+			var accordItem = $('.arte-accord-item');
+			$(accordItem).find('.arte-main-trigger').removeClass('active');
+			$(accordItem).find('.arte-main-content').remove();
+		}
+		
+		//recalcItems();
+		// countAccordItems();
+	})
+
+	// Toggle visibility of Alert box
+	$('.arte-main-trigger').on('click',function(){
+		$('.arte-alert').toggleClass('hide');
+	})
+
+	$('.arte-alert-a').on('click', function(e){
+		var alertBox = this;
+		var messageId = $(alertBox).closest('.arte-alert').attr('data-message-id');
+		var messageType = $(alertBox).closest('.arte-alert').attr('data-message-type');
+		var messageBox = $('.arte-accord-item [data-message-id=' + messageId + ']');
+
+		if(messageId && messageId !== '-1') {
+      messageRemoteService.tagMessageAsReaded(messageType, messageId, {
+        errorHandler: function(msg, exception, response) {
+          dwrHandler.errorHandler(msg, exception, response);
+        }
+      });
+    }
+	
+		$(alertBox).closest('.arte-alert').remove();
+		$('.arte-alert').toggleClass('hide');
+		$('.arte-main-trigger').addClass('active');
+		$('.arte-main-content').slideDown(250).addClass('expanded');
+	  
+		if (messageBox.parent('.accord-rest').length > 0) {
+			if(!expander.hasClass('expanded')){
+				expander.click();
+			}
+		}
+		
+		var messageTextSpan = $(messageBox).find('.trigger-title');
+		if ($(messageTextSpan).hasClass('unread-message')) {
+			$(messageTextSpan).removeClass('unread-message');
+			
+			updateUnreadMessagesNum();
+		}	
+	  
+		messageBox.find('.openIt').addClass('active').next().addClass('expanded').slideDown(250);
+		messageBox.find('.openIt').addClass('highlighted');
+		messageBox.find('.openIt').find('a span').text('Zwiń');
+	  
+	});
+
+};

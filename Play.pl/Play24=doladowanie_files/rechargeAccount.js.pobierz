@@ -1,0 +1,148 @@
+jQuery(document).ready(function($) {
+    var msisdnVerified = false;
+    initValidation();
+    var rechargeForm = $("#rechargeForm");
+
+    $('#rechargeAccount form #rechargeSubmit').on('click', function(){
+      rechargeForm.trigger('submit');
+    });
+
+
+    //before submitting
+    rechargeForm.submit(function(event) {
+        //Stop submit
+        event.preventDefault();
+        
+        //duplicating msisdn to POST it
+        var currentMsisdn = $("#telNr").val();
+
+        //if there are JS validation errors
+        if (jQuery(this).find('.err,.errCheckbox').length) {
+            if(jQuery('#telNr.err, #amount.err, #emailInfo.err').length) {
+                scrollToElement('#rechargeForm');
+            } else if(jQuery('#disclaimer1.errCheckbox').length) {
+                scrollToElement('#disclaimer1', -100);
+            }
+            return false;
+        }
+        else if ( !msisdnVerified ) { //send DWR to verify msisdn
+            checkMsisdnForRechargeService.checkMsisdn(
+                currentMsisdn,
+                {
+                    callback: function(response) {
+                        if (response.responseStatus.status == 1) { //success
+                            msisdnVerified = true;
+                            rechargeForm.submit();
+                        }
+                        else {
+                            var errorElement = $('#telNr').siblings(".underInputErr");
+                            errorElement.show();
+                            var errorMsg = response.responseStatus.messages.error || "Błąd działania usługi - spróbuj później";
+                            errorElement.html( '<span class="err">'+errorMsg+'</span>' );
+                        }
+                    },
+                    errorHandler: function(msg, exception, response) {
+                    dwrHandler.errorHandler(msg, exception, response);
+                    }
+                }
+            );            
+        }
+        else if ( msisdnVerified ) {
+            //change email to lower case
+            var email = $("#emailInfo").val();
+            email = email.toLowerCase();
+            $("#emailInfo").val( email );
+            //submit form
+            this.submit();
+            //Show summary
+            toggleRechargeVisibility.showSummary();
+            //clear            
+            msisdnVerified = false;
+        }
+    });
+
+    $('.rechargeAccount .graybox a.link-play24').click(function(){
+        var href = $(this).attr("href");
+        loadFancy( href );
+        return false;
+    });
+
+    //mixtura
+    $('#mixturaPopupTrigger').live("click", function(){
+        var href = $(this).attr("href");
+        loadFancy( href ,null,null, 0);
+        return false;
+    });
+    
+
+    $('#rechargeAnother').click(function(){
+        //Show form
+        toggleRechargeVisibility.showForm();
+    });
+
+    $('#resendForm').click(function(){
+        rechargeForm.submit();
+    });
+
+});
+
+var toggleRechargeVisibility = (function(){
+    var form = $("#rechargeForm");
+    var summary = $("#rechargeSummary");
+    var amount = $("#amount");
+    var accept = $("#disclaimer1");
+    var documents = $("#rechargeDocuments");
+
+    return {
+        showForm : function() {
+            summary.hide();
+            //clearing form
+            amount.val("");
+            accept.attr("checked",false).change();
+            documents.show();
+            //show form
+            form.show();
+        },
+        showSummary : function() {
+            form.hide();
+            documents.hide();
+            //show summary
+            summary.show();
+        }
+    }
+})();
+
+// iPad/iPhone workaround
+jQuery('label').click(function() {});
+
+var initValidation = function () {
+    jQuery('#telNr').validate({rule:'vMaxLength;vMinLength;vFirstChar;vSingleSpace;noNrCheck;vStopAfterFirstError', minLength:9, maxLength:9});
+    jQuery('#amount').validate({rule:'vMinLength;vMinValue;vMaxValue;noNrCheck;vStopAfterFirstError', minLength:1, minValue:5, maxValue:300});
+    jQuery('#disclaimer1').validate({rule:'vCheckbox', classErrField:'errCheckbox'});
+    jQuery('#cD-payment').validate({rule:'vSelect'});
+    // jQuery('[name=paymentMethod]').validate({rule: 'vRequired'});
+
+    if (jQuery('#payment').attr('checkout')==1){
+        jQuery('#emailInfo').validate({rule:''});
+        elements = jQuery('#li_email').find('.err,.errCheckbox');
+
+        elements.each(function(i){
+
+            jQuery(this).attr('class','');
+
+        });
+    }
+    else
+        jQuery('#emailInfo').validate({rule:'vEmail;vMaxLength', maxLength:100});
+}
+
+var scrollToElement  = function(elementSelector, offset) {
+  var scrollDest = $(elementSelector).offset().top;
+  if(offset) {
+    scrollDest += offset;
+  }
+  $('html, body').animate({
+    scrollTop:
+        scrollDest
+  }, 300);
+}

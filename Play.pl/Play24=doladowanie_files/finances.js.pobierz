@@ -1,0 +1,683 @@
+/**
+ * @name Finances
+ * @author kfb
+ *
+ * Basic usage:
+ * var finances = new Finances();
+ * finances.init();
+ *
+ * additionally you can use methods like app.methodName();
+ *
+ * Advanced usage:
+ * var finances = new Finances({
+ *      "additionalOption": "thatCanOvervriteDefaults"
+ * });
+ *
+ */
+function Finances(opts) {
+  var cfg;
+  var _root;
+  var _responseStatus;
+
+  //defining defaults and extending/overwriting it with inputted parameters
+  this.config = $.extend({
+    "root": this,
+    "financialDocumentsModalId": "#financialDocuments",
+    "financialDocumentsTableId": "#FINANCES_DOCUMENTSTable",
+    "financialDocumentsTableKey": "FINANCES_DOCUMENTS",
+    "onOffModalTrigger": null,
+    "summaryTrigger": null,
+    "eInvoiceDeactivationConfirmBtn": "#eInvoiceDeactivationConfirmBtn"
+  }, opts);
+  /*
+   INITIALIZE
+   */
+  this.init = function () {
+    //assign _root and cofig variables
+    _root = this;
+    cfg = this.config;
+
+    //bind events on init
+    _root.bindEvents();
+  }
+
+  this.verifyOtp = function(callback) {
+    PlaySCB.globalStore.storeValue('otp_callback', callback);
+    // check otp
+    var otp = new Otp();
+    otp.init();
+    otp.check();
+  }
+
+  /*
+   Events binding
+   */
+  this.bindEvents = function () {
+    $(function () { //on document ready
+
+      //show financial documents modal trigger
+      $('.showFinancialDocuments').die("click").live('click', function () {
+        var rel = $(this).attr("rel");
+        _root.documents.showFinancialDocuments(rel);
+      });
+
+      // open on/off modal trigger
+      $('.openOnOffModal').die().live('click', function () {
+
+        //add trigger to config
+        cfg.onOffModalTrigger = $(this);
+        //show modal method
+        _root.onOffModal.show();
+
+        return false;
+      });
+      $('div.turnOnOff a.next-step')
+        .unbind("dblclick")
+        .dblclick(function () {
+          return false;
+        })
+
+      // submit / show summary
+      $('div.turnOnOff a.next-step')
+        .unbind("dblclick")
+        .dblclick(function () {
+          return false;
+        })
+        .unbind("click")
+        .click(function () {
+
+          //'div.turnOnOff a.next-step:not(.disabled)'
+          if (!$(this).hasClass('disabled')) {
+            var that = $(this);
+            _root.verifyOtp(function() {
+              //add disabled class
+              //_root.onOffModal.addDisabledClass( $(this) );
+              that.addClass('disabled');
+
+              //add trigger to config
+              cfg.summaryTrigger = that;
+
+              _root.onOffModal.showSummary();
+            });
+
+          }
+          return false;
+        });
+
+    });
+
+    $('body').on('click', cfg.eInvoiceDeactivationConfirmBtn, function() {
+      _root.verifyOtp(function() {
+        loadFancy('financeEInvoicesDeactivationConfirm', comboBox);
+      });
+    });
+
+    $('body').on('click', '.showInvoiceModal', function(e) {
+      var documentName = $(this).attr('data-docName');
+      $('#einvoiceWarningModal button.showInvoiceByModal').attr("data-docName", documentName);
+      PlaySCB.modal.show('#einvoiceWarningModal');
+    });
+
+    $('body').on('click', '.showInvoiceByModal', function(e) {
+      e.preventDefault();
+      if (typeof readOnly !== 'undefined') {
+        return;
+      }
+      var documentName = $(this).attr('data-docName');
+      PlaySCB.modal.hide('#einvoiceWarningModal');
+      if(documentName) {
+        $('a.showInvoice[data-docName="' + documentName + '"]').click();
+      }
+    });
+
+    $('body').on('click', '#closeInvoiceModal', function(e) {
+      e.preventDefault();
+      PlaySCB.modal.hide('#einvoiceWarningModal');
+    });
+
+    $('body').on('click', '.showInvoice', function(e) {
+      e.preventDefault();
+      if (typeof readOnly !== 'undefined') {
+        return;
+      }
+
+      var documentName = $(this).attr('data-docName');
+
+      if (documentName) {
+        PlaySCB.globalLoader.show();
+        invoiceRemoteService.downloadInvoice(documentName, {
+          callback: function(data) {
+              PlaySCB.globalLoader.hide();
+              var element = document.createElement('a');
+              element.setAttribute('href',data);
+              document.body.appendChild(element);
+              element.click();
+              document.body.removeChild(element);
+          },
+          errorHandler: function(msg, exception, response) {
+            PlaySCB.globalLoader.hide();
+            loadFancy('#invoiceDownloadError');
+            dwrHandler.errorHandler(msg, exception, response);
+          }
+        });
+      } else {
+        loadFancy('#invoiceDownloadError');
+      }
+    });
+  }
+  /*
+   on/off modal
+   */
+  this.onOffModal = function () {
+  }
+  //show modal
+  this.onOffModal.show = function () {
+
+    var $element = cfg.onOffModalTrigger;
+
+    if ($element.hasClass('disabled')) {
+      return false;
+    }
+
+    if (typeof readOnly !== 'undefined') {
+      return;
+    }
+
+    if ($element.attr('rel') == 'off') {
+      $('.turnOnOff h3, .summaryBox h3').html('Wyłącz usługę');
+    } else {
+      $('.turnOnOff h3, .summaryBox h3').html('Włącz usługę');
+    }
+
+    // set up
+    var _invoiceNo = $element.parents("tr:first").find('input[name="invoiceNo"]').val() || "";
+    var _documentNo = $element.parents("tr:first").find('input[name="documentNo"]').val() || "";
+    _responseStatus = _STATUS_OK;
+    $('a.currentLink').removeClass('currentLink');
+    $element.addClass('currentLink');
+
+    // clear html elements
+    $('#invoiceNo').val("");
+    $('#documentNo').val("");
+
+    // what modal should be executed
+    if (_invoiceNo || _documentNo) {
+      if ($element.hasClass('orderBill')) {
+        _root.onOffModal.orderBill(_invoiceNo);
+      } else if ($element.hasClass('orderDuplicateInvoices')) {
+        _root.onOffModal.orderDuplicateInvoices(_invoiceNo);
+      } else if ($element.hasClass('orderNote')) {
+        _root.onOffModal.orderNote(_documentNo);
+      } else if ($element.hasClass('orderDuplicateDocument')) {
+        _root.onOffModal.orderDuplicateDocument(_documentNo);
+      }
+    } else if ($element.hasClass('orderCyclicBill')) {
+      _root.onOffModal.orderCyclicBill();
+    }
+
+    //clear config variable
+    cfg.onOffModalTrigger = null;
+
+  }
+  // invoice - order bill
+  this.onOffModal.orderBill = function (_invoiceNo) {
+    // set up/clear html elements
+    $('#invoiceNo').val(_invoiceNo);
+    $('#documentNo').val("");
+
+    _root.onOffModal.buttonNextClasses('orderBill');
+    detailPrintoutRemoteService.findDetailPrintoutData(
+      {
+        callback: function (response) {
+          if (response.responseStatus.status == _STATUS_OK) {
+
+            $('.turnOnOff .modal-header').html('Zamów rachunek szczegółowy');
+            $('.turnOnOff .tile-header').html('Nr faktury');
+            $('.turnOnOff #modalValue').html(_invoiceNo).show();
+            $('.turnOnOff span.desc').html('');
+            $('.turnOnOff span.price').html(response.priceDesc.replace('PLN', 'zł.')).show();
+            $('.turnOnOff span.priceDesc').html('Opłata jednorazowa za rachunek szczegółowy wynosi ').show();
+            $('.turnOnOff a.next-step span').text('Zamów');
+            $('.turnOnOff span.descExt').html(response.descExtension);
+            _responseStatus = _STATUS_OK;
+            _root.onOffModal.load(_responseStatus);
+          } else {
+            $('.summaryBox p').html(response.responseStatus.messages.error);
+            _responseStatus = _STATUS_ERROR;
+            _root.onOffModal.load(_responseStatus);
+          }
+        },
+        errorHandler: function(msg, exception, response) {
+          dwrHandler.errorHandler(msg, exception, response);
+        },
+        async: false
+      });
+  }
+  // invoice - order duplicate
+  this.onOffModal.orderDuplicateInvoices = function (_invoiceNo) {
+    // set up/clear html elements
+    $('#invoiceNo').val(_invoiceNo);
+    $('#documentNo').val("");
+
+    _root.onOffModal.buttonNextClasses('orderDuplicateInvoices');
+    $('.turnOnOff .modal-header').html('Zamów duplikat faktury');
+    $('.turnOnOff .tile-header').html('Nr faktury');
+    $('.turnOnOff #modalValue').html(_invoiceNo).show();
+    $('.turnOnOff span.desc').html('');
+    $('.turnOnOff span.price').html('0,00 zł.').show();
+    $('.turnOnOff span.priceDesc').html('Opłata jednorazowa za duplikat faktury wynosi ').show();
+    $('.turnOnOff a.next-step span').text('Zamów');
+    _responseStatus = _STATUS_OK;
+    _root.onOffModal.load(_responseStatus);
+  }
+  // services - order cyclic bill
+  this.onOffModal.orderCyclicBill = function () {
+    _root.onOffModal.buttonNextClasses('orderCyclicBill');
+    cyclicDetailPrintoutRemoteService.findCyclicDetailPrintoutData(
+      {
+        callback: function (response) {
+          if (response.responseStatus.status == _STATUS_OK) {
+
+            var activation = response.activation;
+
+            if (activation != undefined && activation) {
+            	$('.turnOnOff .modal-header').html('Włącz usługę');
+            	$('.turnOnOff a.next-step').text('Włącz');
+            } else {
+            	$('.turnOnOff .modal-header').html('Wyłącz usługę');
+            	$('.turnOnOff a.next-step').text('Wyłącz');
+            }
+            $('.turnOnOff .tile-header').html('Rachunek szczegółowy cykliczny');
+            $('.turnOnOff #modalValue').hide();
+            $('.turnOnOff span.desc').html($('#detailedBillInfo').html());
+            $('.turnOnOff span.price').html(response.priceDesc.replace('PLN', 'zł') + '/mc.').show();
+            $('.turnOnOff span.priceDesc').html('Opłata abonamentowa za rachunek szczegółowy cykliczny to ').show();
+            $('.turnOnOff span.descExt').html(response.descExtension);
+            _responseStatus = _STATUS_OK;
+            _root.onOffModal.load(_responseStatus);
+          } else {
+            $('.summaryBox p').html(response.responseStatus.messages.error);
+            _responseStatus = _STATUS_ERROR;
+            _root.onOffModal.load(_responseStatus);
+          }
+        },
+        errorHandler: function(msg, exception, response) {
+          dwrHandler.errorHandler(msg, exception, response);
+        }
+      });
+  }
+  // financial document - order note
+  this.onOffModal.orderNote = function (_documentNo) {
+    // set up/clear html elements
+    $('#documentNo').val(_documentNo);
+
+    _root.onOffModal.buttonNextClasses('orderNote');
+    $('.turnOnOff .modal-header').html('Zamów notę odsetkową');
+    $('.turnOnOff .tile-header').html('Nr dokumentu');
+    $('.turnOnOff #modalValue').html(_documentNo).show();
+    $('.turnOnOff span.desc').html('');
+    $('.turnOnOff span.price').html('0,00 zł.').show();
+    $('.turnOnOff span.priceDesc').html('Opłata jednorazowa za notę odsetkową wynosi ').show();
+    $('.turnOnOff a.next-step span').text('Zamów');
+    _responseStatus = _STATUS_OK;
+    _root.onOffModal.load(_responseStatus);
+  }
+  // financial document - order duplicate
+  this.onOffModal.orderDuplicateDocument = function (_documentNo) {
+    // set up/clear html elements
+    $('#documentNo').val(_documentNo);
+
+    _root.onOffModal.buttonNextClasses('orderDuplicateDocument');
+    $('.turnOnOff .modal-header').html('Zamów duplikat dokumentu finansowego');
+    $('.turnOnOff .tile-header').html('Nr dokumentu');
+    $('.turnOnOff #modalValue').html(_documentNo).show();
+    $('.turnOnOff span.desc').html('');
+    $('.turnOnOff span.price').html('0,00 zł.').show();
+    $('.turnOnOff span.priceDesc').html('Opłata jednorazowa za duplikat dokumentu finansowego wynosi ').show();
+    $('.turnOnOff a.next-step span').text('Zamów');
+    _responseStatus = _STATUS_OK;
+    _root.onOffModal.load(_responseStatus);
+  }
+  // next buttons classes
+  this.onOffModal.buttonNextClasses = function (newClass) {
+    $('.turnOnOff a.next-step').removeClass('orderCyclicBill-next orderDuplicateInvoices-next orderBill-next').addClass(newClass + '-next');
+  }
+  // add "disabled" to button
+  this.onOffModal.addDisabledClass = function (element) {
+    element.addClass("disabled");
+  }
+
+  this.onOffModal.successCallback = function(element, response, currentLink) {
+    if (response.responseStatus.status == _STATUS_OK) {
+      $('.summaryBox p').html(response.operationDesc);
+      currentLink.addClass('disabled');
+      //publish event
+      loadFancy('#summaryBox');
+    } else {
+      loadFancy('#exceptionMessage', function () {
+        _root.onOffModal.removeDisabled(element);
+      });
+    }
+  }
+
+  this.onOffModal.removeDisabled = function(element) {
+    _root.onOffModal.removeDisabledClass(element);
+    _root.onOffModal.removeDisabledClass($('.turnOnOff a.next-step'));
+  }
+  // remove "disabled" from button
+  this.onOffModal.removeDisabledClass = function (element) {
+    element.removeClass("disabled");
+  }
+  // load fancybox
+  this.onOffModal.load = function (_responseStatus) {
+    if (_responseStatus == _STATUS_OK) {
+      _modal = '#turnOnOff';
+    } else {
+      _modal = '#summaryBox';
+    }
+    loadFancy(_modal);
+  }
+  // next button functionality
+  this.onOffModal.showSummary = function () {
+    var _currentLink = $('.currentLink');
+    var $element = cfg.summaryTrigger;
+
+    var invoiceOrderInvocationHandler = {
+        callback: function (response) {
+            if (response.responseStatus.status == _STATUS_OK) {
+                _root.onOffModal.successCallback($element, response, _currentLink);
+            } else {
+                $('.summaryBox p').html(response.responseStatus.messages.error).removeClass('on').addClass('off');
+                    _responseStatus = _STATUS_ERROR;
+                _root.onOffModal.load(_responseStatus);
+            }
+        },
+        errorHandler: function(msg, exception, response) {
+            _root.onOffModal.removeDisabled($element);
+            dwrHandler.errorHandler(msg, exception, response);
+        },
+        exceptionHandler: function(msg, exception, response) {
+            _root.onOffModal.removeDisabled($element);
+            dwrHandler.errorHandler(msg, exception, response);
+        },
+        async: false
+    }
+
+    if ($element.hasClass('orderCyclicBill-next')) {
+
+      cyclicDetailPrintoutRemoteService.updateCyclicDetailPrintoutData(
+        {
+          callback: function (response) {
+
+            if (response.responseStatus.status == _STATUS_OK) {
+              $('.summaryBox p').html(response.operationDesc);
+              $('td#cyclicDetailStatus').removeClass('on').removeClass('off').addClass('inProgress').html('<span>W trakcie zmiany</span>');
+              $('a#cyclicBillButton').remove();
+              loadFancy('#summaryBox');
+            } else {
+              loadFancy('#exceptionMessage', function () {
+                _root.onOffModal.removeDisabled($element);
+              });
+            }
+          },
+          errorHandler: function(msg, exception, response) {
+            _root.onOffModal.removeDisabled($element);
+            dwrHandler.errorHandler(msg, exception, response);
+          },
+          exceptionHandler: function(msg, exception, response) {
+            _root.onOffModal.removeDisabled($element);
+            dwrHandler.errorHandler(msg, exception, response);
+          },
+        });
+
+    } else if ($element.hasClass('orderBill-next')) {
+      detailPrintoutRemoteService.orderDetailPrintout($('#invoiceNo').val(), invoiceOrderInvocationHandler);
+    } else if ($element.hasClass('orderDuplicateInvoices-next')) {
+      orderInvReIssueRemoteService.orderInvReIssue($('#invoiceNo').val(), invoiceOrderInvocationHandler);
+    } else if ($element.hasClass('orderNote-next')) {
+      orderInvReIssueRemoteService.orderInvReIssue($('#documentNo').val(), invoiceOrderInvocationHandler);
+
+      // clear summary trigger config variable
+      cfg.summaryTrigger = null;
+    } else if ($element.hasClass('orderDuplicateDocument-next')) {
+      orderInvReIssueRemoteService.orderInvReIssue($('#documentNo').val(), invoiceOrderInvocationHandler);
+    }
+
+    // clear summary trigger config variable
+    cfg.summaryTrigger = null;
+
+    // remove disabled class from next-step button
+    $('.next-step').removeClass('disabled');
+  }
+
+  /*
+   financial documents
+   */
+  this.documents = function () {
+  }
+  //check if we can show modal
+  this.documents.showFinancialDocuments = function (rel) {
+    //clear modal
+    $(cfg.financialDocumentsTableId + " tbody").html("");
+    //add doc number
+    $(cfg.financialDocumentsModalId + " .relatedInvoice").text(rel);
+
+    //show financial documents
+    loadFancy(cfg.financialDocumentsModalId, _root.documents.showFinancialDocumentsModalCallback)
+  }
+  this.documents.showFinancialDocumentsModalCallback = function () {
+    // Checking if table exists
+    if ($(cfg.financialDocumentsTableId).length > 0) {
+      tableServiceFinancialDocuments = new TableService();
+      tableServiceFinancialDocuments.enable({
+        tableType: cfg.financialDocumentsTableKey
+      });
+      //Get table data
+      tableServiceFinancialDocuments.getData(true);
+    }
+  }
+
+}
+//declaration of variables needed in TableService bean
+var tableServiceFinancialDocuments;
+
+//declaration and initialization of Report
+var finances = new Finances();
+finances.init();
+
+
+
+/*                      *
+*                       *
+*   DOCUMENT READY      *
+*                       *
+*                       */
+
+$(document).ready(function() {
+
+  jQuery('.days').focus(function () {
+    jQuery(this).prev().find('input[type=radio]').attr('checked', 'checked');
+    jQuery('.period .styleRadio').removeClass('checked');
+    jQuery(this).prev().find('.styleRadio ').addClass('checked');
+  });
+
+  jQuery('.from, .to').focus(function () {
+    jQuery('.radio.date').find('input[type=radio]').attr('checked', 'checked');
+    jQuery('.period .styleRadio').removeClass('checked');
+    jQuery('.radio.date').find('.styleRadio ').addClass('checked');
+  });
+
+  $('a.ebppBlocker').click(function () {
+    loadFancy('#ebppBlock');
+    return false;
+  });
+
+  $('#invoices-results .sendEmail').click(function () {
+    return false;
+  });
+
+  $('#financePaymentOrderPDFDownload').click(function () {
+    window.open('/' + $('#container').attr('class') + '/financePaymentOrderPDF?type=download', '', '');
+  });
+
+  if ($('#financeRechargesSearchForm').length) {
+    $('table.ui-datepicker-calendar a, input.datePicker, span.first').live('click', function () {
+      $('.styleRadio:last').removeClass('checked');
+      $('input[type=radio]:last').removeAttr('checked');
+      $('.styleRadio:first').addClass('checked');
+      $('input[type=radio]:first').attr('checked', 'checked');
+      return false;
+    });
+
+    $('span.sec').click(function () {
+      if ($(this).prev('.radio').children('.styleRadio').hasClass('checked')) {
+        return;
+      }
+      $('#financeRechargesSearchForm .styleRadio').removeClass('checked');
+      $('#financeRechargesSearchForm input[type=radio]').removeAttr('checked');
+      $('#financeRechargesSearchForm .styleRadio:last').addClass('checked');
+      $('#financeRechargesSearchForm input[type=radio]:last').attr('checked', 'checked');
+      return false;
+    });
+  }
+
+  $('#financeEinvoiceNext').click(function () {
+    if ($('#eInvoiceEmailEdit').hasClass('details')) {
+      if ($('#email').attr('readonly') == false) {
+        if ($('#financeEinvoiceForm .noTopBorder td b').length == 0) {
+          $('#financeEinvoiceForm .noTopBorder td').append('<b class="error"> Zapisz lub anuluj zmianę adresu e-mail </b>');
+        } else {
+          $('#financeEinvoiceForm .noTopBorder td .error,#financeEinvoiceForm .noTopBorder td b').remove();
+          $('#financeEinvoiceForm .noTopBorder td').append('<b class="error"> Zapisz lub anuluj zmianę adresu e-mail </b>');
+        }
+        return false;
+      }
+    }
+    $('#financeEinvoiceForm').submit();
+  });
+
+  $('#einvoiceproposal').click(function () {
+    if ($(this).hasClass('detailsRO')) {
+      showAlertBox();
+      return false;
+    }
+  });
+
+  $('.sendEmail').click(function () {
+    return false;
+  });
+
+  $('#orderFormButton').live('click', function () {
+    clearInputHinted();
+
+    $('#orderForm').submit();
+    return false;
+  });
+
+  /*
+   Finance Payment Order
+   */
+  $('.financesPaymentOrderOnModal').click(function () {
+    loadFancy('financePaymentActivate');
+  });
+
+  $('.financesPaymentOrderOffModal').click(function () {
+    loadFancy('financePaymentDeactivate');
+  });
+
+  $('.financesPaymentOrderModifyModal').click(function () {
+    loadFancy('financePaymentModify');
+  });
+
+  $('.financePaymentOrderBackToStep1').live('click', function () {
+    $('#whatStep').attr('name', '_target0');
+    $("#orderForm").submit();
+  });
+
+  $('.financePaymentOrderBackToStep2').live('click', function () {
+    $('#whatStep').attr('name', '_target1');
+    $("#orderForm").submit();
+  });
+
+  $('.financePaymentOrderBackToStep3').live('click', function () {
+    $('#whatStep').attr('name', '_target0');
+    $("#orderForm").submit();
+  });
+
+  $('.financePaymentOrderToStep3').live('click', function () {
+    $('#whatStep').attr('name', '_target2');
+  });
+
+  $('.financePaymentOrderBackToStep5').live('click', function () {
+    $('#whatStep').attr('name', '_target4');
+    $("#orderForm").submit();
+  });
+
+  $('.financePaymentOrderFinish').live('click', function () {
+    $('#whatStep').attr('name', '_finish');
+  });
+
+  $('#remindersSuspendLink').live('click', function(event) {
+    event.preventDefault();
+    sevenDaysRemote.getSevenDaysModal(
+      {
+        callback: function(response) {
+          if (response.responseStatus.status == _STATUS_OK){
+            $('#sevenDaysModal').html(response.view);
+            loadFancy('#sevenDaysModal');
+          } else {
+            loadFancy('#exceptionMessage');
+          }
+        },
+        errorHandler: function(msg, exception, response) {
+          dwrHandler.errorHandler(msg, exception, response);
+        }
+      });
+  });
+
+  $('body').on('click', '#submitSevenDays',function() {
+    if(typeof readonly !== 'undefined') {
+      return;
+    }
+    PlaySCB.loader.show('#fancybox-outer');
+    sevenDaysRemote.activateSevenDays(
+      {
+        callback: function(response) {
+          if(response.responseStatus.status == _STATUS_OK) {
+            $('#sevenDaysModal').html(response.view);
+              PlaySCB.loader.hide('#fancybox-outer');
+              $.fancybox.center();
+          } else {
+            loadFancy('#exceptionMessage');
+          }
+        },
+        errorHandler: function(msg, exception, response) {
+          dwrHandler.errorHandler(msg, exception, response);
+        }
+      }
+    );
+  });
+
+
+  $(".connectionsHistoryLinkPaid, .connectionsHistoryLinkUnpaid").live('click', function() {
+    var fromDate = $(this).parents("tr").find("[name=fromDate]").val();
+    var toDate = $(this).parents("tr").find("[name=toDate]").val();
+    window.location.href='Billing?fromDate='+encodeURIComponent(fromDate)+"&toDate="+encodeURIComponent(toDate);
+  });
+
+  if($('#showActivations').length) {
+    paymentActivations.showActivationsHistory($('#showActivations').val());
+  }
+
+  var currentDate = new Date();
+  var ebppStatusDate = new Date("2016/09/30");
+  if($('#ebppStatus').hasClass('on') && (currentDate < ebppStatusDate)) {
+    loadFancy('#transferModal');
+  }
+
+  $("body").on("click", "#fancybox-close", function() {
+    if($(this).parent().find('.financePaymentSummary').length) {
+      window.location.href="FinanceServices?refreshFinanceServices=true"
+    }
+  });
+});

@@ -1,0 +1,526 @@
+/**
+ * Created with IntelliJ IDEA.
+ * User: PWR
+ * Date: 07.11.13
+ * Time: 14:29
+ * To change this template use File | Settings | File Templates.
+ */
+if(!Public.url){
+  Public.url = {}
+}
+PlaySCB.myAccount = new function(){
+  var _root = this,
+    _cfg = {
+      userdata: '#userdata'
+    };
+
+  /* initialize element */
+  this.init = function(opts) {
+    _cfg = $.extend(_cfg, opts);
+
+    $(document).ready(function(){
+      _bindEvents();
+      _loadUserData('#MY_ACCOUNT','MY_ACCOUNT');
+      _loadUserData('#MY_ACCOUNT_PAYMENTS','MY_ACCOUNT_PAYMENTS');
+    });
+    _charger();
+    _limitCharger();
+  };
+
+  var _bindEvents = function(){
+    //open ballances modalbox
+    $('#userdata').on('click', '#accountBallances', _accountBallancesClick);
+    $('#userdata').on('click', '#autoConfiguration', _autoConfigurationClick);
+    $('#userdata').on('click', '#userDataButton', function(event){
+
+      PlaySCB.gaWrap('Play24 - moje konto', 'Mój numer', 'Moje dane');
+
+      window.location.href = 'UserData';
+    });
+    $('#userdata').on('click', '#prepaidRegisterButton', function(event){
+        PlaySCB.gaWrap('Play24 - moje konto', 'Mój numer', 'Moje dane');
+        window.location.href = 'UserData';
+    });
+
+    $('#userdata').on('click', '#services', function(event){
+        PlaySCB.gaWrap('Play24 - moje konto', 'Moja taryfa', 'Pakiety i usługi');
+
+        window.location.href = 'Services';
+    });
+    $('#userdata').on('click', '#collectionPaymentButton', function(event){
+      PlaySCB.globalLoader.show();
+      window.location.href = "PayForInvoicesAll";
+    });
+    $('body').on('click','#ballancesModalBox .showGroupMembersTrigger', function(){
+      $('body').one('click','#fancybox-wrap #fancybox-close', _reopenBallances);
+    });
+    $('body').on('click','#ballancesModalBox .vindicationInfoTrigger', function(){
+        $('body').one('click','#fancybox-wrap #fancybox-close, #fancybox-wrap #fancybox-canceled', _reopenBallances);
+    });
+    $('#notificationLink').live('click',function(e){
+      $(this).addClass('disabled');
+      PlaySCB.globalLoader.show();
+      window.open(this.attr('href'));
+      e.stopImmediatePropagation();
+      e.preventDefault();
+      return false
+    })
+
+    $('#ADMIN_ACCOUNTSTable a.details').live('click', function(){
+      $.fancybox.showActivity();
+      var msisdn = $(this).attr('rel');
+      checkCreditLimitRemoteService.createAccountForBalancesCheck(msisdn, {
+        callback:function(response){
+          var id = 'ADMIN_ACCOUNTSdetails';
+          var tmp = $('#' + id);
+          if ( !tmp.get(0) ) {
+            $('<span class="hidden"><div id="' + id + '"></div></span>').appendTo($('body'));
+            tmp = $('#' + id);
+          }
+          tmp.html(response.view);
+          loadFancy('#' + id, function(){
+            comboBox();
+            init();
+            _charger();
+            _limitCharger();
+            var as = tmp.find('ul.section-menu-play24 a');
+            as.bind('click', function(){
+              $('#tooltipClose').trigger('click');
+              $(this).removeAttr('href').parents('li').addClass('selected');
+              as.not($(this)).attr('href', '#').parents('li').removeClass('selected');
+              cn = tmp.find('#'+$(this).attr('rel'));
+              cn.removeClass('hidden');
+              tmp.find('.aacontent').not(cn).addClass('hidden');
+              return false;
+            });
+          });
+        },
+        errorHandler: function(msg, exception, response) {
+          dwrHandler.errorHandler(msg, exception, response);
+        }
+      });
+    });
+  }
+
+  var _reopenBallances = function(){
+    setTimeout(function(){_accountBallancesClick()}, 1000);
+  };
+
+  var _accountBallancesClick = function(){
+    PlaySCB.globalLoader.show();
+    PlaySCB.gaWrap( 'Play24 - moje konto', 'Mój numer', 'Stan konta');
+    
+    balanceRemoteService.getBalances({
+      callback:function(response) {
+        if(response.responseStatus.status == 1 ){
+          PlaySCB.loader.hide('body');
+          $('#ballancesModalBox').html(response.view);
+          loadFancy("#ballancesModalBox", undefined, undefined, 32, true);
+          _charger();
+          _limitCharger();
+        } else {
+          exceptionHandler();
+        }
+      },
+      errorHandler: function(msg, exception, response) {
+        //handle DWR error
+        dwrHandler.errorHandler(msg, exception, response);
+      }
+    });
+  }
+
+  var _autoConfigurationClick = function(){
+    $(this).closest('#configForm').submit();
+  }
+
+  var _loadUserData = function(content, dataName){
+    if(content == "#MY_ACCOUNT"){
+      PlaySCB.loader.show("#MY_ACCOUNT_NUMBER");
+      PlaySCB.loader.show("#MY_ACCOUNT_TARIFF");
+      if($('#isMyPhoneVisible').length) {
+        PlaySCB.loader.show("#MY_ACCOUNT_PHONE");
+      }
+
+      myAccountRemoteService.getOtherTile({
+          callback:function(response) {
+            if(response.responseStatus.status == 1 ){
+            	$('#MY_ACCOUNT_NUMBER').html(response.responseStatus.messages.myAccountNumberView);
+                $('#MY_ACCOUNT_TARIFF').html(response.responseStatus.messages.myAccountTariffView);
+                if($('#isMyPhoneVisible').length) {
+                  $('#MY_ACCOUNT_PHONE').html(response.responseStatus.messages.myAccountPhoneView);
+                } else {
+                  $('#MY_ACCOUNT_PHONE').hide();
+                }
+
+            } else if (response.responseStatus.status == 0) {
+              $(content).find('div.span8').html(response.view);
+            } else {
+              exceptionHandler();
+            }
+            PlaySCB.loader.hide(content);
+          },
+          errorHandler: function(msg, exception, response) {
+            //handle DWR error
+            dwrHandler.errorHandler(msg, exception, response);
+            PlaySCB.loader.hide(content)
+          }
+        });
+      
+    } else {
+      PlaySCB.loader.show(content);
+      
+      myAccountRemoteService.getFinanceTile({
+          callback:function(response) {
+            if(response.responseStatus.status == 1 ){
+            	$(content).html(response.view);
+
+            } else if (response.responseStatus.status == 0) {
+              $(content).find('div.span8').html(response.view);
+            } else {
+              exceptionHandler();
+            }
+            PlaySCB.loader.hide(content);
+          },
+          errorHandler: function(msg, exception, response) {
+            //handle DWR error
+            dwrHandler.errorHandler(msg, exception, response);
+            PlaySCB.loader.hide(content)
+          }
+        });
+      
+    }
+  };
+
+  var _loadDataFromUrl = function(content, url){
+    PlaySCB.loader.show(content);
+
+    $.ajax({ type : "GET",
+      url : url,
+      xhrFields: {
+        withCredentials: true
+      },
+      crossDomain: true,
+      dataType : "html",
+      cache : false,
+      success : function(response) {
+        content.html(response);
+        PlaySCB.loader.show(content);
+      },
+      error : function(msg) {
+        PlaySCB.loader.hide(content);
+      }
+    }) .fail(function() {
+        PlaySCB.loader.hide(content);
+      });
+  }
+
+  var _limitCharger =  function (){
+
+    var input = 'undefined';
+    var valueStep = 100;
+    var originalLabel = '';
+    var preVal = undefined;
+
+    var init = function() {
+      unbindChargerEvents();
+
+      input = 'undefined';
+      valueStep = 100;
+      originalLabel = '';
+      preVal = undefined;
+
+      bindChargerEvents();
+    }
+
+    var parseCreditLimitValue = function(creditLimitValue) {
+      return parseInt(creditLimitValue.replace(/\s/g, ''));
+    }
+
+    var formatCreditLimitValue = function(creditLimitValue) {
+      var formattedNumber = creditLimitValue.toString().replace(/./g, function(c, i, a) {
+        return i && c !== "." && ((a.length - i) % 3 === 0) ? ' ' + c : c;
+      });
+      var suffix = $('#currencyUnit').val();
+      return formattedNumber+' '+suffix;
+    }
+
+    var normalizeValue = function (valueToChange) {
+      var currVal = parseCreditLimitValue($('#currentCreditLimitValue').val());
+      var maxVal = parseInt($('#maxCreditLimitValue').val());
+      var addStep = valueToChange % 100 > 0 ? 1 : 0;
+      var normalized = parseInt((valueToChange / 100) + addStep) * 100;
+      if (isNaN(normalized)) {
+        normalized = currVal;
+      }
+      if (normalized < currVal) {
+        return currVal;
+      }
+      if (maxVal < normalized) {
+        return maxVal;
+      }
+      return normalized;
+    }
+
+    var disableButtons = function (value, showMessage) {
+      $('#increaseCreditLimitValue, #decreaseCreditLimitValue').removeClass('disabled disabledTooltip');
+      var button = undefined;
+      var disableCheck = false;
+      if (parseCreditLimitValue($('#newCreditLimitValue').val()) === parseCreditLimitValue($('#currentCreditLimitValue').val())) {
+        button = $('#decreaseCreditLimitValue');
+        disableCheck = true;
+      }
+      if (parseCreditLimitValue($('#newCreditLimitValue').val()) === parseCreditLimitValue($('#maxCreditLimitValue').val())) {
+        button = $('#increaseCreditLimitValue');
+      }
+
+      if (button) {
+        button.addClass('disabled disabledTooltip');
+        if (showMessage) {
+          button.trigger('mouseenter');
+        }
+      }
+
+      $('.checkCreditLimitAmountBtn').toggleClass('disabled', disableCheck);
+    }
+
+    var confirmCreditLimitChange = function() {
+      PlaySCB.loader.show('#fancybox-outer');
+      checkCreditLimitRemoteService.changeCreditLimit({
+        callback: function (response) {
+          if (response.responseStatus && response.responseStatus.status === "1") {
+            $('#limitChangeConfirmDiv, #freeLimitDiv').remove();
+            $('.chargerDiv').html(response.responseStatus.messages['message']);
+            if($('#ADMIN_ACCOUNTSdetails').length && $('#ADMIN_ACCOUNTSdetails').filter(':hidden').length) {
+              loadFancy('#ADMIN_ACCOUNTSdetails');
+            }
+            if($('#ballancesModalBox').length && $('#ballancesModalBox').filter(':hidden').length) {
+              loadFancy('#ballancesModalBox');
+            }
+          } else {
+            loadFancy("#exceptionMessage");
+          }
+          PlaySCB.loader.hide('#fancybox-outer');
+          PlaySCB.globalStore.clearStoredValues();
+        },
+        errorHandler: function(msg, exception, response) {
+          dwrHandler.errorHandler(msg, exception, response);
+        }
+      });
+    }
+
+    var unbindChargerEvents = function() {
+      $('body').off('click', '#newCreditLimitValue');
+      $('body').off('blur', '#newCreditLimitValue');
+      $('body').off('click', '#increaseCreditLimitValue');
+      $('body').off('click', '#decreaseCreditLimitValue');
+      $('body').off('click', '.checkCreditLimitAmountBtn');
+      $('body').off('click', '.changeCheckCreditLimitAmountBtn');
+      $('body').off('click', '#freeValueLink');
+      $('body').off('click', '#creditLimitConfirmBtn');
+      $('body').off('click', '#creditLimitWithDepositConfirmBtn');
+    }
+
+    var confirmFieldValue = function () {
+      if($('#newCreditLimitValue').hasClass('disabled')) {
+        return false;
+      }
+      var newVal = parseCreditLimitValue($('#newCreditLimitValue').val());
+
+      if (isNaN(newVal)) {
+        $('#newCreditLimitValue').val(formatCreditLimitValue(normalizeValue(preVal)));
+      } else {
+        $('#newCreditLimitValue').val(formatCreditLimitValue(normalizeValue(newVal)));
+        preVal = newVal;
+      }
+      disableButtons(preVal, false);
+    }
+
+    var bindChargerEvents = function() {
+
+      $('#decreaseCreditLimitValue').tooltip({noClose: true, clickToClose: false, type: 'simple', addClass: 'creditLimitCharger'});
+      $('#increaseCreditLimitValue').tooltip({noClose: true, clickToClose: false, type: 'simple', addClass: 'creditLimitChargerPlus', fitInSection: false});
+
+      $('body').on('click', '#newCreditLimitValue', function () {
+        input = $(this);
+        if (!preVal) {
+          preVal = parseCreditLimitValue(input.val());
+        }
+        this.select();
+      });
+
+      $('body').on('blur', '#newCreditLimitValue', confirmFieldValue);
+      $('body').on('keypress', '#newCreditLimitValue', function(e) {
+        if(e.which == 13) {
+          confirmFieldValue();
+        }
+      });
+
+      $('body').on('click', '#increaseCreditLimitValue', function () {
+        if($(this).hasClass('disabled')) {
+          return false;
+        }
+
+        if (input == 'undefined') {
+          input = $('#newCreditLimitValue');
+          if (!preVal) {
+            preVal = parseCreditLimitValue(input.val());
+          }
+        }
+        preVal += valueStep;
+        preVal = normalizeValue(preVal);
+        input.val(formatCreditLimitValue(preVal));
+        disableButtons(preVal, true);
+      });
+
+      $('body').on('click', '#decreaseCreditLimitValue', function () {
+        if($(this).hasClass('disabled')) {
+          return false;
+        }
+
+        if (input == 'undefined') {
+          input = $('#newCreditLimitValue');
+          if (!preVal) {
+            preVal = parseCreditLimitValue(input.val());
+          }
+        }
+        preVal -= valueStep;
+        preVal = normalizeValue(preVal);
+        input.val(formatCreditLimitValue(preVal));
+        disableButtons(preVal, true);
+      });
+
+      $('body').on('click', '.checkCreditLimitAmountBtn', function () {
+        if ($(this).hasClass('disabled')) {
+          return false;
+        }
+        if (typeof readOnly !== 'undefined'){
+          return;
+        }
+
+        var newVal = parseCreditLimitValue($('#newCreditLimitValue').val());
+        PlaySCB.loader.show('#fancybox-outer');
+        checkCreditLimitRemoteService.checkCreditLimit(newVal, {
+          callback: function (response) {
+            if (response.responseStatus && response.responseStatus.status === "1") {
+              $('#decreaseCreditLimitValue, #increaseCreditLimitValue, #newCreditLimitValue').addClass('disabled');
+              $('#newCreditLimitValue').prop('readonly', 'readonly').css('opacity', 0.65);
+              originalLabel = $('.checkCreditLimitAmountBtn').text();
+              $('.checkCreditLimitAmountBtn').text(response.responseStatus.messages['buttonLabel']);
+              $('.checkCreditLimitAmountBtn').removeClass('checkCreditLimitAmountBtn button-play24 primary').addClass('changeCheckCreditLimitAmountBtn link-play24');
+              $('.chargerDiv').parent().append(response.view);
+            } else {
+              $('#limitChangeConfirmDiv, #freeLimitDiv').remove();
+              $('.chargerDiv').html('<div style="text-align: center;"><i class="icon-warning"></i><span class="serviceStatus off"></span></div>');
+              $('.chargerDiv span.serviceStatus.off').text(response.responseStatus.messages['errorMessage']);
+            }
+            PlaySCB.loader.hide('#fancybox-outer');
+          },
+          errorHandler: function(msg, exception, response) {
+            dwrHandler.errorHandler(msg, exception, response);
+          }
+        });
+
+      });
+
+      $('body').on('click', '.changeCheckCreditLimitAmountBtn', function () {
+        $('#decreaseCreditLimitValue, #increaseCreditLimitValue, #newCreditLimitValue').removeClass('disabled');
+        $('#newCreditLimitValue').removeProp('readonly').css('opacity', '');
+        $('.changeCheckCreditLimitAmountBtn').text(originalLabel);
+        $('.changeCheckCreditLimitAmountBtn').removeClass('changeCheckCreditLimitAmountBtn link-play24').addClass('checkCreditLimitAmountBtn button-play24 primary');
+        $('#limitChangeConfirmDiv, #freeLimitDiv').remove();
+      });
+
+      $('body').on('click', '#creditLimitWithDepositConfirmBtn', function() {
+        var newVal = parseCreditLimitValue($('#newCreditLimitValue').val());
+        var depositVal = parseCreditLimitValue($('#depositValue').val());
+        window.location.href="PayForDeposit?newCreditLimit="+newVal+"&depositValue="+depositVal;
+      });
+
+      $('body').on('click', '#creditLimitConfirmBtn', function() {
+        PlaySCB.globalStore.storeValue('otp_callback', confirmCreditLimitChange);
+        // check otp
+        var otp = new Otp();
+        otp.init();
+        otp.check();
+      });
+
+      $('body').on('click', '#freeValueLink', function() {
+        var suffix = $('#currencyUnit').val();
+        var freeVal = parseCreditLimitValue($('#freeValue').val());
+        preVal = freeVal;
+        input.val(formatCreditLimitValue(preVal));
+        $('#limitChangeConfirmDiv div.level-left').html($('#freeValueLabel').val()).css('line-height', '').addClass('labelNoDeposit');
+        $('#creditLimitWithDepositConfirmBtn').attr('id', 'creditLimitConfirmBtn').text($('#confirmButtonLabel').val()).addClass("otpCheck");
+        $('#freeLimitDiv').remove();
+      });
+
+    }
+
+    init();
+
+  }
+
+  var _charger =  function (){
+
+    var suffix = ' zł',
+      minVal = 5,
+      maxVal = 300,
+      input = 'undefined',
+      chVals = [5, 10, 25, 50, 100, 150, 300];
+
+    $('#userdata').on('click', '#charge #charge-value', function(){
+      input = $(this);
+      preVal = parseInt(input.val());
+      this.select();
+    });
+
+    $('#userdata').on('blur', '#charge #charge-value', function(){
+      var newVal = parseInt($(this).val());
+      if(isNaN(newVal)){
+        $(this).val(preVal+suffix);
+      }else{
+        if(newVal < minVal){
+          newVal = minVal;
+        }else if(newVal > maxVal){
+          newVal = maxVal;
+        }
+        $(this).val(newVal+suffix);
+        preVal = newVal;
+      }
+      updateRechargeUrl();
+    });
+
+    $('#userdata').on('click', '#charge .plus', function(){
+      var i = 0;
+      if(input == 'undefined'){
+        input = $('#userdata #charge #charge-value');
+        preVal = parseInt(input.val());
+      }
+      while(i < chVals.length && preVal >= chVals[i] ){i++;}
+      if(i < chVals.length){
+        input.val(chVals[i]+suffix);
+        preVal = chVals[i];
+      }
+      updateRechargeUrl();
+    });
+
+    $('#userdata').on('click', '#charge .minus', function(){
+      var i = chVals.length- 1;
+      if(input == 'undefined'){
+        input = $('#userdata #charge #charge-value');
+        preVal = parseInt(input.val());
+      }
+      while(i >= 0 && preVal <= chVals[i] ){i--;}
+      if(i >= 0){
+        input.val(chVals[i]+suffix);
+        preVal = chVals[i];
+      }
+      updateRechargeUrl();
+    });
+
+    var updateRechargeUrl = function(){
+      $('#userdata #charge').next('#rechargeOpen').attr('href','Topup?value='+preVal)
+    }
+  }
+  this.init();
+};

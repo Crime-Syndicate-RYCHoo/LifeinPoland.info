@@ -1,0 +1,159 @@
+function blik() {
+
+  var self = this;
+
+  this.bindEvents = function() {
+    $('#blikOnButton').click(function() {
+      PlaySCB.globalLoader.show();
+      if(typeof readOnly !== 'undefined') {
+        return;
+      }
+      blikRemoteService.getOnModal({
+        callback: function(response) {
+          PlaySCB.globalLoader.hide();
+          if(response.responseStatus.status === '1') {
+            $('#blikModal').html(response.view);
+            loadFancy('#blikModal');
+          } else {
+            loadFancy('#exceptionMessage')
+          }
+        },
+        errorHandler: function(msg, exception, response) {
+          PlaySCB.globalLoader.hide();
+          dwrHandler.errorHandler(msg, exception, response);
+        },
+        exceptionHandler: function(msg, exception, response) {
+          PlaySCB.globalLoader.hide();
+          dwrHandler.errorHandler(msg, exception, response);
+        }
+      })
+    });
+
+    $('#blikOffButton').click(function() {
+      PlaySCB.globalLoader.show();
+      if(typeof readOnly !== 'undefined') {
+        return;
+      }
+      blikRemoteService.getOffModal({
+        callback: function(response) {
+          PlaySCB.globalLoader.hide();
+          if(response.responseStatus.status === '1') {
+            $('#blikModal').html(response.view);
+            loadFancy('#blikModal');
+          } else {
+            loadFancy('#exceptionMessage')
+          }
+        },
+        errorHandler: function(msg, exception, response) {
+          PlaySCB.globalLoader.hide();
+          dwrHandler.errorHandler(msg, exception, response);
+        },
+        exceptionHandler: function(msg, exception, response) {
+          PlaySCB.globalLoader.hide();
+          dwrHandler.errorHandler(msg, exception, response);
+        }
+      })
+    });
+
+    $('#blikModifyButton').click(function() {
+      PlaySCB.globalLoader.show();
+      if(typeof readOnly !== 'undefined') {
+        return;
+      }
+      blikRemoteService.getModifyModal({
+        callback: function(response) {
+          PlaySCB.globalLoader.hide();
+          if(response.responseStatus.status === '1') {
+            $('#blikModal').html(response.view);
+            loadFancy('#blikModal');
+          } else {
+            loadFancy('#exceptionMessage')
+          }
+        },
+        errorHandler: function(msg, exception, response) {
+          PlaySCB.globalLoader.hide();
+          dwrHandler.errorHandler(msg, exception, response);
+        },
+        exceptionHandler: function(msg, exception, response) {
+          PlaySCB.globalLoader.hide();
+          dwrHandler.errorHandler(msg, exception, response);
+        }
+      })
+    });
+
+
+    $('#blikModal').on('click', '#blikActivateConfirmBtn', function() {
+      PlaySCB.globalStore.storeValue('otp_callback', function() {
+        blikRemoteService.performOperation('ACTIVATE', {
+          callback: function (response) {
+            if (response.responseStatus.status === '1') {
+              window.location.href = response.responseStatus.messages['redirectUrl'];
+            } else {
+              loadFancy('#exceptionMessage')
+            }
+          },
+          errorHandler: function (msg, exception, response) {
+            dwrHandler.errorHandler(msg, exception, response);
+          },
+          exceptionHandler: function (msg, exception, response) {
+            dwrHandler.errorHandler(msg, exception, response);
+          }
+        })
+      });
+
+      otp.check();
+    });
+
+    $('#blikModal').on('click', '#blikDeactivateConfirmBtn', function() {
+      PlaySCB.globalStore.storeValue('otp_callback', function () {
+        blikRemoteService.performOperation('DEACTIVATE', {
+          callback: function (response) {
+            if (response.responseStatus.status === '1') {
+              $('#blikModal').html(response.view);
+              loadFancy('#blikModal');
+            } else {
+              loadFancy('#exceptionMessage')
+            }
+          },
+          errorHandler: function (msg, exception, response) {
+            dwrHandler.errorHandler(msg, exception, response);
+          },
+          exceptionHandler: function (msg, exception, response) {
+            dwrHandler.errorHandler(msg, exception, response);
+          }
+        })
+      });
+
+      otp.check();
+    });
+
+    $('#blikModal').on('click', '#blikModifyConfirmBtn', function() {
+      PlaySCB.globalStore.storeValue("otp_callback", function () {
+        blikRemoteService.performOperation('MODIFY', {
+          callback: function (response) {
+            if (response.responseStatus.status === '1') {
+              window.location.href = response.responseStatus.messages['redirectUrl'];
+            } else {
+              loadFancy('#exceptionMessage')
+            }
+          },
+          errorHandler: function (msg, exception, response) {
+            dwrHandler.errorHandler(msg, exception, response);
+          },
+          exceptionHandler: function (msg, exception, response) {
+            dwrHandler.errorHandler(msg, exception, response);
+          }
+        })
+      });
+
+      otp.check();
+    });
+  }
+
+  this.init = function() {
+    self.bindEvents();
+  }
+}
+
+var blik = new blik();
+blik.init();

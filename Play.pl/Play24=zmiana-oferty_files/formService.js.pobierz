@@ -1,0 +1,33 @@
+/**
+ * @name FormService
+ * @author ddo
+ */
+
+var FormService = (function(){
+	
+	return {
+		
+		showValidationErrors : function(response) {
+			this.resetErrors();
+			var errors = response.responseStatus.messages;
+			if(errors != undefined) {
+				for(key in errors){
+					if(key == 'province') {
+						$('select[name=province]').siblings('p').addClass('err');
+						$('select[name=province]').parent().parent().append('<span class="err">'+errors[key]+'</span>');
+					} else {
+						$('input[name="'+key+'"]').addClass('err');
+						$('input[name="'+key+'"]').parent().append('<span class="err">'+errors[key]+'</span>');
+					}
+				}
+			}
+		},
+		
+		resetErrors : function() {
+			$('input, select, p').removeClass('err');
+			$('span.err').remove();
+		}
+		
+	}
+	
+})();

@@ -1,0 +1,46 @@
+/**
+ * Created with IntelliJ IDEA.
+ * User: PWR
+ * Date: 27.11.13
+ * Time: 09:38
+ * Przeniesienie rozszerzeń dla fancybox poza oryginalna biblioteke;
+ */
+
+;(function($){
+  var loading = $('#fancybox-loading'),
+    tmp	= $('#fancybox-tmp'),
+    overlay	= $('#fancybox-overlay'),
+    wrap = $('#fancybox-wrap'),
+    content = $('#fancybox-content'),
+    close = $('#fancybox-close'),
+    title = $('#fancybox-title');
+
+  $.fn.fancybox.defaults.onContent =  function(){};
+  $.fn.fancybox.defaults.hideOnOverlayClick =  false;
+
+  $(document).ready(function(){
+    loading = $('#fancybox-loading'),
+    tmp	= $('#fancybox-tmp'),
+    overlay	= $('#fancybox-overlay'),
+    wrap = $('#fancybox-wrap'),
+    content = $('#fancybox-content'),
+    close = $('#fancybox-close'),
+    title = $('#fancybox-title');
+
+
+    close.append('<span/>');
+    loading.html('<div class="loader-content"><div class="loader-wrapper-inner"><i class="icon-spin5 f44 font-add"></i></div></div>');
+    loading.unbind('click',$.fancybox.cancel);
+
+    $('body').on('click', '#fancybox-close', function() {
+        // hide fancybox so that resizing operations are not visible
+        $('#fancybox-wrap').hide();
+
+
+
+    });
+
+  })
+})(jQuery);
+
+

@@ -1,0 +1,11 @@
+
+window.addEventListener('DOMContentLoaded', (event) => {
+
+    let element = document.querySelector(".input-switch-link");
+    if (element) {
+        element.onclick = () => {
+            element.parentElement.firstElementChild.click();
+        };
+    }
+
+});

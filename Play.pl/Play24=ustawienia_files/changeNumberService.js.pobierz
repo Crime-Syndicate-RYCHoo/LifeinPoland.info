@@ -1,0 +1,407 @@
+/**
+ * @name ChangeNumberService
+ * @author Daniel Dobkowski
+ */
+
+var ChangeNumberService = (function(){
+	
+	var wrapper = null;
+	var headWrapper = null;
+	var fancyWrapper = null;
+	var searchInput = null;
+	var localIndicator = null;
+	var isUpdate = false;
+	var currentMsisdn = $('#currentMsisdn').val();
+	var loaded = false;
+	var _root;
+
+	return {
+
+		isLoaded : function() {			
+			return loaded;			
+		},
+		
+		toggleLocalIndicator : function(e) {
+			
+			if(e == 'show') {
+				$(wrapper).hide();
+				$(localIndicator).show();
+			} else {
+				$(localIndicator).hide();
+				$(wrapper).show();
+			}
+			
+		},
+		
+		changeContext : function() {
+
+			$('body').on('click', 'a.header__user-section__number-dropdown__options__number', function(){
+                if($(this).parent().hasClass('selected') || $(this).hasClass('selected') || $(this).hasClass('pending')) return false;
+
+                $('body').append(
+                    $('<input>').attr({
+                        type: 'hidden',
+                        id: 'changeContext',
+                        name: 'changeContext'
+                    })
+                );
+
+                $.fancybox.close();
+                PlaySCB.globalLoader.show();
+
+                accountContextChangeService.changeAccountContext($(this).find('.msisdn').val(), 'ADMIN_CONTEXT', {
+                    callback:function(response) {
+                        setTimeout(function(){
+                            if(response != null) {
+                                window.location.replace(response);
+                            } else {
+                                location.reload(true);
+                            }
+                        },0);
+                    },
+                    errorHandler: function(msg, exception, response) {
+                        //handle DWR error
+                        setTimeout(function(){
+                            PlaySCB.globalLoader.hide();
+                            if(exception.javaClassName.indexOf('SsoAccessDeniedException') != -1) {
+                                loadFancy("#numberAccessError");
+                            } else {
+                                dwrHandler.errorHandler(msg, exception, response);
+                            }
+                        },1000);
+                    }
+                })
+			});
+		},
+
+        closeDropdownEvent : function() {
+            $('body').on('click', '.header__user-section__number-dropdown__options__label.change, a.confirmPending', function(e) {
+                e.stopImmediatePropagation();
+                return true;
+            });
+
+			$(document).keyup(function(e) {
+				if(e.keyCode == 27) {
+                    $('#numberDropdownContainer').addClass('hide');
+				}
+			})
+		},
+
+        searchMsisdn : function () {
+			var emptyValue = 'wpisz numer...';
+
+			$(fancyWrapper).on("focus", searchInput, function() {
+	            if (jQuery(this).val() === emptyValue) jQuery(this).val('');
+	        });
+			$(fancyWrapper).on("blur", searchInput, function(){
+	            if (jQuery(this).val() === '') jQuery(this).val(emptyValue);
+	        });
+			$(fancyWrapper).on("keyup", searchInput, function(){
+				var filterValue = $(this).val();
+				$('#changeNumberDropdownTable li').each(function(index) {
+					var hiddenMsisdn = $(this).find('a.header__user-section__number-dropdown__options__number input.msisdn').val();
+					var shownMsisdn = $(this).find('a.header__user-section__number-dropdown__options__number span').text();
+					var visible = filterValue === "" || filterValue === emptyValue || hiddenMsisdn.includes(filterValue) || shownMsisdn.includes(filterValue);
+					$(this).toggleClass("hidden", !visible);
+				});
+				
+			});
+		},
+		
+		sortTable : function() {
+			
+			$(headWrapper+'.lined .sort a').click(function(){
+				
+				ChangeNumberService.toggleLocalIndicator('show');
+				
+				var _this = $(this);
+				var sortV = _this.attr('class');
+				isUpdate = true;
+				accountContextChangeService.sortData(sortV, {
+					callback:function(data) {
+						ChangeNumberService.prepareModalContent(data);
+					},
+          errorHandler: function(msg, exception, response) {
+            dwrHandler.errorHandler(msg, exception, response);
+          }
+				});
+				
+				$(headWrapper+'.lined .sort').removeClass('asc').removeClass('desc');
+				
+				switch (sortV){
+					case 'msisdnDown':
+						_this.attr('class','').addClass('msisdnUp');
+						_this.parent().removeClass('asc').addClass('desc');
+					break;
+					case 'msisdnUp':
+						_this.attr('class','').addClass('msisdnDown');
+						_this.parent().removeClass('desc').addClass('asc');
+					break;
+					case 'messageDown':
+						_this.attr('class','').addClass('messageUp');
+						_this.parent().removeClass('asc').addClass('desc');
+					break;
+					case 'messageUp':
+						_this.attr('class','').addClass('messageDown');
+						_this.parent().removeClass('desc').addClass('asc');
+					break;
+	
+				}
+					
+			});
+
+		},
+
+        getShortLabel : function(label) {
+            if(label.length > 15) {
+                return label.substring(0,15) + "...";
+            } else {
+                return label;
+            }
+        },
+
+		getLabelContent : function(label) {
+            if(label.length <= 15) {
+                return $('<span>').text(label);
+            } else {
+                return $('<span>').addClass('tooltip question tooltip-simple')
+					.text(_root.getShortLabel(label))
+					.append($('<span>').addClass('tooltipText').text(label));
+            }
+        },
+
+		changeLabel : function() {
+			
+			$('body').on('click', '.changeLabel', function() {
+				if (typeof readOnly !== 'undefined'){
+					return;
+				}
+
+
+				$(".sliderTr .linkRemove").click();
+				var changeTD = $(this).parent().prev();
+				var labelElem = changeTD.find('span');
+				msisdnElement = $(this).parent().parent().find('.msisdn');
+
+				if(msisdnElement.is("td")) {
+                    var msisdn = msisdnElement.text().split(" - ")[0];
+                    var label = labelElem.text().trim();
+                } else {
+					var msisdn = msisdnElement.val();
+					var label = changeTD.attr('data-label');
+				}
+
+				label = label.replace('<','&lt;').replace('>','&gt;').replace(/\"/g, '&quot;');
+
+				var cancel = jQuery('<a />');
+				cancel.attr({'href': '#', 'class': 'remove','title': 'zamknij', 'rel': label}).html('');
+				if (changeTD.hasClass('change')) {
+					
+					var val = changeTD.find('input').val();
+					var escapedVal = val.replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\"/g, '&quot;');
+					
+					accountContextChangeService.updateLabel(msisdn, val, {
+						callback:function(data) {
+							if(data.responseStatus.status === _STATUS_OK) {
+								var currentMsisdn = $('#currentNumber .header__user-section__current-number__formattedMsisdn').text().trim().replace(/ /g, '');
+								if (msisdn.substring(2) == currentMsisdn) {
+									if (val != '') {
+                                        $('#numberAccountLabel').html('').html('(&nbsp;').append(_root.getLabelContent(val).append('&nbsp;)'));
+										init();
+									} else if (val == '') {
+										$('#numberAccountLabel').text('');
+									}
+								}
+							} else {
+								loadFancy('#exceptionMessage');
+								escapedVal = label;
+							}
+						},
+						errorHandler: function(msg, exception, response) {
+							dwrHandler.errorHandler(msg, exception, response);
+						},
+						async: false
+					});
+                    if(msisdnElement.is("td")) {
+                        $(this).text('Zmień etykietę');
+                    } else {
+                        changeTD.addClass('mt5');
+                    }
+					changeTD.removeClass('change').html(_root.getLabelContent(val)).attr('data-label', val);
+					$(this).removeClass('submittable');
+					$(this).parent().find('.remove').remove();
+					init();
+						
+				} else {
+					changeTD.addClass('change').html('<input type="text" maxlength="28" value="'+label+'"/>');
+					if(msisdnElement.is("td")) {
+						$(this).text('Zapisz');
+						changeTD.append(cancel);
+					} else {
+						changeTD.removeClass('mt5');
+						$(this).addClass('submittable').before(cancel);
+					}
+					cancel.bind('click', function() {
+						cancel.remove();
+						if(!msisdnElement.is("td")) {
+							changeTD.addClass('mt5');
+							changeTD.next().find('.changeLabel').removeClass('submittable');
+						}
+						changeTD.removeClass('change').html('<span>'+ changeTD.attr('data-label') +'</span>');
+						if(msisdnElement.is("td")) {
+							changeTD.parent().find('.action a').text('Zmień etykietę');
+						}
+						return false
+					});
+					var a = $(this);
+					changeTD.find('input').keydown(function(event){
+							if ( event.keyCode == 13 ) a.trigger('click'); // enter
+					});
+				}
+				return false;     
+			});
+		},
+		
+		createScroll : function() {
+			
+			if($(wrapper+' tbody').find('tr').size() > 10) {
+				if(isUpdate == false) {
+					$(wrapper).parent().height('301px');
+					$('.fContent .search').css({'display': 'block'});
+					$(wrapper).parent().jScrollPane({
+						'showArrows': true
+					});
+					$(fancyWrapper).parent().css('overflow','hidden');
+				} else {
+					$('#changeNumberFancy .jspVerticalBar').show();
+				}
+			} else {
+				$('#changeNumberFancy .jspVerticalBar').hide();
+			}
+			
+			$('#changeNumberFancy .jspPane').css({'top':'0px'});
+			$('#changeNumberFancy .jspDrag').css({'top':'0px'});
+			
+		},
+		
+		clearWrapper : function() {
+			
+			$(wrapper).html('');
+			
+		},
+		
+		prepareModalContent : function(data) {
+			
+			this.clearWrapper();
+			$(wrapper).html(data.view);
+
+			ChangeNumberService.toggleLocalIndicator('hide');
+			this.createScroll();
+			init(wrapper);
+			//set "loaded" state
+			loaded = true;
+
+			if($(wrapper).find('li').length > 10) {
+				$('div.header__user-section__number-dropdown__search').show();
+			}
+
+		},
+
+        prepareFancyModalContent : function(data) {
+
+            $('#changeNumberFancy').html(data.view);
+            //this.createScroll();
+            init('#changeNumberFancy');
+            //set "loaded" state
+            loaded = true;
+
+        },
+
+		getNumbers : function() {
+			
+			accountContextChangeService.getContextMsisdns({
+				callback:function(data) {
+					if (data.responseStatus.status == 1) {
+				        ChangeNumberService.prepareModalContent(data);
+				    } else {
+              var html = '<div style="padding-top: 1px;">' +
+                '<i class="icon-warning"></i>' +
+                'Nie można pobrać Twoich numerów.' +
+                '</div>';
+              $('.userLogged #changeYourNumber').html(html);
+				    }
+				},
+        errorHandler: function(msg, exception, response) {
+          dwrHandler.errorHandler(msg, exception, response);
+        }
+			});
+			
+		},
+
+        showModalWithNumbers : function() {
+
+            accountContextChangeService.getModalContextMsisdns({
+                callback:function(data) {
+                    if (data.responseStatus.status == 1) {
+                        ChangeNumberService.prepareFancyModalContent(data);
+                        loadFancy('#changeNumberFancy');
+                    } else {
+                        var html = '<div style="padding-top: 1px;">' +
+                            '<i class="icon-warning"></i>' +
+                            'Nie można pobrać Twoich numerów.' +
+                            '</div>';
+                        $('.userLogged #changeYourNumber').html(html);
+                    }
+                },
+                errorHandler: function(msg, exception, response) {
+                    dwrHandler.errorHandler(msg, exception, response);
+                }
+            });
+
+        },
+
+		spacePress : function () {
+      $(fancyWrapper).on('keypress',wrapper + ' ul li div.header__user-section__number-dropdown__options__label.change input',function(e) {
+      	var that = $(this);
+      	if(e.which == 32) {
+          setTimeout(function () {
+            that.val(that.val().replace(/^\s+/g, ''));
+          	}, 10);
+        }
+      });
+		},
+		
+		enable : function(opts) {
+			
+			wrapper = opts.wrapper;
+			headWrapper = opts.headWrapper;
+			currentMsisdn = opts.currentMsisdn;
+			fancyWrapper = opts.fancyWrapper;
+			searchInput = opts.searchInput;
+			localIndicator = opts.indicator;
+			_root = this;
+			
+			this.getNumbers();
+			this.changeLabel();
+			this.sortTable();
+			this.searchMsisdn();
+			this.changeContext();
+			this.closeDropdownEvent();
+			this.spacePress();
+		}
+		
+	}
+	
+})();
+$(document).ready(function() {
+  if($('#changeNumberDropdown').length > 0 || $('#ADMIN_ACCOUNTSTable').length > 0) {
+    ChangeNumberService.enable({
+      wrapper: '#changeNumberDropdownTable',
+      headWrapper: '#changeNumberHeaderTable',
+      fancyWrapper: '#numberDropdownContainer',
+      searchInput: '#filter-input',
+      currentMsisdn: $('#currentMsisdn').val(),
+      indicator: '#changeNumberIndicator'
+    });
+  }
+} );

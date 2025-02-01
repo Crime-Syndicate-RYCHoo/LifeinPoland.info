@@ -1,0 +1,261 @@
+/**
+ * Created by kpi on 11/7/2016.
+ */
+
+function contactDataService() {
+
+    var EMAIL_MATCH = /^[a-zA-Z0-9]+([_!#$%&'*+-\/=?\^_`{|}~.]*[a-zA-Z0-9]+)*@([a-zA-Z0-9])+\.([a-zA-Z0-9]){2,}$/;
+    var NUMBER_MATCH = /^((\+)?48(\s)?)?\d{3}(\s)?\d{3}(\s)?\d{3}$/;
+    var ANIMATION_TIME = 500;
+    var UPDATE_CONTACT_DATA_MODE = "UPDATE_CONTACT_DATA";
+    var CLOSE_BOX_MODE = "CLOSE_BOX";
+    var UPDATE_PRIMARY_PHONE_MODE = "UPDATE_PRIMARY_PHONE";
+    var CLOSE_PRIMARY_PHONE_BOX_MODE = "CLOSE_PRIMARY_PHONE_BOX";
+
+    function init() {
+        $('input[name=emailAddress]').val($('input[name=emailAddressInitialValue]').val());
+        $('input[name=contactPhone]').val($('input[name=contactPhoneInitialValue]').val());
+        $('input[name=primaryPhone]').val($('input[name=primaryPhoneInitialValue]').val());
+        bindEvents();
+    }
+
+    function updateClass(elementId, className) {
+
+        var currentClassName;
+        var element = $(elementId);
+
+        if (element.hasClass("ok")) {
+            currentClassName = "ok";
+        }
+        else if (element.hasClass("notValid")) {
+            currentClassName = "notValid";
+        }
+        else if (element.hasClass("empty")) {
+            currentClassName = "empty";
+        }
+
+        if (currentClassName !== className) {
+            element.removeClass(currentClassName);
+            element.addClass(className);
+        }
+    }
+
+    function refreshStatusBox(boxId, match, text) {
+
+        if (match.test(text)) {
+            updateClass(boxId, "ok");
+        }
+        else if (text.length == 0) {
+            updateClass(boxId, "empty");
+        }
+        else {
+            updateClass(boxId, "notValid");
+        }
+    }
+
+
+    function refreshConfirmButton() {
+
+        var confirmButton = $('#updateContactDataConfirmButton');
+        var emailAddress = $('input[name=emailAddress]').val();
+        var contactPhone = $('input[name=contactPhone]').val();
+
+        if(EMAIL_MATCH.test(emailAddress) && NUMBER_MATCH.test(contactPhone)) {
+            if(confirmButton.hasClass("disabled")) {
+                confirmButton.removeClass("disabled");
+            }
+        }
+        else {
+            confirmButton.addClass("disabled");
+        }
+    }
+
+    function refreshPrimaryPhoneConfirmButton() {
+
+        var confirmButton = $('#updatePrimaryPhoneConfirmButton');
+        var primaryPhone = $('input[name=primaryPhone]').val();
+
+        if(NUMBER_MATCH.test(primaryPhone)) {
+            if(confirmButton.hasClass("disabled")) {
+                confirmButton.removeClass("disabled");
+            }
+        }
+        else {
+            confirmButton.addClass("disabled");
+        }
+    }
+
+    function changeBox(startBox, endBox) {
+        $(startBox).css("opacity", "1.0");
+        $(startBox).animate({opacity: '0.0'}, ANIMATION_TIME);
+        $(startBox).css("display", "none");
+        $(endBox).css("opacity", "0.0");
+        $(endBox).css("display", "block");
+        $(endBox).animate({opacity: '1.0'}, ANIMATION_TIME);
+    }
+
+    function bindEvents() {
+
+        $('input[name=emailAddress]').keyup(function () {
+            var text = $('input[name=emailAddress]').val();
+            refreshStatusBox("#validEmailAddressBox", EMAIL_MATCH, text);
+            refreshConfirmButton();
+        });
+
+        $('input[name=contactPhone]').keyup(function () {
+            var text = $('input[name=contactPhone]').val();
+            refreshStatusBox("#validContactPhoneBox", NUMBER_MATCH, text);
+            refreshConfirmButton();
+        });
+
+        $('input[name=primaryPhone]').keyup(function () {
+            var text = $('input[name=primaryPhone]').val();
+            refreshStatusBox("#validContactPhoneBox", NUMBER_MATCH, text);
+            refreshPrimaryPhoneConfirmButton();
+        });
+
+        $('#updateContactDataConfirmButton').click(function() {
+
+            if (typeof readOnly !== 'undefined') {
+                return;
+            }
+
+            $('#updateContactDataConfirmButton').addClass("disabled");
+            $.fancybox.showActivity();
+            var emailAddress = $('input[name=emailAddress]').val();
+            var contactPhone = $('input[name=contactPhone]').val();
+
+            PlaySCB.globalStore.storeValue('otp_callback', function() {
+                contactDataRemoteService.updateContactData(emailAddress, contactPhone, {
+                    callback: function(response) {
+                        $.fancybox.hideActivity();
+                        $.fancybox.hideActivityOverlay();
+                        PlaySCB.loader.hide('#fancybox-outer');
+                        $.fancybox.close();
+                        if(response.responseStatus.status == _STATUS_OK) {
+                            $('#updateContactDataConfirmButton').removeClass("disabled");
+                            changeBox('#updateContactDataInitialBox', '#updateContactDataStatusOKBox');
+                        } else {
+                            $('#updateContactDataConfirmButton').removeClass("disabled");
+                            changeBox('#updateContactDataInitialBox', '#updateContactDataStatusFailedBox');
+                        }
+                    },
+                    errorHandler: function(msg, exception, response) {
+                    dwrHandler.errorHandler(msg, exception, response);
+                    }
+                });
+            });
+            otp.check();
+        });
+
+        $('#updatePrimaryPhoneConfirmButton').click(function() {
+
+            if (typeof readOnly !== 'undefined') {
+                return;
+            }
+
+            $('#updatePrimaryPhoneConfirmButton').addClass("disabled");
+            $.fancybox.showActivity();
+            var primaryPhone = $('input[name=primaryPhone]').val();
+
+            PlaySCB.globalStore.storeValue('otp_callback', function() {
+                contactDataRemoteService.updatePrimaryPhone(primaryPhone, {
+                    callback: function(response) {
+                        $.fancybox.hideActivity();
+                        $.fancybox.hideActivityOverlay();
+                        PlaySCB.loader.hide('#fancybox-outer');
+                        $.fancybox.close();
+                        if(response.responseStatus.status == _STATUS_OK) {
+                            $('#updatePrimaryPhoneConfirmButton').removeClass("disabled");
+                            changeBox('#updatePrimaryPhoneInitialBox', '#updateContactDataStatusOKBox');
+                        } else if(response.responseStatus.status == _STATUS_VALIDATION) {
+                            loadFancy('#updatePrimaryPhoneValidationFailed');
+                        } else {
+                            $('#updatePrimaryPhoneConfirmButton').removeClass("disabled");
+                            changeBox('#updatePrimaryPhoneInitialBox', '#updateContactDataStatusFailedBox');
+                        }
+                    },
+                    errorHandler: function(msg, exception, response) {
+                    dwrHandler.errorHandler(msg, exception, response);
+                    }
+                });
+            });
+            otp.check();
+
+        });
+
+        $('#updateContactDataFinishButton').click(function() {
+            $('#updateContactDataBox').animate({height: '0px', opacity: '0.0'}, ANIMATION_TIME);
+        });
+
+        $('#updateContactDataReturnButton').click(function() {
+            changeBox('#updateContactDataStatusFailedBox', '#updateContactDataInitialBox');
+        });
+
+        $('#updatePrimaryPhoneReturnButton').click(function() {
+            changeBox('#updateContactDataStatusFailedBox', '#updatePrimaryPhoneInitialBox');
+        });
+
+        $('.closeBoxBeforeUpdateContactData').click(function () {
+
+            if (typeof readOnly !== 'undefined') {
+                return;
+            }
+
+            $('.closeBox').addClass("disabled");
+            //$.fancybox.showActivity();
+            var emailAddress = $('input[name=emailAddress]').val();
+            var contactPhone = $('input[name=contactPhone]').val();
+
+            contactDataRemoteService.closeContactData({
+                callback: function (response) {
+                    $.fancybox.hideActivity();
+                    $.fancybox.hideActivityOverlay();
+                    $('#updateContactDataBox').animate({height: '0px', opacity: '0.0'}, ANIMATION_TIME);
+                },
+                errorHandler: function(msg, exception, response) {
+                dwrHandler.errorHandler(msg, exception, response);
+                }
+            });
+        });
+
+        $('.closeBoxBeforeUpdatePrimaryPhone').click(function() {
+
+            if (typeof readOnly !== 'undefined') {
+                return;
+            }
+
+            $('.closeBox').addClass("disabled");
+            //$.fancybox.showActivity();
+            var contactPhone = $('input[name=contactPhone]').val();
+
+            contactDataRemoteService.closePrimaryPhone({
+                callback: function (response) {
+                    $.fancybox.hideActivity();
+                    $.fancybox.hideActivityOverlay();
+                    $('#updateContactDataBox').animate({height: '0px', opacity: '0.0'}, ANIMATION_TIME);
+                },
+                errorHandler: function(msg, exception, response) {
+                dwrHandler.errorHandler(msg, exception, response);
+                }
+            });
+        });
+
+        $('.closeBoxAfterUpdate').click(function () {
+
+            if (typeof readOnly !== 'undefined') {
+                return;
+            }
+
+            $('#updateContactDataBox').animate({height: '0px', opacity: '0.0'}, ANIMATION_TIME);
+
+        });
+    }
+
+    return init();
+
+}
+
+$(document).ready(function() {
+    contactDataService();
+} );

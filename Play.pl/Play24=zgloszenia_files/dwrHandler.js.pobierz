@@ -1,0 +1,79 @@
+/**
+ * @name dwrHandler
+ * @author kfb
+ *
+ * Basic usage:
+ * var dwrHandler = new DwrHandler();
+ * dwrHandler.init();
+ *
+ * additionally you can use methods like dwrHandler.methodName();
+ *
+ * Advanced usage:
+ * var dwrHandler = new DwrHandler({
+ *      "additionalOption": "thatCanOvervriteDefaults"
+ * });
+ */
+var fancyModal;
+
+function DwrHandler(opts) {
+    var _cfg;
+    var _root;
+
+    //defining defaults and extending/overwriting it with inputted parameters
+    this.config = $.extend({}, opts);
+    /*
+        INITIALIZE
+    */
+    this.init = function() {
+        //assign _root and cofig variables
+        _root = this;
+        _cfg = this.config;
+
+        //on DOM ready
+        $(document).ready(function() {
+            //set handler for DWR errors
+            if(typeof(dwr)!="undefined") {
+                dwr.engine.setErrorHandler( _root.errorHandler );
+            }
+        });
+    }
+    /*
+        Error handler
+    */
+    this.errorHandler = function(msg, exception, response) {
+        if ( exception && exception.javaClassName ) {
+            var sessionDataHolderException = (exception.javaClassName == "com.blstream.scb.core.exceptions.SessionDataHolderException") ? true : false;
+            var systemProcessingException = (exception.javaClassName == "com.blstream.scb.core.exceptions.SystemProcessingException") ? true : false;
+            var hasCause = (typeof exception.cause != "undefined" && exception.cause) ? true : false;
+            var sessionDataHolderExceptionInCause = ( hasCause && exception.cause.javaClassName == "com.blstream.scb.core.exceptions.SessionDataHolderException" ) ? true : false;
+
+            // handle error code
+            if ( sessionDataHolderException || ( systemProcessingException && hasCause && sessionDataHolderExceptionInCause ) ) { //session expired
+                _root.modal.sessionExpired();
+            } else if ( systemProcessingException ) {
+                _root.modal.exception();
+            }
+        } else if(exception && exception.name && exception.name === 'dwr.engine.incompleteReply') {
+            _root.modal.sessionExpired();
+        } else {
+            _root.modal.exception();
+        }
+    }
+    /*
+        Modals
+    */
+    this.modal = function() {}
+    //session expired
+    this.modal.sessionExpired = function() {
+        window.location.href="sessionExpired";
+    }
+
+    //exception modal
+    this.modal.exception = function() {
+        loadFancy("#exceptionMessage");
+    }
+}
+
+//declaration and initialization of dwrHandler
+var dwrHandler = new DwrHandler();
+dwrHandler.init();

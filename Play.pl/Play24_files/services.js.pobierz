@@ -1,0 +1,575 @@
+
+function Services() {
+
+  var _root;
+
+  var container = $('section div.container');
+  var serviceModal = $('#serviceModal');
+  var errorContainer = $('#errorContainer');
+  var presentationTabName = $('.presentationTabName');
+  var categories = $('#categories');
+  var categorySection = $('#serviceCategory input');
+  var prime;
+  var componentCfsIdSelector = '#componentCfsId';
+
+  this.init = function() {
+    _root = this;
+    _root.sectionLoaderShow();
+    _root.checkTariffChange();
+    _root.loadPresentationTabs();
+    _root.bindEvents();
+  }
+
+  this.loaderShow = function() {
+    PlaySCB.loader.show('#fancybox-outer');
+  }
+
+  this.loaderHide = function() {
+    PlaySCB.loader.hide('#fancybox-outer');
+  }
+
+  this.sectionLoaderShow = function() {
+    PlaySCB.globalLoader.show();
+  }
+
+  this.sectionLoaderHide = function() {
+    PlaySCB.globalLoader.hide();
+  }
+
+  this.loadFancyService = function(limitVisible, content) {
+    var limitVisibleValue = limitVisible != undefined && limitVisible === 'true';
+    serviceModal.toggleClass('limit', limitVisibleValue);
+    loadFancy('#serviceModal', _root.callbackFunctions, undefined, 32, true, false, content);
+  }
+
+  this.showInitialDetails = function() {
+    var componentCfsId = $(componentCfsIdSelector);
+    if(componentCfsId.length && container.find('.image-tile').length) {
+      var componentCfsIdVal = componentCfsId.val();
+      _root.showComponentDetails(componentCfsIdVal);
+      componentCfsId.remove();
+    }
+  }
+
+  this.callbackFunctions = function() {
+    _root.scrollToError();
+    _root.initializeSlider();
+    _root.toggleSaveBtn();
+  }
+
+  this.scrollToError = function() {
+    if(serviceModal.find('.error').length) {
+      var scrollDest = Math.abs(serviceModal.find('.modal-body .error').offset().top - serviceModal.find('.modal-body').offset().top);
+      serviceModal.find('.modal-body').animate({scrollTop: scrollDest}, 200, 'swing');
+    }
+  }
+
+  this.initializeSlider = function() {
+    if($('#limitValues').length) {
+      new ChangeLimits({
+        valArray: $('#limitValues').val().split(";"),
+        initLimit: $('#limitSelectedValue').val(),
+        initIndex: $('#limitSelectedIndex').val()
+      });
+    }
+  }
+
+  this.cutLongText = function (srcElem, destElem, maxHeight) {
+    var descDiv = destElem;
+    var tempDesc = "";
+    var ending = "...";
+    var splitDesc = srcElem.text().trim().split(" ");
+    for(var part in splitDesc) {
+      descDiv.text(tempDesc + " " + splitDesc[part] + ending);
+      if(descDiv[0].scrollHeight <= maxHeight) {
+        tempDesc = tempDesc + " " + splitDesc[part];
+        descDiv.text(tempDesc);
+      } else {
+        descDiv.text(tempDesc+ending);
+        break;
+      }
+    }
+    srcElem.remove();
+  }
+
+  this.checkTariffChange = function() {
+    var url = window.location.pathname;
+    var isTariffChangePath = url.indexOf('/TariffChange') != -1;
+    if(isTariffChangePath && $('section span.sectionLink[data-tab=TariffChange]').length) {
+      $('section span.sectionLink').removeClass('selected');
+      $('section span.sectionLink[data-tab=TariffChange]').addClass('selected');
+    }
+  }
+
+  this.loadPresentationTabs = function() {
+      _root.sectionLoaderShow();
+      categories.hide();
+      $('.errorContainer').hide();
+      servicesRemoteService.getPresentationTabs(categorySection.val(), {
+          callback: function (response) {
+              if(response.responseStatus.status == 1) {
+                  categories.html(response.view);
+                  var selectedSection = $('.sectionLink.selected');
+                  categories.show();
+                  presentationTabName.hide().text(selectedSection.text().trim());
+                  _root.loadComponentsList(selectedSection.attr('data-tab'));
+              } else {
+                  _root.loaderHide();
+                  _root.sectionLoaderHide();
+                  categories.hide();
+                  presentationTabName.hide();
+                  errorContainer.show();
+              }
+          }
+      });
+  }
+
+  this.loadComponentsList = function(presentationTab) {
+    if(presentationTab === 'PRIME') {
+      if(prime == undefined) {
+        prime = new Prime();
+        _root.sectionLoaderShow();
+        prime.init(true);
+      } else {
+        prime.loadComponentsList()
+      }
+
+    } else {
+      _root.sectionLoaderShow();
+      servicesRemoteService.getComponentsList(presentationTab, {
+        callback: function (response) {
+          _root.sectionLoaderHide();
+          presentationTabName.show();
+          if (response.responseStatus.status == 1) {
+            errorContainer.hide();
+            categories.show();
+            container.html(response.view);
+            $(".temp_title").each(function () {
+              _root.cutLongText($(this), $(this).parent().find('.tile-title'), 20);
+            });
+            $(".temp_description").each(function () {
+              _root.cutLongText($(this), $(this).parent().find('.tile-description'), 70);
+            });
+            container.css('visibility', 'visible').slideDown(200);
+            _root.showInitialDetails();
+            var sectionTypeInput = $('#sectionType');
+            if (sectionTypeInput.length && sectionTypeInput.val() != "") {
+              _root.goToSectionType(sectionTypeInput.val());
+            }
+          } else {
+            container.hide();
+            errorContainer.show();
+          }
+        },
+        errorHandler: function(msg, exception, response) {
+          _root.loaderHide();
+          _root.sectionLoaderHide();
+          container.hide();
+          dwrHandler.errorHandler(msg, exception, response);
+        },
+        exceptionHandler: function(msg, exception, response) {
+          _root.loaderHide();
+          _root.sectionLoaderHide();
+          container.hide();
+          dwrHandler.errorHandler(msg, exception, response);
+        }
+
+      });
+    }
+  }
+
+  this.goToSectionType = function(type) {
+    var sectionType = $('#SECTION-TYPE-' + type).offset().top;
+    $('html, body').animate({scrollTop: sectionType}, 1000);
+  }
+
+  this.showComponentDetails = function(cfsId) {
+    _root.sectionLoaderShow();
+    servicesRemoteService.getComponentDetailsModal(Number(cfsId), {
+      callback: function(response) {
+        _root.sectionLoaderHide();
+        // serviceModal.html(response.view);
+        _root.loadFancyService(false, response.view);
+      },
+      errorHandler: function(msg, exception, response) {
+        _root.sectionLoaderHide();
+        dwrHandler.errorHandler(msg, exception, response);
+      },
+      exceptionHandler: function(msg, exception, response) {
+        _root.sectionLoaderHide();
+        dwrHandler.errorHandler(msg, exception, response);
+      }
+    });
+  }
+
+  this.validateComponentActivation  = function(emailAddress, regulations) {
+    if(!emailAddress.length) {
+      $('#emailErrorLabelEmpty').show();
+      primeModal.find('#email').addClass('error');
+      return false;
+    }
+    if(!PlaySCB.emailValidator.validate(emailAddress)) {
+      $('#emailErrorLabel').show();
+      primeModal.find('#email').addClass('error');
+      return false;
+    }
+
+    return true;
+  }
+
+  this.toggleSaveBtn = function() {
+    var textDiff = false;
+    var radioDiff = false;
+    var limitDiff = false;
+
+    $.each(serviceModal.find("input[type=text][name]").not('[id^=specific]'), function (i, inputElement) {
+      if($(inputElement).val() !== $(inputElement).attr('data-prevVal')) {
+        textDiff = true;
+        return;
+      }
+    });
+
+    if(serviceModal.find('input[type=radio]:checked').length) {
+      $.each(serviceModal.find('input[type=radio]:checked'), function (i, inputElement) {
+        if($(inputElement).attr('data-prevVal') !== 'true') {
+          radioDiff = true;
+          return;
+        }
+      });
+    }
+
+    if(serviceModal.find('#limitSelectedValue').length) {
+      limitDiff = parseInt(serviceModal.find('#limitSelectedValue').val()) !== parseInt(serviceModal.find('.userLimit').text().substring(25));
+    }
+
+    if(textDiff || radioDiff || limitDiff) {
+      serviceModal.find('#serviceSaveBtn').removeClass('disabled').removeAttr('disabled');
+    } else {
+      serviceModal.find('#serviceSaveBtn').addClass('disabled').attr('disabled', 'disabled');
+    }
+
+  }
+
+  this.bindEvents = function() {
+    $('section').on('click', 'span.sectionLink', function() {
+      $('section span.sectionLink').removeClass('selected');
+      $(this).addClass('selected');
+      presentationTabName.hide().text($(this).text().trim());
+      container.css('visibility', 'hidden');
+      _root.loadComponentsList($(this).attr('data-tab'));
+    });
+
+    container.on('click', 'div.image-tile.component a.link-play24.detailsLink', function() {
+      var cfsId = $(this).attr('data-cfs');
+
+      _root.showComponentDetails(Number(cfsId));
+    });
+
+    serviceModal.on('click', '#serviceModifyBtn', function() {
+      _root.loaderShow();
+      var cfsId = $(this).attr('data-cfs');
+
+      servicesRemoteService.getComponentConfigModal(Number(cfsId), {
+        callback: function(response) {
+          _root.loaderHide();
+          // serviceModal.html(response.view);
+          _root.loadFancyService(response.responseStatus.messages['isLimitParamVisible'], response.view);
+        },
+        errorHandler: function(msg, exception, response) {
+          _root.loaderHide();
+          dwrHandler.errorHandler(msg, exception, response);
+        },
+        exceptionHandler: function(msg, exception, response) {
+          _root.loaderHide();
+          dwrHandler.errorHandler(msg, exception, response);
+        }
+      });
+    });
+
+    serviceModal.on('click', '#serviceActivateBtn', function() {
+      _root.loaderShow();
+      var cfsId = $(this).attr('data-cfs');
+
+      servicesRemoteService.activateComponentConfirmation(Number(cfsId), {
+        callback: function(response) {
+          _root.loaderHide();
+          // serviceModal.html(response.view);
+          _root.loadFancyService(response.responseStatus.messages['isLimitParamVisible'], response.view);
+        },
+        errorHandler: function(msg, exception, response) {
+          _root.loaderHide();
+          dwrHandler.errorHandler(msg, exception, response);
+        },
+        exceptionHandler: function(msg, exception, response) {
+          _root.loaderHide();
+          dwrHandler.errorHandler(msg, exception, response);
+        }
+      });
+    });
+
+    serviceModal.on('click', '#serviceActivateConfirmBtn', function() {
+      _root.loaderShow();
+      var cfsId = $(this).attr('data-cfs');
+
+      var email = serviceModal.find('#specific_email_param').val();
+
+      var specificParams = {"specific_email_param": email};
+
+      var params = {};
+      var that = $(this);
+
+      $.each(serviceModal.find("input[type=text][name], input[type=radio]:checked").not('[id^=specific]'), function (i, inputElement) {
+        params[$(inputElement).attr('name')] = $(inputElement).val();
+      });
+
+      // set data limit value
+      if(serviceModal.find('.userLimit').length) {
+        params['LIMIT'] = parseInt(serviceModal.find('.userLimit').text().substring(25));
+      }
+
+      servicesRemoteService.validateComponent('ACTIVATE', Number(cfsId), params, specificParams, {
+        callback: function(response) {
+          if(response.responseStatus.status === '1') {
+
+            if(that.hasClass('skipOtp')) {
+              servicesRemoteService.activateComponentNoOtp(Number(cfsId), params, specificParams, activationHandlers);
+            } else {
+              PlaySCB.globalStore.storeValue("otp_callback", function () {
+                servicesRemoteService.activateComponent(Number(cfsId), params, specificParams, activationHandlers);
+              });
+              otp.check();
+            }
+
+          } else {
+            _root.loaderHide();
+            // serviceModal.html(response.view);
+            _root.loadFancyService(response.responseStatus.messages['isLimitParamVisible'], response.view);
+          }
+        },
+        errorHandler: function (msg, exception, response) {
+          _root.loaderHide();
+          dwrHandler.errorHandler(msg, exception, response);
+        },
+        exceptionHandler: function (msg, exception, response) {
+          _root.loaderHide();
+          dwrHandler.errorHandler(msg, exception, response);
+        }
+      });
+    });
+
+    var activationHandlers = {
+      callback: function (response) {
+        _root.loaderHide();
+        // serviceModal.html(response.view);
+
+        if (response.responseStatus.status === '1') {
+          var selectedSection = $('.sectionLink.selected');
+          presentationTabName.text(selectedSection.text().trim());
+          _root.loadComponentsList(selectedSection.attr('data-tab'));
+        }
+
+        _root.loadFancyService(false, response.view);
+      },
+      errorHandler: function (msg, exception, response) {
+        _root.loaderHide();
+        dwrHandler.errorHandler(msg, exception, response);
+      },
+      exceptionHandler: function (msg, exception, response) {
+        _root.loaderHide();
+        dwrHandler.errorHandler(msg, exception, response);
+      }
+    };
+
+    serviceModal.on('click', '#serviceBackBtn', function() {
+      var cfsId = $(this).attr('data-cfs');
+      _root.showComponentDetails(Number(cfsId));
+    });
+
+
+    serviceModal.on('click keyup', '.modal-body', _root.toggleSaveBtn);
+
+    serviceModal.on('click', '#serviceSaveBtn', function() {
+      _root.loaderShow();
+      var cfsId = $(this).attr('data-cfs');
+
+      var parameters_values = {};
+      var that = $(this);
+
+      $.each(serviceModal.find("input[type=text][name], input[type=radio]:checked").not('[id^=specific]'), function (i, inputElement) {
+        parameters_values[$(inputElement).attr('name')] = $(inputElement).val();
+      });
+
+      // set data limit value
+      if(serviceModal.find('.userLimit').length) {
+        parameters_values['LIMIT'] = serviceModal.find('.userLimit').text().substring(25).split(' ')[0];
+      }
+
+      servicesRemoteService.validateComponent('MODIFY', Number(cfsId), parameters_values, null, {
+        callback: function(response) {
+          if(response.responseStatus.status === '1') {
+
+            var modifyHandlers = {
+              callback: function (response) {
+                _root.loaderHide();
+                // serviceModal.html(response.view);
+
+                if (response.responseStatus.status === '1') {
+                  var selectedSection = $('.sectionLink.selected');
+                  presentationTabName.text(selectedSection.text().trim());
+                  _root.loadComponentsList(selectedSection.attr('data-tab'));
+                }
+
+                _root.loadFancyService(response.responseStatus.messages['isLimitParamVisible'], response.view);
+              },
+              errorHandler: function (msg, exception, response) {
+                _root.loaderHide();
+                dwrHandler.errorHandler(msg, exception, response);
+              },
+              exceptionHandler: function (msg, exception, response) {
+                _root.loaderHide();
+                dwrHandler.errorHandler(msg, exception, response);
+              }
+            };
+
+            if(that.hasClass('skipOtp')) {
+              servicesRemoteService.modifyComponentNoOtp(Number(cfsId), parameters_values, modifyHandlers);
+            } else {
+              PlaySCB.globalStore.storeValue("otp_callback", function () {
+                servicesRemoteService.modifyComponent(Number(cfsId), parameters_values, modifyHandlers);
+              });
+              otp.check(Number(cfsId));
+            }
+
+          } else {
+            _root.loaderHide();
+            // serviceModal.html(response.view);
+            _root.loadFancyService(response.responseStatus.messages['isLimitParamVisible'], response.view);
+          }
+        },
+        errorHandler: function (msg, exception, response) {
+          _root.loaderHide();
+          dwrHandler.errorHandler(msg, exception, response);
+        },
+        exceptionHandler: function (msg, exception, response) {
+          _root.loaderHide();
+          dwrHandler.errorHandler(msg, exception, response);
+        }
+      });
+    });
+
+    serviceModal.on('click', '#serviceDeactivateBtn', function() {
+      _root.loaderShow();
+      var cfsId = $(this).attr('data-cfs');
+
+      servicesRemoteService.deactivateComponentConfirmation(Number(cfsId), {
+        callback: function(response) {
+          _root.loaderHide();
+          // serviceModal.html(response.view);
+          _root.loadFancyService(false, response.view);
+        },
+        errorHandler: function(msg, exception, response) {
+          _root.loaderHide();
+          dwrHandler.errorHandler(msg, exception, response);
+        },
+        exceptionHandler: function(msg, exception, response) {
+          _root.loaderHide();
+          dwrHandler.errorHandler(msg, exception, response);
+        }
+      });
+    });
+
+    serviceModal.on('click', '#serviceDeactivateConfirmBtn', function() {
+      _root.loaderShow();
+      var cfsId = $(this).attr('data-cfs');
+      var that = $(this);
+
+      var deactivationHandlers = {
+        callback: function (response) {
+          _root.loaderHide();
+          // serviceModal.html(response.view);
+
+          if(response.responseStatus.status === '1') {
+            var selectedSection = $('.sectionLink.selected');
+            presentationTabName.text(selectedSection.text().trim());
+            _root.loadComponentsList(selectedSection.attr('data-tab'));
+          }
+
+          _root.loadFancyService(false, response.view);
+        },
+        errorHandler: function (msg, exception, response) {
+          _root.loaderHide();
+          dwrHandler.errorHandler(msg, exception, response);
+        },
+        exceptionHandler: function (msg, exception, response) {
+          _root.loaderHide();
+          dwrHandler.errorHandler(msg, exception, response);
+        }
+      };
+
+      if(that.hasClass('skipOtp')) {
+        servicesRemoteService.deactivateComponentNoOtp(Number(cfsId), deactivationHandlers);
+      } else {
+        PlaySCB.globalStore.storeValue("otp_callback", function() {
+          servicesRemoteService.deactivateComponent(Number(cfsId), deactivationHandlers);
+        });
+        otp.check();
+      }
+    });
+
+    serviceModal.on('click', '#addressBookLink', function() {
+        $('#addressBookForServices ul.letters a.selected').removeClass('selected');
+        $($('#addressBookForServices ul.letters a').get(0)).addClass('selected');
+
+        AddressBookListService.enable({
+          bookListType: 'ADDRESS_BOOK_RADIO',
+          customType: 'SERVICES',
+          modalId: $('#addressBookForServices')
+        });
+
+        loadFancy('#addressBookForServices', undefined, undefined, 32, true);
+
+        return false;
+    });
+
+    $('body').on('click', '#adressBookList-cancel', function() {
+      _root.loadFancyService();
+      return false;
+    });
+
+    $('body').on('click', '#adressBookList-save', function() {
+      var clicked = $('#contactListToAddresBook').find('input[type=radio]:checked');
+
+      if (clicked.size() == 0) {
+        $('#contactListToAddresBook SPAN.error').show();
+      }
+      else {
+        var temp = clicked.next('label').find('span.n').text()
+          .replace(/ (komórkowy)/g, '')
+          .replace(/ (domowy)/g, '')
+          .replace(/ (służbowy)/g, '')
+          .replace(/ (firmowy)/g, '')
+          .replace(/ (stacjonarny)/g, '')
+          .replace(/(\s*)/g, '');
+        if (temp.length == 11) {
+          temp = temp.substring(2)
+        }
+
+          serviceModal.find('input[name=MSISDN]').val(temp);
+
+
+        $('#contactListToAddresBook SPAN.error').hide();
+
+        _root.loadFancyService();
+
+      }
+
+      return false;
+    });
+  }
+
+}
+
+$(document).ready(function() {
+  var services = new Services();
+  services.init();
+});

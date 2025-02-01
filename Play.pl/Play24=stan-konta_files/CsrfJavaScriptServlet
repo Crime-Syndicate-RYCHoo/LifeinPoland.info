@@ -1,0 +1,940 @@
+
+
+
+
+	
+
+
+
+	<!DOCTYPE html
+	     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<!--[if lt IE 7]> <html class="no-js lt-ie10 lt-ie9 lt-ie8 lt-ie7 ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="pl"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie10 lt-ie9 lt-ie8 ie7 ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="pl"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie10 lt-ie9 ie8 ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="pl"> <![endif]-->
+<!--[if IE 9]>    <html class="no-js lt-ie10 ie9 ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="pl"> <![endif]-->
+<!--[if gt IE 9]><!--> <html class="no-js edge gt-ie9 ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="pl"> <!--<![endif]-->
+	<head>
+		<title>Play24</title>
+        <link rel="shortcut icon" href="_img/play24_favico32.png"/>
+		<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+        <meta name="viewport" content="width=1060">
+		<meta name="description" content=" Play24 to internetowe centrum zarządzania Twoimi usługami i kontem abonenckim w Play." />
+		<meta name="keywords" content="Play24, konto, usługi, billing, rachunki, rachunek, stan konta, telefon, komórki, SMS, MMS, Internet" />
+        <meta name="format-detection" content="telephone=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <script>document.createElement("i");</script>
+    <![endif]-->
+
+    <script type="text/javascript" src="_js/_libs/jquery/jquery-1.8.3.js?rev=799c9e1"></script>
+
+    <meta name="url" content="//24.play.pl" />
+    <link rel="stylesheet" type="text/css" href="_css/_libs/font/css/fontello-embedded.css?rev=799c9e1" media="all" />
+    <link rel="stylesheet" type="text/css" href="_css/_libs/font/css/animation.css?rev=799c9e1" media="all" />
+            <link rel="stylesheet" href="brands/Play/css/main.css?rev=799c9e1">
+            <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="//www.play.pl/system-res/_img/playmobile.ico" />
+
+
+            <link rel="stylesheet" href="brands/Play/css/prime.css?rev=799c9e1">
+
+    <meta class="foundation-data-attribute-namespace">
+    <meta class="foundation-mq-xxlarge">
+    <meta class="foundation-mq-xlarge">
+    <meta class="foundation-mq-large">
+    <meta class="foundation-mq-medium">
+    <meta class="foundation-mq-small">
+
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            dataLayer.push(
+                { 'contentGroup1': 'Play24', 'dimension5': 'KNaaCiGXERllLik='   }
+            );
+        </script>
+
+    <!-- Google Tag Manager -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GTM-KM8HVKC"></script>
+    <script async>(function (w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            });
+            var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+            j.async = true;
+            j.src =
+                'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-KM8HVKC');</script>
+    <!-- End Google Tag Manager -->
+
+    <script>
+
+        getDateTime = function(){
+            var currentdate = new Date();
+            var datetime = currentdate.getFullYear() +
+                    "-" + (currentdate.getMonth() + 1 < 10 ? "0" : "") + (currentdate.getMonth() + 1) +
+                    "-" + (currentdate.getDate() < 10 ? "0" : "") + currentdate.getDate() + " "
+                    + (currentdate.getHours() < 10 ? "0" : "") + currentdate.getHours() + ":"
+                    + (currentdate.getMinutes() < 10 ? "0" : "") + currentdate.getMinutes() + ":"
+                    + (currentdate.getSeconds() < 10 ? "0" : "") + currentdate.getSeconds();
+
+            return datetime;
+        }
+
+        getSessionId = function () {
+            var d = new Date().getTime();
+            if (typeof performance !== 'undefined' && typeof performance.now === 'function'){
+                d += performance.now();
+            }
+            var sessionId =  'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+                var r = (d + Math.random() * 16) % 16 | 0;
+                d = Math.floor(d / 16);
+                return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+            });
+            return sessionId;
+        }
+
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+    </script>
+
+
+            <script>
+
+                gtag('config', 'GTM-KM8HVKC', {
+                    'custom_map': {
+                        'dimension1': 'contentGroup1',
+                        'dimension5': 'dimension5',
+                        'dimension7': 'datetime',
+                        'dimension8': 'clientId',
+                        'dimension9': 'sessionId',
+                        'dimension13': 'cxt1',
+                        'dimension14': 'cxt2',
+                        'dimension15': 'cxt3',
+                        'dimension16': 'cxt4',
+                        'dimension17': 'cxt5',
+                        'dimension18': 'cxt6'
+                    }
+                });
+
+                gtag('event', 'custom_dimension', {
+                    'contentGroup1': 'Play24',
+                    'dimension5': 'KNaaCiGXERllLik=',
+                    'datetime': getDateTime(),
+                    'clientId': '1901756315.1738377693',
+                    'sessionId': getSessionId(),
+                    'cxt1': 'TLznYlLpZw==',
+                    'cxt2': 'SqHrcVY=',
+                    'cxt3': 'VaDme0XpZ38dUg==',
+                    'cxt4': 'LdybAyOV',
+                    'cxt5': 'Lt6QBj6REQdvLw==',
+                    'cxt6': ''
+                });
+            </script>
+
+            <script type="text/javascript">
+                (function(y,o,u,r,c,x) {y[c]=y[c]||function(){(y[c].q=y[c].q||[]).push(arguments);};
+                    a=o.createElement(u),b=o.getElementsByTagName(u)[0];a.async=1;a.src=r;b.parentNode.insertBefore(a,b)
+                })(window,document,'script', '//static.yourcx.io/customers/90/yourcx.min.js','yourcx');
+            </script>
+
+            <script type="text/javascript">
+                yourcx('dimension', 'page.type', 'customer service');
+                yourcx('dimension', 'user.customer', true, 'visitor');
+                yourcx('dimension', 'user.logged', true, 'session');
+                yourcx('dimension', 'cid', 'KNaaCiGXERllLik=', 'visitor');
+                yourcx('dimension', 'cxt1', 'TLznYlLpZw==', 'visitor');
+                yourcx('dimension', 'cxt2', 'SqHrcVY=', 'visitor');
+                yourcx('dimension', 'cxt3', 'VaDme0XpZ38dUg==', 'visitor');
+                yourcx('dimension', 'cxt4', 'LdybAyOV', 'visitor');
+                yourcx('dimension', 'cxt5', 'Lt6QBj6REQdvLw==', 'visitor');
+                yourcx('dimension', 'cxt6', '', 'visitor');
+
+                yourcx('survey', 'ddd616c540d241f97c0000cff07d1a52', { product: 'target' });
+            </script>
+
+            <script>
+                try {
+                    var hitParams = "",
+                            xhr;
+                    hitParams = "DEVICE_ID=" + '1901756315.1738377693' || "N/A";
+                    hitParams+= "&CUSTOMER_ID=" + 'KNaaCiGXERllLik=' || "Anonymous";
+                    hitParams+= "&TIMESTAMP=" + new Date().getTime();
+                    hitParams+= "&PATH=" + document.location.href;
+
+                    console.log(JSON.stringify(hitParams));
+
+                    xhr = new XMLHttpRequest();
+
+                    xhr.open('POST', 'https://multimedia.play.pl/realTimeData/addHit');
+                    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+                    xhr.onload = function() {
+                        if (xhr.status === 200) {
+                            console.log("RTM Event Sent");
+                        }
+                        else if (xhr.status !== 200) {
+                            console.log("RTM Event Error");
+                        }
+                    };
+                    xhr.send(hitParams);
+                } catch (err) {
+                    console.log(err);
+                }
+            </script>
+
+    
+    </head>
+
+	<body class="Play24">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KM8HVKC" height="0" width="0"
+                style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+
+    <div style="display: none;">
+      <div id="pleaseWait" class="loader-wrapper-inner">
+        <i class="icon-spin5 f35 font-spinner"></i>
+      </div>
+
+      <div id="alertBox" class="fContent">
+        <div class="modal-content">
+            <div class="modal-header">
+Informacja            </div>
+            <div class="modal-body">
+                <p>
+Operacja niedozwolona.<br />Przeglądasz Play24 w trybie "tylko do odczytu".                </p>
+            </div>
+          </span>
+        </div>
+      </div>
+
+      <div id="exceptionMessage" class="fContent">
+          <div class="modal-content">
+            <div class="modal-body">
+              <p>Wystąpił błąd w trakcie komunikacji z serwerem. Spróbuj ponownie za chwilę. W razie ponownego wystąpienia błędu skontaktuj się z Obsługą Klienta.</p>
+            </div>
+          </div>
+      </div>
+
+        <div id="numberAccessError" class="fContent">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p class="mt20">Brak dostępu do numeru. Skontaktuj się z obsługą klienta.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="csrfErrorModal" class="fContent">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p>Błąd podczas wysłania danych formularza. Niepoprawny token CSRF.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="migrationSummary" class="fContent w450"></div>
+    </div>
+
+<!-- Header -->
+<header id="header" class="box subpages " role="banner">
+    <section class="mb0">
+        <!-- Topbar type -->
+        <div class="row">
+            <div class="header__logo-wrapper">
+                <a class="header__logo-wrapper__logo" href="http://www.play.pl/" title="Przejdź do strony głównej Play.pl">Play</a>
+                <span class="header__logo-wrapper__right-bar"></span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="small-20 header__user-section">
+
+  <!--
+  -->
+
+      <div class="userLogged">
+        <a class="header__user-section__play24-logo" href="/Play24/Welcome"></a>
+        <div id="currentNumber">
+          <h2 class="lightHeader fl">Zarządzaj numerem:</h2>
+          <div class="header__user-section__current-number">
+            <div class="header__user-section__current-number__formattedMsisdn">48 882 723 907</div>
+            <div id="numberAccountLabel" class="header__user-section__current-number__label">
+            </div>
+                <div class="header__user-section__number-dropdown">
+                <button class="header__user-section__number-dropdown__button down" type="button" id="changeNumberDropdown"></button>
+              <div id="numberDropdownContainer" class="header__user-section__number-dropdown__options w510 hide">
+                  <div class="body-text-play24 p3">Wybierz numer, którym chcesz zarządzać:</div>
+                  <div class="header__user-section__number-dropdown__search">
+                      <input id="filter-input" maxlength="11"/>
+                  </div>
+                  <div id="changeNumberListDiv">
+                      <ul id="changeNumberDropdownTable">
+                      </ul>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div> <!--(private)-->
+        <input type="hidden" value="48 882 723 907" id="currentMsisdn"/>
+      </div>
+
+      <ul class="header__user-section__menu">
+              <li><a href="            https://24.play.pl/Play24/ssologout
+">Wyloguj</a></li>
+      </ul>
+  </div>
+
+            </div>
+        </div>
+
+        <!-- Submenu type -->
+    <div class="row">
+        <div class="icon-buttons hide-for-small medium-20 columns">
+            <ul>
+                            <li class="selected">
+                        <h1>
+                            <a href="/Play24/Welcome" class="icon myAccount">Strona główna</a>
+                        </h1>
+                        </li>
+                        <li>
+                        <h1>
+                            <a href="/Play24/Topup" class="icon charges">Doładowania</a>
+                        </h1>
+                        </li>
+                        <li>
+                        <h1>
+                            <a href="/Play24/Services" class="icon packagesAndServices">Usługi i pakiety</a>
+                        </h1>
+                        </li>
+                        <li>
+                        <h1>
+                            <a href="/Play24/Billing" class="icon connections">Historia połączeń</a>
+                        </h1>
+                        </li>
+                        <li>
+                        <h1>
+                            <a href="/Play24/Complains" class="icon notification">Pomoc i zgłoszenia</a>
+                        </h1>
+                        </li>
+            </ul>
+        </div>
+        <div class="icon-buttons-small show-for-small-only small-20 columns">
+            <select class="white-background no-border custom-select" data-header-select>
+                    <option data-icon="myAccount" selected>
+                    Strona główna
+                    </option>
+                    <option data-icon="charges">
+                    Doładowania
+                    </option>
+                    <option data-icon="packagesAndServices">
+                    Usługi i pakiety
+                    </option>
+                    <option data-icon="connections">
+                    Historia połączeń
+                    </option>
+                    <option data-icon="notification">
+                    Pomoc i zgłoszenia
+                    </option>
+                    <option data-icon="help">
+                    Pomoc
+                    </option>
+                    <option data-icon="myAccount">
+                    Moje dane
+                    </option>
+            </select>
+        </div>
+    </div>
+    </section>
+</header>
+
+
+<!-- End of Header -->
+    <div id="messages" class="v2">
+      <div id="elListCnt"></div>
+      <div style="" id="more"></div>
+    </div>
+    
+    <div style="display: none;">
+    <div id="messageDetails" class="fContent">
+        <h3></h3>
+        <div class="text"><p></p></div>
+    </div>
+    <div id="taskDetailsMB" class="fContent">
+        <h3></h3>
+        <div class="text">
+            <p>
+                <a id="taskURL" href="#" target="_blank"><img id="taskImgURL" src="_img/ajax-loader.gif" alt=""/></a>
+            </p>
+        </div>
+    </div>
+    <div id="deleteMessageMB" class="fContent modalBoxServices blockLabel">
+        <h3>Potwierdź usunięcie wiadomości</h3>
+            
+        <form class="text" method="post" action="">
+            <p>
+                <strong class="title">Czy na pewno chcesz usunąć wiadomość:</strong><br />
+                <span class="desc">description</span>
+            </p>
+            <div class="actions">
+                <a href="#" class="blueButtonSmall deleteMessageButton">
+                    <span>Dalej</span>
+                </a>
+                <a href="#" class="linkRemove closeMB" title="Anuluj"><span>Anuluj</span></a>
+            </div>
+        </form>
+    </div>
+    <div id="deleteTaskMB" class="fContent modalBoxServices blockLabel">
+        <h3>Potwierdź usunięcie wiadomości</h3>
+            
+        <form class="text" method="post" action="">
+            <p>
+                <strong class="title">Czy na pewno chcesz usunąć wiadomość:</strong><br />
+                <span class="desc">description</span>
+            </p>
+            <div class="actions">
+                <a href="#" class="blueButtonSmall deleteTaskButton">
+                    <span>Dalej</span>
+                </a>
+                <a href="#" class="linkRemove closeMB" title="Anuluj"><span>Anuluj</span></a>
+            </div>
+        </form>
+    </div>
+    </div>
+		<div id="bannerContainer">
+    <div id="ssoQuizBannerBox">
+        <div class="ssoQuizBannerBoxContent">
+            <div class="contentBox">
+                <div class="header-play24 h4 pb15">
+Chcesz zarządzać również numerami powiązanymi z 48882723907?                </div>
+                <div class="level">
+                    <div class="level-left f12">
+                        <div class="ssoQuizBannerTextBox">
+                            <div>
+Aby móc zarządzać numerami powiązanymi konieczne będzie uzupełnienie brakujących danych <br>- wystarczy zrobić to raz i gotowe!                            </div>
+                            <div class="pt10">
+                                <a class="linkPointer2" href="javascript: void(0);" id="ssoQuizHelpLink">Dowiedz się więcej</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <a href="https://login.play.pl/sso-quiz/web/party/question?redirect_uri=https%3A%2F%2F24.play.pl" class="button-play24 primary">
+Dalej                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="display: none;">
+        <div class="fContent" id="ssoQuizHelpModal" style="width: 700px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div>
+                        <img src="_img/loupe_invoice_164.png" style="width: 120px;"/>
+                    </div>
+Dlaczego potrzebne są te dane?                </div>
+                <div class="modal-body" style="width: 420px;">
+                    <p>W Play dbamy o Twoje bezpieczeństwo.</p>
+                    <p>Dane dotyczące numeru PESEL i dokumentu tożsamości pozwolą nam upewnić się, że informacje o Twoim koncie nie trafią w niepowołane ręce.</p>
+                </div>
+                <div class="modal-action">
+                    <button type="button" class="button-play24 primary" onClick="javascript:$.fancybox.close();">Rozumiem</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+<div id="updateContactDataBox">
+
+    <div id="updateContactDataInitialBox">
+        <p class="close-paragraph"><a class="banner-close closeBoxBeforeUpdateContactData" href="#updatecontactDataCloseBox"><span class="icon close"></span></a></p>
+        <div class="contentBox">
+            <div class="header-play24 h4">
+Czy Twoje dane są aktualne?            </div>
+            <div class="level">
+                <div class="description">
+Sprawdź czy poniższe dane są aktualne. Wprowadź ewentualne zmiany, potwierdź i bądźmy w kontakcie.                </div>
+                <div class="inputBox">
+                    <br>
+                    <label>
+                        <div id="label"><span>E-mail</span></div>
+                        <input type="text" name="emailAddress" value="RYCHO@CZEKAJ.COM.PL">
+                        <div id="validEmailAddressBox" class="ok">
+                        </div>
+                    </label>
+                    <label>
+                        <div id="label"><span>Telefon kontaktowy</span></div>
+                        <input type="text" name="contactPhone" value="48882723907">
+                        <div id="validContactPhoneBox" class="ok">
+                        </div>
+                    </label>
+                    <input type="hidden" name="emailAddressInitialValue" value="RYCHO@CZEKAJ.COM.PL">
+                    <input type="hidden" name="contactPhoneInitialValue" value="48882723907">
+                </div>
+                <div id="updateContactDataConfirmButton" >
+                    <a href="javascript:void(0)" class="button-play24 primary">
+Potwierdź                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<div id="updateContactDataStatusOKBox" style="display: none;">
+    <p class="close-paragraph"><a class="banner-close closeBoxAfterUpdate" href="#updatecontactDataCloseBox"><span class="icon close"></span></a></p>
+    <div class="level level-item pt20 pb15">
+        <div class="statusOk pr10"></div>
+        <div class="f18 font-weight300">
+Twoje dane zostały uaktualnione.        </div>
+    </div>
+    <div class="level level-item pb20">
+        <a id="updateContactDataFinishButton" href="#updateContactDataFinishLink" class="button-play24 primary">
+OK        </a>
+    </div>
+</div>
+<div id="updateContactDataStatusFailedBox" style="display: none;">
+    <p class="close-paragraph"><a class="banner-close closeBoxAfterUpdate" href="#updatecontactDataCloseBox"><span class="icon close"></span></a></p>
+    <div class="level level-item pt20 pb15">
+        <div class="statusFailed pr10"></div>
+        <div class="f18 font-weight300">
+Wystąpił błąd. Spróbuj ponownie później.        </div>
+    </div>
+    <div class="level level-item pb20">
+        <a id="updateContactDataReturnButton" href="#updateContactDataReturnLink" class="button-play24 primary">
+Powrót        </a>
+    </div>
+</div>
+
+</div>
+
+
+
+		</div>
+
+        <section id="welcome">
+
+  <div id="userdata">
+    <ul class="first row-fluid mb0 pb0 clearfix">
+      <li class="span6 mb0 pb0">
+        <div class="pr5 loader-wrapper" id="MY_ACCOUNT_NUMBER">
+          <div class="span9 m0 pb20 mr7">
+            <h2>Mój numer</h2>
+            <div class="pointOut number">48 882 723 907</div>
+            <ul class="linkList">
+              <li><a id="changeNumberButton" class="fancy linkPointer2" href="#changeNumberFancy"><span>Moje numery</span></a></li>
+              <li><a class="linkPointer2" href="UserData"><span>Moje dane</span></a></li>
+            </ul>
+          </div>
+            <div class="user-icon-container" id="accountBallances">
+                <a href="javascript:void(0);" class="user-icon user-icon__my-number ml20"></a>
+                <p class="user-icon__label pt10 i-text-center">Stan konta</p>
+            </div>
+          <div class="loader-content">
+            <div class="loader-wrapper-inner" >
+              <i class="icon-spin5 f35 font-add"></i>
+              <span class="loader-message"></span>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li class="span6 mb0 pb0">
+        <div class="ml15 pl25 loader-wrapper tariff" id="MY_ACCOUNT_TARIFF">
+          <div class="span9 m0 pb20 mr7">
+              <h2>Moja oferta</h2>
+          </div>
+            <div class="user-icon-container" id="services">
+                <a href="javascript:void(0);" class="user-icon user-icon__services ml20"></a>
+                <p class="user-icon__label pt10 i-text-center">Usługi i pakiety</p>
+            </div>
+          <div class="loader-content">
+            <div class="loader-wrapper-inner" >
+              <i class="icon-spin5 f35 font-add"></i>
+              <span class="loader-message"></span>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+    <ul class="second row-fluid pt0 mt0 clearfix">
+      <li class="span6 mb0 pb0">
+        <div class="pr5 loader-wrapper" id="MY_ACCOUNT_PAYMENTS">
+          <div class="span9 m0 pt5 pb20 mr7">
+          </div>
+          <div style="height: 191px;" class="span4 ml0 pt20 pb25">
+            <div class="ml-15 i-text-center"></div>
+          </div>
+          <div class="loader-content">
+            <div class="loader-wrapper-inner" >
+              <i class="icon-spin5 f35 font-add"></i>
+              <span class="loader-message"></span>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li class="span6 mb0 pb0">
+        <div class="ml15 pl25 loader-wrapper" id="MY_ACCOUNT_PHONE" style="height: 191px;">
+          <div class="span9 m0 pb20 mr7">
+            <h2>Moje urządzenie</h2>
+            <div class="phoneBox">
+                <img class="phone" alt="Telefon" src="_img/mojeKonto-zaslepka.png"/>
+                <div class="pointOut number">&nbsp;</div>
+            </div>
+              <a class="linkPointer2 no-float" href="#"><span>Autokonfiguracja</span></a>
+            <a class="linkPointer2 no-float" href="Contacts"><span>Kontakty</span></a>
+          </div>
+          <a href="#" class="linkContainer w140" style="position: absolute; right: 2px;">
+            <div style="height: 191px;" class="span4 w120 m0 ml10 pt20 pb20 i-text-center">
+              <div class="pl10 ml7 i-text-center">
+                <span></span>
+                <b></b>
+              </div>
+            </div>
+          </a>
+          <div class="loader-content">
+            <div class="loader-wrapper-inner" >
+              <i class="icon-spin5 f35 font-add"></i>
+              <span class="loader-message"></span>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <div class="hidden">
+    <div id="ballancesModalBox" class="fContent stanKontaBox"></div>
+    <div id="changeNumberModal" class="fContent"></div>
+  </div>
+
+
+
+            <div class="hidden">
+    <div class="hidden">
+        <div id="changeLimits" class="fContent changeLimit">
+            <div class="modal-content fullHeight">
+                <div class="modal-header">
+Zmień limity                </div>
+
+                <form method="post" action="">
+                    <div class="modal-body fullHeight">
+                        <p class="f15">
+                            W tym miejscu możesz sprawdzić obecne limity dla Twoich usług oraz zmienić ich wartość.<br>
+UWAGA! Zmiana limitu będzie obowiązywała od następnego Okresu Rozliczeniowego.                        </p>
+
+                        <div class="plustCont level">
+                            <div class="level-left">
+                                <div>
+                                    <input id="groupMembersSearch" type="text" name="search"
+                                           class="toggleDefaultValueBis numbersOnly mr8 mt0" ondrag="return false" ondrop="return false"
+                                           maxlength="9" value="Znajdź numer" rel="Znajdź numer"/>
+                                </div>
+                                <div>
+                                    <a href="#" class="button-play24 primary searchBeanButton">
+                                        <span class="hide">Szukaj</span>
+                                        <i class="icon-search-magnifier f16"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <input type="hidden" class="balanceBillingId" value=""/>
+
+                        <table class="lined m0 mt32 pad17" id="GROUP_MEMBERSTable">
+                            <tbody></tbody>
+                        </table>
+
+    <div class="belowTable">
+        <ul class="perPage">
+            <li class="show f15">Pokaż na stronie</li>
+            <li class="items10 f16 selected"><a href="#" title="10">10</a></li>
+            <li class="items25 f16"><a href="#" title="25">25</a></li>
+            <li class="items50 f16"><a href="#" title="50">50</a></li>
+        </ul>
+                
+        <ul class="pagination">
+            <li class="counter">&nbsp;</li>
+            <li class="prev"><a title="Poprzednia" href="#"><span></span></a></li>
+            <li class="next"><a title="Następna" href="#"><span></span></a></li>
+        </ul>
+    </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+        <div class="fContent" id="checkGroupMembersError">
+            <div class="modal-content">
+                <div class="modal-header">Zmień limity</div>
+
+                <div class="modal-body">
+                    <p></p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="otpBox" class="fContent otpVerifyClass"></div>
+    <div id="otpBoxReverify" class="fContent otpVerifyClass"></div>
+            </div>
+
+        </section>
+            
+
+			<input type="hidden" name="ACCOUNT_TYPE" value="PREPAID">
+
+			<input type="hidden" id="isMyPhoneVisible"/>
+
+
+
+<div style="position: absolute; z-index: 9999; left: -999999px;">
+    <div id="changeNumberFancy" class="fContent w500"></div>
+</div>
+        
+
+
+        <div id="stats">
+  <div>
+    <div class="ml30 mr30">
+      <ul id="additionalLinks" class="pull-right">
+      </ul>
+    </div>
+  </div>
+        </div>
+<!-- Footer -->
+<footer id="footer" class="box footer-sticky-element" role="contentinfo">
+    <div class="copyright">
+        <div class="row">
+            <div class="small-12 medium-10 columns">
+                <p>Copyright &copy; 2025 <a href="http://play.pl/">Play</a> - wszelkie prawa zastrzeżone</p>
+            </div>
+            <div class="small-8 medium-10 columns copyright-menu">
+                <ul class="copyright-menu-list">
+                    <li><a href="//www.play.pl/resources/pdf/Polityka_Prywatnosci_i_cookies_Serwisow_Internetowych_P4_spzoo.pdf">Polityka prywatności i cookies</a></li>
+                    <li><a href="//media-play.pl/binaries/content/documents/administration/repositories/file-docs/cenniki-i-regulaminy/regulaminy/pozostale-regulaminy/regulamin-serwisow-internetowych/regulamin-serwisow-internetowych-p4-spzoo">Regulamin Play24</a></li>
+                    <li class="show-for-small"><a id="view-desktop" href="#">Wersja desktop</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</footer>
+
+
+        <noscript><span>Aby w pełni wykorzystać możliwości strony www.play.pl, należy włączyć w przeglądarce obsługę skryptów JavaScript.</span></noscript>
+
+        <script type="text/javascript" src="_js/_libs/jquery/jquery.fancybox-1.3.4.js?rev=799c9e1"></script>
+        <script type="text/javascript" src="_js/common/jquery.fancybox-1.3.4.plugin.js?rev=799c9e1"></script>
+
+
+        <script>
+            if(/[~`!#$\^&+\[\]\\';{}|\\"<>]/g.test(window.name)) {
+                window.name=encodeURIComponent(window.name);
+            }
+        </script>
+
+        <script src="dwr/engine.js?rev=799c9e1" type="text/javascript"></script>
+        <script src="dwr/util.js?rev=799c9e1" type="text/javascript"></script>
+
+        <script type="text/javascript" src="_js/_play/libs/modernizr.min.js?rev=799c9e1"></script>
+        <script type="text/javascript" src="_js/_play/libs.js?rev=799c9e1"></script>
+        <script type="text/javascript" src="_js/_play/plugins.js?rev=799c9e1"></script>
+        <script type="text/javascript" src="_js/_play/mojekonto_script.js?rev=799c9e1"></script>
+        <script type="text/javascript" src="_js/_play/script.js?rev=799c9e1"></script>
+        <script type="text/javascript" src="_js/common/play24.js?rev=799c9e1"></script>
+          <script>isIfe = false;</script>
+        <script>
+            Public.isPrepaid = true;
+
+        </script>
+        <script type="text/javascript" src="_js/jquery.cookie.js?rev=799c9e1"></script>
+        <script type="text/javascript" src="_js/iefix.js?rev=799c9e1"></script>
+        <script type="text/javascript" src="_js/jquery.datePicker.js?rev=799c9e1"></script>
+
+        <script type="text/javascript" src="_js/jquery.replayplugins.js?rev=799c9e1"></script>
+        <script type="text/javascript" src="_js/formService.js?rev=799c9e1"></script>
+
+        <script type="text/javascript" src="_js/_libs/postmessage.js?rev=799c9e1"></script>
+        
+
+        <script type="text/javascript" src="_js/_libs/json.js?rev=799c9e1"></script>
+
+        <script src="_js/config.js?rev=799c9e1" type="text/javascript"></script>
+
+        <script type="text/javascript" src="_js/otpVerify.js?rev=799c9e1"></script>
+        <script src="dwr/interface/otpRemoteService.js?rev=799c9e1" type="text/javascript"></script>
+
+        <script src="dwr/interface/accountContextChangeService.js?rev=799c9e1" type="text/javascript"></script>
+        <script src="dwr/interface/billingSearchService.js?rev=799c9e1" type="text/javascript"></script>
+        <script src="dwr/interface/addressBookService.js?rev=799c9e1" type="text/javascript"></script>
+        <script src="dwr/interface/messageRemoteService.js?rev=799c9e1" type="text/javascript"></script>
+        <script src="dwr/interface/myAccountRemoteService.js?rev=799c9e1" type="text/javascript"></script>
+
+        <script src="dwr/interface/complainRemoteService.js?rev=799c9e1" type="text/javascript"></script>
+        <script src="dwr/interface/contactsImportRemoteService.js?rev=799c9e1" type="text/javascript"></script>
+        <script src="dwr/interface/accountRemoteService.js?rev=799c9e1" type="text/javascript"></script>
+
+        <script src="dwr/interface/businessAdvisorsRemoteService.js?rev=799c9e1" type="text/javascript"></script>
+        <script src="dwr/interface/templateRemoteService.js?rev=799c9e1" type="text/javascript"></script>
+        <script type="text/javascript" src="_js/dwrHandler.js?rev=799c9e1"></script>
+        <script type="text/javascript" src="_js/jquery.idle-timer.js?rev=799c9e1"></script>
+        <script type="text/javascript" src="_js/sessionHandler.js?rev=799c9e1"></script>
+        <script src="dwr/interface/sessionRemoteService.js?rev=799c9e1" type="text/javascript"></script>
+        <script src="dwr/interface/ssoLogoutRemoteService.js?rev=799c9e1" type="text/javascript"></script>
+
+        <script type="text/javascript" src="_js/jquery.form.js?rev=799c9e1"></script>
+        <script src="_js/slider.js?rev=799c9e1" type="text/javascript"></script>
+        <script src="_js/businessAdvisor.js?rev=799c9e1" type="text/javascript"></script>
+
+        <script src="CsrfJavaScriptServlet"></script>
+
+            <script src="_js/myAccount/myAccount.js?rev=799c9e1" type="text/javascript"></script>
+            <script src="_js/myAccount/play24.myAccount.js?rev=799c9e1" type="text/javascript"></script>
+            <script src="_js/eInvoice.js?rev=799c9e1" type="text/javascript"></script>
+            <script src="_js/contactDataService.js?rev=799c9e1" type="text/javascript"></script>
+            <script src="dwr/interface/balanceRemoteService.js?rev=799c9e1" type="text/javascript"></script>
+            <script src="dwr/interface/groupMembersRemoteService.js?rev=799c9e1" type="text/javascript"></script>
+            <script src="dwr/interface/checkCreditLimitRemoteService.js?rev=799c9e1" type="text/javascript"></script>
+            <script src="dwr/interface/contactDataRemoteService.js?rev=799c9e1" type="text/javascript"></script>
+            <script src="dwr/interface/cookieRemoteService.js?rev=799c9e1" type="text/javascript"></script>
+            <script src="dwr/interface/agreementsRemoteService.js?rev=799c9e1" type="text/javascript"></script>
+                <script src="_js/myAccount/play24.myAccount.Message.js?rev=799c9e1" type="text/javascript"></script>
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
+        
+        <script type="text/javascript" src="_js/jquery.mousewheel.js?rev=799c9e1"></script>
+        <script type="text/javascript" src="_js/jquery.jscrollpane.min.js?rev=799c9e1"></script>
+        
+        <script type="text/javascript" src="_js/changeNumberService.js?rev=799c9e1" ></script>
+        <script type="text/javascript" src="_js/tableService.js?rev=799c9e1" ></script>
+
+        <!--[if lt IE 10]>
+            <script type="text/javascript" src="_js/_libs/PIE.js?rev=799c9e1"></script>
+        <![endif]-->
+        
+	    	<script> 
+				if (self == top) {
+					var theBody = document.getElementsByTagName('body')[0];
+					theBody.style.display = "block";
+				} else { 
+					top.location = self.location; 
+				}
+			</script>
+
+            <div style="display: none;">
+                <div id="mobileAppModal" class="fContent mobileApp i-text-center">
+                    <div class="modal-header mt0">
+Poznaj aplikację Play24                    </div>
+                    <div class="modal-body noPadding mobileApp">
+                        <p class="f18">
+Płatności, pakiety i usługi, stan konta<br> - zawsze pod ręką!                        </p>
+                        <div class="app-stores">
+                            <a href="https://play.google.com/store/apps/details?id=com.play.play24m&amp;referrer=utm_source%3Dlogowanie.play.pl%26utm_medium%3Dlogowaniesso%26utm_campaign%3Dlogowaniesso%26anid%3Dadmob" target="storePage"><img class="google_play_badge" src="_img/google_play_badge.svg" alt=""/></a>
+                            <a href="https://itunes.apple.com/app/apple-store/id498473583?mt=8" target="storePage"><img class="apple_store_badge" src="_img/apple_store_badge.svg" alt=""/></a>
+                        </div>
+                        <p>
+                            <a class="pointedLink f14 fancybox-close"><span>Nie dziękuję. Przejdź do pełnej wersji strony</span></a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- livecharLicence exist! -->
+
+            <!-- liveChatGroup exist! &ndash;&gt; -->
+
+
+                <script src="dwr/interface/hashRemoteService.js?rev=799c9e1" type="text/javascript"></script>
+                <div class="hidden" id="liveChat">
+                    <script src="dwr/interface/hashRemoteService.js?rev=799c9e1" type="text/javascript"></script>
+                    <input type="hidden" name="firstName" value="RYSZARD WIESŁAW">
+                    <input type="hidden" name="lastName" value="CZEKAJ">
+                    <input type="hidden" name="displayDelay" value="60">
+
+
+                    <input type="hidden" name="email" value="RYCHO@CZEKAJ.COM.PL">
+                </div>
+
+                <script>
+                    var LC_API = LC_API || {};
+                    LC_API.on_after_load = function()
+                    {
+                        hashRemoteService.generateHash({
+                            callback: function (response) {
+                                if(response.responseStatus.status == 1) {
+                                    var custom_variables = [
+                                        {name: 'msisdn', value: response.responseStatus.messages["msisdn"]},
+                                        {name: 'hash', value: response.responseStatus.messages["hash"]},
+                                        {name: 'partyId', value: response.responseStatus.messages["partyId"]}
+                                    ];
+                                    LC_API.set_custom_variables(custom_variables);
+                                }
+                            }
+                        });
+                    };
+
+                    LC_API.on_message = function()
+                    {
+                        sessionRemoteService.extendSession({});
+                    };
+
+                    var displayDelay = parseInt($('#liveChat input[name=displayDelay]').val()) * 1000;
+
+                    setTimeout(function() {
+                        <!-- Start of LiveChat (www.livechatinc.com) code -->
+                        window.__lc = window.__lc || {};
+                        window.__lc.license = 8830350;
+                        window.__lc.group = 16;
+                        var firstName = $('#liveChat input[name=firstName]').val();
+                        var lastName = $('#liveChat input[name=lastName]').val();
+                        var email = $('#liveChat input[name=email]').val();
+                        window.__lc.visitor = {
+                            name: firstName + " " + lastName,
+                            email: email
+                        };
+                        (function() {
+                            var lc = document.createElement('script'); lc.type = 'text/javascript'; lc.async = true;
+                            lc.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'cdn.livechatinc.com/tracking.js';
+                            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(lc, s);
+                        })();
+                        <!-- End of LiveChat code -->
+                    }, displayDelay);
+                </script>
+
+
+    <div class="infotipBg hide"><div style="width:981px; margin:auto; position:relative; "><!-- --></div></div>
+
+				<script type="text/javascript">
+					var customer = {
+						identifier: 'KNaaCiGXERllLik='
+					};
+				</script>
+		
+		<!-- Rewizja: 799c9e1 Wersja: 13.31.0 -->
+
+	</body>
+	</html>

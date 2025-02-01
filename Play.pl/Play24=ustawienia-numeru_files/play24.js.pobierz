@@ -1,0 +1,673 @@
+/**
+ * User: PWR
+ * Date: 27.09.13
+ * Time: 10:42
+ * To change this template use File | Settings | File Templates.
+ */
+
+
+if (typeof isIfe == "undefined") {
+  var isIfe;
+}
+if (typeof isBootstrap == "undefined" ){
+  var isBootstrap = false;
+}
+
+var PlaySCB     = {}, // Main app
+  Utils       = {},
+  Public      = {};
+
+Public = {
+  "ctrlDown": false,
+  "ctrlKey": 17,
+  "enterKey": 13,
+  "escKey": 27,
+  "vKey": 86,
+  "cKey": 67,
+  "timeOut": false,
+  "height": 0,
+  "delay" : 450,
+  "isPrepaid": false,
+  "isComplainsFaqFromServer": "false",
+  "adminAccount": false,
+  url: {}
+};
+
+
+
+PlaySCB = new function () {
+  var _root = this,
+    _cfg = {
+    };
+
+  var store = {};
+  var EMAIL_REGEX = /^([!#$%&'\*\+\-/=?^_`{|}~\w])+([\.]?[!#$%&'\*\+\-/=?^_`{|}~\w])*@[\w]([\.]?[\-\w])*(\.(\w){2,})$/;
+
+  this.globalStore = function() {};
+
+  this.globalStore.storeValue = function (key, val) {
+    store[key] = val;
+  };
+  this.globalStore.getStoredValue = function (key) {
+    return store[key];
+  };
+  this.globalStore.clearStoredValues = function () {
+    store = {};
+  }
+
+  // msisdn format validator
+  var acceptedMsisdnRegex1 = /^((\+)?48)?\d{9}$/;
+  var acceptedMsisdnRegex2 = /^((\+)?48 )?\d{3} \d{3} \d{3}$/;
+
+  this.msisdnValidator = function() {};
+  this.msisdnValidator.isValid = function(msisdn) {
+    return acceptedMsisdnRegex1.test(msisdn) || acceptedMsisdnRegex2.test(msisdn);
+  }
+
+  this.init = function (opts) {
+    _cfg = $.extend(_cfg, opts);
+
+    $(document).ready(function () {
+      //resize event
+      _root.resizeEvent.bind();
+      _root.buttonEvent.bind();
+      _root.labelCheckboxEvent.bind();
+      //_root.ssoLogout.bind();
+      _root.tooltip.bind();
+    });
+
+  };
+
+  /* -----------------------------------------
+   modals
+   ----------------------------------------- */
+  this.modal = function () {};
+  this.modal.init = function () {};
+  this.modal.show = function(element, callback){
+    if (!isBootstrap) {
+      loadFancy(element, callback);
+    }
+  };
+
+  this.modal.hide = function (element) {
+    $.fancybox.close();
+  };
+
+  this.modal.hideAll = function () {
+    $.fancybox.close();
+  };
+
+  /* -----------------------------------------
+   Element loader indicator
+   ----------------------------------------- */
+  this.loader = function () { };
+  /**
+   * Adds 'floating' loader indicator to given optional element or to entire body.
+   * @param element to be used as container for loader wrapper
+   */
+  this.loader.show = function (element, callback) {
+    //$.Mustache.addFromDom('loader-wrapper');
+    if (element) {
+      element = $(element);
+      element.addClass('loader-wrapper');
+      if(!element.children('.loader-content').length) {
+        element.append('<div class="loader-content" style="display: block;">' +
+          '<div class="loader-wrapper-inner"  style="top:' + (element.height()-52)/2 + 'px">' +
+          '<i class="icon-spin5 f35 font-add"></i>' +
+          '<span class="loader-message"></span>' +
+          '</div> ' +
+          '</div>');
+      }
+    } else {
+      _root.globalLoader.show();
+    }
+    if(callback) {
+      setTimeout(callback, 100);
+    }
+  };
+  this.globalLoader = function () {};
+  this.globalLoader.show = function () {
+    var element = $('body');
+    element.addClass('loader-wrapper');
+    if(!element.children('.loader-content').length) {
+      element.append('<div class="loader-content" style="display: block;">' +
+        '<div class="loader-wrapper-inner global"  style="top:' + window.innerHeight / 2 + 'px">' +
+        '<i class="icon-spin5 f35 font-spinner"></i>' +
+        '<span class="loader-message"></span>' +
+        '</div> ' +
+        '</div>');
+      }
+  };
+  this.globalLoader.hide = function () {
+    var element = $('body');
+    element.removeClass('loader-wrapper');
+    if(element.children('.loader-content').length) {
+      element.children('.loader-content').remove();
+    }
+  };
+
+  /**
+   * Removes all loaders wrapper from page or specified one if provided.
+   * @param element optional parameter, if provided loader wrapper will be removed from it
+   */
+  this.loader.hide = function (element) {
+    if (element) {
+      element = $(element);
+      if (element.hasClass('loader-wrapper')) {
+        element.removeClass('loader-wrapper').find('.loader-content').remove();
+      }
+    } else {
+      _root.globalLoader.hide();
+    }
+  };
+  this.loader.loadDataFromUrl = function(content, url, initAfter, timeout){
+    content = $(content);
+    _root.loader.show(content);
+
+    $.ajax({ type : "GET",
+      contentType: "application/x-www-form-urlencoded;charset=utf-8",
+      url : url,
+      async: true,
+      xhrFields: {
+        withCredentials: false
+      },
+      cache : false,
+      success : function (response) {
+        content.html(response);
+        _root.loader.show(content);
+        if (typeof initAfter === 'function') {
+          initAfter();
+        }
+      },
+      error : function (jqXHR, msg) {
+        _root.loader.hide(content);
+      },
+      timeout: timeout
+    }).fail(function () {
+      _root.loader.hide(content);
+    }).always(function () {
+      _root.loader.hide(content);
+    });
+
+  };
+
+  // --- email validator -----
+  this.emailValidator = function() {};
+  this.emailValidator.validate = function(emailAddress) {
+    if(!emailAddress || !emailAddress.length) {
+      return false;
+    }
+
+    var splitAddress = emailAddress.split('@');
+    if(splitAddress.length != 2) {
+      return false;
+    }
+
+    if(!splitAddress[0].length || splitAddress[0].length > 64) {
+      return false;
+    }
+
+    if(!splitAddress[1].length || splitAddress[1].length > 255) {
+      return false;
+    }
+
+    return EMAIL_REGEX.test(emailAddress);
+  }
+
+
+  /* -----------------------------------------
+   session expired
+   ----------------------------------------- */
+
+  this.sessionUtil = function(){};
+
+  this.sessionUtil.isSessionExpired = function() {
+    sessionRemoteService.isSessionExpired({
+      callback: function(response) {
+        if(response) {
+          window.location.href = "sessionExpired";
+        }
+      }
+    });
+  }
+
+  /* -----------------------------------------
+   IFE
+   ----------------------------------------- */
+  this.ife = function(){}
+  this.ife.event = function(){}
+  this.ife.event.closeTab = function(){
+    if (typeof IFE != 'undefined' && IFE && IFE.event) {
+      IFE.event('closeTab');
+      log('PlaySCB -> IFE.event("closeTab") executed');
+    }
+  };
+
+  /* -----------------------------------------
+   Resize event
+   ----------------------------------------- */
+  this.resizeEvent = function() {};
+  this.resizeEvent.bind = function() {
+    //if in iframe hide scrollbar
+    if ( window.self !== window.top ) {
+      $('body').css('overflow','hidden');
+    }
+
+    Public.height = parseInt($(document).height(), 10);
+
+    Utils.observeDom( $('body')[0] ,function(){
+      if(Public.timeOut !== false) {
+        clearTimeout(Public.timeOut);
+      }
+      Public.timeOut = setTimeout(_root.resizeEvent.execute, Public.delay);
+    });
+  };
+  this.resizeEvent.execute = function() {
+    var newHeight = parseInt($(document).height(),10),
+      modalHeight = 0,
+      modalOffsetTop = 0,
+      moreThanHtmlHeight = false;
+
+    $('.popup:visible, .modal:visible, .modalBox:visible, #fancybox-wrap:visible').each(function(){
+
+      var $this = $(this);
+
+      modalHeight = parseInt($this.outerHeight(),10);
+      modalOffsetTop = parseInt($this.offset().top,10);
+
+      modalHeight = modalHeight + modalOffsetTop;
+      if ( newHeight < modalHeight ) {
+        newHeight = modalHeight;
+        moreThanHtmlHeight = true;
+      }
+    });
+
+    if(newHeight != Public.height) {
+      Public.height = newHeight;
+
+      if ( typeof IFE != 'undefined' && IFE && IFE.event ) {
+
+        if (moreThanHtmlHeight) {
+          IFE.event('resize', {height: newHeight});
+          log('PlaySCB -> IFE.event("resize", {height: '+newHeight+'}) executed');
+        } else {
+          if(newHeight < modalHeight) {
+            IFE.event('resize', {height: modalHeight});
+            log('PlaySCB -> IFE.event("resize", {height: '+modalHeight+'}) executed');
+          } else {
+            IFE.event('resize', {height: newHeight});
+            log('PlaySCB -> IFE.event("resize", {height: ' + newHeight + '}) executed');
+          }
+        }
+      }
+    }
+  };
+
+  /* -----------------------------------------
+    Button event
+   ----------------------------------------- */
+  this.buttonEvent = function() {};
+  this.buttonEvent.mouseOver = false;
+
+  this.buttonEvent.btnClick = function() {
+    var _this = $(this),
+      _input = _this.find('input[type=submit]');
+
+    if(_root.buttonEvent.mouseOver === false){
+      if(!_input.hasClass('disabled')){
+        _input.click();
+      }
+    } else {
+      _this.one('click', _root.buttonEvent.btnClick);
+    }
+  };
+  this.buttonEvent.bind = function() {
+    $('body').one('click', '.btn', _root.buttonEvent.btnClick);
+
+    $('body').on('mouseover', '.btn input[type=submit]', function(){
+      _root.buttonEvent.mouseOver = true;
+    });
+    $('body').on('mouseout', '.btn input[type=submit]', function(){
+      _root.buttonEvent.mouseOver = false;
+    });
+    $('body').on('click', '.btn input[type=submit]', function(e){
+      $('body').one('click', '.btn', _root.buttonEvent.btnClick);
+      if($(this).parent('.btn').hasClass('disabled')){
+        e.preventDefault();
+      }
+    });
+  };
+
+  this.labelCheckboxEvent = function(){};
+  this.labelCheckboxEvent.click = function(e){
+    var _this = $(this),
+        check = _this.prev('.css-checkbox'),
+        browser = $.browser,
+        top = $(document).scrollTop();
+
+    if(_this.hasClass('disabled')){
+      e.preventDefault();
+      return false;
+    }else{
+      if((browser.msie == true && (browser.version * 1) < 9)){
+
+        if(_this.hasClass('css-label-chk')){
+          _this.removeClass('css-label-chk');
+          check[0].checked = null;
+          check.attr('checked', false);
+        } else {
+          if(_this.hasClass('css-label-radio')){
+            $('input[type=radio][name='+check[0].name+']').next('.css-label-radio-chk').removeClass('css-label-radio-chk').addClass('css-label-radio');
+            _this.addClass('css-label-radio-chk').removeClass('css-label-radio');
+            check.trigger('click');
+          } else {
+            _this.addClass('css-label-chk');
+            check[0].checked = true;
+            check.attr('checked', true);
+          };
+        }
+        check.trigger('change');
+      } else {
+        check.trigger('click');
+      }
+      e.preventDefault();
+    }
+  };
+  this.labelCheckboxEvent.change = function(e){
+    var browser = $.browser;
+    //if((browser.msie == true && (browser.version * 1) < 9)){
+      var _this = $(this),
+        check = $(this).next('label');
+      if(_this.hasClass('disabled')){
+        e.preventDefault();
+        return false;
+      } else {
+        if(_this.is(':checked')){
+            check.addClass('css-label-chk').find('.styleRadio').addClass('checked');
+        } else {
+            check.removeClass('css-label-chk').find('.styleRadio').removeClass('checked');
+        }
+      }
+    //}
+  };
+  this.labelCheckboxEvent.bind = function(){
+    $('body').on('click','label.css-label, label.css-label-chk',_root.labelCheckboxEvent.click);
+    $('body').on('click','label.css-label-radio, label.css-label-radio-chk',_root.labelCheckboxEvent.click);
+    $('body').on('change','.css-checkbox',_root.labelCheckboxEvent.change);
+  };
+
+  this.tooltip = new function () {
+    var tooltip = this;
+
+    this.bind = function () {
+      $('[data-toggle=tooltip]').tooltip({clickToClose:false});
+    };
+  };
+
+  this.validation = new function(){
+    var validation = this,
+      numerOnlyRegExp = /[0-9]*$/;
+
+    this.init = function(){
+      validation.numberOnly()
+    };
+    this.numberOnly = function(){
+      $('body').on('focus blur', 'input[numbers-only=""]', function(){
+        var $this = $(this),
+          _value = numerOnlyRegExp.exec($this.val());
+        if(_value == null || _value && _value[0] !== $this.val()) {
+          $this.val(_value ? _value[0] : '');
+        }
+      });
+      $('body').on('keypress', 'input[numbers-only=""]', function(e){
+        var key;
+        var keychar;
+
+        if (window.event) {
+          key = window.event.keyCode;
+        }
+        else if (e) {
+          key = e.which;
+        }
+        else {
+          return true;
+        }
+        keychar = String.fromCharCode(key);
+
+        // keys
+        if ( (key==null) || (key===0) || (key===8) || (key===9) || (key===13) || (key===27) ) {
+          return true;
+        }
+
+        // natural
+        else {
+          if ((("0123456789").indexOf(keychar) > -1)) {
+            return true;
+          }
+          return false;
+        }
+      });
+      $('body').on('keyup', 'input[numbers-only=""]', function(){
+        var $this = $(this),
+          _value = numerOnlyRegExp.exec($this.val());
+        if(_value == null || _value && _value[0] !== $this.val()) {
+          $this.val(_value ? _value[0] : '');
+        }
+      });
+    };
+    validation.init();
+  };
+
+  this.getMobileOperatingSystem = function() {
+    var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+    // Windows Phone must come first because its UA also contains "Android"
+    if (/windows phone/i.test(userAgent)) {
+      return "Windows Phone";
+    }
+
+    if (/android/i.test(userAgent)) {
+      return "Android";
+    }
+
+    // iOS detection from: http://stackoverflow.com/a/9039885/177710
+    if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+      return "iOS";
+    }
+
+    return "unknown";
+  }
+
+  /* Google Analytics */
+
+  this.gaWrap = function (page, container, link) {
+      if(page === undefined) {
+        gtag('event', container, {
+          'event_category': link
+        });
+      } else {
+        gtag('event', container, {
+          'event_label': page,
+          'event_category': link
+        });
+      }
+  }
+
+  this.init();
+
+}
+
+Utils = new function () {
+  // log() function
+  // usage: log('inside coolFunc', this, arguments);
+  // paulirish.com/2009/log-a-lightweight-wrapper-for-consolelog/
+  this.log = function() {
+    log.history = log.history || [];   // store logs to an array for reference
+    log.history.push(arguments);
+    if(this.console) {
+      arguments.callee = arguments.callee.caller;
+      var newarr = [].slice.call(arguments);
+      (typeof console.log === 'object' ? log.apply.call(console.log, console, newarr) : console.log.apply(console, newarr));
+    }
+  }
+
+  /**
+   * Observe DOM changes
+   */
+  this.observeDom = (function(){
+    var MutationObserver = window.MutationObserver || window.WebKitMutationObserver,
+      eventListenerSupported = window.addEventListener;
+
+    var naive = function(callback){
+      var last = document.getElementsByTagName('*');
+      var lastlen = last.length;
+      setTimeout(function check() {
+
+        // get current state of the document
+        var current = document.getElementsByTagName('*');
+        var len = current.length;
+
+        // if the length is different
+        // it's fairly obvious
+        if (len != lastlen) {
+          // just make sure the loop finishes early
+          last = [];
+        }
+
+        // go check every element in order
+        for (var i = 0; i < len; i++) {
+          if (current[i] !== last[i]) {
+            callback();
+            last = current;
+            lastlen = len;
+            break;
+          }
+        }
+
+        // over, and over, and over again
+        setTimeout(check, Public.delay);
+
+      }, Public.delay);
+    }
+
+    return function(obj, callback){
+      if( MutationObserver ){
+        // define a new observer
+        var obs = new MutationObserver(function(mutations, observer){
+          if( mutations[0].addedNodes.length || mutations[0].removedNodes.length || mutations[0].attributeName.length)
+            callback();
+        });
+        // have the observer observe foo for changes in children
+        obs.observe( obj, { childList:true, subtree:true, attributes: true });
+      }
+      else if( eventListenerSupported ){
+        obj.addEventListener('DOMSubtreeModified', callback, false);
+      }
+      else if (document.onpropertychange) {
+        document.onpropertychange = callback;
+      }
+      else { // fallback
+        naive(callback);
+      }
+    }
+  })();
+
+  /*
+   * scroll to top
+   */
+  this.scrollTop = function(px) {
+    var offsetTop = 0;
+    if ( px ) {
+      offsetTop = px;
+    }
+    if ( window.self === window.top ) {
+      //not in iframe
+      $('html,body').animate({
+        scrollTop: offsetTop
+      }, 200);
+    }
+    else {
+      //in iframe
+      parent.scrollTo(0,offsetTop);
+    }
+  }
+
+  this.openLink = function(address) {
+    var is_chrome = navigator.userAgent.indexOf('Chrome') > -1;
+    var is_safari = navigator.userAgent.indexOf("Safari") > -1;
+    if ((is_chrome)&&(is_safari)) {
+      is_safari=false;
+    }
+
+    if(!is_safari) {
+      return window.open(address, '_blank');
+    } else {
+      return window.open(address, '_self');
+    }
+  }
+}
+
+/** Menu loadData **/
+PlaySCB.Context = new function(){
+  var _root = this,
+    _cfg = {
+
+    };
+
+  var _bindEvents = function(){
+    //open ballances modalbox
+    $('body').on('click', '#changeNumberButton.fancy', _changeNumberClick);
+    $('body').on('click', '#currentNumber', _changeNumberDropdownClick);
+    $('body').on('click', 'footer .footerContent .help a', function(){
+      if(Public.adminAccount == false){
+        if($('.infotipBg').length > 0){
+          Utils.scrollTop();
+          PlaySCB.myAccount.Messages.collapseMessage();
+          $.fancybox.close();
+          setTimeout(function(){initHelp();}, 200);
+        }
+      }
+    });
+
+  }
+
+  var _changeNumberClick = function(event){
+    event.preventDefault();
+    PlaySCB.gaWrap('Play24 - moje konto', 'Mój numer', 'Moje numery');
+    ChangeNumberService.showModalWithNumbers();
+  }
+  
+  var _changeNumberDropdownClick = function(event) {
+    event.preventDefault();
+
+    if($(event.target).is('input#filter-input')) {
+      return;
+    }
+
+    ChangeNumberService.getNumbers();
+    PlaySCB.gaWrap('Play24 - moje konto', 'Mój numer', 'Moje numery');
+    $('#numberDropdownContainer', 'body').toggleClass('hide');
+    event.stopImmediatePropagation();
+  }
+
+  var _logoutClick = function(event) {
+    sessionStorage.setItem('nameEncoded', '');
+  }
+
+  this.init = function(opts) {
+    _cfg = $.extend(_cfg, opts);
+
+    $(document).ready(function(){
+      _bindEvents();
+    });
+
+  }
+  this.init({});
+
+};
+
+
+// Assigning public variables with 'PlaySCB' and 'Utils' functions
+var log                                 = Utils.log;
+
+

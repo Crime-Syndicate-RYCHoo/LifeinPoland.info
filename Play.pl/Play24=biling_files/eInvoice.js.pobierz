@@ -1,0 +1,133 @@
+
+$(function () {
+  /*
+   e-invoice
+   */
+
+
+
+
+    function readonlyToogle(input) {
+        if (input.attr('readonly')) {
+            input.removeAttr('readonly');
+        }
+    
+        else {
+            input.attr('readonly','readonly');
+        }
+        return false;
+    }
+    
+    $('.financeEInvoicesShowFormButton').live('click', function(){
+        if (typeof readOnly !== 'undefined'){
+            return;
+        }
+        loadFancy('financeEInvoicesShowForm', comboBox);
+        return false;
+    });
+
+
+  $('body').on('click', '.fContent #financeEInvoiceExecuteForm input[type=submit]', function(e){
+    var $this = $(this),
+      $btn = $this.parent('.button-play24');
+    if(($btn.hasClass('disabled'))){
+      e.preventDefault();
+      return false;
+    } else {
+      $btn.addClass('disabled');
+    }
+  });
+
+  $('body').on('click', '.fContent #financeEInvoiceExecuteForm a.button-play24', function(e){
+    var $btn = $(this);
+    if(($btn.hasClass('disabled'))){
+      e.preventDefault();
+      return false;
+    } else {
+      $btn.addClass('disabled');
+    }
+  });
+
+
+    $('#eInvoiceEmailEdit').live('click', function() {
+      $('.emailEditWrapper input').removeClass('error');
+      $('.emailEditWrapper').removeClass('error');
+      $('.emailEditWrapper .error').parent().remove();
+      $('.emailEditWrapper b').remove();
+      readonlyToogle($('#email'));
+      $('#email').focus();
+      $(this).toggle().siblings('a.link-play24').show();
+      return false;
+    });
+    
+  $('#eInvoiceEmailCancel').live('click', function(){
+    $('.emailEditWrapper input').removeClass('error');
+    $('.emailEditWrapper').removeClass('error');
+    $('.emailEditWrapper .error').parent().remove();
+    $('.emailEditWrapper b').remove();
+    $('.actions input[type=submit]').attr('disabled', false).parent().removeClass('disabled');
+    $('#email').val($('#oldEmail').val());
+    readonlyToogle($('#email'));
+    $('#eInvoiceEmailEdit').toggle().siblings('a.link-play24').hide();
+  });
+
+  $('#eInvoiceEmailSave').live('click', function(){
+    $('.emailEditWrapper input').removeClass('error');
+    $('.emailEditWrapper').removeClass('error');
+    $('.emailEditWrapper .error').parent().remove();
+    $('.emailEditWrapper b').remove();
+    if(!PlaySCB.emailValidator.validate($('#email').val())) {
+      $('.emailEditWrapper').append('<p><span class="error help">Podany adres e-mail jest niepoprawny.</span></p>');
+      $('.emailEditWrapper input').addClass('error');
+      $('.emailEditWrapper').addClass('error');
+      $('.actions input[type=submit]').attr('disabled', true).parent().addClass('disabled');
+    }
+
+    readonlyToogle($('#email'));
+    $('#eInvoiceEmailEdit').toggle().siblings('a.link-play24').hide();
+  });
+
+  $('.invoicesGraph .viewBars').on('click', '.invoiceBar', function(){
+    var $this = $(this),
+      invoiceId = $this.attr('id'),
+      invoiceRow = $('.folding-table.invoices tr[data-rel-bar='+invoiceId+']');
+
+    if(invoiceRow.length > 0){
+      invoiceRow.not('.fold').trigger('click');
+      setTimeout(function(){
+        if(invoiceRow.length > 0){
+          $('html, body').animate({
+            scrollTop: $(invoiceRow.eq(0)).offset().top - 15
+          }, 1000);
+        }
+      },200);
+    } else {
+
+    }
+    return false;
+  });
+
+  var initInvoiceBarTooltip = function(){
+    $('.invoiceBar').each(function() {
+      var $this = $(this),
+        $tooltip = $('.invoice-tooltip', this),
+        pos = Math.min(0, 981 - $this.position().left - $tooltip.outerWidth());
+
+      $tooltip.css('left', pos - 10);
+      $tooltip.css('top', - $tooltip.outerHeight() - 30);
+      $tooltip.append('<div class="dinks"></div>');
+      $('.dinks', $tooltip).css('left', -pos+20);
+
+      $this.hover(function () {
+        $tooltip.stop();
+        $tooltip.fadeIn(100);
+      }, function() {
+        $tooltip.stop();
+        $tooltip.fadeOut(100);
+      });
+
+    });
+  }
+  initInvoiceBarTooltip();
+});
+

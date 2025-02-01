@@ -1,0 +1,479 @@
+
+function Prime() {
+
+  var _root;
+
+  var container = $('section div.container');
+  var primeModal = $('#primeModal');
+  var errorContainer = $('#errorContainer');
+  var componentCfsIdSelector = '#componentCfsId';
+
+  this.init = function(loadComponents) {
+    _root = this;
+
+    if(loadComponents) {
+      _root.loadComponentsList();
+    }
+
+    _root.bindEvents();
+  }
+
+  this.loaderShow = function() {
+    PlaySCB.loader.show('#fancybox-outer');
+  }
+
+  this.loaderHide = function() {
+    PlaySCB.loader.hide('#fancybox-outer');
+  }
+
+  this.cutLongText = function (srcElem, destElem, maxHeight) {
+    var descDiv = destElem;
+    var tempDesc = "";
+    var ending = "...";
+    var splitDesc = srcElem.text().trim().split(" ");
+    for(var part in splitDesc) {
+      descDiv.text(tempDesc + " " + splitDesc[part] + ending);
+      if(descDiv[0].scrollHeight <= maxHeight) {
+        tempDesc = tempDesc + " " + splitDesc[part];
+        descDiv.text(tempDesc);
+      } else {
+        descDiv.text(tempDesc+ending);
+        break;
+      }
+    }
+    srcElem.remove();
+  }
+
+  this.showInitialDetails = function() {
+    var componentCfsId = $(componentCfsIdSelector);
+    if(componentCfsId.length && container.find('.image-tile').length) {
+      var componentCfsIdVal = componentCfsId.val();
+      _root.showComponentDetails(componentCfsIdVal);
+      componentCfsId.remove();
+    }
+  }
+
+  this.validatePrimeActivation  = function(emailAddress, regulations) {
+    if(!emailAddress.length) {
+      $('#emailErrorLabelEmpty').show();
+      primeModal.find('#email').addClass('error');
+      return false;
+    }
+    if(!PlaySCB.emailValidator.validate(emailAddress)) {
+      $('#emailErrorLabel').show();
+      primeModal.find('#email').addClass('error');
+      return false;
+    }
+
+    if(!regulations) {
+      $('#regulationsErrorLabel').show();
+      return false;
+    }
+
+    return true;
+  }
+
+  this.loadComponentsList = function() {
+    primeRemoteService.getPageView({
+      callback: function(response) {
+        PlaySCB.globalLoader.hide();
+        PlaySCB.loader.hide('section.components');
+        if(response.responseStatus.status == 1) {
+          $('#categories').show();
+          container.html(response.view);
+          $(".temp_description").each(function() {
+            _root.cutLongText($(this), $(this).parent().find('.tile-description'), 70);
+          });
+          container.hide().css('visibility', 'visible').slideDown(200);
+          _root.showInitialDetails();
+        } else if(response.responseStatus.status == 12) {
+          container.html(response.view);
+          container.css('visibility', 'visible');
+        } else if(response.responseStatus.status == 13) {
+          container.hide();
+          $('.errorContainer.emptyList').show();
+          $('.presentationTabName').show();
+        } else {
+          container.hide();
+          errorContainer.show();
+          $('.presentationTabName').show();
+        }
+      },
+      errorHandler: function(msg, exception, response) {
+        PlaySCB.globalLoader.hide();
+        dwrHandler.errorHandler(msg, exception, response);
+      },
+      exceptionHandler: function(msg, exception, response) {
+        PlaySCB.globalLoader.hide();
+        dwrHandler.errorHandler(msg, exception, response);
+      }
+    });
+  }
+
+  this.bindEvents = function() {
+
+    container.on('click', '#primeDetailsBtn', function() {
+      var that = $(this);
+      if(that.attr('disabled')) {
+        return false;
+      }
+
+      that.attr('disabled', 'disabled');
+      PlaySCB.globalLoader.show();
+
+      primeRemoteService.getPrimeDetailsModal({
+        callback: function(response) {
+          PlaySCB.globalLoader.hide();
+          that.removeAttr('disabled');
+
+          loadFancy('#primeModal', undefined, undefined, 32, true, false, response.view);
+        },
+        errorHandler: function(msg, exception, response) {
+          PlaySCB.globalLoader.hide();
+          that.removeAttr('disabled');
+          dwrHandler.errorHandler(msg, exception, response);
+        },
+        exceptionHandler: function(msg, exception, response) {
+          PlaySCB.globalLoader.hide();
+          that.removeAttr('disabled');
+          dwrHandler.errorHandler(msg, exception, response);
+        }
+      })
+    });
+
+    primeModal.on('click', '#primeActivateBtn', function() {
+      var that = $(this);
+      if(that.attr('disabled')) {
+        return false;
+      }
+
+      _root.loaderShow();
+      that.attr('disabled', 'disabled');
+      primeRemoteService.getPrimeActivateConfirmModal({
+        callback: function(response) {
+          that.removeAttr('disabled');
+          loadFancy('#primeModal', undefined, undefined, 32, true, false, response.view);
+        },
+        errorHandler: function(msg, exception, response) {
+          that.removeAttr('disabled');
+          dwrHandler.errorHandler(msg, exception, response);
+        },
+        exceptionHandler: function(msg, exception, response) {
+          that.removeAttr('disabled');
+          dwrHandler.errorHandler(msg, exception, response);
+        }
+      });
+    });
+
+    primeModal.on('click', '#primeBackBtn', function() {
+      var that = $(this);
+      if(that.attr('disabled')) {
+        return false;
+      }
+
+      that.attr('disabled', 'disabled');
+      _root.loaderShow();
+
+      primeRemoteService.getPrimeDetailsModal({
+        callback: function(response) {
+          _root.loaderHide();
+          that.removeAttr('disabled');
+
+          loadFancy('#primeModal', undefined, undefined, 32, true, false, response.view);
+        },
+        errorHandler: function(msg, exception, response) {
+          _root.loaderHide();
+          that.removeAttr('disabled');
+          dwrHandler.errorHandler(msg, exception, response);
+        },
+        exceptionHandler: function(msg, exception, response) {
+          _root.loaderHide();
+          that.removeAttr('disabled');
+          dwrHandler.errorHandler(msg, exception, response);
+        }
+      })
+    });
+
+    primeModal.on('click', '#primeActivateConfirmBtn', function() {
+      var that = $(this);
+      if(that.attr('disabled')) {
+        return false;
+      }
+
+      that.attr('disabled', 'disabled');
+
+      primeModal.find('#email').removeClass('error');
+      var email = primeModal.find('#email').val();
+      var regulations = primeModal.find('#regulations').attr('checked') != undefined;
+
+      $('#emailErrorLabel, #emailErrorLabelEmpty, #regulationsErrorLabel').hide();
+
+      if(!_root.validatePrimeActivation(email, regulations)) {
+        that.removeAttr('disabled');
+        return false;
+      }
+
+      _root.loaderShow();
+
+      PlaySCB.globalStore.storeValue("otp_callback", function() {
+        primeRemoteService.activatePrime(email, regulations, {
+          callback: function(response) {
+            if(response.responseStatus.status == 1) {
+              loadFancy('#primeModal', undefined, undefined, 32, true, false, response.view);
+              PlaySCB.globalLoader.show();
+              _root.loadComponentsList();
+            } else if(response.responseStatus.status == 0 ) {
+              loadFancy('#primeModal', undefined, undefined, 32, true, false, response.view);
+            } else {
+              loadFancy('#exceptionMessage');
+            }
+          },
+          errorHandler: function(msg, exception, response) {
+            dwrHandler.errorHandler(msg, exception, response);
+          },
+          exceptionHandler: function(msg, exception, response) {
+            dwrHandler.errorHandler(msg, exception, response);
+          }
+        });
+      });
+
+      otp.check();
+    });
+
+    primeModal.on('click', '#primeDeactivateBtn', function() {
+      var that = $(this);
+      if(that.attr('disabled')) {
+        return false;
+      }
+
+      that.attr('disabled', 'disabled');
+      _root.loaderShow();
+
+      primeRemoteService.getPrimeDeactivateConfirmModal({
+        callback: function(response) {
+          loadFancy('#primeModal', undefined, undefined, 32, true, false, response.view);
+        },
+        errorHandler: function(msg, exception, response) {
+          dwrHandler.errorHandler(msg, exception, response);
+        },
+        exceptionHandler: function(msg, exception, response) {
+          dwrHandler.errorHandler(msg, exception, response);
+        }
+      });
+
+    });
+
+    primeModal.on('click', '#primeDeactivateConfirmBtn', function() {
+      var that = $(this);
+      if(that.attr('disabled')) {
+        return false;
+      }
+
+      that.attr('disabled', 'disabled');
+      _root.loaderShow();
+
+      PlaySCB.globalStore.storeValue("otp_callback", function() {
+        primeRemoteService.deactivatePrime({
+          callback: function(response) {
+            loadFancy('#primeModal', undefined, undefined, 32, true, false, response.view);
+            PlaySCB.globalLoader.show();
+            _root.loadComponentsList();
+          },
+          errorHandler: function(msg, exception, response) {
+            dwrHandler.errorHandler(msg, exception, response);
+          },
+          exceptionHandler: function(msg, exception, response) {
+            dwrHandler.errorHandler(msg, exception, response);
+          }
+        });
+      });
+
+      otp.check();
+    });
+
+    primeModal.on('click', '.insuredDeviceChoice, #changeInsuredDevice', function() {
+      var that = $(this);
+      if(that.attr('disabled')) {
+        return false;
+      }
+
+      that.attr('disabled', 'disabled');
+      _root.loaderShow();
+
+      var cfsId = $(this).attr('data-cfs');
+      var refreshCache = $(this).attr('data-refreshCache');
+
+      primeRemoteService.getInsuranceActivationModal(cfsId, refreshCache, {
+        callback: function(response) {
+          loadFancy('#primeModal', undefined, undefined, 32, true, false, response.view);
+        },
+        errorHandler: function(msg, exception, response) {
+          PlaySCB.globalLoader.hide();
+          dwrHandler.errorHandler(msg, exception, response);
+        },
+        exceptionHandler: function(msg, exception, response) {
+          PlaySCB.globalLoader.hide();
+          dwrHandler.errorHandler(msg, exception, response);
+        }
+      })
+    });
+
+    primeModal.on('click', '#primeInsuranceConfirmBtn', function() {
+      var that = $(this);
+      if (that.attr('disabled')) {
+        return false;
+      }
+
+      that.attr('disabled', 'disabled');
+      _root.loaderShow();
+
+      var deviceImei = primeModal.find('.deviceEntry.selectedDevice').attr('data-imei');
+      var cfsId = $(this).attr('data-cfs');
+
+      primeRemoteService.activateInsurance(deviceImei, cfsId, {
+        callback: function (response) {
+          loadFancy('#primeModal', undefined, undefined, 32, true, false, response.view);
+          PlaySCB.globalLoader.show();
+          _root.loadComponentsList();
+        },
+        errorHandler: function (msg, exception, response) {
+          PlaySCB.globalLoader.hide();
+          dwrHandler.errorHandler(msg, exception, response);
+        },
+        exceptionHandler: function (msg, exception, response) {
+          PlaySCB.globalLoader.hide();
+          dwrHandler.errorHandler(msg, exception, response);
+        }
+      })
+
+    });
+
+    primeModal.on('click', '#insuredDeviceDetails', function() {
+      var that = $(this);
+      if (that.attr('disabled')) {
+        return false;
+      }
+
+      that.attr('disabled', 'disabled');
+      _root.loaderShow();
+
+      var cfsId = $(this).attr('data-cfs');
+      var refreshCache = $(this).attr('data-refreshCache');
+      primeRemoteService.getInsuredDeviceModal(cfsId, refreshCache, {
+        callback: function (response) {
+          loadFancy('#primeModal', undefined, undefined, 32, true, false, response.view);
+        },
+        errorHandler: function (msg, exception, response) {
+          PlaySCB.globalLoader.hide();
+          dwrHandler.errorHandler(msg, exception, response);
+        },
+        exceptionHandler: function (msg, exception, response) {
+          PlaySCB.globalLoader.hide();
+          dwrHandler.errorHandler(msg, exception, response);
+        }
+      });
+    });
+
+    primeModal.on('click', '#primeInsuranceBackBtn', function() {
+      var that = $(this);
+      if (that.attr('disabled')) {
+        return false;
+      }
+
+      that.attr('disabled', 'disabled');
+      _root.loaderShow();
+
+      var cfsId = $(this).attr('data-cfs');
+
+      primeRemoteService.getComponentDetailsModal(cfsId, {
+        callback: function(response) {
+          loadFancy('#primeModal', undefined, undefined, 32, true, false, response.view);
+        },
+        errorHandler: function(msg, exception, response) {
+          PlaySCB.globalLoader.hide();
+          dwrHandler.errorHandler(msg, exception, response);
+        },
+        exceptionHandler: function(msg, exception, response) {
+          PlaySCB.globalLoader.hide();
+          dwrHandler.errorHandler(msg, exception, response);
+        }
+      })
+
+    });
+
+    primeModal.on('click', '.deviceEntry', function() {
+      primeModal.find('.deviceEntry').removeClass('selectedDevice');
+      $(this).addClass('selectedDevice');
+    });
+
+    container.on('click', 'div.component a.detailsLinkPrime', function() {
+      PlaySCB.globalLoader.show();
+      var cfsId = $(this).parents('.component').attr('data-cfs');
+
+      primeRemoteService.getComponentDetailsModal(cfsId, {
+        callback: function(response) {
+          PlaySCB.globalLoader.hide();
+
+          loadFancy('#primeModal', undefined, undefined, 32, true, false, response.view);
+        },
+        errorHandler: function(msg, exception, response) {
+          PlaySCB.globalLoader.hide();
+          dwrHandler.errorHandler(msg, exception, response);
+        },
+        exceptionHandler: function(msg, exception, response) {
+          PlaySCB.globalLoader.hide();
+          dwrHandler.errorHandler(msg, exception, response);
+        }
+      })
+    })
+
+    container.on('click', '.header-box .media', function() {
+      var sectionIndex = $(this).attr('data-sectionIndex');
+      var destElement = $('div[data-comps-sectionIndex='+sectionIndex+']');
+      var elemTop = destElement.offset().top;
+      var scrollDest = elemTop - $(window).height() / 2;
+      $('html, body').animate({scrollTop: scrollDest}, 200, 'swing');
+    });
+
+    primeModal.on('click', '.regulationsArrowDown, .regulationsArrowUp', function() {
+      if(primeModal.find('.regulationsArrowDown').length) {
+        primeModal.find('.regulationsArrowDown').removeClass('regulationsArrowDown').addClass('regulationsArrowUp');
+        primeModal.find('.subregulation').slideDown(200);
+
+        var scrollDest = Math.abs(primeModal.find('.modal-body .regulation').offset().top - primeModal.find('.modal-body').offset().top);
+        primeModal.find('.modal-body').animate({scrollTop: scrollDest}, 200, 'swing');
+      } else {
+        primeModal.find('.regulationsArrowUp').removeClass('regulationsArrowUp').addClass('regulationsArrowDown');
+        primeModal.find('.subregulation').slideUp(200);
+      }
+    });
+
+    primeModal.on('click', '.regulation span.checkbox', function() {
+      if($(this).parent().find('input[type=checkbox]').attr('checked')) {
+        primeModal.find('.subregulation input[type=checkbox]').attr('checked', 'checked');
+        primeModal.find('.subregulation input[type=checkbox]').parent().find('span.checkbox').addClass('checked');
+      } else {
+        primeModal.find('.subregulation input[type=checkbox]').removeAttr('checked');
+        primeModal.find('.subregulation input[type=checkbox]').parent().find('span.checkbox').removeClass('checked');
+      }
+    });
+
+    primeModal.on('click', '.subregulation span.checkbox', function() {
+      if(primeModal.find('.subregulation input[type=checkbox]').filter(':not([checked])').length) {
+        primeModal.find('#regulations').removeAttr('checked');
+        primeModal.find('#regulations').parent().find('span.checkbox').removeClass('checked');
+      } else {
+        primeModal.find('#regulations').attr('checked', 'checked');
+        primeModal.find('#regulations').parent().find('span.checkbox').addClass('checked');
+      }
+    });
+
+  }
+
+}
+
+/*$(document).ready(function() {
+  var prime = new Prime();
+  PlaySCB.globalLoader.show();
+  prime.init();
+});*/

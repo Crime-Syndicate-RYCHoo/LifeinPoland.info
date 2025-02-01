@@ -1,0 +1,854 @@
+if (typeof dwr == 'undefined' || dwr.engine == undefined) throw new Error('You must include DWR engine before including this file');
+
+(function() {
+var c;
+var addedNow = [];
+
+if (!dwr.engine._mappedClasses["UserMessagesBean"]) {
+c = function() {
+this.userInfoList = null;
+this.responseStatus = null;
+}
+c.$dwrClassName = 'UserMessagesBean';
+c.$dwrClassMembers = {};
+c.$dwrClassMembers.userInfoList = {};
+c.$dwrClassMembers.responseStatus = {};
+c.createFromMap = dwr.engine._createFromMap;
+dwr.engine._setObject("UserMessagesBean", c);
+dwr.engine._mappedClasses["UserMessagesBean"] = c;
+addedNow["UserMessagesBean"] = true;
+}
+
+if (!dwr.engine._mappedClasses["VerifyOTPBean"]) {
+c = function() {
+this.password = null;
+}
+c.$dwrClassName = 'VerifyOTPBean';
+c.$dwrClassMembers = {};
+c.$dwrClassMembers.password = {};
+c.createFromMap = dwr.engine._createFromMap;
+dwr.engine._setObject("VerifyOTPBean", c);
+dwr.engine._mappedClasses["VerifyOTPBean"] = c;
+addedNow["VerifyOTPBean"] = true;
+}
+
+if (!dwr.engine._mappedClasses["Account"]) {
+c = function() {
+this.phone = null;
+this.regon = null;
+this.dateActive = null;
+this.registrationType = null;
+this.street = null;
+this.shortCompany = null;
+this.agreementAdditionalData = false;
+this.houseNumber = null;
+this.emailSend = null;
+this.city = null;
+this.streetPrefix = null;
+this.pesel = null;
+this.agreementPhoneBook = false;
+this.rnTypeNumber = null;
+this.refundBankAccountNumber = null;
+this.vipCode = null;
+this.rnIssuer = null;
+this.payMethod = null;
+this.lastName = null;
+this.fax = null;
+this.contactCountry = null;
+this.billDispMeth = null;
+this.apartmentNumber = null;
+this.billStreet = null;
+this.directDebitInfo = null;
+this.agreementTransProcess = false;
+this.billCity = null;
+this.rnRepresentative = null;
+this.billHouseNumber = null;
+this.country = null;
+this.billFmtOpt = null;
+this.accountCategoryWithLegalStatus = null;
+this.rnNumber = null;
+this.email = null;
+this.rnDate = null;
+this.company = null;
+this.idCardType = null;
+this.idCardNumber = null;
+this.accountId = 0;
+this.state = null;
+this.activationDate = null;
+this.paymentCardDetails = null;
+this.agreementOtherOperators = false;
+this.clearingHouse = null;
+this.agreementLocalProcess = false;
+this.billCountry = null;
+this.agreementPayReliability = false;
+this.accountCategoryId = null;
+this.agreements = null;
+this.agreementPersonalProcess = false;
+this.firstName = null;
+this.postCode = null;
+this.representatives = null;
+this.agreementIvrAccess = false;
+this.nationality = null;
+this.primaryPhone = null;
+this.accountType = null;
+this.billApartmentNumber = null;
+this.billPostCode = null;
+this.nip = null;
+this.billState = null;
+this.legalStatusId = null;
+}
+c.$dwrClassName = 'Account';
+c.$dwrClassMembers = {};
+c.$dwrClassMembers.phone = {};
+c.$dwrClassMembers.regon = {};
+c.$dwrClassMembers.dateActive = {};
+c.$dwrClassMembers.registrationType = {};
+c.$dwrClassMembers.street = {};
+c.$dwrClassMembers.shortCompany = {};
+c.$dwrClassMembers.agreementAdditionalData = {};
+c.$dwrClassMembers.houseNumber = {};
+c.$dwrClassMembers.emailSend = {};
+c.$dwrClassMembers.city = {};
+c.$dwrClassMembers.streetPrefix = {};
+c.$dwrClassMembers.pesel = {};
+c.$dwrClassMembers.agreementPhoneBook = {};
+c.$dwrClassMembers.rnTypeNumber = {};
+c.$dwrClassMembers.refundBankAccountNumber = {};
+c.$dwrClassMembers.vipCode = {};
+c.$dwrClassMembers.rnIssuer = {};
+c.$dwrClassMembers.payMethod = {};
+c.$dwrClassMembers.lastName = {};
+c.$dwrClassMembers.fax = {};
+c.$dwrClassMembers.contactCountry = {};
+c.$dwrClassMembers.billDispMeth = {};
+c.$dwrClassMembers.apartmentNumber = {};
+c.$dwrClassMembers.billStreet = {};
+c.$dwrClassMembers.directDebitInfo = {};
+c.$dwrClassMembers.agreementTransProcess = {};
+c.$dwrClassMembers.billCity = {};
+c.$dwrClassMembers.rnRepresentative = {};
+c.$dwrClassMembers.billHouseNumber = {};
+c.$dwrClassMembers.country = {};
+c.$dwrClassMembers.billFmtOpt = {};
+c.$dwrClassMembers.accountCategoryWithLegalStatus = {};
+c.$dwrClassMembers.rnNumber = {};
+c.$dwrClassMembers.email = {};
+c.$dwrClassMembers.rnDate = {};
+c.$dwrClassMembers.company = {};
+c.$dwrClassMembers.idCardType = {};
+c.$dwrClassMembers.idCardNumber = {};
+c.$dwrClassMembers.accountId = {};
+c.$dwrClassMembers.state = {};
+c.$dwrClassMembers.activationDate = {};
+c.$dwrClassMembers.paymentCardDetails = {};
+c.$dwrClassMembers.agreementOtherOperators = {};
+c.$dwrClassMembers.clearingHouse = {};
+c.$dwrClassMembers.agreementLocalProcess = {};
+c.$dwrClassMembers.billCountry = {};
+c.$dwrClassMembers.agreementPayReliability = {};
+c.$dwrClassMembers.accountCategoryId = {};
+c.$dwrClassMembers.agreements = {};
+c.$dwrClassMembers.agreementPersonalProcess = {};
+c.$dwrClassMembers.firstName = {};
+c.$dwrClassMembers.postCode = {};
+c.$dwrClassMembers.representatives = {};
+c.$dwrClassMembers.agreementIvrAccess = {};
+c.$dwrClassMembers.nationality = {};
+c.$dwrClassMembers.primaryPhone = {};
+c.$dwrClassMembers.accountType = {};
+c.$dwrClassMembers.billApartmentNumber = {};
+c.$dwrClassMembers.billPostCode = {};
+c.$dwrClassMembers.nip = {};
+c.$dwrClassMembers.billState = {};
+c.$dwrClassMembers.legalStatusId = {};
+c.createFromMap = dwr.engine._createFromMap;
+dwr.engine._setObject("Account", c);
+dwr.engine._mappedClasses["Account"] = c;
+addedNow["Account"] = true;
+}
+
+if (!dwr.engine._mappedClasses["EAvizoEmailDTO"]) {
+c = function() {
+this.phone = null;
+this.email = null;
+this.refundBankAccount = null;
+this.primary = null;
+this.EAvizoMail = null;
+}
+c.$dwrClassName = 'EAvizoEmailDTO';
+c.$dwrClassMembers = {};
+c.$dwrClassMembers.phone = {};
+c.$dwrClassMembers.email = {};
+c.$dwrClassMembers.refundBankAccount = {};
+c.$dwrClassMembers.primary = {};
+c.$dwrClassMembers.EAvizoMail = {};
+c.createFromMap = dwr.engine._createFromMap;
+dwr.engine._setObject("EAvizoEmailDTO", c);
+dwr.engine._mappedClasses["EAvizoEmailDTO"] = c;
+addedNow["EAvizoEmailDTO"] = true;
+}
+
+if (!dwr.engine._mappedClasses["SelectedContactDwrBean"]) {
+c = function() {
+this.phoneNo = null;
+this.accepted = false;
+this.hash = 0;
+this.name = null;
+}
+c.$dwrClassName = 'SelectedContactDwrBean';
+c.$dwrClassMembers = {};
+c.$dwrClassMembers.phoneNo = {};
+c.$dwrClassMembers.accepted = {};
+c.$dwrClassMembers.hash = {};
+c.$dwrClassMembers.name = {};
+c.createFromMap = dwr.engine._createFromMap;
+dwr.engine._setObject("SelectedContactDwrBean", c);
+dwr.engine._mappedClasses["SelectedContactDwrBean"] = c;
+addedNow["SelectedContactDwrBean"] = true;
+}
+
+if (!dwr.engine._mappedClasses["SimpleDto"]) {
+c = function() {
+this.value = null;
+this.label = null;
+}
+c.$dwrClassName = 'SimpleDto';
+c.$dwrClassMembers = {};
+c.$dwrClassMembers.value = {};
+c.$dwrClassMembers.label = {};
+c.createFromMap = dwr.engine._createFromMap;
+dwr.engine._setObject("SimpleDto", c);
+dwr.engine._mappedClasses["SimpleDto"] = c;
+addedNow["SimpleDto"] = true;
+}
+
+if (!dwr.engine._mappedClasses["ServiceDwrResponse"]) {
+c = function() {
+this.status = null;
+this.nextStep = null;
+this.messages = null;
+}
+c.$dwrClassName = 'ServiceDwrResponse';
+c.$dwrClassMembers = {};
+c.$dwrClassMembers.status = {};
+c.$dwrClassMembers.nextStep = {};
+c.$dwrClassMembers.messages = {};
+c.createFromMap = dwr.engine._createFromMap;
+dwr.engine._setObject("ServiceDwrResponse", c);
+dwr.engine._mappedClasses["ServiceDwrResponse"] = c;
+addedNow["ServiceDwrResponse"] = true;
+}
+
+if (!dwr.engine._mappedClasses["DetailPrintoutDwrBean"]) {
+c = function() {
+this.responseStatus = null;
+}
+c.$dwrClassName = 'DetailPrintoutDwrBean';
+c.$dwrClassMembers = {};
+c.$dwrClassMembers.responseStatus = {};
+c.createFromMap = dwr.engine._createFromMap;
+dwr.engine._setObject("DetailPrintoutDwrBean", c);
+dwr.engine._mappedClasses["DetailPrintoutDwrBean"] = c;
+addedNow["DetailPrintoutDwrBean"] = true;
+}
+
+if (!dwr.engine._mappedClasses["EAvizoEmailBean"]) {
+c = function() {
+this.responseStatus = null;
+this.data = null;
+this.property = null;
+}
+c.$dwrClassName = 'EAvizoEmailBean';
+c.$dwrClassMembers = {};
+c.$dwrClassMembers.responseStatus = {};
+c.$dwrClassMembers.data = {};
+c.$dwrClassMembers.property = {};
+c.createFromMap = dwr.engine._createFromMap;
+dwr.engine._setObject("EAvizoEmailBean", c);
+dwr.engine._mappedClasses["EAvizoEmailBean"] = c;
+addedNow["EAvizoEmailBean"] = true;
+}
+
+if (!dwr.engine._mappedClasses["mutableSortDefinition"]) {
+c = function() {
+this.toggleAscendingOnProperty = false;
+this.property = null;
+this.ascending = false;
+this.ignoreCase = false;
+}
+c.$dwrClassName = 'mutableSortDefinition';
+c.$dwrClassMembers = {};
+c.$dwrClassMembers.toggleAscendingOnProperty = {};
+c.$dwrClassMembers.property = {};
+c.$dwrClassMembers.ascending = {};
+c.$dwrClassMembers.ignoreCase = {};
+c.createFromMap = dwr.engine._createFromMap;
+dwr.engine._setObject("mutableSortDefinition", c);
+dwr.engine._mappedClasses["mutableSortDefinition"] = c;
+addedNow["mutableSortDefinition"] = true;
+}
+
+if (!dwr.engine._mappedClasses["ModifyAccountAddressBean"]) {
+c = function() {
+this.responseStatus = null;
+this.data = null;
+}
+c.$dwrClassName = 'ModifyAccountAddressBean';
+c.$dwrClassMembers = {};
+c.$dwrClassMembers.responseStatus = {};
+c.$dwrClassMembers.data = {};
+c.createFromMap = dwr.engine._createFromMap;
+dwr.engine._setObject("ModifyAccountAddressBean", c);
+dwr.engine._mappedClasses["ModifyAccountAddressBean"] = c;
+addedNow["ModifyAccountAddressBean"] = true;
+}
+
+if (!dwr.engine._mappedClasses["RechargesFormBean"]) {
+c = function() {
+this.to = null;
+this.lastDays = null;
+this.from = null;
+this.radioChoose = null;
+}
+c.$dwrClassName = 'RechargesFormBean';
+c.$dwrClassMembers = {};
+c.$dwrClassMembers.to = {};
+c.$dwrClassMembers.lastDays = {};
+c.$dwrClassMembers.from = {};
+c.$dwrClassMembers.radioChoose = {};
+c.createFromMap = dwr.engine._createFromMap;
+dwr.engine._setObject("RechargesFormBean", c);
+dwr.engine._mappedClasses["RechargesFormBean"] = c;
+addedNow["RechargesFormBean"] = true;
+}
+
+if (!dwr.engine._mappedClasses["InvoiceDetailsBean"]) {
+c = function() {
+this.details = null;
+this.responseStatus = null;
+this.pagedItems = null;
+this.choosenInvoice = null;
+}
+c.$dwrClassName = 'InvoiceDetailsBean';
+c.$dwrClassMembers = {};
+c.$dwrClassMembers.details = {};
+c.$dwrClassMembers.responseStatus = {};
+c.$dwrClassMembers.pagedItems = {};
+c.$dwrClassMembers.choosenInvoice = {};
+c.createFromMap = dwr.engine._createFromMap;
+dwr.engine._setObject("InvoiceDetailsBean", c);
+dwr.engine._mappedClasses["InvoiceDetailsBean"] = c;
+addedNow["InvoiceDetailsBean"] = true;
+}
+
+if (!dwr.engine._mappedClasses["RechargesSearchBean"]) {
+c = function() {
+this.responseStatus = null;
+this.data = null;
+}
+c.$dwrClassName = 'RechargesSearchBean';
+c.$dwrClassMembers = {};
+c.$dwrClassMembers.responseStatus = {};
+c.$dwrClassMembers.data = {};
+c.createFromMap = dwr.engine._createFromMap;
+dwr.engine._setObject("RechargesSearchBean", c);
+dwr.engine._mappedClasses["RechargesSearchBean"] = c;
+addedNow["RechargesSearchBean"] = true;
+}
+
+if (!dwr.engine._mappedClasses["PortalAccessDwrBean"]) {
+c = function() {
+this.page = 0;
+this.responseStatus = null;
+this.msisdnsToMark = null;
+this.htmlRepresentation = null;
+this.userPortalAccess = null;
+}
+c.$dwrClassName = 'PortalAccessDwrBean';
+c.$dwrClassMembers = {};
+c.$dwrClassMembers.page = {};
+c.$dwrClassMembers.responseStatus = {};
+c.$dwrClassMembers.msisdnsToMark = {};
+c.$dwrClassMembers.htmlRepresentation = {};
+c.$dwrClassMembers.userPortalAccess = {};
+c.createFromMap = dwr.engine._createFromMap;
+dwr.engine._setObject("PortalAccessDwrBean", c);
+dwr.engine._mappedClasses["PortalAccessDwrBean"] = c;
+addedNow["PortalAccessDwrBean"] = true;
+}
+
+if (!dwr.engine._mappedClasses["AddressBookEntryBean"]) {
+c = function() {
+this.dateOfBirth = null;
+this.street = null;
+this.state = null;
+this.cellPhone = null;
+this.houseNumber = null;
+this.homePhone = null;
+this.city = null;
+this.name = null;
+this.addressBookEntryId = null;
+this.modUser = null;
+this.workPhone = null;
+this.firstName = null;
+this.countryIsoCode = null;
+this.lastName = null;
+this.marked = false;
+this.fax = null;
+this.website = null;
+this.entryChannel = null;
+this.apartmentNumber = null;
+this.postCode = null;
+this.modChannel = null;
+this.entDate = null;
+this.companyName = null;
+this.importDuplicationName = null;
+this.serialChangeNumber = null;
+this.modDate = null;
+this.email = null;
+this.dateOfBirthStr = null;
+this.ssoUuid = null;
+this.nameWithoutEdit = null;
+this.phoneUniqe = false;
+}
+c.$dwrClassName = 'AddressBookEntryBean';
+c.$dwrClassMembers = {};
+c.$dwrClassMembers.dateOfBirth = {};
+c.$dwrClassMembers.street = {};
+c.$dwrClassMembers.state = {};
+c.$dwrClassMembers.cellPhone = {};
+c.$dwrClassMembers.houseNumber = {};
+c.$dwrClassMembers.homePhone = {};
+c.$dwrClassMembers.city = {};
+c.$dwrClassMembers.name = {};
+c.$dwrClassMembers.addressBookEntryId = {};
+c.$dwrClassMembers.modUser = {};
+c.$dwrClassMembers.workPhone = {};
+c.$dwrClassMembers.firstName = {};
+c.$dwrClassMembers.countryIsoCode = {};
+c.$dwrClassMembers.lastName = {};
+c.$dwrClassMembers.marked = {};
+c.$dwrClassMembers.fax = {};
+c.$dwrClassMembers.website = {};
+c.$dwrClassMembers.entryChannel = {};
+c.$dwrClassMembers.apartmentNumber = {};
+c.$dwrClassMembers.postCode = {};
+c.$dwrClassMembers.modChannel = {};
+c.$dwrClassMembers.entDate = {};
+c.$dwrClassMembers.companyName = {};
+c.$dwrClassMembers.importDuplicationName = {};
+c.$dwrClassMembers.serialChangeNumber = {};
+c.$dwrClassMembers.modDate = {};
+c.$dwrClassMembers.email = {};
+c.$dwrClassMembers.dateOfBirthStr = {};
+c.$dwrClassMembers.ssoUuid = {};
+c.$dwrClassMembers.nameWithoutEdit = {};
+c.$dwrClassMembers.phoneUniqe = {};
+c.createFromMap = dwr.engine._createFromMap;
+dwr.engine._setObject("AddressBookEntryBean", c);
+dwr.engine._mappedClasses["AddressBookEntryBean"] = c;
+addedNow["AddressBookEntryBean"] = true;
+}
+
+if (!dwr.engine._mappedClasses["ServiceConfigConfModal"]) {
+c = function() {
+this.position = null;
+this.id = null;
+this.field = null;
+this.extendedValue = null;
+this.errorMessage = null;
+this.configTitle = null;
+this.possibleValues = null;
+this.fieldValue = null;
+this.changed = false;
+}
+c.$dwrClassName = 'ServiceConfigConfModal';
+c.$dwrClassMembers = {};
+c.$dwrClassMembers.position = {};
+c.$dwrClassMembers.id = {};
+c.$dwrClassMembers.field = {};
+c.$dwrClassMembers.extendedValue = {};
+c.$dwrClassMembers.errorMessage = {};
+c.$dwrClassMembers.configTitle = {};
+c.$dwrClassMembers.possibleValues = {};
+c.$dwrClassMembers.fieldValue = {};
+c.$dwrClassMembers.changed = {};
+c.createFromMap = dwr.engine._createFromMap;
+dwr.engine._setObject("ServiceConfigConfModal", c);
+dwr.engine._mappedClasses["ServiceConfigConfModal"] = c;
+addedNow["ServiceConfigConfModal"] = true;
+}
+
+if (!dwr.engine._mappedClasses["AddressBookBean"]) {
+c = function() {
+this.sort = null;
+this.filtered = false;
+this.entries = null;
+this.visibleEntries = null;
+this.ascending = false;
+this.perPage = null;
+}
+c.$dwrClassName = 'AddressBookBean';
+c.$dwrClassMembers = {};
+c.$dwrClassMembers.sort = {};
+c.$dwrClassMembers.filtered = {};
+c.$dwrClassMembers.entries = {};
+c.$dwrClassMembers.visibleEntries = {};
+c.$dwrClassMembers.ascending = {};
+c.$dwrClassMembers.perPage = {};
+c.createFromMap = dwr.engine._createFromMap;
+dwr.engine._setObject("AddressBookBean", c);
+dwr.engine._mappedClasses["AddressBookBean"] = c;
+addedNow["AddressBookBean"] = true;
+}
+
+if (!dwr.engine._mappedClasses["ConnectionsFormBean"]) {
+c = function() {
+this.periodSinceCount = null;
+this.balanceName = null;
+this.phoneNumber = null;
+this.dateTo = null;
+this.callDirection = null;
+this.connectionType = null;
+this.onlyOffContract = null;
+this.dateFrom = null;
+this.activityType = null;
+this.radioChoose = null;
+}
+c.$dwrClassName = 'ConnectionsFormBean';
+c.$dwrClassMembers = {};
+c.$dwrClassMembers.periodSinceCount = {};
+c.$dwrClassMembers.balanceName = {};
+c.$dwrClassMembers.phoneNumber = {};
+c.$dwrClassMembers.dateTo = {};
+c.$dwrClassMembers.callDirection = {};
+c.$dwrClassMembers.connectionType = {};
+c.$dwrClassMembers.onlyOffContract = {};
+c.$dwrClassMembers.dateFrom = {};
+c.$dwrClassMembers.activityType = {};
+c.$dwrClassMembers.radioChoose = {};
+c.createFromMap = dwr.engine._createFromMap;
+dwr.engine._setObject("ConnectionsFormBean", c);
+dwr.engine._mappedClasses["ConnectionsFormBean"] = c;
+addedNow["ConnectionsFormBean"] = true;
+}
+
+if (!dwr.engine._mappedClasses["BaseDwrTransferData"]) {
+c = function() {
+this.responseStatus = null;
+}
+c.$dwrClassName = 'BaseDwrTransferData';
+c.$dwrClassMembers = {};
+c.$dwrClassMembers.responseStatus = {};
+c.createFromMap = dwr.engine._createFromMap;
+dwr.engine._setObject("BaseDwrTransferData", c);
+dwr.engine._mappedClasses["BaseDwrTransferData"] = c;
+addedNow["BaseDwrTransferData"] = true;
+}
+
+if (!dwr.engine._mappedClasses["DataForGroupMembers"]) {
+c = function() {
+this.groupType = null;
+this.shortName = null;
+}
+c.$dwrClassName = 'DataForGroupMembers';
+c.$dwrClassMembers = {};
+c.$dwrClassMembers.groupType = {};
+c.$dwrClassMembers.shortName = {};
+c.createFromMap = dwr.engine._createFromMap;
+dwr.engine._setObject("DataForGroupMembers", c);
+dwr.engine._mappedClasses["DataForGroupMembers"] = c;
+addedNow["DataForGroupMembers"] = true;
+}
+
+if (!dwr.engine._mappedClasses["TableDataDTO"]) {
+c = function() {
+this.everyMarked = null;
+}
+c.$dwrClassName = 'TableDataDTO';
+c.$dwrClassMembers = {};
+c.$dwrClassMembers.everyMarked = {};
+c.createFromMap = dwr.engine._createFromMap;
+dwr.engine._setObject("TableDataDTO", c);
+dwr.engine._mappedClasses["TableDataDTO"] = c;
+addedNow["TableDataDTO"] = true;
+}
+
+if (!dwr.engine._mappedClasses["ShoppingSearchBean"]) {
+c = function() {
+this.amountTo = null;
+this.description = null;
+this.dateTo = null;
+this.lastDays = null;
+this.amountFrom = null;
+this.dateFrom = null;
+this.filter = false;
+this.datePeriod = null;
+}
+c.$dwrClassName = 'ShoppingSearchBean';
+c.$dwrClassMembers = {};
+c.$dwrClassMembers.amountTo = {};
+c.$dwrClassMembers.description = {};
+c.$dwrClassMembers.dateTo = {};
+c.$dwrClassMembers.lastDays = {};
+c.$dwrClassMembers.amountFrom = {};
+c.$dwrClassMembers.dateFrom = {};
+c.$dwrClassMembers.filter = {};
+c.$dwrClassMembers.datePeriod = {};
+c.createFromMap = dwr.engine._createFromMap;
+dwr.engine._setObject("ShoppingSearchBean", c);
+dwr.engine._mappedClasses["ShoppingSearchBean"] = c;
+addedNow["ShoppingSearchBean"] = true;
+}
+
+if (!dwr.engine._mappedClasses["ConnectionsSearchBean"]) {
+c = function() {
+this.responseStatus = null;
+this.data = null;
+}
+c.$dwrClassName = 'ConnectionsSearchBean';
+c.$dwrClassMembers = {};
+c.$dwrClassMembers.responseStatus = {};
+c.$dwrClassMembers.data = {};
+c.createFromMap = dwr.engine._createFromMap;
+dwr.engine._setObject("ConnectionsSearchBean", c);
+dwr.engine._mappedClasses["ConnectionsSearchBean"] = c;
+addedNow["ConnectionsSearchBean"] = true;
+}
+
+if (!dwr.engine._mappedClasses["StackTraceElement"]) {
+c = function() {
+}
+c.$dwrClassName = 'StackTraceElement';
+c.$dwrClassMembers = {};
+c.createFromMap = dwr.engine._createFromMap;
+dwr.engine._setObject("StackTraceElement", c);
+dwr.engine._mappedClasses["StackTraceElement"] = c;
+addedNow["StackTraceElement"] = true;
+}
+
+if (!dwr.engine._mappedClasses["CyclicDetailPrintoutDwrBean"]) {
+c = function() {
+this.responseStatus = null;
+this.stepDesc = null;
+}
+c.$dwrClassName = 'CyclicDetailPrintoutDwrBean';
+c.$dwrClassMembers = {};
+c.$dwrClassMembers.responseStatus = {};
+c.$dwrClassMembers.stepDesc = {};
+c.createFromMap = dwr.engine._createFromMap;
+dwr.engine._setObject("CyclicDetailPrintoutDwrBean", c);
+dwr.engine._mappedClasses["CyclicDetailPrintoutDwrBean"] = c;
+addedNow["CyclicDetailPrintoutDwrBean"] = true;
+}
+
+if (!dwr.engine._mappedClasses["xmlGregorianCalendarBean"]) {
+c = function() {
+this.minute = 0;
+this.fractionalSecond = null;
+this.timezone = 0;
+this.second = 0;
+this.millisecond = 0;
+this.month = 0;
+this.year = 0;
+this.hour = 0;
+this.day = 0;
+this.eon = null;
+}
+c.$dwrClassName = 'xmlGregorianCalendarBean';
+c.$dwrClassMembers = {};
+c.$dwrClassMembers.minute = {};
+c.$dwrClassMembers.fractionalSecond = {};
+c.$dwrClassMembers.timezone = {};
+c.$dwrClassMembers.second = {};
+c.$dwrClassMembers.millisecond = {};
+c.$dwrClassMembers.month = {};
+c.$dwrClassMembers.year = {};
+c.$dwrClassMembers.hour = {};
+c.$dwrClassMembers.day = {};
+c.$dwrClassMembers.eon = {};
+c.createFromMap = dwr.engine._createFromMap;
+dwr.engine._setObject("xmlGregorianCalendarBean", c);
+dwr.engine._mappedClasses["xmlGregorianCalendarBean"] = c;
+addedNow["xmlGregorianCalendarBean"] = true;
+}
+
+if (!dwr.engine._mappedClasses["GenericDwrTransferData"]) {
+c = function() {
+this.responseStatus = null;
+this.data = null;
+}
+c.$dwrClassName = 'GenericDwrTransferData';
+c.$dwrClassMembers = {};
+c.$dwrClassMembers.responseStatus = {};
+c.$dwrClassMembers.data = {};
+c.createFromMap = dwr.engine._createFromMap;
+dwr.engine._setObject("GenericDwrTransferData", c);
+dwr.engine._mappedClasses["GenericDwrTransferData"] = c;
+addedNow["GenericDwrTransferData"] = true;
+}
+
+if (!dwr.engine._mappedClasses["OTPBean"]) {
+c = function() {
+this.responseStatus = null;
+this.data = null;
+}
+c.$dwrClassName = 'OTPBean';
+c.$dwrClassMembers = {};
+c.$dwrClassMembers.responseStatus = {};
+c.$dwrClassMembers.data = {};
+c.createFromMap = dwr.engine._createFromMap;
+dwr.engine._setObject("OTPBean", c);
+dwr.engine._mappedClasses["OTPBean"] = c;
+addedNow["OTPBean"] = true;
+}
+
+if (!dwr.engine._mappedClasses["InvoiceDetailBean"]) {
+c = function() {
+this.document = null;
+this.einvoice = null;
+this.description = null;
+this.correction = false;
+this.download = false;
+this.relatedNoteAvailable = false;
+this.reIssue = false;
+this.valueBrutto = null;
+this.documentId = null;
+this.documentNo = null;
+}
+c.$dwrClassName = 'InvoiceDetailBean';
+c.$dwrClassMembers = {};
+c.$dwrClassMembers.document = {};
+c.$dwrClassMembers.einvoice = {};
+c.$dwrClassMembers.description = {};
+c.$dwrClassMembers.correction = {};
+c.$dwrClassMembers.download = {};
+c.$dwrClassMembers.relatedNoteAvailable = {};
+c.$dwrClassMembers.reIssue = {};
+c.$dwrClassMembers.valueBrutto = {};
+c.$dwrClassMembers.documentId = {};
+c.$dwrClassMembers.documentNo = {};
+c.createFromMap = dwr.engine._createFromMap;
+dwr.engine._setObject("InvoiceDetailBean", c);
+dwr.engine._mappedClasses["InvoiceDetailBean"] = c;
+addedNow["InvoiceDetailBean"] = true;
+}
+
+if (!dwr.engine._mappedClasses["UserInfo"]) {
+c = function() {
+this.message = null;
+this.ccbsAccountId = null;
+this.accountVisibilityLevels = null;
+this.serviceId = null;
+this.msisdn = null;
+this.ssoPending = false;
+this.fromSso = false;
+this.serviceStatusId = null;
+this.adminMsisdns = null;
+this.labelSource = null;
+}
+c.$dwrClassName = 'UserInfo';
+c.$dwrClassMembers = {};
+c.$dwrClassMembers.message = {};
+c.$dwrClassMembers.ccbsAccountId = {};
+c.$dwrClassMembers.accountVisibilityLevels = {};
+c.$dwrClassMembers.serviceId = {};
+c.$dwrClassMembers.msisdn = {};
+c.$dwrClassMembers.ssoPending = {};
+c.$dwrClassMembers.fromSso = {};
+c.$dwrClassMembers.serviceStatusId = {};
+c.$dwrClassMembers.adminMsisdns = {};
+c.$dwrClassMembers.labelSource = {};
+c.createFromMap = dwr.engine._createFromMap;
+dwr.engine._setObject("UserInfo", c);
+dwr.engine._mappedClasses["UserInfo"] = c;
+addedNow["UserInfo"] = true;
+}
+
+if (!dwr.engine._mappedClasses["javaClass"]) {
+c = function() {
+this.signers = [];
+}
+c.$dwrClassName = 'javaClass';
+c.$dwrClassMembers = {};
+c.$dwrClassMembers.signers = {};
+c.createFromMap = dwr.engine._createFromMap;
+dwr.engine._setObject("javaClass", c);
+dwr.engine._mappedClasses["javaClass"] = c;
+addedNow["javaClass"] = true;
+}
+
+if (addedNow["UserMessagesBean"]) {
+dwr.engine._mappedClasses["UserMessagesBean"].prototype = dwr.engine._delegate(dwr.engine._mappedClasses["BaseDwrTransferData"].prototype);
+dwr.engine._mappedClasses["UserMessagesBean"].prototype.constructor = dwr.engine._mappedClasses["UserMessagesBean"];
+}
+
+if (addedNow["DetailPrintoutDwrBean"]) {
+dwr.engine._mappedClasses["DetailPrintoutDwrBean"].prototype = dwr.engine._delegate(dwr.engine._mappedClasses["BaseDwrTransferData"].prototype);
+dwr.engine._mappedClasses["DetailPrintoutDwrBean"].prototype.constructor = dwr.engine._mappedClasses["DetailPrintoutDwrBean"];
+}
+
+if (addedNow["EAvizoEmailBean"]) {
+dwr.engine._mappedClasses["EAvizoEmailBean"].prototype = dwr.engine._delegate(dwr.engine._mappedClasses["BaseDwrTransferData"].prototype);
+dwr.engine._mappedClasses["EAvizoEmailBean"].prototype.constructor = dwr.engine._mappedClasses["EAvizoEmailBean"];
+}
+
+if (addedNow["ModifyAccountAddressBean"]) {
+dwr.engine._mappedClasses["ModifyAccountAddressBean"].prototype = dwr.engine._delegate(dwr.engine._mappedClasses["BaseDwrTransferData"].prototype);
+dwr.engine._mappedClasses["ModifyAccountAddressBean"].prototype.constructor = dwr.engine._mappedClasses["ModifyAccountAddressBean"];
+}
+
+if (addedNow["InvoiceDetailsBean"]) {
+dwr.engine._mappedClasses["InvoiceDetailsBean"].prototype = dwr.engine._delegate(dwr.engine._mappedClasses["BaseDwrTransferData"].prototype);
+dwr.engine._mappedClasses["InvoiceDetailsBean"].prototype.constructor = dwr.engine._mappedClasses["InvoiceDetailsBean"];
+}
+
+if (addedNow["RechargesSearchBean"]) {
+dwr.engine._mappedClasses["RechargesSearchBean"].prototype = dwr.engine._delegate(dwr.engine._mappedClasses["BaseDwrTransferData"].prototype);
+dwr.engine._mappedClasses["RechargesSearchBean"].prototype.constructor = dwr.engine._mappedClasses["RechargesSearchBean"];
+}
+
+if (addedNow["PortalAccessDwrBean"]) {
+dwr.engine._mappedClasses["PortalAccessDwrBean"].prototype = dwr.engine._delegate(dwr.engine._mappedClasses["BaseDwrTransferData"].prototype);
+dwr.engine._mappedClasses["PortalAccessDwrBean"].prototype.constructor = dwr.engine._mappedClasses["PortalAccessDwrBean"];
+}
+
+if (addedNow["ConnectionsSearchBean"]) {
+dwr.engine._mappedClasses["ConnectionsSearchBean"].prototype = dwr.engine._delegate(dwr.engine._mappedClasses["BaseDwrTransferData"].prototype);
+dwr.engine._mappedClasses["ConnectionsSearchBean"].prototype.constructor = dwr.engine._mappedClasses["ConnectionsSearchBean"];
+}
+
+if (addedNow["CyclicDetailPrintoutDwrBean"]) {
+dwr.engine._mappedClasses["CyclicDetailPrintoutDwrBean"].prototype = dwr.engine._delegate(dwr.engine._mappedClasses["BaseDwrTransferData"].prototype);
+dwr.engine._mappedClasses["CyclicDetailPrintoutDwrBean"].prototype.constructor = dwr.engine._mappedClasses["CyclicDetailPrintoutDwrBean"];
+}
+
+if (addedNow["GenericDwrTransferData"]) {
+dwr.engine._mappedClasses["GenericDwrTransferData"].prototype = dwr.engine._delegate(dwr.engine._mappedClasses["BaseDwrTransferData"].prototype);
+dwr.engine._mappedClasses["GenericDwrTransferData"].prototype.constructor = dwr.engine._mappedClasses["GenericDwrTransferData"];
+}
+
+if (addedNow["OTPBean"]) {
+dwr.engine._mappedClasses["OTPBean"].prototype = dwr.engine._delegate(dwr.engine._mappedClasses["BaseDwrTransferData"].prototype);
+dwr.engine._mappedClasses["OTPBean"].prototype.constructor = dwr.engine._mappedClasses["OTPBean"];
+}
+})();
+
+(function() {
+if (dwr.engine._getObject("accountRemoteService") == undefined) {
+var p;
+
+p = {};
+
+
+
+
+
+p.modifyAccount = function(p0, callback) {
+return dwr.engine._execute(p._path, 'accountRemoteService', 'modifyAccount', arguments);
+};
+
+dwr.engine._setObject("accountRemoteService", p);
+}
+})();
+

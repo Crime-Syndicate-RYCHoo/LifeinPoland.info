@@ -1,0 +1,106 @@
+/**
+ * Created by PWR on 2014-06-26.
+ */
+
+PlaySCB.migration = new function () {
+  var _root = this,
+    _cfg = {
+      modal: '.offerChange',
+      sumbitBtn: '#tariffChange',
+      services: '.migrationOfferChange div.packageMoved div.services'
+    };
+
+  this.init = function (opts) {
+    _cfg = $.extend(_cfg, opts);
+
+    $(document).ready(function () {
+      _root.bindEvents();
+    });
+
+  };
+
+  var _summaryCost = function () {
+    var components = $('.migrationOfferChange div.services input[type=checkbox]:checked'),
+      tariffFinalFee = $('.migrationOfferChange #tariffFinalFee'),
+      offerCost = 0,
+      deafultCost = (tariffFinalFee.attr('data-offer-cost') * 1);
+
+    components.each(function (index, component) {
+      offerCost += ($(component).attr('data-component-cost') * 1);
+    });
+
+    var totalCost = (((deafultCost + offerCost) / 100).toFixed(2)).toString().replace('.', ',');
+    
+    $(tariffFinalFee).html(totalCost);
+  };
+
+  var _validateComponent = function (services) {
+    services = $(services);
+    var maxCount = services.attr('data-component-max-count'),
+      minCount = services.attr('data-component-min-count'),
+      checkedCount = services.find('input[type=checkbox]:checked').length;
+
+    services.removeClass('groupError');
+    if (minCount && maxCount && !(checkedCount >= minCount && checkedCount <= maxCount)) {
+      services.addClass('groupError');
+      return false;
+    }
+
+    return true;
+  };
+
+  var _validate = function () {
+    var components = $(_cfg.services),
+      noError = true;
+
+    $('.migrationOfferChange ul.packageMoved').find('li.groupError').removeClass('groupError');
+
+    components.each(function (index, services) {
+      noError = _validateComponent(services);
+    });
+
+    if (noError === false) {
+      $(_cfg.sumbitBtn).removeClass('disabled');
+    }
+
+    return noError;
+  };
+
+
+
+  this.bindEvents = function () {
+    $('body').off('click', _cfg.sumbitBtn);
+    $('body').on('click', _cfg.sumbitBtn, function (e) {
+      if($(this).hasClass('disabled')) {
+          e.stopImmediatePropagation();
+      }
+      $(this).addClass('disabled');
+      if(_validate()) {
+        var formData = $('#offerChangeForm').serialize();
+        PlaySCB.globalStore.storeValue('otp_callback', function(){
+          $.post('MigrationSummary', formData, function(data) {
+            loadFancy('#migrationSummary');
+            $('#migrationSummary').html(data);
+            $.fancybox.center();
+          });
+        });
+        otp.check();
+      }
+      return false;
+    });
+
+    $('body').on('change', '.migrationOfferChange input[type=checkbox]', function () {
+
+      var noError =  _validateComponent($(this).parents('div.services'));
+      _summaryCost();
+
+
+      if (noError === true) {
+        $(_cfg.sumbitBtn).parent('.btn').removeClass('disabled');
+      } else {
+        $(_cfg.sumbitBtn).parent('.btn').addClass('disabled');
+      }
+    });
+  };
+
+};

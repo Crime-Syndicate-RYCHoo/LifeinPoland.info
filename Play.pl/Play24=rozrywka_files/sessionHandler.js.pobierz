@@ -1,0 +1,134 @@
+/**
+ * @name sessionHandler
+ * @author kfb
+ *
+ * Basic usage:
+ * var sessionHandler = new SessionHandler();
+ * sessionHandler.init();
+ *
+ * additionally you can use methods like sessionHandler.methodName();
+ *
+ * Advanced usage:
+ * var sessionHandler = new SessionHandler({
+ *      "additionalOption": "thatCanOvervriteDefaults"
+ * });
+ */
+function SessionHandler(opts) {
+    var _cfg;
+    var _root;
+
+    //defining defaults and extending/overwriting it with inputted parameters
+    this.config = $.extend({
+        "idleSecons":       300000, // 300000 = 5 min
+        "dwrSeconds":       420000   // 420000 = 7 min
+    }, opts);
+
+    /*Methods definition*/
+    this.log = function() {
+        console.log(_cfg);
+    }
+    /*
+        INITIALIZE
+    */
+    this.init = function() {
+        //assign _root and cofig variables
+        _root = this;
+        _cfg = this.config;
+
+        //bind events on init
+        $(document).ready(function() {
+            //start idle timer
+            _root.idleTimer.start( _cfg.idleSecons );
+            //start DWR timer
+            _root.dwrTimer.start( _cfg.dwrSeconds );
+            //bind events
+            _root.bindEvents();
+        });
+    }
+    /*
+        Bind Events
+    */
+    this.bindEvents = function() {
+        //check if session not expire before click
+        $('.sessionCheck').live('click',function(event){
+            var _this = $(this);
+            if ( _this.hasClass("sessionCheckInProgress") ) {
+                _this.removeClass("sessionCheckInProgress");
+                //open in new window if there is target _blank 
+                if ( _this.attr("target") == "_blank" ) {
+                    var url = _this.attr('href');
+                    window.open(url);
+                }
+                //return true to propagate click
+                return true;
+            } else {
+                _this.addClass("sessionCheckInProgress");
+                //send DWR to check session
+                sessionRemoteService.context({
+                    callback : function() {
+                        _this.trigger('click');
+                    }
+                })
+            }
+            event.stopImmediatePropagation();
+            return false;
+        })
+    }
+    /*
+        Idle Timer
+    */
+    this.idleTimer = {}
+    // Idle Timer methods
+    this.idleTimer.start = function(seconds) {
+        //clear old timer
+        $(document).idleTimer('destroy');
+        //set up new timer
+        $(document).idleTimer(seconds, {
+            startImmediately: true //starts a timeout as soon as the timer is set up
+        });
+    }
+    this.idleTimer.check = function() {
+        return $.data(document,'idleTimer');
+    }
+    //Checking if is active
+    this.isActive = function() {
+        if ( _root.idleTimer.check() == "active" ) {
+            return true;
+        }
+        return false;
+    }
+    /*
+        DWR Timer
+    */
+    this.dwrTimer = {}
+    // DWR Timer methods
+    this.dwrTimer.interval = {}
+    this.dwrTimer.start = function(seconds) {
+        //clear inteval
+        clearInterval(_root.dwrTimer.interval);
+        //set up new interval
+        _root.dwrTimer.interval = setInterval(function(){
+            _root.dwrTimer.check()
+        },seconds);
+    }
+    this.dwrTimer.check = function() {
+        //checking if user is active
+        if ( _root.isActive() ) {
+            //extend session
+            _root.session.extend();
+        }
+    }
+    /*
+        Session
+    */
+    this.session = {}
+    // Session methods
+    this.session.extend = function() {
+        //send DWR extending session
+        sessionRemoteService.extendSession();
+    }
+}
+
+//declaration and auto initialization of sessionHandler
+var sessionHandler = new SessionHandler();
+sessionHandler.init();

@@ -1,0 +1,337 @@
+/**
+ * @name OTP
+ * @author kfb
+ *
+ * Basic usage:
+ * var otp = new Otp();
+ * otp.init();
+ *
+ * additionally you can use methods like otp.methodName();
+ *
+ * Advanced usage:
+ * var otp = new Otp({
+ *      "additionalOption": "thatCanOvervriteDefaults"
+ * });
+ *
+ * Links with OTP verify need to have class .otpCheckLive (if there is LIVE event attached to it) or .otpCheck (if there is CLICK event attached to it)
+ */
+function Otp(opts) {
+    var _cfg;
+    var _root;
+
+    //defining defaults and extending/overwriting it with inputted parameters
+    this.config = $.extend({
+        "root":             this
+    }, opts);
+
+    /*Methods definition*/
+    this.log = function() {
+        console.log(_cfg);
+    }
+    /*
+        INITIALIZE
+    */
+    this.init = function() {
+        //assign _root and cofig variables
+        _root = this;
+        _cfg = this.config;
+        
+        //bind events on init
+        $(document).ready(function() {
+            _root.bindEvents();
+        });
+    }
+    //method for bindings events
+    this.bindEvents = function() {
+        $('#verifyForm .button-play24 input[type=submit]').live('click', function(e){
+          $(this).parent('.button-play24').addClass('disabled');
+          PlaySCB.loader.show('#fancybox-content');
+        });
+        $('.otpCheckLive').live('click', function() {
+            if (typeof readOnly !== 'undefined'){
+                return;
+            }
+            _cfg.event = null;
+            if ( _root.ssoLoaded ) {
+                $(this).addClass("tmpButton");
+                _root.check();
+                return false;
+            }
+        });
+
+        $('.otpCheck').click(function(event){
+            if (typeof readOnly !== 'undefined'){
+                return;
+            }
+            _cfg.event = null;
+            if ( _root.ssoLoaded ) {
+                _cfg.event = event;
+                $(this).addClass("tmpButton");
+                _root.check();
+            }
+        });
+
+        $("#otpVerifyInput").bind("keypress", function(e) {
+            if (e.keyCode == 13) {
+            	_root.verify();
+                return false;
+           }
+        });
+
+        /*$('a[href^=#userDataEdit_]').click(function(event){
+            if (typeof readOnly !== 'undefined'){
+                return;
+            }
+            _cfg.event = null;
+            var container = $(this).parent('td').prev();
+            if ( container.hasClass('editMode') ) {
+                if ( _root.ssoLoaded ) {
+                    _cfg.event = event;
+                    $(this).addClass("tmpButton");
+                    _root.check();
+                }
+            }
+        });*/
+
+        $('#otpVerify').live('click', function() {
+            if(!$(this).hasClass('disabled')){
+                _root.verify();
+            }
+            return false;
+        });
+
+        $('.verifyOTPOpen').live('click', function(){
+            if (typeof readOnly !== 'undefined'){
+                return;
+            }
+            $(this).attr('disabled', 'disabled');
+          PlaySCB.loader.show('#fancybox-outer');
+          // check otp
+          setTimeout(_root.check, 100);
+        });
+
+        $('.verifyOTPOpenFromBody').live('click', function(){
+            //show modal again (with all DWR's checking OTP)
+            _root.originalClick();
+        });
+
+        $('body').on('click', '.fancybox-close, #fancybox-close', function() {
+            if($('#fancybox-content div[id^=otpBox]').length) {
+              PlaySCB.globalStore.storeValue('otp_callback', undefined);
+            }
+        });
+
+        $('body').on('click', '#fancybox-content form[action=verifyOTP] input[type=button]', function() {
+          PlaySCB.loader.show('#fancybox-outer');
+          $.post("verifyOTP", $('#fancybox-content form[action=verifyOTP]').serialize(), function (response) {
+              $('#fancybox-content').html(response);
+              PlaySCB.loader.hide('#fancybox-outer');
+          });
+        });
+
+        $('body').on('click', '#otpNoSmsLink', function() {
+          otpRemoteService.getOtpHelp({
+            callback: function(response) {
+              if(response.responseStatus.status === '1') {
+                loadFancy('#otpBox', undefined, undefined, 30, true, false, response.view)
+              } else {
+                loadFancy('#exceptionMessage');
+              }
+            },
+            errorHandler: function(msg, exception, response) {
+              dwrHandler.errorHandler(msg, exception, response);
+            }
+          });
+        });
+
+    }
+    //Check OTP via DWR
+    this.check = function(cfsId) {
+        PlaySCB.loader.show('#fancybox-outer', function() {
+            otpRemoteService.sendOTP(cfsId, {
+                callback : function(response) {
+                    _root.checkCallback(response);
+                },
+                errorHandler: function(msg, exception, response) {
+                  dwrHandler.errorHandler(msg, exception, response);
+                },
+                async : false
+            });
+        });
+    }
+    this.checkCallback = function(response) {
+      var resp = response.responseStatus.status;  // 0 - error;
+                                                    // 1 = success; 
+                                                    // 2 = validation; 
+                                                    // 3 = otp
+        if (resp == 0 || resp == 2 || resp == 3) {
+            // show OTP modalbox
+            _root.showOtpModal(response.view);
+            _root.stopEvents();
+        }
+        else if (resp == 1) {
+          $('a.tmpButton').removeClass("tmpButton");
+          // check if otp_callback is set, if it is invoke it and return
+          if(PlaySCB.globalStore && PlaySCB.globalStore.getStoredValue('otp_callback')) {
+            var verificationCallback = PlaySCB.globalStore.getStoredValue('otp_callback');
+            _root.clearVerificationCallback();
+            verificationCallback();
+            return true;
+          }
+          return false;
+        }
+
+        return true;
+    }
+    this.showOtpModal = function(modalBody) {
+
+        if (typeof readOnly !== 'undefined'){
+            return;
+        }
+        $('#otpBox').html(modalBody);
+        // clear odl pass
+        var otpPass = $("#otpBox .otp-password")
+        otpPass.val("");
+        // show OTP modalbox
+        loadFancy('#otpBox', function() { otpPass.focus(); });
+    }
+    this.showReverifyModal = function(modalBody) {
+
+        if (typeof readOnly !== 'undefined'){
+            return;
+        }
+        $('#otpBoxReverify').html(modalBody);
+
+        var otpPass = $("#otpBox .otp-password")
+        otpPass.val("");
+        // show OTP reverify modalbox
+        loadFancy('#otpBoxReverify');
+    }
+    //Verify OTP
+    this.verify = function() {
+      if($('#otpVerify').hasClass('disabled')){
+        return false;
+      }
+
+      $('.error_password').hide();
+      $('.empty_input').hide();
+
+      if($('#otpVerifyInput').val().length == 0) {
+          $('.empty_input').show();
+          return false;
+      }
+
+      $('#otpVerify').addClass('disabled');
+
+      PlaySCB.loader.show('#fancybox-outer', function(){
+        var bean = new OTPBean();
+        var data = new VerifyOTPBean();
+        var result;
+        data.password = $('#otpBox input[type=text]').val();
+        bean.data = data;
+
+        otpRemoteService.verifyOTP(bean, {
+          callback : function(response) {
+            _root.verifyCallback(response);
+          },
+          errorHandler: function(msg, exception, response) {
+            dwrHandler.errorHandler(msg, exception, response);
+          },
+          async: false
+        });
+      });
+
+    }
+    //clear errors
+    this.verifyCallback = function(response) {
+        //hide previous errors
+        //_root.clearErrors();
+      var resp = response.responseStatus.status; // 1 = success; 2 = validation; 0 = error
+        if (resp == 1) {
+            // success
+            // show earlier prepared modalbox content
+            $('.modalBoxServices').find('.regulationsLinkSection, .regulationsEmailSection, .regulationsAcceptSection, .regulationsPaymentRequiredSection').remove();
+            // check if otp_callback is set, if it is invoke it and return
+            if(PlaySCB.globalStore && PlaySCB.globalStore.getStoredValue('otp_callback')) {
+              $('a.tmpButton').removeClass("tmpButton");
+              var verificationCallback = PlaySCB.globalStore.getStoredValue('otp_callback');
+              _root.clearVerificationCallback();
+              verificationCallback();
+              return true;
+            }
+            _root.originalClick();
+            return true;
+        } 
+        else if (resp==0 || resp == 2) {                
+            _root.showOtpModal(response.view);
+            setTimeout(function(){$('#otpVerify').removeClass('disabled')},300);
+            return false;
+        } else if(resp==11) {
+          _root.showReverifyModal(response.view);
+          setTimeout(function(){$('#otpVerify').removeClass('disabled')},300);
+          return false;
+        }
+
+        setTimeout(function(){$('#otpVerify').removeClass('disabled')},300);
+        return false;
+    }
+    //clear errors
+//    this.clearErrors = function() {
+//        //hide previous errors
+//        $("#otpBox .error_password, #otpBox .err:not(.otp-password)").text("").addClass("hidden");
+//        $("#otpError .text > p").text( "" );
+//        $("#otpBox .otp-password").removeClass("err");
+//    }
+    this.clearVerificationCallback = function() {
+        PlaySCB.globalStore.storeValue('otp_callback', undefined);
+    }
+    //inline error
+    this.otpInlineError = function(errMsg) {
+        $("#otpBox .error_password").text( errMsg ).removeClass("hidden").show();
+        $("#otpBox .otp-password").addClass("err");
+    }
+    //error in new modalbox
+    this.otpError = function(errMsg) {
+        $("#otpError .text > p").text( errMsg );        
+        // show validation error modal
+        loadFancy('#otpError');
+    }
+    //error in new modalbox with reverify option
+    this.otpErrorWithReverify = function(errMsg) {
+        $("#otpErrorWithReverify .text > p").text( errMsg );        
+        // show validation error modal
+        loadFancy('#otpErrorWithReverify');
+    }
+    //original click
+    this.originalClick = function() {
+        $('a.tmpButton').removeClass("tmpButton").trigger('click');
+    }
+    //stop events
+    this.stopEvents = function() {
+        if ( _cfg.event ) {
+            _cfg.event.stopImmediatePropagation();
+        }
+        return false;
+    }
+    this.ssoLoaded = function() {
+        if($('#changeNumberButton').length > 0) {
+            //wait till SSO is loaded
+            if ( ChangeNumberService.isLoaded() ) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        else {
+            return true;
+        }
+    }
+}
+
+//declaration and auto initialization of OTP
+if (typeof readOnly === 'undefined'){
+    var otp = new Otp();
+    otp.init();
+}
+

@@ -1,0 +1,449 @@
+
+
+PlaySCB.Chart = function () {
+  var _root = this,
+    _cfg = {
+      chartBody: 'body',
+      defaultView: '<div class="axle-x"></div>' +
+          '<div class="axle-y"></div>' +
+          '<div class="prevMonth"><i class="icon-left-dir pl5"></i></div>' +
+          '<div class="nextMonth"><i class="icon-right-dir pr5"></i></div>' +
+          '<div class="data">' +
+            '<div class="wrapper"></div>' +
+          '</div>'
+    };
+
+  this.view = null;
+  this.data = [];
+  this.today = null;
+  this.lastLabel = null;
+  this.initialized = false;
+  this.maxAmount = 0;
+
+  this.init = function (opts) {
+    _cfg = $.extend(_cfg, opts);
+    var body = $(_cfg.chartBody);
+
+    //init
+
+    //async fetch template
+    _root.today = new Date();
+    //check if exist any chart element
+    if ($(".chartView").length) {
+      if (body.hasClass('chartView')) {
+        _root.view = body.find("#chart");
+
+      } else {
+        _root.view = body.find(".chartView #chart");
+      }
+      $('[data-target=#' +  _root.view.parent(".chartView").attr('id') + ']').bind('click', _root.viewToggle);
+
+      _root.bindActions();
+
+      _root.data = sampleData;
+
+      $.each(_root.data, function (index, value) {
+        _root.maxAmount = Math.max(_root.maxAmount, parseFloat(value.amount));
+
+      });
+
+      _root.initialized = true;
+
+    }
+
+  };
+
+  this.bindActions = function () {
+    if (_root.view === null || _root.view === undefined) {
+      _root.init();
+      return false;
+    }
+    _root.view.find(".prevMonth").unbind().bind('click', _root.prevMonthAction);
+    _root.view.find(".nextMonth").unbind().bind('click', _root.nextMonthAction);
+    //rebind actions after transition done.
+    _root.view.find(".wrapper").unbind().bind('transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd', _root.bindActions);
+
+  };
+
+  this.viewToggle = function () {
+    setTimeout(function () {
+      if (_root.view.parent(".chartView").is(":visible")) {
+        _root.generateChart();
+      } else {
+        _root.view.html(_cfg.defaultView);
+        _root.bindActions();
+      }
+    }, 1000);
+  };
+
+  this.generateChart = function () {
+    if (_root.view === null || _root.view === undefined) {
+      _root.init();
+      return false;
+    }
+
+    var month_element = $('<div class="month">' +
+        '<div class="bar"></div>' +
+        '<div class="circle"></div>' +
+        '<div class="label"><span></span><i class="icon-ok  font-ci f18 margin-left"></i></div>' +
+        '<div class="bottom_label"></div>' +
+        '</div>');
+
+    //clear data fiels
+    _root.view.find('.data .wrapper').html('');
+    var i = 0;
+    //append elements into container
+    $.each(_root.data, function (index, value) {
+
+      var tmp = month_element.clone();
+      tmp.attr('data-id', value.id);
+      tmp.css({
+        left: parseInt((i * 125) + i, 0)
+      });
+
+      if (parseInt(value.status, 0) === 0) { //niezaplacona
+        if (parseInt(value.date.month) >= _root.today.getMonth() + 1) {
+          _root.addLabel("Bieżące", i);
+        } else {
+          _root.addLabel("Zaległe", i);
+        }
+        tmp.find('.label i').removeClass('icon-ok font-ci').addClass('icon-attention font-error');
+      } else { //zaplacona
+        _root.addLabel("Opłacone", i);
+      }
+
+      tmp.find('.bottom_label').html(value.date.month + '/' + value.date.year);
+
+      _root.view.find('.data .wrapper').css({width: parseInt(((i + 1) * 125) + (i++), 0)});
+      _root.view.find('.data .wrapper').append(tmp);
+    });
+
+    //animation on height param
+    setTimeout(function () {
+      $.each(_root.data, function (index, value) {
+        var tmp = _root.view.find('.month[data-id="' + value.id + '"]');
+        var elem_height = parseFloat((200 * parseFloat(value.amount)) / _root.maxAmount);
+        tmp.find('.bar').css({
+          height: elem_height
+        });
+      });
+    }, 500);
+
+    setTimeout(function () {
+      $.each(_root.data, function (index, value) {
+        var tmp = _root.view.find('.month[data-id="' + value.id + '"]'),
+          elem_height = parseFloat((200 * parseFloat(value.amount)) / _root.maxAmount);
+
+        tmp.find('.circle').css({
+          display: (parseInt(value.status, 0) === 1 ? "block" : "none"),
+          bottom: elem_height + 40 - 7,
+          opacity: 1
+        });
+
+        tmp.find('.label span').html(value.amount);
+
+        tmp.find('.label').css({
+          bottom: elem_height + 40 + 20,
+          opacity: 1
+        });
+      });
+    }, 1000);
+
+    setTimeout(_root.drawLine, 1100);
+
+    //change css right to left property
+    var extended_area = {
+      left: parseInt(_root.view.find(".wrapper").position().left, 0),
+      width: parseInt(_root.view.find(".wrapper").width(), 0)
+    };
+
+    extended_area.delta = parseInt(extended_area.width -  (Math.abs(extended_area.left) + _root.view.find(".data").width()), 0);
+
+    _root.view.find('.wrapper').css({
+      left: -1 * extended_area.delta
+    });
+
+  };
+
+  this.addLabel = function (value, i) {
+    var nLabel = $('<div class="v-label"> <span>' + value + '</span> </div>');
+
+    if (_root.lastLabel === value) {
+      return false;
+    }
+
+    _root.lastLabel = value;
+    nLabel.css({
+      left: parseInt((i * 125) + i, 0) - 1
+    });
+
+    _root.view.find('.wrapper').append(nLabel);
+  };
+
+  this.drawLine = function () {
+    var lineElement = $('<div class="line"></div>');
+
+    $.each(_root.data, function (index, value) {
+      if (parseInt(value.status, 0) === 1 && _root.data[index + 1] !== undefined && parseInt(_root.data[index + 1].status, 0) === 1) {
+        //make a link
+        var month = _root.view.find('.month[data-id="' + value.id + '"]'),
+          next_month = _root.view.find('.month[data-id="' + _root.data[index + 1].id + '"]'),
+          top = month.height() - 40 - month.find('.bar').height(),
+          bottom = next_month.find('.circle').css('bottom'),
+          x1 = 0,
+          x2 = 0,
+          y1 = 0,
+          y2 = 0,
+          d = 0,
+          deg = 0,
+          rad = 0,
+          _lineElement = lineElement.clone();
+
+        x1 = parseFloat(month.position().left + month.width() / 2);
+        x2 = parseFloat(next_month.position().left + next_month.width() / 2);
+
+        y1 = parseFloat(month.find('.bar').height());
+        y2 = parseFloat(next_month.find('.bar').height());
+
+        deg = Math.atan((y2 - y1) / (x2 - x1));
+        deg = -1 * deg * (180 / Math.PI);
+
+        if (y1 < y2) {
+          rad = deg * (2 * Math.PI) / 360;
+
+
+          if (($.browser.msie === true && parseInt($.browser.version, 0) < 9)) {
+            top = top - (y2 - y1);
+          }
+        } else {
+          rad = deg * (2 * Math.PI) / 360;
+        }
+
+        var costheta = Math.cos(rad),
+          sintheta = Math.sin(rad),
+          M11 = parseFloat(costheta).toFixed(8),
+          M12 = parseFloat(-sintheta).toFixed(8),
+          M21 = parseFloat(sintheta).toFixed(8),
+          M22 = parseFloat(costheta).toFixed(8);
+
+
+        d = parseFloat(Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2))).toFixed(2);
+
+        _lineElement.css('width', d + "px");
+        _lineElement.css('left', x1 + "px");
+        _lineElement.css('z-index', 10000);
+
+        _lineElement.css('top', top + 'px');
+        /* IE8+ - must be on one line, unfortunately */
+        _lineElement.css('-ms-filter', '"progid:DXImageTransform.Microsoft.Matrix(M11=' + M11 + ', M12=' + M12 + ', M21=' + M21 + ', M22=' + M22 + ', SizingMethod=\'auto expand\')"');
+        /* IE6,IE7 - can span multiple lines */
+        _lineElement.css('filter', 'progid:DXImageTransform.Microsoft.Matrix(M11=' + M11 + ', M12=' + M12 + ', M21=' + M21 + ', M22=' + M22 + ',sizingMethod=\'auto expand\')');
+
+
+        _lineElement.css('transform', 'rotate(' + deg + 'deg)');
+        _lineElement.css('-webkit-transform', 'rotate(' + deg + 'deg)');
+        _lineElement.css('-moz-transform', 'rotate(' + deg + 'deg)');
+        _lineElement.css('-ms-transform', 'rotate(' + deg + 'deg)');
+        _lineElement.css('-o-transform', 'rotate(' + deg + 'deg)');
+
+        _root.view.find('.wrapper').append(_lineElement);
+      }
+    });
+
+    setTimeout(function () {
+      _root.view.find('.line').css({
+        opacity: 1,
+        height: 4
+      });
+    }, 500);
+
+  };
+
+  this.prevMonthAction = function () {
+    //prevent from multiply actions
+    //_root.view.find(".prevMonth").unbind();
+
+    var extended_area = {
+      left: parseInt(_root.view.find('.wrapper').position().left, 0)
+    };
+
+    if (extended_area.left < 0) {
+      _root.view.find('.data .wrapper').css({
+        left: extended_area.left + 126
+      }, 200);
+    } else {
+      _root.view.find('.data .wrapper').css({
+        left: 0
+      }, 200);
+    }
+  };
+
+  this.nextMonthAction = function () {
+    //prevent from multiply actions
+    //_root.view.find(".nextMonth").unbind();
+
+    var extended_area = {
+      left: parseInt(_root.view.find('.wrapper').position().left, 0),
+      width: parseInt(_root.view.find('.wrapper').width(), 0)
+    };
+
+    extended_area.delta = parseInt(extended_area.width -  (Math.abs(extended_area.left) + _root.view.find('.data').width()), 0);
+
+    if (extended_area.delta > 0) {
+      _root.view.find('.data .wrapper').css({
+        left: extended_area.left - 126
+      }, 200);
+    }
+
+  };
+
+  //$(document).ready(function () {
+    //_root.init();
+  //});
+};
+
+$(document).ready(function () {
+  var chartView = $('.chartView'),
+    charts = [];
+
+  chartView.each(function (index, value) {
+
+    var id = "#" + $(value).attr('id');
+
+    charts[id] = new PlaySCB.Chart();
+    charts[id].init({
+      chartBody: id
+    });
+  });
+});
+
+
+var sampleData = [{
+  "id": "1",
+  "date": {
+    "month": "05",
+    "year": "2013"
+  },
+  "status": "1",
+  "amount": "69,00"
+}, {
+  "id": "2",
+  "date": {
+    "month": "06",
+    "year": "2013"
+  },
+  "status": "1",
+  "amount": "73,45"
+}, {
+  "id": "3",
+  "date": {
+    "month": "07",
+    "year": "2013"
+  },
+  "status": "1",
+  "amount": "126,12"
+}, {
+  "id": "4",
+  "date": {
+    "month": "08",
+    "year": "2013"
+  },
+  "status": "1",
+  "amount": "69,00"
+}, {
+  "id": "5",
+  "date": {
+    "month": "09",
+    "year": "2014"
+  },
+  "status": "1",
+  "amount": "69,00"
+}, {
+  "id": "6",
+  "date": {
+    "month": "10",
+    "year": "2013"
+  },
+  "status": "1",
+  "amount": "72,22"
+}, {
+  "id": "7",
+  "date": {
+    "month": "11",
+    "year": "2013"
+  },
+  "status": "1",
+  "amount": "69,00"
+}, {
+  "id": "8",
+  "date": {
+    "month": "12",
+    "year": "2013"
+  },
+  "status": "1",
+  "amount": "74,45"
+}, {
+  "id": "9",
+  "date": {
+    "month": "01",
+    "year": "2014"
+  },
+  "status": "1",
+  "amount": "102,45"
+}, {
+  "id": "10",
+  "date": {
+    "month": "02",
+    "year": "2014"
+  },
+  "status": "1",
+  "amount": "69,00"
+}, {
+  "id": "11",
+  "date": {
+    "month": "03",
+    "year": "2014"
+  },
+  "status": "0",
+  "amount": "69,00"
+}, {
+  "id": "12",
+  "date": {
+    "month": "04",
+    "year": "2014"
+  },
+  "status": "0",
+  "amount": "75,12"
+}, {
+  "id": "13",
+  "date": {
+    "month": "05",
+    "year": "2014"
+  },
+  "status": "0",
+  "amount": "215,12"
+}, {
+  "id": "14",
+  "date": {
+    "month": "06",
+    "year": "2014"
+  },
+  "status": "0",
+  "amount": "69,00"
+}, {
+  "id": "15",
+  "date": {
+    "month": "07",
+    "year": "2014"
+  },
+  "status": "0",
+  "amount": "69,00"
+}, {
+  "id": "16",
+  "date": {
+    "month": "08",
+    "year": "2014"
+  },
+  "status": "0",
+  "amount": "69,00"
+}];

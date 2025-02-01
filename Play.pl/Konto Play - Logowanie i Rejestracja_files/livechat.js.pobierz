@@ -1,0 +1,114 @@
+/*
+
+ Autor Ĺukasz Kucharski lkc@touk.pl
+
+
+ * */
+
+(function(){
+
+  window.toukLiveChatProfile = document.getElementById('env').getAttribute('data-env');
+
+  var URL = document.getElementById('env').getAttribute('data-url') + "affiliate/lc/savePartner?p4pc=eshopChat";
+  var DOMAIN = document.getElementById('env').getAttribute('data-domain');
+
+  var topSecretMessageSent = false;
+  window.LC_API = window.LC_API || {};
+
+  function createCookie(name,value,days) {
+    if (days) {
+      var date = new Date();
+      date.setTime(date.getTime()+(days*24*60*60*1000));
+      var expires = "; expires="+date.toGMTString();
+    }
+    else var expires = "";
+    var cookieValue = name+"="+value+expires+";domain="+DOMAIN+"; path=/";
+    log(cookieValue)
+    document.cookie = cookieValue;
+  }
+
+  function readCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0;i < ca.length;i++) {
+      var c = ca[i];
+      while (c.charAt(0)==' ') c = c.substring(1,c.length);
+      if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+    }
+    return null;
+  }
+
+  function eraseCookie(name) {
+    createCookie(name,"",-1);
+  }
+
+  function increaseMessageCount(type){
+    var currentCount = readMessageCount(type)
+    currentCount +=1;
+    createCookie(type, currentCount);
+    return currentCount;
+
+  }
+
+  function readMessageCount(type){
+    var currentCount = readCookie(type)
+    if(currentCount === undefined || currentCount == null) {
+      return 0;
+    } else {
+      return parseInt(currentCount);
+    }
+  }
+
+  function log(text){
+    if(console !== undefined) {
+      console.log(text);
+    }
+  }
+
+  window.LC_API.on_message = function(data)
+  {
+    if(data){
+      increaseMessageCount(data.user_type);
+      var visitorCount = readMessageCount('visitor');
+      var agentCount = readMessageCount('agent') + readMessageCount('supervisor');
+      log("Visitor count: " + visitorCount + " agent count : " + agentCount);
+
+      if(visitorCount > 0 && agentCount > 1 && !topSecretMessageSent){
+        topSecretMessageSent = true;
+        $('body').append("<div style='display: none'><iframe src='"+URL+"' width='0' height='0' frameborder='0'></iframe></div> ")
+      }
+    }
+  };
+
+  window.LC_API.on_chat_ended = function(){
+    eraseCookie('agent');
+    eraseCookie('visitor');
+    eraseCookie('supervisor');
+  };
+
+  window.LC_API.on_after_load = function()
+  {
+    var limitIntervals = 120;
+    var numbersOfIntervals = 0;
+    var hanler = setInterval(function () {
+    var compact = document.getElementById('livechat-compact-container');
+
+      if(compact !== null){
+        clearInterval(hanler);
+
+        var new_a_open = document.createElement('a');
+        new_a_open.setAttribute('title','Otwórz okno chatu z konsultantem Livechat');
+        new_a_open.setAttribute('style','position:absolute; width:44px; height:54px;right:0px;top:31px;margin-right:15px;');
+        new_a_open.setAttribute('href','#');
+        new_a_open.setAttribute("onClick","LC_API.open_chat_window(); return false;");
+        compact.appendChild(new_a_open);
+      }
+
+      if (++numbersOfIntervals >= limitIntervals) {
+        clearInterval(hanler);
+      }
+
+    }, 500);
+  };
+
+}());

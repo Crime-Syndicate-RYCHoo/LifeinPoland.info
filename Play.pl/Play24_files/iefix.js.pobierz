@@ -1,0 +1,36 @@
+function ieFix(){
+	if ($.browser.msie && parseInt($.browser.version) < 9) {
+      jQuery('.lined').not('.wider').find('.services td:nth-child(2)').css({'width': '16%'});
+
+      jQuery('.clean').not('.stats').find('th:last-child, td:last-child').css({'padding-right': '30px', 'text-align': 'right'});
+
+      jQuery('.lined.calls').not('.accounts, .hover').find('td:last-child').css({'width': '105px'});
+
+      jQuery('.lined.calls + .pagination li:nth-child(2)').css({'margin-left': '20px'});
+      jQuery('#loginForm .intPrefix').css({'top':'43px'});
+
+      jQuery('.lined.hover td:first-child, .lined.hover th:first-child, table.lined.hover td:last-child, table.lined.hover th:last-child').css({'width': '15px', 'border': '0'});
+
+      jQuery('.lined.hover tbody tr').hover(function() {
+          $(this).find('td:first-child, td:last-child').css({'border-top': '1px solid @greyish-twelve', 'border-bottom': '1px solid @greyish-twelve'});
+      }, function() {
+          $(this).find('td:first-child, td:last-child').css({'border-top': 'none', 'border-bottom': 'none'});
+      });
+
+      jQuery('.text p:last-child').css({'padding-bottom': '0'});
+
+      jQuery('.clean').not('.stats').find('td:last-child, th:last-child').css({'padding-right': '30px', 'text-align': 'right'});
+      jQuery('.clean.calls td:nth-child(1)').css({'width': '82px'});
+      jQuery('.clean.calls td:nth-child(2)').css({'width': '120px'});
+      jQuery('.clean.calls td:nth-child(3)').css({'width': '35px'});
+      jQuery('.clean.calls td:nth-child(3)').css({'width': '35px'});
+      jQuery('.clean.calls td:nth-child(4)').css({'width': '170px'});
+      jQuery('clean.calls td:nth-child(5)').css({'width': '205px'});
+
+    if (!Array.prototype.indexOf) {
+      Array.prototype.indexOf = function(val) {
+        return jQuery.inArray(val, this);
+      };
+    }
+  }
+};

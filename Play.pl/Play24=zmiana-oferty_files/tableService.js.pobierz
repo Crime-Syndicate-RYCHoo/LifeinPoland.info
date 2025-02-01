@@ -1,0 +1,1244 @@
+/**
+ * @name TableService
+ * @author ddo, instances - kfb
+ *
+ * tableType:
+ * TEST,
+ * MIGRATION,---
+ * OFFERS,---
+ * OTHERS,---
+ * MT,----
+ * PACKAGES,---
+ * ADMIN_ACCOUNTS,
+ * CONNECTION_HISTORY,---
+ * INVOICES,---
+ * PAYMENTS,---
+ * RECHARGES,---
+ * CONTACT_BOOK,
+ * PORTAL_ACCESS,
+ * USER_MSISDNS,
+ * COMPLAINS,
+ * ADDRESS_BOOK_RADIO
+ * ADDRESS_BOOK_CHECKBOX
+ * VIRTUAL_GROUPS
+ * GROUP_MEMBERS
+ *
+ * templateRemoteService.sortData('ADDRESS_BOOK_RADIO')
+ *
+ */
+
+var submissions;
+function TableService() {
+    var _this, tableType, contentHeader, contentWrapper, perPageButton, paginationWrapper, paginationButton,
+        pageCounter, pagePrevButton, pageNextButton, optionsButton, optionsCloseButton, sortButton, searchButton,
+        onlyOffContract, ifShowOnlyOffContract, activePage, pageCount, orderBy, isAscending, everyMarked, rowsNo,
+        actionCheckbox, tmpData, belowTable, actionPanel, allCheckboxes;
+    var initSearch = true;
+    var isInitLoadData = false;
+    var ifShowOnlyOffContract = null;
+    var submissionsInit = false;
+    //var actionArray = [];
+    var localIndicator = '<img src="_img/_section/loader.gif" />';
+    var defaults = {
+        ascIcon: 'icon-up-dir',
+        descIcon: 'icon-down-dir',
+        ascClass: 'asc',
+        descClass: 'desc',
+        ascSuffix: 'Up',
+        descSuffix: 'Down',
+        perPage10: 10,
+        perPage25: 25,
+        perPage50: 50,
+        perPage100: 100,
+        perPageItemsClass: '.items',
+        activeClass: 'selected',
+        pagination: '.pagination',
+        pageButton: '.pagination .page',
+        pagesLimit: 7,
+        pagesCenter: 4
+    }
+    return {
+        countCols: function () {
+            return contentHeader.find('th').length;
+        }, hideIndicator: function () {
+            PlaySCB.loader.hide(contentWrapper);
+            //$('#' + tableType + 'Table .localTableIndicator').remove();
+        }, showIndicator: function () {
+            // contentWrapper.html('<tr class="localTableIndicator"><td class="indicator" colspan="' + this.countCols() + '"></td></tr>');
+            PlaySCB.loader.show(contentWrapper);
+        }, showError: function(message) {
+            if(!$('#userAccountsErrorRow').size()) {
+              contentWrapper.append('<tr id="userAccountsErrorRow"><td colspan="100%"><div class="errorInfoCol pt15 pb15"><span><i class="icon-warning"></i><strong></strong></span></div><td></tr>');
+            }
+            contentWrapper.find('#userAccountsErrorRow strong').text(message);
+        }, showDataEmpty: function(b) {
+            if(b) {
+                $('th.dataTransferHeader .tooltip').hide();
+                $('#summaryDataOutWrapperSpan').show();
+                $('#summaryDataComponentsTable').hide();
+            } else {
+                $('th.dataTransferHeader .tooltip').show();
+                $('#summaryDataOutWrapperSpan').hide();
+                $('#summaryDataComponentsTable').show();
+            }
+        }, appendCustomData: function () {
+            switch (tableType) {
+                case 'CONNECTION_HISTORY':
+                    SearchBean.appendConnectionHistoryData(_this);
+                    break;
+                case 'ADMIN_ACCOUNTS':
+                    $('.adminPortalAccessEditButton').hide();
+                    SearchBean.appendAdminAccountsData(initSearch);
+                    break;
+                case 'CONTACTS':
+                    SearchBean.appendContactsData();
+                    break;
+                case 'VIRTUAL_GROUPS':
+                    SearchBean.appendVirtualGroupsData();
+                    break;
+            }
+        }, appendData: function (response) {
+            this.hideIndicator();
+            $('#tooltipClose').trigger('click');
+            if (response.responseStatus.status != 1) {
+                if (tableType === 'CONNECTION_HISTORY') {
+                    this.hidePagination();
+                    this.showEmptyTableLabel();
+                    this.clearConnectionHistorySummary();
+                } else {
+                    contentWrapper.html(tmpData);
+                }
+                return false;
+            }
+            contentWrapper.html(response.view);
+            $('#' + tableType + 'Table.lined').each(function () {
+                var _this = $(this), headerColCount = _this.find('thead th').length, errorCol = _this.find('tr.tableErrorRow td.errorInfoCol');
+                //ustawienie poprawnej ilosci kolumn dla wiersza z errorem
+                //errorCol.attr('colspan', headerColCount - 1);
+            });
+            $('#' + tableType + 'Table.lined.hover').each(function () {
+                $(this).find('tr td:last-child').after('<td></td>').parent().find('td:first-child').before('<td></td>');
+                $(this).find('tr').bind('mouseover', function () {
+                    $(this).addClass('hv');
+                });
+                $(this).find('tr').bind('mouseleave', function () {
+                    $(this).removeClass('hv');
+                });
+            });
+            if (tableType === 'CONNECTION_HISTORY') {
+                $('tbody .td4 .contact').each(function () {
+                    if ($(this).height() > 32) {
+                        $(this).dotdotdot({
+                            ellipsis: '...', height: 32
+                        });
+                    }
+                });
+            }
+            $(document).bind('click', function (e) {
+                //e.stopImmediatePropagation(); alert($(e.target).attr('class'))
+                //if (!$(e.target).hasClass('financeOptions')) $('.listCont').hide();
+            });
+            init();
+            this.preparePagination();
+            this.prepareSorting();
+            this.prepareCheckbox();
+            this.appendCustomData();
+            if (typeof eInvoice === 'undefined') {
+            } else {
+                console.log(eInvoice);
+                eInvoice.runPayNow($('#' + tableType + 'Table'));
+            }
+            //checking if table is in modal and we need resize
+            if ($('#fancybox-content:not(:empty)').length > 0) {
+                setTimeout(function () {
+                    $.fancybox.resize();
+                }, 300);
+            }
+        }, prepareSorting: function () {
+            sortButton.each(function () {
+                var $this = $(this), $icon = $this.find('.sort-icon');
+                $this.parent().removeClass(defaults.ascClass).removeClass(defaults.descClass);
+                $icon.removeClass('font-ci').addClass(defaults.ascIcon).removeClass(defaults.descIcon).addClass('font-line');
+                if ($this.attr('rel') == orderBy) {
+                    $icon.removeClass('font-line').addClass('font-ci').removeClass(defaults.descIcon).removeClass(defaults.ascIcon);
+                    if (isAscending == false) {
+                        $this.parent().addClass(defaults.descClass);
+                        $icon.addClass(defaults.descIcon);
+                    } else {
+                        $this.parent().addClass(defaults.ascClass);
+                        $icon.addClass(defaults.ascIcon);
+                    }
+                }
+            });
+        }, preparePagination: function () {
+            belowTable.find(defaults.pageButton).each(function () {
+                $(this).remove();
+            });
+            var active = activePage + 1;
+            var pages = pageCount;
+            var index = 0;
+            var max = pages;
+            paginationWrapper.find('li').show();
+            pagePrevButton.show();
+            pageNextButton.show();
+            if (pages > defaults.pagesLimit) {
+                if (active > defaults.pagesCenter) {
+                    index = active - defaults.pagesCenter;
+                }
+                max = index + defaults.pagesLimit;
+                if (active > (pages - (defaults.pagesLimit - defaults.pagesCenter))) {
+                    max = pages;
+                    index = max - defaults.pagesLimit;
+                }
+            }
+            var paginationButtons = '';
+            for (i = index; i < max; i++) {
+                var activeClass = active == (i + 1) ? defaults.activeClass : '';
+                paginationButtons += '<li class="page ' + activeClass + '"><a title="' + (i + 1) + '" href="#"><span>' + (i + 1) + '</span></a></li>';
+            }
+            pagePrevButton.after(paginationButtons);
+            pageCounter.html(active + ' z ' + pages);
+            belowTable.find(defaults.perPageItemsClass + rowsNo).addClass(defaults.activeClass).siblings().removeClass(defaults.activeClass);
+            if (active == 1) {
+                pagePrevButton.hide();
+            }
+            if (active == pages) {
+                pageNextButton.hide();
+            }
+            if (pageCount == 1) {
+                paginationWrapper.find('li').hide();
+            }
+        }, hidePagination: function () {
+            belowTable.find(defaults.pagination).empty();
+        }, showEmptyTableLabel: function () {
+            if (tableType === 'CONNECTION_HISTORY') {
+                contentWrapper.html('');
+                var emptyTableTR = $('<tr>').append($('<td>').attr('colspan', 8)
+                    .attr('class', 'i-text-left')
+                        .append($('<span>'))
+                        .text($('#emptyHistoryLabel').val()));
+                contentWrapper.append(emptyTableTR);
+            }
+        }, clearConnectionHistorySummary: function () {
+            if (tableType === 'CONNECTION_HISTORY') {
+                $('#summaryCallsOutWrapper').text('0 min');
+                $('#summarySmsOutWrapper').text('0');
+                $('#summaryMmsOutWrapper').text('0');
+                $('#summaryDataComponentsTable').hide();
+                $('#summaryProductOutWrapper').text('0');
+                $('#summaryProductOutWrapper').text('0');
+            }
+        }, prepareCheckbox: function () {
+            if (everyMarked) {
+                selectAllCheckbox.attr('checked', 'checked');
+                selectAllCheckboxStyled.addClass('checked');
+            } else {
+                selectAllCheckbox.removeAttr('checked');
+                selectAllCheckboxStyled.removeClass('checked');
+            }
+            var visible = $('#CONTACTSTable tbody td.customCheckbox  input[checked=checked]').length > 0;
+            $('.removeSelectedContacts').toggleClass('disabled', !visible);
+        }, setRowScope: function (rowsPerPage) {
+            this.showIndicator();
+			if (!rowsPerPage) {
+				rowsPerPage = defaults.perPage10;
+			}
+            templateRemoteService.setRowScope(tableType, rowsPerPage, {
+                callback: function (response) {
+                    _this.setParameters(response);
+                    _this.appendData(response);
+                    //if fancybox is open
+                    if ($('#fancybox-content:not(:empty)').length > 0) {
+                        $.fancybox.resize();
+                    }
+                },
+              errorHandler: function(msg, exception, response) {
+                dwrHandler.errorHandler(msg, exception, response);
+              }
+            });
+        }, sortData: function (propertyRel) {
+            this.showIndicator();
+            property = null;
+            if (propertyRel) {
+                if (isAscending == false) {
+                    property = propertyRel + defaults.ascSuffix;
+                } else {
+                    property = propertyRel + defaults.descSuffix;
+                }
+            }
+            templateRemoteService.sortData(tableType, property, {
+                callback: function (response) {
+                    _this.setParameters(response);
+                    _this.appendData(response);
+                    if (isInitLoadData == true) {
+                        isInitLoadData = false;
+                        loadDataCallback();
+                    }
+                },
+              errorHandler: function(msg, exception, response) {
+                dwrHandler.errorHandler(msg, exception, response);
+              }
+            });
+        }, changePage: function (page) {
+            this.showIndicator();
+            $('.belowTable.' + tableType + 'BelowTable').prepend('<div class="blockPagination" style="position: absolute; width: 100%; height: 100%; z-index: 50000; background: none repeat scroll 0% 0% rgba(255, 255, 255, 0.1); display: block;"></div>');
+            pageIn = 0;
+			if (page) {
+				pageIn = page - 1;
+			}
+            templateRemoteService.changePage(tableType, pageIn, {
+                callback: function (response) {
+                    _this.setParameters(response);
+                    _this.appendData(response);
+                    setTimeout(function () {
+                        $('.belowTable.' + tableType + 'BelowTable').find('div.blockPagination').remove();
+                    }, 100);
+                    //if fancybox is open
+                    if ($('#fancybox-content:not(:empty)').length > 0) {
+                        $.fancybox.resize();
+                    }
+                },
+              errorHandler: function(msg, exception, response) {
+                dwrHandler.errorHandler(msg, exception, response);
+              }
+            });
+        }, setActionArray: function (del, page) {
+            actionArray = new Array();
+            $('#' + tableType + 'Table td.actionCheckbox span.checked').each(function () {
+                actionArray.push($(this).siblings('input').attr('name'));
+            });
+			if (!del) {
+				var del = false;
+			}
+            switch (tableType) {
+                case 'CONTACTS':
+                    addressBookService.markChoosed(actionArray, {
+                        callback: function () {
+                            if (del == true) {
+                              _this.removeContacts();
+                            }
+                            if (page && page.changePage === true) {
+                                _this.changePage(page.pageNo);
+                            }
+                        },
+                      errorHandler: function(msg, exception, response) {
+                        dwrHandler.errorHandler(msg, exception, response);
+                      }
+                    });
+                    break;
+                default:
+                    if (page && page.changePage === true) {
+                        _this.changePage(page.pageNo);
+                    }
+                    break;
+            }
+        }, markChoosed: function () {
+            var rowsLength = $('#' + tableType + 'Table tbody > tr').length;
+            actionArray = new Array();
+            var allSelected;	//1 - allSelected True, 2 - allSelected False, 3 - onlyChoosen
+            //checking if "select all" is checked
+            var checkboxes = $(allCheckboxesString);
+            var radios = $(allRadioString);
+            var filtered = $('#searchContactsFiltered').length > 0;
+            if (checkboxes.length > 0) {
+                var selectedCheckboxes = $(allCheckboxesString + '.checked');
+                if (selectedCheckboxes.length == rowsLength && selectAllCheckboxStyled.hasClass("checked")) { //all selected
+                    // if selected a result of search
+                    allSelected = filtered ? 2 : 1;
+                    $('.removeSelectedContacts').removeClass("disabled");
+                } else if (selectedCheckboxes.length == 0 && selectAllCheckboxStyled.not(".checked")) { //non is selected
+                    allSelected = 2;
+                    $('.removeSelectedContacts').addClass("disabled");
+                } else { //custom
+                    allSelected = 3;
+                    selectedCheckboxes.each(function () {
+                        actionArray.push($(this).siblings('input').attr('value'));
+                    });
+                    $('.removeSelectedContacts').removeClass("disabled");
+                }
+            } else if (radios.length > 0) {
+                var selectedRadio = $(allRadioString + '.checked');
+                allSelected = 3;
+                actionArray.push(selectedRadio.siblings('input').attr('value'));
+            }
+            templateRemoteService.setMarksForModel(tableType, allSelected, actionArray, {
+                callback: function () {
+                },
+              errorHandler: function(msg, exception, response) {
+                dwrHandler.errorHandler(msg, exception, response);
+              }
+            });
+        }, removeContacts: function () {
+            templateRemoteService.view('DELETE_CONTACTS', {
+                callback: function (response) {
+                    _this.hideIndicator();
+                    if (response.responseStatus.status == 1) {
+                        if (response.view.length > 0) {
+                            loadFancy('#deleteContactsSummary', function () {
+                                //after
+                                var deleteContactsSummaryTable = $('.deleteContactsSummaryTable tbody');
+                                var contentToToggle = $('#deleteContactsSummary .actions.pad, #deleteContactsSummary .mbInfo');
+                                deleteContactsSummaryTable.html(response.view);
+                                //no entries
+                                if (deleteContactsSummaryTable.find('tr').length > 0) {
+                                    contentToToggle.hide();
+                                    $('.removeSelectedContacts').removeClass('disabled');
+                                    $('.removeSelectedContacts').removeClass('hidden');
+                                } else {
+                                    $('.removeSelectedContacts').addClass('disabled');
+                                    $('.removeSelectedContacts').addClass('hidden');
+                                }
+                            });
+
+                        }
+                    }
+                },
+              errorHandler: function(msg, exception, response) {
+                dwrHandler.errorHandler(msg, exception, response);
+              }
+            });
+        }, setParameters: function (response) {
+			if (response.responseStatus.status != 1) {
+				return false;
+			}
+            activePage = parseInt(response.tableData.page);
+            pageCount = parseInt(response.tableData.pageCount);
+            orderBy = response.tableData.orderBy;
+            isAscending = response.tableData.ascending;
+            rowsNo = response.tableData.rowsNo;
+            everyMarked = response.tableData.everyMarked;
+        }, getData: function () {
+
+            /*initSearch = false;
+             if(isInit) initSearch = isInit;*/
+            switch (tableType) {
+                case 'CONNECTION_HISTORY':
+                    this.showIndicator();
+                    SearchBean.connectionHistorySearchBean(initSearch, ifShowOnlyOffContract, tableType);
+                    break;
+                case 'ADMIN_ACCOUNTS':
+                    this.showIndicator();
+                    SearchBean.adminAccountsSearchData(initSearch, tableType);
+                    break;
+                case 'CONTACTS':
+                    this.showIndicator();
+                    SearchBean.contactsSearchData(initSearch, tableType);
+                    break;
+                case 'COMPLAINS':
+                    this.showIndicator();
+                    var that = this;
+                    complainRemoteService.findComplains(0, 'OPENED', false, {
+                        callback: function () {
+                            _this.sortData();
+                            if (!submissionsInit) {
+                                //declaration and initialization of submissions
+                                submissions = new Submissions();
+                                submissions.init();
+                                submissionsInit = true;
+                            }
+                        },
+                        errorHandler: function(msg, exception, response) {
+                          //handle DWR error
+                          setTimeout(function(){
+                            that.hideIndicator();
+                            dwrHandler.errorHandler(msg, exception, response);
+                          },1000);
+                        },
+                        async: false
+                    })
+                    complainRemoteService.findComplains(0, 'CLOSED', false, {
+                        callback: function () {
+                            _this.sortData();
+                            if (!submissionsInit) {
+                                //declaration and initialization of submissions
+                                submissions = new Submissions();
+                                submissions.init();
+                                submissionsInit = true;
+                            }
+                        },
+                        errorHandler: function(msg, exception, response) {
+                            //handle DWR error
+                            setTimeout(function(){
+                                that.hideIndicator();
+                                dwrHandler.errorHandler(msg, exception, response);
+                            },1000);
+                        },
+                        async: false
+                    })
+                    break;
+                case 'GROUP_MEMBERS':
+                    this.showIndicator();
+                    SearchBean.groupMembersSearchData(initSearch);
+                    break;
+                case 'REPORT_RENEW':
+                    this.showIndicator();
+                    SearchBean.reportRenewSearchData(initSearch);
+                    break;
+                case 'ADMIN_ACCOUNTS_ACCESS':
+                    this.showIndicator();
+                    SearchBean.accountsEditSearchData(initSearch);
+                    break;
+                case 'INSTALLMENT_PLAN':
+                    this.showIndicator();
+                    SearchBean.installmentPlanSearchData(initSearch, tableType);
+                    break;
+                case 'FINANCES_DOCUMENTS':
+                    this.showIndicator();
+                    SearchBean.financialDocumentsSearchData(initSearch);
+                    break;
+                case 'SHOPPING':
+                    this.showIndicator();
+                    SearchBean.shoppingSearchData(initSearch, tableType);
+                    break;
+                default:
+                    this.sortData(initSearch);
+                    break;
+            }
+        }, action: function () {
+            perPageButton.unbind().click(function (event) {
+                event.preventDefault();
+				if ($(this).parent().hasClass(defaults.activeClass)) {
+					return false;
+				}
+                _this.setActionArray();
+                itemsPerPage = parseInt($(this).attr('title'));
+                if (itemsPerPage != defaults.perPage10 && itemsPerPage != defaults.perPage25 && itemsPerPage != defaults.perPage50 && itemsPerPage != defaults.perPage100) {
+                    itemsPerPage = defaults.perPage10;
+                }
+                _this.setRowScope(itemsPerPage);
+                return false;
+            });
+            paginationButton.die().live('click', function (event) {
+                event.preventDefault();
+				if ($(this).parent().hasClass(defaults.activeClass)) {
+					return false;
+				}
+                _this.setActionArray(false, {changePage: true, pageNo: $(this).attr('title')});
+                return false;
+            });
+            pagePrevButton.die().live('click', function (event) {
+                event.preventDefault();
+                _this.setActionArray(false, {changePage: true, pageNo: activePage});
+                return false;
+            });
+            pageNextButton.die().live('click', function (event) {
+                event.preventDefault();
+                _this.setActionArray(false, {changePage: true, pageNo: activePage + 2});
+                return false;
+            });
+            sortButton.die().live('click', function (event) {
+                event.preventDefault();
+                _this.setActionArray();
+                _this.sortData($(this).attr('rel'));
+                return false;
+            });
+            if (searchButton && searchButton.length > 0) {
+                searchButton.die().live('click', function (event) {
+                    event.preventDefault();
+                    _this.setActionArray();
+                    initSearch = false;
+                    ifShowOnlyOffContract = null;
+                    tmpData = contentWrapper.html();
+                    _this.showIndicator();
+                    _this.showDataEmpty(true);
+                    _this.getData();
+                    return false;
+                });
+            }
+            onlyOffContract.change(function () {
+                _this.setActionArray();
+                initSearch = false;
+                if (onlyOffContract.is(":checked")) {
+                    ifShowOnlyOffContract = true;
+                } else {
+                    ifShowOnlyOffContract = false;
+                }
+                tmpData = contentWrapper.html();
+                _this.showIndicator();
+                _this.getData();
+            });
+            //removing selected contacts
+            removeContactsButton.die().live('click', function (event) {
+                event.preventDefault();
+                _this.setActionArray(true);
+                return false;
+            });
+            //adding button event
+            $('.deleteContactsSummaryButton').die().live('click', function (event) {
+                event.preventDefault();
+                addressBookService.removeContacts({
+                        callback: function () {
+                            initSearch = true;
+                            _this.getData();
+                            return false;
+                        }, errorHandler: function (msg, exception, response) {
+                            //handle DWR error
+                            dwrHandler.errorHandler(msg, exception, response);
+                        }
+                    });
+                $.fancybox.close();
+                _this.showIndicator();
+            });
+            //Checkboxes and Radio
+            //normal checkboxes
+            $(allCheckboxesString).die().live('click', function (event) {
+                _this.markChoosed();
+            });
+            //Select all checkboxes
+            selectAllCheckboxStyled.die().live('click', function (event) {
+                _this.markChoosed();
+            });
+            //radio
+            $(allRadioString).live('click', function (event) {
+                _this.markChoosed();
+            });
+            /* @TODO: not global - finances only */
+            optionsButton.die().live('click', function () {
+                $('.listCont').hide();
+                $(this).next().show();
+                return false;
+            });
+            optionsCloseButton.die().live('click', function (e) {
+                $('.listCont').hide();
+                $('.lined.hover tr').trigger('mouseleave');
+                return false;
+            });
+        }, enable: function (opts) {
+            _this = this;
+            tableType = opts.tableType;
+            belowTable = $('#' + tableType + 'Table').nextAll(".belowTable:first");
+            //add class to identify current "Below Table"
+            belowTable.addClass(tableType + 'BelowTable');
+            actionPanel = $('#' + tableType + 'Table').nextAll(".action:first");
+            //add class to identify current "actions"
+            actionPanel.addClass(tableType + 'Actions');
+            contentHeader = $('#' + tableType + 'Table thead tr');
+            contentWrapper = $('#' + tableType + 'Table tbody');
+            perPageButton = $("." + tableType + 'BelowTable ul.perPage li a');
+            paginationWrapper = $("." + tableType + 'BelowTable .pagination');
+            paginationButton = $("." + tableType + 'BelowTable ul.pagination li.page a');
+            pageCounter = $("." + tableType + 'BelowTable ul.pagination .counter');
+            pagePrevButton = $("." + tableType + 'BelowTable ul.pagination .prev');
+            pageNextButton = $("." + tableType + 'BelowTable ul.pagination .next');
+            optionsButton = $('a.financeOptions');
+            optionsCloseButton = $('.listCont a.close');
+            sortButton = $('#' + tableType + 'Table th.sort a');
+            //if there are two tables and we use REL attribute, both search buttons should have it
+            if ($('a.searchBeanButton[rel]').length > 0) {
+                if ($('a.searchBeanButton[rel=' + tableType + ']').length > 0) {
+                    searchButton = $('a.searchBeanButton[rel=' + tableType + ']')
+                }
+            } else {
+                searchButton = $('a.searchBeanButton');
+            }
+            onlyOffContract = $('#onlyOffContract');
+            actionCheckbox = $('#' + tableType + 'Table td.actionCheckbox span.checked');
+            checkedActionCheckbox = $('#' + tableType + 'Table input.actionCheckbox:checked');
+            removeContactsButton = $("." + tableType + 'Actions .removeSelectedContacts');
+            selectAllCheckbox = $('#' + tableType + 'Table th.check .all');
+            selectAllCheckboxStyled = $('#' + tableType + 'Table th.check .checkbox');
+            allCheckboxesString = '#' + tableType + 'Table tbody .customCheckbox span.checkbox';
+            allRadioString = '#' + tableType + 'Table .styleRadio';
+            loadDataCallback = opts.loadDataCallback;
+            isInitLoadData = opts.isInitLoadData;
+            _this.action();
+        }
+    }
+}
+var SearchBean = (function () {
+    return {
+        /**
+         * virtualGroups
+         */
+        appendVirtualGroupsData: function () {
+            if (typeof $('#entriesCountValue').val() === "undefined") {
+                $('#entriesCount').html('(0)');
+            } else {
+                $('#entriesCount').html('(' + $('#entriesCountValue').val() + ')');
+            }
+        }, /**
+         * installmentPlan
+         */
+        installmentPlanSearchData: function (init, tableType) {
+            var agreement = $("#cD-installmentAgreements").val();
+            installmentPlanRemoteService.search(agreement, {
+                callback: function (response) {
+                    tableService[tableType].setParameters(response);
+                    tableService[tableType].appendData(response);
+                    FormService.showValidationErrors(response);
+                    var installmentsQuantity = response.responseStatus.messages.installmentsQuantity;
+                    installmentPlan.changeAgreement.updateInstallmentsQuantity(installmentsQuantity);
+                    //if fancybox is open
+                    if ($('#fancybox-content:not(:empty)').length > 0) {
+                        setTimeout($.fancybox.resize, 200);
+                    }
+                },
+                errorHandler: function (msg, exception, response) {
+                    dwrHandler.errorHandler(msg, exception, response);
+                }
+            });
+        }, /**
+         *
+         */
+
+        shoppingSearchData: function (init, tableType) {
+            var bean = new ShoppingSearchBean();
+            bean.filter = false;
+            shoppingRemoteService.search(bean, {
+                callback: function (response) {
+                    tableService[tableType].setParameters(response);
+                    tableService[tableType].appendData(response);
+                    FormService.showValidationErrors(response);
+                },
+                errorHandler: function (msg, exception, response) {
+                    dwrHandler.errorHandler(msg, exception, response);
+                }
+            });
+        }, /**
+         * FinancialDocuments
+         */
+
+        financialDocumentsSearchData: function () {
+            var docNo = $("#fancybox-content .relatedInvoice").text();
+            financialDocumentsRemoteService.search(docNo, {
+                callback: function (response) {
+                    tableServiceFinancialDocuments.setParameters(response);
+                    tableServiceFinancialDocuments.appendData(response);
+                    FormService.showValidationErrors(response);
+                    //if fancybox is open
+                    if ($('#fancybox-content:not(:empty)').length > 0) {
+                        setTimeout($.fancybox.resize, 200);
+                    }
+                },
+                errorHandler: function (msg, exception, response) {
+                    dwrHandler.errorHandler(msg, exception, response);
+                }
+            });
+        }, /**
+         * accountsEdit
+         */
+        accountsEditSearchData: function (init) {
+            var group = $("#cD-access_group_filter option:selected").attr("rel");
+            portalAccessRemoteService.search(group, {
+                callback: function (response) {
+                    tableAccountsAccessEdit.setParameters(response);
+                    tableAccountsAccessEdit.appendData(response);
+                    FormService.showValidationErrors(response);
+                    //if fancybox is open
+                    if ($('#fancybox-content:not(:empty)').length > 0) {
+                        setTimeout($.fancybox.resize, 200);
+                    }
+                },
+                errorHandler: function (msg, exception, response) {
+                    dwrHandler.errorHandler(msg, exception, response);
+                }
+            });
+        }, /**
+         * reportRenew
+         */
+        reportRenewSearchData: function () {
+            /*var reportId = $("#reportRenewId").val();*/
+            var reportId = $("#reportRenewChooseId").val();
+            billingReportRenewService.search(reportId, {
+                callback: function (response) {
+                    tableServiceRenewReport.setParameters(response);
+                    tableServiceRenewReport.appendData(response);
+                    FormService.showValidationErrors(response);
+                    //if fancybox is open
+                    if ($('#fancybox-content:not(:empty)').length > 0) {
+                        setTimeout($.fancybox.resize, 200);
+                    }
+                },
+                errorHandler: function (msg, exception, response) {
+                    dwrHandler.errorHandler(msg, exception, response);
+                }
+            });
+        }, /**
+         * groupMembers
+         */
+        groupMembersSearchData: function (initSearch, tableType) {
+            var msisdn;
+            if ($('#groupMembersSearch').val() == '' || $('#groupMembersSearch').val() == 'Znajdź numer') {
+                msisdn = null;
+            } else {
+                msisdn = $('#groupMembersSearch').val();
+            }
+            groupMembersRemoteService.search(msisdn, {
+                callback: function (response) {
+                    tableServiceInModal.setParameters(response);
+                    tableServiceInModal.appendData(response);
+                    FormService.showValidationErrors(response);
+                    //if fancybox is open
+                    if ($('#fancybox-content:not(:empty)').length > 0) {
+                        setTimeout($.fancybox.resize, 200);
+                    }
+                },
+                errorHandler: function (msg, exception, response) {
+                    dwrHandler.errorHandler(msg, exception, response);
+                }
+            });
+        }, appendGroupMembersData: function () {
+            $('#groupMembersSearch').val("");
+        }, /**
+         * contacts
+         */
+
+        contactsSearchData: function (init, tableType) {
+            var msisdn, label;
+            if (init == false) {
+                msisdn = $('input#numberInput').val() == '' ? null : $('input#numberInput').val();
+                label = $('input#labelInput').val() == '' ? null : $('input#labelInput').val();
+            }
+            addressBookService.search(msisdn, label, {
+                callback: function (response) {
+                    tableService[tableType].setParameters(response);
+                    tableService[tableType].appendData(response);
+                    FormService.showValidationErrors(response);
+                    $('.removeSelectedContacts').show();
+                    if (parseInt($('#entriesCountValue').val()) > 0) {
+                        $('.removeSelectedContacts').removeClass("hidden");
+                        $('#contactsExport-button').removeClass("hidden");
+                    } else {
+                        $('#contactsExport-button').addClass("hidden");
+                    }
+                },
+                errorHandler: function (msg, exception, response) {
+                    dwrHandler.errorHandler(msg, exception, response);
+                }
+            });
+        }, appendContactsData: function () {
+            $('#entriesCount').html('(' + $('#entriesCountValue').val() + ')');
+        }, /**
+         * adminAccounts
+         */
+
+        adminAccountsSearchData: function (init, tableType) {
+            var msisdn, label, group, account, role;
+            if (init == false) {
+                msisdn = $('input#numberInput').val() == '' ? null : $('input#numberInput').val();
+                label = $('input#labelInput').val() == '' ? null : $('input#labelInput').val();
+                group = $('select[name="groupSelect"]').val() == 0 ? null : $('select[name="groupSelect"]').val();
+                account = $('select[name="accountSelect"]').val() == 0 ? null : $('select[name="accountSelect"]').val();
+                role = $('select[name="roleSelect"]').val() == 0 ? null : $('select[name="roleSelect"]').val();
+            }
+            $('#userAccountsErrorRow').hide();
+
+            adminAccountsRemoteService.search(msisdn, label, group, account, role, {
+
+                callback: function (response) {
+                    if (response.responseStatus.status === "0") {
+                        $('#ADMIN_ACCOUNTSTable tbody tr').remove();
+                        tableService[tableType].showError(response.responseStatus.messages["errorMsg"]);
+                        tableService[tableType].hideIndicator();
+                    } else {
+                        tableService[tableType].setParameters(response);
+                        tableService[tableType].appendData(response);
+                        FormService.showValidationErrors(response);
+                    }
+                },
+                errorHandler: function (msg, exception, response) {
+                    dwrHandler.errorHandler(msg, exception, response);
+                }
+            });
+        }, appendAdminAccountsData: function (init) {
+            if (init == true) {
+                $('label.roleWrapper').find('div.customDropdown').remove();
+                $('label.roleWrapper').append($('#selectsTmp #roleSelect'));
+                $('label.groupWrapper').find('div.customDropdown').remove();
+                $('label.groupWrapper').append($('#selectsTmp #groupSelect'));
+                $('label.accountWrapper').find('div.customDropdown').remove();
+                $('label.accountWrapper').append($('#selectsTmp #accountSelect'));
+            }
+            $('.adminPortalAccessEditButton').show();
+            $('#selectsTmp').parent().remove();
+            $('select').not('.multiple').customDropdown();
+        }, /**
+         * connectionHistory
+         */
+
+        connectionHistorySearchBean: function (init, ifShowOnlyOffContract, tableType) {
+            var bean = new ConnectionsSearchBean();
+            var form = new ConnectionsFormBean();
+            $('section#connectionHistory .showStatistic').addClass('hide').hide();
+            if (init == true) {
+                form.radioChoose = $('input[name="radioChoose"]:checked').val();
+                form.periodSinceCount = $('input#lastDays').val();
+                form.onlyOffContract = "clear";
+                form.dateFrom = $('#from').val();
+                form.dateTo = $('#to').val();
+            } else if (ifShowOnlyOffContract === true) {
+                form.radioChoose = $('input[name="radioChoose"]:checked').val();
+                form.periodSinceCount = $('input#lastDays').val();
+                form.dateFrom = $('#from').val();
+                form.dateTo = $('#to').val();
+                form.phoneNumber = $('#phoneNumber').val();
+                form.activityType = $('select[name="activityType"]').val();
+                form.connectionType = $('select[name="connectionType"]').val();
+                form.callDirection = $('select[name="callDirection"]').val();
+                form.balanceName = $('select[name="balanceName"]').val();
+                form.onlyOffContract = "true";
+            } else if (ifShowOnlyOffContract === false) {
+                form.radioChoose = $('input[name="radioChoose"]:checked').val();
+                form.periodSinceCount = $('input#lastDays').val();
+                form.dateFrom = $('#from').val();
+                form.dateTo = $('#to').val();
+                form.phoneNumber = $('#phoneNumber').val();
+                form.activityType = $('select[name="activityType"]').val();
+                form.connectionType = $('select[name="connectionType"]').val();
+                form.callDirection = $('select[name="callDirection"]').val();
+                form.balanceName = $('select[name="balanceName"]').val();
+                form.onlyOffContract = "false";
+            } else {
+                form.radioChoose = $('input[name="radioChoose"]:checked').val();
+                form.periodSinceCount = $('input#lastDays').val();
+                form.dateFrom = $('#from').val();
+                form.dateTo = $('#to').val();
+                form.phoneNumber = $('#phoneNumber').val();
+                form.activityType = $('select[name="activityType"]').val();
+                form.connectionType = $('select[name="connectionType"]').val();
+                form.callDirection = $('select[name="callDirection"]').val();
+                form.balanceName = $('select[name="balanceName"]').val();
+            }
+            bean.data = form;
+            connectionsRemoteService.search(bean, {
+                callback: function (response) {
+                    tableService[tableType].setParameters(response);
+                    tableService[tableType].appendData(response);
+                    FormService.showValidationErrors(response);
+                },
+                errorHandler: function (msg, exception, response) {
+                    dwrHandler.errorHandler(msg, exception, response);
+                }
+            });
+        }, appendConnectionHistoryData: function (tableService) {
+            var radioChoose = $('input[name="radioChoose"]:checked').val();
+            if ($('#summaryCallsOut').length > 0) {
+                $('#summaryDateWrapper').html('<strong>' + $('#summaryFormDate').val() + ' - ' + $('#summaryToDate').val() + '</strong>');
+                $('#summaryCallsOutWrapper').html($('#summaryCallsOut').val()
+                    .replace('min.', 'min')
+                    .replace('00:00', '0')
+                );
+                $('#summarySmsOutWrapper').html($('#summarySmsOut').val().replace('szt.', ''));
+                $('#summaryDataOutWrapper').html($('#summaryDataOut').val());
+                $('#summaryProductOutWrapper').html($('#summaryProductOut').val().replace('szt.', ''));
+                $('#summaryCoreWrapper').html($('#summaryCore').val()
+                    .replace('PLN', '')
+                    .replace('0,00', '0')
+                    .replace('zł', '')
+                );
+                $('#summaryMmsOutWrapper').html($('#summaryMmsOut').val().replace('szt.', ''));
+                // show/hide data transfer elements if they equal to '0 kb'
+                $('#summaryDataOutPacketWrapper').html($('#summaryDataOutPacket').val());
+                $('#summaryDataOutBalanceWrapper').html($('#summaryDataOutBalance').val());
+                $('#summaryMoneyOutBalanceWrapper').html($('#summaryMoneyOutBalance').val());
+                $('#summaryDataOutPacketWrapper, #dataOutPacketHeader, #dataOutPacketTooltipText').attr('hidden', $('#summaryDataOutPacket').val().indexOf('0 ', 0) == 0);
+                $('#summaryDataOutBalanceWrapper, #dataOutBalanceHeader, #dataOutBalanceTooltipText, #summaryMoneyOutBalanceWrapper, #moneyOutBalanceHeader').attr('hidden', $('#summaryDataOutBalance').val().indexOf('0 ', 0) == 0 && $('#summaryMoneyOutBalance').val().indexOf('0 ', 0) == 0);
+
+                if ($('#summaryDataOutBalance').val().indexOf('0 ', 0) == 0 && $('#summaryMoneyOutBalance').val().indexOf('0,00', 0) == 0) {
+                    $('#dataOutBalanceHeader').parent().parent().hide();
+                } else {
+                    $('#dataOutBalanceHeader').parent().parent().show();
+                }
+
+                $('#dataOutCombinedHeader, #dataOutTooltip').attr('hidden', $('#summaryDataOut').val().indexOf('0 ', 0) == 0 && $('#summaryDataOutPacket').val().indexOf('0 ', 0) == 0 && $('#summaryDataOutBalance').val().indexOf('0 ', 0) == 0);
+                var dataTableVisible = !($('#summaryDataOut').val().indexOf('0 ', 0) == 0 && $('#summaryDataOutPacket').val().indexOf('0 ', 0) == 0 && ($('#summaryDataOutBalance').val().indexOf('0 ', 0) == 0 && $('#summaryMoneyOutBalance').val().indexOf('0,00', 0) == 0) && ($('#summaryDataOutPacket').val().indexOf('0 ', 0) == 0 && $('#summaryDataOutBalance').val().indexOf('0 ', 0) == 0));
+                if (tableService) {
+                    tableService.showDataEmpty(!dataTableVisible);
+                }
+            }
+            if (!($('#billingCount').val() == 0 || $('#billingCount').val() == '0')) {
+                $('section#connectionHistory .showStatistic').removeClass('hide').show();
+            }
+            $('label.balanceName').find('div.customDropdown').remove();
+            $('label.balanceName').append($('#balanceNameTmp').html());
+            $('#balanceNameTmp').parent().remove();
+            $('select').not('.multiple').customDropdown();
+        }
+    }
+})();
+/**
+ * templates:
+ * ADDRESS_BOOK_CHECKBOX
+ * ADDRESS_BOOK_RADIO
+ */
+
+var AddressBookListService = (function () {
+    var _this, modalId, allContactsCheckboxWrapper, counterWrapper, descriptionWrapper, contentWrapper, bookListType, customType, addressBookSearch;
+    var initial = true;
+    var searchLabel = null;
+    var searchStrategy = null;
+    var actionObj = new Object();
+    var localIndicator = '<img src="_img/_section/loader.gif" class="localAddressBookIndicator" />';
+    return {
+        hideIndicator: function () {
+            //contentWrapper.html('')
+        }, showIndicator: function () {
+            PlaySCB.loader.show(contentWrapper);
+        }, getActionObj: function () {
+            return actionObj;
+        }, cleanActionObj: function () {
+            actionObj = new Object();
+        }, getSelected: function () {
+            var elems = $('#contactListToAddresBook li label.customCheckbox').find('span.checkbox');
+            if (elems) {
+                elems.each(function () {
+                    var name = $(this).prev().attr('name');
+                    var msisdn = $(this).next().find('span.n').text();
+                    var label = $(this).next().find('span.label').text();
+                    actionObj[name] = {
+                        msisdn: msisdn, label: label, checked: $(this).hasClass('checked') == true ? true : false
+                    }
+                });
+            } else {
+                $('#contactListToAddresBook li').find('input[type=checkbox].newCheckbox').each(function () {
+                    var name = $(this).attr('name');
+                    var msisdn = $(this).next().find('span.n').text();
+                    var label = $(this).next().find('span.label').text();
+                    actionObj[name] = {
+                        msisdn: msisdn, label: label, checked: $(this).attr('checked') == 'checked' ? true : false
+                    }
+                });
+            }
+        }, setSelected: function () {
+            var allCount = 0, checkedCount = 0, elems = $('#contactListToAddresBook li label.customCheckbox').find('span.checkbox');
+            if (elems) {
+                $('#contactListToAddresBook li label.customCheckbox').find('span.checkbox').each(function () {
+                    $(this).siblings("input[type=checkbox]").attr('checked', false);
+                    allCount++
+                    var name = $(this).prev().attr('name');
+                    if (typeof actionObj[name] != 'undefined' && actionObj[name].checked == true) {
+                        $(this).addClass('checked');
+                        $(this).prev().attr('checked', 'checked');
+                        checkedCount++;
+                    }
+                });
+            } else {
+                $('#contactListToAddresBook li').find('input[type=checkbox].newCheckbox').each(function () {
+                    allCount++
+                    var name = $(this).attr('name');
+                    if (typeof actionObj[name] != 'undefined' && actionObj[name].checked == true) {
+                        $(this).attr('checked', true);
+                        checkedCount++;
+                    }
+                });
+            }
+            if (allCount == checkedCount && allCount > 0) {
+                $('[name=allContacts]').attr('checked', 'checked');
+                $('label.allContacts span.checkbox').addClass('checked');
+            } else {
+                $('[name=allContacts]').removeAttr('checked');
+                $('label.allContacts span.checkbox').removeClass('checked');
+            }
+            _this.checkboxCount();
+        }, checkboxCount: function () {
+            var allCheckedCount = 0;
+            for (key in actionObj) {
+				if (actionObj[key].checked == true) {
+					allCheckedCount++
+				}
+            }
+            actionObj['counter'] = allCheckedCount;
+            $('#contactListToAddresBook .info strong').text(allCheckedCount);
+        }, appendData: function (response) {
+              contentWrapper.html(response.view);
+            if (bookListType == 'ADDRESS_BOOK_CHECKBOX') {
+                allContactsCheckboxWrapper.show();
+                counterWrapper.show();
+                descriptionWrapper.show();
+                // importList();
+                init();
+                $('[name=allContacts]').bind('change', function () {
+                    $('.importList').find('input[type=checkbox]').attr('checked', $(this).is(':checked')).trigger('change');
+                    $('#contactListToAddresBook li input[type=checkbox].newCheckbox').each(function () {
+                        var name = $(this).attr('name');
+                        var msisdn = $(this).next().find('span.n').text();
+                        var label = $(this).next().find('span.label').text();
+                        actionObj[name] = {
+                            msisdn: msisdn, label: label, checked: ($(this).next().hasClass('css-label-chk') == true ) ? true : false
+                        }
+                    });
+                    _this.getSelected();
+                    _this.checkboxCount();
+                });
+                $('.importList').bind('change', function () {
+                });
+                $('#contactListToAddresBook li label.customCheckbox').find('span.checkbox').live('click', function () {
+                    var name = $(this).prev().attr('name');
+                    var msisdn = $(this).next().find('span.n').text();
+                    var label = $(this).next().find('span.label').text();
+                    actionObj[name] = {
+                        msisdn: msisdn, label: label, checked: !$(this).hasClass('checked') == true ? true : false
+                    }
+                    _this.checkboxCount();
+                });
+                $('#contactListToAddresBook li input[type=checkbox].newCheckbox').unbind('click').on('click', function () {
+                    var name = $(this).attr('name');
+                    var msisdn = $(this).next().find('span.n').text();
+                    var label = $(this).next().find('span.label').text();
+                    actionObj[name] = {
+                        msisdn: msisdn, label: label, checked: ($(this).next().hasClass('css-label-chk') == false ) ? true : false
+                    }
+                    _this.checkboxCount();
+                });
+                _this.setSelected();
+            } else {
+                allContactsCheckboxWrapper.hide();
+                counterWrapper.hide();
+                descriptionWrapper.hide();
+                contentWrapper.find('input[type=radio]').not('input[type=radio].newRadio').radio();
+            }
+            if (customType == 'SERVICES' && initial == true || $('#addressBookListShow').val() == '1' && initial == true) {
+                modalId.show();
+                // importList();
+            }
+            init();
+        }, getData: function (initPar) {
+            initial = initPar;
+            if (initial == true) {
+                actionObj = {};
+                searchLabel = 'a';
+                searchStrategy = 'letter';
+            }
+            _this.showIndicator();
+            addressBookService.searchForAddressBook(searchLabel, searchStrategy, bookListType, {
+                callback: function (response) {
+                    _this.appendData(response);
+                },
+              errorHandler: function(msg, exception, response) {
+                dwrHandler.errorHandler(msg, exception, response);
+              }
+            });
+        }, action: function () {
+            addressBookSearch.live('click', function () {
+                if (bookListType == 'ADDRESS_BOOK_CHECKBOX') {
+                  _this.getSelected();
+                }
+                searchStrategy = 'label';
+                searchLabel = addressBookInput.val();
+                _this.getData(false);
+                letterButton.removeClass('selected');
+                return false;
+            });
+            letterButton.live('click', function () {
+                if (bookListType == 'ADDRESS_BOOK_CHECKBOX') {
+                  _this.getSelected();
+                }
+                searchStrategy = 'letter';
+                searchLabel = $(this).attr('href').replace('#', '');
+                _this.getData(false);
+                letterButton.removeClass('selected');
+                $(this).addClass('selected');
+                return false;
+            });
+            addressBookInput.keydown(function (e) {
+                if (e.keyCode == 13) {
+                  if (bookListType == 'ADDRESS_BOOK_CHECKBOX') {
+                    _this.getSelected();
+                  }
+                    _this.showIndicator();
+                    searchStrategy = 'label';
+                    searchLabel = $(this).val();
+                    _this.getData(false);
+                    letterButton.removeClass('selected');
+                    return false;
+                }
+            }).focus(function () {
+				if ($(this).val() == 'Znajdź kontakt') {
+					$(this).val('');
+				}
+            }).blur(function () {
+				if ($(this).val() == '') {
+					$(this).val('Znajdź kontakt');
+				}
+            });
+        }, enable: function (opts) {
+            _this = this;
+            modalId = $('#contactListToAddresBook');
+            allContactsCheckboxWrapper = modalId.find('.allContacts');
+            counterWrapper = modalId.find('.counter');
+            descriptionWrapper = modalId.find('.description');
+            contentWrapper = modalId.find('.importList');
+            addressBookInput = $('#addressBookInput');
+            addressBookSearch = $('#addressBookSearch');
+            letterButton = $('ul.letters').find('a');
+            bookListType = opts.bookListType;
+            customType = opts.customType;
+            _this.action();
+            _this.getData(true);
+        }
+    }
+})();
+var tableService = [];
+var runTimeoutSortData = function (tableTypes, count) {
+    var tableType = $(tableTypes[count]);
+    tableService[tableType.val()] = new TableService();
+    tableService[tableType.val()].enable({
+        tableType: tableType.val(), isInitLoadData: true, loadDataCallback: function () {
+            if (count < tableTypes.length - 1 && tableType.val()) {
+                setTimeout(function () {
+                    runTimeoutSortData(tableTypes, count + 1);
+                }, 50);
+            }
+        }
+    });
+
+    //show tooltip for last invoice
+    if($('input[name=showTooltipForLastInvoice]').val() == "true") {
+        $('.tooltip.icon-clock').click(function(e){e.stopImmediatePropagation();}).click();
+    }
+
+    if (tableType.val() == 'CONTACTS') {
+        addressBookService.clearMarked({
+            callback: function () {
+                tableService[tableType.val()].getData(true);
+            },
+          errorHandler: function(msg, exception, response) {
+            dwrHandler.errorHandler(msg, exception, response);
+          }
+        });
+    } else if (tableType.val() == 'INVOICES_GRAPH') {
+        templateRemoteService.sortData(tableType.val(), null, {
+            callback: function (response) {
+                $('.invoicesGraph .viewBars').html(response.view);
+                if (count < tableTypes.length - 1 && tableType.val()) {
+                    setTimeout(function () {
+                        runTimeoutSortData(tableTypes, count + 1);
+                    }, 50);
+                }
+            },
+          errorHandler: function(msg, exception, response) {
+            dwrHandler.errorHandler(msg, exception, response);
+          }
+        })
+    } else {
+        tableService[tableType.val()].getData(true);
+    }
+}
+$(document).ready(function () {
+    var tableTypes = $('input[name=tableType]');
+    if (tableTypes.length > 0) {
+        setTimeout(function () {
+            runTimeoutSortData(tableTypes, 0);
+        }, 100);
+    } else {
+        tableTypes = $('#tableType');
+        if (tableTypes.length > 0) {
+            tableService[tableTypes.val()] = new TableService();
+            tableService[tableTypes.val()].enable({
+                tableType: tableTypes.val()
+            });
+            if (tableTypes.val() == 'CONTACTS') {
+                addressBookService.clearMarked({
+                    callback: function () {
+                        tableService[tableTypes.val()].getData(true);
+                    },
+                  errorHandler: function(msg, exception, response) {
+                    dwrHandler.errorHandler(msg, exception, response);
+                  }
+                });
+            } else {
+                tableService[tableTypes.val()].getData(true);
+            }
+        }
+    }
+});

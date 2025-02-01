@@ -1,0 +1,210 @@
+/**
+ * jQuery Plugin to obtain touch gestures from iPhone, iPod Touch and iPad, should also work with Android mobile phones (not tested yet!)
+ * Common usage: wipe images (left and right to show the previous or next image)
+ * 
+ * @author Andreas Waltl, netCU Internetagentur (http://www.netcu.de)
+ * @version 1.1.1 (9th December 2010) - fix bug (older IE's had problems)
+ * @version 1.1 (1st September 2010) - support wipe up and wipe down
+ * @version 1.0 (15th July 2010)
+ */
+(function($){$.fn.touchwipe=function(settings){var config={min_move_x:20,min_move_y:20,wipeLeft:function(){},wipeRight:function(){},wipeUp:function(){},wipeDown:function(){},preventDefaultEvents:true};if(settings)$.extend(config,settings);this.each(function(){var startX;var startY;var isMoving=false;function cancelTouch(){this.removeEventListener('touchmove',onTouchMove);startX=null;isMoving=false}function onTouchMove(e){if(config.preventDefaultEvents){e.preventDefault()}if(isMoving){var x=e.touches[0].pageX;var y=e.touches[0].pageY;var dx=startX-x;var dy=startY-y;if(Math.abs(dx)>=config.min_move_x){cancelTouch();if(dx>0){config.wipeLeft()}else{config.wipeRight()}}else if(Math.abs(dy)>=config.min_move_y){cancelTouch();if(dy>0){config.wipeDown()}else{config.wipeUp()}}}}function onTouchStart(e){if(e.touches.length==1){startX=e.touches[0].pageX;startY=e.touches[0].pageY;isMoving=true;this.addEventListener('touchmove',onTouchMove,false)}}if('ontouchstart'in document.documentElement){this.addEventListener('touchstart',onTouchStart,false)}});return this}})(jQuery);                                         
+
+
+/* MojeKonto script */
+function elemetsList(elemetsList){
+    var mainCnt    = $('#messages')
+        listCnt    = mainCnt.find('ul'),
+        listDown   = mainCnt.find('#more .down'),
+        listUp     = mainCnt.find('#more .up'),
+        listClose  = mainCnt.find('#more .close'),
+        elements   = elemetsList,
+        animTime   = 300,
+        listElH    = 44,
+        maxListLen = 3,
+        sTop       = 0,
+        shown      = 0,
+        step       = 0;
+
+    setShown(1);
+    
+    for(var i = 0; i < elements.length; i++){
+        listCnt.append('<li>'+elements[i].title+'</li>');
+    }
+
+    function autoHeight(modificator){
+        var m = modificator || 0;
+        var newHeight = listCnt.height()+sTop+(m*listElH);
+        if(newHeight > step)
+            newHeight = step;
+        mainCnt.children('#elListCnt').stop().animate({height: (newHeight-1)+'px'}, animTime);
+    }
+
+    function scrollTo(newTop){
+        if(newTop > 0) newTop = 0;
+        sTop = newTop;
+        listCnt.stop().animate({top: newTop+'px'}, animTime);
+    }
+    
+    function setShown(nShown){
+        shown = nShown;
+        step  = listElH*shown;
+    }
+    
+    function checkScroll(){
+        if(sTop - step <= - listCnt.height()) listDown.addClass('disabled');
+        else listDown.removeClass('disabled');
+        if(sTop>=0) listUp.addClass('disabled');
+        else listUp.removeClass('disabled');
+        if(shown > 1 || sTop > 0) listClose.removeClass('disabled');
+        else  listClose.addClass('disabled');
+    }
+    
+    function up(){
+        if(sTop<0) {
+            scrollTo(sTop+step);
+            autoHeight();
+            checkScroll();
+        }
+    }
+    
+    function down(){
+        if(shown < maxListLen){
+            setShown(maxListLen);
+            autoHeight();
+            checkScroll();
+        }else if(sTop > (maxListLen-listCnt.children().length) * listElH) {
+            scrollTo(sTop-step);
+            autoHeight();
+            checkScroll();
+        }
+    }
+    
+    autoHeight();
+
+    if(elements.length > 1){$('#more').slideDown();}
+    
+    listUp.on('click', function(){
+        up();
+    }); 
+    
+    listDown.on('click', function(e){
+        down();
+    }); 
+    
+    listClose.on('click', function(){
+        setShown(1);
+        scrollTo(0);
+        autoHeight();
+        listClose.addClass('disabled');
+        listUp.addClass('disabled');
+        listDown.removeClass('disabled');
+    }); 
+    
+    listCnt.find('.close').on('click', function(){
+    
+        $(this).parent().parent().slideUp(animTime, function(){
+            $(this).remove();
+            autoHeight();
+            checkScroll();
+        });
+        
+        if(listCnt.children().length-1 == 2){
+            autoHeight(-1);
+        }else if(listCnt.children().length-1 == 1){
+            $('#more').slideUp();
+            autoHeight(-1);
+        }else if(listCnt.children().length-1 == 0){
+            mainCnt.animate({height: '0px'}, animTime);
+            $('#more div').slideUp(animTime);
+            autoHeight(-1);
+        } 
+        
+        scrollTo(sTop+listElH);
+    });
+    
+    
+    mainCnt.children('#elListCnt').touchwipe({
+        wipeUp : function() {
+            up();
+        },
+        wipeDown : function() {
+            down();
+        },
+        min_move_x              : 20,
+        min_move_y              : 20,
+        preventDefaultEvents    : true
+    });
+}
+
+function charger(){
+
+    var mainCnt = $('#charge');
+        input   = mainCnt.find('#charge-value'),
+        plus    = mainCnt.find('.plus'),
+        minus   = mainCnt.find('.minus'),
+        suffix  = ' zł',
+        minVal  = 5,
+        maxVal  = 300,
+        preVal  = parseInt(input.val()),
+        chVals  = [5, 10, 25, 50, 100, 150, 300];
+
+    input.on('click', function(){
+        this.select();
+    });  
+
+    input.on('blur', function(){
+        var newVal = parseInt($(this).val());
+        
+        if(isNaN(newVal)){
+            $(this).val(preVal+suffix);
+        }else{
+            if(newVal < minVal){
+                newVal = minVal;
+            }else if(newVal > maxVal){
+                newVal = maxVal;
+            }
+            $(this).val(newVal+suffix);
+            preVal = newVal;
+        }
+    });
+    
+    plus.on('click', function(){
+        var i = 0;
+        while(i < chVals.length && preVal >= chVals[i] ){i++;}
+        if(i < chVals.length){
+            input.val(chVals[i]+suffix);
+            preVal = chVals[i];
+        }
+    });
+    
+    minus.on('click', function(){
+        var i = chVals.length-1;
+        while(i >= 0 && preVal <= chVals[i] ){i--;}
+        if(i >= 0){
+            input.val(chVals[i]+suffix);
+            preVal = chVals[i];
+        }
+    });
+
+}
+
+$(document).ready(function(){
+
+    charger();
+
+    var messages = [
+        {title: '<p>Wystawiono fakturę vat nr. F/12345678/08/13. Status: <span class="warn">nieopłacona</span></p> <span class="controls"><a href="" class="linkPointer2"><span>Pokaż</span></a> <a href="javascript:void(0);" class="linkPointer2 close"><span>Usuń</span></a></span>'},
+        {title: '<p>Wystawiono fakturę vat nr. F/12345678/07/13. Status: opłacona</p> <span class="controls"><a href="" class="linkPointer2"><span>Pokaż</span></a> <a href="javascript:void(0);" class="linkPointer2 close"><span>Usuń</span></a></span>'},
+        {title: '<p>Zmiana regulaminu.</p> <span class="controls"><a href="" class="linkPointer2"><span>Pokaż</span></a> <a href="javascript:void(0);" class="linkPointer2 close"><span>Usuń</span></a></span>'},
+        {title: '<p>Wystawiono fakturę vat nr. F/12345678/08/13. Status: <span class="warn">nieopłacona</span></p> <span class="controls"><a href="" class="linkPointer2"><span>Pokaż</span></a> <a href="javascript:void(0);" class="linkPointer2 close"><span>Usuń</span></a></span>'},
+        {title: '<p>Wystawiono fakturę vat nr. F/12345678/07/13. Status: opłacona</p> <span class="controls"><a href="" class="linkPointer2"><span>Pokaż</span></a> <a href="javascript:void(0);" class="linkPointer2 close"><span>Usuń</span></a></span>'},
+        {title: '<p>Zmiana regulaminu.</p> <span class="controls"><a href="" class="linkPointer2"><span>Pokaż</span></a> <a href="javascript:void(0);" class="linkPointer2 close"><span>Usuń</span></a></span>'},
+        {title: '<p>Wystawiono fakturę vat nr. F/12345678/08/13. Status: <span class="warn">nieopłacona</span></p> <span class="controls"><a href="" class="linkPointer2"><span>Pokaż</span></a> <a href="javascript:void(0);" class="linkPointer2 close"><span>Usuń</span></a></span>'},
+        {title: '<p>Wystawiono fakturę vat nr. F/12345678/07/13. Status: opłacona</p> <span class="controls"><a href="" class="linkPointer2"><span>Pokaż</span></a> <a href="javascript:void(0);" class="linkPointer2 close"><span>Usuń</span></a></span>'},
+        {title: '<p>Zmiana regulaminu.</p> <span class="controls"><a href="" class="linkPointer2"><span>Pokaż</span></a> <a href="javascript:void(0);" class="linkPointer2 close"><span>Usuń</span></a></span>'}
+    ];
+
+    if(messages.length > 0){
+        elemetsList(messages);
+    }
+});
