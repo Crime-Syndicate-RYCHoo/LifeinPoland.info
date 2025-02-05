@@ -1,0 +1,399 @@
+Return-Path: <powiadomienia@pkobp.pl>
+Delivered-To: abuse@czekaj.com.pl
+Received: from sv027.home.net.pl
+	by sv027.home.net.pl with LMTP
+	id cHKwMA7soWe8IAAAwyxcrQ
+	(envelope-from <powiadomienia@pkobp.pl>)
+	for <abuse@czekaj.com.pl>; Tue, 04 Feb 2025 11:29:34 +0100
+Authentication-Results: sv027.home.net.pl; spf=pass (sender SPF 
+   authorized) smtp.mailfrom=pkobp.pl (client-ip=194.242.62.48; 
+   helo=mx.pkobp.pl; envelope-from=powiadomienia@pkobp.pl; 
+   receiver=<UNKNOWN>)
+Authentication-Results: sv027.home.net.pl; dmarc=pass (p=reject dis=none) header.from=pkobp.pl
+Received: from mx.pkobp.pl (mx.pkobp.pl [194.242.62.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by cloudserver3185817-3185848.home.pl (Postfix) with ESMTPS id 38EC1A05FB
+	for <abuse@czekaj.com.pl>; Tue,  4 Feb 2025 11:29:34 +0100 (CET)
+Authentication-Results: sv027.home.net.pl;
+	dkim=pass (2048-bit key; unprotected) header.d=pkobp.pl header.i=@pkobp.pl header.a=rsa-sha256 header.s=dkim2 header.b=mDVW+w4a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pkobp.pl; s=dkim2;
+	t=1738664974; bh=nfHjFUMSLAfG2VAdD09ZlE8Jp2xdhZMsB8ayv+gM1v4=;
+	l=16789; h=From:To:Message-ID:Subject;
+	b=mDVW+w4aito+fKg8ivyRxQI1sMmANp37neeDfSsiCIHevZFii3SWokjk5bE8G6nz2
+	 WqC7kRCQpDn+eNHJ5bSCGe+TYsYvDMClML1pzAM0Ao/zXWSOo2DvqByezO/Vv6o6LX
+	 bVAjpqr78s0jO0Gl8j8Q8q7nBIINsFDHZTH6l/boQn8G+/8mjACtbExeYeMUgayRl9
+	 ePleVwmo7vOzddux5MXmHejJIVwTYatJ42RA+UYl0ymzYQ8w7g8FQpeHtI96hLx+Oa
+	 Ve89RVrI8BVvACpLpa1YTqsr6GfOz+2njD5xKETURu8DMnTKOOQbP+TyypAX7HP9mf
+	 vV/p53rRx9XFg==
+X-Envelope-From: <powiadomienia@pkobp.pl>
+Received: from fidwolmail.localdomain (unknown [192.168.7.123])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by Email Service with ESMTPS id 9CD3AF787F562885863F
+	for <abuse@czekaj.com.pl>; Tue,  4 Feb 2025 11:29:33 +0100 (CET)
+Received: from M33SIEEXED01.bank.ad.pkobp.pl (unknown [10.150.121.68])
+	by fidwolmail.localdomain (Postfix) with ESMTP id 7B4473006E9
+	for <abuse@czekaj.com.pl>; Tue,  4 Feb 2025 11:29:33 +0100 (CET)
+Received: from m30wolexmx08.bank.ad.pkobp.pl (10.156.91.138) by
+ M33SIEEXED01.bank.ad.pkobp.pl (10.150.121.68) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.11; Tue, 4 Feb 2025 11:29:25 +0100
+Received: from M30WOLEXMX01.bank.ad.pkobp.pl (10.156.91.131) by
+ M30WOLEXMX08.bank.ad.pkobp.pl (10.156.91.138) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.14; Tue, 4 Feb 2025 11:29:25 +0100
+Received: from spppaps00396.pkobp.pl (10.150.186.107) by
+ ehloext.bank.ad.pkobp.pl (10.156.90.161) with Microsoft SMTP Server id
+ 15.2.1544.14 via Frontend Transport; Tue, 4 Feb 2025 11:29:25 +0100
+From: <powiadomienia@pkobp.pl>
+Reply-To: <powiadomienia@pkobp.pl>
+To: <abuse@czekaj.com.pl>
+Message-ID: <628490681.1538726.1738664965343.JavaMail.dgsrun@spppaps00396>
+In-Reply-To: powiadomienia@pkobp.pl
+Errors-To: powiadomienia@pkobp.pl
+MIME-Version: 1.0
+Content-Type: multipart/signed; protocol="application/pkcs7-signature";
+	micalg=sha-256; boundary="----=_Part_1538723_1678610738.1738664965343"
+Date: Tue, 4 Feb 2025 11:29:25 +0100
+Subject: PKO Bank Polski - Informacja podatkowa za 2024
+X-Content-Scanned: Fidelis Mail
+X-CLIENT-IP: 194.242.62.48
+X-CLIENT-HOSTNAME: mx.pkobp.pl
+X-VADE-SPAMSTATE: clean
+X-VADE-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddvtddvkecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfjqffogffrnfdpggftiffpkfenuceurghilhhouhhtmecuudehtdenucenucfjughrpefhrhfvkfgjvgggtgffufesghdttggstddtjeenucfhrhhomhepoehpohifihgrughomhhivghnihgrsehpkhhosghprdhplheqnecuggftrfgrthhtvghrnhephfejledvvdfhgeeugfffheetjeetieetveegkeeigfegvdffheethfevkeelhfevnecukfhppeduleegrddvgedvrdeivddrgeeknecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehinhgvthepudelgedrvdegvddriedvrdegkedphhgvlhhopehmgidrphhkohgsphdrphhlpdhmrghilhhfrhhomhepphhofihirgguohhmihgvnhhirgesphhkohgsphdrphhlpdhnsggprhgtphhtthhopedupdhrtghpthhtoheprggsuhhsvgestgiivghkrghjrdgtohhmrdhplh
+X-DCC--Metrics: sv027.home.net.pl 1024; Body=1 Fuz1=1 Fuz2=5
+
+------=_Part_1538723_1678610738.1738664965343
+Date: Tue, 4 Feb 2025 11:29:25 +0100 (CET)
+Subject: PKO Bank Polski - Informacja podatkowa za 2024
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_1538720_423396599.1738664965342"
+
+------=_Part_1538720_423396599.1738664965342
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+<!--?xml version=3D"1.0" encoding=3D"UTF-8"?-->
+<html>
+ <head>
+  <style>
+    #tableMain {
+     width:600pt !important;
+     background-color:#ffffff !important;
+     table-layout: fixed !important;
+     border: 0 !important;
+     font-family:arial,helvetica,sans-serif !important;
+     margin-left: auto !important;
+     margin-right: auto !important;
+
+    }
+    #innerTable {
+     table-layout: fixed !important;
+     background-color: #efefef !important;
+     border: 0 !important;
+     font-family:arial,helvetica,sans-serif !important;
+     margin-right: auto !important;
+     width:584pt !important;
+    }
+    #empty {
+     height:15pt !important;
+     background-color:#efefef !important;
+    }
+    #header {
+     font-size: 22pt !important;
+     color: #004C9A !important;
+    }
+    #body {
+     font-size: 11.5pt !important;
+     margin-right: 32pt !important;
+    }
+    #autoGenerated {
+     font-size: 7.5pt !important;
+    }
+    #autoGenerated2 {
+     font-size: 7.5pt !important;
+     padding-left: 8pt !important;
+    }
+    #contactData {
+     font-size: 9pt !important;
+     padding-left: 8pt !important;
+
+    }
+    #bottomText {
+     font-size: 10.5pt !important;
+    }
+    #bottomText2 {
+     font-size: 10.5pt !important;
+     text-align: center !important;
+    }
+    #bottomIcon {
+     font-size:10.5pt !important;
+     margin-right: 32pt !important;
+    }
+    #bottomSM {
+     padding-left: 8pt !important;
+    }
+    #logo {
+     padding-left:150pt !important;
+    }
+                #SAD {
+                    font-size: 14pt !important;
+     margin-right: 32pt !important;
+                    border: 2px solid !important;
+                    padding: 10px !important;
+                }
+                #digitalMortgageAdvisor {
+                    align=3D"center" !important;
+                }
+    </style>
+ </head>
+ <body>=20
+  <table id=3D"tableMain" align=3D"center">
+   <tbody>
+    <tr>
+     <td colspan=3D"5" id=3D"logo"> <img src=3D"cid:cb267e17-6f2a-407e-acef=
+-5cd6fd822473@pkobp.pl"> </td>
+    </tr>
+    <tr colspan=3D"5">
+     <td> <br> <br> </td>
+    </tr>
+    <tr>
+     <td id=3D"header" colspan=3D"5"> <b> <span></span> </b> <br> <br> </td=
+>
+    </tr>
+    <tr>
+     <td id=3D"body" colspan=3D"5"> <span>Dzie=C5=84 dobry,</span> <br> <br=
+> </td>
+    </tr>
+    <tr>
+     <td id=3D"body" colspan=3D"5"> <span>Twoja informacja podatkowa jest j=
+u=C5=BC dost=C4=99pna w serwisie iPKO. <br>=C5=BBeby j=C4=85 pobra=C4=87, z=
+aloguj si=C4=99 do iPKO i przejd=C5=BA kolejno: <br>Moje sprawy -&gt; Dokum=
+enty do pobrania -&gt; Zestawienia -&gt; Dokumenty PIT. <br> <br>Je=C5=9Bli=
+ nie jeste=C5=9B ju=C5=BC klientem banku lub nie masz dost=C4=99pu do iPKO,=
+ skopiuj <br>poni=C5=BCszy identyfikator i wklej go na naszej stronie w zak=
+=C5=82adce eDokumenty. <br>Tw=C3=B3j unikalny identyfikator (hash) do tego =
+dokumentu to: <br> <span>260724b4d75be94e8deb700a8c5a1ac4809fa9b798b6583e55=
+35b4f20c924c0a</span> <br> <br> </span> <br> <br> </td>
+    </tr>
+    <tr>
+     <td id=3D"body" colspan=3D"5"> <span>Z pozdrowieniami<br> PKO Bank Pol=
+ski <br> </span> <br> </td>
+    </tr>
+    <tr>
+     <td id=3D"autoGenerated" colspan=3D"5"> E-mail zosta=C5=82 wygenerowan=
+y automatycznie, prosimy na niego nie odpowiada=C4=87. <br> <br> </td>
+    </tr>
+    <tr>
+     <td colspan=3D"5">=20
+      <table id=3D"innerTable">
+       <tbody>
+        <tr>
+         <td id=3D"contactData" colspan=3D"5"> <br> <br> <b> Kontakt z nami=
+ </b> <br> Nasza infolinia jest dost=C4=99pna 24/7 pod numerem 800 302 302 =
+(bez op=C5=82at dla numer=C3=B3w krajowych w Polsce, w pozosta=C5=82ych prz=
+ypadkach op=C5=82ata zgodna ze stawk=C4=85 operatora) lub +48 81 535 60 60 =
+(op=C5=82ata zgodna ze stawk=C4=85 operatora). Mo=C5=BCesz te=C5=BC odwiedz=
+i=C4=87 nasz dowolny oddzia=C5=82. </td>
+        </tr>
+        <tr>
+         <td> <br> <br> </td>
+        </tr>
+        <tr>
+         <td id=3D"autoGenerated2" colspan=3D"5"> <!--                     =
+       <th:block th:if=3D"${#numbers.formatInteger(#dates.month(#dates.crea=
+teNow()),1) gt '7'}">--> Powszechna Kasa Oszcz=C4=99dno=C5=9Bci Bank Polski=
+ Sp=C3=B3=C5=82ka Akcyjna z siedzib=C4=85 w Warszawie, adres: ul. Pu=C5=82a=
+wska 15, 02-515 Warszawa, zarejestrowana w S=C4=85dzie Rejonowym dla miasta=
+ sto=C5=82ecznego Warszawy w Warszawie, XIII Wydzia=C5=82 Gospodarczy Krajo=
+wego Rejestru S=C4=85dowego pod nr KRS 0000026438; NIP: 525-000-77-38 REGON=
+: 016298263; kapita=C5=82 zak=C5=82adowy (kapita=C5=82 wp=C5=82acony) 1 250=
+ 000 000 PLN / <!--                            </th:block>--> <!--         =
+                   <th:block th:if=3D"${#numbers.formatInteger(#dates.month=
+(#dates.createNow()),1) <=3D '7'}">--> <!--                                =
+<th:block th:if=3D"${#numbers.formatInteger(#dates.year(#dates.createNow())=
+,4) > '2023'}">--> <!--                                    Powszechna Kasa =
+Oszcz=C4=99dno=C5=9Bci Bank Polski Sp=C3=B3=C5=82ka Akcyjna z siedzib=C4=85=
+ w Warszawie, adres:--> <!--                                    ul. Pu=C5=
+=82awska 15, 02-515 Warszawa, zarejestrowana w S=C4=85dzie Rejonowym dla mi=
+asta sto=C5=82ecznego Warszawy w Warszawie,--> <!--                        =
+            XIII Wydzia=C5=82 Gospodarczy Krajowego Rejestru S=C4=85dowego =
+pod nr KRS 0000026438; NIP: 525-000-77-38 REGON: 016298263;--> <!--        =
+                            kapita=C5=82 zak=C5=82adowy (kapita=C5=82 wp=C5=
+=82acony) 1 250 000 000 PLN /--> <!--                                </th:b=
+lock>--> <!--                                <th:block th:if=3D"${#numbers.=
+formatInteger(#dates.year(#dates.createNow()),4) <=3D '2023'}">--> <!--    =
+                                Powszechna Kasa Oszcz=C4=99dno=C5=9Bci Bank=
+ Polski Sp=C3=B3=C5=82ka Akcyjna z siedzib=C4=85 w Warszawie, adres:--> <!-=
+-                                    ul. =C5=9Awi=C4=99tokrzyska 36, 00-116=
+ Warszawa, zarejestrowana w S=C4=85dzie Rejonowym dla miasta sto=C5=82eczne=
+go Warszawy w Warszawie,--> <!--                                    XIII Wy=
+dzia=C5=82 Gospodarczy Krajowego Rejestru S=C4=85dowego pod nr KRS 00000264=
+38; NIP: 525-000-77-38 REGON: 016298263;--> <!--                           =
+         kapita=C5=82 zak=C5=82adowy (kapita=C5=82 wp=C5=82acony) 1 250 000=
+ 000 PLN /--> <!--                                </th:block>--> <!--      =
+                      </th:block>--> <span style=3D"color: #969696"> Powsze=
+chna Kasa Oszcz=C4=99dno=C5=9Bci Bank Polski Sp=C3=B3=C5=82ka Akcyjna regis=
+tered in the District Court for the Capital City of Warsaw, 13th Commercial=
+ Division of the National Court Register under KRS number 0000026438, Tax I=
+dentification Number (NIP): 525-000-77-38, REGON: 016298263, share capital =
+(paid up): 1,250,000,000 PLN. </span> <br> <br> </td>
+        </tr>
+        <tr>
+         <td id=3D"autoGenerated2" colspan=3D"5"> Niniejsza wiadomo=C5=9B=
+=C4=87 mo=C5=BCe zawiera=C4=87 poufn=C4=85 i prawnie zastrze=C5=BCon=C4=85 =
+korespondencj=C4=99 mi=C4=99dzy nasz=C4=85 Firm=C4=85 i Klientem. Je=C5=BCe=
+li nie jeste=C5=9Bcie Pa=C5=84stwo jej adresatem informujemy, =C5=BCe otrzy=
+mali j=C4=85 Pa=C5=84stwo omy=C5=82kowo oraz, =C5=BCe przegl=C4=85danie, ro=
+zpowszechnianie lub kopiowanie jest zabronione. W przypadku omy=C5=82kowego=
+ otrzymania niniejszej wiadomo=C5=9Bci, prosimy o niezw=C5=82oczne powiadom=
+ienie o tym nadawcy i wykasowanie orygina=C5=82u. / <span style=3D"color: #=
+969696"> This message may contain a confidential and privileged communicati=
+on between our Company and our Client. If you are not the intended recipien=
+t, you are hereby notified that you have received this message in error and=
+ that any use, dissemination, forwarding, or copying of this communication =
+is strictly prohibited. If you have received this communication in error, p=
+lease notify the sender immediately and delete the original message. </span=
+> <br> <br> </td>
+        </tr>
+       </tbody>
+      </table> </td>
+    </tr>
+    <tr>
+     <td> <br> <br> </td>
+    </tr>
+    <tr>
+     <td id=3D"bottomText"> =C2=A9 <span>2025</span> PKO Bank Polski </td>
+     <td id=3D"bottomText2"> </td>
+     <td id=3D"bottomText2"> </td>
+    </tr>
+   </tbody>
+  </table>=20
+ </body>
+</html>
+------=_Part_1538720_423396599.1738664965342
+Content-Type: image/png; name=Logo_PKO_mailing.png
+Content-Transfer-Encoding: base64
+Content-Disposition: inline; filename=Logo_PKO_mailing.png
+Content-ID: <cb267e17-6f2a-407e-acef-5cd6fd822473@pkobp.pl>
+
+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
+------=_Part_1538720_423396599.1738664965342--
+
+------=_Part_1538723_1678610738.1738664965343
+Content-Type: application/pkcs7-signature; name="smime.p7s";
+	smime-type=signed-data
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Description: S/MIME Cryptographic Signature
+
+MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCAMIIG
+mzCCBIOgAwIBAgIQMaLxLfHOsmEWOvfcuZqPdDANBgkqhkiG9w0BAQsFADBOMQswCQYDVQQGEwJQ
+TDEhMB8GA1UECgwYQXNzZWNvIERhdGEgU3lzdGVtcyBTLkEuMRwwGgYDVQQDDBNDZXJ0dW0gU01J
+TUUgUlNBIENBMB4XDTI0MDQwNTEwMDYwNFoXDTI2MDQwNTEwMDYwM1owggEEMRkwFwYDVQRhExBO
+VFJQTC0wMDAwMDI2NDM4MQswCQYDVQQGEwJQTDEUMBIGA1UECAwLbWF6b3dpZWNraWUxETAPBgNV
+BAcMCFdhcnN6YXdhMUQwQgYDVQQKDDtQb3dzemVjaG5hIEthc2EgT3N6Y3rEmWRub8WbY2kgQmFu
+ayBQb2xza2kgU3DDs8WCa2EgQWtjeWpuYTFEMEIGA1UEAww7UG93c3plY2huYSBLYXNhIE9zemN6
+xJlkbm/Fm2NpIEJhbmsgUG9sc2tpIFNww7PFgmthIEFrY3lqbmExJTAjBgkqhkiG9w0BCQEWFnBv
+d2lhZG9taWVuaWFAcGtvYnAucGwwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCEZnIQ
+1yetegAsfgDj8CyiEYHBceCdUqF0qqglIsicNbkDDonRwZ4aieqBQmHjigBNgthwxqV9mHexj4yc
+esPs62674r9g+sAvPz1Eceb5wBsPKOq9XHby7Gc3sdgXvvCfFWlrnudxyUvCi7E9vQ5yJZ7ztRyX
+V2Z9LmLo37dwQVlv0E1NiuPILc4JJvxEw8uy3Etdu/bUqWFlmCCKgJscTPg3OJ4/Bt33ALIWmT/M
+zeQpbyiDmnq50FPh1w10Pj1/Bi0TGDWTOIJonyWLzyuT2ZnTUNe4rrjf+o2Eqq+n2Q4mWEyoHp4u
+oSaNdivfMwIBoSF12eo43wlfDAb29E+3AgMBAAGjggG7MIIBtzAMBgNVHRMBAf8EAjAAMEEGA1Ud
+HwQ6MDgwNqA0oDKGMGh0dHA6Ly9jc21pbWVyc2FjYS5jcmwuY2VydHVtLnBsL2NzbWltZXJzYWNh
+LmNybDCBgwYIKwYBBQUHAQEEdzB1MC4GCCsGAQUFBzABhiJodHRwOi8vY3NtaW1lcnNhY2Eub2Nz
+cC1jZXJ0dW0uY29tMEMGCCsGAQUFBzAChjdodHRwOi8vY3NtaW1lcnNhY2EucmVwb3NpdG9yeS5j
+ZXJ0dW0ucGwvY3NtaW1lcnNhY2EuY2VyMB8GA1UdIwQYMBaAFGb7ww++9L/gnMmrTd5HGb3AyqZo
+MB0GA1UdDgQWBBRFYzpF7s65a/vavztMyHISih6OHzBMBgNVHSAERTBDMAkGB2eBDAEFAgIwNgYL
+KoRoAYb2dwJkAwEwJzAlBggrBgEFBQcCARYZaHR0cHM6Ly93d3cuY2VydHVtLnBsL0NQUzAdBgNV
+HSUEFjAUBggrBgEFBQcDBAYIKwYBBQUHAwIwDgYDVR0PAQH/BAQDAgTwMCEGA1UdEQQaMBiBFnBv
+d2lhZG9taWVuaWFAcGtvYnAucGwwDQYJKoZIhvcNAQELBQADggIBABXU9bmsaSHol2DcDKRu/jeK
+6dZfv3WxYVhWPDIs9UPgAFXXKpjZJAjw2yjA0ZTWGRM9ukkJLoKw3Igi03IGmflmP3lsNGqGYNpT
+QL0Gl7O4IfIr4TqSGdfQeRmyCWTWj/pxJ+NsU4cAifsnpbHTLTTJHYF0eu/Pvriu2mWYGJaIpMLi
+QIRShTeYSPQTJ+d49rSi8UTMxaUX5t+fxNSU48etkzhfXAS6jB6d4tiMJ38nGPXkirVpa07cbdp6
+x96+BZxgGoIJykCzTtun2j0/EHXk88asiU7N5Wf1lWXl/U3bOTSfTgekI/PwatIW+xRa7FPZy1C+
+cOsaD+HBU436Edox/xFHloKpkwLZVDaT0p7yPzOvItSVpewxxKcufIzeXpKXFQRJ9GtuHIiASTCw
+mT9O4wPFqmZ7l8Ba5Qn1Y0GtFxYxt5GtrZXrxNOHOvtP6i0xOx412935K4X5DRKtClgDBCyRjfZd
+V5ZT3FqIVXXzQIA1sXJJS72GayMhDkdQLnsD5alCwY9EXTSWlftX1BCXd7rg7c/0jD1CeY23h5dv
+tKc3HknWBuB3q/ah92+e26k2NpbKCOHPjXV1RFNUK7W9GT5o5UAXo1wl6crVxi/r1mYn2JS1I8Dx
+uqGOEoUjJ2ZgQRVeDERp5Pls7Q6MoTeKnG8NhYogjClOhBsLgOwGAAAxggIoMIICJAIBATBiME4x
+CzAJBgNVBAYTAlBMMSEwHwYDVQQKDBhBc3NlY28gRGF0YSBTeXN0ZW1zIFMuQS4xHDAaBgNVBAMM
+E0NlcnR1bSBTTUlNRSBSU0EgQ0ECEDGi8S3xzrJhFjr33Lmaj3QwDQYJYIZIAWUDBAIBBQCggZgw
+GAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcNMjUwMjA0MTAyOTI1WjAt
+BgkqhkiG9w0BCTQxIDAeMA0GCWCGSAFlAwQCAQUAoQ0GCSqGSIb3DQEBCwUAMC8GCSqGSIb3DQEJ
+BDEiBCAogvXWOfnK5YJsWqPu01jrGkoJmJ1iTr+1TaWQg/mYCTANBgkqhkiG9w0BAQsFAASCAQBt
+Qni5UgBIepKiK2hxBKLPhBBrtM+8/nvGIYeR7hteiaISWM1dBWY9m/rWiDBAELl2UWt4ge8AbK22
+2+6iML+YHctpuuST3Ug4heNvcoG633xi0RBm3STPLGYIAMt7waFyIUfxNhpi+XNKo9r1BFoeynVB
+C+7DzWtOdrYuqn50M6ayeD2H3W0MXRQdV9SKDz7Tdh+RWtJyFs74DtyvnH1gvkgP9QTFDnKx/iq2
+LXBQnNRRB8Sa2edDnb7MLjohJyI00XZg47uy9cHPFNw3q/5fSPNQRDHfdgetdKq0AMyMyA8gJLt4
+Wjpfc1h2KxxyJh1p/w8S+WJSJ7+wDn3lL9vhAAAAAAAA
+------=_Part_1538723_1678610738.1738664965343--
