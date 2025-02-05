@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 96 96">
+  <g id="pko_icon_video-call_96" transform="translate(-778 -746)">
+    <rect id="pole" width="96" height="96" transform="translate(778 746)" fill="none" opacity="0"/>
+    <g id="ikona" transform="translate(782 762)">
+      <path id="Path_16578" data-name="Path 16578" d="M75,48V8a4,4,0,0,0-4-4H7A4,4,0,0,0,3,8V48ZM31,44l.008-8H46.988l.012.012L46.992,44ZM7,44V8H71V44H51V36.012A4.012,4.012,0,0,0,46.988,32H31.012A4.012,4.012,0,0,0,27,36.012V44Z" transform="translate(5 -4)" fill="#003574"/>
+      <path id="Path_16579" data-name="Path 16579" d="M1,16s0,4,4,4H85c4,0,4-4,4-4Z" transform="translate(-1 32)" fill="#003574"/>
+      <path id="Path_16580" data-name="Path 16580" d="M18,10.5a4,4,0,1,1-4,4,4.007,4.007,0,0,1,4-4m0-4a8,8,0,1,0,8,8,8,8,0,0,0-8-8" transform="translate(26 3.5)" fill="#003574"/>
+    </g>
+  </g>
+</svg>

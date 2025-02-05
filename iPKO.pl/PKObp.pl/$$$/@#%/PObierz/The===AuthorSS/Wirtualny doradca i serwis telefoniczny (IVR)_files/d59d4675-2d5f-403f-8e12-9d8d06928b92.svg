@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 96 96">
+  <g id="pko_icon_e-doreczenie_96" transform="translate(-1051 -746)">
+    <rect id="Rectangle_6099" data-name="Rectangle 6099" width="96" height="96" transform="translate(1051 746)" fill="none" opacity="0.002"/>
+    <g id="ikona" transform="translate(1067 770)">
+      <path id="Path_16584" data-name="Path 16584" d="M27.452,127.964c-5.308,0-8.092-5.312-8.092-10.2H30.88c3.412,0,5.516-1.68,5.516-5.044A9.885,9.885,0,0,0,26.348,103H26.3c-6,0-11.3,4.572-11.3,14.244,0,9.928,5.776,14.136,11.4,14.136a9.463,9.463,0,0,0,9.356-7.252l-1.364-.684a7.826,7.826,0,0,1-6.948,4.52m-1.472-22.6a6.952,6.952,0,0,1,6.2,7.428c0,1.684-.632,2.524-2.524,2.524H19.308c-.056-4.524,2.312-9.952,6.672-9.952" transform="translate(29.024 -75.004)" fill="#003574"/>
+      <path id="Path_16585" data-name="Path 16585" d="M8,140V109.728L36,128.3l28-18.572V120h4V96H4v48H44v-4Zm0-40H64v4.816L36,123.388,8,104.812Z" transform="translate(-4 -96)" fill="#003574"/>
+    </g>
+  </g>
+</svg>

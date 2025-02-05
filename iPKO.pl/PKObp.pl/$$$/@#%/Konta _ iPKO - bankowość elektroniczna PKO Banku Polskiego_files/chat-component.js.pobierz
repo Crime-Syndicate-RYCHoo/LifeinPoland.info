@@ -1,0 +1,2 @@
+/* Version: 1.55.0 - November 8, 2024 11:05:03 */
+export{B as ChatComponent}from"./chat-component-0753b05b.js";
