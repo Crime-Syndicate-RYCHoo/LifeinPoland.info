@@ -1,0 +1,60 @@
+window.piwikActions = {};
+
+window.piwikActions.sendPiwikAction = function (name = 'nazwa - nie zdefiniowana', action = 'akcja - nie zdefiniowana') {
+    window._paq = window._paq || [];
+    var title = window.piwikActions._pageTitleForPiwikAction();
+
+    window._paq.push(['trackEvent', title, action, name]);
+    return;
+}
+
+window.piwikActions.sendPiwikActionWithTitle = function (title ='tytuł - nie zdefiniowany', name = 'nazwa - nie zdefiniowana', action = 'akcja - nie zdefiniowana') {
+    window._paq = window._paq || [];
+
+    window._paq.push(['trackEvent', title, action, name]);
+    return;
+}
+
+window.piwikActions._pageTitleForPiwikAction = function () {
+    var documentTitle = document.title.trim();
+    var positionOfLastVerticalBar = documentTitle.lastIndexOf('|');
+
+    if (positionOfLastVerticalBar === 0) {
+        return 'tytuł - nie zdefiniowany ';
+    } else if (positionOfLastVerticalBar === -1) {
+        var positionGovPL = documentTitle.indexOf('- Portal gov.pl');
+        if (positionGovPL>0)
+        {
+            return documentTitle.substr(0, positionGovPL);
+        }
+        else
+            {
+            return documentTitle;
+        }
+    } else {
+        return documentTitle.substr(0, positionOfLastVerticalBar).trim();
+    }
+}
+
+window.piwikActions.updateDocTitle = function (newTitle) {
+    newTitle = String(newTitle).trim();
+    checkTitle = !(newTitle === 'undefined' ||
+                   newTitle === 'null' ||
+                   newTitle === 'false' ||
+                   newTitle === 'true' ||
+                   newTitle === '1' ||
+                   newTitle === '0' ||
+                   newTitle === '');
+
+    if (checkTitle) {
+        document.title = newTitle;
+    }
+    return;
+}
+
+window.piwikActions.sendTitleToPiwik = function () {
+    window._paq = window._paq || [];
+    window._paq.push(['setDocumentTitle', document.title]);
+    window._paq.push(['trackPageView']);
+    return;
+}

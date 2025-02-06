@@ -1,0 +1,327 @@
+
+.gov2019-css,
+.gov2019-css h1,
+.gov2019-css h2,
+.gov2019-css h3,
+.gov2019-css h4,
+.gov2019-css h5,
+.gov2019-css h6,
+.gov2019-css p,
+.gov2019-css div,
+.gov2019-css span,
+.gov2019-css label,
+.gov2019-css input {
+    font-family: 'Open Sans', sans-serif !important;
+}
+
+.gov2019-css h1,
+.gov2019-css h2,
+.gov2019-css h3,
+.gov2019-css h4,
+.gov2019-css h5,
+.gov2019-css h6,
+.gov2019-css .h1,
+.gov2019-css .h2,
+.gov2019-css .h3,
+.gov2019-css .h4,
+.gov2019-css .h5,
+.gov2019-css .h6 {
+    font-family: 'Open Sans', sans-serif !important;
+}
+
+
+body.gov2019-body-css {
+    font-size: 100% !important;
+    line-height: 1.25 !important;
+    letter-spacing: 0;
+    min-width: 320px;
+    margin: 0;
+    padding: 0;
+    background: #fff;
+    font-weight: normal;
+    color: #0a0a0a;
+    overflow-y: scroll;
+    
+}
+
+@media (min-width: 22.5rem) {
+    body {
+      max-width: none;
+    }
+  }
+
+
+
+
+
+.gov2019-css .main-column .column,
+.gov2019-css .main-column .columns {
+    padding-right: 0;
+}
+
+.gov2019-css .flex__columns {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    
+}
+
+.gov2019-css .flex__column--3 {
+    -webkit-box-flex: 3;
+    -ms-flex: 3 0 0px;
+    flex: 3 0 auto;
+}
+
+.gov2019-css .flex__column--4 {
+    flex: 4 0 auto;
+}
+
+.gov2019-css .flex__column--5 {
+    flex: 5 0 auto;
+}
+
+.gov2019-css .flex__column--6 {
+    flex: 6 0 auto;
+}
+
+.gov2019-css .flex__column--9 {
+    flex: 9 0 auto;
+}
+
+.gov2019-css .flex__column--12 {
+    flex: 12 0 auto;
+}
+
+.gov2019-css .flex-auto {
+    flex: auto;
+}
+
+@media (min-width: 768px) {
+    .gov2019-css .flex__columns {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+        flex-direction: row;
+    }
+    
+    .gov2019-css .flex__column--right {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .gov2019-css .flex__column--3 {
+        flex: 3 0 0;
+    }
+    
+    .gov2019-css .flex__column--4 {
+        flex: 4 0 0;
+    }
+    
+    .gov2019-css .flex__column--5 {
+        flex: 5 0 0;
+    }
+    
+    .gov2019-css .flex__column--6 {
+        flex: 6 0 0;
+    }
+    
+    .gov2019-css .flex__column--9 {
+        flex: 9 0 0;
+    }
+    
+    .gov2019-css .flex__column--12 {
+        flex: 12 0 0;
+    }
+
+
+}
+
+
+
+
+.gov2019-css .row {
+    width: 100%;
+    max-width: 1280px;
+    margin-right: auto;
+    margin-left: auto;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-flow: row wrap;
+    flex-flow: row wrap;
+}
+
+.gov2019-css .coi-content {
+    padding: 0;
+}
+
+.gov2019-css .row .row {
+    margin-right: -0.625rem;
+    margin-left: -0.625rem;
+}
+
+@media print, screen and (min-width: 64em) {
+    .gov2019-css .section-header-container:not(.expanded) .column {
+        padding-left: .9375rem;
+    }
+}
+
+@media print, screen and (min-width: 40em) {
+    .gov2019-css .section-header-container:not(.expanded) .column {
+        padding-left: .6875rem;
+    }
+}
+
+.gov2019-css .section-header-container:not(.expanded) {
+    margin: 0 0 20px 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.ui-datepicker-header {
+    border-bottom: 0px;
+    border-radius: .25rem 0.25rem 0rem 0rem;
+    padding-top: 0.25rem;
+}
+
+
+
+
+
+.gov2019-css .nFormsGlobalErrors{
+    padding: 20px 30px 20px 60px;
+    background-image: url('../../img/gov2019/alert_icon.svg');
+    background-repeat: no-repeat;
+    background-position-x: 10px;
+    background-position-y: center;
+    background-size: 35px;
+    
+    font-family: 'Open Sans', sans-serif;
+    border: #D5233F 2px solid;
+    margin: 30px 0;
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    -webkit-box-pack: start;
+    -ms-flex-pack: start;
+    justify-content: start;
+    background-color: white;
+    border-radius: 4px;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+}
+
+.gov2019-css .nFormsGlobalErrors p {
+    padding: 15px 15px 6px 70px;
+    color: #000;
+}
+
+
+.gov2019-css .nFormsGlobalErrors p,
+.gov2019-css .nFormsGlobalErrors li {
+    color: 000;
+    line-height: 24px;
+    font-size: 16px;
+    font-family: inherit;
+}
+
+.gov2019-css .nForms-errors {
+    padding: 20px 30px 20px 60px;
+    background-image: url('../../img/gov2019/alert_icon.svg');
+    background-repeat: no-repeat;
+    background-position-x: 10px;
+    background-position-y: center;
+    background-size: 35px;
+    width: 100%;
+    font-family: 'Open Sans', sans-serif;
+    border: #D5233F 3px solid;
+    margin: 30px 0;
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    -webkit-box-pack: start;
+    -ms-flex-pack: start;
+    justify-content: start;
+    background-color: white;
+    border-radius: 4px;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+}
+
+@media (max-width: 680px) {
+    .gov2019-css .nFormsGlobalErrors,
+    .info-show-page.gov2019-css .nFormsGlobalErrors {
+        background: none;
+        margin-right: 0 !important;
+    }
+
+    .gov2019-css .nFormsGlobalErrors p {
+    padding-left: 15px
+}
+}
+
+.gov2019-css .nForms-errors--blue {
+    border: #1c73dd 3px solid;
+    background-image: url('../../img/gov2019/info_icon--blue.svg');
+}
+
+.gov2019-css .nForms-errors {
+    font-weight: 700;
+    color: #000;
+}
+
+
+
+
+
+
+
+
+
+.gov2019-css .no-phone-link {
+    pointer-events: none;
+    text-decoration:none;
+    color:inherit;
+}

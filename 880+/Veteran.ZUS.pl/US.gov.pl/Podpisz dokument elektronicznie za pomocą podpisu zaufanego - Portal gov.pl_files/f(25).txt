@@ -1,0 +1,45 @@
+jQuery(document).ready(function(){
+
+    (function (){
+    
+       
+        var err500 = {
+            getSiteHttpCode: function() {
+                var siteH1 = jQuery('h1');
+                var siteH1Text  = jQuery(siteH1).text();
+                return siteH1Text;
+            },
+            getCaseIDNumber: function() {
+                var caseId = jQuery('.error-404__description b').text();
+                return caseId;
+            },
+            getGovServicesHref: function() {
+                return jQuery('a[data-js-nav-target="EServices"]').attr('href');
+            }
+        }
+    
+        var caseIDNumber = err500.getCaseIDNumber();
+        var caseIDNumberExist = !!caseIDNumber;
+    
+        var err500Message = '<div style="margin-bottom: 10px; margin-top: 20px;">Błąd systemu. Wybierz rozwiązanie:</div>' +
+                            '<ol style="font-size: 18px; margin-bottom: 0">' +
+                            '<li><a style="font-size: 18px" class="js_back500" href="'+ err500.getGovServicesHref() +'">Spróbuj jeszcze raz – przejdź do listy e-usług.</a></li>' +
+                            '<li>Skontaktuj się z administratorem – dane do kontaktu znajdziesz poniżej.</li></ol>';
+        var err500MessageWithId = '<span class="case-id">'+ err500Message +'Podaj mu numer sprawy: '+ err500.getCaseIDNumber()+ '</span>';
+    
+    
+        if((window.location.href).indexOf('?') != -1) {
+       
+    
+           
+           
+            if (err500.getSiteHttpCode() === '500' && !caseIDNumberExist) {
+                jQuery('.error-404__description').html(err500Message);
+            } else if (err500.getSiteHttpCode() === '500' && caseIDNumberExist) {
+                jQuery('.error-404__description').html(err500MessageWithId);
+            }
+    
+        }
+    })()
+    
+    });

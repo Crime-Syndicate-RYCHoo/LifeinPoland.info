@@ -1,0 +1,17 @@
+var _paq = _paq || [];
+
+_paq.push(['trackPageView']);
+_paq.push(['enableLinkTracking']);
+(function () {
+    var u = "//pi-ogp.coi.gov.pl/", d = document;
+    var piwikSiteId = document.getElementById("varPiwikSiteId").value;
+    _paq.push(['setTrackerUrl', u + 'piwik.php']);
+    _paq.push(['setDocumentTitle', document.domain + "/" + document.title]);
+    _paq.push(['setSiteId', piwikSiteId]);
+    var g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
+    g.type = 'text/javascript';
+    g.async = true;
+    g.defer = true;
+    g.src = u + 'piwik.js';
+    s.parentNode.insertBefore(g, s);
+})();

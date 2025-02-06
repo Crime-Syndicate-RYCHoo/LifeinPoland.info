@@ -1,0 +1,153 @@
+$(document).ready(function () {
+    var fileUpload = new SignerFileUploadComponent("/nforms/rest/").setName("signer").initialize(),
+        filename = '';
+
+    var path='';
+    if (window.location.href.indexOf('xades')!=-1)
+    {
+        path='(XAdES)';
+    }
+    sessionStorage.setItem('path', path);
+
+    $('[data-role="close-authorize-document-signing"]').click(function (event) {
+        event.preventDefault();
+        $('[data-role="modal"]').hide();
+        $('#authorize-document-signing-code').val('');
+        $('[data-role="authorize-document-signing-trigger"]').addClass('btn-disabled');
+    });
+
+    $('#authorize-document-signing-code').keyup(function (event) {
+        event.preventDefault();
+        var value = $(this).val();
+        $('[data-role="authorize-document-signing-trigger"]').toggleClass('btn-disabled', value === '');
+    });
+
+    $('[data-role="open-authorize-document-signing"]').click(function (event) {
+        event.preventDefault();
+        $('[data-role="authorize-document-signing-error"]').hide();
+        $('[data-role="signing-code-input-wrapper"]').removeClass('has-error');
+        $('[data-role="modal"]').show();
+    });
+
+    $('[data-role="save-with-pz"]').click(function (event) {
+        event.preventDefault();
+
+        var button = $(this);
+
+        button.addClass('btn--loading');
+        $('[data-role="authorize-document-signing-error"]').hide();
+        $('[data-role="signing-code-input-wrapper"]').removeClass('has-error');
+        $('[data-role="modal"]').show();
+       
+        $('input.egov-go-input').focus();
+
+        $.ajax({
+            url: window.location.protocol + '//' + window.location.host + '/nforms/sec/tpSigning2/requestCode',
+            type: 'post',
+            data: {
+                authCode: $('#authorize-document-signing-code').val()
+            },
+            success: function (data) {
+                button.removeClass('btn--loading');
+                $('[data-role="authorize-document-signing-info"]').html(data.feedbackInfo);
+            }
+        });
+    });
+
+    $('[data-role="save-with-bank"]').click(function (event) {
+        event.preventDefault();
+
+        $(this).addClass('btn--loading');
+
+        $('[data-role="authorize-document-signing-submit"]')[0].click();
+    });
+
+    $('[data-role="authorize-document-signing-trigger"]').click(function (event) {
+        event.preventDefault();
+
+        $(this).addClass('btn--loading').attr('disabled', true);
+
+        $.ajax({
+            url: window.location.protocol + '//' + window.location.host + '/nforms/sec/tpSigning2/setAuthCode',
+            type: 'post',
+            data: {
+                authCode: $('#authorize-document-signing-code').val()
+            },
+            success: function (data) {
+                $('[data-role="authorize-document-signing-submit"]')[0].click();
+            }
+        });
+    });
+
+    $(document).on('keypress', '#modal_form', function (event) {
+        if (event.keyCode === 13 && $('#authorize-document-signing-code').val() != '') {
+            $('[data-role="authorize-document-signing-trigger"]').trigger('click');
+            return false;
+        } else if (event.keyCode === 13) {
+            return false;
+        }
+    });
+
+    if (window.location.href.indexOf('showErrorMessage=true') != -1) {
+        filename = window.location.href;
+        filename = filename.substr(filename.indexOf('fileName') + 9);
+        if (filename.indexOf('&') != -1) {
+            filename = filename.substr(0, filename.indexOf('&'));
+        }
+
+        fileUpload.showSuccessView(filename);
+
+        $('[data-role="signing-code-input-wrapper"]').addClass('has-error');
+        $('[data-role="authorize-document-signing-error"]').show();
+        $('[data-role="modal"]').show();
+    } else if (window.location.href.indexOf('noFileError=true') != -1) {
+        fileUpload.showNoFileErrorView();
+    }
+}
+);
+
+
+
+//NFORMS-11078
+function goToPades()
+{
+    window.piwikActions.sendPiwikAction('link', 'Przejdź do podpisu w formacie PAdES');
+    //window.location = $('#a1').attr('href');
+    window.setTimeout( function() { window.location = $('#a1').attr('href'); }, 250  );
+};
+
+
+function goToXades()
+{
+    window.piwikActions.sendPiwikAction('link', 'Jeśli chcesz podpisać .pdf w formacie XAdES - kliknij ten link.');
+    //window.location = $('#a2').attr('href');
+    window.setTimeout( function() { window.location = $('#a2').attr('href'); }, 250 );
+};
+
+function check()
+{
+    window.piwikActions.sendPiwikAction('link', 'Sprawdź, czym się różnią formaty PAdES i XAdES.');
+    //window.location = $('#a3').attr('href');
+    window.setTimeout( function() { window.location = $('#a3').attr('href'); }, 250 );
+};
+
+function back()
+{
+    window.piwikActions.sendPiwikAction('link', 'Wróć do początku');
+    window.setTimeout( function() { window.location = $('#a0').attr('href'); }, 250 );
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

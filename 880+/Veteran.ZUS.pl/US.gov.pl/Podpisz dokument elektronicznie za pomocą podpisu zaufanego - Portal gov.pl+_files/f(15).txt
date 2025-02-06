@@ -1,0 +1,15 @@
+.obywatel-css .login-info-wrapper {
+    display: none;
+}
+
+.form__text-field--one-third {
+    text-align: center !important;
+    margin: 0 auto;
+}
+
+@media (min-width: 1024px) {
+    .br-on-lg {
+        display: block;
+    }
+}
+

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="96" height="96" viewBox="0 0 96 96">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_6004" data-name="Rectangle 6004" width="96" height="96" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="pko_icon_mobile_96" transform="translate(-75 -765)">
+    <g id="ikona" transform="translate(75 765)">
+      <g id="Group_14801" data-name="Group 14801" clip-path="url(#clip-path)">
+        <g id="Group_14800" data-name="Group 14800" opacity="0">
+          <g id="Group_14799" data-name="Group 14799">
+            <g id="Group_14798" data-name="Group 14798" clip-path="url(#clip-path)">
+              <rect id="Rectangle_6002" data-name="Rectangle 6002" width="96" height="96" fill="#003574"/>
+            </g>
+          </g>
+        </g>
+        <path id="Path_16558" data-name="Path 16558" d="M15.5,23.5a4,4,0,1,0-4-4,4,4,0,0,0,4,4" transform="translate(34.5 46.5)" fill="#003574"/>
+        <path id="Path_16559" data-name="Path 16559" d="M11,4H7V68H51V4ZM47,64H11V8H47Z" transform="translate(21 12)" fill="#003574"/>
+      </g>
+    </g>
+    <rect id="pole" width="96" height="96" transform="translate(75 765)" fill="none" opacity="0"/>
+  </g>
+</svg>

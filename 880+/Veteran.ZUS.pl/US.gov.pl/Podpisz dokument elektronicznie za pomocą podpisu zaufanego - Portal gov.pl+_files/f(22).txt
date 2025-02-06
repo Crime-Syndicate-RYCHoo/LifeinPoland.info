@@ -1,0 +1,23 @@
+jQuery('#signer').on('click', '.drop-file-upload__remove-file', function () {
+    var path = sessionStorage.getItem('path').toString();
+    window.piwikActions.sendPiwikAction('ikona', 'usuń dodany dokument');
+    window.piwikActions.updateDocTitle("Podpisz dokument elektronicznie za pomocą podpisu zaufanego " + path + " - Portal gov.pl");
+});
+
+jQuery('#getFile_button1_signed, #getFile_button2_signed').on('click', 'button.button-singer', function () {
+    window.piwikActions.sendPiwikAction('przycisk', 'zobacz dokument');
+});
+
+jQuery('#getFile_button1, #getFile_button1_add_signed, #getFile_button2, #getFile_button2_add_signed').on('click', 'button.signer-save-button', function () {
+    window.piwikActions.sendPiwikAction('przycisk', 'podpisz dokument');
+});
+
+jQuery('#n1').on('click', function () {
+    goToPades()
+});
+jQuery('#n2').on('click', function () {
+    goToXades()
+});
+jQuery('#n3').on('click', function () {
+    check();
+});

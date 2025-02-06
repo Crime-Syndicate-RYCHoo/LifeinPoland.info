@@ -1,0 +1,164 @@
+.modal__wrapper {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    display: inline-block;
+    outline: none;
+    text-align: left;
+    position: relative;
+    top: 45%;
+    left: 44%;
+    transform: translate(-50%, -50%);
+    margin: 40px;
+    padding: 0px 20px;
+    width: 600px;
+    border: 1px solid #999;
+    background: white;
+    border-radius: 4px;
+}
+
+.modal__header {
+    position: relative;
+    padding: 12px 70px;
+    background: none;
+}
+
+h2.modal__heading {
+    text-align: center;
+    line-height: 24px;
+    font-size: 24px;
+    font-weight: 700;
+    font-family: "Open sans";
+    margin-top: 34px;
+}
+
+.modal__close {
+    position: absolute;
+    top: 25px;
+    right: 01;
+    width: 25px;
+    height: 25px;
+    overflow: hidden;
+    text-indent: -99em;
+    cursor: pointer;
+    margin:0;
+}
+
+.modal__close::before  {
+    content: '';
+    display: block;
+    height: 15px;
+    background-image: url(../../img/svgs/removeIcon.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.modal__text {
+    font-size: 14px;
+    line-height: 34px;
+}
+
+.form__text-field--one-third {
+    width: 100%;
+    margin: 0;
+}
+
+.offset--bottom {
+    margin-bottom: 20px;
+}
+
+.modal__text--small {
+    margin-bottom: 4px;
+}
+
+.fr-nforms-save-button .btn, .navigation--bottom .btn {
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 1;
+    letter-spacing: 0px;
+    text-align: center;
+    text-transform: uppercase;
+    padding: 0.5625rem 1.3125rem;
+    display: block;
+    width: 100%;
+    -webkit-appearance: none;
+    appearance: none;
+    border: 2px solid #0075e2;
+    border-radius: 2px;
+    transition: all 0.25s ease-out;
+    cursor: pointer;
+    background-color: #0075e2;
+    text-decoration: none;
+}
+
+.fr-nforms-save-button .btn.signer-cancel {
+    background-color: #fff;
+    color: #0052a5;
+    width: 30% !important;
+    font-family: "Open Sans";
+}
+
+.fr-nforms-save-button .btn.signer-confirm {
+    width: 30% !important;
+    border-color: #0052a5;
+    background-color: #0052a5;
+    font-family: "Open Sans";
+}
+
+.fr-nforms-save-button .btn.drop-file-upload__select-file {
+    padding: 12px 20px;
+}
+
+.fr-nforms-save-button .btn.drop-file-upload__select-file,
+.fr-nforms-save-button .btn.signer-save-button,
+.fr-nforms-save-button .btn.button-singer,
+.fr-nforms-save-button .btn.jpk-save-button {
+    background-color: #0052A5;
+    border-color: #0052A5;
+}
+
+.fr-nforms-save-button .btn.signer-save-button {
+    margin-top: 10px;
+}
+
+
+::-webkit-input-placeholder {
+    color: #737373;
+    position: relative;
+    font-size: 16px;
+    top: 18%;
+    line-height: 24px;
+    font-family: "Open Sans";
+  }
+  
+  :-moz-placeholder {
+    color: #737373;
+    opacity: 1;
+    position: relative;
+    font-size: 16px;
+    top: 22%;
+    line-height: 24px;
+    font-family: "Open Sans";
+  }
+  
+  ::-moz-placeholder {
+    color: #737373;
+    opacity: 1;
+    position: relative;
+    font-size: 16px;
+    top: 22%;
+    line-height: 24px;
+    font-family: "Open Sans";
+  }
+  
+  :-ms-input-placeholder {
+    color: #737373;
+    position: relative;
+    font-size: 16px;
+    top: 22%;
+    line-height: 24px;
+    font-family: "Open Sans";
+  }
+  

@@ -1,0 +1,515 @@
+.gov2019-css .section-spacer {
+    border-color: transparent;
+}
+
+.gov2019-css .row {
+    position: relative;
+}
+
+
+.gov2019-css .site-title, .gov2019-css .row--1 h1.site-title {
+    margin-top: 8px;
+    margin-bottom: 24px;
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 34px;
+}
+
+.gov2019-css section .section-header-container .section-header .h3 {
+    margin-bottom: 8px;
+    margin-top: 10px;
+    font-size: 17.5px;
+    line-height: 25px;
+}
+
+.gov2019-css #header .top-bar {
+    padding-bottom: 0;
+}
+
+@media (min-width: 768px) {
+    .gov2019-css .site-title, .gov2019-css .row--1 h1.site-title {
+        font-size: 34px;
+        line-height: 1.238;
+    }
+    
+    .gov2019-css section .section-header-container .section-header .h3 {
+        font-size: 24px;
+        line-height: 34px;   
+    }
+}
+
+@media (min-width: 1200px) {
+    .gov2019-css .site-title, .gov2019-css .row--1 h1.site-title {
+        font-size: 42px;
+        line-height: 52px;
+    }
+}
+
+.gov2019-css .step-margin-bottom {
+    margin-bottom: 60px; 
+}
+
+.gov2019-css .row--margin-top {
+    margin-top: 0;
+}
+
+.gov2019-css .autocomplete-input,
+.gov2019-css .autocomplete-input::placeholder,
+.gov2019-css input,
+.gov2019-css textarea {
+    color: #767676;
+}
+
+
+.gov2019-css .radio-row .radio-label label {
+    padding-left: 35px;
+    font-size: 16px;
+    line-height: 24px;
+    padding-top: 0;
+    min-height: auto;
+    cursor: pointer;
+    color: #000;
+    margin: 0;
+}
+
+.gov2019-css .radio-row input[type="radio"] + .radio-label label:before {
+    width: 20px;
+    height: 20px;
+    top: 2px;
+    left: 0px;
+    border: 2px solid #b7b7b7;
+    
+}
+
+.gov2019-css .radio-row input[type="radio"]:checked + .radio-label label:after {
+    top: 7px;
+    left: 5px;
+    width: 10px;
+    height: 10px;
+    background: #0052a5;
+}
+
+.gov2019-css .coi-content .columns {
+    margin-bottom: 35px; 
+}
+
+
+
+.gov2019-css [type="text"],
+.gov2019-css [type="password"],
+.gov2019-css [type="date"],
+.gov2019-css [type="datetime"],
+.gov2019-css [type="datetime-local"],
+.gov2019-css [type="month"],
+.gov2019-css [type="week"],
+.gov2019-css [type="email"],
+.gov2019-css [type="number"],
+.gov2019-css [type="search"],
+.gov2019-css [type="tel"],
+.gov2019-css [type="time"],
+.gov2019-css [type="url"],
+.gov2019-css [type="color"],
+.gov2019-css .autocomplete-input-container,
+.gov2019-css textarea {
+    border: 1px solid #b7b7b7 !important;
+    border-radius: 4px !important;
+    line-height: 21px !important;
+    position: relative;
+    display: block;
+    height: auto;
+    padding: .5rem;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.gov2019-css .autocomplete-input-container {
+    padding: 0;
+    border: 0 !important;
+}
+
+.gov2019-css .autocomplete-input-container:before {
+    background: url('../../img/gov2019/down_icon.svg') no-repeat 50%;
+    border-left: 0;
+    z-index: 2;
+}
+
+.gov2019-css .autocomplete-input {
+    height: auto;
+    padding: .5rem 35px 0.5rem .5rem;
+    line-height: 21px;
+    border: 1px solid #b7b7b7 !important;
+    border-radius: 4px;
+}
+
+.gov2019-css .photo-input-container .photo-input-field:before,
+.gov2019-css .photo-input-container .photo-input-btn i {
+    display: none;
+}
+
+.gov2019-css .photo-input-container .photo-input-btn {
+    background: url('../../img/gov2019/attachment_clamp.svg') 50% 50% no-repeat !important;
+    background-size: 65% !important;
+}
+
+.gov2019-css .form__text-field-container:after {
+    left: 0px !important;
+    right: 0px !important;
+    z-index: 2;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
+.gov2019-css .autocomplete-input-container .form__text-field-container:after {
+    right: -38px !important;
+}
+
+.gov2019-css .has-error .form__text-field-container:after {
+    border-color: #D5233F !important;
+}
+
+.gov2019-css .form__text-field-container.form__text-field-container--active:after {
+    border-color: #0052A5 !important;
+    
+}
+
+.gov2019-css .form__text-field-container--valid:after {
+    display: none;
+}
+
+.gov2019-css .autocomplete-input {
+    border-right: 0;
+}
+
+
+
+.gov2019-css .autocomplete-input-container:before {
+    border: none;
+}
+
+
+.gov2019-css .form__text-field-container--disabled:after {
+    display: none;
+}
+
+
+.gov2019-css .form__label.form__label--moving {
+    top: 0;
+    left: 0;
+}
+
+
+
+.gov2019-css .zamel-calendar {
+    background: url(../../img/gov2019/calendar_icon.svg) 50% 50% no-repeat;
+    background-size: 64%;
+    background-position: center;
+    border-left: none;+
+}
+
+
+
+
+
+.gov2019-css .fr-nforms-save-button .btn,
+.gov2019-css .navigation--bottom .btn {
+    font-size: 16px;
+    font-weight: 700;
+    padding: 12px 5px;
+    border-radius: 4px;
+}
+
+
+
+.gov2019-css .checkbox-row input[type="checkbox"] + .checkbox-label label:before {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #b7b7b7;
+}
+
+.checkbox-row input[type="checkbox"]:focus + .checkbox-label label:before {
+    box-shadow: 0 0 0 2px #0a54a3;
+}
+
+.gov2019-css .checkbox-row input[type="checkbox"]:checked + .checkbox-label label:before {
+    background-color: #0a54a3;
+    border: #0a54a3;
+}
+
+.gov2019-css .checkbox-row input[type="checkbox"]:checked + .checkbox-label label:after {
+    cursor: pointer;
+    font-size: 27px;
+    position: absolute;
+    top: 38px;
+    left: 2px;
+    color: #FFFFFF;
+    background-color: #0a54a3;
+    content: '';
+    display: block;
+    width: 8px;
+    height: 14px;
+    border: solid #FFFFFF;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    margin-top: -36px;
+    margin-left: 4px;
+}
+
+
+
+.gov2019-css .checkbox-row .checkbox-label label {
+    color: #1a1a1a;
+    padding-top: 0;
+    font-size: 16px;
+}
+
+
+
+
+.gov2019-css .step-pagination {
+    font-size: 14px;
+    font-family: 'Open Sans', sans-serif !important;
+    line-height: 18px;
+    color: #767676;
+}
+
+.gov2019-css .step-count {
+    position: relative;
+    padding-top: 25px;
+    border-bottom: 0;
+    width: 122px;
+    font-weight: bold;
+    color: #767676;
+}
+
+.gov2019-css .step-pagination::after {
+    display: none;  
+}
+
+.gov2019-css .step-done {
+    font-weight: bold;
+    color: #0a54a3;
+    border-top: 2px solid #0a54a3;
+}
+
+.gov2019-css .step-active {
+    color: #000000;
+    border-top: 2px solid #b7b7b7;
+}
+
+.gov2019-css .step {
+    border-top: 2px solid #b7b7b7;
+}
+
+.gov2019-css .step-last {
+    border-top: 0;
+}
+
+.gov2019-css .step-active::before {
+    position: absolute;
+    content: '';
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    margin: 0;
+    top: -5px;
+    left: 6px;
+    width: 10px;
+    height: 10px;
+    background: #0a54a3;
+    border: 0;
+    border-radius: 100%;
+    z-index: 2;
+}
+
+.gov2019-css .step-active::after {
+    position: absolute;
+    content: '';
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    width: 22px;
+    height: 22px;
+    margin: 0;
+    border-radius: 50%;
+    top: -11px;
+    left: 0;
+    border: 2px solid #0a54a3 !important;
+    background-color: #FFFFFF;
+    z-index: 1;
+}
+
+.gov2019-css .step-pagination .step::before {
+    position: absolute;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    margin: 0;
+    background: #0a54a3;
+    border-radius: 0;
+    z-index: 2;
+    content: '';
+    display: block;
+    left: 5px;
+    width: 7px;
+    height: 12px;
+    border: solid #FFFFFF;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    margin-top: -34px;
+    margin-left: 2px;
+    background-color: #FFFFFF;
+    content: '';
+    width: 0;
+    height: 0;
+    border: none;
+    -webkit-transform: rotate(0);
+    transform: rotate(0);
+}
+
+.gov2019-css .step-pagination .step::after {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+    right: 0;
+    position: absolute;
+    content: '';
+    flex-direction: row;
+    width: 22px;
+    height: 22px;
+    margin: 0;
+    border-radius: 50%;
+    top: -12px;
+    left: 0;
+    border: 2px solid #767676;
+    background-color: #FFFFFF;
+    z-index: 1;
+}
+
+.gov2019-css .step-pagination .step-done::before,
+.gov2019-css .step-pagination .step-done::after {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+    right: 0;
+    position: absolute;
+    content: '';
+    flex-direction: row;
+    width: 22px;
+    height: 22px;
+    margin: 0;
+    border-radius: 50%;
+    top: -12px;
+    left: 0;
+    border: 2px solid #767676;
+    background-color: #FFFFFF;
+    z-index: 1;
+}
+
+.gov2019-css .step-pagination .step-done::before {
+    content: '';
+    display: block;
+    width: 7px;
+    height: 12px;
+    top: -8px;
+    left: 8px;
+    background: #0a54a3;
+    border-radius: 0;
+    border: solid #FFFFFF;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    z-index: 2;
+}
+
+.gov2019-css .step-pagination .step-done::after {
+    border: 2px solid #0a54a3;
+    background-color: #0a54a3;
+}
+
+.gov2019-css .step-last:last-child::after {
+    width: 22px;
+    height: 22px;
+    margin: 0;
+    background-color: #FFFFFF;
+}
+
+.gov2019-css .form__label-2 {
+    margin: 0px 0 48px
+}
+
+.gov2019-css .help-line-wrapper .help-aside-icon {
+    position: absolute;
+    left: 0px;
+    top: 20px;
+}
+
+.gov2019-css .help-line-wrapper {
+    position: relative;
+    border-top: 2px solid rgb(230, 230, 230);
+}
+
+.gov2019-css .help-line-wrapper {
+    padding: 20px 0px 0px;
+    border-top: 1px solid rgb(115, 115, 115);
+}
+
+.gov2019-css .help-aside .help-aside-container .help-aside-icon img {
+    display: none;
+}
+
+.gov2019-css .help-aside-icon::before {
+    content: "i";
+    display: inline-block;
+    text-align: center;
+    font-family: Georgia, serif;
+    font-size: 16px;
+    color: rgb(119, 119, 119);
+    line-height: 22px;
+    border-radius: 50%;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(119, 119, 119);
+    border-image: initial;
+}
+
+.gov2019-css .help-aside-icon::before {
+    color: rgb(118, 118, 118);
+    line-height: 18px;
+    width: 20px;
+    height: 20px;
+    font-size: 14px;
+    border-color: rgb(118, 118, 118);
+}
+  
+.gov2019-css .help-line-container p, .help-line-container span {
+    font-size: 14px !important;
+    line-height: 20px !important;
+    color: rgb(27, 27, 27) !important;
+}
+
+.gov2019-css .help-line-container p {
+    margin-left: 25px;
+}
+
+.gov2019-css .help-line-icon {
+    margin-left: -5px;
+}
+  
+@media (min-width: 63.94em) {
+    .gov2019-css .hide-on-mobile {
+        display: block;
+    }
+    .gov2019-css .show-on-mobile {
+        display: none;
+    }
+}
+  

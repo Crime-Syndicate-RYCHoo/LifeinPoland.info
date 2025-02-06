@@ -1,0 +1,1041 @@
+(function (global, factory) { typeof exports === "object" && typeof module !== "undefined" ? module.exports = factory(global) : typeof define === "function" && define.amd ? define(factory) : factory(global) })(typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : typeof global !== "undefined" ? global : this, function (global) { "use strict"; global = global || {}; var _Base64 = global.Base64; var version = "2.5.1"; var buffer; if (typeof module !== "undefined" && module.exports) { try { buffer = eval("require('buffer').Buffer") } catch (err) { buffer = undefined } } var b64chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"; var b64tab = function (bin) { var t = {}; for (var i = 0, l = bin.length; i < l; i++)t[bin.charAt(i)] = i; return t }(b64chars); var fromCharCode = String.fromCharCode; var cb_utob = function (c) { if (c.length < 2) { var cc = c.charCodeAt(0); return cc < 128 ? c : cc < 2048 ? fromCharCode(192 | cc >>> 6) + fromCharCode(128 | cc & 63) : fromCharCode(224 | cc >>> 12 & 15) + fromCharCode(128 | cc >>> 6 & 63) + fromCharCode(128 | cc & 63) } else { var cc = 65536 + (c.charCodeAt(0) - 55296) * 1024 + (c.charCodeAt(1) - 56320); return fromCharCode(240 | cc >>> 18 & 7) + fromCharCode(128 | cc >>> 12 & 63) + fromCharCode(128 | cc >>> 6 & 63) + fromCharCode(128 | cc & 63) } }; var re_utob = /[\uD800-\uDBFF][\uDC00-\uDFFFF]|[^\x00-\x7F]/g; var utob = function (u) { return u.replace(re_utob, cb_utob) }; var cb_encode = function (ccc) { var padlen = [0, 2, 1][ccc.length % 3], ord = ccc.charCodeAt(0) << 16 | (ccc.length > 1 ? ccc.charCodeAt(1) : 0) << 8 | (ccc.length > 2 ? ccc.charCodeAt(2) : 0), chars = [b64chars.charAt(ord >>> 18), b64chars.charAt(ord >>> 12 & 63), padlen >= 2 ? "=" : b64chars.charAt(ord >>> 6 & 63), padlen >= 1 ? "=" : b64chars.charAt(ord & 63)]; return chars.join("") }; var btoa = global.btoa ? function (b) { return global.btoa(b) } : function (b) { return b.replace(/[\s\S]{1,3}/g, cb_encode) }; var _encode = buffer ? buffer.from && Uint8Array && buffer.from !== Uint8Array.from ? function (u) { return (u.constructor === buffer.constructor ? u : buffer.from(u)).toString("base64") } : function (u) { return (u.constructor === buffer.constructor ? u : new buffer(u)).toString("base64") } : function (u) { return btoa(utob(u)) }; var encode = function (u, urisafe) { return !urisafe ? _encode(String(u)) : _encode(String(u)).replace(/[+\/]/g, function (m0) { return m0 == "+" ? "-" : "_" }).replace(/=/g, "") }; var encodeURI = function (u) { return encode(u, true) }; var re_btou = new RegExp(["[À-ß][-¿]", "[à-ï][-¿]{2}", "[ð-÷][-¿]{3}"].join("|"), "g"); var cb_btou = function (cccc) { switch (cccc.length) { case 4: var cp = (7 & cccc.charCodeAt(0)) << 18 | (63 & cccc.charCodeAt(1)) << 12 | (63 & cccc.charCodeAt(2)) << 6 | 63 & cccc.charCodeAt(3), offset = cp - 65536; return fromCharCode((offset >>> 10) + 55296) + fromCharCode((offset & 1023) + 56320); case 3: return fromCharCode((15 & cccc.charCodeAt(0)) << 12 | (63 & cccc.charCodeAt(1)) << 6 | 63 & cccc.charCodeAt(2)); default: return fromCharCode((31 & cccc.charCodeAt(0)) << 6 | 63 & cccc.charCodeAt(1)) } }; var btou = function (b) { return b.replace(re_btou, cb_btou) }; var cb_decode = function (cccc) { var len = cccc.length, padlen = len % 4, n = (len > 0 ? b64tab[cccc.charAt(0)] << 18 : 0) | (len > 1 ? b64tab[cccc.charAt(1)] << 12 : 0) | (len > 2 ? b64tab[cccc.charAt(2)] << 6 : 0) | (len > 3 ? b64tab[cccc.charAt(3)] : 0), chars = [fromCharCode(n >>> 16), fromCharCode(n >>> 8 & 255), fromCharCode(n & 255)]; chars.length -= [0, 0, 2, 1][padlen]; return chars.join("") }; var _atob = global.atob ? function (a) { return global.atob(a) } : function (a) { return a.replace(/\S{1,4}/g, cb_decode) }; var atob = function (a) { return _atob(String(a).replace(/[^A-Za-z0-9\+\/]/g, "")) }; var _decode = buffer ? buffer.from && Uint8Array && buffer.from !== Uint8Array.from ? function (a) { return (a.constructor === buffer.constructor ? a : buffer.from(a, "base64")).toString() } : function (a) { return (a.constructor === buffer.constructor ? a : new buffer(a, "base64")).toString() } : function (a) { return btou(_atob(a)) }; var decode = function (a) { return _decode(String(a).replace(/[-_]/g, function (m0) { return m0 == "-" ? "+" : "/" }).replace(/[^A-Za-z0-9\+\/]/g, "")) }; var noConflict = function () { var Base64 = global.Base64; global.Base64 = _Base64; return Base64 }; global.Base64 = { VERSION: version, atob: atob, btoa: btoa, fromBase64: decode, toBase64: encode, utob: utob, encode: encode, encodeURI: encodeURI, btou: btou, decode: decode, noConflict: noConflict, __buffer__: buffer }; if (typeof Object.defineProperty === "function") { var noEnum = function (v) { return { value: v, enumerable: false, writable: true, configurable: true } }; global.Base64.extendString = function () { Object.defineProperty(String.prototype, "fromBase64", noEnum(function () { return decode(this) })); Object.defineProperty(String.prototype, "toBase64", noEnum(function (urisafe) { return encode(this, urisafe) })); Object.defineProperty(String.prototype, "toBase64URI", noEnum(function () { return encode(this, true) })) } } if (global["Meteor"]) { Base64 = global.Base64 } if (typeof module !== "undefined" && module.exports) { module.exports.Base64 = global.Base64 } else if (typeof define === "function" && define.amd) { define([], function () { return global.Base64 }) } return { Base64: global.Base64 } });
+
+$(document).ready(function () {
+
+    sessionStorage.removeItem('button');
+    sessionStorage.setItem('button','');
+    //czy będzie to button 1 czy 2 jest sterowane przez konfigurację
+    $("#information_signature").hide();
+    $("#getFile_button1").hide();
+    $("#getFile_button2").hide();
+    $("#getFile_button1_signed").hide();
+    $("#getFile_button2_signed").hide();
+    $("#getFile_button1_add_signed").hide();
+    $("#getFile_button2_add_signed").hide();
+
+    jQuery('#getFile_button1').on('click', '#signer-download-file', function ($event) {
+        SignerDownloadFile($event);
+    });
+
+    jQuery('#signer-preview-file').on('click', function ($event) {
+        var appContextPath = document.getElementById("varAppContextPath").value;
+        SignerPreviewFile(appContextPath, $event);
+    });
+});
+
+var url_signer_error = window.location.href;
+var reg = /invalidPESELDocumentSignature/;
+
+if (reg.test(url_signer_error) === true) {
+    var modal = document.getElementById('errorModal');
+    modal.style.display = "block";
+    var close = document.getElementById('signer-close');
+    close.onclick = function () {
+        modal.style.display = "none";
+    }
+}
+
+function name_file_upload(file) {
+    sessionStorage.setItem('name_file_signer', file);
+}
+
+function SignerDownloadFile(event) {
+    event.preventDefault();
+    const windowReference = window.open();
+    $.ajax({
+        url: "/nforms/rest/signer/file/random",
+        dataType: "json"
+    })
+        .done(function (res) {
+            $.each(res, function () { });
+
+            if (res != null) {
+                var url_download_signer = res.random;
+                windowReference.location = url_download_signer;
+            }
+        })
+        .fail(function () {
+            console.log("Wystąpił błąd w połączeniu");
+            windowReference.close();
+        });
+}
+
+function SignerPreviewFile(context, event) {
+
+    event.preventDefault();
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+    window.location.assign(context + '/rest/signer/file/extractFileFromXML');
+}
+
+//zzaczynamy naciskanie od <Pokaż wiecej>
+var state_button=0;
+var button='0';
+$("#information_signature").click(function () {
+
+    button=sessionStorage.getItem('button');
+    state_button = getValButton(button);
+
+    $("#toggle_signature").toggle();
+    $("#rotate").toggleClass("rotate");
+    if (state_button == 0)
+    {
+        //naciśnięto pokaż więcej
+        jQuery(this).find('span').text('Pokaż mniej podpisów ');
+        $("#rotate").attr('alt', 'zwiń dodatkowe informacje');
+        $("#toggle_signature").attr('role', 'alert');
+        $("#toggle_signature").attr('aria-atomic', 'true');
+        state_button++;
+        window.piwikActions.sendPiwikAction('pokaż więcej podpisów', 'lista rozwijania – rozwiń');
+        sessionStorage.setItem('button', '1');
+    }
+    else {
+        //naciśnięto pokaż mniej
+        jQuery(this).find('span').text('Pokaż więcej podpisów ');
+        $("#rotate").attr('alt', 'rozwiń dodatkowe informacje');
+        $("#toggle_signature").attr('role', '');
+        $("#toggle_signature").attr('aria-atomic', '');
+        state_button = 0;
+        window.piwikActions.sendPiwikAction('pokaż miej podpisów', 'lista rozwijania – zwiń');
+        sessionStorage.setItem('button', '0');
+    }
+});
+
+$("#toggle_signature2").toggle();
+
+var state_button2 = 0; //przechowywanie stanu przycisku "Jak zobaczyć zawartość pobranego pliku XML"
+$("#ZobaczDokument").click(function () {
+    $("#toggle_signature2").toggle();
+    $("#rotate2").toggleClass("rotate");
+    if (state_button2 == 0) {
+        $("#rotate2").attr('alt', 'zwiń dodatkowe informacje');
+        $("#toggle_signature2").attr('role', 'alert');
+        $("#toggle_signature2").attr('aria-atomic', 'true');
+        state_button2++;
+    } else {
+        $("#rotate2").attr('alt', 'rozwiń dodatkowe informacje');
+        $("#toggle_signature2").attr('role', '');
+        $("#toggle_signature2").attr('aria-atomic', '');
+        state_button2 = 0;
+    }
+    window.piwikActions.sendPiwikAction('przycisk', 'zobacz dokument');//NFORMS-11078
+});
+
+$("#toggle_signature3").toggle();
+
+var state_button3 = 0; //przechowywanie stanu przycisku "Jak przesłać dalej pobrany plik XML"
+$("#WyslijPismo").click(function () {
+    $("#toggle_signature3").toggle();
+    $("#rotate3").toggleClass("rotate");
+    if (state_button3 == 0) {
+        $("#rotate3").attr('alt', 'zwiń dodatkowe informacje');
+        $("#toggle_signature3").attr('role', 'alert');
+        $("#toggle_signature3").attr('aria-atomic', 'true');
+        state_button3++;
+    } else {
+        $("#rotate3").attr('alt', 'rozwiń dodatkowe informacje');
+        $("#toggle_signature3").attr('role', '');
+        $("#toggle_signature3").attr('aria-atomic', '');
+        state_button3 = 0;
+    }
+});
+
+function SignerFileUploadComponent(prefixURL, successCallback, options) { //konfiguracja uploadu plików
+    var containerName = '',
+        fileNameId = '',
+        options = options || {},
+        self = this;
+
+    this.element;
+    this.name;
+    this.fileNameId;
+    this.url;
+
+    var path='';
+    if (window.location.href.indexOf('xades')!=-1)
+    {
+        path='(XAdES)';
+    }
+    sessionStorage.setItem('path', path);
+
+    this.setName = function (name) {
+        if (typeof _log !== "undefined") {
+            _log.debug("registerFor ", arguments)
+        }
+        containerName = name;
+        this.name = name;
+        return this;
+    }
+
+    this.initialize = function () {
+        registerComponent(this.name, this.fileNameId, this.errorMessageContainerId, 0);
+        return this;
+    }
+
+    function registerComponent(name, fileNameId, errorMessageContainerId, fieldID) {
+        var $el = $('<div></div>');
+        self.element = $el;
+        self.url = prefixURL + name;
+        $('#' + containerName)
+            .append('<div class="file-upload-container--' + self.name + '"></div>')
+            .children()
+            .append($el);
+        var displayLabel = $('#' + containerName).data('label') || 'Dodaj potwierdzenie opłaty';
+
+        $el.uploadFile({
+            url: self.url + '/file',
+            htmlBody: getComponentHtmlBody(fileNameId, errorMessageContainerId, $el.data('label'), displayLabel, fieldID, name),
+            allowedTypes: 'txt, rtf, pdf, xps, odt, ods, odp, doc, xls, ppt, docx, xlsx, pptx, csv, jpg, jpeg, tif, tiff, geotiff, png, svg, wav, mp3, avi, mpg, mpeg, mp4, m4a, mpeg4, ogg, ogv, zip, tar, gz, gzip, 7z, html, xhtml, css, xml, xsd, gml, rng, xsl, xslt, TSL, dwg, dwf, dxf, dgn, jp2',
+            maxFileSize: 10485760,
+            dragDrop: true,
+            multiple: false,
+            sizeErrorStr: 'Nieprawidłowy rozmiar pliku. Maksymalny rozmiar pliku to 10 MB ',
+            returnType: 'json',
+            dragDropStr: '',
+            showErrorMessageFunction: function () {
+                self.showErrorView();
+            },
+            //errorMessageContainerId: name + 'NazwaPliku_idx' + fieldID + 'Info',
+            extErrorStr: ' - nieprawidłowe rozszerzenie pliku. ',
+            showStatusAfterSuccess: false,
+            showFileCounter: false,
+            showFileSize: false,
+            showProgress: false,
+            showDelete: false,
+            showAbort: false,
+            nestedForms: false,
+            abortStr: '',
+            uploadStr: 'Dodaj załącznik',
+            uploadBtnClassName: name,
+            customProgressBar: function (obj, s) {
+                this.statusbar = $("<div class='ajax-file-upload-statusbar'></div>");
+                this.preview = $("<img class='ajax-file-upload-preview' />").width(s.previewWidth).height(s.previewHeight).appendTo(this.statusbar).hide();
+                this.filename = $("<div class='ajax-file-upload-filename'></div>").appendTo(this.statusbar);
+                this.progressDiv = $("<div class='ajax-file-upload-progress'>").appendTo(this.statusbar).hide();
+                this.progressbar = $("<div class='ajax-file-upload-bar'></div>").appendTo(this.progressDiv);
+                this.abort = $("<div>" + s.abortStr + "</div>").appendTo(this.statusbar).hide();
+                this.cancel = $("<div>" + s.cancelStr + "</div>").appendTo(this.statusbar).hide();
+                this.done = $("<div>" + s.doneStr + "</div>").appendTo(this.statusbar).hide();
+                return this;
+            },
+            onSelect: function (files) {
+                var regWithAllowedChars = /^[^\/?:*<>|"]+$/;
+                var fileNameWithAllowedChars = regWithAllowedChars.test(files[0].name);
+                if (fileNameWithAllowedChars === false) {
+                    self.showErrorView();
+                    return false;
+                }
+                self.showLoadingView();
+            },
+            onSubmit: function () {
+                self.showLoadingView();
+            },
+            onLoad: function (event) {
+                self.element.off('click');
+                self.element.wrap('<div class="drop-file-upload" data-drop-file-upload="">' +
+                    '<div class="offset--bottom"></div>' +
+                    '</div>');
+                var html = '<p class="drop-file-upload__save-with-pz-info bold centering not-displayed">Teraz możesz zapisać podpisany dokument <br/> na dysku swojego komputera</p>';
+                self.element.after(html);
+                self.element.append('<button class="drop-file-upload__remove-file not-displayed">Usuń</button>');
+                self.findElements();
+                self.elements.fileSelectButton.on('click', function (event) {
+                    event.preventDefault();
+                });
+                self.elements.removeFileButton.on('click', function (event) {
+                    event.preventDefault();
+                    self.deleteFile(event);
+                });
+            },
+            onSuccess: function (files, data, xhr, pd) {
+                if (data.status === 'OK') {
+                    self.showSuccessView(files[0]);
+                    DownloadFileData();
+                } else {
+                    self.showErrorView();
+                }
+            },
+            onError: function (files, status, errMsg, pd) {
+                self.showErrorView();
+            }
+        });
+    }
+
+    this.deleteFile = function () {
+        self.elements.main.removeClass('drop-file-upload__main--loaded');
+        self.elements.main.removeClass('drop-file-upload__main--loaded-xml');
+        self.elements.filename.hide();
+        self.elements.okfile.hide();
+        self.elements.removeFileButton.hide();
+        self.elements.fileSelectButton.show();
+        self.elements.uploadHint.show();
+        $.post(self.url + '/file/delete');
+
+        restart(); //wywołanie funkcji przywrającej wygląd po wciśnięciu przycisku "usuń"
+
+        sessionStorage.removeItem('name_file_signer');
+    }
+
+    this.showLoadingView = function () {
+        self.elements.main.addClass('drop-file-upload__main--loading');
+        self.elements.filename.hide();
+        self.elements.okfile.hide();
+        self.elements.removeFileButton.hide();
+        self.elements.errorMessage.hide();
+        self.elements.noFileErrorMessage.hide();
+        self.elements.uploadingInfo.show();
+        self.elements.uploadHint.hide();
+        self.elements.uploadingInfo.show();
+        self.elements.fileSelectButton.hide();
+    }
+
+    this.showSuccessView = function (filename) {
+        self.elements.main.removeClass('drop-file-upload__main--loading');
+        self.elements.main.addClass('drop-file-upload__main--loaded');
+        self.elements.filename.text(filename);
+        self.elements.filename.show();
+        self.elements.okfile.show();
+        self.elements.fileSelectButton.hide();
+        self.elements.removeFileButton.show();
+        self.elements.uploadingInfo.hide();
+        self.elements.errorMessage.hide();
+        self.elements.noFileErrorMessage.hide();
+        self.elements.saveWithPZInfo.hide();
+        self.elements.uploadHint.hide();
+        self.element.html();
+        sessionStorage.setItem('file',filename);
+        name_file_upload(filename);
+        var validationText=self.elements.okfile.text();
+        window.piwikActions.sendPiwikActionWithTitle('Podpisz dokument elektronicznie za pomocą podpisu zaufanego '+path,validationText, 'wybierz dokument z dysku');
+    }
+
+    self.showErrorView = function () {
+        self.elements.main.removeClass('drop-file-upload__main--loaded');
+        self.elements.main.removeClass('drop-file-upload__main--loading');
+        self.elements.filename.hide();
+        self.elements.okfile.hide();
+        self.elements.fileSelectButton.show();
+        self.elements.removeFileButton.hide();
+        self.elements.errorMessage.show();
+        self.elements.noFileErrorMessage.hide();
+        self.elements.uploadingInfo.hide();
+        }
+
+    self.showNoFileErrorView = function () {
+        self.showErrorView();
+        self.elements.errorMessage.hide();
+        self.elements.noFileErrorMessage.show();
+        var validationText = self.elements.noFileErrorMessage.text();
+        window.piwikActions.sendPiwikActionWithTitle('Podpisz dokument elektronicznie za pomocą podpisu zaufanego '+path,validationText, 'wybierz dokument z dysku');//NFORMS-11078 IMF
+    }
+
+    function _getErrorText() {
+        return self.elements.errorMessage.text();
+    }
+
+    function _getNoFileErrorText() {
+        return self.elements.noFileErrorMessage.text();
+    }
+
+    this.findElements = function () {
+        self.elements = {
+            main: self.element.find('.drop-file-upload__main'),
+            filename: self.element.find('.drop-file-upload__filename'),
+            okfile: self.element.find('.drop-file-upload__okfile'),
+            fileSelectButton: self.element.find('.drop-file-upload__select-file'),
+            uploadHint: self.element.find('.drop-file-upload__upload-hint'),
+            uploadingInfo: self.element.find('.drop-file-upload__uploading-info'),
+            removeFileButton: self.element.find('.drop-file-upload__remove-file'),
+            errorMessage: self.element.find('[data-role="error-message"]'),
+            noFileErrorMessage: self.element.find('[data-role="no-file-error-message"]'),
+            input: self.element.find('input'),
+            rememberToSignInfo: self.element.find('drop-file-upload__remember-to-sign-info'),
+            saveWithPzButton: $('[data-role="save-with-pz"]'),
+            saveWithBankButton: $('[data-role="save-with-bank"]'),
+            saveWithPZInfo: self.element.find('drop-file-upload__save-with-pz-info')
+        };
+    }
+
+    function getComponentHtmlBody(fileNameId, errorMessageContainerId, label, displayLabel, fieldID, name) {
+        return '<div class="drop-file-upload__main">' +
+            '<div class="drop-file-upload__uploading-info not-displayed">Trwa przesyłanie i sprawdzanie pliku</div>' +
+            '<input type="file" name="' + name + '" class="not-displayed" />' +
+            '<div class="drop-file-upload__error-messages not-displayed" data-role="error-message">' +
+            '<p class="drop-file-upload__error-message">Przepraszamy plik jest nieprawidłowy.</p>' +
+            '<p class="drop-file-upload__error-message">Wybierz poprawny i spróbuj przesłać ponownie.</p>' +
+            '</div>' +
+            '<div class="drop-file-upload__error-messages not-displayed" data-role="no-file-error-message">' +
+            '<p class="drop-file-upload__error-message">Nie odnaleziono pliku.</p>' +
+            '<p class="drop-file-upload__error-message">Wybierz poprawny plik i spróbuj przesłać ponownie.</p>' +
+            '</div>' +
+            '<p><button class="btn drop-file-upload__select-file narrow" >Wybierz dokument z dysku</button></p>' +
+            '<p class="drop-file-upload__upload-hint">albo przeciągnij i upuść tutaj</p>' +
+            '<span class="drop-file-upload__okfile not-displayed">Dokument został poprawnie dodany</span><br/>' +
+            '<span id="name_file_upload" class="drop-file-upload__filename not-displayed">Nazwa pliku</span>' +
+            '</div>';
+    }
+}
+
+function getSignedFile() {
+    window.open('/nforms/rest/signer/file/getOriginalFileFromSignerXML');
+};
+
+function restart() {
+    //usunięcie pliku uruchamia funkcję, która czyści do stanu wyjściowego
+
+    $("#information_signature").hide();
+    $("#getFile_button1").hide();
+    $("#getFile_button2").hide();
+    $("#getFile_button1_signed").hide();
+    $("#getFile_button2_signed").hide();
+    $("#getFile_button1_add_signed").hide();
+    $("#getFile_button2_add_signed").hide();
+   
+   
+   
+    $("#toggle_signature").hide();
+
+    sessionStorage.setItem('file','');
+
+    //ustawienia w przypadku wielu podpisów (sekcja jest zwinięta)
+    //$("#toggle_signature").toggle();
+    //$("#rotate").toggleClass("rotate");
+    //$("#information_signature").find('span').text('Pokaż więcej podpisów ');
+    //$("#rotate").attr('alt', 'rozwiń dodatkowe informacje');
+    //$("#toggle_signature").attr('role', '');
+    //$("#toggle_signature").attr('aria-atomic', '');
+
+    htmlfirst_restart();
+};
+
+//funkcja uruchamiana przy uploadzie plików
+function DownloadFileData() {
+
+    var state_button = getValButton(sessionStorage.getItem('button'));
+
+    var html = ''; //tutaj trafiają dane o pierwszym podpisie
+    var htmlfirst = '';
+    var isPoSignature = false;
+    var file_drop = $("div").find('.drop-file-upload__main');
+
+    if (state_button==1)
+    {
+        //zmiana kierunku strzałki
+        $("#toggle_signature").toggle();
+        $("#rotate").toggleClass("rotate");
+    }
+
+    $("#information_signature").find('span').text('Pokaż więcej podpisów ');
+    $("#rotate").attr('alt', 'rozwiń dodatkowe informacje');
+    $("#toggle_signature").attr('role', '');
+    $("#toggle_signature").attr('aria-atomic', '');
+    sessionStorage.setItem('button','0');
+
+
+    $.ajax({
+        url: "/nforms/rest/signer/file/validateDocument",
+        dataType: "json"
+    })
+        .done(function (res) {
+            $.each(res, function () { });
+            var path = sessionStorage.getItem('path');
+
+            var file=sessionStorage.getItem('file');
+            var isPdf=isPdfFile(file);
+            if (!isPdf)
+            {
+                $('#xades_header_main').text('PODPISYWANIE PLIKÓW W FORMACIE XAdES');
+            }
+
+
+            if (res === undefined) {
+
+                window.piwikActions.updateDocTitle('Dodano niepodpisany dokument '+path+' - Portal gov.pl');
+                window.piwikActions.sendPiwikActionWithTitle('Podpisz dokument elektronicznie za pomocą podpisu zaufanego '+path, 'dokument bez podpisu', 'informacja o podpisach');
+                window.piwikActions.sendTitleToPiwik();
+
+                $("#getFile_button1").show();
+                $("#getFile_button2").show();
+                $("#getFile_button1_signed").hide();
+                $("#getFile_button2_signed").hide();
+                $("#getFile_button1_add_signed").hide();
+                $("#getFile_button2_add_signed").hide();
+            }
+            if (res != null) {
+                //res.sort((a,b) => a.signatureDate.localeCompare(b.signatureDate));
+                res.sort((a,b) => b.signatureDate.localeCompare(a.signatureDate));
+
+
+                window.piwikActions.updateDocTitle('Dodano podpisany dokument '+ path +' - Portal gov.pl');
+                window.piwikActions.sendTitleToPiwik();
+                //window.piwikActions.sendPiwikAction('dodano podpisany dokument', 'informacja o podpisach');
+                window.piwikActions.sendPiwikActionWithTitle('Podpisz dokument elektronicznie za pomocą podpisu zaufanego '+path, 'dodano podpisany dokument', 'informacja o podpisach');
+
+                if (res.length === 1) { //jeśli jest jeden podpis
+                    $("#getFile_button1").hide();
+                    $("#getFile_button2").hide();
+                    $("#getFile_button1_signed").hide();
+                    $("#getFile_button2_signed").hide();
+                    $("#getFile_button1_add_signed").hide();
+                    $("#getFile_button2_add_signed").hide();
+                    $("#header-signer").hide();
+                    $("#toggle_signature").show();
+
+                    if (res[0].notRecognized === true || res[0].invalidSignatureType == true) {
+                        if(res[0].notRecognized == true && res[0].invalidSignatureType == false) {
+                            htmlfirst += '<p class="bold signer-border-error">Nie można zweryfikować podpisu w dołączonym pliku.</br> Jeśli chcesz, mimo to możesz podpisać dokument.</p>';
+                            window.piwikActions.sendPiwikAction('Nie można zweryfikować podpisu w dołączonym pliku.', 'informacja o podpisach');
+                        }
+                        if (res[0].invalidSignatureType == true) {
+                            htmlfirst += '<p class="bold signer-border-error">W dokumencie są podpisy, których nie można tu sprawdzić.</br> Sprawdzisz je za pomocą aplikacji <a href="https://www.gov.pl/web/e-dowod/#Pliki-do-pobrania">„e-dowód Podpis Elektroniczny”</a>.</br> Jeśli chcesz, mimo to możesz podpisać dokument.</p><p class="signer-border-error"> </p>';
+                            window.piwikActions.sendPiwikAction('W dokumencie są podpisy, których nie można tu sprawdzić (brak informacji o podpisach)', 'informacja o podpisach');
+
+                        }
+                        $("#getFile_button1").hide();
+                        $("#getFile_button2").hide();
+                        file_drop.removeClass('drop-file-upload__main--loaded');
+                        file_drop.addClass('drop-file-upload__main--loaded-xml');
+                        $("#getFile_button1_signed").hide();
+                        $("#getFile_button2_signed").hide();
+                        $("#getFile_button1_add_signed").show();
+                        $("#getFile_button2_add_signed").show();
+                    }
+                    else {
+                        html += '<table summary="Tabela zawiera informacje o złożonych podpisach"class="table-info"><tr><td class="text-signer">Właściciel podpisu:</td><td class="bold text-signer">' + replaceName(res[0].firstName) + " " + replaceName(res[0].lastName) + "</td></tr><tr><td class='text-signer'>Data i godzina podpisu:</td><td class='bold text-signer'>" + res[0].signatureDate + "</td></tr>";
+
+                        if (res[0].veryficationResult == 'VALID') {
+                            html += '<tr><td class="text-signer">Status podpisu:</td><td class="valid text-signer">     <img class="img-valid" id="img-valid" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAIAAAACtmMCAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4wIEEC8dxJrwfwAAA9pJREFUSMelVl9oG3Uc/97vml7XXCdKLoxLYyFgB+sczDZBMCQDR+OLbfRlvm1tTBNHmaB98Q8632arD3vLGlt9EHQg0lVEkw5tsoxB0jgmtKMwszXJ3SSXOlnvkl7j734+XM3a/DPTz9Px/fPh+7nffe/zowgh0AiEEKlQEAShWCwqsowxpmnayLImk8lisXBmM0VRDRs76kOapiXi8WgkIkmSHmEYpttoLCmKqqp6hOO4YY/H6XIhhGraqZoZc7ncfDgsiqLBYLA7HMcHB202G8uyelaW5UwmczOdTiWTlUqF5/lxv99qtTZlXEmlPp+bwxi73O4Rr7dKVA9ZlhcXFuKxGE3TYz7fkN3egHEllfpsdpbp6goEg0cGBqANrK2uXgqF1O3t1ycmHpESQggh2Wz2bCBwbnIyl82Sx0Eumz03OXk2EMj+04j0o5gPhzHGgWCwd/9L+Vf0Wq2BYBBjPB8Oa5oGAAgAEvG4KIout7tNsQAQjH+0eO9n/fnIwIDL7RZFMRGPAwAihEQjEYPBMOL1tkn3TSb67d2r/tiHmGh6ZMTrNRgM0UiEEIKkQkGSJLvD0eJk96JQ/uO95EUAOHPYS1O7HyPLsnaHQ5IkqVBAgiAAwPHBwTYHnLox80B9aGUPfTD0xt64ziAIAioWiwBgs9na1PtjLgEAF194x9hxYG9KZygWi0iRZYZhaiTf2xK+34g10zt2+BXnoedqsizLMgyjyDLCGHcbjfv2mminlqYm4ucTv//Sjt4qDnR3Y4wRTdMlRdm3mBR1sNNY0f46/dO7tx9k9ODXd35opreKcqlE0zQysqyqqoosP2IE6quTM309/FZFee3qlFiS7pek91NN9VY3XVVVI8sik8kEAOvr63vTpq4nL5/89Cnmifsl6dTS229ev/BwR2mhFwAymQwAmEwmZLFYAODXW7dqKmwHe7988UIXzaz/eXdZTLbWCwA302kAsFgsiDObOY5Lr6zIe4TrGOKOzrrPIwq11qtLTiWTHMdxZjOiKGrY49nZ2fnuypX60peszo+ff6u1XgBYXFioVCrDHg9FUQgAnC4Xz/Ox5eXba2v11af7R1OvXm6hd211NR6L8TzvdLl2/z0IoTGfj6bp2VBIyOfrexCFmtHlc7lLoRBN0+N+v+45u6VP9/WdGR8vl8ufTE83nLTZdDPT0+r29pjPV3Wbxj7jPnHi5dHR/+szOjY2Nr6YmxNFsbOzc8huf/bYsWf6+3t6evSsIsu/PZYX6sAYX792bSkaLRQKu6be0cGybLlc/i9+XXOnyOfzm5ub8taWpmlt3in+BnEWKqLnXB2ZAAAAAElFTkSuQmCC" alt="Ikonka - Ważny podpis" /> Ważny </td></tr> ';
+                        }
+                        if (res[0].veryficationResult == 'INVALID') {
+                            html += '<tr><td class="text-signer">Status podpisu:</td><td class="invalid text-signer"><img class="img-invalid" id="img-invalid" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAYAAACN1PRVAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4wIEEDsjK1U6gQAABIVJREFUSMe1lltoVFcUhr9zzlxM5gglnTNqJqkQqAXTWiQmTyXxyUChSSilRanV3JxUg4oFi2LAQlGI2odCaC6NFRGkLZSYttCkT44WSi5YxaSk0BHnps4ZteCZTCZxz+5DmtGQmTFe+j+uvf/177P2Omv/ipRSkgdSSsxYjEgkQjweJ2FZCCHQNA2XruN2u/F6vRgeD4qi5EuFLddCOp3mst/P8NAQpmlm4k6nk0KXi+lEglQqlYkbhsGW2lreqq5GVdWsOZVsXxYKhTjd10c0GsVut1NZVcXGigrKysrQdT2zz7IsAoEAV8bHGR0ZYW5ujuLiYppaWyktLX2y2NjoKN/09yOEoLqmhrqGhkUCuWBZFoMDA/gvXkTTNBqbm9lUWZlbbGx0lK97e3GuWIGvrY315eU8LSYnJujp7iY1M0PLrl2LBeV/CAaDcrfPJ/e2t8tQMCifB6FgUO5tb5e7fT4ZfCyXutAMp/v6EELga2ujJEu9nwYlpaX42toQQnC6r490Og2ACnDZ7ycajVJdU5O1dDd2HODaqgpC+z9bshbcd5Rrqyq4sePAovj68nKqa2qIRqNc9vvnxaSUDA8NYbfbqWtoyHpS77GDKK4C7n/3E6lAMBNPhaL88/3PKK4CvMc/XcKra2jAbrczPDSElBLVjMUwTZPKqqqcXefwrmb1oT0g0tw52ZuJm1+eAZFmzeF2HMWrlvB0XaeyqgrTNDFjMdRIJALAxoqKvPfgbv6AgjfXc/+HX5j5K8DsrRj3zg9SsLGcl5vez8lbyBuJRFDj8TgAZWVlecUUVaXkiyMoqsKdEz2YXWchLSg5dQQlx8R4PG88HseWsCycTueyftyC11/D3fYhZtdZFIcd98fbKShfl5ej6zpOp5OEZaEKISh0uZbd1saej1BUBWbncOcp36JDFhYihEDVNI3pRGLZYmbXWRS7HWw27pzoWRYnOT2NpmmoLl0nlUqRsKwnk65PEe8+R9H2dynaVs+984NYv1954sxMpVK4dB3V7XYDMDU1lZck02nCn3wOqobRvgPP/iYUm43IwWOkHz7MyQsEAvPd7Hajer1eAK5dvZpXLN7/Lck/JinaWodjjQeHdzVF2+pJTQWIf3UuJ+/K+Pj8YPB6UQ2PB8MwGB8bw8pRytnIbW4f7wKbhrF3Zybu2dc4f3en+pgN38pawtGREQzDwPB4UBVFYUttLbOzs/x44UJWscjhTmQiyUvvvY2ztPjRZClZQ9HWOmRyhsihziW8wYEB5ubm2FJbO28ZpJRSCCGPdnRIX0uLnJyYkC8CE9evS19Lizza0SGFEI+eGFVVaWxuRtM0eru7iYTDz/XEhEMherq70TSNptbWjCfJzJlX1q5lZ1MTyWSSk52d/Dk5+UxCkxMTnOjsJDUzQ2Nz8yIvkteD1GzezDv19f+PB1nAzZs3OdPfTzQaxeFwsKmykjc2bODVdetYuXJlZl/Csvj7edzVAoQQ/HbpEr8ODxOLxR4ZTZsNXddJJpMvxjdmc8ThcJi7d+9iPXhAOp1+Jkf8L6rirq0at5yAAAAAAElFTkSuQmCC" alt="Ikonka - Nieważny podpis"  /> Nieważny  </td></tr> ';
+                        }
+                        if (res[0].veryficationResult == 'UNRECOGNIZED') {
+                            html += '<tr><td class="text-signer">Status podpisu:</td><td class="unrecognized text-signer"><img class="img-unrecognized" id="img-unrecognized" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAYAAACN1PRVAAABhGlDQ1BJQ0MgcHJvZmlsZQAAKJF9kT1Iw0AcxV9TtUUrgmYQcchQnSyIijhqFYpQIdQKrTqYj35Bk4YkxcVRcC04+LFYdXBx1tXBVRAEP0CcHJ0UXaTE/yWFFjEeHPfj3b3H3TuAq5cVzeoYBzTdNlOJuJDJrgqhV/SgC2Hw6JcUy5gTxSR8x9c9Amy9i7Es/3N/jl41ZylAQCCeVQzTJt4gnt60Dcb7xLxSlFTic+Ixky5I/Mh02eM3xgWXOZbJm+nUPDFPLBTaWG5jpWhqxFPEUVXTKZ/LeKwy3mKslatK857shZGcvrLMdJrDSGARSxAhQEYVJZRhI0arToqFFO3HffxDrl8kl0yuEhRyLKACDZLrB/uD391a+ckJLykSBzpfHOdjBAjtAo2a43wfO07jBAg+A1d6y1+pAzOfpNdaWvQI6NsGLq5bmrwHXO4Ag0+GZEquFKTJ5fPA+xl9UxYYuAW617zemvs4fQDS1FXyBjg4BEYLlL3u8+5we2//nmn29wMHpnJ8ifBxnwAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEgAACxIB0t1+/AAAAqpJREFUSMet1k2oVVUUB/Df270GGQ2iCLIGEYU+S4LCifXog+JBH5SZptkkBNmP7SaJomEfiqSj8nToFM0MCusOir6ujsLCJk2KVyIVODAjo8hSQ+PVZD+4Wffec6I/bBYc1tr/s/577bX2hDGo6uYi3IfbsaysSZzBl2Xtxds5xZ9H7TUxguRSPIP78R7exRc5xYMDPlNYjntwJ/bgqZziD63JqrrZiOdQ4YWc4i8tFLgQj2ETHs8p7h5LVtVNgxvwYE7xWx1R1c1VeBOf5hRnh5JVdfNyOZOZnOLJf9us39NgHqdnVtsyhHAR+pjLKcaF72HAIeG6UUQFGzCLu4Y5lPgZrKjq5pG/kVV1cwWeLtKdHKPU98WeGOVU9lmLHVXdLB7MbCt25BQPtziWhfI+M84xp/gNduFZCFXdXFIkeallDUyMuzZnYRfurerm4oD12JNTPNGRLLRxzikexwdYFXArPuxQ3ee0lXEA7+COgKX4vEPgr8Ue6RDzFZYELOl4eX8s9njbgJziHKaC7jhW7KmOcecG/F7VTRfS+S4FUu7xefgpYK50jrYIXclwLb4O+Awr/wNZl2qcxoGA98s8aoutuL7Ytrgb+yaqupnEUUwPDsb/C1XdLMfeEMLikFP8A9uxrU1wv2dDv+fVfs/DLfm2YXua3fTngv41pqq6WTWGaBlew0bs7vcsHZPVWly50HdDuXSnsQ6vVHWzooNKo94wN5Yk1hT1/jGpbyl/vi6n+PGQ7NbjZnw0s9rrQ4im8RYeyCnuH/UGuQlv4EXszCnOdyiGSTyJiIcGiUa9ri4vZFdjZxlBp0aQnI81eAIHsTmneLS15gNyPIrb8ElpAN8NuFxWXmIrsQ/P5xQPdD7gs0gvKF3gmpLtfCmuQ6Xd7c8p/jZun78A1mrhGeLFNxIAAAAASUVORK5CYII" alt="Ikonka - Nieznany podpis"  /> Nieznany  </td></tr> ';
+                            isPoSignature = true;
+                        }
+
+                        if (res[0].signatureType == 'PZ_SIGNATURE') {
+							html += '  <tr><td class="text-signer">Rodzaj podpisu: </td><td class="text-signer bold">Podpis zaufany</td></tr></table>';
+						}
+						if (res[0].signatureType == 'CK_SIGNATURE') {
+							html += '  <tr><td class="text-signer">Rodzaj podpisu: </td><td class="text-signer bold">Podpis kwalifikowany</td></tr></table>';
+						}
+						if (res[0].signatureType == 'PO_SIGNATURE') {
+							html += '  <tr><td class="text-signer">Rodzaj podpisu: </td><td class="text-signer bold">Podpis osobisty</td></tr></table>';
+						}
+                        if (res[0].signerDocumentType === true) {
+                            $("#getFile_button1").hide();
+                            $("#getFile_button2").hide();
+                            file_drop.removeClass('drop-file-upload__main--loaded');
+                            file_drop.addClass('drop-file-upload__main--loaded-xml');
+
+                            $("#getFile_button1_signed").show();
+                            $("#getFile_button2_signed").show();
+
+                            $("#getFile_button1_add_signed").show();
+                            $("#getFile_button2_add_signed").show();
+                        }
+                        if (res[0].signerDocumentType === false) {
+                            $("#getFile_button1").hide();
+                            $("#getFile_button2").hide();
+                            file_drop.removeClass('drop-file-upload__main--loaded-xml');
+                            file_drop.addClass('drop-file-upload__main--loaded');
+
+                            $("#getFile_button1_signed").hide();
+                            $("#getFile_button2_signed").hide();
+
+                            $("#getFile_button1_add_signed").show();
+                            $("#getFile_button2_add_signed").show();
+                        }
+
+
+                    }
+                } else {//jeśli jest więcej niż jeden podpis
+                    $("#getFile_button1").hide();
+                    $("#getFile_button2").hide();
+                    $("#getFile_button1_signed").hide();
+                    $("#getFile_button2_signed").hide();
+                    $("#getFile_button1_add_signed").hide();
+                    $("#getFile_button2_add_signed").hide();
+                    $("#information_signature").show();
+
+                    $("#toggle_signature").hide();
+                    var counter_verified = 0; //licznik zweryfikowanych podpisow - jak zaden nie jest wyswietla przycisk do pobrania.
+                    for (var i = 0; i < res.length; i++) {
+                        if (i === 0) {
+                            if (res[0].notRecognized === true || res[0].invalidSignatureType == true) {
+                                if(res[0].notRecognized == true && res[0].invalidSignatureType == false) {
+                                    htmlfirst += '<p class="bold signer-border-error">Nie można zweryfikować podpisu w dołączonym pliku.</br> Jeśli chcesz, mimo to możesz podpisać dokument.</p>';
+                                    window.piwikActions.sendPiwikAction('Nie można zweryfikować podpisu w dołączonym pliku.', 'informacja o podpisach');
+
+                                }
+                                if (res[0].invalidSignatureType == true) {
+                                    htmlfirst += '<p class="bold signer-border-error">W dokumencie są podpisy, których nie można tu sprawdzić.</br> Sprawdzisz je za pomocą aplikacji <a href="https://www.gov.pl/web/e-dowod/#Pliki-do-pobrania">„e-dowód Podpis Elektroniczny”</a>.</br> Jeśli chcesz, mimo to możesz podpisać dokument.</p><p class="signer-border-error"> </p>';
+                                    window.piwikActions.sendPiwikAction('W dokumencie są podpisy, których nie można tu sprawdzić (brak informacji o podpisach)', 'informacja o podpisach');//NFORMS-11078 IMF
+
+                                }
+                            }
+                            else {
+                                htmlfirst += '<div class="text-h3">Złożone podpisy</div><table summary="Tabela zawiera informacje o złożonych podpisach"class="table-info"><tr><td class="text-signer">Właściciel podpisu: </td><td class="bold text-signer">' + replaceName(res[0].firstName) + " " + replaceName(res[0].lastName) + "</td></tr><tr><td class='text-signer'> Data i godzina podpisu: </td><td class='bold text-signer'>" + res[0].signatureDate + "</td></tr> ";
+
+
+                                if (res[0].veryficationResult == 'VALID') {
+                                    htmlfirst += '<tr><td class="text-signer">Status podpisu:</td><td class="valid text-signer">     <img class="img-valid" id="img-valid" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAIAAAACtmMCAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4wIEEC8dxJrwfwAAA9pJREFUSMelVl9oG3Uc/97vml7XXCdKLoxLYyFgB+sczDZBMCQDR+OLbfRlvm1tTBNHmaB98Q8632arD3vLGlt9EHQg0lVEkw5tsoxB0jgmtKMwszXJ3SSXOlnvkl7j734+XM3a/DPTz9Px/fPh+7nffe/zowgh0AiEEKlQEAShWCwqsowxpmnayLImk8lisXBmM0VRDRs76kOapiXi8WgkIkmSHmEYpttoLCmKqqp6hOO4YY/H6XIhhGraqZoZc7ncfDgsiqLBYLA7HMcHB202G8uyelaW5UwmczOdTiWTlUqF5/lxv99qtTZlXEmlPp+bwxi73O4Rr7dKVA9ZlhcXFuKxGE3TYz7fkN3egHEllfpsdpbp6goEg0cGBqANrK2uXgqF1O3t1ycmHpESQggh2Wz2bCBwbnIyl82Sx0Eumz03OXk2EMj+04j0o5gPhzHGgWCwd/9L+Vf0Wq2BYBBjPB8Oa5oGAAgAEvG4KIout7tNsQAQjH+0eO9n/fnIwIDL7RZFMRGPAwAihEQjEYPBMOL1tkn3TSb67d2r/tiHmGh6ZMTrNRgM0UiEEIKkQkGSJLvD0eJk96JQ/uO95EUAOHPYS1O7HyPLsnaHQ5IkqVBAgiAAwPHBwTYHnLox80B9aGUPfTD0xt64ziAIAioWiwBgs9na1PtjLgEAF194x9hxYG9KZygWi0iRZYZhaiTf2xK+34g10zt2+BXnoedqsizLMgyjyDLCGHcbjfv2mminlqYm4ucTv//Sjt4qDnR3Y4wRTdMlRdm3mBR1sNNY0f46/dO7tx9k9ODXd35opreKcqlE0zQysqyqqoosP2IE6quTM309/FZFee3qlFiS7pek91NN9VY3XVVVI8sik8kEAOvr63vTpq4nL5/89Cnmifsl6dTS229ev/BwR2mhFwAymQwAmEwmZLFYAODXW7dqKmwHe7988UIXzaz/eXdZTLbWCwA302kAsFgsiDObOY5Lr6zIe4TrGOKOzrrPIwq11qtLTiWTHMdxZjOiKGrY49nZ2fnuypX60peszo+ff6u1XgBYXFioVCrDHg9FUQgAnC4Xz/Ox5eXba2v11af7R1OvXm6hd211NR6L8TzvdLl2/z0IoTGfj6bp2VBIyOfrexCFmtHlc7lLoRBN0+N+v+45u6VP9/WdGR8vl8ufTE83nLTZdDPT0+r29pjPV3Wbxj7jPnHi5dHR/+szOjY2Nr6YmxNFsbOzc8huf/bYsWf6+3t6evSsIsu/PZYX6sAYX792bSkaLRQKu6be0cGybLlc/i9+XXOnyOfzm5ub8taWpmlt3in+BnEWKqLnXB2ZAAAAAElFTkSuQmCC" alt="Ikonka - Ważny podpis" /> Ważny </td></tr> ';
+                                }
+                                if (res[0].veryficationResult == 'INVALID') {
+                                    htmlfirst += '<tr><td class="text-signer">Status podpisu:</td><td class="invalid text-signer"><img class="img-invalid" id="img-invalid" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAYAAACN1PRVAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4wIEEDsjK1U6gQAABIVJREFUSMe1lltoVFcUhr9zzlxM5gglnTNqJqkQqAXTWiQmTyXxyUChSSilRanV3JxUg4oFi2LAQlGI2odCaC6NFRGkLZSYttCkT44WSi5YxaSk0BHnps4ZteCZTCZxz+5DmtGQmTFe+j+uvf/177P2Omv/ipRSkgdSSsxYjEgkQjweJ2FZCCHQNA2XruN2u/F6vRgeD4qi5EuFLddCOp3mst/P8NAQpmlm4k6nk0KXi+lEglQqlYkbhsGW2lreqq5GVdWsOZVsXxYKhTjd10c0GsVut1NZVcXGigrKysrQdT2zz7IsAoEAV8bHGR0ZYW5ujuLiYppaWyktLX2y2NjoKN/09yOEoLqmhrqGhkUCuWBZFoMDA/gvXkTTNBqbm9lUWZlbbGx0lK97e3GuWIGvrY315eU8LSYnJujp7iY1M0PLrl2LBeV/CAaDcrfPJ/e2t8tQMCifB6FgUO5tb5e7fT4ZfCyXutAMp/v6EELga2ujJEu9nwYlpaX42toQQnC6r490Og2ACnDZ7ycajVJdU5O1dDd2HODaqgpC+z9bshbcd5Rrqyq4sePAovj68nKqa2qIRqNc9vvnxaSUDA8NYbfbqWtoyHpS77GDKK4C7n/3E6lAMBNPhaL88/3PKK4CvMc/XcKra2jAbrczPDSElBLVjMUwTZPKqqqcXefwrmb1oT0g0tw52ZuJm1+eAZFmzeF2HMWrlvB0XaeyqgrTNDFjMdRIJALAxoqKvPfgbv6AgjfXc/+HX5j5K8DsrRj3zg9SsLGcl5vez8lbyBuJRFDj8TgAZWVlecUUVaXkiyMoqsKdEz2YXWchLSg5dQQlx8R4PG88HseWsCycTueyftyC11/D3fYhZtdZFIcd98fbKShfl5ej6zpOp5OEZaEKISh0uZbd1saej1BUBWbncOcp36JDFhYihEDVNI3pRGLZYmbXWRS7HWw27pzoWRYnOT2NpmmoLl0nlUqRsKwnk65PEe8+R9H2dynaVs+984NYv1954sxMpVK4dB3V7XYDMDU1lZck02nCn3wOqobRvgPP/iYUm43IwWOkHz7MyQsEAvPd7Hajer1eAK5dvZpXLN7/Lck/JinaWodjjQeHdzVF2+pJTQWIf3UuJ+/K+Pj8YPB6UQ2PB8MwGB8bw8pRytnIbW4f7wKbhrF3Zybu2dc4f3en+pgN38pawtGREQzDwPB4UBVFYUttLbOzs/x44UJWscjhTmQiyUvvvY2ztPjRZClZQ9HWOmRyhsihziW8wYEB5ubm2FJbO28ZpJRSCCGPdnRIX0uLnJyYkC8CE9evS19Lizza0SGFEI+eGFVVaWxuRtM0eru7iYTDz/XEhEMherq70TSNptbWjCfJzJlX1q5lZ1MTyWSSk52d/Dk5+UxCkxMTnOjsJDUzQ2Nz8yIvkteD1GzezDv19f+PB1nAzZs3OdPfTzQaxeFwsKmykjc2bODVdetYuXJlZl/Csvj7edzVAoQQ/HbpEr8ODxOLxR4ZTZsNXddJJpMvxjdmc8ThcJi7d+9iPXhAOp1+Jkf8L6rirq0at5yAAAAAAElFTkSuQmCC" alt="Ikonka - Nieważny podpis"  /> Nieważny  </td></tr> ';
+                                }
+                                if (res[0].veryficationResult == 'UNRECOGNIZED') {
+                                    htmlfirst += '<tr><td class="text-signer">Status podpisu:</td><td class="unrecognized text-signer"><img class="img-unrecognized" id="img-unrecognized" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAYAAACN1PRVAAABhGlDQ1BJQ0MgcHJvZmlsZQAAKJF9kT1Iw0AcxV9TtUUrgmYQcchQnSyIijhqFYpQIdQKrTqYj35Bk4YkxcVRcC04+LFYdXBx1tXBVRAEP0CcHJ0UXaTE/yWFFjEeHPfj3b3H3TuAq5cVzeoYBzTdNlOJuJDJrgqhV/SgC2Hw6JcUy5gTxSR8x9c9Amy9i7Es/3N/jl41ZylAQCCeVQzTJt4gnt60Dcb7xLxSlFTic+Ixky5I/Mh02eM3xgWXOZbJm+nUPDFPLBTaWG5jpWhqxFPEUVXTKZ/LeKwy3mKslatK857shZGcvrLMdJrDSGARSxAhQEYVJZRhI0arToqFFO3HffxDrl8kl0yuEhRyLKACDZLrB/uD391a+ckJLykSBzpfHOdjBAjtAo2a43wfO07jBAg+A1d6y1+pAzOfpNdaWvQI6NsGLq5bmrwHXO4Ag0+GZEquFKTJ5fPA+xl9UxYYuAW617zemvs4fQDS1FXyBjg4BEYLlL3u8+5we2//nmn29wMHpnJ8ifBxnwAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEgAACxIB0t1+/AAAAqpJREFUSMet1k2oVVUUB/Df270GGQ2iCLIGEYU+S4LCifXog+JBH5SZptkkBNmP7SaJomEfiqSj8nToFM0MCusOir6ujsLCJk2KVyIVODAjo8hSQ+PVZD+4Wffec6I/bBYc1tr/s/577bX2hDGo6uYi3IfbsaysSZzBl2Xtxds5xZ9H7TUxguRSPIP78R7exRc5xYMDPlNYjntwJ/bgqZziD63JqrrZiOdQ4YWc4i8tFLgQj2ETHs8p7h5LVtVNgxvwYE7xWx1R1c1VeBOf5hRnh5JVdfNyOZOZnOLJf9us39NgHqdnVtsyhHAR+pjLKcaF72HAIeG6UUQFGzCLu4Y5lPgZrKjq5pG/kVV1cwWeLtKdHKPU98WeGOVU9lmLHVXdLB7MbCt25BQPtziWhfI+M84xp/gNduFZCFXdXFIkeallDUyMuzZnYRfurerm4oD12JNTPNGRLLRxzikexwdYFXArPuxQ3ee0lXEA7+COgKX4vEPgr8Ue6RDzFZYELOl4eX8s9njbgJziHKaC7jhW7KmOcecG/F7VTRfS+S4FUu7xefgpYK50jrYIXclwLb4O+Awr/wNZl2qcxoGA98s8aoutuL7Ytrgb+yaqupnEUUwPDsb/C1XdLMfeEMLikFP8A9uxrU1wv2dDv+fVfs/DLfm2YXua3fTngv41pqq6WTWGaBlew0bs7vcsHZPVWly50HdDuXSnsQ6vVHWzooNKo94wN5Yk1hT1/jGpbyl/vi6n+PGQ7NbjZnw0s9rrQ4im8RYeyCnuH/UGuQlv4EXszCnOdyiGSTyJiIcGiUa9ri4vZFdjZxlBp0aQnI81eAIHsTmneLS15gNyPIrb8ElpAN8NuFxWXmIrsQ/P5xQPdD7gs0gvKF3gmpLtfCmuQ6Xd7c8p/jZun78A1mrhGeLFNxIAAAAASUVORK5CYII" alt="Ikonka - Nieznany podpis"  /> Nieznany  </td></tr> ';
+                                    isPoSignature = true;
+                                }
+
+                                if (res[0].signatureType == 'PZ_SIGNATURE') {
+                                    htmlfirst += '  <tr><td class="text-signer">Rodzaj podpisu: </td><td class="text-signer bold">Podpis zaufany</td></tr></table>';
+                                }
+                                if (res[0].signatureType == 'CK_SIGNATURE') {
+                                    htmlfirst += '  <tr><td class="text-signer">Rodzaj podpisu: </td><td class="text-signer bold">Podpis kwalifikowany</td></tr></table>';
+                                }
+								if (res[0].signatureType == 'PO_SIGNATURE') {
+                                    htmlfirst += '  <tr><td class="text-signer">Rodzaj podpisu: </td><td class="text-signer bold">Podpis osobisty</td></tr></table>';
+                                }
+
+                            }
+                        } else {
+                             if (res[i].notRecognized === true || res[i].invalidSignatureType == true) {
+                                if(res[i].notRecognized == true && res[i].invalidSignatureType == false) {
+                                    html += '<p class="bold signer-border-error">Nie można zweryfikować podpisu w dołączonym pliku.</br> Jeśli chcesz, mimo to możesz podpisać dokument.</p>';
+                                    window.piwikActions.sendPiwikAction('Nie można zweryfikować podpisu w dołączonym pliku.', 'informacja o podpisach');
+                                }
+                                if (res[i].invalidSignatureType == true) {
+                                    html += '<p class="bold signer-border-error">W dokumencie są podpisy, których nie można tu sprawdzić.</br> Sprawdzisz je za pomocą aplikacji <a href="https://www.gov.pl/web/e-dowod/#Pliki-do-pobrania">„e-dowód Podpis Elektroniczny”</a>.</br> Jeśli chcesz, mimo to możesz podpisać dokument.</p><p class="signer-border-error"> </p>';
+                                    window.piwikActions.sendPiwikAction('W dokumencie są podpisy, których nie można tu sprawdzić (brak informacji o podpisach)', 'informacja o podpisach');//NFORMS-11078 IMF
+                                }
+
+                                if (1 + i !== res.length) {
+
+                                    html += '<p class="signer-border-error"> </p>';
+                                };
+
+                                if (counter_verified === 0) {
+                                    $("#getFile_button1").hide();
+                                    $("#getFile_button2").hide();
+                                    file_drop.removeClass('drop-file-upload__main--loaded');
+                                    file_drop.addClass('drop-file-upload__main--loaded-xml');
+                                    $("#getFile_button1_signed").hide();
+                                    $("#getFile_button2_signed").hide();
+                                    $("#getFile_button1_add_signed").show();
+                                    $("#getFile_button2_add_signed").show();
+                                }
+                            }
+                            else {
+                                counter_verified++
+                                html += '</br><table summary="Tabela zawiera informacje o złożonych podpisach"class="table-info"><tr><td class="text-signer">Właściciel podpisu:</td><td class="bold text-signer">' + replaceName(res[i].firstName) + " " + replaceName(res[i].lastName) + "</td></tr><tr><td class='text-signer'> Data i godzina podpisu: </td><td class='bold text-signer'>" + res[i].signatureDate + "</td></tr> ";
+
+                                if (res[i].veryficationResult == 'VALID') {
+                                    html += '<tr><td class="text-signer">Status podpisu:</td><td class="valid text-signer">     <img class="img-valid" id="img-valid" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAIAAAACtmMCAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4wIEEC8dxJrwfwAAA9pJREFUSMelVl9oG3Uc/97vml7XXCdKLoxLYyFgB+sczDZBMCQDR+OLbfRlvm1tTBNHmaB98Q8632arD3vLGlt9EHQg0lVEkw5tsoxB0jgmtKMwszXJ3SSXOlnvkl7j734+XM3a/DPTz9Px/fPh+7nffe/zowgh0AiEEKlQEAShWCwqsowxpmnayLImk8lisXBmM0VRDRs76kOapiXi8WgkIkmSHmEYpttoLCmKqqp6hOO4YY/H6XIhhGraqZoZc7ncfDgsiqLBYLA7HMcHB202G8uyelaW5UwmczOdTiWTlUqF5/lxv99qtTZlXEmlPp+bwxi73O4Rr7dKVA9ZlhcXFuKxGE3TYz7fkN3egHEllfpsdpbp6goEg0cGBqANrK2uXgqF1O3t1ycmHpESQggh2Wz2bCBwbnIyl82Sx0Eumz03OXk2EMj+04j0o5gPhzHGgWCwd/9L+Vf0Wq2BYBBjPB8Oa5oGAAgAEvG4KIout7tNsQAQjH+0eO9n/fnIwIDL7RZFMRGPAwAihEQjEYPBMOL1tkn3TSb67d2r/tiHmGh6ZMTrNRgM0UiEEIKkQkGSJLvD0eJk96JQ/uO95EUAOHPYS1O7HyPLsnaHQ5IkqVBAgiAAwPHBwTYHnLox80B9aGUPfTD0xt64ziAIAioWiwBgs9na1PtjLgEAF194x9hxYG9KZygWi0iRZYZhaiTf2xK+34g10zt2+BXnoedqsizLMgyjyDLCGHcbjfv2mminlqYm4ucTv//Sjt4qDnR3Y4wRTdMlRdm3mBR1sNNY0f46/dO7tx9k9ODXd35opreKcqlE0zQysqyqqoosP2IE6quTM309/FZFee3qlFiS7pek91NN9VY3XVVVI8sik8kEAOvr63vTpq4nL5/89Cnmifsl6dTS229ev/BwR2mhFwAymQwAmEwmZLFYAODXW7dqKmwHe7988UIXzaz/eXdZTLbWCwA302kAsFgsiDObOY5Lr6zIe4TrGOKOzrrPIwq11qtLTiWTHMdxZjOiKGrY49nZ2fnuypX60peszo+ff6u1XgBYXFioVCrDHg9FUQgAnC4Xz/Ox5eXba2v11af7R1OvXm6hd211NR6L8TzvdLl2/z0IoTGfj6bp2VBIyOfrexCFmtHlc7lLoRBN0+N+v+45u6VP9/WdGR8vl8ufTE83nLTZdDPT0+r29pjPV3Wbxj7jPnHi5dHR/+szOjY2Nr6YmxNFsbOzc8huf/bYsWf6+3t6evSsIsu/PZYX6sAYX792bSkaLRQKu6be0cGybLlc/i9+XXOnyOfzm5ub8taWpmlt3in+BnEWKqLnXB2ZAAAAAElFTkSuQmCC" alt="Ikonka - Ważny podpis" /> Ważny </td></tr> ';
+                                }
+                                if (res[i].veryficationResult == 'INVALID') {
+                                    html += '<tr><td class="text-signer">Status podpisu:</td><td class="invalid text-signer"><img class="img-invalid" id="img-invalid" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAYAAACN1PRVAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4wIEEDsjK1U6gQAABIVJREFUSMe1lltoVFcUhr9zzlxM5gglnTNqJqkQqAXTWiQmTyXxyUChSSilRanV3JxUg4oFi2LAQlGI2odCaC6NFRGkLZSYttCkT44WSi5YxaSk0BHnps4ZteCZTCZxz+5DmtGQmTFe+j+uvf/177P2Omv/ipRSkgdSSsxYjEgkQjweJ2FZCCHQNA2XruN2u/F6vRgeD4qi5EuFLddCOp3mst/P8NAQpmlm4k6nk0KXi+lEglQqlYkbhsGW2lreqq5GVdWsOZVsXxYKhTjd10c0GsVut1NZVcXGigrKysrQdT2zz7IsAoEAV8bHGR0ZYW5ujuLiYppaWyktLX2y2NjoKN/09yOEoLqmhrqGhkUCuWBZFoMDA/gvXkTTNBqbm9lUWZlbbGx0lK97e3GuWIGvrY315eU8LSYnJujp7iY1M0PLrl2LBeV/CAaDcrfPJ/e2t8tQMCifB6FgUO5tb5e7fT4ZfCyXutAMp/v6EELga2ujJEu9nwYlpaX42toQQnC6r490Og2ACnDZ7ycajVJdU5O1dDd2HODaqgpC+z9bshbcd5Rrqyq4sePAovj68nKqa2qIRqNc9vvnxaSUDA8NYbfbqWtoyHpS77GDKK4C7n/3E6lAMBNPhaL88/3PKK4CvMc/XcKra2jAbrczPDSElBLVjMUwTZPKqqqcXefwrmb1oT0g0tw52ZuJm1+eAZFmzeF2HMWrlvB0XaeyqgrTNDFjMdRIJALAxoqKvPfgbv6AgjfXc/+HX5j5K8DsrRj3zg9SsLGcl5vez8lbyBuJRFDj8TgAZWVlecUUVaXkiyMoqsKdEz2YXWchLSg5dQQlx8R4PG88HseWsCycTueyftyC11/D3fYhZtdZFIcd98fbKShfl5ej6zpOp5OEZaEKISh0uZbd1saej1BUBWbncOcp36JDFhYihEDVNI3pRGLZYmbXWRS7HWw27pzoWRYnOT2NpmmoLl0nlUqRsKwnk65PEe8+R9H2dynaVs+984NYv1954sxMpVK4dB3V7XYDMDU1lZck02nCn3wOqobRvgPP/iYUm43IwWOkHz7MyQsEAvPd7Hajer1eAK5dvZpXLN7/Lck/JinaWodjjQeHdzVF2+pJTQWIf3UuJ+/K+Pj8YPB6UQ2PB8MwGB8bw8pRytnIbW4f7wKbhrF3Zybu2dc4f3en+pgN38pawtGREQzDwPB4UBVFYUttLbOzs/x44UJWscjhTmQiyUvvvY2ztPjRZClZQ9HWOmRyhsihziW8wYEB5ubm2FJbO28ZpJRSCCGPdnRIX0uLnJyYkC8CE9evS19Lizza0SGFEI+eGFVVaWxuRtM0eru7iYTDz/XEhEMherq70TSNptbWjCfJzJlX1q5lZ1MTyWSSk52d/Dk5+UxCkxMTnOjsJDUzQ2Nz8yIvkteD1GzezDv19f+PB1nAzZs3OdPfTzQaxeFwsKmykjc2bODVdetYuXJlZl/Csvj7edzVAoQQ/HbpEr8ODxOLxR4ZTZsNXddJJpMvxjdmc8ThcJi7d+9iPXhAOp1+Jkf8L6rirq0at5yAAAAAAElFTkSuQmCC" alt="Ikonka - Nieważny podpis"  /> Nieważny  </td></tr> ';
+                                }
+                                if (res[i].veryficationResult == 'UNRECOGNIZED') {
+                                    html += '<tr><td class="text-signer">Status podpisu:</td><td class="unrecognized text-signer"><img class="img-unrecognized" id="img-unrecognized" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAYAAACN1PRVAAABhGlDQ1BJQ0MgcHJvZmlsZQAAKJF9kT1Iw0AcxV9TtUUrgmYQcchQnSyIijhqFYpQIdQKrTqYj35Bk4YkxcVRcC04+LFYdXBx1tXBVRAEP0CcHJ0UXaTE/yWFFjEeHPfj3b3H3TuAq5cVzeoYBzTdNlOJuJDJrgqhV/SgC2Hw6JcUy5gTxSR8x9c9Amy9i7Es/3N/jl41ZylAQCCeVQzTJt4gnt60Dcb7xLxSlFTic+Ixky5I/Mh02eM3xgWXOZbJm+nUPDFPLBTaWG5jpWhqxFPEUVXTKZ/LeKwy3mKslatK857shZGcvrLMdJrDSGARSxAhQEYVJZRhI0arToqFFO3HffxDrl8kl0yuEhRyLKACDZLrB/uD391a+ckJLykSBzpfHOdjBAjtAo2a43wfO07jBAg+A1d6y1+pAzOfpNdaWvQI6NsGLq5bmrwHXO4Ag0+GZEquFKTJ5fPA+xl9UxYYuAW617zemvs4fQDS1FXyBjg4BEYLlL3u8+5we2//nmn29wMHpnJ8ifBxnwAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEgAACxIB0t1+/AAAAqpJREFUSMet1k2oVVUUB/Df270GGQ2iCLIGEYU+S4LCifXog+JBH5SZptkkBNmP7SaJomEfiqSj8nToFM0MCusOir6ujsLCJk2KVyIVODAjo8hSQ+PVZD+4Wffec6I/bBYc1tr/s/577bX2hDGo6uYi3IfbsaysSZzBl2Xtxds5xZ9H7TUxguRSPIP78R7exRc5xYMDPlNYjntwJ/bgqZziD63JqrrZiOdQ4YWc4i8tFLgQj2ETHs8p7h5LVtVNgxvwYE7xWx1R1c1VeBOf5hRnh5JVdfNyOZOZnOLJf9us39NgHqdnVtsyhHAR+pjLKcaF72HAIeG6UUQFGzCLu4Y5lPgZrKjq5pG/kVV1cwWeLtKdHKPU98WeGOVU9lmLHVXdLB7MbCt25BQPtziWhfI+M84xp/gNduFZCFXdXFIkeallDUyMuzZnYRfurerm4oD12JNTPNGRLLRxzikexwdYFXArPuxQ3ee0lXEA7+COgKX4vEPgr8Ue6RDzFZYELOl4eX8s9njbgJziHKaC7jhW7KmOcecG/F7VTRfS+S4FUu7xefgpYK50jrYIXclwLb4O+Awr/wNZl2qcxoGA98s8aoutuL7Ytrgb+yaqupnEUUwPDsb/C1XdLMfeEMLikFP8A9uxrU1wv2dDv+fVfs/DLfm2YXua3fTngv41pqq6WTWGaBlew0bs7vcsHZPVWly50HdDuXSnsQ6vVHWzooNKo94wN5Yk1hT1/jGpbyl/vi6n+PGQ7NbjZnw0s9rrQ4im8RYeyCnuH/UGuQlv4EXszCnOdyiGSTyJiIcGiUa9ri4vZFdjZxlBp0aQnI81eAIHsTmneLS15gNyPIrb8ElpAN8NuFxWXmIrsQ/P5xQPdD7gs0gvKF3gmpLtfCmuQ6Xd7c8p/jZun78A1mrhGeLFNxIAAAAASUVORK5CYII" alt="Ikonka - Nieznany podpis"  /> Nieznany  </td></tr> ';
+                                    isPoSignature = true;
+                                }
+
+                                if (res[i].signatureType == 'PZ_SIGNATURE') {
+                                    html += '  <tr><td class="text-signer">Rodzaj podpisu: </td><td class="text-signer bold">Podpis zaufany</td></tr></table>';
+                                }
+                                if (res[i].signatureType == 'CK_SIGNATURE') {
+                                    html += '  <tr><td class="text-signer">Rodzaj podpisu: </td><td class="text-signer bold">Podpis kwalifikowany</td></tr></table>';
+                                }
+								if (res[i].signatureType == 'PO_SIGNATURE') {
+                                    html += '  <tr><td class="text-signer">Rodzaj podpisu: </td><td class="text-signer bold">Podpis osobisty</td></tr></table>';
+                                }
+                                if (res[i].signerDocumentType === true) {
+                                    $("#getFile_button1").hide();
+                                    $("#getFile_button2").hide();
+                                    file_drop.removeClass('drop-file-upload__main--loaded');
+                                    file_drop.addClass('drop-file-upload__main--loaded-xml');
+
+
+                                    $("#getFile_button1_signed").show();
+                                    $("#getFile_button2_signed").show();
+
+
+                                    $("#getFile_button1_add_signed").show();
+                                    $("#getFile_button2_add_signed").show();
+
+                                    for (var d = 0; d < res.length; d++) {
+
+                                        if (res[d].notRecognized === true) {
+                                            $("#getFile_button1_signed").hide();
+                                            $("#getFile_button2_signed").hide();
+                                        }
+                                    }
+                                }
+                                if (res[i].signerDocumentType === false) {
+                                    $("#getFile_button1").hide();
+                                    $("#getFile_button2").hide();
+                                    file_drop.removeClass('drop-file-upload__main--loaded-xml');
+                                    file_drop.addClass('drop-file-upload__main--loaded');
+                                    $("#getFile_button1_signed").hide();
+                                    $("#getFile_button2_signed").hide();
+                                    $("#getFile_button1_add_signed").show();
+                                    $("#getFile_button2_add_signed").show();
+                                }
+                            }
+                        };
+                    }
+                }
+            }
+
+            if(isPoSignature === true) {
+                var poSignatureInfo = '</br><p class="bold signer-border-error">W dokumencie są podpisy, których nie można tu sprawdzić.</br> Sprawdzisz je za pomocą aplikacji <a href="https://www.gov.pl/web/e-dowod/#Pliki-do-pobrania">„e-dowód Podpis Elektroniczny”</a>.</p><p class="signer-border-error"> </p>';
+                window.piwikActions.sendPiwikAction('W dokumencie są podpisy, których nie można tu sprawdzić (status nieznany)', 'informacja o podpisach');
+                htmlfirst = poSignatureInfo + htmlfirst;
+            }
+
+            $("#html").html(html); //dane dla jednego podpisu
+            $("#htmlfirst").html(htmlfirst);
+        })
+        .fail(function () {
+            console.log("Wystąpił błąd w połączeniu");
+        });
+}
+
+//funkcja wywoływana na ekranie końcowym - strona download
+function DownloadFileData_end_preview()
+{
+    var html = '';
+    var htmlfirst = '';
+    var isPoSignature = false;
+    sessionStorage.setItem('sign','');
+
+    var download_file_name_signer = sessionStorage.getItem('name_file_signer');
+
+    $('#name_file_signer').append(download_file_name_signer);
+
+    var file=sessionStorage.getItem('file');
+
+    var isPdf=isPdfFile(file);
+    if (!isPdf)
+    {
+        $('#xades_header').text('PODPISYWANIE PLIKÓW W FORMACIE XAdES');
+    }
+
+    $.ajax({
+        url: "/nforms/rest/signer/file/validateSignedDocument",
+        dataType: "json"
+    })
+        .done(function (res) {
+            $.each(res, function () { });
+
+            if (res === undefined) {
+                $("#getFile_button1").show();
+                $("#getFile_button2").show();
+                $("#getFile_button1_signed").hide();
+                $("#getFile_button2_signed").hide();
+                $("#getFile_button1_add_signed").hide();
+                $("#getFile_button2_add_signed").hide();
+                $("#toggle_signature").show();
+                $("#PDF_caption").show();
+                $("#XML_caption").hide();
+                $("#xades_header").hide();
+                $("#ZobaczDokument").hide();
+            }
+            if (res != null) {
+                //res.sort((a,b) => a.signatureDate.localeCompare(b.signatureDate));
+                res.sort((a,b) => b.signatureDate.localeCompare(a.signatureDate));
+
+                if (res.length === 1) {
+                    $("#getFile_button1").hide();
+                    $("#getFile_button2").hide();
+                    $("#getFile_button1_signed").hide();
+                    $("#getFile_button2_signed").hide();
+                    $("#getFile_button1_add_signed").hide();
+                    $("#getFile_button2_add_signed").hide();
+                    $("#header-signer").hide();
+                    $("#toggle_signature").show();
+
+                    if (res[0].padesSign === true) {
+                        $("#PDF_caption").show();
+                        $("#XML_caption").hide();
+                        $("#xades_header").hide();
+                        $("#ZobaczDokument").hide();
+                        sessionStorage.setItem('sign','(PAdES)');
+
+                    }
+                    if (res[0].padesSign === false) {
+                        $("#PDF_caption").hide();
+                        $("#XML_caption").show();
+                        $("#xades_header").show();
+                        $("#ZobaczDokument").show();
+                        sessionStorage.setItem('sign','(XAdES)');
+                    }
+
+
+                    if (res[0].notRecognized == true || res[0].invalidSignatureType == true) {
+                        if(res[0].notRecognized == true && res[0].invalidSignatureType == false) {
+                            html += '<p class="bold signer-border-error">Nie można zweryfikować podpisu w dołączonym pliku.</br></p>';
+                            window.piwikActions.sendPiwikAction('Nie można zweryfikować podpisu w dołączonym pliku.', 'informacja o podpisach');
+                        }
+                        if (res[0].invalidSignatureType == true) {
+                            html += '<p class="bold signer-border-error">W dokumencie są podpisy, których nie można tu sprawdzić.</br> Sprawdzisz je za pomocą aplikacji <a href="https://www.gov.pl/web/e-dowod/#Pliki-do-pobrania">„e-dowód Podpis Elektroniczny”.</p><p class="signer-border-error"> </p>';
+                            window.piwikActions.sendPiwikAction('W dokumencie są podpisy, których nie można tu sprawdzić (status nieznany)', 'informacja o podpisach');
+                        }
+                        $("#getFile_button1").show();
+                        $("#getFile_button2").show();
+                        $("#getFile_button1_signed").hide();
+                        $("#getFile_button2_signed").hide();
+                        $("#getFile_button1_add_signed").hide();
+                        $("#getFile_button2_add_signed").hide();
+                    }
+                    else {
+                        html += '<table summary="Tabela zawiera informacje o złożonych podpisach"class="table-info"><tr><td class="text-signer">Właściciel podpisu: </td><td class="bold text-signer">' + replaceName(res[0].firstName) + " " + replaceName(res[0].lastName) + "</td></tr><tr><td class='text-signer'> Data i godzina podpisu: </td><td class='bold text-signer'>" + res[0].signatureDate + "</td></tr> ";
+
+                        if (res[0].veryficationResult == 'VALID') {
+                            html += '<tr><td class="text-signer">Status podpisu:</td><td class="valid text-signer">     <img class="img-valid" id="img-valid" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAIAAAACtmMCAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4wIEEC8dxJrwfwAAA9pJREFUSMelVl9oG3Uc/97vml7XXCdKLoxLYyFgB+sczDZBMCQDR+OLbfRlvm1tTBNHmaB98Q8632arD3vLGlt9EHQg0lVEkw5tsoxB0jgmtKMwszXJ3SSXOlnvkl7j734+XM3a/DPTz9Px/fPh+7nffe/zowgh0AiEEKlQEAShWCwqsowxpmnayLImk8lisXBmM0VRDRs76kOapiXi8WgkIkmSHmEYpttoLCmKqqp6hOO4YY/H6XIhhGraqZoZc7ncfDgsiqLBYLA7HMcHB202G8uyelaW5UwmczOdTiWTlUqF5/lxv99qtTZlXEmlPp+bwxi73O4Rr7dKVA9ZlhcXFuKxGE3TYz7fkN3egHEllfpsdpbp6goEg0cGBqANrK2uXgqF1O3t1ycmHpESQggh2Wz2bCBwbnIyl82Sx0Eumz03OXk2EMj+04j0o5gPhzHGgWCwd/9L+Vf0Wq2BYBBjPB8Oa5oGAAgAEvG4KIout7tNsQAQjH+0eO9n/fnIwIDL7RZFMRGPAwAihEQjEYPBMOL1tkn3TSb67d2r/tiHmGh6ZMTrNRgM0UiEEIKkQkGSJLvD0eJk96JQ/uO95EUAOHPYS1O7HyPLsnaHQ5IkqVBAgiAAwPHBwTYHnLox80B9aGUPfTD0xt64ziAIAioWiwBgs9na1PtjLgEAF194x9hxYG9KZygWi0iRZYZhaiTf2xK+34g10zt2+BXnoedqsizLMgyjyDLCGHcbjfv2mminlqYm4ucTv//Sjt4qDnR3Y4wRTdMlRdm3mBR1sNNY0f46/dO7tx9k9ODXd35opreKcqlE0zQysqyqqoosP2IE6quTM309/FZFee3qlFiS7pek91NN9VY3XVVVI8sik8kEAOvr63vTpq4nL5/89Cnmifsl6dTS229ev/BwR2mhFwAymQwAmEwmZLFYAODXW7dqKmwHe7988UIXzaz/eXdZTLbWCwA302kAsFgsiDObOY5Lr6zIe4TrGOKOzrrPIwq11qtLTiWTHMdxZjOiKGrY49nZ2fnuypX60peszo+ff6u1XgBYXFioVCrDHg9FUQgAnC4Xz/Ox5eXba2v11af7R1OvXm6hd211NR6L8TzvdLl2/z0IoTGfj6bp2VBIyOfrexCFmtHlc7lLoRBN0+N+v+45u6VP9/WdGR8vl8ufTE83nLTZdDPT0+r29pjPV3Wbxj7jPnHi5dHR/+szOjY2Nr6YmxNFsbOzc8huf/bYsWf6+3t6evSsIsu/PZYX6sAYX792bSkaLRQKu6be0cGybLlc/i9+XXOnyOfzm5ub8taWpmlt3in+BnEWKqLnXB2ZAAAAAElFTkSuQmCC" alt="Ikonka - Ważny podpis" /> Ważny </td></tr> ';
+                        }
+                        if (res[0].veryficationResult == 'INVALID') {
+                            html += '<tr><td class="text-signer">Status podpisu:</td><td class="invalid text-signer"><img class="img-invalid" id="img-invalid" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAYAAACN1PRVAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4wIEEDsjK1U6gQAABIVJREFUSMe1lltoVFcUhr9zzlxM5gglnTNqJqkQqAXTWiQmTyXxyUChSSilRanV3JxUg4oFi2LAQlGI2odCaC6NFRGkLZSYttCkT44WSi5YxaSk0BHnps4ZteCZTCZxz+5DmtGQmTFe+j+uvf/177P2Omv/ipRSkgdSSsxYjEgkQjweJ2FZCCHQNA2XruN2u/F6vRgeD4qi5EuFLddCOp3mst/P8NAQpmlm4k6nk0KXi+lEglQqlYkbhsGW2lreqq5GVdWsOZVsXxYKhTjd10c0GsVut1NZVcXGigrKysrQdT2zz7IsAoEAV8bHGR0ZYW5ujuLiYppaWyktLX2y2NjoKN/09yOEoLqmhrqGhkUCuWBZFoMDA/gvXkTTNBqbm9lUWZlbbGx0lK97e3GuWIGvrY315eU8LSYnJujp7iY1M0PLrl2LBeV/CAaDcrfPJ/e2t8tQMCifB6FgUO5tb5e7fT4ZfCyXutAMp/v6EELga2ujJEu9nwYlpaX42toQQnC6r490Og2ACnDZ7ycajVJdU5O1dDd2HODaqgpC+z9bshbcd5Rrqyq4sePAovj68nKqa2qIRqNc9vvnxaSUDA8NYbfbqWtoyHpS77GDKK4C7n/3E6lAMBNPhaL88/3PKK4CvMc/XcKra2jAbrczPDSElBLVjMUwTZPKqqqcXefwrmb1oT0g0tw52ZuJm1+eAZFmzeF2HMWrlvB0XaeyqgrTNDFjMdRIJALAxoqKvPfgbv6AgjfXc/+HX5j5K8DsrRj3zg9SsLGcl5vez8lbyBuJRFDj8TgAZWVlecUUVaXkiyMoqsKdEz2YXWchLSg5dQQlx8R4PG88HseWsCycTueyftyC11/D3fYhZtdZFIcd98fbKShfl5ej6zpOp5OEZaEKISh0uZbd1saej1BUBWbncOcp36JDFhYihEDVNI3pRGLZYmbXWRS7HWw27pzoWRYnOT2NpmmoLl0nlUqRsKwnk65PEe8+R9H2dynaVs+984NYv1954sxMpVK4dB3V7XYDMDU1lZck02nCn3wOqobRvgPP/iYUm43IwWOkHz7MyQsEAvPd7Hajer1eAK5dvZpXLN7/Lck/JinaWodjjQeHdzVF2+pJTQWIf3UuJ+/K+Pj8YPB6UQ2PB8MwGB8bw8pRytnIbW4f7wKbhrF3Zybu2dc4f3en+pgN38pawtGREQzDwPB4UBVFYUttLbOzs/x44UJWscjhTmQiyUvvvY2ztPjRZClZQ9HWOmRyhsihziW8wYEB5ubm2FJbO28ZpJRSCCGPdnRIX0uLnJyYkC8CE9evS19Lizza0SGFEI+eGFVVaWxuRtM0eru7iYTDz/XEhEMherq70TSNptbWjCfJzJlX1q5lZ1MTyWSSk52d/Dk5+UxCkxMTnOjsJDUzQ2Nz8yIvkteD1GzezDv19f+PB1nAzZs3OdPfTzQaxeFwsKmykjc2bODVdetYuXJlZl/Csvj7edzVAoQQ/HbpEr8ODxOLxR4ZTZsNXddJJpMvxjdmc8ThcJi7d+9iPXhAOp1+Jkf8L6rirq0at5yAAAAAAElFTkSuQmCC" alt="Ikonka - Nieważny podpis"  /> Nieważny  </td></tr> ';
+                        }
+                        if (res[0].veryficationResult == 'UNRECOGNIZED') {
+                            html += '<tr><td class="text-signer">Status podpisu:</td><td class="unrecognized text-signer"><img class="img-unrecognized" id="img-unrecognized" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAYAAACN1PRVAAABhGlDQ1BJQ0MgcHJvZmlsZQAAKJF9kT1Iw0AcxV9TtUUrgmYQcchQnSyIijhqFYpQIdQKrTqYj35Bk4YkxcVRcC04+LFYdXBx1tXBVRAEP0CcHJ0UXaTE/yWFFjEeHPfj3b3H3TuAq5cVzeoYBzTdNlOJuJDJrgqhV/SgC2Hw6JcUy5gTxSR8x9c9Amy9i7Es/3N/jl41ZylAQCCeVQzTJt4gnt60Dcb7xLxSlFTic+Ixky5I/Mh02eM3xgWXOZbJm+nUPDFPLBTaWG5jpWhqxFPEUVXTKZ/LeKwy3mKslatK857shZGcvrLMdJrDSGARSxAhQEYVJZRhI0arToqFFO3HffxDrl8kl0yuEhRyLKACDZLrB/uD391a+ckJLykSBzpfHOdjBAjtAo2a43wfO07jBAg+A1d6y1+pAzOfpNdaWvQI6NsGLq5bmrwHXO4Ag0+GZEquFKTJ5fPA+xl9UxYYuAW617zemvs4fQDS1FXyBjg4BEYLlL3u8+5we2//nmn29wMHpnJ8ifBxnwAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEgAACxIB0t1+/AAAAqpJREFUSMet1k2oVVUUB/Df270GGQ2iCLIGEYU+S4LCifXog+JBH5SZptkkBNmP7SaJomEfiqSj8nToFM0MCusOir6ujsLCJk2KVyIVODAjo8hSQ+PVZD+4Wffec6I/bBYc1tr/s/577bX2hDGo6uYi3IfbsaysSZzBl2Xtxds5xZ9H7TUxguRSPIP78R7exRc5xYMDPlNYjntwJ/bgqZziD63JqrrZiOdQ4YWc4i8tFLgQj2ETHs8p7h5LVtVNgxvwYE7xWx1R1c1VeBOf5hRnh5JVdfNyOZOZnOLJf9us39NgHqdnVtsyhHAR+pjLKcaF72HAIeG6UUQFGzCLu4Y5lPgZrKjq5pG/kVV1cwWeLtKdHKPU98WeGOVU9lmLHVXdLB7MbCt25BQPtziWhfI+M84xp/gNduFZCFXdXFIkeallDUyMuzZnYRfurerm4oD12JNTPNGRLLRxzikexwdYFXArPuxQ3ee0lXEA7+COgKX4vEPgr8Ue6RDzFZYELOl4eX8s9njbgJziHKaC7jhW7KmOcecG/F7VTRfS+S4FUu7xefgpYK50jrYIXclwLb4O+Awr/wNZl2qcxoGA98s8aoutuL7Ytrgb+yaqupnEUUwPDsb/C1XdLMfeEMLikFP8A9uxrU1wv2dDv+fVfs/DLfm2YXua3fTngv41pqq6WTWGaBlew0bs7vcsHZPVWly50HdDuXSnsQ6vVHWzooNKo94wN5Yk1hT1/jGpbyl/vi6n+PGQ7NbjZnw0s9rrQ4im8RYeyCnuH/UGuQlv4EXszCnOdyiGSTyJiIcGiUa9ri4vZFdjZxlBp0aQnI81eAIHsTmneLS15gNyPIrb8ElpAN8NuFxWXmIrsQ/P5xQPdD7gs0gvKF3gmpLtfCmuQ6Xd7c8p/jZun78A1mrhGeLFNxIAAAAASUVORK5CYII" alt="Ikonka - Nieznany podpis"  /> Nieznany  </td></tr> ';
+                            isPoSignature = true;
+                        }
+
+                        if (res[0].signatureType == 'PZ_SIGNATURE') {
+							html += '  <tr><td class="text-signer">Rodzaj podpisu: </td><td class="text-signer bold">Podpis zaufany</td></tr></table>';
+						}
+						if (res[0].signatureType == 'CK_SIGNATURE') {
+							html += '  <tr><td class="text-signer">Rodzaj podpisu: </td><td class="text-signer bold">Podpis kwalifikowany</td></tr></table>';
+						}
+						if (res[0].signatureType == 'PO_SIGNATURE') {
+							html += '  <tr><td class="text-signer">Rodzaj podpisu: </td><td class="text-signer bold">Podpis osobisty</td></tr></table>';
+						}
+                        if (res[0].signerDocumentType === true) {
+                            $("#getFile_button1").show();
+                            $("#getFile_button2").show();
+                            $("#getFile_button1_signed").hide();
+                            $("#getFile_button2_signed").hide();
+                            $("#getFile_button1_add_signed").hide();
+                            $("#getFile_button2_add_signed").hide();
+                        }
+                        if (res[0].signerDocumentType === false) {
+                            $("#getFile_button1").show();
+                            $("#getFile_button2").show();
+                            $("#getFile_button1_signed").hide();
+                            $("#getFile_button2_signed").hide();
+                            $("#getFile_button1_add_signed").hide();
+                            $("#getFile_button2_add_signed").hide();
+                        }
+                    }
+                } else {
+
+                    $("#getFile_button1").hide();
+                    $("#getFile_button2").hide();
+                    $("#getFile_button1_signed").hide();
+                    $("#getFile_button2_signed").hide();
+                    $("#getFile_button1_add_signed").hide();
+                    $("#getFile_button2_add_signed").hide();
+                    $("#information_signature").show();
+                    $("#toggle_signature").hide();
+                    var counter_verified_2 = 0;  //licznik zweryfikowanych podpisow - jak zaden nie jest wyswietla przycisk do pobrania.
+                    for (i = 0; i < res.length; i++) {
+
+                        if (i === 0) {
+                            if (res[0].notRecognized == true || res[0].invalidSignatureType == true) {
+                                if(res[0].notRecognized == true && res[0].invalidSignatureType == false) {
+                                    html += '<p class="bold signer-border-error">Nie można zweryfikować podpisu w dołączonym pliku.</p>';
+                                    window.piwikActions.sendPiwikAction('Nie można zweryfikować podpisu w dołączonym pliku.', 'informacja o podpisach');
+                                }
+                                if (res[0].invalidSignatureType == true) {
+                                    html += '<p class="bold signer-border-error">W dokumencie są podpisy, których nie można tu sprawdzić.</br> Sprawdzisz je za pomocą aplikacji <a href="https://www.gov.pl/web/e-dowod/#Pliki-do-pobrania">„e-dowód Podpis Elektroniczny”.</p><p class="signer-border-error"> </p>';
+                                    window.piwikActions.sendPiwikAction('W dokumencie są podpisy, których nie można tu sprawdzić (status nieznany)', 'informacja o podpisach');
+                                }
+                            } else {
+
+                                htmlfirst += '<div class="text-h3">Złożone podpisy</div><table summary="Tabela zawiera informacje o złożonych podpisach"class="table-info"><tr><td class="text-signer">Właściciel podpisu: </td><td class="bold text-signer">' + replaceName(res[0].firstName) + " " + replaceName(res[0].lastName) + "</td></tr><tr><td class='text-signer'> Data i godzina podpisu: </td><td class='bold text-signer'>" + res[0].signatureDate + "</td></tr>  ";
+
+                                if (res[0].veryficationResult == 'VALID') {
+                                    htmlfirst += '<tr><td class="text-signer">Status podpisu:</td><td class="valid text-signer">     <img class="img-valid" id="img-valid" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAIAAAACtmMCAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4wIEEC8dxJrwfwAAA9pJREFUSMelVl9oG3Uc/97vml7XXCdKLoxLYyFgB+sczDZBMCQDR+OLbfRlvm1tTBNHmaB98Q8632arD3vLGlt9EHQg0lVEkw5tsoxB0jgmtKMwszXJ3SSXOlnvkl7j734+XM3a/DPTz9Px/fPh+7nffe/zowgh0AiEEKlQEAShWCwqsowxpmnayLImk8lisXBmM0VRDRs76kOapiXi8WgkIkmSHmEYpttoLCmKqqp6hOO4YY/H6XIhhGraqZoZc7ncfDgsiqLBYLA7HMcHB202G8uyelaW5UwmczOdTiWTlUqF5/lxv99qtTZlXEmlPp+bwxi73O4Rr7dKVA9ZlhcXFuKxGE3TYz7fkN3egHEllfpsdpbp6goEg0cGBqANrK2uXgqF1O3t1ycmHpESQggh2Wz2bCBwbnIyl82Sx0Eumz03OXk2EMj+04j0o5gPhzHGgWCwd/9L+Vf0Wq2BYBBjPB8Oa5oGAAgAEvG4KIout7tNsQAQjH+0eO9n/fnIwIDL7RZFMRGPAwAihEQjEYPBMOL1tkn3TSb67d2r/tiHmGh6ZMTrNRgM0UiEEIKkQkGSJLvD0eJk96JQ/uO95EUAOHPYS1O7HyPLsnaHQ5IkqVBAgiAAwPHBwTYHnLox80B9aGUPfTD0xt64ziAIAioWiwBgs9na1PtjLgEAF194x9hxYG9KZygWi0iRZYZhaiTf2xK+34g10zt2+BXnoedqsizLMgyjyDLCGHcbjfv2mminlqYm4ucTv//Sjt4qDnR3Y4wRTdMlRdm3mBR1sNNY0f46/dO7tx9k9ODXd35opreKcqlE0zQysqyqqoosP2IE6quTM309/FZFee3qlFiS7pek91NN9VY3XVVVI8sik8kEAOvr63vTpq4nL5/89Cnmifsl6dTS229ev/BwR2mhFwAymQwAmEwmZLFYAODXW7dqKmwHe7988UIXzaz/eXdZTLbWCwA302kAsFgsiDObOY5Lr6zIe4TrGOKOzrrPIwq11qtLTiWTHMdxZjOiKGrY49nZ2fnuypX60peszo+ff6u1XgBYXFioVCrDHg9FUQgAnC4Xz/Ox5eXba2v11af7R1OvXm6hd211NR6L8TzvdLl2/z0IoTGfj6bp2VBIyOfrexCFmtHlc7lLoRBN0+N+v+45u6VP9/WdGR8vl8ufTE83nLTZdDPT0+r29pjPV3Wbxj7jPnHi5dHR/+szOjY2Nr6YmxNFsbOzc8huf/bYsWf6+3t6evSsIsu/PZYX6sAYX792bSkaLRQKu6be0cGybLlc/i9+XXOnyOfzm5ub8taWpmlt3in+BnEWKqLnXB2ZAAAAAElFTkSuQmCC" alt="Ikonka - Ważny podpis" /> Ważny </td></tr> ';
+                                }
+                                if (res[0].veryficationResult == 'INVALID') {
+                                    htmlfirst += '<tr><td class="text-signer">Status podpisu:</td><td class="invalid text-signer"><img class="img-invalid" id="img-invalid" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAYAAACN1PRVAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4wIEEDsjK1U6gQAABIVJREFUSMe1lltoVFcUhr9zzlxM5gglnTNqJqkQqAXTWiQmTyXxyUChSSilRanV3JxUg4oFi2LAQlGI2odCaC6NFRGkLZSYttCkT44WSi5YxaSk0BHnps4ZteCZTCZxz+5DmtGQmTFe+j+uvf/177P2Omv/ipRSkgdSSsxYjEgkQjweJ2FZCCHQNA2XruN2u/F6vRgeD4qi5EuFLddCOp3mst/P8NAQpmlm4k6nk0KXi+lEglQqlYkbhsGW2lreqq5GVdWsOZVsXxYKhTjd10c0GsVut1NZVcXGigrKysrQdT2zz7IsAoEAV8bHGR0ZYW5ujuLiYppaWyktLX2y2NjoKN/09yOEoLqmhrqGhkUCuWBZFoMDA/gvXkTTNBqbm9lUWZlbbGx0lK97e3GuWIGvrY315eU8LSYnJujp7iY1M0PLrl2LBeV/CAaDcrfPJ/e2t8tQMCifB6FgUO5tb5e7fT4ZfCyXutAMp/v6EELga2ujJEu9nwYlpaX42toQQnC6r490Og2ACnDZ7ycajVJdU5O1dDd2HODaqgpC+z9bshbcd5Rrqyq4sePAovj68nKqa2qIRqNc9vvnxaSUDA8NYbfbqWtoyHpS77GDKK4C7n/3E6lAMBNPhaL88/3PKK4CvMc/XcKra2jAbrczPDSElBLVjMUwTZPKqqqcXefwrmb1oT0g0tw52ZuJm1+eAZFmzeF2HMWrlvB0XaeyqgrTNDFjMdRIJALAxoqKvPfgbv6AgjfXc/+HX5j5K8DsrRj3zg9SsLGcl5vez8lbyBuJRFDj8TgAZWVlecUUVaXkiyMoqsKdEz2YXWchLSg5dQQlx8R4PG88HseWsCycTueyftyC11/D3fYhZtdZFIcd98fbKShfl5ej6zpOp5OEZaEKISh0uZbd1saej1BUBWbncOcp36JDFhYihEDVNI3pRGLZYmbXWRS7HWw27pzoWRYnOT2NpmmoLl0nlUqRsKwnk65PEe8+R9H2dynaVs+984NYv1954sxMpVK4dB3V7XYDMDU1lZck02nCn3wOqobRvgPP/iYUm43IwWOkHz7MyQsEAvPd7Hajer1eAK5dvZpXLN7/Lck/JinaWodjjQeHdzVF2+pJTQWIf3UuJ+/K+Pj8YPB6UQ2PB8MwGB8bw8pRytnIbW4f7wKbhrF3Zybu2dc4f3en+pgN38pawtGREQzDwPB4UBVFYUttLbOzs/x44UJWscjhTmQiyUvvvY2ztPjRZClZQ9HWOmRyhsihziW8wYEB5ubm2FJbO28ZpJRSCCGPdnRIX0uLnJyYkC8CE9evS19Lizza0SGFEI+eGFVVaWxuRtM0eru7iYTDz/XEhEMherq70TSNptbWjCfJzJlX1q5lZ1MTyWSSk52d/Dk5+UxCkxMTnOjsJDUzQ2Nz8yIvkteD1GzezDv19f+PB1nAzZs3OdPfTzQaxeFwsKmykjc2bODVdetYuXJlZl/Csvj7edzVAoQQ/HbpEr8ODxOLxR4ZTZsNXddJJpMvxjdmc8ThcJi7d+9iPXhAOp1+Jkf8L6rirq0at5yAAAAAAElFTkSuQmCC" alt="Ikonka - Nieważny podpis"  /> Nieważny  </td></tr> ';
+                                }
+                                if (res[0].veryficationResult == 'UNRECOGNIZED') {
+                                    htmlfirst += '<tr><td class="text-signer">Status podpisu:</td><td class="unrecognized text-signer"><img class="img-unrecognized" id="img-unrecognized" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAYAAACN1PRVAAABhGlDQ1BJQ0MgcHJvZmlsZQAAKJF9kT1Iw0AcxV9TtUUrgmYQcchQnSyIijhqFYpQIdQKrTqYj35Bk4YkxcVRcC04+LFYdXBx1tXBVRAEP0CcHJ0UXaTE/yWFFjEeHPfj3b3H3TuAq5cVzeoYBzTdNlOJuJDJrgqhV/SgC2Hw6JcUy5gTxSR8x9c9Amy9i7Es/3N/jl41ZylAQCCeVQzTJt4gnt60Dcb7xLxSlFTic+Ixky5I/Mh02eM3xgWXOZbJm+nUPDFPLBTaWG5jpWhqxFPEUVXTKZ/LeKwy3mKslatK857shZGcvrLMdJrDSGARSxAhQEYVJZRhI0arToqFFO3HffxDrl8kl0yuEhRyLKACDZLrB/uD391a+ckJLykSBzpfHOdjBAjtAo2a43wfO07jBAg+A1d6y1+pAzOfpNdaWvQI6NsGLq5bmrwHXO4Ag0+GZEquFKTJ5fPA+xl9UxYYuAW617zemvs4fQDS1FXyBjg4BEYLlL3u8+5we2//nmn29wMHpnJ8ifBxnwAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEgAACxIB0t1+/AAAAqpJREFUSMet1k2oVVUUB/Df270GGQ2iCLIGEYU+S4LCifXog+JBH5SZptkkBNmP7SaJomEfiqSj8nToFM0MCusOir6ujsLCJk2KVyIVODAjo8hSQ+PVZD+4Wffec6I/bBYc1tr/s/577bX2hDGo6uYi3IfbsaysSZzBl2Xtxds5xZ9H7TUxguRSPIP78R7exRc5xYMDPlNYjntwJ/bgqZziD63JqrrZiOdQ4YWc4i8tFLgQj2ETHs8p7h5LVtVNgxvwYE7xWx1R1c1VeBOf5hRnh5JVdfNyOZOZnOLJf9us39NgHqdnVtsyhHAR+pjLKcaF72HAIeG6UUQFGzCLu4Y5lPgZrKjq5pG/kVV1cwWeLtKdHKPU98WeGOVU9lmLHVXdLB7MbCt25BQPtziWhfI+M84xp/gNduFZCFXdXFIkeallDUyMuzZnYRfurerm4oD12JNTPNGRLLRxzikexwdYFXArPuxQ3ee0lXEA7+COgKX4vEPgr8Ue6RDzFZYELOl4eX8s9njbgJziHKaC7jhW7KmOcecG/F7VTRfS+S4FUu7xefgpYK50jrYIXclwLb4O+Awr/wNZl2qcxoGA98s8aoutuL7Ytrgb+yaqupnEUUwPDsb/C1XdLMfeEMLikFP8A9uxrU1wv2dDv+fVfs/DLfm2YXua3fTngv41pqq6WTWGaBlew0bs7vcsHZPVWly50HdDuXSnsQ6vVHWzooNKo94wN5Yk1hT1/jGpbyl/vi6n+PGQ7NbjZnw0s9rrQ4im8RYeyCnuH/UGuQlv4EXszCnOdyiGSTyJiIcGiUa9ri4vZFdjZxlBp0aQnI81eAIHsTmneLS15gNyPIrb8ElpAN8NuFxWXmIrsQ/P5xQPdD7gs0gvKF3gmpLtfCmuQ6Xd7c8p/jZun78A1mrhGeLFNxIAAAAASUVORK5CYII" alt="Ikonka - Nieznany podpis"  /> Nieznany  </td></tr> ';
+                                    isPoSignature = true;
+                                }
+
+                                if (res[0].signatureType == 'PZ_SIGNATURE') {
+                                    htmlfirst += '  <tr><td class="text-signer">Rodzaj podpisu: </td><td class="text-signer bold">Podpis zaufany</td></tr></table>';
+                                }
+                                if (res[0].signatureType == 'CK_SIGNATURE') {
+                                    htmlfirst += '  <tr><td class="text-signer">Rodzaj podpisu: </td><td class="text-signer bold">Podpis kwalifikowany</td></tr></table>';
+                                }
+								if (res[0].signatureType == 'PO_SIGNATURE') {
+                                    htmlfirst += '  <tr><td class="text-signer">Rodzaj podpisu: </td><td class="text-signer bold">Podpis osobisty</td></tr></table>';
+                                }
+                            }
+                        } else {
+                            if (res[i].padesSign === true) {
+                                $("#PDF_caption").show();
+                                $("#XML_caption").hide();
+                                $("#xades_header").hide();
+                                $("#ZobaczDokument").hide();
+                                sessionStorage.setItem('sign','(PAdES)');
+                            }
+                            if (res[i].padesSign === false) {
+                                $("#PDF_caption").hide();
+                                $("#XML_caption").show();
+                                $("#xades_header").show();
+                                $("#ZobaczDokument").show();
+                                sessionStorage.setItem('sign','(XAdES)');
+                            }
+                            if (res[i].notRecognized === true || res[i].invalidSignatureType == true) {
+                                if(res[i].notRecognized == true && res[i].invalidSignatureType == false) {
+                                    html += '<p class="bold signer-border-error">Nie można zweryfikować podpisu w dołączonym pliku.</p>';
+                                    window.piwikActions.sendPiwikAction('Nie można zweryfikować podpisu w dołączonym pliku.', 'informacja o podpisach');
+                                }
+                                if (res[i].invalidSignatureType == true) {
+                                    html += '<p class="bold signer-border-error">W dokumencie są podpisy, których nie można tu sprawdzić.</br> Sprawdzisz je za pomocą aplikacji <a href="https://www.gov.pl/web/e-dowod/#Pliki-do-pobrania">„e-dowód Podpis Elektroniczny”</a>.</p><p class="signer-border-error"> </p>';
+                                    window.piwikActions.sendPiwikAction('W dokumencie są podpisy, których nie można tu sprawdzić (status nieznany)', 'informacja o podpisach');
+                                }
+                                if (1 + i !== res.length) {
+
+                                    html += '<p class="signer-border-error"> </p>';
+                                };
+
+                                if (counter_verified_2 === 0) {
+                                    $("#getFile_button1").show();
+                                    $("#getFile_button2").show();
+                                    $("#getFile_button1_signed").hide();
+                                    $("#getFile_button2_signed").hide();
+                                    $("#getFile_button1_add_signed").hide();
+                                    $("#getFile_button2_add_signed").hide();
+                                }
+
+                            }
+                            else {
+                                counter_verified_2++;
+
+                                html += '<br/><table summary="Tabela zawiera informacje o złożonych podpisach"class="table-info"><tr><td class="text-signer">Właściciel podpisu: </td><td class="bold text-signer">' + replaceName(res[i].firstName) + " " + replaceName(res[i].lastName) + "</td></tr><tr><td class='text-signer'> Data i godzina podpisu: </td><td class='bold text-signer'>" + res[i].signatureDate + "</td></tr> ";
+
+                                if (res[i].veryficationResult == 'VALID') {
+                                    html += '<tr><td class="text-signer">Status podpisu:</td><td class="valid text-signer"><img class="img-valid" id="img-valid" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAIAAAACtmMCAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4wIEEC8dxJrwfwAAA9pJREFUSMelVl9oG3Uc/97vml7XXCdKLoxLYyFgB+sczDZBMCQDR+OLbfRlvm1tTBNHmaB98Q8632arD3vLGlt9EHQg0lVEkw5tsoxB0jgmtKMwszXJ3SSXOlnvkl7j734+XM3a/DPTz9Px/fPh+7nffe/zowgh0AiEEKlQEAShWCwqsowxpmnayLImk8lisXBmM0VRDRs76kOapiXi8WgkIkmSHmEYpttoLCmKqqp6hOO4YY/H6XIhhGraqZoZc7ncfDgsiqLBYLA7HMcHB202G8uyelaW5UwmczOdTiWTlUqF5/lxv99qtTZlXEmlPp+bwxi73O4Rr7dKVA9ZlhcXFuKxGE3TYz7fkN3egHEllfpsdpbp6goEg0cGBqANrK2uXgqF1O3t1ycmHpESQggh2Wz2bCBwbnIyl82Sx0Eumz03OXk2EMj+04j0o5gPhzHGgWCwd/9L+Vf0Wq2BYBBjPB8Oa5oGAAgAEvG4KIout7tNsQAQjH+0eO9n/fnIwIDL7RZFMRGPAwAihEQjEYPBMOL1tkn3TSb67d2r/tiHmGh6ZMTrNRgM0UiEEIKkQkGSJLvD0eJk96JQ/uO95EUAOHPYS1O7HyPLsnaHQ5IkqVBAgiAAwPHBwTYHnLox80B9aGUPfTD0xt64ziAIAioWiwBgs9na1PtjLgEAF194x9hxYG9KZygWi0iRZYZhaiTf2xK+34g10zt2+BXnoedqsizLMgyjyDLCGHcbjfv2mminlqYm4ucTv//Sjt4qDnR3Y4wRTdMlRdm3mBR1sNNY0f46/dO7tx9k9ODXd35opreKcqlE0zQysqyqqoosP2IE6quTM309/FZFee3qlFiS7pek91NN9VY3XVVVI8sik8kEAOvr63vTpq4nL5/89Cnmifsl6dTS229ev/BwR2mhFwAymQwAmEwmZLFYAODXW7dqKmwHe7988UIXzaz/eXdZTLbWCwA302kAsFgsiDObOY5Lr6zIe4TrGOKOzrrPIwq11qtLTiWTHMdxZjOiKGrY49nZ2fnuypX60peszo+ff6u1XgBYXFioVCrDHg9FUQgAnC4Xz/Ox5eXba2v11af7R1OvXm6hd211NR6L8TzvdLl2/z0IoTGfj6bp2VBIyOfrexCFmtHlc7lLoRBN0+N+v+45u6VP9/WdGR8vl8ufTE83nLTZdDPT0+r29pjPV3Wbxj7jPnHi5dHR/+szOjY2Nr6YmxNFsbOzc8huf/bYsWf6+3t6evSsIsu/PZYX6sAYX792bSkaLRQKu6be0cGybLlc/i9+XXOnyOfzm5ub8taWpmlt3in+BnEWKqLnXB2ZAAAAAElFTkSuQmCC" alt="Ikonka - Ważny podpis" /> Ważny </td></tr> ';
+                                }
+                                if (res[i].veryficationResult == 'INVALID') {
+                                    html += '<tr><td class="text-signer">Status podpisu:</td><td class="invalid text-signer"><img class="img-invalid" id="img-invalid" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAYAAACN1PRVAAABhGlDQ1BJQ0MgcHJvZmlsZQAAKJF9kT1Iw0AcxV9TtUUrgmYQcchQnSyIijhqFYpQIdQKrTqYj35Bk4YkxcVRcC04+LFYdXBx1tXBVRAEP0CcHJ0UXaTE/yWFFjEeHPfj3b3H3TuAq5cVzeoYBzTdNlOJuJDJrgqhV/SgC2Hw6JcUy5gTxSR8x9c9Amy9i7Es/3N/jl41ZylAQCCeVQzTJt4gnt60Dcb7xLxSlFTic+Ixky5I/Mh02eM3xgWXOZbJm+nUPDFPLBTaWG5jpWhqxFPEUVXTKZ/LeKwy3mKslatK857shZGcvrLMdJrDSGARSxAhQEYVJZRhI0arToqFFO3HffxDrl8kl0yuEhRyLKACDZLrB/uD391a+ckJLykSBzpfHOdjBAjtAo2a43wfO07jBAg+A1d6y1+pAzOfpNdaWvQI6NsGLq5bmrwHXO4Ag0+GZEquFKTJ5fPA+xl9UxYYuAW617zemvs4fQDS1FXyBjg4BEYLlL3u8+5we2//nmn29wMHpnJ8ifBxnwAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEgAACxIB0t1+/AAABFJJREFUSMedlkFsFFUYx39vUvAAknSaIsq0GpkWqKVo1VBBaaIBSdqobVA4ALVJ2dedTgMSTAwNlGpI9AJIZ4edLQrWA9RDDZEWDIYGjZFYIFKgTbtAGpaDYLdyEA9NYDzsK9027W7rS95hMm/+v/nm++b7f8L3fVItx/V04F3gbeAFoADQgEdAr9o/AidtS8ZTaYmpYI7rzQd2AxuAc0A7cHVkZKRvx/Z69h9sZvbs2UuAIqASeBNoAz6zLXlv2jDH9T4AvgRagc9tS/5NmuW4XibwCVAFbLMt2ZYSJoSgORTeD5QBFbYle5nhclyvAPge6Kyvq/1onH7yheN6XwAlpd3dVc8cax/M8odnyuKKEGRsrn62q2RFK9BtW3Ln6D0tCbQeqFjZ07Np4U/nzwsjy4uLrBmBLgtBjmFGnu765efS7otVwDuO670/Dua4XhbgAJXF4VAM+AYICEM/PCSenBboghA8Z5gRYCtwJvtoyyBQARxS+o8jawRO2Ja8BqDHonuAA0CtZizwhsS8lKBfhSB/DOTduj0gFwC2Ja8DJ5Q+GY7rzQU2AfnJAnosumM4J+8hsFMznuKeEHL+JJV7VgheHgNFbt4eqH1ViOQj+4ABx/UaNFV5XbYlhyYK6bHox8AhIJBhmN698SKcToA8BQp33B6QE0Ao3XNAmQasAzqm+kR6LLpN/XOBDMOM3FViMSFYkYgoAIT1WDS4eQIoaZ0C1mlAIfBHqpzoseh24DCwdZZheneFYM5YRJ5++bdgmvrpAQozgEXA1XTVpsei1nBO3iOgbpZhrgaWAJ7e83stmZlpfz8gj+ZQ2AfwfT/tvgHEDbM3bph+3DB7o9N8zvd9mkNhXwOGm0PhJ9K9Wr8QZBpmC7AU6AOW6obZ0j91npI70yzgvgbcUtaREpSdyFENENFrthQAEaAm2zA9kR64DLipqXwVT3XqYgLU8rjqOtoljbvRDx+UChiIG6b3tf8oFawY6NGATqB8shODQvB8orxrgBa9rTVI0bLEzfIy9E8bJNACBN7LXRz+dmojLgNOj8LeUGb5eF0VgnmJiBLlffK7ACtfGy9R/SGX7twIKKAsy833uicAlW4p0KnZlvxXmeSuZNDCsYiO6F+5tRS/NOkrr/F9+saAgUW5+e6EI7uAVtuSD0YbcROw0XG9F48mQEdGe51+/NhW1q5Jmf1Vvs/AGDA4nJMXUlEtBzYq/UTXty15HwgC7UW1dXnAGuCI7h6QvL5qWhZT4vsMJoARoPxSsH6RcmxrdKyY6NR7gLUl165Xv7JhfZTS1TN26j+F4E7QNi8UFh4DztqWbJp0LPCBkOs1qqGlwrbklf8xgyxXEbXWWXKvmMZ0Vaka73Fgn23Jv6YByQYaVI4s25LtM5kbM4G9wBblR6eUO/TYln" alt="Ikonka - Nieważny podpis"  /> Nieważny  </td></tr> ';
+                                }
+                                if (res[i].veryficationResult == 'UNRECOGNIZED') {
+                                    html += '<tr><td class="text-signer">Status podpisu:</td><td class="unrecognized text-signer"><img class="img-unrecognized" id="img-unrecognized" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAYAAACN1PRVAAABhGlDQ1BJQ0MgcHJvZmlsZQAAKJF9kT1Iw0AcxV9TtUUrgmYQcchQnSyIijhqFYpQIdQKrTqYj35Bk4YkxcVRcC04+LFYdXBx1tXBVRAEP0CcHJ0UXaTE/yWFFjEeHPfj3b3H3TuAq5cVzeoYBzTdNlOJuJDJrgqhV/SgC2Hw6JcUy5gTxSR8x9c9Amy9i7Es/3N/jl41ZylAQCCeVQzTJt4gnt60Dcb7xLxSlFTic+Ixky5I/Mh02eM3xgWXOZbJm+nUPDFPLBTaWG5jpWhqxFPEUVXTKZ/LeKwy3mKslatK857shZGcvrLMdJrDSGARSxAhQEYVJZRhI0arToqFFO3HffxDrl8kl0yuEhRyLKACDZLrB/uD391a+ckJLykSBzpfHOdjBAjtAo2a43wfO07jBAg+A1d6y1+pAzOfpNdaWvQI6NsGLq5bmrwHXO4Ag0+GZEquFKTJ5fPA+xl9UxYYuAW617zemvs4fQDS1FXyBjg4BEYLlL3u8+5we2//nmn29wMHpnJ8ifBxnwAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEgAACxIB0t1+/AAAAqpJREFUSMet1k2oVVUUB/Df270GGQ2iCLIGEYU+S4LCifXog+JBH5SZptkkBNmP7SaJomEfiqSj8nToFM0MCusOir6ujsLCJk2KVyIVODAjo8hSQ+PVZD+4Wffec6I/bBYc1tr/s/577bX2hDGo6uYi3IfbsaysSZzBl2Xtxds5xZ9H7TUxguRSPIP78R7exRc5xYMDPlNYjntwJ/bgqZziD63JqrrZiOdQ4YWc4i8tFLgQj2ETHs8p7h5LVtVNgxvwYE7xWx1R1c1VeBOf5hRnh5JVdfNyOZOZnOLJf9us39NgHqdnVtsyhHAR+pjLKcaF72HAIeG6UUQFGzCLu4Y5lPgZrKjq5pG/kVV1cwWeLtKdHKPU98WeGOVU9lmLHVXdLB7MbCt25BQPtziWhfI+M84xp/gNduFZCFXdXFIkeallDUyMuzZnYRfurerm4oD12JNTPNGRLLRxzikexwdYFXArPuxQ3ee0lXEA7+COgKX4vEPgr8Ue6RDzFZYELOl4eX8s9njbgJziHKaC7jhW7KmOcecG/F7VTRfS+S4FUu7xefgpYK50jrYIXclwLb4O+Awr/wNZl2qcxoGA98s8aoutuL7Ytrgb+yaqupnEUUwPDsb/C1XdLMfeEMLikFP8A9uxrU1wv2dDv+fVfs/DLfm2YXua3fTngv41pqq6WTWGaBlew0bs7vcsHZPVWly50HdDuXSnsQ6vVHWzooNKo94wN5Yk1hT1/jGpbyl/vi6n+PGQ7NbjZnw0s9rrQ4im8RYeyCnuH/UGuQlv4EXszCnOdyiGSTyJiIcGiUa9ri4vZFdjZxlBp0aQnI81eAIHsTmneLS15gNyPIrb8ElpAN8NuFxWXmIrsQ/P5xQPdD7gs0gvKF3gmpLtfCmuQ6Xd7c8p/jZun78A1mrhGeLFNxIAAAAASUVORK5CYII" alt="Ikonka - Nieznany podpis"  /> Nieznany  </td></tr> ';
+                                    isPoSignature = true;
+                                }
+
+                                if (res[i].signatureType == 'PZ_SIGNATURE') {
+                                    html += '  <tr><td class="text-signer">Rodzaj podpisu: </td><td class="text-signer bold">Podpis zaufany</td></tr></table>';
+                                }
+                                if (res[i].signatureType == 'CK_SIGNATURE') {
+                                    html += '  <tr><td class="text-signer">Rodzaj podpisu: </td><td class="text-signer bold">Podpis kwalifikowany</td></tr></table>';
+                                }
+								if (res[i].signatureType == 'PO_SIGNATURE') {
+                                    html += '  <tr><td class="text-signer">Rodzaj podpisu: </td><td class="text-signer bold">Podpis osobisty</td></tr></table>';
+                                }
+                                if (res[i].signerDocumentType === true) {
+                                    $("#getFile_button1").show();
+                                    $("#getFile_button2").show();
+                                    $("#getFile_button1_signed").hide();
+                                    $("#getFile_button2_signed").hide();
+                                    $("#getFile_button1_add_signed").hide();
+                                    $("#getFile_button2_add_signed").hide();
+                                }
+                                if (res[i].signerDocumentType === false) {
+                                    $("#getFile_button1").show();
+                                    $("#getFile_button2").show();
+                                    $("#getFile_button1_signed").hide();
+                                    $("#getFile_button2_signed").hide();
+                                    $("#getFile_button1_add_signed").hide();
+                                    $("#getFile_button2_add_signed").hide();
+                                }
+                            }
+                        };
+                    }
+                }
+            }
+
+            if(isPoSignature === true) {
+                var poSignatureInfo = '<p class="bold signer-border-error">W dokumencie są podpisy, których nie można tu sprawdzić.</br> Sprawdzisz je za pomocą aplikacji <a href="https://www.gov.pl/web/e-dowod/#Pliki-do-pobrania">„e-dowód Podpis Elektroniczny”</a>.</p><p class="signer-border-error"> </p>';
+                htmlfirst = poSignatureInfo + htmlfirst;
+                window.piwikActions.sendPiwikAction('W dokumencie są podpisy, których nie można tu sprawdzić (status nieznany)', 'informacja o podpisach');
+            }
+
+            $("#html").html(html);
+            $("#htmlfirst").html(htmlfirst);
+        })
+        .fail(function () {
+            console.log("Wystąpił błąd w połączeniu");
+        });
+}
+function htmlfirst_restart() {
+    $('#htmlfirst').text('');
+}
+
+function isPdfFile(nazwa)
+{
+    if(nazwa!=null) {
+        var index=nazwa.lastIndexOf('.pdf');
+        if (index!=-1)
+        {
+            if (index==(nazwa.length-4))
+            {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+function getValButton(text)
+{
+    if(text=='1')
+    {
+        return 1
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+function replaceName(name)
+{
+    //var re=/[^A-Za-zÆÐƎƏƐƔĲŊŒẞÞǷȜæðǝəɛɣĳŋœĸſßþƿȝĄƁÇĐƊĘĦĮƘŁØƠŞȘŢȚŦŲƯY̨Ƴąɓçđɗęħįƙłøơşșţțŧųưy̨ạẠƴÁÀÂÄǍĂĀÃÅǺĄÆǼǢƁĆĊĈČÇĎḌĐƊÐÉÈĖÊËĚĔĒĘẸƎƏƐĠĜǦĞĢƔáàâäǎăāãåǻąæǽǣɓćċĉčçďḍđɗðéèėêëěĕēęẹỆǝəɛġĝǧğģɣĤḤĦIÍÌİÎÏǏĬĪĨĮỊĲĴĶƘĹĻŁĽĿʼNŃN̈ŇÑŅŊȌÓÒÔÖǑŎŌÕŐỌØǾƠŒĥḥħıíìiîïǐĭīĩįịĳĵķƙĸĺļłľŀŉńn̈ňñņŋóòôöǒŏōõőọøǿơœṔŔŘŖŚŜŠŞȘṢẞŤŢṬŦÞÚÙÛÜǓŬŪŨŰŮŲỤƯẂẀŴẄǷÝỲŶŸȲỸƳŹŻŽẒŕřŗſśŝšşșṣßťţṭŧþúùûüǔŭūũűůųụưẃẁŵẅƿýỳŷÿȳỹƴźżžẓ]/g;
+    var re=/[^ąćęłńóśźżA-Z0-9ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞßĀĂĄĆĈĊČĎĐĒĔĖĘĚĜĞĠĢĤĦĨĪĬĮİĲĴĶĹĻĽĿŁŃŅŇŊŌŎŐŒŔŖŘŚŜŞŠŢŤŦŨŪŬŮŰŲŴŶŸŹŻŽƁƂƄƆƇƉƊƋƎƏƐƑƓƔƖƗƘƜƝƟƠƢƤƦƧƩƪƬƮƯƱƲƳƵƷƸƻƼƾƿǀǁǂǃǄǇǊǍǏǑǓǕǗǙǛǞǠǢǤǦǨǪǬǮǱǴǶǷǸǺǼǾȀȂȄȆȈȊȌȎȐȒȔȖȘȚȜȞȠȢȤȦȨȪȬȮȰȲȺȻȽȾɁɃɄɅɆɈɊɌɎḀḂḄḆḈḊḌḎḐḒḔḖḘḚḜḞḠḢḤḦḨḪḬḮḰḲḴḶḸḺḼḾṀṂṄṆṈṊṌṎṐṒṔṖṘṚṜṞṠṢṤṦṨṪṬṮṰṲṴṶṸṺṼṾẀẂẄẆẈẊẌẎẐẒẔẞẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼẾỀỂỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪỬỮỰỲỴỶỸỺỼỾЌE̋G̈A̋S̋U,\s -]/gi;
+    var newName=name.replace(re, '');
+    return(newName);
+}

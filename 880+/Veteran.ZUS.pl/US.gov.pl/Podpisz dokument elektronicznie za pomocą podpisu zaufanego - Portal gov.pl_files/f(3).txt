@@ -1,0 +1,205 @@
+
+.obywatel-css .coi-icons {
+    position: relative;
+    display: inline-block;
+    width: 48px;
+    height: 48px;
+    overflow: hidden;
+  }
+  .obywatel-css .coi-icons:before {
+    content: "";
+    background-image: url(../img/svgs/sprite_all2.svg);
+    width: 288px;
+    height: 624px;
+    display: inline-block;
+    position: absolute;
+  }
+  .obywatel-css .coi-icons.coi-icons-html-circle-violet:before {
+    background: none;
+    content: "";
+    width: 18px;
+    height: 18px;
+    margin: 15px;
+    border-radius: 9px;
+    background-color: #7E55BF;
+    border: 2px solid #222;
+    display: block;
+  }
+  .obywatel-css .coi-icons.coi-icons-html-circle-cyan:before {
+    background: none;
+    content: "";
+    width: 18px;
+    height: 18px;
+    margin: 15px;
+    border-radius: 9px;
+    background-color: #42AEBC;
+    border: 2px solid #222;
+    display: block;
+  }
+  .obywatel-css .coi-icons.coi-icons-html-axis-end-mpips:before {
+    background: none;
+    content: "";
+    width: 10px;
+    height: 10px;
+    margin: 29px 19px 0 19px;
+    border-radius: 5px;
+    background-color: #444;
+    border: 2px solid #444;
+    display: block;
+  }
+  .obywatel-css .coi-icons.coi-icons-error:before {
+    left: -48px;
+    top: 0;
+  }
+  .obywatel-css .coi-icons.coi-icons-success:before {
+    left: -192px;
+    top: 0;
+  }
+  .obywatel-css .coi-icons.coi-icons-success-dark:before {
+    left: -96px;
+    top: -336px;
+  }
+  .obywatel-css .coi-icons.coi-icons-warning:before {
+    left: -48px;
+    top: -144px;
+  }
+  .obywatel-css .coi-icons.coi-icons-info:before {
+    left: -144px;
+    top: -144px;
+  }
+  .obywatel-css .coi-icons.coi-icons-file:before {
+    left: -96px;
+    top: -288px;
+  }
+  .obywatel-css .coi-icons.coi-icons-file-small:before {
+    left: -113px;
+    top: -111px;
+  }
+  .obywatel-css .coi-icons.coi-icons-close:before {
+    left: 0px;
+    top: -48px;
+  }
+  .obywatel-css .coi-icons.coi-icons-print:before {
+    left: -240px;
+    top: -48px;
+  }
+  .obywatel-css .coi-icons.coi-icons-pointer:before {
+    left: 0;
+    top: -248px;
+  }
+  .obywatel-css .coi-icons.coi-icons-building:before {
+    left: -240px;
+    top: -288px;
+  }
+  .obywatel-css .coi-icons.coi-icons-search:before {
+    left: -192px;
+    top: -96px;
+  }
+  .obywatel-css .coi-icons.coi-icons-search-white:before {
+    left: -240px;
+    top: -96px;
+  }
+  .obywatel-css .coi-icons.coi-icons-stroller:before {
+    left: -240px;
+    top: -336px;
+  }
+  .obywatel-css .coi-icons.coi-icons-mother-violet:before {
+    left: -240px;
+    top: -384px;
+  }
+  .obywatel-css .coi-icons.coi-icons-mother-cyan:before {
+    left: -192px;
+    top: -432px;
+  }
+  .obywatel-css .coi-icons.coi-icons-father:before {
+    left: -192px;
+    top: -384px;
+  }
+  .obywatel-css .coi-icons.coi-icons-father-cyan:before {
+    left: -144px;
+    top: -384px;
+  }
+  .obywatel-css .coi-icons.coi-icons-parents-violet:before {
+    left: -48px;
+    top: -432px;
+  }
+  .obywatel-css .coi-icons.coi-icons-parents-cyan:before {
+    left: -144px;
+    top: -432px;
+  }
+  .obywatel-css .coi-icons.coi-icons-baby:before {
+    left: -48px;
+    top: -384px;
+  }
+  .obywatel-css .coi-icons.coi-icons-twins:before {
+    left: 0px;
+    top: -384px;
+  }
+  .obywatel-css .coi-icons.coi-icons-family:before {
+    left: -96px;
+    top: -384px;
+  }
+  .obywatel-css .coi-icons.coi-icons-arrow-left-blue:before {
+    left: -192px;
+    top: -240px;
+  }
+  .obywatel-css .coi-icons.coi-icons-arrow-right-blue:before {
+    left: -240px;
+    top: -240px;
+  }
+  .obywatel-css .coi-icons.coi-icons-arrow-left-white:before {
+    left: -240px;
+    top: -432px;
+  }
+  .obywatel-css .coi-icons.coi-icons-arrow-right-white:before {
+    left: 0px;
+    top: -480px;
+  }
+  .obywatel-css .coi-icons.coi-icons-search2:before {
+    left: -96px;
+    top: -576px;
+  }
+  .obywatel-css .coi-icons.coi-icons-search2-dark:before {
+    left: -48px;
+    top: -576px;
+  }
+  .high-contrast .obywatel-css .coi-icons.coi-icons-search2-dark:before {
+    left: -96px;
+    top: -576px;
+  }
+  .obywatel-css .coi-icons.coi-icons-user:before {
+    left: -192px;
+    top: -576px;
+  }
+  .obywatel-css .coi-icons.coi-icons-user-dark:before {
+    left: -144px;
+    top: -576px;
+  }
+  .high-contrast .obywatel-css .coi-icons.coi-icons-user-dark:before {
+    left: -192px;
+    top: -576px;
+  }
+  .obywatel-css .disabled .coi-icons.coi-icons-file:before,
+  .obywatel-css .disabled.coi-icons.coi-icons-file:before {
+    left: -144px;
+    top: -288px;
+  }
+  .obywatel-css .disabled .coi-icons.coi-icons-building:before,
+  .obywatel-css .disabled.coi-icons.coi-icons-building:before {
+    left: 0;
+    top: -336px;
+  }
+  .obywatel-css .disabled .coi-icons.coi-icons-success-dark:before,
+  .obywatel-css .disabled.coi-icons.coi-icons-success-dark:before {
+    left: -144px;
+    top: -336px;
+  }
+  .obywatel-css .btn-coi-icon {
+    padding-left: 40px;
+  }
+  .obywatel-css .btn-coi-icon .coi-icons {
+    position: absolute;
+    left: 0;
+    top: -4px;
+  }
+  

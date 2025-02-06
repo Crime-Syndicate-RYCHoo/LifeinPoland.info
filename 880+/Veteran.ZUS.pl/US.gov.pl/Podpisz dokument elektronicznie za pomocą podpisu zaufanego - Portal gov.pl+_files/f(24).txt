@@ -1,0 +1,141 @@
+jQuery(document).ready(function(){
+    function initializeGovHamburger() {
+        var toggler = $('.gov-menu-opener');
+        var target = $('body');
+
+        var toggle = function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        var opening = !target.hasClass('js-show-gov-menu');
+        if (opening) {
+            target.addClass('js-show-gov-menu');
+            toggler.attr('aria-expanded', 'true');
+        } else {
+            target.removeClass('js-show-gov-menu');
+            toggler.attr('aria-expanded', 'false');
+        }
+        timeoutResizeEservicesTables();
+        };
+        toggler.click(toggle);
+        var govClose = $('.gov-close');
+        govClose.click(function () {
+        target.removeClass('js-show-gov-menu');
+        toggler.attr('aria-expanded', 'false');
+        toggler.focus();
+        });
+    }
+
+    function initializeGovBarHiding() {
+        var root = $(document);
+        var body = $('body');
+        var lastScrollTop = 10000;
+        root.scroll(function (event) {
+        var scrollTop = root.scrollTop();
+        if (scrollTop > lastScrollTop && scrollTop > 80 && !body.hasClass('js-show-gov-menu')) {
+            if (scrollTop > lastScrollTop + 10) {
+            body.addClass('js-hide-gov-bar');
+            }
+        } else {
+            body.removeClass('js-hide-gov-bar');
+        }
+        lastScrollTop = scrollTop;
+        });
+    }
+
+    function openGovHamburgerOnInit() {
+        var mobileWidthOnInit = '1024';
+        var sideWidth = $(window).width();
+        var isOpenMenuOnInit = jQuery('.js_site-parameters').attr('gov-menu-opened-on-init');
+
+        if (sideWidth >= mobileWidthOnInit && isOpenMenuOnInit === 'true') {
+            _openGovMenu();
+        }
+
+        function _openGovMenu() {
+            var toggler = $('.gov-menu-opener');
+            var target = $('body');
+
+            target.addClass('js-show-gov-menu');
+            toggler.attr('aria-expanded', 'true');
+
+            return;
+        }
+    }
+
+    function activeMyGovLinkOnInit() {
+        var isMyGovSite = jQuery('.js_site-parameters').attr('gov-menu-mygov-site');
+
+        if (isMyGovSite === 'true') {
+            jQuery('.js_mygov-site-current-link').addClass('mygov-site');
+        }
+    }
+
+    jQuery(function () {
+        initializeGovHamburger();
+        initializeGovBarHiding();
+        activeMyGovLinkOnInit();
+        timeoutResizeEservicesTables();
+    });
+
+
+    jQuery('.js_gov-minimenu-swicher').on('click', function(e) {
+        e.preventDefault();
+        jQuery(this).blur();
+        var expanded = jQuery(this).attr('aria-expanded');
+
+        if(expanded === 'true') {
+            jQuery(this).attr('aria-expanded', 'false');
+            jQuery('.js_gov-minimenu-container').removeClass('gov-minimenu__container--show');
+            jQuery(this).addClass('rotate');
+        } else {
+            jQuery(this).attr('aria-expanded', 'true');
+            jQuery('.js_gov-minimenu-container').addClass('gov-minimenu__container--show');
+            jQuery(this).removeClass('rotate');
+        }
+    });
+
+    function resizeEservicesTables() {
+        var windowsWidth = jQuery(window).width();
+
+        if (windowsWidth  > 992) {
+            var topLeft = jQuery('.js_left-middle-top-container');
+            var topLeftHeigth = jQuery('.js_left-middle-top-container').outerHeight();
+
+            var topRight = jQuery('.js_right-middle-top-container');
+            var topRightHeigth = jQuery('.js_right-middle-top-container').outerHeight();
+
+            var bottomLeft = jQuery('.js_left-middle-bottom-container');
+            var bottomLeftHeigth = jQuery('.js_left-middle-bottom-container').outerHeight();
+
+            var bottomRight = jQuery('.js_right-middle-bottom-container');
+            var bottomRightHeigth = jQuery('.js_right-middle-bottom-container').outerHeight();
+
+            if (topLeftHeigth > topRightHeigth) {
+                topRight.height(topLeftHeigth);
+            } else {
+                topLeft.height(topRightHeigth);
+            }
+
+            if (bottomLeftHeigth > bottomRightHeigth) {
+                bottomRight.height(bottomLeftHeigth);
+            } else {
+                bottomLeft.height(bottomRightHeigth);
+            }
+        } else {
+            jQuery('.js_left-middle-bottom-container').height('auto');
+        }
+    }
+
+    function timeoutResizeEservicesTables() {
+        setTimeout(function(){resizeEservicesTables()}, 200);
+        setTimeout(function(){resizeEservicesTables()}, 400);
+        setTimeout(function(){resizeEservicesTables()}, 600);
+        setTimeout(function(){resizeEservicesTables()}, 800);
+        setTimeout(function(){resizeEservicesTables()}, 1000);
+    }
+
+    jQuery(window).resize(function() {
+        resizeEservicesTables();
+    });
+
+});

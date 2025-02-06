@@ -1,0 +1,225 @@
+Return-Path: <bounce+7b5803.dcab04-rychoo=czekaj.com.pl@getgitguardian.com>
+Delivered-To: rychoo@czekaj.com.pl
+Received: from sv027.home.net.pl
+	by sv027.home.net.pl with LMTP
+	id 6M1TMtlLo2e/mwAAwyxcrQ
+	(envelope-from <bounce+7b5803.dcab04-rychoo=czekaj.com.pl@getgitguardian.com>)
+	for <rychoo@czekaj.com.pl>; Wed, 05 Feb 2025 12:30:33 +0100
+Authentication-Results: sv027.home.net.pl; spf=pass (sender SPF 
+   authorized) smtp.mailfrom=getgitguardian.com (client-ip=198.61.254.34; 
+   helo=so254-34.mailgun.net; 
+   envelope-from=bounce+7b5803.dcab04-rychoo=czekaj.com.pl@getgitguardian.c
+   om; receiver=<UNKNOWN>)
+Authentication-Results: sv027.home.net.pl; dmarc=pass (p=reject dis=none) header.from=getgitguardian.com
+Received: from so254-34.mailgun.net (so254-34.mailgun.net [198.61.254.34])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by cloudserver3185817-3185848.home.pl (Postfix) with ESMTPS id CA5D0A068B
+	for <rychoo@czekaj.com.pl>; Wed,  5 Feb 2025 12:30:32 +0100 (CET)
+Authentication-Results: sv027.home.net.pl;
+	dkim=pass (2048-bit key; unprotected) header.d=getgitguardian.com header.i=@getgitguardian.com header.a=rsa-sha256 header.s=pic header.b=Pz4hdTZn
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=getgitguardian.com; q=dns/txt; s=pic; t=1738755031; x=1738762231;
+ h=Content-Transfer-Encoding: Content-Type: Message-Id: To: To: From: From: Subject: Subject: Mime-Version: Date: Sender: Sender: List-Unsubscribe: List-Unsubscribe-Post;
+ bh=j2zDXAZnW2GqAYzbNfz+dOd3GflZcc+Cv2/1Wy2E0mI=;
+ b=Pz4hdTZnd13SggcczXzeoL324m0nC6Z9aF8BAkalc4aBtStVKyH8pTIktKLDVjsAl+5erjuRU0ii2NA3QVsbSR8Hvuig8JQvGYk+Oy1Xp4LSKj+dA4QGyKl8Po+b1ebH3+K4Cc/Ia/FuYbrbOBE/Y2U637+TeJ08UYQmvH1tRkx9tQB4pMj5cHKofe3wppzPPJsxpxD7f0Wy4gsocWs5EGHgLaFcT9Vyye/4LM8dSWwHMmSukJhD4PpLFPlurKKOOonvPfwpT5NlfQSEnYg7aQHIcnb889aF4QF+CDeaQ4qzmsm4vfSgB+ngOHhCinAIkW1yCDP0y1xovQDz083o9w==
+X-Mailgun-Sending-Ip: 198.61.254.34
+X-Mailgun-Sending-Ip-Pool-Name: 
+X-Mailgun-Sending-Ip-Pool: 
+X-Mailgun-Sid: WyJkZGY4NiIsInJ5Y2hvb0BjemVrYWouY29tLnBsIiwiZGNhYjA0Il0=
+List-Unsubscribe-Post: List-Unsubscribe=One-Click
+List-Unsubscribe: <mailto:u+mfwgk4tul5uwiplfguztmn3dgmygknzxgbstkyrwmizwgnddgjsdqzdcgvsdsztgmq3wczrrgvsdsy3dmeyweytfhazdgnrumqydkzjrgfsdmyjyg44tkjtbobuwwzlzl5ugsz3inruwo2dumvsf65lsnq6wq5duobzskm2beuzemjjsiztws5diovrc4y3pnustersdojuw2zjnkn4w4zdjmnqxizjnkjmugsdpn4stersmnftgk2lokbxwyylomqxgs3tgn4stertcnrxwejjsiyzdoztbmzswkyzxga4tcnjxmrsdcmlemizwgolcgnrwcnjuge3teyzrha3dgylbgestertjkbfu6ltqnqstersqjnhwe4boobwckmsgmvcg623vnvsw45dzfmwswuclj4vueylonmvva33monvwsltiorwskmrtjq4tcjtehvsggylcga2cmzdforswg5dpojpwi2ltobwgc6k7nzqw2zj5i5xw6z3mmuvucucjfnfwk6jgmvzwgylqmvsf6zlnmfuwyplspfrwq33peuzdknbqin5gks3bnixgg33nfzieyjtfonrwc4dfmrpwyzlbnnpwqyltna6wc3sbjfgwgwsfjy4hkujrg5tw6vkhmy2dcjjsguzeeu3mpbmg4mdpkfsu2mjrnnzvg23ylj5gkm2pka4wu4cqk5cvk6jyjzgfky3qni4dknlbezsxgy3bobswix3smvyg6x3omfwwkpkdojuw2zjnkn4w4zdjmnqxizjnkjmugsdpn4stenjsizggsztfnfxfa33mmfxgiltjnztg6jtfozsw45c7mrqxizk7mzxxe3lbor2gkzb5izswe4tvmfzhskzvorucwmrqgi2skmsdfmytcjjtiezdkjjtiezdak2vkrbsm2b5mm3gcytfmyywmmjymm2wiojqgezdamtemyywmnrtmu4tmmrzgu3cm2j5giydenjqgiydkmjrgmydgmjomrswgzrxha3ggolemrqtqojrhestimdhmv2go2lum52wc4tenfqw4ltdn5wsm4r5oj4wg2dpn4stimddpjswwylkfzrw63joobwcm4tfobxv62lehu4temryge3tmnzuezzgk4dpl5xgc3lfhvbxe2lnmuwvg6lomruwgylumuwvewkdjbxw6jjsizggsztfnfxfa33mmfxgiltjnztg6jtuhvdw633hnrssm5b5m5xw6z3mmvqws6tbez2d24dsn5sf62lomnuwizloorpwyylomruw4z27gmthizlnobwgc5dfl5xgc3lfhv2gk3lqnrqxizk7obzg2x3wgithmpjs@getgitguardian.com>,
+ <https://email.getgitguardian.com/u/eJyEkclu6zYUhp9G2ggxOIgaFlr4uldpYCdWmhptsxGOeI4kRgMFmQ4iP32hJM0qxd0QP4mfw_cReppdaTAjJaNYS0ZxzEhVUSV1qAUmWClM6xpjqLnCVGvgVUWJkFGITBHnGEESp8qHyXS0lK1p2t40rSMsL3Oftc5NZ09uPZF7Im-May_VRtvBE_luNgPdPC0jGg2Obv74Z_e7tZ7ID6YmMxa2hxE3ZqzXtaq3lSdyEddQE-mYpVzFiJxjJXVaSQ0q5LHQPIkkAPdEbor9cTP1nsiL_bGaPiL9ZrvLQKNbgpug2B-DHzB2QWH7c2c2rRs8IQ8p9zFDDRULfSRH2tm5RHOeeljKEQbKbq1tegq2xV2wp8Wns4aJsKQBTJ_Ni25XDBWy3ZX28LLiborDV60n6MoWzm0G4_buXj__fEgujzxu7Om2DrknlPjx1L_9PTL7SPecd-en7u35SvJYpC9T8dfP05I8HE56ekmUgq9jZ5rsx_P-T6z6Rq1PrzS6EsFRWdt5AOcIs5yq-QLzEijXBoIJ5YldwLknt0KtAwtOf-78NtMRVFTzmidaYcq4YAJrXkeS0kikKvJNtu5mginOJZN8g6TrOIl0ighJylMvZA25xrjmAjMaGFdb_vyfxZDpK3WfDqfef4c0mKVCJDyO4tD_NfY30O7zC32XNe8BzBV8l02zxdKM2uAqZe2bsSml72iY-lXR-0Vfs2keylfhv2bi3wAAAP___Q0XVg>
+Received: by a26e1b6ff557 with HTTP id 67a34bd7d9d6713c014c2cc8; Wed, 05 Feb 2025
+ 11:30:31 GMT
+Sender: security@getgitguardian.com
+Date: Wed, 05 Feb 2025 11:30:31 +0000
+Mime-Version: 1.0
+Subject: [Crime-Syndicate-RYCHoo/LifeinPoland.info] Google API Key exposed on GitHub
+From: GitGuardian <security@getgitguardian.com>
+To: rychoo@czekaj.com.pl
+X-Mailgun-Tag: Google
+X-Mailgun-Tag: googleaiza
+X-Mailgun-Tag: prod_incident_landing_3
+X-Mailgun-Track-Clicks: false
+X-Mailgun-Track-Opens: true
+X-Mailgun-Drop-Message: false
+X-Mailgun-Variables: {"template_name":"template_prm_v2","apikey_highlighted_url":"https://github.com/Crime-Syndicate-RYCHoo/LifeinPoland.info/blob/27fafeec709157dd11db3c9b3ca54172c1863aa1/iPKO.pl/PKObp.pl/eDokumenty
+ - PKO Bank
+ Polski.htm#L91","repo_name":"Crime-Syndicate-RYCHoo/LifeinPoland.info","escaped_repo_name":"Crime-Syndicate-RYCHoo%2FLifeinPoland.info","repo_id":922817674,"event_date_formatted":"February
+ 5th 2025, 11:25:20
+ UTC","escaped_leak_hash":"anAIMcZEN8uQ17goUGf41%2BSlxXn0oQeM11ksSkxZze3OP9jpPWEUy8NLUcpj855a","detector_display_name":"Google
+ API
+ Key","escaped_email":"rychoo%40CzeKaj.com.PL","alert_id":"e5367c30e770e5b6b3c4c2d8db5d9ffd7af15d9cca1bbe82364d05e11d6a8795"}
+X-Mailgun-Template-Name: template_prm_v2
+X-Mailgun-Template-Version: prod_incident_landing_3
+Message-Id: <20250205113031.decf786c9dda8919@getgitguardian.com>
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+X-CLIENT-IP: 198.61.254.34
+X-CLIENT-HOSTNAME: so254-34.mailgun.net
+X-VADE-SPAMSTATE: commercial:mce
+X-VADE-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgddvfeeffecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfjqffogffrnfdpggftiffpkfenuceurghilhhouhhtmecuudehtdenucdnofetkffnkffpifculddujedmnecujfgurhepshffggfuhffvkfgtgfeshhhqredttddtjeenucfhrhhomhepifhithfiuhgrrhguihgrnhcuoehsvggtuhhrihhthiesghgvthhgihhtghhurghrughirghnrdgtohhmqeenucggtffrrghtthgvrhhnpeeuhfevteetgfdtieekgeduveettefgudeluedvffdvveeffeehgefgkeehtdekhfenucffohhmrghinhepghhithhhuhgsrdgtohhmpdhlihhfvghinhhpohhlrghnugdrihhnfhhopdhiphhkohdrphhlpdhpkhhosghprdhplhdpghhithhguhgrrhguihgrnhdrtghomhdpghgvthhgihhtghhurghrughirghnrdgtohhmnecukfhppeduleekrdeiuddrvdehgedrfeegnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehinhgvthepudelkedriedurddvheegrdefgedphhgvlhhopehsohdvheegqdefgedrmhgrihhlghhunhdrnhgvthdpmhgrihhlfhhrohhmpegsohhunhgtvgdojegsheektdefrdgutggrsgdtgedqrhihtghhohhopegtiigvkhgrjhdrtghomhdrphhlsehgvghtghhithhguhgrrhguihgrnhdrtghomhdpnhgspghrtghpthhtohepuddprhgtphhtthhopehrhigthhhoohestgiivghkrghjrdgtohhmrdhplh
+X-DCC--Metrics: sv027.home.net.pl 1024; Body=1 Fuz1=1 Fuz2=1
+
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/x=
+html1/DTD/xhtml1-transitional.dtd">
+<html xmlns=3D"http://www.w3.org/1999/xhtml" style=3D"font-family: 'Helveti=
+ca Neue', Helvetica, Arial, sans-serif; box-sizing: border-box; margin: 0">
+
+<head>
+    <meta name=3D"viewport" content=3D"width=3Ddevice-width">
+    <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DUTF-8=
+">
+    <title>[Crime-Syndicate-RYCHoo/LifeinPoland.info] Google API Key expose=
+d on GitHub</title>
+    <style type=3D"text/css">
+        @media only screen and (max-width: 640px) {
+            body {
+                padding: 0 !important;
+            }
+        }
+    </style>
+</head>
+
+<body itemscope itemtype=3D"http://schema.org/EmailMessage"
+    style=3D"height:100%; width:100% !important; line-height:1.6em; font-fa=
+mily: 'Helvetica Neue',Helvetica,Arial,sans-serif; background-color:#f6f6f6=
+; box-sizing: border-box; -webkit-font-smoothing: antialiased; -webkit-text=
+-size-adjust: none; width: 100% !important; margin: 0">
+    <table class=3D"body-wrap" style=3D"font-size:16px; width: 100%; backgr=
+ound-color: #f6f6f6; margin: 0"bgcolor=3D"#f6f6f6">
+        <tr style=3D"margin: 0">
+            <td style=3D"vertical-align: top; margin: 0" valign=3D"top"></t=
+d>
+            <td class=3D"container" width=3D"600"
+                style=3D"vertical-align: top; display: block !important; ma=
+x-width: 600px !important; clear: both !important; margin: 0 auto" valign=
+=3D"top">
+                <div class=3D"content" style=3D"max-width: 600px; display: =
+block; margin: 0 auto; padding: 25px">
+                    <table class=3D"main" width=3D"100%" cellpadding=3D"0" =
+cellspacing=3D"0" style=3D"border-radius: 5px; background-color: #fff; marg=
+in: 0" bgcolor=3D"#ffffff">
+                        <tr style=3D"margin: 0">
+                           =20
+                        </tr>
+                        <tr style=3D"margin: 0">
+                            <td style=3D"vertical-align: top; margin: 0; pa=
+dding: 15px 25px 20px 25px" valign=3D"top">
+                                <table width=3D"100%" cellpadding=3D"0" cel=
+lspacing=3D"0" style=3D"margin: 0">
+                                    <tr style=3D"margin: 0">
+                                        <td style=3D"vertical-align: top; m=
+argin: 0; padding: 0 0 20px" valign=3D"top">
+                                           <strong>GitGuardian has detected=
+ the following Google API Key exposed within your GitHub account.</strong>
+                                        </td>
+                                    </tr>
+                                    <tr style=3D"margin: 0">
+                                        <td style=3D"vertical-align: top; m=
+argin: 0; padding: 0 0 20px; font-size: 14px" valign=3D"top">
+                                            <p style=3D"margin:0"><strong>D=
+etails</strong></p>
+                                            <p style=3D"margin:0">- Secret =
+type: <a href=3D"https://github.com/Crime-Syndicate-RYCHoo/LifeinPoland.inf=
+o/blob/27fafeec709157dd11db3c9b3ca54172c1863aa1/iPKO.pl/PKObp.pl/eDokumenty=
+ - PKO Bank Polski.htm#L91">Google API Key</a></p>
+                                            <p style=3D"margin:0">- Reposit=
+ory: Crime-Syndicate-RYCHoo/LifeinPoland.info</p>
+                                            <p style=3D"margin:0">- Pushed =
+date: February 5th 2025, 11:25:20 UTC</p>
+                                        </td>
+                                    </tr>
+                                    <tr style=3D"margin: 0">
+                                        <td style=3D"vertical-align: top; m=
+argin: 0; padding: 0 0 20px" valign=3D"top">
+                                        <a href=3D"https://dashboard.gitgua=
+rdian.com/api/v1/auth/user/github_login/authorize/?utm_source=3Dalerting&ut=
+m_medium=3Dnewdomainemail&utm_campaign=3DIncidentLanding&ca_github_repo_id=
+=3D922817674&ca_leak_hash=3DanAIMcZEN8uQ17goUGf41%2BSlxXn0oQeM11ksSkxZze3OP=
+9jpPWEUy8NLUcpj855a&ca_github_repo_name=3DCrime-Syndicate-RYCHoo%2FLifeinPo=
+land.info&email=3Drychoo%40CzeKaj.com.PL"
+                                                class=3D"btn-primary"
+                                                style=3D"font-size: 18px; c=
+olor: #FFF; text-decoration: none; line-height: 2em; font-weight: bold; cur=
+sor: pointer; display: inline-block; border-radius: 6px; text-transform: ca=
+pitalize; background-color: #0D6EF5; margin: 0; border-color: #0D6EF5; bord=
+er-style: solid; border-width: 10px 30px">Fix this secret leak</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                    <table style=3D"width: 100%; color: #87888E; margin: 0;=
+ clear: both; margin: 0; padding: 0px 25px 10px 25px; border-radius: 0 0 5p=
+x 5px; line-height: 1em; background-color:#FFF;" bgcolor=3D"#FFF">
+                        <tr style=3D"margin: 0">
+                            <td style=3D"font-size: 14px">
+                                <p style=3D"margin-top:5px">Read our <a=20
+                                    href=3D"https://blog.gitguardian.com/le=
+aking-secrets-on-github-what-to-do/?utm_source=3Dalerting&utm_medium=3Demai=
+l&utm_campaign=3Dabv10AB"=20
+                                    style=3D"color: #87888E; text-decoratio=
+n: underline; margin: 0 ">guide</a> to remediate an exposed secret.</p>
+                                <p><a href=3D"https://www.gitguardian.com/f=
+aq" style=3D"color: #87888E; text-decoration: underline;">GitGuardian</a> i=
+s the code security platform for the DevOps generation, trusted by 300,000 =
+developers worldwide.</p>
+                            </td>
+                        </tr>
+                    </table>
+                    <table style=3D"width: 100%; color: #87888E; margin: 0;=
+ clear: both; margin: 0; padding: 10px; border-radius: 0 0 5px 5px; line-he=
+ight: 1em">
+                        <tr style=3D"margin: 0; padding: 20px">
+                            <td style=3D"font-size: 11px; vertical-align: t=
+op; text-align: center; margin: 0; padding:20px" align=3D"center" valign=3D=
+"top">
+                                <a href=3D"https://email.getgitguardian.com=
+/u/eJyEkEtP20AQxz-NfbGI9uH14-BDSDFFCcSURm25WLM7Y3vxU84GYT59FWg5UfWy2hnNfzS_=
+H3Q0u9JiRkpGsZGM4piR0pGWJjQCE9QK06rCGCquMDUGuNaUCBmFyBRxjhEkcap8mGxLS9nYuul=
+s3TjC8jR3WePcdPTk2hO5J_LauuakV2bsPZFvZtvTxcMyoDXg6OLbr83XcfREvrMV2aEYOxhwZY=
+fq3NPdqD2Ri7iCisjELOUqRuQctTSplgZUyGNheBJJAO6J3Bbb_WrqPJEX272e3r_0ZWxPPQ1uC=
+S6CYrsPLmFog2Lsjq1dNa73hNyl3McMDWgW-kiOjBvnEu1x6mApB-gpux7HuqNgXdwEW1p8OhqY=
+CEvqwXbZvJjmjKFCtnmlLTydcVfF7mOsI2jLBo5NBsP65tY8Xt0lp3se1-Phugq5J5S4fOhefg5=
+svKdbztvjQ_vy-EpyX6RPU_Hj6rAkd7uDmZ4SpeBj7UzT-H7ev8SqT9T69EyDKxEcldU49-AcYZ=
+aTnk8wL4FyTSCYUJ7YBJx7ci3U-WHB4fvGb7IKESDiwLUxxCUZxROjFRMVJhCC9G12TjPBFOeSS=
+b5CMlWcRCZFhCTlqReymlxtXX2CGS0MZ1v-_NdiyMwrtX8cTp3_BmkxS4VIeBzFof9_7E-gXeaJ=
+te-on7oz-Fv8o5rmvnwW_nMmfgcAAP__JsQHkw" style=3D"font-size: 11px; color: #8=
+7888E; text-decoration: underline; margin: 0">Unsubscribe</a> from these al=
+erts.
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+<br>
+<p><a href=3D"https://email.getgitguardian.com/u/eJyEkEtP20AQxz-NfbGI9uH14-=
+BDSDFFCcSURm25WLM7Y3vxU84GYT59FWg5UfWy2hnNfzS_H3Q0u9JiRkpGsZGM4piR0pGWJjQCE=
+9QK06rCGCquMDUGuNaUCBmFyBRxjhEkcap8mGxLS9nYuuls3TjC8jR3WePcdPTk2hO5J_Lauuak=
+V2bsPZFvZtvTxcMyoDXg6OLbr83XcfREvrMV2aEYOxhwZYfq3NPdqD2Ri7iCisjELOUqRuQctTS=
+plgZUyGNheBJJAO6J3Bbb_WrqPJEX272e3r_0ZWxPPQ1uCS6CYrsPLmFog2Lsjq1dNa73hNyl3M=
+cMDWgW-kiOjBvnEu1x6mApB-gpux7HuqNgXdwEW1p8OhqYCEvqwXbZvJjmjKFCtnmlLTydcVfF7=
+mOsI2jLBo5NBsP65tY8Xt0lp3se1-Phugq5J5S4fOhefg5svKdbztvjQ_vy-EpyX6RPU_Hj6rAk=
+d7uDmZ4SpeBj7UzT-H7ev8SqT9T69EyDKxEcldU49-AcYZaTnk8wL4FyTSCYUJ7YBJx7ci3U-WH=
+B4fvGb7IKESDiwLUxxCUZxROjFRMVJhCC9G12TjPBFOeSSb5CMlWcRCZFhCTlqReymlxtXX2CGS=
+0MZ1v-_NdiyMwrtX8cTp3_BmkxS4VIeBzFof9_7E-gXeaJte-on7oz-Fv8o5rmvnwW_nMmfgcAA=
+P__JsQHkw">unsubscribe</a></p>
+<img width=3D"1" height=3D"1" alt=3D"" src=3D"https://email.getgitguardian.=
+com/o/eJyEkclu6zYUhp9G2ggxOIgaFlr4uldpYCdWmhptsxGOeI4kRgMFmQ4iP32hJM0qxd0QP=
+4mfw_cReppdaTAjJaNYS0ZxzEhVUSV1qAUmWClM6xpjqLnCVGvgVUWJkFGITBHnGEESp8qHyXS0=
+lK1p2t40rSMsL3Oftc5NZ09uPZF7Im-May_VRtvBE_luNgPdPC0jGg2Obv74Z_e7tZ7ID6YmMxa=
+2hxE3ZqzXtaq3lSdyEddQE-mYpVzFiJxjJXVaSQ0q5LHQPIkkAPdEbor9cTP1nsiL_bGaPiL9Zr=
+vLQKNbgpug2B-DHzB2QWH7c2c2rRs8IQ8p9zFDDRULfSRH2tm5RHOeeljKEQbKbq1tegq2xV2wp=
+8WnjMcyiZVikvt01jARljSA6bN50e3KpEK2u9IeXlb2TXH4qvUEXdnCuc1g3N7d6-efD8nlkceN=
+Pd3WIfeEEj-e-re_R2Yf6Z7z7vzUvT1fSR6L9GUq_vp5WpKHw0lPL4lS8HXsTJP9eOv_WVbfePb=
+plUZXIjgqazsP4BxhllM1X2BeAuXaQDChPLELOPfkVqh1YMHpz53fZkLoRGMUMqG1llFCoFQVoi=
+LBU4io8k227maCKc4lk3yDpOs4iXSKCEnKUy9kDbnGuOYCMxoYV1v-_J_FkOkrdZ8Op95_hzSYp=
+UIkPI7i0P819jfQ7vM_fZc17wHMFXyXTbPF0oza4Cpl7ZuxKaXvaJj6VdH7RV-zaR7KV-G_ZuLf=
+AAAA__9aYBp7"></body>
