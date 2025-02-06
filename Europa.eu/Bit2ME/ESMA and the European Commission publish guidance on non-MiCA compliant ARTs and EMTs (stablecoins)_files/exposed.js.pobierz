@@ -1,0 +1,26 @@
+(function ($, Drupal) {
+  Drupal.behaviors.esma_exposed_filters = {
+    attach: function (context, settings) {
+      const elements = once('move-exposed-filters', 'form[id^=views-exposed-form-warning-and-publications-page]', context);
+      elements.forEach(function() {
+        let old_select_id = $('.form-item-items-per-page select').attr('id');
+        $('.form-item-items-per-page').hide().clone()
+          .appendTo("div#items-per-page-selector").show();
+
+        $('.form--inline .form-item-items-per-page select').attr('id', old_select_id+"-hidden");
+        $('div#items-per-page-selector select').change(function(){
+          let valorSeleccionado = $(this).find('option:selected').val();
+
+          $("form[id^=views-exposed-form-warning-and-publications-page] div.form-item-items-per-page select option[value='"+valorSeleccionado+"']")
+          .attr('selected', 'selected').change();
+        })
+      })
+      const elements2 = once('move-news-exposed-filters', 'form#views-exposed-form-esma-all-news-page-1', context);
+      elements2.forEach(function() {
+        $('.form-item-sort-by').hide().clone()
+          .attr('id', 'sort-by-filter').appendTo('span#sort-by').show();
+      })
+
+    }
+  };
+})(jQuery, Drupal);

@@ -1,0 +1,342 @@
+(function ($, Drupal) {
+  Drupal.behaviors.esma_download_zip_files = {
+    attach: function (context, settings) {
+
+      let i = 11;
+      $('div#tb-megamenu-column-11').each(function () {
+        $(this).attr('id', 'tb-megamenu-column-'+i);
+        i=i+1;
+      });
+
+      function downloadzip(filesIds) {
+        window.open("/esma_download_zip_files?files=" + filesIds, '_blank');
+      }
+      function getFids(all) {
+        let inputs = document.getElementsByClassName("filesToDownloadInZip");
+        let filesToDownload = '';
+        $.each(inputs, function () {
+          let fileId = $(this).data("value");
+          if (!all && !$(this).is(":checked")) {
+            return;
+          }
+          if ((typeof fileId) === "number") {
+            fileIdClean = fileId.toString();
+          } else {
+            fileIdClean = fileId.replace('file:', '');
+          }
+          if (filesToDownload === '') {
+            filesToDownload = fileIdClean;
+          } else {
+            filesToDownload = filesToDownload + ',' + fileIdClean;
+          }
+
+        });
+        downloadzip(filesToDownload);
+      }
+      $(".download_selected_files").click(function () {
+        getFids(false);
+      });
+      $(".download_all_files").click(function () {
+        getFids(true);
+      });
+      if ($('#download-consultation-block').length > 0) {
+        $('.file-to-download.views-field span div.item-list').css("display", "none");
+      }
+      $('#download-consultation-block').click(function () {
+        let valuesSubmissions = [];
+        let checkboxes = $('tr.selected');
+        if (checkboxes.length != 0) {
+          $('tr.selected').each(function () {
+            $(this).find('td.file-to-download.views-field div.item-list ul li').each(function () {
+              valuesSubmissions.push($(this).html());
+            });
+          })
+          let clearResults = valuesSubmissions.filter(function (element, index, self) {
+            return index === self.indexOf(element);
+          });
+          window.open("/esma_download_zip_files?files=" + clearResults, '_blank');
+        }
+      });
+    }
+  };
+
+  Drupal.behaviors.esma_hide_sidebar = {
+    attach: function (context, settings) {
+      const elements = once('esma_hide_sidebar', '.region-sidebar-first', context);
+      elements.forEach(function (element) {
+        $(element).on('click', '.sidebar_expand', function () {
+          $(".core-search-page_sidebar").toggleClass("sidebar-animation");
+          $(".core-search-page_sidebar").parents('main').toggleClass("bg-hide");
+          $(".esma-library-page_sidebar").toggleClass("sidebar-animation");
+          $(".esma-library-page_sidebar").parents('main').toggleClass("bg-hide");
+          $(".predefined-library-page_sidebar").toggleClass("sidebar-animation");
+          $(".predefined-library-page_sidebar").parents('main').toggleClass("bg-hide");
+          $(".wnpi-page_sidebar").toggleClass("sidebar-animation");
+          $(".wnpi-page_sidebar").parents('main').toggleClass("bg-hide");
+          $(".press-releases-page_sidebar").toggleClass("sidebar-animation");
+          $(".press-releases-page_sidebar").parents('main').toggleClass("bg-hide");
+          $(".esma-news_sidebar").toggleClass("sidebar-animation");
+          $(".esma-news_sidebar").parents('main').toggleClass("bg-hide");
+          $(".key-dates-page_sidebar").toggleClass("sidebar-animation");
+          $(".key-dates-page_sidebar").parents('main').toggleClass("bg-hide");
+        });
+      });
+    }
+  };
+
+  Drupal.behaviors.hideContentMenu = {
+    attach: function (context, settings) {
+      const elements = once('hideContentMenu', 'button.tb-megamenu-button', context);
+      elements.forEach(function (element) {
+          $(element).on('click', function () {
+            $(this).parents('header').next('main').toggleClass("bg-hide");
+          });
+      });
+    }
+  };
+
+  Drupal.behaviors.condultationsTableInfo = {
+    attach: function (context, settings) {
+      $('td.views-field-nothing-1 a.bi-info-circle-fill').on('click', function () {
+          $(this).parents('tr').next('tr.consultation-table').toggleClass("table-show");
+          $(this).parents('tr').next('tr.hearing-table').toggleClass("table-show");
+      });
+    }
+  };
+
+  Drupal.behaviors.libraryTableInfo = {
+    attach: function (context, settings) {
+      $('td.views-field-nothing a.bi-info-circle-fill').on('click', function () {
+          $(this).parents('tr').next('tr.library-info').toggleClass("table-show");
+      });
+    }
+  };
+
+  Drupal.behaviors.isrbHideAccordion = {
+    attach: function (context, settings) {
+      $('.isrb_acordion--header').on('click', function () {
+        $(this).parents('.legal-act-content').next('ul').toggleClass("isrb-hide");
+        $(this).toggleClass("isrb-change-chevron");
+      });
+    }
+  };
+
+  Drupal.behaviors.movecaptcha = {
+    attach: function (context, settings) {
+      const elements = once('move-captcha', 'form#webform-submission-newsletter-add-form', context);
+      elements.forEach(function (element) {
+        element.each(function(){
+          $(this).find('details#captcha').appendTo('div#edit-column-1');
+        });
+      });
+    }
+  };
+
+  Drupal.behaviors.removeDuplicatedTags = {
+    attach: function (context, settings) {
+      const elements = once('removeDuplicatedTags', '.isrb-text-tree-display', context);
+      elements.forEach(function (element) {
+        element.each(function () {
+          let elements = new Array();
+          $(this).find('.legal-act-tag').each(function () {
+            if (elements.indexOf($(this)[0].className) == -1) {
+              elements.push($(this)[0].className);
+            }
+            else {
+              $(this).remove();
+            }
+          });
+        });
+      });
+    }
+  };
+
+  Drupal.behaviors.addManageLinks = {
+    attach: function (context, settings) {
+      if ($('.page-node-type-hearing').length) {
+        if ($('.nav.nav-tabs.flex-column.flex-md-row').length){
+          let id = $('ul.nav.nav-tabs li.nav-item a')['2'].getAttribute('href').split("/")['2'];
+          $('ul.nav.nav-tabs.flex-column.flex-md-row').append('<li class="nav-item"><a href="/node/' + id + '/manage-hearings" class=\'nav-link\' >Manage Registrations</a></li>');
+        }
+      } else if ($('.page-node-type-consultation').length) {
+        if ($('.nav.nav-tabs.flex-column.flex-md-row').length){
+          let id = $('ul.nav.nav-tabs li.nav-item a')['2'].getAttribute('href').split("/")['2'];
+          $('ul.nav.nav-tabs.flex-column.flex-md-row').append('<li class="nav-item"><a href="/node/' + id + '/manage-responses" class=\'nav-link\' >Manage Registrations</a></li>');
+        }
+      }
+    }
+  };
+
+  // Accesibility
+  Drupal.behaviors.accesibilityBehaviour = {
+    attach: function (context, settings) {
+      // HOME - change tabindex home tabs
+      if ($('a').hasClass('quicktabs-loaded')){
+        $('a.quicktabs-loaded').attr('tabindex', '0');
+      }
+      // HOME - remove tabindex content tabs
+      if ($('div').hasClass('quicktabs-tabpage')){
+        $('div.quicktabs-tabpage').removeAttr('tabindex');
+      }
+      // HOME - remove tabindex slide header
+      if ($('div').hasClass('slick--view--homepage')){
+        $('div.slick--view--homepage .slick__slide').removeAttr('tabindex');
+      }
+      // HOME - remove tabindex slide news
+      if ($('div').hasClass('slick-track')){
+        $('div.slick-track .slide--text').removeAttr('tabindex');
+      }
+      // ESMA LIBRARY - add tabindex checkbox
+      if ($('li').hasClass('facet-item')){
+        $('li.facet-item label').attr('tabindex', '0');
+      }
+      $('li.facet-item label').keypress(function (event) {
+        if (event.key === "Enter") {
+          let link = $(this).next('a').attr('href');
+          window.location.href = link;
+        }
+      })
+      // ESMA LIBRARY - remove tabindex input
+      if ($('li').hasClass('facet-item')){
+        $('li.facet-item input').attr('tabindex', '-1');
+      }
+      // ESMA LIBRARY - add tabindex info button
+      if ($('a').hasClass('bi-info-circle-fill')){
+        $('a.bi-info-circle-fill').attr('tabindex', '0');
+      }
+      $('a.bi-info-circle-fill').keypress(function (event) {
+        if (event.key === "Enter") {
+          $(this).parents('tr').next('tr.library-info').toggleClass("table-show");
+        }
+      })
+      // ABOUT ESMA - remove tabindex h3
+      if ($('h3').hasClass('ui-accordion-header')){
+        $('h3.ui-accordion-header').removeAttr('tabindex');
+      }
+      // NEWS DETAIL - show info
+      $('a.bi-info-circle-fill').keypress(function (event) {
+        if (event.key === "Enter") {
+          $(this).parents('tr').next('tr.consultation-table').toggleClass("table-show");
+        }
+      })
+      // NEWS DETAIL - add tabindex checkbox and remove tabindex input
+      if ($('td').hasClass('views-field-field-main-document')){
+        $('td.views-field-field-main-document label').attr('tabindex', '0');
+        $('td.views-field-field-main-document input').attr('tabindex', '-1');
+      }
+      $('td.views-field-field-main-document label').keypress(function (event) {
+        if (event.key === "Enter") {
+          let state = $(this).prev('input').attr("checked");
+          if (state) {
+            $(this).prev('input').attr("checked", false);
+          }
+          else {
+            $(this).prev('input').attr("checked", true);
+          }
+        }
+      })
+      // ESMA NEWS - add tabindex checkbox and remove tabindex input
+      if ($('div').hasClass('form-type-checkbox')){
+        $('div.form-type-checkbox label').attr('tabindex', '0');
+        $('div.form-type-checkbox input').attr('tabindex', '-1');
+      }
+      $('div.form-type-checkbox label').keypress(function (event) {
+        if (event.key === "Enter") {
+          let checkstate = $(this).prev('input').attr("checked");
+          if (checkstate) {
+            $(this).prev('input').attr("checked", false);
+          }
+          else {
+            $(this).prev('input').attr("checked", true);
+          }
+          $('form#views-exposed-form-esma-all-news-page-1').submit();
+        }
+      })
+      // SEARCH - add tabindex checkbox and remove tabindex input
+      if ($('div').hasClass('search-in-docs')){
+        $('div.search-in-docs label').attr('tabindex', '0');
+        $('div.search-in-docs input').attr('tabindex', '-1');
+      }
+      $('div.search-in-docs label').keypress(function (event) {
+        if (event.key === "Enter") {
+          $(this).prev('input').attr("checked", true);
+        }
+      })
+      // ISRB - add tabindex accordion
+      if ($('div').hasClass('isrb_acordion--header')){
+        $('div.isrb_acordion--header').attr('tabindex', '0');
+      }
+      $('div.isrb_acordion--header').keypress(function (event) {
+        if (event.key === "Enter") {
+          $(this).parents('.legal-act-content').next('ul').toggleClass("isrb-hide");
+          $(this).toggleClass("isrb-change-chevron");
+        }
+      })
+    }
+  };
+
+  Drupal.behaviors.MegaMenuHover = {
+  attach: function (context, settings) {
+    var focusedLinkIndex = -1;
+
+    function setAriaExpandedTrue($dropdown) {
+      $dropdown.addClass('active active-trail open');
+      $dropdown.find('.tbm-link').attr('aria-expanded', 'true');
+      $dropdown.find('.tbm-submenu-toggle.always-show').attr('aria-expanded', 'true');
+    }
+
+    function setAriaExpandedFalse($dropdown) {
+      $dropdown.removeClass('active active-trail open');
+      $dropdown.find('.tbm-link').attr('aria-expanded', 'false');
+      $dropdown.find('.tbm-submenu-toggle.always-show').attr('aria-expanded', 'false');
+    }
+
+    function focusOnLink1() {
+      setAriaExpandedTrue($(this).closest('.tbm-item--has-dropdown, .tbm-item--has-flyout'));
+      focusedLinkIndex = $(this).index('.tbm-link.level-1.tbm-toggle');
+    }
+
+  
+    if (window.matchMedia('(min-width: 992px)').matches) {
+      $(context).find('.tbm-item--has-dropdown, .tbm-item--has-flyout')
+        .hover(function () {
+          setAriaExpandedTrue($(this));
+        }, function () {
+          setAriaExpandedFalse($(this));
+        });
+
+      $(context).find('.tbm-link.level-1.tbm-toggle')
+        .focus(focusOnLink1)
+        .blur(function () {
+          setAriaExpandedFalse($(this).closest('.tbm-item--has-dropdown, .tbm-item--has-flyout'));
+        });
+
+    }
+  }
+};
+
+  Drupal.behaviors.addClassesMegaMenu = {
+    attach: function (context, settings) {
+      $(context).find('li.tbm-item--has-flyout  div.tbm-submenu.tbm-item-child').addClass('second-level'); 
+    }
+  };
+
+  //UI accordion
+  Drupal.behaviors.accordionBehavius = {
+    attach: function (context, settings) {
+      $(".paragraph--type--accordion").toggleClass('ui-accordion');
+      const elements = document.querySelectorAll('.paragraph--type--accordion .field--name-field-paragraph-accordion-title');
+  
+      elements.forEach(function (element) {
+        const $element = $(element);
+        $element.next().hide();
+        $element.toggleClass('custom-expanded');
+        $element.on('click', function () {
+          $element.next().slideToggle("slow");
+          $element.toggleClass('ui-accordion-header-active');
+        });
+      });
+    }
+  };
+
+})(jQuery, Drupal);

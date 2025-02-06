@@ -1,0 +1,894 @@
+a {
+  color: #e9682e;
+}
+h3.module-title:after {
+  content: '';
+  width: 82px;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+.defaultLayout .lastest_news .bt-inner .bt-title:after {
+  content: '';
+  width: 90px;
+  border-bottom: 2px solid #d6d6d6;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+.btsc-testimonials-left .btsc-testimonials-text {
+  margin: 0 0 0 125px!important;
+}
+.btsc-testimonials-left .btsc-testimonials-info {
+  float: left !important;
+}
+.btsc-testimonials-left .btsc-testimonials-text:after {
+  left: -11px !important;
+}
+div.acymailing_module,
+.acymailing_module div {
+  text-align: left;
+}
+.footerInfo a.readMore-link:hover {
+  padding-left: 3px;
+  font-weight: bold;
+}
+.btqc-field-container.btqc-field-dropdown .styled-select .style-selected-button:after {
+  font-family: FontAwesome;
+  content: "\f0d7";
+  position: absolute;
+  right: 10px;
+  top: 6px;
+}
+.btqc-field-container label {
+  text-align: left !important;
+}
+.btqc-field-container.btqc-field-submit,
+.btqc-field-container.btqc-field-pagebreak {
+  text-align: right;
+  margin: 8px -20px 0 -20px;
+  padding: 12px 33px 12px 0;
+}
+.head-search {
+  float: right;
+  margin: 34px 0 20px 0;
+}
+.head-login {
+  float: right;
+  margin-right: 15px;
+  margin-top: 33px;
+}
+#btl-content-registration .btl-label {
+  float: left !important;
+  text-align: left;
+  width: 150px;
+}
+#btl-content-registration .btl-input {
+  float: none !important;
+  margin-left: 155px;
+  margin-right: 15px;
+}
+#btl-content-registration .btl-field,
+#btl-content-registration .btl-error-detail,
+#btl-content-registration .btl-error,
+#btl-content-registration .btl-note {
+  margin: 0 0 15px 0!important;
+}
+#btl-content-registration .btl-note {
+  margin-left: -15px !important;
+  text-align: left;
+  padding-left: 15px;
+}
+#bt_ul li a {
+  color: #878787 !important;
+  background: url("../../../templates/bt_medical/images/bg-li.png") no-repeat scroll left center transparent;
+  padding-left: 10px !important;
+}
+.topInfo_left {
+  float: left;
+}
+.social_topInfo {
+  float: right;
+}
+.price-val {
+  padding-left: 13px;
+}
+.price-val span {
+  right: -55px;
+}
+.medicalItemHeader:after {
+  left: 0;
+}
+.defaultLayout .showcaseInK2Item .bt-inner .bt-title:after {
+  left: 0;
+}
+div.itemHeader:after {
+  left: 0;
+}
+.aboutUsLeftCol-info .aboutUsInfo1,
+.aboutUsLeftCol-info .aboutUsInfo2,
+.aboutUsLeftCol-info .aboutUsInfo3,
+.aboutUsLeftCol-info .aboutUsInfo4 {
+  padding-left: 70px;
+}
+.aboutUsLeftCol-info .aboutUsInfo1:before,
+.aboutUsLeftCol-info .aboutUsInfo2:before,
+.aboutUsLeftCol-info .aboutUsInfo3:before,
+.aboutUsLeftCol-info .aboutUsInfo4:before {
+  margin-right: 23px;
+  left: 0;
+  float: left;
+  background-position: left top;
+}
+.k2HeaderItem {
+  margin-left: 57px;
+}
+div.catItemDateCreated,
+div.tagItemDateCreated,
+div.userItemDateCreated,
+div.latestItemDateCreated {
+  float: left;
+  margin-right: 15px;
+}
+div.catItemHeader:after,
+div.tagItemHeader:after,
+div.userItemHeader:after,
+div.latestItemHeader:after {
+  left: 0;
+}
+div.itemDateCreated {
+  float: left;
+  margin-right: 15px;
+}
+div.itemAuthorBlock img.itemAuthorAvatar {
+  float: left;
+}
+div.itemAuthorBlock div.itemAuthorDetails {
+  margin: 0 0 0 130px;
+}
+.itemAuthorDesc:before {
+  left: 0;
+}
+div.itemContentFooter {
+  padding: 0;
+  text-align: left;
+}
+div.userBlock img {
+  float: left;
+}
+.userBlockInfor,
+.categoryBlockInfo {
+  margin-left: 185px;
+}
+div.userDescription:before,
+.catDescription:before {
+  left: 0;
+}
+.k2UserSocialLink a + a {
+  margin-left: 25px;
+}
+.blogListItem .published,
+.item-page .published {
+  float: left;
+  margin-right: 15px;
+}
+.blogItemHeader:after {
+  left: 0;
+}
+.my-pagination li + li {
+  margin-left: 8px;
+}
+div.k2Pagination,
+.pagination {
+  text-align: left;
+}
+.bt-actionbox .bt-actionbox-button {
+  float: right;
+}
+.bt-list-icon {
+  margin-right: 5px;
+  margin-left: auto;
+}
+.weblink-category .webLinkItemHit,
+.results-number {
+  float: left;
+}
+.weblink-category .weblinkItemTitle,
+.resultsItemInfor {
+  margin-left: 56px;
+}
+.weblinkItemHeader:after,
+.resultsItemHeader:after {
+  left: 0;
+}
+.login-fields-input #remember {
+  float: left;
+  height: auto;
+  margin: 6px 5px 0 0;
+}
+.heading_login_page:after {
+  left: 0;
+}
+.gender .register-fields-input input[type="radio"],
+.gender .register-fields-input input[type="checkbox"] {
+  float: left;
+  margin: 5px 0 0 0;
+}
+.gender .register-fields-input label {
+  margin: 0 15px 0 0;
+  float: left;
+}
+.sm-buttons .btsc-button {
+  padding: 0 20px 0 10px;
+}
+.md-buttons .btsc-button {
+  padding: 0 23px 0 15px;
+}
+.lg-buttons .btsc-button {
+  padding: 0 23px 0 15px;
+}
+.btsc-testimonials-left.client_style2 .btsc-testimonials-text {
+  margin-left: 130px !important;
+}
+.var-chromeless .tweet {
+  padding: 12px 2px 10px 58px !important;
+}
+.accordion_style4 .bt-spoiler-title {
+  padding: 7px 10px 7px 0;
+}
+.bt-spoiler-collapse {
+  float: right;
+}
+.img_acc_content {
+  float: left;
+  margin-right: 20px;
+}
+.bt-tabs-style-default .bt-tabs-nav span {
+  margin-right: 7px;
+  margin-left: auto;
+}
+.bt-tabs-style-default.btsc_tab_default2 .bt-tabs-nav span {
+  margin-right: 3px;
+  margin-left: auto;
+}
+.bt-tabs-style-default .bt-tabs-pane img {
+  float: left;
+  margin-right: 18px;
+}
+.bt-quote-box .bt-quote-inner {
+  border: 1px solid #e4ebed;
+  border-left: none;
+}
+.bt-quote-big-quote {
+  float: right;
+  margin-left: 30px;
+}
+.results-number {
+  margin-right: 10px;
+}
+.searchPage label {
+  margin-right: 25px;
+}
+.searchPage .counter {
+  float: left;
+}
+.off-canvas-module .nav-pills li a .caret {
+  right: 10px;
+}
+.mod_btquickcontact .btqc-title h3 {
+  text-align: left !important;
+  padding: 0 0 9px 13px!important;
+}
+.btqc-title h3:after {
+  left: 13px;
+}
+.btqc-separator {
+  text-align: left;
+}
+.iconLink a + a {
+  margin-left: 20px;
+}
+.timeToMeet span {
+  float: right;
+}
+.customInfoHome .bt-heading h1,
+.customInfoHome .bt-heading h2,
+.customInfoHome .bt-heading h3,
+.customInfoHome .bt-heading h4,
+.customInfoHome .bt-heading h5 {
+  margin: 0 0 13px 0!important;
+}
+.customInfoHome .rowCustom1,
+.customInfoHome .rowCustom2,
+.customInfoHome .rowCustom3,
+.customInfoHome .rowCustom4 {
+  padding-left: 120px;
+}
+.customInfoHome .rowCustom1:before,
+.customInfoHome .rowCustom2:before,
+.customInfoHome .rowCustom3:before,
+.customInfoHome .rowCustom4:before {
+  margin-right: 23px;
+  left: 0;
+  float: left;
+}
+.bt-tabs-vertical .bt-tabs-panes {
+  border-left: 1px solid #f2f2f2;
+}
+.bt-tabs-vertical .bt-tabs-nav span {
+  padding-left: 27px;
+}
+.bt-tabs-nav span i.fa {
+  margin-right: 14px;
+}
+.bt-tabs-vertical .bt-tabs-nav span.bt-tabs-current {
+  margin-right: -1px;
+}
+.bt-tabs-vertical.btsc_tab_vertical0 .bt-tabs-nav span.bt-tabs-current {
+  margin-right: -1px !important;
+  border-bottom: 1px solid #f2f2f2;
+  border-left: 1px solid #f2f2f2;
+  border-top: 1px solid #f2f2f2;
+  border-radius: 3px 0 0 3px;
+}
+.bt-tabs-vertical.btsc_tab_vertical0 .bt-tabs-panes:before {
+  position: absolute;
+  content: '';
+  width: 20px;
+  height: 100%;
+  left: -20px;
+  top: 0;
+  background: url("../../../templates/bt_medical/images/bg-li-content-left.png") no-repeat scroll left top transparent;
+}
+.t3-mainnav .t3-navbar {
+  background: #e9682e;
+}
+.t3-mainnav .t3-navbar .t3-megamenu > ul > li.open > a,
+.t3-mainnav .t3-navbar .t3-megamenu > ul > li > a:focus,
+.t3-mainnav .t3-navbar .t3-megamenu > ul > li.active > a {
+  background: #b74613;
+}
+.t3-mainnav {
+  border-bottom: 2px solid #ce4f16 !important;
+}
+.t3-mainnav .t3-megamenu .dropdown-header,
+.t3-mainnav .t3-megamenu .mega-nav .mega-group > .dropdown-header,
+.t3-mainnav .t3-megamenu .dropdown-menu .mega-nav .mega-group > .dropdown-header,
+.t3-mainnav .t3-megamenu .dropdown-menu .active .mega-nav .mega-group > .dropdown-header {
+  font-family: "Roboto";
+}
+.t3-mainnav .t3-megamenu .mega-nav > li a:hover,
+.t3-mainnav .t3-megamenu .dropdown-menu .mega-nav > li a:hover,
+.t3-mainnav .t3-megamenu .mega-nav > li a:focus,
+.t3-mainnav .t3-megamenu .dropdown-menu .mega-nav > li a:focus {
+  color: #e9682e;
+}
+.t3-mainnav .t3-megamenu .dropdown-menu .mega-nav > li.active > a,
+.t3-megamenu .dropdown-menu .mega-group .mega-nav > li.active > a {
+  color: #e9682e !important;
+}
+.t3-footer-block .t3-footnav .t3-module .module-title:after {
+  border-bottom: 2px solid #e9682e;
+}
+.t3-footer-block .t3-footnav .t3-module ul > li > a:hover,
+.t3-footer-block .t3-footnav .t3-module ul > li > a:active,
+.t3-footer-block .t3-footnav .t3-module ul > li > a:focus,
+.t3-footer-block .t3-footnav .t3-module ul > li.active > a {
+  color: #e9682e;
+}
+.acymailing_form .acysubbuttons .button {
+  background: #e9682e;
+}
+.bottom_mainbody_3 {
+  background: #e9682e;
+}
+.btqc-title h3 {
+  color: #e9682e;
+}
+.btqc-field-container.btqc-field-submit .button,
+.btqc-field-container.btqc-field-pagebreak .button {
+  background: #e9682e;
+  border-bottom: 3px solid rgba(0, 0, 0, 0.15);
+}
+.big-title,
+.sub-title {
+  color: #e9682e;
+}
+
+.ss-buttons a {
+  border: 2px solid #e9682e;
+  color: #e9682e;
+}
+h3.module-title:after {
+  border-bottom: 2px solid #e9682e;
+}
+.defaultLayout .slide_grey_bg .bt-inner .readmore a {
+  background: #e9682e;
+}
+.defaultLayout .bt-inner .bt-date {
+  color: #e9682e;
+}
+.defaultLayout .bt-contentshowcase .btcontentshowcase-prev:hover {
+  background: url("../../../templates/bt_medical/images/content_showcase_back.png") no-repeat scroll center center #e9682e !important;
+}
+.defaultLayout .bt-contentshowcase .btcontentshowcase-next:hover {
+  background: url("../../../templates/bt_medical/images/content_showcase_next.png") no-repeat scroll center center #e9682e !important;
+}
+.iconLink a.iconLink-1 {
+  background: url("../../../templates/bt_medical/images/themes/orange/bg-iconLink1.png") no-repeat scroll center center transparent;
+}
+.iconLink a.iconLink-2 {
+  background: url("../../../templates/bt_medical/images/themes/orange/bg-iconLink2.png") no-repeat scroll center center transparent;
+}
+.iconLink a.iconLink-3 {
+  background: url("../../../templates/bt_medical/images/themes/orange/bg-iconLink3.png") no-repeat scroll center center transparent;
+}
+.iconLink a.iconLink-4 {
+  background: url("../../../templates/bt_medical/images/themes/orange/bg-iconLink4.png") no-repeat scroll center center transparent;
+}
+.iconLink a:hover {
+  border-color: #e9682e;
+}
+.iconLink a.iconLink-1:hover {
+  background: url("../../../templates/bt_medical/images/bg-iconLink-hover-1.png") no-repeat scroll center center #e9682e;
+}
+.iconLink a.iconLink-2:hover {
+  background: url("../../../templates/bt_medical/images/bg-iconLink-hover-2.png") no-repeat scroll center center #e9682e;
+}
+.iconLink a.iconLink-3:hover {
+  background: url("../../../templates/bt_medical/images/bg-iconLink-hover-3.png") no-repeat scroll center center #e9682e;
+}
+.iconLink a.iconLink-4:hover {
+  background: url("../../../templates/bt_medical/images/bg-iconLink-hover-4.png") no-repeat scroll center center #e9682e;
+}
+#btl-content-login .btl-input #btl-input-username:focus {
+  background: url("../../../templates/bt_medical/images/themes/orange/login-user-focus.png") no-repeat scroll 7px center #fbfbfb;
+  border-color: #e9682e;
+}
+#btl-content-login .btl-input #btl-input-password:focus {
+  background: url("../../../templates/bt_medical/images/themes/orange/login-pass-focus.png") no-repeat scroll 7px center #fbfbfb;
+  border-color: #e9682e;
+}
+#btl .btl-panel > #btl-panel-profile {
+  background: #e9682e !important;
+}
+#btl-content #btl-content-profile #module-in-profile ul li a:hover {
+  color: #e9682e;
+}
+#btl-content #btl-content-profile button.btl-buttonsubmit {
+  background: #e9682e !important;
+  border-bottom: 3px solid rgba(0, 0, 0, 0.15) !important;
+}
+#bt_ul li a:hover {
+  color: #e9682e !important;
+}
+#simplemodal-container a.modalCloseImg:hover {
+  background: url("../../../templates/bt_medical/images/themes/orange/close-popup-hover.png") no-repeat scroll center center transparent !important;
+}
+#btl-content-registration .btl-input input:focus {
+  border-color: #e9682e;
+}
+#btl-content-registration button.btl-buttonsubmit {
+  background: #e9682e !important;
+}
+#btl-content-registration button.btl-buttonsubmit:hover {
+  background: #ce4f16 !important;
+}
+#btl .btl-panel #btl-panel-login:hover,
+#btl .btl-panel #btl-panel-registration:hover {
+  color: #e9682e !important;
+}
+.defaultLayout .bt-inner .bt-title:hover,
+.defaultLayout .lastest_news .bt-inner .bt-title:hover {
+  color: #e9682e;
+}
+.readmoreMedical a:hover {
+  color: #e9682e;
+  font-weight: bold;
+}
+div.btl-buttonsubmit .btl-buttonsubmit.button {
+  background: #e9682e !important;
+}
+div.btl-buttonsubmit .btl-buttonsubmit.button:hover {
+  background: #ce4f16 !important;
+}
+.iconLink a.moreDepartment:hover {
+  background: #e9682e !important;
+  border-color: #e9682e !important;
+  color: #fff;
+}
+div.catItemDateCreated,
+div.tagItemDateCreated,
+.blogListItem .published,
+.item-page .published,
+div.userItemDateCreated,
+div.latestItemDateCreated,
+div.itemDateCreated {
+  background: #e9682e;
+}
+.menu_sidebar ul.nav-pills li a {
+  color: #e9682e;
+}
+div.k2LoginBlock fieldset.input input.bt_medical_button {
+  background: #e9682e;
+  border-bottom: 3px solid rgba(0, 0, 0, 0.15);
+}
+.pageheading_desc:before {
+  border-bottom: 2px solid #e9682e;
+}
+.items-more h3 {
+  color: #e9682e;
+}
+.items-more .nav > li > a:hover {
+  color: #e9682e;
+}
+div.catItemHeader h3.catItemTitle a:hover,
+div.tagItemHeader h3.tagItemTitle a:hover,
+div.userItemHeader h3.userItemTitle a:hover,
+div.latestItemHeader h3.latestItemTitle a:hover,
+h3.blogItemTitle a:hover {
+  color: #e9682e;
+  text-decoration: none;
+}
+.defaultLayout .recent_post .bt-inner .bt-title:hover {
+  color: #e9682e;
+}
+div.itemTagsBlock ul.itemTags li a:hover {
+  background: #e9682e;
+}
+h3.itemAuthorName a:hover {
+  color: #e9682e;
+}
+div.itemAuthorLatest h3,
+div.itemRelated h3 {
+  color: #e9682e;
+}
+div.itemAuthorLatest ul li a:hover,
+div.itemRelated ul li a:hover {
+  color: #e9682e;
+}
+div.itemComments ul.itemCommentsList li span.commentAuthorName a:hover {
+  color: #e9682e;
+}
+div.itemCommentsForm form input#submitCommentButton {
+  background: #e9682e;
+  border-bottom: 3px solid rgba(0, 0, 0, 0.15);
+}
+.my-pagination li.general a.pagenav:hover {
+  background: #e9682e;
+}
+.my-pagination li a.pagenav:hover,
+.my-pagination li.page-number span.pagenav {
+  border: 2px solid #e9682e;
+  background: #e9682e;
+}
+.map_infoWindow .contactIconAdd:before,
+.map_infoWindow .contact-emailto:before,
+.map_infoWindow .contact-telephone:before,
+.map_infoWindow .contact-webpage:before {
+  color: #e9682e;
+}
+.webLinkItemHit,
+.results-number {
+  background: #e9682e;
+}
+.weblink-category .list-title a:hover,
+.showLink,
+.result-title a:hover {
+  color: #e9682e;
+}
+#searchForm .word .button,
+.finder #smartsearch-btn,
+.archive fieldset.filters .btn-primary {
+  background: #e9682e;
+  border-bottom: 3px solid rgba(0, 0, 0, 0.15);
+}
+.ss-buttons a:after {
+  background: #e9682e;
+}
+div.catItemReadMore a:after,
+div.tagItemReadMore a:after,
+div.userItemReadMore a:after,
+div.latestItemReadMore a:after,
+.readmoreItem a:after {
+  background: #e9682e;
+}
+div.catItemReadMore a:hover,
+div.tagItemReadMore a:hover,
+div.userItemReadMore a:hover,
+div.latestItemReadMore a:hover,
+.readmoreItem a:hover {
+  border-color: #e9682e;
+}
+.register_page .register-fields-input .button,
+.login_wapper .submit_button .button {
+  background: #e9682e;
+}
+.heading_login_page {
+  color: #e9682e;
+}
+div.subCategory h2 a:hover,
+a.subCategoryMore:hover {
+  color: #e9682e;
+}
+.socialFooter a:hover {
+  background: #e9682e;
+  color: #fff;
+}
+div.k2TagCloudBlock a:hover {
+  background: #e9682e;
+}
+div.catItemCategory a:hover,
+div.tagItemCategory a:hover,
+div.userItemCategory a:hover,
+div.latestItemCategory a a:hover {
+  color: #e9682e;
+  text-decoration: none;
+}
+.contactPageArticle .btsc-iconbox-style-icon-ontop-inside .icon {
+  color: #e9682e !important;
+}
+.contactPageArticle .text_3 {
+  color: #e9682e !important;
+}
+.contactPageArticle .btsc-iconbox .btsc-iconbox-title:after {
+  border-bottom: 2px solid #e9682e;
+}
+.themes2 div.catItemCategory {
+  color: #e9682e;
+}
+.themes2 div.catItemReadMore a,
+.themes2 div.itemCategory a {
+  color: #e9682e;
+}
+.btsc-skillbars-default .skill .skill-level {
+  background: #e9682e !important;
+}
+.btsc-skillbars-content-skill .skill-percent-inline {
+  color: #e9682e;
+}
+.bt-spoiler-opened .bt-spoiler-title {
+  background: #e9682e;
+  border-color: #e9682e;
+  color: #fff;
+}
+.showcaseInK2Item .defaultLayout .bt-inner .bt-category,
+.showcaseInK2Item .defaultLayout .bt-inner .bt-title:hover {
+  color: #e9682e;
+}
+.heading_btsc_doctor_profile .bt-heading h1:before,
+.heading_btsc_doctor_profile .bt-heading h2:before,
+.heading_btsc_doctor_profile .bt-heading h3:before,
+.heading_btsc_doctor_profile .bt-heading h4:before,
+.heading_btsc_doctor_profile .bt-heading h5:before {
+  background: #e9682e;
+}
+.btsc-testimonials-left .btsc-testimonials-info span.btsc-testimonials-name {
+  color: #e9682e;
+}
+.btsc-testimonials-text .urlClient {
+  color: #e9682e;
+}
+.btsc-carousel .owl-controls .owl-buttons .owl-next,
+.btsc-carousel .owl-controls .owl-buttons .owl-prev {
+  background: #e9682e !important;
+}
+.customInfoHome .rowCustom1:before,
+.customInfoHome .rowCustom2:before,
+.customInfoHome .rowCustom3:before,
+.customInfoHome .rowCustom4:before {
+  background-color: #e9682e;
+}
+.aboutUsLeftCol-info .aboutUsInfo1:before {
+  background-image: url("../../../templates/bt_medical/images/themes/orange/aboutUsCustomInfoIcon-1.png");
+}
+.aboutUsLeftCol-info .aboutUsInfo2:before {
+  background-image: url("../../../templates/bt_medical/images/themes/orange/aboutUsCustomInfoIcon-2.png");
+}
+.aboutUsLeftCol-info .aboutUsInfo3:before {
+  background-image: url("../../../templates/bt_medical/images/themes/orange/aboutUsCustomInfoIcon-3.png");
+}
+.aboutUsLeftCol-info .aboutUsInfo4:before {
+  background-image: url("../../../templates/bt_medical/images/themes/orange/aboutUsCustomInfoIcon-4.png");
+}
+.aboutUsRightCol {
+  border: 7px solid #e9682e;
+}
+.timeToMeet span {
+  color: #e9682e;
+}
+.departmentItem .img-intro-inner {
+  background: #e9682e;
+}
+.readmoreDepartment a {
+  background: #e9682e;
+}
+h2.departmentTitle a:hover {
+  color: #e9682e;
+}
+.medicalListTitle:hover {
+  color: #e9682e;
+}
+.sidebarLeftDepartment .nav-pills > li > a:hover,
+.sidebarLeftDepartment .nav-pills > li.active > a {
+  color: #e9682e;
+  background: #f9f9f9 !important;
+}
+.reset .btl_submit,
+.reset-confirm .btl_submit,
+.remind .btl_submit,
+.reset-complete .btl_submit {
+  background: #e9682e;
+}
+div.subCategory:hover,
+div.subCategory:hover .subCategory_info {
+  background: #e9682e;
+}
+.logo-text a:hover {
+  color: #e9682e;
+}
+.off-canvas-toggle {
+  background: #e9682e;
+}
+.calendar thead .title {
+  background: #e9682e !important;
+}
+.calendar tbody .rowhilite td {
+  background: #ee895c !important;
+}
+.calendar tbody td.selected,
+.calendar tbody td:hover {
+  background: #e9682e !important;
+  border: none !important;
+}
+.btsc-pricecol-special .btsc-pricecol-inner {
+  border: 6px solid #e9682e;
+}
+.btsc-pricecol-row.price {
+  background: #e9682e !important;
+}
+.btsc-pricecol .purchase-button a:hover {
+  background: #e9682e !important;
+  border-color: #ea723c !important;
+}
+.btsc-pricecol-inner h2 {
+  color: #e9682e !important;
+}
+.logo-text a span.iconLogo {
+  background: #e9682e;
+}
+.footerInfo a.readMore-link:hover {
+  color: #e9682e;
+}
+#cp-bullet span.active {
+  background: #e9682e;
+  border: 2px solid #e9682e;
+}
+.bt-heading.shortcode_heading h3 {
+  color: #e9682e;
+}
+.bt-dropcap.bt-dropcap-circle,
+.bt-dropcap.bt-dropcap-square {
+  background: #e9682e !important;
+}
+.bt-dropcap.dropcap_style1 {
+  color: #e9682e !important;
+}
+.bt-label {
+  background: #e9682e !important;
+}
+.bt-tooltip {
+  color: #e9682e !important;
+}
+.qtip-content {
+  background: #e9682e !important;
+}
+.qtip-content:after {
+  border-top-color: #e9682e;
+}
+.bt-list-m-alphabet .bt-list-icon-circle {
+  background: #e9682e;
+}
+.bt-list-icon i.bt-list-icon {
+  color: #e9682e;
+}
+.bt-actionbox-solid {
+  background: #e9682e;
+}
+.bt-actionbox-default .bt-actionbox-button a {
+  background: #e9682e;
+  box-shadow: 0 4px #b74613;
+}
+.bt-actionbox-default .bt-actionbox-button a:hover {
+  box-shadow: 0 3px #b74613;
+  top: 3px;
+}
+.bt-tabs-vertical .bt-tabs-nav span.bt-tabs-current,
+.bt-tabs-vertical .bt-tabs-nav span:hover {
+  color: #e9682e !important;
+}
+.btsc_title_tab_vertical {
+  color: #e9682e;
+}
+.bt-tabs-style-default .bt-tabs-nav span.bt-tabs-current,
+.bt-tabs-style-default .bt-tabs-nav span:hover {
+  color: #e9682e;
+}
+.btsc_title_tab_default1,
+.btsc_title_tab_default2 {
+  color: #e9682e;
+}
+.accordion_style2 .bt-spoiler-opened .bt-spoiler-title i.fa {
+  background: #e9682e;
+}
+.accordion_style2 .bt-spoiler-opened .bt-spoiler-title {
+  color: #e9682e;
+}
+.accordion_style3 .bt-spoiler-opened .bt-spoiler-title i.fa,
+.accordion_style3 .bt-spoiler-opened .bt-spoiler-title,
+.accordion_style4 .bt-spoiler-opened .bt-spoiler-title {
+  color: #e9682e;
+}
+.btsc-testimonials-center .btsc-testimonials-name,
+.btsc-testimonials-bottom-right .btsc-testimonials-name {
+  color: #e9682e;
+}
+.btsc-testimonials-left.client_style2 .client_url {
+  color: #e9682e;
+}
+.tableColorHeading table th {
+  background: #e9682e !important;
+}
+.bt-quote-box {
+  border-left: 5px solid #e9682e;
+}
+.bt-quote-box .bt-quote-box-icon {
+  color: #e9682e;
+}
+.bt-quote-border-left {
+  border-left: 5px solid #e9682e;
+}
+.btsc-button.sm_button_style2,
+.btsc-button.md_button_style2 {
+  border: 2px solid #e9682e !important;
+  color: #e9682e !important;
+}
+.btsc-button {
+  background: #e9682e !important;
+}
+.btsc_title_acc_color {
+  color: #e9682e;
+}
+.top_head_right > div {
+  float: right;
+  margin-left: 10px;
+}
+.mod-languages div.dropdown-menu {
+  left: auto;
+  right: 0;
+}
+.menu_sidebar .dropdown-menu {
+  background-color: #ffffff;
+  border: medium none;
+  border-radius: 0;
+  box-shadow: none;
+  display: inherit;
+  float: none;
+  left: 0;
+  list-style: outside none none;
+  margin: 0 0 0 15px;
+  padding: 0;
+  position: relative;
+  text-align: left;
+  top: auto;
+  z-index: 1000;
+}
+.menu_sidebar .caret {
+  right: 5px;
+}
+.menu_sidebar .dropdown-submenu > a:after {
+  right: 5px;
+}
+.pageheading_desc:before {
+  left: 0;
+}

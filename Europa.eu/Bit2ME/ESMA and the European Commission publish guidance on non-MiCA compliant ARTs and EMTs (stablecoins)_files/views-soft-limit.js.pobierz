@@ -1,0 +1,54 @@
+(function ($, Drupal) {
+  Drupal.behaviors.esma_views_soft_limit = {
+    attach: function (context, settings) {
+      'use strict';
+
+      let softLimit = 5;
+      let sectionList = $('fieldset[id^="edit-tid"] div.bef-checkboxes', context); // Agregar 'context' para que sea específico de Drupal behaviors
+
+      // Asegúrate de que los elementos están siendo seleccionados
+      console.log("Número de sectionList:", sectionList.length);
+
+      $(document).ajaxComplete(function () {
+        let activeItems = [];
+        let inactiveItems = [];
+
+        sectionList.find(':checked').each(function () {
+          activeItems.push($(this).parent());
+        });
+        sectionList.find('input[type=checkbox]:not(:checked)').each(function () {
+          inactiveItems.push($(this).parent());
+        });
+      });
+
+      // Uso correcto de .once con una clave única
+      const applysoftlimits = once('applysoftlimit', 'fieldset[id^="edit-tid"] div.bef-checkboxes', context);
+      applysoftlimits.forEach(function() {
+        $(this).children().slice(softLimit).hide();
+      });
+
+      const sectionsoftlimitlinks = once('sectionsoftlimitlink', sectionList);
+      $(sectionsoftlimitlinks).filter(function () {
+        return $(this).find('div').length > softLimit;
+      }).each(function () {
+        let section = $(this);
+        let showMoreLabel = 'Show More';
+        let showLessLabel = 'Show Less';
+
+        $('<a href="#" class="section-soft-limit-link"></a>')
+          .text(showMoreLabel).attr('aria-expanded', 'false')
+          .on('click', function () {
+            if (section.find('div:hidden').length > 0) {
+              section.children().slice(softLimit).slideDown();
+              $(this).addClass('open').text(showLessLabel).attr("aria-expanded", "true");
+            } else {
+              section.children().slice(softLimit).slideUp();
+              $(this).removeClass('open').text(showMoreLabel).attr("aria-expanded", "false");
+            }
+            return false;
+          }).insertAfter($(this).parents('fieldset[id^="edit-tid"] div.fieldset-wrapper'));
+      });
+
+    }
+  };
+})(jQuery, Drupal);
