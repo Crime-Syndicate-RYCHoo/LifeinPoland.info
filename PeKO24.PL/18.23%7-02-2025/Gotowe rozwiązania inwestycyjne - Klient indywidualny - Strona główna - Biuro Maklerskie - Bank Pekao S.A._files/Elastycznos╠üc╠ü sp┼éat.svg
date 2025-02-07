@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="60px" height="60px" viewBox="0 0 60 60" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.4 (67378) - http://www.bohemiancoding.com/sketch -->
+    <title>Elastyczność spłat</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Elastyczność-spłat" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="Rectangle" fill="#F2F2F2" fill-rule="nonzero" x="0" y="0" width="60" height="60" rx="30"></rect>
+        <g id="Group-11" transform="translate(16.000000, 21.000000)" stroke="#EB1922" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+            <path d="M3,15 L7.78121816,15 C11.4539897,15 14.4313511,12.0896479 14.4313511,8.49986641 C14.4313511,4.9098177 17.4089859,2 21.0817574,2 L25,2" id="Stroke-1"></path>
+            <path d="M0,0 L9,9" id="Stroke-3"></path>
+            <polyline id="Stroke-5" points="9 1 9 9 1 9"></polyline>
+            <path d="M28,18 L19,9" id="Stroke-7"></path>
+            <polyline id="Stroke-9" points="19 17 19 9 27 9"></polyline>
+        </g>
+    </g>
+</svg>

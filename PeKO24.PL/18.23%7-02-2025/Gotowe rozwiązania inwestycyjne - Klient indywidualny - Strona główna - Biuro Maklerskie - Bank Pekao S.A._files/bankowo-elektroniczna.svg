@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="60px" height="60px" viewBox="0 0 60 60" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 51.2 (57519) - http://www.bohemiancoding.com/sketch -->
+    <title>E97B61C3-2870-4E62-B8DC-09FA52D8F8A5</title>
+    <desc>Created with sketchtool.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Bankowość-elektroniczna">
+            <rect id="Rectangle" fill="#F2F2F2" fill-rule="nonzero" x="0" y="0" width="60" height="60" rx="30"></rect>
+            <g id="Group-9" transform="translate(18.000000, 18.000000)" stroke="#EB1922" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                <path d="M24,4.79290983 L24,2.29427869 C24,1.02719474 22.9998066,0 21.7661846,0 L2.23368994,0 C1.00006794,0 0,1.02719474 0,2.29427869 L0,16.1315826 C0,17.3986666 1.00006794,18.4258613 2.23368994,18.4258613 L8.22595498,18.4258613 L8.22595498,24 L6.2285786,24" id="Stroke-1"></path>
+                <path d="M0,13 L8,13" id="Stroke-3"></path>
+                <path d="M15.3682019,24 L13.7573499,24 C12.786791,24 12,23.2121222 12,22.2403478 L12,9.75965222 C12,8.78775274 12.786791,8 13.7573499,8 L22.2426501,8 C23.213209,8 24,8.78775274 24,9.75965222 L24,10.5969132" id="Stroke-5"></path>
+                <path d="M22.2054095,24 L19.7945905,24 C18.8035213,24 18,23.165446 18,22.1361008 L18,14.8640317 C18,13.834554 18.8035213,13 19.7945905,13 L22.2054095,13 C23.1966063,13 24,13.834554 24,14.8640317 L24,22.1361008 C24,23.165446 23.1966063,24 22.2054095,24 Z" id="Stroke-7"></path>
+            </g>
+        </g>
+    </g>
+</svg>

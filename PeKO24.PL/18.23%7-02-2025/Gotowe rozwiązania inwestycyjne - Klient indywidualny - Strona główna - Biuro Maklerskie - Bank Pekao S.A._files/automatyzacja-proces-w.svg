@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="60px" height="60px" viewBox="0 0 60 60" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 51.2 (57519) - http://www.bohemiancoding.com/sketch -->
+    <title>3D3C26CD-9338-419C-8B39-0C546784B3FE</title>
+    <desc>Created with sketchtool.</desc>
+    <defs>
+        <polygon id="path-1" points="0 0.2889 7.2759 0.2889 7.2759 7.4019 0 7.4019"></polygon>
+    </defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Automatyzacja-procesów">
+            <rect id="Rectangle" fill="#F2F2F2" fill-rule="nonzero" x="0" y="0" width="60" height="60" rx="30"></rect>
+            <g id="Group-10" transform="translate(18.000000, 17.000000)">
+                <path d="M19.815,5.2129 C17.704,3.1919 14.844,1.9479 11.69,1.9479 C7.713,1.9479 4.205,3.9259 2.074,6.9449" id="Stroke-1" stroke="#EA1F26" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                <polygon id="Fill-3" fill="#EA1F26" points="19.7056 0 19.4046 4.787 14.6176 4.483 16.5206 6.644 21.3066 6.945 21.6086 2.16"></polygon>
+                <path d="M2.2564,20.7325 C4.3994,23.6145 7.8224,25.4855 11.6904,25.4855 C16.3774,25.4855 20.4114,22.7385 22.3044,18.7735" id="Stroke-5" stroke="#EA1F26" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                <g id="Group-9" transform="translate(0.000000, 18.484900)">
+                    <mask id="mask-2" fill="white">
+                        <use xlink:href="#path-1"></use>
+                    </mask>
+                    <g id="Clip-8"></g>
+                    <polygon id="Fill-7" fill="#EA1F26" mask="url(#mask-2)" points="1.5269 7.4019 2.6019 2.7269 7.2759 3.8049 5.7489 1.3639 1.0759 0.2889 -0.0001 4.9619"></polygon>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

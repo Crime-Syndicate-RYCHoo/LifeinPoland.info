@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="60px" height="60px" viewBox="0 0 60 60" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 51.2 (57519) - http://www.bohemiancoding.com/sketch -->
+    <title>64C81168-6821-4DD8-A014-65742831A495</title>
+    <desc>Created with sketchtool.</desc>
+    <defs>
+        <polygon id="path-1" points="0 32.9583 26.583 32.9583 26.583 0.0003 0 0.0003"></polygon>
+    </defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Realizacja-pasji">
+            <rect id="Rectangle" fill="#F2F2F2" fill-rule="nonzero" x="0" y="0" width="60" height="60" rx="30"></rect>
+            <g id="Group-5" transform="translate(17.000000, 14.000000)">
+                <path d="M22.8858,16.4581 C21.4258,16.1421 19.9168,15.1491 19.9168,12.3751 L19.9168,10.3751 L19.9128,10.3751 C19.8668,5.1901 15.6538,1.0001 10.4588,1.0001 C5.2628,1.0001 1.0498,5.1901 1.0048,10.3751 L0.9998,10.3751 L0.9998,16.4581 L0.9998,28.1251 L19.9168,28.1251 L25.5838,28.1251 L25.5838,16.4581 L22.8858,16.4581 Z" id="Stroke-1" stroke="#EA1F26" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <g id="Clip-4"></g>
+                <polygon id="Stroke-3" stroke="#EA1F26" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" mask="url(#mask-2)" points="3.417 31.9583 23.167 31.9583 23.167 28.1253 3.417 28.1253"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>

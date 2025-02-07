@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="60px" height="60px" viewBox="0 0 60 60" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 51.2 (57519) - http://www.bohemiancoding.com/sketch -->
+    <title>8FC7A4B1-4DE7-4733-BEA0-238710320C96</title>
+    <desc>Created with sketchtool.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Płacenie-i-wypłacanie-bez-przewalutowania-za-granicą-w-kraju-i-w-internecie">
+            <g id="Group" fill="#F2F2F2" fill-rule="nonzero">
+                <rect id="Rectangle" x="0" y="0" width="60" height="60" rx="30"></rect>
+            </g>
+            <g id="Group-4" transform="translate(14.000000, 18.000000)" stroke="#EB1922" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                <polygon id="Stroke-1" points="4.25806452 17.8095238 28.7419355 17.8095238 28.7419355 0 4.25806452 0"></polygon>
+                <polygon id="Stroke-3" points="33 22 27.9270146 17.8095238 5.05663894 17.8095238 0 21.9864972"></polygon>
+            </g>
+            <path d="M35.3973995,24.088641 C35.4005665,24.0833628 35.4047891,24.0770289 35.4079561,24.0717506 C35.6834812,23.6389333 35.5546917,23.0657142 35.1218744,22.7912447 C34.6827231,22.50833 34.0968362,22.6286743 33.8044206,23.0625473 L29.8689499,28.9836995 L27.4208928,26.1936112 C27.0746389,25.8019643 26.4781955,25.7586826 26.0791591,26.0964912 C26.0738808,26.1007138 26.0686025,26.1049364 26.0633243,26.1102147 C25.6790669,26.4480233 25.6431748,27.0339102 25.9809834,27.4181675 L29.2535047,31.1488418 C29.4361325,31.3568053 29.6979342,31.4750383 29.9734594,31.4750383 L30.0367985,31.472927 C30.3344924,31.4549809 30.605795,31.2987444 30.7704767,31.0506662 L35.3973995,24.088641 Z" id="Fill-4" fill="#EB1922"></path>
+        </g>
+    </g>
+</svg>

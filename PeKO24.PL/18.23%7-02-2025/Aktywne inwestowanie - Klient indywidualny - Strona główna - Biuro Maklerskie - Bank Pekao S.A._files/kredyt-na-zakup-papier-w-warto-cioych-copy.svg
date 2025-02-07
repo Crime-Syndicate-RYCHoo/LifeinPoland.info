@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="60px" height="60px" viewBox="0 0 60 60" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 51.2 (57519) - http://www.bohemiancoding.com/sketch -->
+    <title>D85944AA-5D87-4FF7-8D0B-B01E5F6D1E7A</title>
+    <desc>Created with sketchtool.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Kredyt-na-zakup-papierów-wartościoych-Copy">
+            <rect id="Rectangle" fill="#F2F2F2" fill-rule="nonzero" x="0" y="0" width="60" height="60" rx="30"></rect>
+            <g id="Group-13" transform="translate(17.000000, 17.000000)" stroke="#EA1F26" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                <path d="M10.4262,14.3453 C10.4262,15.2183 8.0922,15.9263 5.2132,15.9263 C2.3342,15.9263 0.0002,15.2183 0.0002,14.3453 C0.0002,13.4713 2.3342,12.7633 5.2132,12.7633 C8.0922,12.7633 10.4262,13.4713 10.4262,14.3453 Z" id="Stroke-1"></path>
+                <path d="M0,14.7076 L0,24.5826 C0,25.4566 2.334,26.1646 5.213,26.1646 C8.092,26.1646 10.426,25.4566 10.426,24.5826 L10.426,14.5906" id="Stroke-3"></path>
+                <path d="M0,17.983 C0,18.856 2.334,19.564 5.213,19.564 C8.092,19.564 10.426,18.856 10.426,17.983" id="Stroke-5"></path>
+                <path d="M0,21.3746 C0,22.2486 2.334,22.9566 5.213,22.9566 C8.092,22.9566 10.426,22.2486 10.426,21.3746" id="Stroke-7"></path>
+                <polyline id="Stroke-9" points="5.2133 9.3394 5.2133 3.4644 21.6583 3.4644 21.6583 24.8394 14.0323 24.8394"></polyline>
+                <polyline id="Stroke-11" points="8.8369 -0.0004 25.2819 -0.0004 25.2819 21.3746"></polyline>
+            </g>
+        </g>
+    </g>
+</svg>

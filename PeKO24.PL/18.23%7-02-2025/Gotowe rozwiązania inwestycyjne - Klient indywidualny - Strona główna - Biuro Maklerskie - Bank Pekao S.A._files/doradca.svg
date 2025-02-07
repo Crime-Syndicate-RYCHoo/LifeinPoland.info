@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="60px" height="60px" viewBox="0 0 60 60" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 51.2 (57519) - http://www.bohemiancoding.com/sketch -->
+    <title>0BF111B8-7142-4CB2-80E0-478566A73399</title>
+    <desc>Created with sketchtool.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Doradca">
+            <rect id="Rectangle" fill="#F2F2F2" fill-rule="nonzero" x="0" y="0" width="60" height="60" rx="30"></rect>
+            <g id="Group-11" transform="translate(18.000000, 18.000000)" stroke="#EB1922" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                <polyline id="Stroke-1" points="14.3074 19.0768 14.3074 21.7258 9.5384 24.3758 4.7694 21.7258 4.7694 19.0768"></polyline>
+                <path d="M17.8973,10.068 L17.8973,13.778 L18.4273,13.778 L21.0763,10.598 L24.7863,10.598 C25.6643,10.598 26.3763,9.886 26.3763,9.008 L26.3763,1.589 C26.3763,0.712 25.6643,0 24.7863,0 L13.1283,0 C12.2503,0 11.5383,0.712 11.5383,1.589" id="Stroke-3"></path>
+                <path d="M9.85396575,9.25923358 C9.37228714,9.75766661 8.69678731,10.0676 7.9489,10.0676 L5.2989,10.0676 L5.2989,9.5386 C5.2989,7.1966 7.1969,5.2996 9.5379,5.2996 C11.8799,5.2996 13.7779,7.1966 13.7779,9.5386 L13.7779,12.1886 C13.7779,14.5286 11.8799,16.4276 9.5379,16.4276 C7.1969,16.4276 5.2989,14.5286 5.2989,12.1886 L5.2989,10.0676" id="Stroke-5"></path>
+                <path d="M19.0765,24.9059 L19.0765,23.3159 C19.0765,20.9739 17.1785,19.0769 14.8375,19.0769 L12.1875,19.0769 L9.5385,23.8449" id="Stroke-7"></path>
+                <path d="M-0.0002,24.9059 L-0.0002,23.3159 C-0.0002,20.9739 1.8978,19.0769 4.2388,19.0769 L6.8888,19.0769 L9.5388,23.8449" id="Stroke-9"></path>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="60px" height="60px" viewBox="0 0 60 60" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 51.2 (57519) - http://www.bohemiancoding.com/sketch -->
+    <title>E15747AC-F677-4A8F-9FF7-D71ADF3B16EB</title>
+    <desc>Created with sketchtool.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Darmowe-konto-mobilne">
+            <rect id="Rectangle" fill="#F2F2F2" fill-rule="nonzero" x="0" y="0" width="60" height="60" rx="30"></rect>
+            <g id="Group-11" transform="translate(21.000000, 16.000000)" stroke="#EB1922" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                <path d="M18,15.0241863 L18,25.9516274 C18,27.082895 17.0703032,28 15.9228512,28 L2.07649679,28 C0.929696838,28 0,27.082895 0,25.9516274 L0,2.04837265 C0,0.917104991 0.929696838,0 2.07649679,0 L8.99967402,0" id="Stroke-1"></path>
+                <path d="M0,22 L18,22" id="Stroke-3"></path>
+                <path d="M8,25 L11,25" id="Stroke-5"></path>
+                <path d="M0,4 L18,4" id="Stroke-7"></path>
+                <path d="M0,12.9755156 L0,2.04896872 C0,0.917083927 0.930348799,0 2.07714876,0 L15.9235032,0 C17.0709551,0 18,0.917083927 18,2.04896872 L18,25.9510313 C18,27.0829161 17.0709551,28 15.9235032,28 L9.00032598,28" id="Stroke-9"></path>
+            </g>
+        </g>
+    </g>
+</svg>

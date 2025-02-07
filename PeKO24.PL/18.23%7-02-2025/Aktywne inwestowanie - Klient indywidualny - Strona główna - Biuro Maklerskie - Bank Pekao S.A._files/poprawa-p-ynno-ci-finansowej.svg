@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="60px" height="60px" viewBox="0 0 60 60" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 51.2 (57519) - http://www.bohemiancoding.com/sketch -->
+    <title>7F61ED7F-6D3D-4525-8835-E942311BA99A</title>
+    <desc>Created with sketchtool.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Poprawa-płynności-finansowej">
+            <rect id="Rectangle" fill="#F2F2F2" fill-rule="nonzero" x="0" y="0" width="60" height="60" rx="30"></rect>
+            <g id="Group-20" transform="translate(16.000000, 16.000000)">
+                <path d="M11.9348,8.6099 L19.0548,12.4519 L29.3408,-0.0001 L11.9348,8.6099 Z M8.4938,10.3109 L11.9348,8.6099 L10.5278,7.8509 L8.4938,10.3109 Z" id="Fill-1" fill="#F1F1F2"></path>
+                <polyline id="Stroke-2" stroke="#EA1F26" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="8.4945 10.3115 10.5285 7.8505 19.0555 12.4525 27.8855 1.7625"></polyline>
+                <polygon id="Fill-4" fill="#EA1F26" points="29.3408 -0.0001 24.5678 0.4539 22.7338 2.6749 27.5088 2.2179 27.9618 6.9929 29.7948 4.7749 29.7948 4.7639"></polygon>
+                <g id="Group-19" transform="translate(0.000000, 13.141100)" stroke="#EA1F26" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                    <path d="M10.4262,1.77 C10.4262,2.643 8.0922,3.351 5.2132,3.351 C2.3342,3.351 0.0002,2.643 0.0002,1.77 C0.0002,0.896 2.3342,0.188 5.2132,0.188 C8.0922,0.188 10.4262,0.896 10.4262,1.77 Z" id="Stroke-5"></path>
+                    <path d="M-0.0001,2.1323 L-0.0001,12.0073 C-0.0001,12.8803 2.3339,13.5893 5.2129,13.5893 C8.0919,13.5893 10.4259,12.8803 10.4259,12.0073 L10.4259,2.0153" id="Stroke-7"></path>
+                    <path d="M-0.0001,5.4068 C-0.0001,6.2808 2.3339,6.9888 5.2129,6.9888 C8.0919,6.9888 10.4259,6.2808 10.4259,5.4068" id="Stroke-9"></path>
+                    <path d="M-0.0001,8.7993 C-0.0001,9.6733 2.3339,10.3813 5.2129,10.3813 C8.0919,10.3813 10.4259,9.6733 10.4259,8.7993" id="Stroke-11"></path>
+                    <path d="M24.1308,5.1802 C24.1308,6.0542 21.7968,6.7622 18.9178,6.7622 C16.0388,6.7622 13.7048,6.0542 13.7048,5.1802 C13.7048,4.3072 16.0388,3.5992 18.9178,3.5992 C21.7968,3.5992 24.1308,4.3072 24.1308,5.1802 Z" id="Stroke-13"></path>
+                    <path d="M13.7045,5.5425 L13.7045,12.4185 C13.7045,13.2915 16.0385,13.9995 18.9175,13.9995 C21.7965,13.9995 24.1305,13.2915 24.1305,12.4185 L24.1305,5.4265" id="Stroke-15"></path>
+                    <path d="M13.7045,8.8179 C13.7045,9.6919 16.0385,10.3999 18.9175,10.3999 C21.7965,10.3999 24.1305,9.6919 24.1305,8.8179" id="Stroke-17"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

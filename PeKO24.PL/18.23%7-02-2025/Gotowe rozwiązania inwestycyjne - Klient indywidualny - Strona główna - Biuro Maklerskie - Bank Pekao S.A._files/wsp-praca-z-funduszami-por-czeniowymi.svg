@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="60px" height="60px" viewBox="0 0 60 60" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 51.2 (57519) - http://www.bohemiancoding.com/sketch -->
+    <title>516BB96A-4C61-4406-9B99-9ACDEFEF0667</title>
+    <desc>Created with sketchtool.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Współpraca-z-Funduszami-Poręczeniowymi">
+            <g id="Group" fill="#F2F2F2" fill-rule="nonzero">
+                <rect id="Rectangle" x="0" y="0" width="60" height="60" rx="30"></rect>
+            </g>
+            <rect id="Rectangle-7" fill="#F2F2F2" fill-rule="nonzero" x="29" y="41" width="3" height="5"></rect>
+            <g id="Group-19" transform="translate(19.000000, 17.000000)" stroke="#EB1922" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                <path d="M18.4996106,12 C22.6415702,12 26,15.3584298 26,19.5003894 C26,23.642349 22.6415702,27 18.4996106,27 C14.357651,27 11,23.642349 11,19.5003894 C11,15.3584298 14.357651,12 18.4996106,12 Z" id="Stroke-1"></path>
+                <polyline id="Stroke-3" points="3.87890386 4 1 4 1 0 16 0 16 4"></polyline>
+                <polyline id="Stroke-5" points="4 8 4 4 19 4 19 8 14.7264238 8"></polyline>
+                <polyline id="Stroke-7" points="0 11 0 8 15 8 15 11"></polyline>
+                <polyline id="Stroke-9" points="0 13 0 8 15 8 15 11.6489699"></polyline>
+                <polyline id="Stroke-11" points="0 16 0 12 14 12"></polyline>
+                <polyline id="Stroke-13" points="0 19 0 16 11 16"></polyline>
+                <polyline id="Stroke-15" points="0 22 0 16 10 16"></polyline>
+                <polyline id="Stroke-17" points="12 24 0 24 0 20 10.3562169 20"></polyline>
+            </g>
+        </g>
+    </g>
+</svg>

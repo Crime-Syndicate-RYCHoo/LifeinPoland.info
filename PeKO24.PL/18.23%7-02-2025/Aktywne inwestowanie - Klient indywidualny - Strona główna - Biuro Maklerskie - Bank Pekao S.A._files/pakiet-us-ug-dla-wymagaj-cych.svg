@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="60px" height="60px" viewBox="0 0 60 60" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 51.2 (57519) - http://www.bohemiancoding.com/sketch -->
+    <title>92FD8FDA-2710-4B27-8D6A-8B77559BCDB5</title>
+    <desc>Created with sketchtool.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Pakiet-usług-dla-wymagających">
+            <rect id="Rectangle" fill="#F2F2F2" fill-rule="nonzero" x="0" y="0" width="60" height="60" rx="30"></rect>
+            <g id="Group-16" transform="translate(15.000000, 16.000000)">
+                <polygon id="Fill-1" fill="#FEFEFE" points="14.6162 13.7079 0.0002 8.3969 14.6162 3.0869 29.2332 8.3969"></polygon>
+                <polygon id="Stroke-2" stroke="#EA1F26" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="14.6162 13.7079 0.0002 8.3969 14.6162 3.0869 29.2332 8.3969"></polygon>
+                <polygon id="Fill-4" fill="#FEFEFE" points="14.6162 10.62 0.0002 5.31 14.6162 0 29.2332 5.31"></polygon>
+                <polygon id="Stroke-5" stroke="#EA1F26" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="14.6162 10.62 0.0002 5.31 14.6162 0 29.2332 5.31"></polygon>
+                <polygon id="Fill-7" fill="#FEFEFE" points="0 5.3104 0 8.3974 14.616 13.7074 29.233 8.3974 29.233 5.3104 14.616 10.6204"></polygon>
+                <g id="Group-12" transform="translate(0.000000, 5.107800)" stroke="#EA1F26" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                    <polygon id="Stroke-8" points="0 0.2026 0 3.2896 14.616 8.5996 29.233 3.2896 29.233 0.2026 14.616 5.5126"></polygon>
+                    <polyline id="Stroke-10" points="1.9102 3.9838 1.9102 17.3828 14.6162 22.0008 27.3232 17.3828 27.3232 3.9838"></polyline>
+                </g>
+                <polygon id="Fill-13" fill="#FEFEFE" points="14.6159 27.1079 14.6159 13.7079 14.6159 10.6199"></polygon>
+                <polyline id="Stroke-14" stroke="#EA1F26" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="14.6162 27.1082 14.6162 13.7082 14.6162 10.6202"></polyline>
+            </g>
+        </g>
+    </g>
+</svg>

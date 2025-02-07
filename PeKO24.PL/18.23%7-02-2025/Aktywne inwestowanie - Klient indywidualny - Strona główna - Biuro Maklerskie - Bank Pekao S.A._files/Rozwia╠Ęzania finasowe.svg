@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="60px" height="60px" viewBox="0 0 60 60" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.4 (67378) - http://www.bohemiancoding.com/sketch -->
+    <title>Rozwiązania finasowe</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <polygon id="path-1" points="0 28.397 32.905 28.397 32.905 -3.55271368e-15 0 -3.55271368e-15"></polygon>
+    </defs>
+    <g id="Rozwiązania-finasowe" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="Rectangle" fill="#F2F2F2" fill-rule="nonzero" x="0" y="0" width="60" height="60" rx="30"></rect>
+        <g id="Group-13" transform="translate(13.000000, 15.000000)">
+            <g id="Group-3" transform="translate(0.000000, 27.397000)" stroke="#EB1922" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                <path d="M0.7202,0.2801 L32.1842,0.2801" id="Stroke-1"></path>
+            </g>
+            <mask id="mask-2" fill="white">
+                <use xlink:href="#path-1"></use>
+            </mask>
+            <g id="Clip-5"></g>
+            <polygon id="Stroke-4" stroke="#EB1922" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" mask="url(#mask-2)" points="2.429 27.616 6.635 27.616 6.635 18.729 2.429 18.729"></polygon>
+            <polygon id="Stroke-6" stroke="#EB1922" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" mask="url(#mask-2)" points="10.375 27.616 14.581 27.616 14.581 10.792 10.375 10.792"></polygon>
+            <polygon id="Stroke-7" stroke="#EB1922" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" mask="url(#mask-2)" points="18.323 27.616 22.529 27.616 22.529 17.878 18.323 17.878"></polygon>
+            <polygon id="Stroke-8" stroke="#EB1922" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" mask="url(#mask-2)" points="26.27 27.616 30.476 27.616 30.476 14.193 26.27 14.193"></polygon>
+            <path d="M28.373,4.2675 C27.034,4.2675 25.947,5.3535 25.947,6.6935 C25.947,8.0335 27.034,9.1195 28.373,9.1195 C29.713,9.1195 30.799,8.0335 30.799,6.6935 C30.799,5.3535 29.713,4.2675 28.373,4.2675 Z M20.426,7.9375 C19.086,7.9375 18,9.0245 18,10.3635 C18,11.7045 19.086,12.7895 20.426,12.7895 C21.766,12.7895 22.852,11.7045 22.852,10.3635 C22.852,9.0245 21.766,7.9375 20.426,7.9375 Z M12.478,0.7205 C11.139,0.7205 10.053,1.8065 10.053,3.1455 C10.053,4.4855 11.139,5.5725 12.478,5.5725 C13.818,5.5725 14.905,4.4855 14.905,3.1455 C14.905,1.8065 13.818,0.7205 12.478,0.7205 Z M4.531,8.7905 C3.192,8.7905 2.105,9.8765 2.105,11.2165 C2.105,12.5565 3.192,13.6425 4.531,13.6425 C5.871,13.6425 6.957,12.5565 6.957,11.2165 C6.957,9.8765 5.871,8.7905 4.531,8.7905 Z" id="Stroke-9" stroke="#EB1922" stroke-width="2" mask="url(#mask-2)"></path>
+            <path d="M6.7021,9.0121 L10.4521,5.3121" id="Stroke-10" stroke="#EB1922" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" mask="url(#mask-2)"></path>
+            <path d="M14.6689,5.1293 L18.4539,8.5943" id="Stroke-11" stroke="#EB1922" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" mask="url(#mask-2)"></path>
+            <path d="M22.8144,9.33 L25.6674,7.943" id="Stroke-12" stroke="#EB1922" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" mask="url(#mask-2)"></path>
+        </g>
+    </g>
+</svg>

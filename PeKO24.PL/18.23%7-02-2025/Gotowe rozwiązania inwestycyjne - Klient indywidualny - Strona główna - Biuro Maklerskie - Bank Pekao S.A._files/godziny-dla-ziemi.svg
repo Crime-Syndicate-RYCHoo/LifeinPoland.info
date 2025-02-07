@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="60px" height="60px" viewBox="0 0 60 60" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 51.2 (57519) - http://www.bohemiancoding.com/sketch -->
+    <title>F9EA09CA-8575-4F48-83BC-0D6BC82A3BD7</title>
+    <desc>Created with sketchtool.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Godziny-dla-Ziemi">
+            <rect id="Rectangle" fill="#F2F2F2" fill-rule="nonzero" x="0" y="0" width="60" height="60" rx="30"></rect>
+            <g id="Group-7" transform="translate(15.000000, 16.000000)" stroke="#EB1922" stroke-width="2">
+                <path d="M29,14.5003007 C29,22.5082436 22.5083783,29 14.5006014,29 C6.49222314,29 0,22.5082436 0,14.5003007 C0,6.49235778 6.49222314,0 14.5006014,0 C22.5083783,0 29,6.49235778 29,14.5003007 Z" id="Stroke-1"></path>
+                <path d="M19,14.5003007 C19,22.5082436 16.9852237,29 14.5003122,29 C12.0147763,29 10,22.5082436 10,14.5003007 C10,6.49235778 12.0147763,0 14.5003122,0 C16.9852237,0 19,6.49235778 19,14.5003007 Z" id="Stroke-3"></path>
+                <path d="M0,15 L29,15" id="Stroke-5"></path>
+            </g>
+        </g>
+    </g>
+</svg>
