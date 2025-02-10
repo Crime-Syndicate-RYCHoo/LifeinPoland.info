@@ -1,0 +1,51 @@
+define([
+	"dojo/_base/declare",
+	"../../utils/restBase",
+	"aps/xhr"
+	], function (declare, restBase, xhr) {
+		var RestBase = new restBase();
+
+		return declare(restBase, {
+            constructor: function(){
+				this.setPath("sm");
+			},
+			getRegistrarFeatures: function(rql) {
+                return this.get({operation: "subscription-registrar-feature", rql: rql});
+            },
+			getSubscriptions: function(rql, headers) {
+				return this.get({operation: "subscriptions", rql: rql, headers: headers});
+			},
+			getSubscriptionRenewPeriods: function(rql) {
+                return this.get({operation: "subscription/" + rql + "/renew-periods"});
+            },
+			putAutoRenew: function(subscriptionId, data, headers) {
+                return this.put({operation: "subscription/" + subscriptionId + "/autorenew", data: data, headers: headers});
+            },
+			getSubscriptionDetails(subscriptionId) {
+				var params = "eq(subscriptionId," + subscriptionId + "),select(subscriptionId,aps.id),limit(0,1)";
+				return xhr.get(RestBase.path +"?implementing(http://www.odin.com/billing/Subscription/1)," + params).then(function(data) {
+					return data[0];
+				});
+			},
+			getSubscriptionResources(subscriptionApsId) {
+				return xhr.get(RestBase.path + subscriptionApsId + "/resources", {
+					headers: {
+						'Content-Type': 'application/json',
+						'APS-Actor-Scope': 'FULL'
+					}
+				});
+			},
+			getAllowedOperations: function(subscriptionId, apiMethod) {
+				return this.getSubscriptionDetails(subscriptionId).then(function(subscriptionDetails) {
+					var subscriptionApsId = subscriptionDetails.aps.id;
+					return xhr.get(RestBase.path + subscriptionApsId +"/" + apiMethod)
+						.then(function(data) {
+							if (data) {
+								return data;
+							}
+							throw new Error("no " + apiMethod + " data");
+						});
+				});
+			}
+		});
+});

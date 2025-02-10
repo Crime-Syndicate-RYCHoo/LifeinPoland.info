@@ -1,0 +1,12 @@
+define([], function() {
+    /**
+     * Funkcja zwracająca informację o tym, czy zasób jest typu "Personal Email" lub "Lifetime Personal Email".
+     *
+     * @param {Object} object zasób typu "core_box"
+     *
+     * @return {boolean} wynik sprawdzenia
+     */
+    return function(object) {
+        return new RegExp('http://home.pl/types/mailbox/personal_email/').test(object.aps.type);
+    };
+});

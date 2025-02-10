@@ -1,0 +1,4 @@
+/* = aps iframe specific styles =
+------------------------------------------------------------------------------ */
+html:not(.ccp-frame) { background: none !important; height: auto !important; min-height: auto !important; }
+body:not(.ccp-frame) { visibility: hidden; opacity: 0; background: transparent !important; margin: 0 !important; }

@@ -1,0 +1,12 @@
+define([], function() {
+    /**
+     * Funkcja zwracająca sformatowany tekst liczników zasobów widocznych na ekranie zarządzania serwerem.
+     *
+     * @param {Object} resource obiekt zawierający limity i zużycie zasobu
+     *
+     * @return {String} sformatowany tekst
+     */
+    return function(resource) {
+        return resource.limit ? resource.usage + ' / ' + resource.limit : resource.usage;
+    };
+});

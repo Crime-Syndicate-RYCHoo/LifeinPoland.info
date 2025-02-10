@@ -1,0 +1,16 @@
+define([
+    'helpers/statuses/disabledSubscriptionStatuses'
+], function(
+    disabledSubscriptionStatuses
+) {
+    /**
+     * Funkcja odpowiada za sprawdzenie, czy subskrypcja jest nieaktywna.
+     *
+     * @param {!number} subscriptionStatusId identyfikator statusu subskrypcji
+     *
+     * @return {boolean} true, jeśli subskrypcja jest nieaktywna
+     */
+    return function(subscriptionStatusId) {
+        return disabledSubscriptionStatuses.indexOf(subscriptionStatusId) !== -1;
+    };
+});

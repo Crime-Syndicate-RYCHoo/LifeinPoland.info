@@ -1,0 +1,58 @@
+define([
+	"aps/ready!"
+], function (){
+	"use strict";
+	return {
+		STATUS: {
+				ORDERED: 10,
+				TRIAL: 15,
+				ACTIVE: 30,
+				CANCELING: 35,
+				GRACED: 40,
+				EXPIRED: 50,
+				TERMINATED: 60,
+				ADMIN_HOLD: 80,
+				CREDIT_HOLD: 85,
+				CREDIT_ADMIN_HOLD: 89,
+				IN_SYNC: 95
+		},
+
+		SERVICE_STATUS: {
+				NOT_PROVISIONED: 10,
+				PROVISIONING: 20,
+				STOPPED: 30,
+				STARTING: 40,
+				RUNNING: 50,
+				STOPPING: 60,
+				REMOVING: 70,
+				CHANGING_PLAN: 80,
+				REMOVED: 90
+		},
+
+		SUPPORTS_CANCELLATION: {
+			"MANUAL": 0,
+			"AUTOMATIC": 1,
+            "NOT_SUPPORTED": 2
+		},
+
+		CANC_ORDER_TYPES: {
+			"CL": "CL",
+			"CF": "CF"
+		},
+
+		CHARGE_TYPE: {
+			"BBP": 10,
+			"ABP": 20,
+			"BSP": 30,
+			"EXT": 40
+		},
+
+		SERVICE_GATE: {
+			DOMAINGATE : 'DOMAINGATE',
+			DUMMYGATE : 'DUMMYGATE',
+			KAGATE : 'KAGATE',
+			PEMGATE : 'PEMGATE',
+			RESELLERGATE : 'RESELLERGATE'
+		}
+	};
+});

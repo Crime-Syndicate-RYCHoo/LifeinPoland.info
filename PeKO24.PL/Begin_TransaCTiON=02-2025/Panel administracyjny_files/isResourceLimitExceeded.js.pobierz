@@ -1,0 +1,14 @@
+define([], function() {
+    const limitError = 'APS::Util::OutOfResourceLimits';
+    /**
+     * Funkcja zwracająca informację o tym, czy błąd dotyczy przekroczenia limitu zasobów.
+     *
+     * @param {Object} error odpowiedź z błędem
+     *
+     * @return {boolean} wynik sprawdzenia
+     */
+    return function(error) {
+        return error.response.status === 403
+            && (JSON.parse(error.response.data).error === limitError || JSON.parse(error.responseText).details.error === limitError || JSON.parse(error.responseText).details.details.error === limitError);
+    };
+});

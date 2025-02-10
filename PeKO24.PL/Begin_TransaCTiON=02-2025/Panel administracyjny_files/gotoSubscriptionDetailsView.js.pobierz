@@ -1,0 +1,14 @@
+define([], function() {
+    /**
+     * Funkcja ma za zadanie przekierować do widoku szczegółów subskrypcji udostępnionego przez paczkę Billing-CCP.
+     *
+     * @param {!number} subscriptionId identyfikator subskrypcji
+     *
+     * @return {void}
+     */
+    return function(subscriptionId) {
+        aps.apsc.gotoView('http://www.parallels.com/ccp-billing#subscription', null, {
+            subscriptionId: subscriptionId
+        });
+    };
+});

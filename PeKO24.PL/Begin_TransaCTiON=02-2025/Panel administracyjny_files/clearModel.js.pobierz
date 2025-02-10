@@ -1,0 +1,16 @@
+define([
+    'dojox/mvc/getStateful'
+], function(
+    getStateful
+) {
+    /**
+     * Funkcja czyszcząca model.
+     *
+     * @param {string} modelId do czyszczenia
+     *
+     * @return {void}
+     */
+    return function(modelId) {
+        aps.app.model.set(modelId, getStateful({}));
+    };
+});

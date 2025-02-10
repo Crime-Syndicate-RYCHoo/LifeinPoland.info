@@ -1,0 +1,12 @@
+define([], function() {
+    /**
+     * Funkcja zwracająca informację o tym, czy przekazany zasób przekroczył lub osiągnął dostępny limit zasobów
+     *
+     * @param {Object} resources przekazywany zasób
+     *
+     * @return {boolean} wynik sprawdzenia
+     */
+    return function(resources) {
+        return resources.limit && resources.usage >= resources.limit;
+    };
+});

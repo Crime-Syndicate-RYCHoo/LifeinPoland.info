@@ -1,0 +1,16 @@
+define([
+    'helpers/statuses/objectApsStatuses'
+], function(
+    statuses
+) {
+    /**
+     * Funkcja zwracająca informację o tym, czy zasób został zprowizjonowany.
+     *
+     * @param {string} objectStatus status zasobu
+     *
+     * @return {boolean} wynik sprawdzenia
+     */
+    return function(objectStatus) {
+        return statuses[objectStatus] === 'created';
+    };
+});

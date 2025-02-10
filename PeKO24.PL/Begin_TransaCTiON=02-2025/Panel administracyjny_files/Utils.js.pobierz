@@ -1,0 +1,275 @@
+define([
+	"aps/xhr",
+	"aps/i18n",
+	"./Constants",
+	"aps/ready!"
+], function (xhr, i18n, Constants) {
+
+	var domainCharactersPattern = /^((?![.])((?![_!@#$%^&*()? "'/\\:;,\s\t\v\r\n={}\[\]]).(?![.]{2,})){1,253})$/;
+	var underscoreDomainCharactersPattern = /^((?![.])((?![!@#$%^&*()? "'/\\:;,\s\t\v\r\n={}\[\]]).(?![.]{2,})){1,253})$/;
+	var onlyNumericTldPattern = /(.*\.[\d]+[^.]*[.]{0,1}$)|(.*\.[\d]*\.$)|(^[\d]*\.$)/;
+	var ipAddressPattern = /^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$|^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*$/;
+	var ipv4AddressPattern = /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+	var ipv6AddressPattern = /^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*$/
+	var rrPaTypes = {
+		SRV: 'http://parallels.com/aps/types/pa/dns/record/srv/',
+		CAA: 'http://parallels.com/aps/types/pa/dns/record/caa/',
+		TLSA: 'http://parallels.com/aps/types/pa/dns/record/tlsa/'
+	};
+
+	var dnsHostingStatus = {
+		ENABLED: {order: 1, code: "enabled"},
+		DISABLED: {order: 2, code: "disabled"}
+	};
+
+	var registrationStatus = {
+		NONE: {order: 0, code: "none"},
+		OK: {order: 1, code: "ok"},
+		EXPIRED: {order: 2, code: "expired"},
+		SOON: {order: 3, code: "soon"},
+		TRANSFERING: {order: 4, code: "transfering"},
+		REGISTERING: {order: 5, code: "registering"},
+		CANCELING: {order: 6, code: "canceling"},
+		CANCELED: {order: 7, code: "canceled"}
+	};
+
+	var registrarStatus = {
+		REGISTERING: "Registering",
+		TRANSFERING: "Transfering",
+		REGISTERED: "Registered",
+		EXPIRED: "Expired",
+		CANCELING: "Canceling",
+		CANCELED: "Canceled",
+		TERMINATING: "Terminating",
+		TERMINATED: "Terminated"
+	};
+
+	function isTldPresentInUserInput(name) {
+		var firstDotPosition = name.search("\\.");
+		var isInvalid = firstDotPosition <= 0 || firstDotPosition == name.length - 1;
+		return !isInvalid;
+	}
+
+	/**
+	 * IMPORTANT this method works with domains, not subdomains, because for subdomains there should be check on subdomain.parentDomain.hosting, which will require additional query
+	 * @param domain
+	 * @returns {boolean}
+	 */
+	function domainHostingPartPresent(domain) {
+		//!! is needed to overcome side-effect of boolean expressions calculation resulting in object being returned here
+		return !!domain.hosting;
+	}
+
+	return {
+		/**
+		 * Sadly, this magic constant is currently the only way to reference Whois Privacy resource.
+		 * It was decided to use it by analogy with DOMAINGATE sources.
+		 */
+		DOMAIN_NAME_MAX_LENGTH: 255, //2.3.4. Size limits from RFC https://www.ietf.org/rfc/rfc1035.txt
+		WHOIS_PRIVACY_RESOURCE_ID: 2001,
+		DNSSEC_RESOURCE_ID: 2005,
+		LOCAL_PRESENCE_RESOURCE_ID: 2006,
+		WHOIS_PRIVACY_INSTALLED_OR_OPTIONAL: [2, 8],
+		dnsHostingStatus: dnsHostingStatus,
+		registrationStatus: registrationStatus,
+		registrarStatus: registrarStatus,
+		prepareUserDomainInput: function (domainName) {
+			var preparedDomainName;
+			if (domainName.charAt(domainName.length - 1) == '.') {
+				preparedDomainName = domainName.substr(0, domainName.length - 1);
+			} else {
+				preparedDomainName = domainName;
+			}
+			preparedDomainName = preparedDomainName.toLowerCase();
+			return {
+				preparedDomainName: preparedDomainName.trim(),
+				isTldPresentInUserInput: isTldPresentInUserInput(preparedDomainName)
+			};
+		},
+		isDomainNameLooksLikeValid: function (domainName) {
+			return domainCharactersPattern.test(domainName) && !onlyNumericTldPattern.test(domainName);
+		},
+		isUnderscoreDomainNameLooksLikeValid: function (domainName) {
+			return underscoreDomainCharactersPattern.test(domainName) && !onlyNumericTldPattern.test(domainName);
+		},
+		isValidIPAddress: function (address) { //http://jsfiddle.net/AJEzQ/ without domain names
+			return ipAddressPattern.test(address);
+		},
+		isValidIPv4Address: function (address) {
+			return ipv4AddressPattern.test(address);
+		},
+		isValidIPv6Address: function (address) {
+			return ipv6AddressPattern.test(address);
+		},
+		determineDnsHostingStatus: function (domain) {
+			return domain.hosting ? dnsHostingStatus.ENABLED : dnsHostingStatus.DISABLED;
+		},
+		isDisplayPrice: function(){
+			return aps.apsc.checkPrivilege("http://www.parallels.com/pa/pa-core-services#show_prices_everywhere_in_ccp_v2");
+		},
+		determineRegistrationStatus: function (domain) {
+			var status = registrationStatus.NONE;
+			var domainRegistrationInfo = domain.registrationInfo;
+			if (domainRegistrationInfo) {
+				switch (domainRegistrationInfo.registrarStatus) {
+					case registrarStatus.REGISTERING:
+						status = registrationStatus.REGISTERING;
+						break;
+					case registrarStatus.TRANSFERING:
+						status = registrationStatus.TRANSFERING;
+						break;
+					case registrarStatus.EXPIRED:
+						status = registrationStatus.EXPIRED;
+						break;
+					case registrarStatus.CANCELING:
+					case registrarStatus.TERMINATING:
+						status = registrationStatus.CANCELING;
+						break;
+					case registrarStatus.CANCELED:
+					case registrarStatus.TERMINATED:
+						status = registrationStatus.CANCELED;
+						break;
+					default:
+						status = registrationStatus.OK;
+				}
+				if (domainRegistrationInfo.registrarExpirationDate) {
+					var expDate = new Date(domainRegistrationInfo.registrarExpirationDate);
+					if (status == registrationStatus.OK) {
+						var currentDate = new Date();
+						var timeDiff = expDate.getTime() - currentDate.getTime();
+						var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+						if (diffDays <= 31) {
+							status = registrationStatus.SOON;
+						}
+					}
+				}
+			}
+			return status;
+		},
+		dateToStr: function (date) {
+			if (!date) {
+				return "-";
+			}
+			return _.formatDate(date);
+		},
+		priceToStr: function (amount) {
+			return i18n.formatCurrency(amount, aps.context.bssCurrencySettings.currencyId);
+		},
+		areNameserversEqual: function (poaNameservers, billingNameservers) {
+			var result = true;
+			if (poaNameservers && billingNameservers) {
+				var billingNameserversLowercased = billingNameservers.map(function (billingNameserver) {
+					return billingNameserver.toLowerCase();
+				});
+				if (poaNameservers.filter(function (nameServer) {
+						return billingNameserversLowercased.indexOf(nameServer.toLowerCase()) !== -1;
+					}).length !== billingNameservers.length)
+					result = false;
+			}
+			return result;
+		},
+		isInternalNameservers: function (poaNameservers, billingNameservers) {
+			if (poaNameservers == null)
+				return false;
+			return this.areNameserversEqual(poaNameservers, billingNameservers);
+		},
+		getRecordType: function (record) {
+			var typeWithoutVersion = record.aps.type.substr(0, record.aps.type.lastIndexOf("/"));
+			return typeWithoutVersion.substr(typeWithoutVersion.lastIndexOf("/") + 1);
+		},
+		getEmptyModelForEnableDnsHostingPopup: function () {
+			return {
+				domainApsId: null,
+				showSubscriptionSelect: false,
+				autoDetectedDnsSubscription: null,
+				items: []
+			};
+		},
+		createExternalDomain: function (domainName, subscriptionApsId, handleCreatedExternalDomain, writeMessage) {
+			var requestBody = {
+				aps: {type: "http://parallels.com/aps/types/pa/dns/zone/1.1"},
+				name: domainName,
+				hosting: {aps: {id: subscriptionApsId}}
+			};
+
+			xhr("/aps/2/resources", {
+				method: "POST",
+				headers: {"Content-Type": "application/json", "APS-Subscription-ID": subscriptionApsId},
+				data: JSON.stringify(requestBody)
+			}).then(function (result) {
+						if (result != null) {
+							handleCreatedExternalDomain(result);
+						} else
+							writeMessage(_("An error occurred. Try to add the domain later."));
+					},
+					function (error) {
+						if (error.response.status == 403 && error.response && error.response.data) {
+							writeMessage(_("Adding new domain failed: \n__errorMessage__\n Most probably this happened because current version does not fully support multiple subscriptions within a single account yet.", {errorMessage: error.response.data.message}), "warning");
+						} else if (error.response && error.response.data) {
+							var data = error.response.data;
+							writeMessage(_(data.message, data.details, {}, data.pkgId));
+						} else {
+							writeMessage(_("An error occurred. Try to add the domain later."));
+						}
+						aps.apsc.cancelProcessing();
+					}
+			);
+		},
+
+		/**
+		 * Cannot edit records if external domain or external master
+		 * @param domain
+		 * @returns boolean
+		 */
+		canEditRecords: function (domain) {
+			return domainHostingPartPresent(domain) && !domain.externalMaster && !domain.hosting.disabled;
+		},
+
+		canManageDNS: function (domain) {
+			return (domainHostingPartPresent(domain) && !domain.hosting.disabled)
+				|| (domain.registrationInfo && domain.registrationInfo.registrarStatus == registrarStatus.REGISTERED);
+		},
+
+		canPlaceDomainOrders: function () {
+			// the most powerful privilege in Manage Domains set
+			return aps.apsc.checkPrivilege("http://www.parallels.com/pa/pa-core-services#manage_domains-orders");
+		},
+
+		canTransferOut: function () {
+			return aps.apsc.checkPrivilege("http://www.parallels.com/pa/pa-core-services#manage_domains-transferout");
+		},
+
+		canManageContacts: function () {
+			return aps.apsc.checkPrivilege("http://www.parallels.com/pa/pa-core-services#manage_domains-contacts");
+		},
+
+		canManageDomains: function () {
+			// this is the least powerful privilege in Manage Domains set, it's included in the rest
+			return aps.apsc.checkPrivilege("http://www.parallels.com/pa/pa-core-services#manage_domains-advanced");
+		},
+
+		isApsRecordCAA: function (apsResourceRecord) {
+			return apsResourceRecord.aps.type.indexOf(rrPaTypes.CAA) !== -1;
+		},
+
+		isApsRecordTLSA: function (apsResourceRecord) {
+			return apsResourceRecord.aps.type.indexOf(rrPaTypes.TLSA) !== -1;
+		},
+
+		isApsRecordSRV: function (apsResourceRecord) {
+			return apsResourceRecord.aps.type.indexOf(rrPaTypes.SRV) !== -1;
+		},
+
+		getWizardData: function (viewId) {
+			return aps.context.wizardData && aps.context.wizardData[viewId] || null;
+		},
+
+		getUx1MarketplaceAccount: function () {
+			var ux1MPSelectCustomerWizardData = this.getWizardData(Constants.UX1_MARKETPLACE_SELECT_CUSTOMER_VIEW_ID);
+			if (ux1MPSelectCustomerWizardData) {
+				return ux1MPSelectCustomerWizardData.customerStepData.existingCustomer;
+			}
+			return null;
+		}
+	};
+});

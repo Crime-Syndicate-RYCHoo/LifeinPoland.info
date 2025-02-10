@@ -1,0 +1,7 @@
+define([], function() {
+    return function() {
+        return aps.context.vars.bssAccount.attributes.find(function(value) {
+            return value.attributeID === 'canHavePersonalEmails' && ['1', '2'].indexOf(value.value) !== -1;
+        }) !== undefined;
+    };
+});

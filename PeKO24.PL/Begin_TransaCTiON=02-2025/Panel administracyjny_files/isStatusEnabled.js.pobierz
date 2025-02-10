@@ -1,0 +1,12 @@
+define([], function() {
+    /**
+     * Funkcja sprawdzająca czy status jest 'enabled'.
+     *
+     * @param {string} status przekazany status
+     *
+     * @return {boolean} wynik przyrównania
+     */
+    return function(status) {
+        return status === 'enabled';
+    };
+});

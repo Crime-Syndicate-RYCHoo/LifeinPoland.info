@@ -1,0 +1,262 @@
+/* jshint laxbreak: true */
+define([
+    'aps/Button',
+    'aps/Container',
+    'aps/DropDownButton',
+    'aps/FieldSet',
+    'aps/Output',
+    'aps/Tile',
+    'aps/xhr',
+    'dojo/when',
+    'helpers/getters/getFullName',
+    'helpers/getters/getServerAddress',
+    'helpers/getters/getUsageCountText',
+    'helpers/statuses/isApsStatusInProgress',
+    'helpers/statuses/isApsStatusReady',
+    'helpers/validators/isResourceLimitReached',
+    'helpers/views/displayResponseErrorMessage',
+    'helpers/views/lists/gridOnRowClickAction'
+], function(
+    Button,
+    Container,
+    DropDownButton,
+    FieldSet,
+    Output,
+    Tile,
+    xhr,
+    when,
+    getFullName,
+    getServerAddress,
+    getUsageCountText,
+    isApsStatusInProgress,
+    isApsStatusReady,
+    isResourceLimitReached,
+    displayResponseErrorMessage,
+    onRowClickAction
+) {
+    var ftpMaillistContainer, ftpTile, maillistContent, maillistCreateButton, maillistTile;
+
+    return function(view, container, ftpObject, maillistData, webFtp) {
+        var ftpOptions;
+
+        container.addChild(new Tile({
+            id: view.genId('ftpMaillistContainer'),
+            gridSize: 'md-4 xs-12',
+            baseClass: 'server-container custom-tile',
+            title: false
+        }));
+
+        ftpMaillistContainer = view.byId('ftpMaillistContainer');
+
+        if (ftpObject || webFtp) {
+            ftpMaillistContainer.addChild(new Container({
+                id: view.genId('ftpTile'),
+                baseClass: 'server-container__tile server-tile',
+                gridSize: 'md-12'
+            }));
+
+            ftpTile = view.byId('ftpTile');
+
+            ftpTile.addChild(new Output({
+                id: view.genId('ftpOutputHeader'),
+                baseClass: 'server-tile__header col-md-12',
+                content: '<div class="flex-between"><h3>${title}</h3><span class="text-danger">${ftpCount}</small></span>',
+                title: _('ftpAccounts'),
+                ftpCount: ftpObject ? getUsageCountText(ftpObject) : ''
+            }));
+
+            ftpTile.addChild(new FieldSet({
+                id: view.genId('ftpContent'),
+                baseClass: 'server-container'
+            }));
+
+            view.byId('ftpContent').addChild(new Output({
+                id: view.genId('ftpHostOutput'),
+                label: _('ftpHost'),
+                gridSize: 'md-6',
+                content: '<small>${serverName}</small>',
+                serverName: getServerAddress(view.application.baseHost, aps.context.vars.server.name)
+            }));
+
+            view.byId('ftpContent').addChild(new Output({
+                id: view.genId('ftpMainAccountOutput'),
+                label: _('ftpLogin'),
+                content: '<small>${accountName}</small>',
+                accountName: aps.context.vars.server.name,
+                gridSize: 'md-6'
+            }));
+
+            ftpTile.addChild(new FieldSet({
+                id: view.genId('ftpButtons'),
+                baseClass: 'panel-footer custom-footer'
+            }));
+
+            ftpOptions = [];
+
+            if (ftpObject) {
+                view.byId('ftpButtons').addChild(new Button({
+                    id: 'createFtpButton',
+                    label: _('create'),
+                    disabled: view.application.blockades.ftp || isResourceLimitReached(ftpObject),
+                    gridSize: 'xs-6 md-6',
+                    onClick: function() {
+                        if (view.application.blockades.ftp) {
+                            return;
+                        }
+
+                        aps.apsc.gotoView('ftp-new', aps.context.vars.server.aps.id);
+                    }
+                }));
+
+                ftpOptions = [
+                    {
+                        type: 'default',
+                        label: _('showAll'),
+                        onClick: function() {
+                            aps.apsc.gotoView('ftps', aps.context.vars.server.aps.id, {blockade: view.application.blockades.ftp});
+                        }
+                    }
+                ];
+            }
+
+            ftpOptions.push({
+                type: 'default',
+                label: _('accessBlock'),
+                disabled: view.application.blockades.server,
+                onClick: function() {
+                    if (view.application.blockades.server) {
+                        return;
+                    }
+
+                    aps.apsc.gotoView('server-preferences', aps.context.vars.server.aps.id);
+                }
+            });
+
+            if (webFtp) {
+                ftpOptions.push({
+                    type: 'default',
+                    label: _('webFtp'),
+                    onClick: function() {
+                        var webftpUrl;
+
+                        webftpUrl = '/aps/2/resources/' + aps.context.vars.server.aps.id + '/getWebFtpUrl';
+
+                        when(xhr(webftpUrl, {
+                            method: 'GET'
+                        }), function(url) {
+                            window.open(url, '_blank');
+                        }, function(error) {
+                            displayResponseErrorMessage(error);
+                        });
+                    }
+                });
+            }
+
+            view.byId('ftpButtons').addChild(new DropDownButton({
+                id: 'ftpOptionsButton',
+                label: _('options'),
+                gridSize: 'xs-6 md-6',
+                items: ftpOptions
+            }));
+        }
+
+        if (maillistData[0]) {
+            ftpMaillistContainer.addChild(new Container({
+                id: view.genId('maillistTile'),
+                baseClass: 'server-container__tile server-tile',
+                gridSize: 'md-12'
+            }));
+
+            maillistTile = view.byId('maillistTile');
+
+            maillistTile.addChild(new Output({
+                id: view.genId('maillistHeader'),
+                baseClass: 'server-tile__header col-md-12',
+                content: '<div class="flex-between"><h3>${title}</h3><span class="text-danger">${maillistCount}</small></span>',
+                title: _('maillists'),
+                maillistCount: getUsageCountText(maillistData[0])
+            }));
+
+            maillistTile.addChild(new FieldSet({
+                id: view.genId('maillistContent'),
+                baseClass: 'server-container flex-between__row'
+            }));
+
+            maillistTile.addChild(new FieldSet({
+                id: view.genId('maillistButtons'),
+                baseClass: 'panel-footer custom-footer'
+            }));
+
+            maillistContent = view.byId('maillistContent');
+
+            maillistCreateButton = new Button({
+                id: 'createMaillistButton',
+                label: _('create'),
+                gridSize: 'xs-6 md-6',
+                disabled: view.application.blockades.maillist || isResourceLimitReached(maillistData[0]),
+                onClick: function() {
+                    if (view.application.blockades.maillist) {
+                        return;
+                    }
+
+                    aps.apsc.gotoView('maillist-new', aps.context.vars.server.aps.id);
+                }
+            });
+
+            if (maillistData[1].length === 0) {
+                maillistContent.addChild(new Output({
+                    id: view.genId('emptyMaillistContentOutput'),
+                    baseClass: 'empty-content mini',
+                    innerHTML: '<div>'
+                    + '<div class="empty-content__img list mini col-md-3"></div>'
+                    + '<div class="empty-content__text col-md-9">'
+                    + _('emptyMaillistContent') + '</div>'
+                    + '</div>'
+                }));
+
+                view.byId('maillistButtons').addChild(maillistCreateButton);
+                return;
+            }
+
+            maillistData[1].slice(0, 3).map(function(maillist, index) {
+                maillistContent.addChild(new Output({
+                    id: view.genId('maillist_' + index),
+                    content: '<div class="server-link flex-center"><span class="text-muted">${maillistTitle}</span><div title="${maillistTitle}" class="badge-status status__${maillistStatus}"></div></div>',
+                    maillistTitle: _('inactive'),
+                    maillistStatus: 'disabled',
+                    onClick: function() {
+                        onRowClickAction('maillist-edit', maillist);
+                    },
+                    label: getFullName(maillist)
+                }));
+
+                if (isApsStatusInProgress(maillist.aps.status)) {
+                    view.byId('maillist_' + index).set({
+                        maillistTitle: _('maillistApsStatusCreateInProgress'),
+                        maillistStatus: 'createInProgress',
+                        label: getFullName(maillist)
+                    });
+                } else if (isApsStatusReady(maillist.aps.status)) {
+                    view.byId('maillist_' + index).set({
+                        maillistTitle: _('active'),
+                        maillistStatus: 'active',
+                        label: getFullName(maillist)
+                    });
+                }
+            });
+
+            view.byId('maillistButtons').addChild(maillistCreateButton);
+
+            view.byId('maillistButtons').addChild(new Button({
+                id: view.genId('allMaillistsButton'),
+                label: _('all'),
+                gridSize: 'xs-6 md-6',
+                onClick: function() {
+                    aps.apsc.gotoView('maillists', aps.context.vars.server.aps.id, {blockade: view.application.blockades.maillist});
+                }
+            }));
+        }
+
+        return ftpMaillistContainer;
+    };
+});

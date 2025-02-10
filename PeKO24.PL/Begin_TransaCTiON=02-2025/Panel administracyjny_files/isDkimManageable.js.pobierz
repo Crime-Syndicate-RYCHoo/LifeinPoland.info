@@ -1,0 +1,13 @@
+define([], function() {
+    /**
+     * Sprawdzenie czy możemy zarządzać opcją DKIM.
+     * Sterowanie DKIMem jest możliwe tylko gdy domena nie ma ustawionego przekierowania na zewnętrzny rekord MX lub jego brak.
+     *
+     * @param  {string} redirectionType typ przekierowania
+     *
+     * @return {boolean} wynik sprawdzenia
+     */
+    return function(redirectionType) {
+        return ['no_record', 'mx_servers'].indexOf(redirectionType) === -1;
+    };
+});

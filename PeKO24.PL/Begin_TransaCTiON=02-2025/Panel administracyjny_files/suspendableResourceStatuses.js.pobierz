@@ -1,0 +1,9 @@
+define([], function() {
+    /**
+     * Struktura zawiera statusy zasobu implementującego suspendableResource.
+     */
+    return {
+        disabled: 'disabled',
+        enabled: 'enabled'
+    };
+});

@@ -1,0 +1,41 @@
+define([
+    "dojo/_base/declare",
+    "../../../utils/restBase"
+], function (declare, restBase) {
+
+    return declare(restBase, {
+        constructor: function (){
+            this.setPath("");
+        },
+        getDocumentDetails: function(id, rql) {
+            return this.get({operation: "documents/" + id, rql: rql});
+        },
+        getPayments: function(id, rql) {
+            return this.get({operation: "payments/" + id, rql: rql});
+        },
+        postPaymentResult: function(data, timeout) {
+            return this.post({operation: "payments", data: data, headers: {"Content-Type": "application/json"}, timeout: timeout});
+        },
+        postComplexPaymentResult: function(data, timeout) {
+            return this.post({operation: "complexpayments", data: data, headers: {"Content-Type": "application/json"}, timeout: timeout});
+        },
+        getDocuments: function(rql){
+            return this.get({operation: "documents", rql: rql});
+        },
+        getAllDocuments: function(rql){
+            return this.get({operation: "alldocuments", rql: rql});
+        },
+        getUnpaidDocuments: function(){
+            return this.get({operation: "documents", rql: "ccpStatus=OPEN&or(eq(type,INVOICE),eq(type,DEBIT_MEMO))"});
+        },
+        getPDFDocument: function(docId){
+            return this.get({operation: "documents/"+docId+"/download", headers:{"Content-Type": "application/text"}, handleAs: "text"});
+        },
+        getAccountBalanceDetails: function(){
+            return this.get({operation: "accountBalanceDetails"});
+        },
+        getAccountBalance: function(bcnQuery){
+            return this.get({operation: "externalAccountBalanceDetails", rql: bcnQuery});
+        }
+    });
+});

@@ -1,0 +1,20 @@
+define([], function() {
+    /**
+     * Funkcja zmieniajca status przełącznika i właściwości modelu
+     *
+     * @param {Object[]} data [
+     *              'object'  => object  obiekt modelu do modyfikacji
+     *              'property => string  właściwość która ma zostac zmodyfikowana
+     *              ]
+     * @param {Object}   apsSwitch obiekt przełącznika
+     *
+     * @return {void}
+     */
+    return function(data, apsSwitch) {
+        var newStatus;
+
+        newStatus = apsSwitch.status === 'on' ? 'off' : 'on';
+        apsSwitch.set('status', newStatus);
+        data.object.set(data.property, newStatus);
+    };
+});

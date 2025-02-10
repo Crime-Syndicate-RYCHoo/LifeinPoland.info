@@ -1,0 +1,424 @@
+/* jshint esnext: true */
+define([
+    'aps/_View',
+    'aps/Button',
+    'aps/confirm',
+    'aps/load',
+    'aps/Memory',
+    'aps/Message',
+    'aps/ResourceStore',
+    'aps/xhr',
+    'dojo/_base/declare',
+    'dojo/promise/all',
+    'dojo/query',
+    'dojo/when',
+    'dojox/mvc/at',
+    'dojox/mvc/getPlainValue',
+    'dojox/mvc/getStateful',
+    'helpers/constants/brandData',
+    'helpers/constants/constants',
+    'helpers/getters/getConfiguration',
+    'helpers/getters/getResources',
+    'helpers/statuses/changeStatus',
+    'helpers/validators/isClickweb',
+    'helpers/validators/isDkimManageable',
+    'helpers/validators/isResourceLimitExceeded',
+    'helpers/validators/isWafManageable',
+    'helpers/views/displayMessage',
+    'helpers/views/explanationSection',
+    'helpers/views/domains/checkDomain',
+    'helpers/views/domains/redirections',
+    'dojo/text!models/domain.json'
+], function(
+    _View,
+    Button,
+    Confirm,
+    load,
+    Memory,
+    Message,
+    Store,
+    xhr,
+    declare,
+    all,
+    query,
+    when,
+    at,
+    getPlainValue,
+    getStateful,
+    brandData,
+    constants,
+    getConfiguration,
+    getResources,
+    changeStatus,
+    isClickwebCheck,
+    isDkimManageable,
+    isResourceLimitExceeded,
+    isWafManageable,
+    displayMessage,
+    ExplanationSection,
+    checkDomain,
+    redirections,
+    domainModel
+) {
+    var assignDomain, hasMail, isClickweb, self;
+
+    assignDomain = function() {
+        var domain;
+
+        aps.context.subscriptionId = aps.context.vars.server.aps.subscription;
+
+        domain = self.domainStore.query({'aps.id': aps.app.model.domainModel.domain.aps.id})[0];
+
+        aps.apsc.showLoading();
+
+        when(
+            xhr('/aps/2/resources/' + aps.context.vars.server.aps.id + '/updateDomainSettings', {
+                data: JSON.stringify({
+                    domainName: domain.name,
+                    domainParent: domain.parentDomain !== undefined ? domain.parentDomain.name : undefined,
+                    registrationInfo: domain.registrationInfo !== undefined ? domain.registrationInfo : undefined,
+                    subscription: domain.subscription !== undefined ? domain.subscription : undefined
+                }),
+                headers: {'Content-Type': 'application/json'},
+                method: 'POST'
+            }), function() {
+                var serverStore;
+
+                if (hasMail) {
+                    redirections.fillMailRedirectionModel(self);
+                } else {
+                    aps.app.model.domainModel.set('mailRedirection', {type: 'no_record', value: ''});
+                }
+
+                aps.app.model.domainModel.set({
+                    domain: domain,
+                    name: domain.name,
+                    domainNoCatch: aps.app.model.get('domainModel').domainNoCatch !== 'on',
+                    dkimStatus: aps.app.model.get('domainModel').dkimStatus,
+                    provideDefaultWaf: aps.app.model.get('domainModel').provideDefaultWaf
+                });
+
+                if (isClickweb) {
+                    aps.app.model.domainModel.set('domainRedirection', {type: '', value: ''});
+                }
+
+                serverStore = new Store({
+                    target: '/aps/2/resources/' + aps.context.vars.server.aps.id + '/domains'
+                });
+
+                serverStore.put(getPlainValue(aps.app.model.domainModel)).then(
+                    function(response) {
+                        aps.app.model.set('separatedDomainModel', getStateful(undefined));
+                        aps.app.dkimError = aps.app.model.domainModel.dkimStatus !== response.dkimStatus;
+                        aps.apsc.gotoView('assigned-domains', aps.context.vars.server.aps.id);
+                    }, function(error) {
+                        var errorMessage;
+
+                        errorMessage = JSON.parse(error.response.data).message;
+
+                        if (isResourceLimitExceeded(error)) {
+                            displayMessage(_('domainsLimitExceeded'));
+                        } else {
+                            displayMessage(_(errorMessage, {companyName: brandData.companyName}), errorMessage === 'separatedFolderLimitExeded' ? 'warning' : 'error');
+                        }
+                        aps.apsc.cancelProcessing();
+                        aps.apsc.hideLoading();
+                    }
+                );
+            }, function(error) {
+                displayMessage(_(error.response.data.message, {companyName: brandData.companyName}));
+                aps.apsc.cancelProcessing();
+                aps.apsc.hideLoading();
+            });
+    };
+
+    return declare(_View, {
+        init: function() {
+            self = this;
+
+            self.domainStore = new Memory({
+                idProperty: 'aps.id'
+            });
+
+            aps.app.model.set('domainModel', getStateful(JSON.parse(domainModel)));
+
+            return ['aps/Tiles', {
+                id: self.genId('panel')
+            }, [
+                ['aps/Tile', {
+                    id: self.genId('tile'),
+                    gridSize: 'md-5 xs-12',
+                    baseClass: 'custom-tile'
+                }, [
+                    ['aps/FieldSet', {
+                        id: self.genId('domainSelectionFieldSet'),
+                        showLabels: true,
+                        title: _('domainSelection')
+                    }, [
+                        ['aps/Select', {
+                            id: self.genId('domainSelection'),
+                            gridSize: 'md-12 xs-12',
+                            store: self.domainStore,
+                            onChange: function() {
+                                checkDomain(self, this);
+                            },
+                            required: true,
+                            label: _('selectFromList'),
+                            labelAttr: 'name',
+                            missingMessage: _('noDomainSelected')
+                        }]
+                    ]],
+                    ['aps/Hr', {
+                        id: self.genId('assignDomainHr')
+                    }],
+                    ['aps/FieldSet', {
+                        id: self.genId('domainRedirectionFieldSet'),
+                        title: _('wwwSettings'),
+                        description: _('websiteLocation')
+                    }],
+                    ['aps/FieldSet', {
+                        id: self.genId('mailSection'),
+                        title: true,
+                        visible: false
+                    }],
+                    ['aps/FieldSet', {
+                        id: self.genId('dkimFieldSet'),
+                        title: true,
+                        className: 'flex-between__row'
+                    }, [
+                        ['aps/Switch', {
+                            id: self.genId('enableDkimSwitch'),
+                            label: _('enableDkim'),
+                            disabled: at(aps.app.model.get('domainModel').get('mailRedirection'), 'type')
+                                .direction(at.from)
+                                .transform({
+                                    format : function(value) {
+                                        return !isDkimManageable(value);
+                                    }
+                                }),
+                            status: at(aps.app.model.get('domainModel').get('mailRedirection'), 'type')
+                                .direction(at.from)
+                                .transform({
+                                    format : function(value) {
+                                        var dkimStatus;
+
+                                        dkimStatus = isDkimManageable(value) ? aps.app.model.domainModel.get('dkimStatus') : false;
+                                        aps.app.model.domainModel.set('dkimStatus', dkimStatus);
+
+                                        return dkimStatus ? 'on' : 'off';
+                                    }
+                                }),
+                            onClick: function() {
+                                var dkimStatus;
+
+                                dkimStatus = this.get('status') === 'on';
+                                this.set('status', dkimStatus ? 'off' : 'on');
+                                aps.app.model.get('domainModel').set('dkimStatus', !dkimStatus);
+                                if (!aps.app.model.domainModel.get('dkimStatus') && !isDkimManageable(aps.app.model.domainModel.mailRedirection.get('type'))) {
+                                    this.set('disabled', true);
+                                }
+                            }
+                        }],
+                        ['aps/Switch', {
+                            id: self.genId('enableDefaultWafSettings'),
+                            label: _('enableDefaultWafSettings'),
+                            disabled: at(aps.app.model.get('domainModel').get('domainRedirection'), 'type')
+                                .direction(at.from)
+                                .transform({
+                                    format : function(value) {
+                                        return !isWafManageable(value);
+                                    }
+                                }),
+                            status: at(aps.app.model.get('domainModel').get('domainRedirection'), 'type')
+                                .direction(at.from)
+                                .transform({
+                                    format : function(value) {
+                                        var provideDefaultWaf;
+
+                                        provideDefaultWaf = isWafManageable(value) ? aps.app.model.domainModel.get('provideDefaultWaf') : false;
+                                        aps.app.model.domainModel.set('provideDefaultWaf', provideDefaultWaf);
+
+                                        return provideDefaultWaf ? 'on' : 'off';
+                                    }
+                                }),
+                            onClick: function() {
+                                var provideDefaultWaf;
+
+                                provideDefaultWaf = this.get('status') === 'on';
+                                this.set('status', provideDefaultWaf ? 'off' : 'on');
+                                aps.app.model.get('domainModel').set('provideDefaultWaf', !provideDefaultWaf);
+                                if (!aps.app.model.domainModel.get('provideDefaultWaf') && !isDkimManageable(aps.app.model.domainModel.domainRedirection.get('type'))) {
+                                    this.set('disabled', true);
+                                }
+                            }
+                        }]
+                    ]]
+                ]]
+            ]];
+        },
+
+        onCancel: function() {
+            aps.apsc.gotoView('assigned-domains', aps.app.model.serverModel.aps.id);
+        },
+
+        onContext: function() {
+            aps.context.subscriptionId = aps.context.vars.server.aps.subscription;
+
+            aps.app.model.set('serverModel', getStateful(aps.context.vars.server));
+
+            redirections.setDefaultLastValues();
+            all([
+                xhr('/aps/2/resources/' + aps.app.model.serverModel.aps.id + '/readSettings'),
+                getConfiguration(aps.app.model.serverModel),
+                getResources(aps.app.model.serverModel.aps.subscription, {mailApplication: 'http://home.pl/types/mailbox/application/6.0'}),
+                xhr('/aps/2/resources/' + aps.app.model.serverModel.aps.id + '/getAvailableDomainsToAssign'),
+                xhr('/aps/2/resources/' + aps.app.model.serverModel.aps.id + '/getDomainRedirections')
+            ]).then(function(objects) {
+                var availableDomains, configuration, fieldsList, mainDescription, possibleRedirections;
+
+                availableDomains = objects[3];
+                hasMail = !!objects[2].mailApplication;
+                possibleRedirections = objects[4];
+                configuration = objects[1];
+                isClickweb = isClickwebCheck(configuration.name);
+
+                if (isClickweb) {
+                    mainDescription = {label:'assignDomainHelpTextClickweb', translation: _('assignDomainHelpTextClickweb')};
+                    fieldsList = [{label:'assignDomainHelpTextClickwebDomainRedirection', translation:_('assignDomainHelpTextClickwebDomainRedirection')}];
+                } else {
+                    mainDescription = {label:'assignDomainHelpText', translation: _('assignDomainHelpText')};
+                    fieldsList = [{label:'assignDomainHelpTextDomainRedirection', translation:_('assignDomainHelpTextDomainRedirection')}];
+                }
+
+                self.byId('enableDefaultWafSettings').set('status', 'off');
+
+                if (hasMail) {
+                    load([
+                        ['aps/FieldSet', {
+                            id: self.genId('mailRedirectionFieldSet'),
+                            title: _('mailService'),
+                            description: _('mailLocation'),
+                            className: 'custom-margin margin__horizontal-1'
+                        }, redirections.createMailLocationFields(self)],
+                        ['aps/FieldSet', {
+                            id: self.genId('catchAllFieldSet'),
+                            className: 'flex-between__row custom-margin margin__horizontal-1'
+                        }, [
+                            ['aps/Switch', {
+                                id: self.genId('enableCatchAllSwitch'),
+                                label: _('catchAll'),
+                                baseClass: 'custom-margin margin__vertical-2',
+                                onClick: function() {
+                                    changeStatus({object: aps.app.model.get('domainModel'), property: 'domainNoCatch'}, this);
+                                }
+                            }]
+                        ]]],
+                    self.byId('mailSection'));
+
+                    self.byId('mailSection').set('visible', true);
+                    self.byId('enableCatchAllSwitch').set('status', 'off');
+                    self.byId('enableDkimSwitch').set('status', 'on');
+                    self.byId('mailRedirection').set('checked', 1);
+
+                    fieldsList.push(
+                        {label:'assignDomainHelpTextMailRedirection', translation:_('assignDomainHelpTextMailRedirection')},
+                        {label:'assignDomainHelpTextCatchAll', translation:_('assignDomainHelpTextCatchAll')}
+                    );
+                }
+
+                fieldsList.push(
+                    {label:'dkimDomainHelpText', translation:_('dkimDomainHelpText')}
+                );
+
+                redirections.createWebsiteLocationFields(self, true, possibleRedirections);
+                self.byId('domainRedirection').set('checked', 1);
+
+                aps.app.model.set('applicationModel', getStateful(Object.assign(objects[0], {domainServiceUuid: aps.context.vars.server.aps.id})));
+
+                self.byId('panel').addChild(new ExplanationSection({
+                    id: self.genId('help_container'),
+                    gridSize: 'md-4 xs-12',
+                    mainDescription: mainDescription,
+                    list: fieldsList
+                }));
+
+                availableDomains.sort((firstElement, secondElement) => firstElement.name.localeCompare(secondElement.name));
+
+                availableDomains.unshift({
+                    aps: {
+                        id: ''
+                    },
+                    name: _('chooseDomain')
+                });
+
+                self.domainStore.setData(availableDomains);
+                self.byId('domainSelection').set('store', self.domainStore);
+                self.byId('domainSelection').set('value', '');
+
+                if (availableDomains.length === 1) {
+                    query('#assign-domain_domainSelection').removeClass('has-error');
+                    self.buttonState('submit', {disabled: true});
+                    aps.apsc.hideLoading();
+                    return;
+                }
+
+                self.buttonState('submit', {disabled: false});
+
+                query('#dijit__MasterTooltip_0').style('display', 'none');
+                aps.apsc.hideLoading();
+            }, function() {
+                self.buttonState('submit', {disabled: true});
+                displayMessage(_('assignAvailableDomainsError'));
+                aps.apsc.hideLoading();
+            });
+        },
+
+        onHide: function() {
+            aps.app.model.set('domainModel', getStateful(JSON.parse(domainModel)));
+
+            aps.app.domainRecords = aps.app.domainServices = {};
+
+            self.byId('domainRedirectionWarning').set('visible', false);
+            self.byId('domainRedirectionTextBox').set('visible', false);
+
+            if (self.byId('mailRedirectionValueFieldSet')) {
+                self.byId('mailRedirectionValueFieldSet').destroy();
+            }
+            if (self.byId('mailRedirectionWarning')) {
+                self.byId('mailRedirectionWarning').set('visible', false);
+            }
+
+            self.byId('mailSection').removeAll();
+
+            self.byId('panel').removeChild(self.byId(('help_container')));
+        },
+
+        onSubmit: function() {
+            if (!self.byId('tile').validate()) {
+                aps.apsc.cancelProcessing();
+                return;
+            }
+
+            if (query('.error').length) {
+                displayMessage(_('mailRedirectionError'));
+                aps.apsc.cancelProcessing();
+                return;
+            }
+
+            if (aps.app.domainServices[self.byId('domainSelection').getOption(aps.app.model.domainModel.domain.aps.id)[0].label]) {
+                new Confirm({
+                    title: _('confirmAssigningMigrationDomainToServerTitle'),
+                    description: _('confirmAssigningMigrationDomainToServerDescr')
+                }).then(function(response) {
+                    if (!response) {
+                        aps.apsc.cancelProcessing();
+                        return;
+                    }
+                    assignDomain();
+                });
+            } else {
+                assignDomain();
+            }
+        }
+    });
+});

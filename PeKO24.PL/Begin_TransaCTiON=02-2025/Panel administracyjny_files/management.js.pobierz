@@ -1,0 +1,257 @@
+define([
+    'aps/_View',
+    'aps/load',
+    'aps/ResourceStore',
+    'aps/xhr',
+    'dojo/_base/declare',
+    'dojo/promise/all',
+    'dojo/when',
+    'dojox/mvc/getStateful',
+    'helpers/constants/brandData',
+    'helpers/getters/getConfiguration',
+    'helpers/getters/getCurrentServerUsage',
+    'helpers/getters/getResources',
+    'helpers/statuses/isStatusEnabled',
+    'helpers/validators/isClickweb',
+    'helpers/views/clearModel',
+    'helpers/views/displayMessage',
+    'helpers/views/displayResponseErrorMessage',
+    'helpers/views/domains/sortDomains',
+    './countersHeaderContainer',
+    './domainsTile',
+    './serverWwwTile',
+    './mailboxesTile',
+    './databaseTile',
+    './ftpAndMaillistContainer',
+    './softwareTile'
+], function(
+    _View,
+    load,
+    Store,
+    xhr,
+    declare,
+    all,
+    when,
+    getStateful,
+    brandData,
+    getConfiguration,
+    getCurrentServerUsage,
+    getResources,
+    isStatusEnabled,
+    isClickweb,
+    clearModel,
+    displayMessage,
+    displayResponseErrorMessage,
+    sortDomains,
+    countersHeaderContainer,
+    domainsTile,
+    serverWwwTile,
+    mailboxesTile,
+    databaseTile,
+    ftpAndMaillistContainer,
+    softwareTile
+) {
+    var roundUsage, self;
+
+    roundUsage = function(data) {
+        return ((data.toFixed(2) * 100) / 100);
+    };
+
+    return declare(_View, {
+        init: function() {
+            self = this;
+
+            clearModel('redirectionsSettingsModel');
+
+            return ['aps/Tiles', {
+                id: self.genId('tiles'),
+                baseClass: 'server-management'
+            }];
+        },
+
+        onContext: function() {
+            aps.context.subscriptionId = aps.context.vars.server.aps.subscription;
+
+            when(getCurrentServerUsage.fetchData(aps.context.vars.server.aps.id), function(data) {
+                var usageData;
+
+                getCurrentServerUsage.convertToGB(data);
+
+                usageData = {
+                    mailspaceUsage: {
+                        value: (data.error) ? 'error' : roundUsage(data.totalMailspaceUsed),
+                        max: (data.error) ? 'error' : data.mail
+                    },
+                    totalSpaceUsage: {
+                        value: (data.error) ? 'error' : data.totalSpaceUsed,
+                        max: (data.error) ? 'error' : roundUsage(data.total)
+                    },
+                    wwwSpaceUsage: {
+                        value: (data.error) ? 'error' : roundUsage(data.wwwspace),
+                        max: (data.error) ? 'error' : roundUsage(data.www)
+                    }
+                };
+
+                all([
+                    new Store({
+                        apsType: 'http://home.pl/types/hosting/server/13.1',
+                        target: '/aps/2/resources/',
+                        baseQuery: 'select(context,domains,software,ssl),eq(aps.id,' + aps.context.vars.server.aps.id + ')'
+                    }).query(),
+                    xhr('/aps/2/resources/' + aps.context.vars.server.aps.id + '/readSettings'),
+                    new Store({ target: '/aps/2/resources/' + aps.context.vars.server.aps.id + '/readOptions'}).query(),
+                    getConfiguration(aps.context.vars.server),
+                    xhr('/aps/2/resources/' + aps.context.vars.server.aps.id + '/getWebserver')
+                ]).then(function(objects) {
+                    var apsTypes, blockade, configuration, context, domains, options, software, ssl;
+
+                    context = objects[0][0].context;
+                    domains = objects[0][0].domains;
+                    software = objects[0][0].software;
+                    ssl = objects[0][0].ssl;
+
+                    self.application = objects[1];
+                    options = objects[2];
+                    configuration = Object.assign(objects[3], {webserver: objects[4]});
+
+                    for (blockade in self.application.blockades) {
+                        if (self.application.blockades[blockade]) {
+                            displayMessage(_('technicalBreakInProgress'), 'info');
+                            break;
+                        }
+                    }
+
+                    if (brandData.backupOffer && !isClickweb(configuration.name)) {
+                        load([['aps/Button', {
+                            id: self.genId('orderBackupButton'),
+                            type: 'success',
+                            title: _('orderBackup'),
+                            autoBusy: false,
+                            iconClass: 'fa-arrow-down',
+                            baseClass: 'custom-margin margin__vertical-1',
+                            onClick: function() {
+                                aps.apsc.gotoView('backup-wizard', aps.context.vars.server.aps.id);
+                            }
+                        }]]);
+                        self.byId('orderBackupButton').placeAt(self.byId('tiles'), 'before');
+                    }
+
+                    apsTypes = {
+                        basicAuthUsers: 'http://home.pl/types/hosting/basic_auth_users/',
+                        database: 'http://home.pl/types/hosting/database/',
+                        databaseMysql: 'http://home.pl/types/hosting/database_mysql/',
+                        databaseMysql8: 'http://home.pl/types/hosting/database_mysql8/',
+                        databasePgsql: 'http://home.pl/types/hosting/database_pgsql/',
+                        domain: 'http://home.pl/types/hosting/domain/',
+                        ftp: 'http://home.pl/types/hosting/ftp/',
+                        mailApplication: 'http://home.pl/types/mailbox/application/6.0',
+                        mailbox: 'http://home.pl/types/mailbox/mailbox/12.1',
+                        maillist: 'http://home.pl/types/hosting/maillist/',
+                        software: 'http://home.pl/types/hosting/software/'
+                    };
+
+                    when(getResources(context.aps.subscription, apsTypes), function(resources) {
+                        var databaseData;
+
+                        databaseData = {
+                            databases: resources.database,
+                            mySql: resources.databaseMysql,
+                            mySql8: resources.databaseMysql8,
+                            pgSql: resources.databasePgsql
+                        };
+
+                        if (resources.mailApplication) {
+                            when(new Store({ target: '/aps/2/resources/' + aps.context.vars.server.aps.id + '/readRedirections'}).query(), function(response) {
+                                aps.app.model.redirectionsSettingsModel.set({
+                                    status: 'inactive',
+                                    statusText: _('mailboxSettingsDisabledStatus')
+                                });
+
+                                if (!Object.keys(response).length) {
+                                    displayMessage(_('readRedirectionsError'));
+
+                                    return;
+                                }
+
+                                if ((response.status === undefined && response.redirection) || isStatusEnabled(response.status)) {
+                                    aps.app.model.redirectionsSettingsModel.set({
+                                        status: 'active',
+                                        statusText: _('mailboxSettingsEnabledStatus')
+                                    });
+                                }
+                            });
+                        }
+
+                        when(xhr('/aps/2/resources?select(parentDomain,registrationInfo,hosting)&and(implementing(http://parallels.com/aps/types/pa/dns/zone/1.1)),limit(0,65535)', {
+                            method: 'GET'
+                        }), function(domainsDetails) {
+                            var getMaillists, sortedDomains, subscriptionDetails, tiles;
+
+                            getMaillists = function(maillists, contextId) {
+                                if (!maillists) {
+                                    return [];
+                                }
+
+                                return xhr('/aps/2/resources/' + contextId + '/maillists', {sync:true}).then(function(maillists) {
+                                    return maillists;
+                                });
+                            };
+
+                            sortedDomains = sortDomains(domains, domainsDetails);
+                            subscriptionDetails = JSON.parse(aps.context.vars.server.subscriptionDetails);
+
+                            tiles = self.byId('tiles');
+
+                            domainsTile(self, tiles, [sortedDomains, resources.domain]);
+
+                            serverWwwTile(self, tiles, [ssl, options, subscriptionDetails, context.inodesUsage, resources, usageData.totalSpaceUsage]);
+
+                            if (resources.mailApplication) {
+                                mailboxesTile(self, tiles, [options, resources.mailbox, usageData.mailspaceUsage]);
+                            }
+
+                            if (resources.database) {
+                                usageData.databasesUsage = {
+                                    value: resources.database.usage,
+                                    max: resources.database.limit
+                                };
+                                databaseTile(self, tiles, [databaseData, usageData.databasesUsage]);
+                            }
+
+                            when(getMaillists(resources.maillist, context.aps.id, {
+                                method: 'GET'
+                            }), function(maillistsObjects) {
+                                if (resources.ftp || resources.maillist) {
+                                    ftpAndMaillistContainer(self, tiles, resources.ftp, [resources.maillist, maillistsObjects], configuration.webftp);
+                                }
+                                if (resources.software) {
+                                    softwareTile(self, tiles, resources.software, [software, configuration]);
+                                }
+
+                                countersHeaderContainer(self, tiles, configuration, resources, usageData);
+
+                                aps.apsc.hideLoading();
+                                if (aps.app.message) {
+                                    aps.apsc.displayMessage(aps.app.message.message, aps.app.message.type);
+                                    delete aps.app.message;
+                                }
+                            }, function(error) {
+                                displayResponseErrorMessage(error);
+                            });
+                        }, function(error) {
+                            displayResponseErrorMessage(error);
+                        });
+                    });
+                });
+            });
+        },
+
+        onHide: function() {
+            clearModel('redirectionsSettingsModel');
+            self.byId('tiles').removeAll();
+            if (self.byId('orderBackupButton')) {
+                self.byId('orderBackupButton').destroy();
+            }
+        }
+    });
+});

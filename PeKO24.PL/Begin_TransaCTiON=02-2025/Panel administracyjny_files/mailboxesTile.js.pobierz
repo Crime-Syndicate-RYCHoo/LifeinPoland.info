@@ -1,0 +1,261 @@
+define([
+    'aps/FieldSet',
+    'aps/Output',
+    'aps/Tile',
+    'aps/UsageInfo',
+    'aps/xhr',
+    'dojo/when',
+    'dojox/mvc/at',
+    'helpers/getters/getUsageCountText',
+    'helpers/statuses/isStatusEnabled',
+    'helpers/validators/canHavePersonalEmails',
+    'helpers/validators/isResourceLimitReached'
+], function(
+    FieldSet,
+    Output,
+    Tile,
+    UsageInfo,
+    xhr,
+    when,
+    at,
+    getUsageCountText,
+    isStatusEnabled,
+    canHavePersonalEmails,
+    isResourceLimitReached
+) {
+    var mailboxTile;
+
+    return function(view, container, data) {
+        var autoresponderSettings, checkAutoresponderStatus, hostAddress, mailboxResource, mailboxServerFieldSet, options, redirectionsSettings, usageData;
+
+        options = data[0];
+        mailboxResource = data[1];
+        usageData = data[2];
+
+        checkAutoresponderStatus = function() {
+            var autoresponderOptionsParams;
+
+            autoresponderOptionsParams = {
+                status: 'inactive',
+                statusText: _('mailboxSettingsDisabledStatus')
+            };
+
+            if (!options.user_mailserver_type) {
+                if (options.user_autoresp) {
+                    autoresponderOptionsParams.status = 'active';
+                    autoresponderOptionsParams.statusText = _('mailboxSettingsEnabledStatus');
+                }
+
+                view.byId('mailboxAutoreponderOutput').set(autoresponderOptionsParams);
+
+                return;
+            }
+
+            when(xhr('/aps/2/resources/' + aps.context.vars.server.aps.id + '/readAutoresponder'), function(autoresponder) {
+                if (isStatusEnabled(autoresponder.status)) {
+                    autoresponderOptionsParams.status = 'active';
+                    autoresponderOptionsParams.statusText = _('mailboxSettingsEnabledStatus');
+                }
+
+                view.byId('mailboxAutoreponderOutput').set(autoresponderOptionsParams);
+            }, function() {});
+        };
+
+        autoresponderSettings = function() {
+            if (view.application.blockades.server) {
+                return;
+            }
+
+            aps.apsc.gotoView('server-autoresponder-settings', aps.context.vars.server.aps.id);
+        };
+
+        redirectionsSettings = function() {
+            if (view.application.blockades.server) {
+                return;
+            }
+
+            aps.apsc.gotoView('server-redirection-notifications-settings', aps.context.vars.server.aps.id);
+        };
+
+        container.addChild(new Tile({
+            id: view.genId('mailboxTile'),
+            gridSize: 'md-4 xs-12',
+            baseClass: 'server-tile custom-tile mailbox-tile',
+            title: false,
+            buttons: [
+                {
+                    id: view.genId('createMailboxButton'),
+                    title: _('create'),
+                    disabled: view.application.blockades.mailbox || isResourceLimitReached(mailboxResource),
+                    onClick: function() {
+                        if (view.application.blockades.mailbox) {
+                            return;
+                        }
+
+                        aps.apsc.gotoView('http://home.pl/mailboxes#mailbox-new', aps.context.vars.server.aps.id);
+                    }
+                }, {
+                    title: _('options'),
+                    items: [{
+                        id: view.genId('listMailboxesButton'),
+                        title: _('showAll'),
+                        onClick: function() {
+                            aps.apsc.gotoView('http://home.pl/mailboxes#mailboxes', null, {filters: JSON.stringify({'server.name':aps.context.vars.server.name})});
+                        }
+                    }, {
+                        id: view.genId('serverAntispamButton'),
+                        title: _('antispamFilter'),
+                        disabled: view.application.blockades.server,
+                        onClick: function() {
+                            if (view.application.blockades.server) {
+                                return;
+                            }
+
+                            aps.apsc.gotoView('server-antispam-settings', aps.context.vars.server.aps.id);
+                        }
+                    }, {
+                        id: view.genId('autoreponderButton'),
+                        title: _('autoresponder'),
+                        disabled: view.application.blockades.server,
+                        onClick: autoresponderSettings
+                    }, {
+                        id: view.genId('redirectionsButton'),
+                        title: _('redirections'),
+                        disabled: view.application.blockades.server,
+                        onClick: redirectionsSettings
+                    }, {
+                        id: view.genId('separator'),
+                        type: 'separator'
+                    }, {
+                        id: view.genId('mailServerSettings'),
+                        title: _('mailboxServers'),
+                        disabled: view.application.blockades.server,
+                        onClick: function() {
+                            if (view.application.blockades.server) {
+                                return;
+                            }
+
+                            aps.apsc.gotoView('mail-server-settings', aps.context.vars.server.aps.id);
+                        }
+                    }, {
+                        id: view.genId('personalEmailsButton'),
+                        title: _('personalEmailsList'),
+                        visible: canHavePersonalEmails(),
+                        onClick: function() {
+                            aps.apsc.gotoView('pmails', aps.context.vars.server.aps.id);
+                        }
+                    }]
+                }
+            ]
+        }));
+
+        mailboxTile = view.byId('mailboxTile');
+
+        mailboxTile.addChild(new Output({
+            id: view.genId('mailboxOutputHeader'),
+            baseClass: 'server-tile__header col-md-12',
+            content: '<div class="flex-between"><h3>${title}</h3><span class="text-danger">${mailboxesCount}</span></div>',
+            title: _('mailboxesAccounts'),
+            mailboxesCount: getUsageCountText(mailboxResource)
+        }));
+
+        mailboxTile.addChild(new FieldSet({
+            id: view.genId('mailboxUsageFieldSet'),
+            baseClass: 'server-container text-right',
+            gridSize: 'md-12'
+        }));
+
+        view.byId('mailboxUsageFieldSet').addChild(new UsageInfo({
+            id: view.genId('mailboxUsageInfo'),
+            label: _('serverSpaceUsage'),
+            minimum: 0,
+            maximum:  usageData.max,
+            value: (usageData.value === 'error') ? 0 : usageData.value,
+            precision: 1,
+            align: 'right',
+            textFirstNumber: '${percent}%',
+            description: (usageData.value === 'error') ? '' : '${value}GB / ${maximum}GB'
+        }));
+
+        mailboxTile.addChild(new FieldSet({
+            id: view.genId('mailboxOptionsFieldSet'),
+            baseClass: 'server-container flex-between__row mailbox-options',
+            gridSize: 'md-12'
+        }));
+
+        mailboxTile.addChild(new FieldSet({
+            id: view.genId('mailboxServerFieldSet'),
+            baseClass: 'server-container flex-between__row mailbox-servers',
+            gridSize: 'md-12'
+        }));
+
+        view.byId('mailboxOptionsFieldSet').addChild(new Output({
+            id: view.genId('mailboxAutoreponderOutput'),
+            label: _('autoresponder'),
+            content: '<div class="flex-center"><span class="server-link text-muted">${statusText}</span><div title="${statusText}" class="badge-status status__${status}"></div></div>',
+            onClick: autoresponderSettings
+        }));
+
+        checkAutoresponderStatus();
+
+        view.byId('mailboxOptionsFieldSet').addChild(new Output({
+            id: view.genId('mailboxRedirectionsOutput'),
+            label: _('redirections'),
+            content: '<div class="flex-center"><span class="server-link text-muted">${statusText}</span><div title="${statusText}" class="badge-status status__${status}"></div></div>',
+            onClick: redirectionsSettings,
+            status: at(aps.app.model.redirectionsSettingsModel, 'status'),
+            statusText: at(aps.app.model.redirectionsSettingsModel, 'statusText')
+        }));
+
+        mailboxServerFieldSet = view.byId('mailboxServerFieldSet');
+
+        mailboxServerFieldSet.addChild(new Output({
+            id: view.genId('mailboxServersOutput'),
+            label: _('mailboxServers')
+        }));
+
+        hostAddress = aps.context.vars.server.name + '.' + view.application.baseHost;
+
+        mailboxServerFieldSet.addChild(new Output({
+            id: view.genId('mailboxPop3Output'),
+            gridSize: 'md-12',
+            label: _('pop3'),
+            content: '<small class="text-muted">${hostAddress} &emsp;' + _('port') + ': ${standardPort} &emsp;' + _('portSsl') + ': ${port}</small>',
+            hostAddress: hostAddress,
+            standardPort: '110',
+            port: '995'
+        }));
+
+        mailboxServerFieldSet.addChild(new Output({
+            id: view.genId('mailboxSmtpOutput'),
+            gridSize: 'md-12',
+            label: _('smtp'),
+            content: '<small class="text-muted">${hostAddress} &emsp;' + _('port') + ': ${standardPort} &emsp;' + _('portSsl') + ': ${port}</small>',
+            hostAddress: hostAddress,
+            standardPort: '587',
+            port: '465'
+        }));
+
+        mailboxServerFieldSet.addChild(new Output({
+            id: view.genId('mailboxImapOutput'),
+            gridSize: 'md-12',
+            label: _('imap'),
+            content: '<small class="text-muted">${hostAddress} &emsp;' + _('port') + ': ${standardPort} &emsp;' + _('portSsl') + ': ${port}</small>',
+            hostAddress: hostAddress,
+            standardPort: '143',
+            port: '993'
+        }));
+
+        mailboxServerFieldSet.addChild(new Output({
+            id: view.genId('mailboxFtpOutput'),
+            gridSize: 'md-12',
+            label: _('ftpServer'),
+            content: '<small class="text-muted">${hostAddress} &emsp;' + _('port') + ': ${standardPort} &emsp;&ensp;' + _('portSsl') + ': ${port}</small>',
+            hostAddress: hostAddress,
+            standardPort: '21',
+            port: '990'
+        }));
+
+        return mailboxTile;
+    };
+});

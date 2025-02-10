@@ -1,0 +1,38 @@
+define([
+	"dojo/_base/declare",
+	"../../utils/restBase"
+	], function (declare, restBase) {
+
+		return declare(restBase, {
+			constructor: function (){
+				this.setPath("bss");
+			},
+			getAccount: function() {
+				return this.get({operation: "account"});
+			},
+			postAccount: function (data) {
+				return this.post({operation: "account", data: data, headers: {"Content-Type": "application/json"}});
+			},
+			putAccount: function (data) {
+				return this.put({operation: "account", data: data, headers: {"Content-Type": "application/json"}});
+			},
+			getCurrencyStatuses: function() {
+				return this.get({operation: "account/currency-states"});
+			},
+			getAccountBalance: function() {
+				return this.get({operation: "account/balance"});
+			},
+			getUnpaidInfo: function() {
+				return this.get({operation: "account/unpaid-info"});
+			},
+			getMarketPlaceEnabled: function() {
+				return this.get({operation: "account/marketplace-enabled"});
+			},
+			postMarketPlaceUrl: function() {
+				return this.post({operation: "account/marketplace-url"});
+			},
+			getCPSettings: function () {
+				return this.get({operation: "account/cp-settings"});
+			}
+		});
+});

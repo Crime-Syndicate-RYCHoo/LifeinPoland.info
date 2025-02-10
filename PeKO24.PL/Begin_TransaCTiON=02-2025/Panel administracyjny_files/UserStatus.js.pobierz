@@ -1,0 +1,128 @@
+define([
+	"dojo/_base/lang",
+	"dojo/_base/array",
+
+	"aps/Status"
+], function (
+	lang,
+	array,
+
+	Status
+) {
+	var isAdmin = function (user) {
+			return (user.aps.type.indexOf("http://parallels.com/aps/types/pa/admin-user") != -1);
+		},
+		isCurrentUser = function (user) {
+			return (aps.context.user.aps.id === user.aps.id);
+		},
+		getStatus = function (user) {
+			switch (user.aps.status) {
+				case "aps:proto":
+					return "creating";
+				case "aps:configuring":
+				case "aps:provisioning":
+					return "updating";
+				case "aps:unprovisioning":
+					return "deleting";
+				case "aps:deleted":
+					return "deleted";
+				case "aps:ready":
+					if (!Array.isArray(user.services)) {
+						console.warn("[ERROR] UserStatus cant resolve user services status: they were not loaded to model");
+					} else
+					if (user.services.some(function(service) {
+						return	"aps:updating" == service.aps.status ||
+								"aps:deleting" == service.aps.status ||
+								"aps:provisioning" == service.aps.status ||
+								"aps:configuring" == service.aps.status;
+					})) {
+						return "configuringServices";
+					}
+
+				default:
+					if (user.disabled) {
+						return "disabled";
+					}
+
+					if (user.locked) {
+						return "locked";
+					}
+
+					if (!!user.invitationDate) {
+						return "invited";
+					}
+			}
+
+			return "ready";
+		},
+		some = function (arrayObject, status) {
+			return array.some(arrayObject, function (val) {
+				return val == status
+			})
+		};
+
+	var status = function (user, context) {
+		var def = {
+			user: user,
+			context: context,
+			status: getStatus(user),
+			getStatus: function () {
+				return def.status;
+			},
+			isCurrentUser: function () {
+				return isCurrentUser(def.user);
+			},
+			isAdmin: function () {
+				return isAdmin(def.user);
+			},
+			getWidget: function (params) {
+				params = lang.mixin({
+					status: def.status,
+					gridSize: "md-12 xs-12",
+					useIcon: true,
+					statusInfo: def._getStatusInfo()
+				}, params);
+				return new Status(params);
+			},
+			some: function (arrayObject) {
+				return some(arrayObject, def.status);
+			},
+			_getStatusInfo: function () {
+				return {
+					creating: {"label": def._getLabel("creating"), "type": "default", isLoad: true},
+					updating: {"label": def._getLabel("updating"), "type": "default", isLoad: true},
+					configuringServices: {"label": def._getLabel("configuringServices"), "type": "default", isLoad: true},
+					deleting: {"label": def._getLabel("deleting"), "type": "default", isLoad: true},
+					deleted: {"label": def._getLabel("deleted"), "type": "danger"},
+					disabled: {"label": def._getLabel("disabled"), "type": "warning"},
+					locked: {"label": def._getLabel("locked"), "type": "danger"},
+					invited: {"label": def._getLabel("invited"), "type": "warning"},
+					ready: {"label": def._getLabel("ready"), "type": "success"}
+				};
+			},
+			_getLabel: function (status) {
+				var labels = {
+					creating: _("Creating", {}, {}, this.context),
+					updating: _("Updating", {}, {}, this.context),
+					configuringServices: _("Configuring services", {}, {}, this.context),
+					deleting: _("Deleting", {}, {}, this.context),
+					deleted: _("Deleted", {}, {}, this.context),
+					disabled: _("Disabled", {}, {}, this.context),
+					locked: _("Locked", {}, {}, this.context),
+					invited: _("Not Activated", {}, {}, this.context),
+					ready: _("Ready", {}, {}, this.context)
+				};
+
+				return labels[status];
+			}
+		};
+		return def;
+	};
+
+	status.getStatus = getStatus;
+	status.isCurrentUser = isCurrentUser;
+	status.isAdmin = isAdmin;
+	status.some = some;
+
+	return status;
+});

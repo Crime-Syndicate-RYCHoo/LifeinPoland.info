@@ -1,0 +1,435 @@
+/* jshint laxbreak: true */
+define([
+    'aps/_View',
+    'aps/xhr',
+    'aps/confirm',
+    'aps/Button',
+    'aps/DropDownButton',
+    'aps/Output',
+    'aps/ResourceStore',
+    'dojo/_base/declare',
+    'dojo/promise/all',
+    'dojo/when',
+    'dojox/mvc/at',
+    'dojox/mvc/getStateful',
+    'helpers/constants/constants',
+    'helpers/getters/getConfiguration',
+    'helpers/getters/getResources',
+    'helpers/statuses/isApsStatusReady',
+    'helpers/views/clearSelection',
+    'helpers/views/displayResponseErrorMessage',
+    'helpers/views/explanationSection',
+    'helpers/views/domains/redirections',
+    'helpers/views/lists/customSearchBox',
+    'helpers/views/lists/emptyListContent',
+    'helpers/views/lists/findColumn'
+], function(
+    _View,
+    xhr,
+    Confirm,
+    Button,
+    DropDownButton,
+    Output,
+    Store,
+    declare,
+    all,
+    when,
+    at,
+    getStateful,
+    constants,
+    getConfiguration,
+    getResources,
+    isApsStatusReady,
+    clearSelection,
+    displayResponseErrorMessage,
+    ExplanationSection,
+    redirections,
+    customSearchBox,
+    emptyListContent,
+    findColumn
+) {
+    var grid, self;
+
+    return declare(_View, {
+        init: function() {
+            var statefulCount, unassignDomains;
+
+            self = this;
+
+            unassignDomains = function() {
+                new Confirm({
+                    title: _('unassignDomainFromServer'),
+                    description: _('areYouSure')
+                }).then(function(response) {
+                    if (!response) {
+                        if (aps.context.visibleMode === 'xs') {
+                            grid.selectionArray.splice(0, 1);
+                        }
+                        return;
+                    }
+
+                    grid.get('selectionArray').forEach(function(serviceId, index, servicesToDelete) {
+                        var selected;
+
+                        selected = grid.getData().find(function(service) {
+                            return service.aps.id === serviceId;
+                        });
+
+                        when(grid.store.remove(serviceId), function() {
+                            grid.refresh();
+
+                            servicesToDelete.splice(servicesToDelete.indexOf(serviceId), 1);
+
+                            self.byId('delete').cancel();
+
+                            aps.apsc.displayMessage(_('domain__domainName__HasBeenUnassignedFromServer', { domainName: selected.name }), 'info');
+                        }, function(error) {
+                            self.byId('unassignDomainsButton').cancel();
+                            displayResponseErrorMessage(error);
+                        });
+                    });
+                });
+            };
+
+            statefulCount = getStateful({count:0});
+
+            return ['aps/Tiles', {
+                id: self.genId('domainsTiles')
+            }, [
+                ['aps/Grid', {
+                    id: self.genId('domainsGrid'),
+                    rowsPerPage: constants.rowsPerPage,
+                    selectionMode: 'multiple',
+                    noDataText: '',
+                    noEntriesFoundText: _('noAssignedDomainsMeetYourSearchCriteria'),
+                    gridSize: 'md-8 xs-12',
+                    baseClass: 'custom-grid',
+                    _totalItemCount: at(statefulCount, 'count').direction(at.to), // eslint-disable-line
+                    sort: {
+                        attribute: 'name',
+                        descending: false
+                    },
+                    columns: [{
+                        field: 'name',
+                        name: _('domains'),
+                        filter: true,
+                        nowrap: false,
+                        renderCell: function(object) {
+                            return new Output({
+                                content: '<div><p>${value}</p></div>',
+                                value: object.name,
+                                baseClass: !isApsStatusReady(object.aps.status) && 'inactive'
+                            });
+                        }
+                    }, {
+                        field: 'mailRedirection.type',
+                        name: _('mailService'),
+                        sortable: true,
+                        renderCell: function(object) {
+                            var redirection;
+
+                            if (!object.hasMail) {
+                                return;
+                            }
+
+                            redirection = object.mailRedirection && redirections.translates.mail[object.mailRedirection.type]
+                                ? redirections.translates.mail[object.mailRedirection.type]
+                                : _('thisServer');
+
+                            return new Output({
+                                content: '<span>${redirection}</span>'
+                                    + '<div class="access-information">${value}</div>',
+                                redirection: redirection,
+                                value: object.mailRedirection.value.replace(/\//g, ', ').replace(/;([0-9]{1,5})/g, ' ($1)'),
+                                baseClass: !isApsStatusReady(object.aps.status) ? 'inactive' : ''
+                            });
+                        }
+                    }, {
+                        field: 'domainRedirection.type',
+                        name: _('websiteLocation'),
+                        sortable: true,
+                        filter: {
+                            options: [{
+                                value: 'frame',
+                                label: redirections.translates.domain.frame
+                            }, {
+                                value: 'global_folder',
+                                label: redirections.translates.domain.global_folder
+                            }, {
+                                value: 'separated_folder',
+                                label: redirections.translates.domain.separated_folder
+                            }, {
+                                value: 'moved_permanently',
+                                label: redirections.translates.domain.moved_permanently
+                            }, {
+                                value: 'a_record',
+                                label: redirections.translates.domain.a_record
+                            }, {
+                                value: 'no_record',
+                                label: redirections.translates.domain.no_record
+                            }]
+                        },
+                        renderCell: function(object) {
+                            var redirection;
+
+                            redirection = object.domainRedirection && redirections.translates.domain[object.domainRedirection.type]
+                                ? redirections.translates.domain[object.domainRedirection.type]
+                                : _('mainFolder');
+
+                            return new Output({
+                                content: '<div><span>${redirection}</span><div class="access-information">${domainRedirectionValue}</div></div>',
+                                redirection: redirection,
+                                domainRedirectionValue: object.domainRedirection.value,
+                                baseClass: !isApsStatusReady(object.aps.status) ? 'inactive' : ''
+                            });
+                        }
+                    }, {
+                        field: 'wafStatus',
+                        name: _('wafStatus'),
+                        nowrap: true,
+                        visible: false,
+                        sortable: false,
+                        renderCell: function(object) {
+                            var wafStatusClass;
+
+                            if (!object.waf) {
+                                return;
+                            }
+
+                            wafStatusClass = object.waf.usage > 0 && ['', 'global_folder', 'separated_folder'].includes(object.domainRedirection.type) ? 'created' : 'inactive';
+
+                            return new Output({
+                                id: self.genId('status_' + object.aps.id + '_output'),
+                                content: '<div><div class="badge-status status__${wafStatusClass}" style="float:left"></div><div style="padding-left: 25px">${wafUsage}/${wafLimit}</div></div>',
+                                wafStatusClass: wafStatusClass,
+                                wafUsage: object.waf.usage,
+                                wafLimit: object.waf.limit
+                            });
+                        }
+                    }, {
+                        field: 'options',
+                        renderCell: function(object) {
+                            var buttons;
+
+                            buttons = [{
+                                label: _('edit'),
+                                disabled: !isApsStatusReady(object.aps.status),
+                                baseClass: !isApsStatusReady(object.aps.status) ? 'inactive' : '',
+                                onClick: function() {
+                                    if (!isApsStatusReady(object.aps.status)) {
+                                        return;
+                                    }
+                                    this.set('isBusy', false);
+                                    aps.apsc.gotoView('assigned-domain-edit', object.aps.id);
+                                }
+                            }];
+
+                            if (object.waf) {
+                                buttons.push({
+                                    id: self.genId('domainWaf' + object.aps.id),
+                                    disabled: !['', 'global_folder', 'separated_folder'].includes(object.domainRedirection.type),
+                                    label: _('manageWaf'),
+                                    onClick: function() {
+                                        if (!isApsStatusReady(object.aps.status)) {
+                                            return;
+                                        }
+
+                                        aps.apsc.gotoView('waf-domain-edit', object.aps.id);
+                                    }
+                                });
+                            }
+
+                            if (aps.context.visibleMode === 'xs') {
+                                buttons.push({
+                                    id: self.genId('delete' + object.aps.id),
+                                    label: _('delete'),
+                                    autoBusy: false,
+                                    baseClass: 'btn-danger',
+                                    onClick: function() {
+                                        grid.selectionArray.push(object.aps.id);
+                                        unassignDomains();
+                                    }
+                                });
+                            }
+
+                            return buttons.length > 1 ? new DropDownButton({
+                                id: self.genId('actionsButton' + object.aps.id),
+                                label: _('actions'),
+                                disabled: !isApsStatusReady(object.aps.status),
+                                items: buttons
+                            }) : new Button(buttons[0]);
+                        }
+                    }]
+                }, [
+                    ['aps/Toolbar', [
+                        ['aps/ToolbarButton', {
+                            id: self.genId('add'),
+                            iconClass: 'fa-plus',
+                            label: _('assignNew'),
+                            autoBusy: false,
+                            onClick: function() {
+                                aps.apsc.gotoView('assign-domain', aps.context.vars.server.aps.id);
+                            }
+                        }],
+                        ['aps/ToolbarButton', {
+                            id: self.genId('delete'),
+                            iconClass: 'fa-minus',
+                            label: _('delete'),
+                            autoBusy: false,
+                            requireItems: true,
+                            onClick: unassignDomains
+                        }],
+                        ['aps/ToolbarButton', {
+                            id: self.genId('refresh'),
+                            iconClass: 'fa-refresh',
+                            label: _('refresh'),
+                            autoBusy: false,
+                            onClick: function() {
+                                grid.refresh();
+                            }
+                        }]
+                    ]]
+                ]],
+                ['aps/Container', {
+                    id: self.genId('emptyContentContainer'),
+                    gridSize: 'md-8 xs-12',
+                    visible: at(statefulCount, 'count').direction(at.from).transform({
+                        format: function(value) {
+                            return !value && !Object.keys(grid.filters).length;
+                        }
+                    })
+                }]
+            ]];
+        },
+
+        onHide: function() {
+            self.byId('domainsTiles').removeChild(self.byId('help_container'));
+        },
+
+        onContext: function() {
+            grid = self.byId('domainsGrid');
+
+            if (aps.context.params.blockade) {
+                aps.apsc.displayMessage(_('technicalBreakInProgress'), 'info');
+                self.byId('add').set({disabled: true, onClick: null});
+                self.byId('delete').set({disabled: true, onClick: null});
+
+                grid.set('selectionMode', '');
+
+                grid.columns.find(function(column) {
+                    return column.field === 'options';
+                }).renderCell = function() {
+                    return _('edit');
+                };
+            }
+
+            grid.set('selectionMode', aps.context.visibleMode === 'xs' ? '' : 'multiple');
+
+            if (aps.app.dkimError) {
+                aps.apsc.displayMessage(_('dkimProvisionError'), 'error');
+                delete aps.app.dkimError;
+            }
+
+            aps.context.subscriptionId = aps.context.vars.server.aps.subscription;
+
+            all([
+                getConfiguration(aps.context.vars.server),
+                getResources(aps.context.vars.server.aps.subscription, {mailApplication: 'http://home.pl/types/mailbox/application/6.0'})
+            ]).then(function(objects) {
+                var additionalDescriptions, fieldsList, hasMail, mailRedirectionColumn, searchBoxOptions, waf;
+
+                waf = objects[0].waf;
+                hasMail = !!objects[1].mailApplication;
+
+                fieldsList = [
+                    {label:'domainsListHelpTextNew', translation:_('domainsListHelpTextNew')},
+                    {label:'domainsListHelpTextDelete', translation:_('domainsListHelpTextDelete')}
+                ];
+
+                additionalDescriptions = [{label:'domainsListHelpTextRedirectionTypes', translation:_('domainsListHelpTextRedirectionTypes')}];
+                mailRedirectionColumn = findColumn(grid, 'mailRedirection.type');
+
+                searchBoxOptions = [{
+                    name: 'name',
+                    type: 'text',
+                    label: _('domains')
+                }, {
+                    name: 'domainRedirection.type',
+                    type: 'select',
+                    label: _('websiteLocation')
+                }];
+
+                if (hasMail) {
+                    additionalDescriptions.push({label:'domainsListHelpTextMailRedirection', translation:_('domainsListHelpTextMailRedirection')});
+                    mailRedirectionColumn.filter = {
+                        options: [{
+                            value: 'mx_servers',
+                            label: _('otherMxRecords')
+                        }, {
+                            value: 'mail',
+                            label:  _('mailAddress')
+                        }, {
+                            value: 'no_record',
+                            label: _('noMXRecordFilter')
+                        }]
+                    };
+
+                    searchBoxOptions.splice(1, 0, {
+                        name: 'mailRedirection.type',
+                        type: 'select',
+                        label: _('mailService')
+                    });
+                } else {
+                    mailRedirectionColumn.filter = false;
+                }
+
+                mailRedirectionColumn.visible = hasMail;
+
+                if (waf) {
+                    fieldsList.push({label:'domainsListHelpTextOptions', translation:_('domainsListHelpTextOptions')});
+                    additionalDescriptions.push({label:'domainsListHelpTextWaf', translation:_('domainsListHelpTextWaf')});
+                } else {
+                    fieldsList.push({label:'domainsListHelpTextEdit', translation:_('domainsListHelpTextEdit')});
+                }
+
+                self.byId('domainsTiles').addChild(new ExplanationSection({
+                    id: self.genId('help_container'),
+                    gridSize: 'md-4 xs-12',
+                    mainDescription: {label:'domainsListHelpText', translation: _('domainsListHelpText')},
+                    list: fieldsList,
+                    additionalDescriptions: additionalDescriptions
+                }));
+
+                when(waf ? xhr('/aps/2/resources/' + aps.context.vars.server.aps.id + '/readWaf') : waf, function(wafObjects) {
+                    findColumn(grid, 'wafStatus').visible = waf;
+
+                    grid.set({
+                        columns: grid.get('columns'),
+                        store: new Store({
+                            target: '/aps/2/resources/' + aps.context.vars.server.aps.id + '/domains',
+                            idProperty: 'aps.id',
+                            mapQuery: function(domain) {
+                                if (waf) {
+                                    domain.waf = {
+                                        usage: wafObjects[domain.aps.id].usage,
+                                        limit: wafObjects[domain.aps.id].limit
+                                    };
+                                }
+
+                                domain.hasMail = hasMail;
+
+                                return domain;
+                            }
+                        })
+                    });
+
+                    customSearchBox(self, 'domainsGrid', searchBoxOptions);
+                    emptyListContent(self, 'emptyContentContainer', _('noAssignedDomainsPresent'), false);
+                    aps.apsc.hideLoading();
+                });
+
+                clearSelection(grid);
+            });
+        }
+    });
+});

@@ -1,0 +1,183 @@
+define([
+    'aps/_View',
+    'aps/Button',
+    'aps/DropDownButton',
+    'aps/Output',
+    'aps/ResourceStore',
+    'dojo/_base/declare'
+], function(
+    _View,
+    Button,
+    DropDownButton,
+    Output,
+    Store,
+    declare
+) {
+    var refreshGrid, self;
+
+    refreshGrid = function() {
+        self.byId('grid').refresh();
+    };
+
+    return declare(_View, {
+        init: function() {
+            self = this;
+
+            return ['aps/Tiles', {
+                id: self.genId('tiles')
+            }, [
+                ['aps/FieldSet', {
+                    id: self.genId('descriptionFieldSet'),
+                    gridSize: 'md-12'
+                }, [
+                    ['aps/Output', {
+                        id: self.genId('certificatesGridDescription'),
+                        gridSize: 'md-12',
+                        content: '${value}',
+                        value: _('certificatesGridDescription')
+                    }]
+                ]],
+                ['aps/Grid', {
+                    id: self.genId('grid'),
+                    noDataText: '',
+                    gridSize: 'md-12 xs-12',
+                    baseClass: 'custom-grid',
+                    rowsPerPage: 20,
+                    store: new Store({
+                        apsType: 'http://home.pl/types/certificate/context/1.0',
+                        target: '/aps/2/resources/',
+                        idProperty: 'aps.id',
+                        baseQuery: ('select(subscription,certificate,certificateType),eq(certificate.aps.status,aps:ready)')
+                    }),
+                    sort: {
+                        attribute: 'subscription.subscriptionId',
+                        descending: true
+                    },
+                    columns: [{
+                        field: 'subscription.subscriptionId',
+                        name: _('subscriptionId'),
+                        filter: true,
+                        type: 'integer',
+                        nowrap: true
+                    }, {
+                        field: 'subscription.name',
+                        name: _('certificate'),
+                        filter: true
+                    }, {
+                        field: 'certificate.domain',
+                        name: _('domainName'),
+                        filter: true,
+                        nowrap: true,
+                        renderCell: function(object, domain) {
+                            return new Output({
+                                id: self.genId('domainName_' + object.certificate.aps.id),
+                                gridSize: 'md-6',
+                                content: '${domainName} <span class="small-button apsButton go-to ${additionalDomainsClassName}"><span>'
+                                    + (object.certificate.sanDomains && (object.certificate.sanDomains.length - 1 > 0) ? _('more', {count: '${additionalDomainsCount}'}) : '')
+                                    + '</span></span>',
+                                additionalDomainsClassName: object.certificate.sanDomains && object.certificate.sanDomains.length > 1 ? '' : 'hidden',
+                                additionalDomainsCount: object.certificate.sanDomains && object.certificate.sanDomains.length - 1,
+                                domainName: domain || '-'
+                            });
+                        }
+                    }, {
+                        field: 'certificate.expire',
+                        name: _('certificateExpirationDate'),
+                        renderCell: function(object, expire) {
+                            var expireDateWarning, statuses;
+
+                            expireDateWarning = (new Date(expire)).getTime() - 30 * 24 * 60 * 60 * 1000;
+
+                            statuses = {
+                                enrolled: {
+                                    status: (Date.now() < expireDateWarning) ? 'created' : (Date.now() < (new Date(expire)).getTime()) ? 'deleteInProgres' : 'deleted',
+                                    label: expire
+                                },
+                                rejected: {
+                                    status: 'deleted',
+                                    label: _('activationFailed')
+                                },
+                                awaiting: {
+                                    status: 'createInProgress',
+                                    label: _('waitingForActivation')
+                                },
+                                toRenew: {
+                                    status: 'deleted',
+                                    label: _('manualRenewRequired')
+                                },
+                                unordered: {
+                                    status: 'inactive',
+                                    label: _('inactive')
+                                },
+                                verification: {
+                                    status: 'createInProgress',
+                                    label: _('verification')
+                                },
+                                accepted: {
+                                    status: 'createInProgress',
+                                    label: _('accepted')
+                                }
+                            };
+
+                            return new Output({
+                                id: self.genId('expire_' + object.certificate.aps.id),
+                                gridSize: 'md-6',
+                                content: '<div class="flex-between"><div class="badge-status status__${statusName}"></div><div class="${cssClass}">&nbsp;${statusLabel}</div></div>',
+                                statusName: statuses[object.certificate.orderStatus].status,
+                                statusLabel: statuses[object.certificate.orderStatus].label,
+                                cssClass: (object.certificate.orderStatus === 'enrolled' && Date.now() >= expireDateWarning) ? 'text-danger' : ''
+                            });
+                        }
+                    }, {
+                        field: 'certificate.orderStatus',
+                        sortable: false,
+                        align: 'center',
+                        renderCell: function(object) {
+                            var detailsButton;
+
+                            detailsButton = {
+                                id: self.genId('detailsButton_' + object.certificate.aps.id),
+                                label: _('details'),
+                                title: _('details'),
+                                autoBusy: false,
+                                onClick: function() {
+                                    aps.apsc.gotoView('details', object.aps.id);
+                                }
+                            };
+                            return ['rejected', 'unordered', 'toRenew'].includes(object.certificate.orderStatus) ? new DropDownButton({
+                                id: self.genId('actionsButton_' + object.certificate.aps.id),
+                                label: _('options'),
+                                autoBusy: false,
+                                items: [
+                                    detailsButton,
+                                    {
+                                        id: self.genId('activateCertificate_' + object.certificate.aps.id),
+                                        label: _('activateCertificate'),
+                                        onClick: function() {
+                                            aps.apsc.gotoView('activate-certificate-wizard', object.aps.id);
+                                        }
+                                    }
+                                ]
+                            }) : new Button(detailsButton);
+                        }
+                    }]
+                }, [
+                    ['aps/Toolbar', [
+                        ['aps/ToolbarButton', {
+                            id: self.genId('refresh'),
+                            label: _('refreshList'),
+                            autoBusy: false,
+                            onClick: refreshGrid
+                        }]
+                    ]]
+                ]]
+            ]];
+        },
+        onContext: function() {
+            aps.apsc.hideLoading();
+        },
+        onHide: function() {
+            refreshGrid();
+        }
+    });
+});

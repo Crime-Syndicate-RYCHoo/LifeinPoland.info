@@ -1,0 +1,14 @@
+define([], function() {
+    /**
+     * Funkcja wyszukująca zadaną kolumnę w aps/Grid
+     * @param {Object[]} grid   obiekt widgetu aps/Grid w którym szukamy kolumny
+     * @param {string} column    pole `field` poszukiwanej kolumny
+     *
+     * @return {Object[]}       wyszukana kolumna
+     */
+    return function(grid, column) {
+        return grid.columns.find(function(gridColumn) {
+            return gridColumn.field === column;
+        });
+    };
+});

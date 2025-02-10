@@ -1,0 +1,141 @@
+/* jshint laxbreak: true */
+define([
+    'aps/FieldSet',
+    'aps/Hr',
+    'aps/Output',
+    'aps/Tile',
+    'helpers/getters/getUsageCountText',
+    'helpers/validators/isResourceLimitReached'
+], function(
+    FieldSet,
+    ApsHr,
+    Output,
+    Tile,
+    getUsageCountText,
+    isResourceLimitReached
+) {
+    var domainsContainer, domainsInfoContainer, domainsTile;
+
+    return function(view, container, data) {
+        container.addChild(new Tile({
+            id: view.genId('domainsTile'),
+            gridSize: 'md-4 xs-12',
+            baseClass: 'server-tile custom-tile',
+            title: false,
+            buttons: [
+                {
+                    id: view.genId('domainAssignButton'),
+                    label: _('assign'),
+                    disabled: view.application.blockades.domain,
+                    onClick: function() {
+                        if (view.application.blockades.domain) {
+                            return;
+                        }
+
+                        aps.apsc.gotoView('assign-domain', aps.context.vars.server.aps.id);
+                    }
+                },
+                {
+                    id: view.genId('domainListButton'),
+                    label: _('allAssignedDomains'),
+                    onClick: function() {
+                        aps.apsc.gotoView('assigned-domains', aps.context.vars.server.aps.id, {blockade: view.application.blockades.domain});
+                    }
+                }
+            ]
+        }));
+
+        domainsTile = view.byId('domainsTile');
+
+        domainsTile.addChild(new Output({
+            id: view.genId('domainsOutputHeader'),
+            baseClass: 'server-tile__header col-md-12',
+            content: '<div class="flex-between"><h3>${title}</h3><span class="text-danger">${domainsCount}</span></div>',
+            title: _('assignedDomains'),
+            domainsCount: getUsageCountText(data[1])
+        }));
+
+        domainsTile.addChild(new FieldSet({
+            id: view.genId('domainsInfoContainer'),
+            baseClass: 'flex-between__row server-container'
+        }));
+
+        domainsTile.addChild(new FieldSet({
+            id: view.genId('domainsContainer'),
+            baseClass: 'server-container domain-list-container'
+        }));
+
+        domainsContainer = view.byId('domainsContainer');
+        domainsInfoContainer = view.byId('domainsInfoContainer');
+
+        domainsInfoContainer.addChild(new Output({
+            id: view.genId('mainServerAddress'),
+            baseClass: 'col-xs-12',
+            label: _('mainServerAddress'),
+            content: '${serverName}.${baseHost}',
+            serverName: aps.context.vars.server.name,
+            baseHost: view.application.baseHost
+        }));
+
+        if (data[0].length === 0) {
+            domainsContainer.addChild(new Output({
+                id: view.genId('emptyContentOutput'),
+                baseClass: 'empty-content',
+                innerHTML: '<div class="text-center">'
+                + '<div class="empty-content__img list"></div>'
+                + '<div class="empty-content__text">'
+                + _('emptyDomainsContent') + '</div>'
+                + '</div>'
+            }));
+
+            domainsTile.set('buttons', [
+                {
+                    id: view.genId('domainAssignButton'),
+                    label: _('assign'),
+                    disabled: view.application.blockades.domain || isResourceLimitReached(data[1]),
+                    onClick: function() {
+                        if (view.application.blockades.domain) {
+                            return;
+                        }
+
+                        aps.apsc.gotoView('assign-domain', aps.context.vars.server.aps.id);
+                    }
+                },
+                {
+                    id: view.genId('domainStoreButton'),
+                    label: _('purchaseDomain'),
+                    onClick: function() {
+                        aps.apsc.gotoView('http://www.parallels.com/ccp-domains#registerDomain');
+                    }
+                }
+            ]);
+            return domainsTile;
+        }
+
+        domainsInfoContainer.addChild(new Output({
+            id: view.genId('domainsOutput'),
+            baseClass: 'col-xs-12',
+            content: _('byExpiration'),
+            label: _('domains')
+        }));
+
+        data[0].slice(0, 5).map(function(domain, index, domains) {
+            domainsContainer.addChild(new Output({
+                id: view.genId('domain_' + index + 'Output'),
+                content: '<div class="domains-list"><span>${domainName}</span><span>${expireDays}</span></div><div class="text-muted">${domainRedirectionType}${domainRedirection}</div>',
+                domainName: domain.name,
+                baseClass: 'col-md-12',
+                expireDays: domain.expireDays ? domain.expireDays + _('days') : '',
+                domainRedirection: domain.domainRedirection ? domain.domainRedirection.value : '-',
+                domainRedirectionType: domain.domainRedirection && domain.domainRedirection.type === 'a_record' ? _('aRecord') + ' ' : ''
+            }));
+            domainsContainer.addChild(new ApsHr({
+                id: view.genId('domain_' + index + 'Hr'),
+                gridSize: 'md-12',
+                visible: index < (domains.length - 1)
+            }));
+        });
+
+        return domainsTile;
+    };
+});

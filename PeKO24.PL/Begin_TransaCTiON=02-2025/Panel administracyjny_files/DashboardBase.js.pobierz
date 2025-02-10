@@ -1,0 +1,283 @@
+define([
+	"dijit/registry",
+	"dojo/promise/all",
+
+	"aps/View",
+	"aps/nav/ViewPluginManager",
+	"aps/Container",
+	"aps/Output",
+	"aps/Status",
+	"aps/ResourceStore",
+	"aps/common",
+	"aps/declare",
+	"aps/xhr",
+	"host/widgets/Notification"
+], function(
+	registry,
+	all,
+
+	View,
+	ViewPluginManager,
+	Container,
+	Output,
+	Status,
+	Store,
+	common,
+	declare,
+	xhr,
+	Notification
+) {
+	var def, mediator, billingPlugin;
+
+	function updateDeprecatedResources() {
+		mediator.set("domainList", aps.context.vars.domains);
+		mediator.set("userList", aps.context.vars.users);
+	}
+
+	function analyzeStatus(value, params){
+		params = params || {};
+
+		switch(value) {
+			case 'inProgress':
+				params["isBusy"] = true;
+				break;
+			case 'ready':
+				params["type"] = "success";
+				break;
+			case 'upcoming':
+				params["type"] = "warning";
+				break;
+			case 'error':
+			case 'existing':
+				params["type"] = "danger";
+				break;
+		}
+
+		params.status = value;
+
+		return params;
+	}
+
+	function localize(item, fieldName) {
+		return _(item[fieldName].message, item[fieldName].keys, item[fieldName].multilangKeys, item.packageId);
+	}
+
+	function singleNotification(item){
+		var	params = {
+			id: 	item.id,
+			title:  localize(item, "message"),
+			date: new Date(item.modified),
+			onClick:    function(){
+				var link = item.link;
+				var linkMore = item.linkMore;
+				if (link) aps.apsc.gotoURL(link);
+				else if (linkMore) aps.apsc.gotoURL(linkMore);
+				else aps.apsc.showNotification(item);
+			}
+		};
+
+		if (item.linkMore) params.link = item.linkMore;
+		if (item.linkMoreText) params.linkText = localize(item, "linkMoreText");
+
+		params.inDashboard = true;
+		params.isAnnouncement = item.type === "announcement";
+		params._onClose = function(){
+			aps.apsc._removeNotification(this.id);
+		};
+		params = analyzeStatus(item.status, params);
+		params.details = item.details ? localize(item, "details") : "";
+		params.fullDetails = item.fullDetails ? localize(item, "fullDetails") : params.details;
+
+		return new Notification(params);
+	}
+
+	function groupNotification(notifications, params, statusData, number){
+		var VISIBLE_NOTIFIES_NUMBER = 4;
+		var count = number > VISIBLE_NOTIFIES_NUMBER ? VISIBLE_NOTIFIES_NUMBER : number;
+		var more  = number - VISIBLE_NOTIFIES_NUMBER;
+
+		var notifyIds = notifications.map(function(notify) {
+		  return notify.id;
+		});
+
+		params.details = '';
+		params.inDashboard = true;
+		params.onClick = function(){aps.apsc._showInNotifySidebar(params.status);};
+		params._onClose = function(){aps.apsc._removeNotification(notifyIds);};
+
+		var tile = new Notification(params);
+
+		var container;
+
+		for (var i = 0; i < count; i++){
+			container = new Container();
+			var status = new Status( {
+				status: "loading",
+				statusInfo: {
+					loading: {
+						"label":  localize(notifications[i], "message"),
+						"icon":   statusData.icon,
+						"isLoad": statusData.isLoad
+				}}
+			});
+			container.addChild(status);
+			tile.addChild(container);
+		}
+
+		if (more > 0){
+			container = new Container();
+			var output = new Output({value: _("And __number__ More", {number: more}) });
+			container.addChild(output);
+			tile.addChild(container);
+		}
+
+		return tile;
+	}
+
+	function notificationType(status, number, notifications){
+		var title, icon;
+		if (number === 1) {
+			return singleNotification(notifications[0]);
+		}
+		if (number > 1) {
+			var load = false;
+			switch (status) {
+				case "inProgress":
+					title = _.plural({
+						count: number,
+						one: _("__one__ Activity in Progress"),
+						two: _("__two__ Activities in Progress"),
+						five: _("__five__ Activities in Progress")
+					});
+					icon  = "fa-spinner";
+					load = true;
+					break;
+				case "upcoming":
+					title = _.plural({
+						count: number,
+						one: _("__one__ Warning"),
+						two: _("__two__ Warnings"),
+						five: _("__five__ Warnings")
+					});
+					icon  = "fa-exclamation";
+					break;
+				case "existing":
+					title = _.plural({
+						count: number,
+						one: _("__one__ Problem"),
+						two: _("__two__ Problems"),
+						five: _("__five__ Problems")
+					});
+					icon  = "fa-bolt";
+					break;
+			}
+
+			var params = {
+				title: title,
+				status: status
+			};
+			var statusData = {
+			 	icon: icon,
+			 	isLoad: load
+			};
+			return groupNotification(notifications, params, statusData, number);
+		}
+	}
+
+	function hasAccessToNotifications() {
+		var PA_CORE_APP_ID = "http://www.parallels.com/pa/pa-core-services";
+		var NOTIFICATION_ACCESS_PRIVILEGE = "on-screen_notification_implicit_access";
+		return aps.context._privileges[PA_CORE_APP_ID] && aps.context._privileges[PA_CORE_APP_ID].includes(NOTIFICATION_ACCESS_PRIVILEGE);
+	}
+
+	function notifications() {
+		if (!hasAccessToNotifications()) {
+			console.log("No access to notifications");
+			return;
+		}
+
+		xhr("/aps/2/resources/" + aps.context.nmId.aps.id + "/notifications/displayMessages").then(function(data){
+			var notify = registry.byId("notify");
+			notify.removeAll();
+			if(!data.warnings.length && !data.inProgressActivities.length){
+				notify.set("visible", false);
+				return;
+			}
+			var upcomings = [];
+			var existings = [];
+			var progress  = data.inProgressActivities || [];
+
+			data.warnings.forEach( function( warning ){
+				(warning.status === "upcoming" ? upcomings : existings).push(warning);
+			});
+
+			var existingsNumber = existings.length;
+			var upcomingsNumber = upcomings.length;
+			var progressNumber  = progress.length;
+
+			if (progressNumber + upcomingsNumber + existingsNumber > 3){
+				[notificationType("inProgress", progressNumber,  progress),
+				 notificationType("upcoming",   upcomingsNumber, upcomings),
+				 notificationType("existing",   existingsNumber, existings)].forEach(function(notification){
+					if (notification) notify.addChild(notification);
+				});
+			} else {
+				data.warnings.concat(progress).reverse().forEach(function(item){
+					notify.addChild(singleNotification(item));
+				});
+			}
+			notify.set("visible", true);
+		});
+	}
+
+	return declare(View, {
+		init: function() {
+			return [
+				["host/widgets/Notifications", {id: "notify", visible: false}],
+				["aps/biz/_ServicesTiles", {id: "tiles"}]
+			];
+		},
+		onContext: function() {
+			notifications();
+
+			if (!def) {
+				var dashboardManager = new ViewPluginManager(this.pluginPlaceholderId);
+				var billingHomePluginManager = new ViewPluginManager("billing-home-plugin");
+				def = all([dashboardManager.init(), billingHomePluginManager.init()]).then(function () {
+					mediator = dashboardManager.get("mediator");
+					var orderedPlugins = {};
+
+					//Always put LegacyApps to the end of the list to avoid array inserts in ui-runtime
+					Object.keys(mediator.$plugins).sort(function (a, b) {
+						if (a.endsWith("LegacyAppsIntegrationPlugin")) {
+							return 1;
+						} else if (b.endsWith("LegacyAppsIntegrationPlugin")) {
+							return -1;
+						} else {
+							return 0;
+						}
+					}).forEach(function (key) {
+						orderedPlugins[key] = mediator.$plugins[key]
+					});
+					mediator.$plugins = orderedPlugins;
+					common.forEach(billingHomePluginManager.get("mediator").$plugins, function (item) {
+						billingPlugin = item;
+					});
+				});
+			}
+
+			def.then(function() {
+				return registry.byId("tiles").refresh({
+					billingPlugin: billingPlugin,
+					servicePluginMediator: mediator,
+					subscriptions: aps.context.vars.subscriptions,
+					account: aps.context.vars.account
+				}).then(function() {
+					updateDeprecatedResources();
+				});
+			}).always(function() {
+				aps.apsc.hideLoading();
+			});
+		}
+	});
+});

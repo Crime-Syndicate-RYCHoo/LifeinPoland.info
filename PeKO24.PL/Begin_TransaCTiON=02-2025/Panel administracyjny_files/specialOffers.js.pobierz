@@ -1,0 +1,51 @@
+define([
+    'aps/nav/ViewPlugin',
+    'aps/FieldSet',
+    'aps/Output',
+    'aps/Tile',
+    'dojo/_base/declare',
+    'aps/ready!'
+], function(
+    ViewPlugin,
+    FieldSet,
+    Output,
+    Tile,
+    declare
+) {
+    return declare(ViewPlugin, {
+        init: function(mediator) {
+            var self, tile, tileFieldset;
+
+            self = this;
+
+            tile = new Tile({
+                id: self.genId('specialOffersTile'),
+                title: _('Special Offers', self),
+                buttons: [{
+                    id: self.genId('specialOffersButton'),
+                    title: _('Continue', self),
+                    autoBusy: false,
+                    onClick: function() {
+                        aps.apsc.gotoView('http://home.pl/customer_service#offer-for-you-offers-view');
+                    }
+                }],
+                onClick: function() {
+                    aps.apsc.gotoView('http://home.pl/customer_service#offer-for-you-offers-view');
+                }
+            });
+
+            tileFieldset = new FieldSet({id: self.genId('specialOffersTileFieldSet')});
+
+            tileFieldset.addChild(new Output({
+                id: self.genId('specialOffersOutput'),
+                content: '<span class="tile-description">' + _('specialOffersInformation', self) + '</span>'
+            }));
+
+            tile.addChild(tileFieldset);
+
+            mediator.getWidget = function() {
+                return tile;
+            };
+        }
+    });
+});

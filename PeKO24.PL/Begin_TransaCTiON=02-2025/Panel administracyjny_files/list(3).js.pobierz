@@ -1,0 +1,1198 @@
+/* jshint laxbreak: true */
+define([
+    'aps/_View',
+    'aps/Button',
+    'aps/common',
+    'aps/confirm',
+    'aps/DropDownButton',
+    'aps/FieldSet',
+    'aps/Gauge',
+    'aps/Memory',
+    'aps/Message',
+    'aps/Output',
+    'aps/ResourceStore',
+    'aps/TextBox',
+    'aps/xhr',
+    'dojo/_base/declare',
+    'dojo/when',
+    'dojox/mvc/at',
+    'dojox/mvc/StatefulArray',
+    'helpers/constants/brandData',
+    'helpers/constants/constants',
+    'helpers/constants/patterns',
+    'helpers/getters/getFullName',
+    'helpers/mappers/changeValueAndUnits',
+    'helpers/mappers/daysToExpire',
+    'helpers/mappers/renderCellObjectApsStatus',
+    'helpers/mappers/snakeToPascalCase',
+    'helpers/mappers/ucfirst',
+    'helpers/statuses/isApsStatusInProgress',
+    'helpers/statuses/isApsStatusReady',
+    'helpers/statuses/isObjectCreated',
+    'helpers/statuses/isStatusDisabled',
+    'helpers/statuses/isSubscriptionDisabled',
+    'helpers/statuses/isSubscriptionExpired',
+    'helpers/statuses/isSubscriptionTrial',
+    'helpers/statuses/isSuspendableResourceDisabled',
+    'helpers/statuses/objectApsStatuses',
+    'helpers/statuses/subscriptionStatusIdToDescription',
+    'helpers/validators/isDomainBox',
+    'helpers/validators/isPersonalEmail',
+    'helpers/views/clearSelection',
+    'helpers/views/displayMessage',
+    'helpers/views/displayResponseErrorMessage',
+    'helpers/views/explanationSection',
+    'helpers/views/gotoSubscriptionDetailsView',
+    'helpers/views/lists/customSearchBox',
+    'helpers/views/lists/emptyListContent',
+    'helpers/views/lists/gridOnRowClickAction'
+], function(
+    _View,
+    Button,
+    common,
+    Confirm,
+    DropDownButton,
+    FieldSet,
+    Gauge,
+    Memory,
+    Message,
+    Output,
+    Store,
+    TextBox,
+    xhr,
+    declare,
+    when,
+    at,
+    StatefulArray,
+    brandData,
+    constants,
+    patterns,
+    getFullName,
+    changeValueAndUnits,
+    daysToExpire,
+    renderCellObjectApsStatus,
+    snakeToPascalCase,
+    ucfirst,
+    isApsStatusInProgress,
+    isApsStatusReady,
+    isObjectCreated,
+    isStatusDisabled,
+    isSubscriptionDisabled,
+    isSubscriptionExpired,
+    isSubscriptionTrial,
+    isSuspendableResourceDisabled,
+    statuses,
+    subscriptionStatusIdToDescription,
+    isDomainBox,
+    isPersonalEmail,
+    clearSelection,
+    displayMessage,
+    displayResponseErrorMessage,
+    ExplanationSection,
+    gotoSubscriptionDetailsView,
+    customSearchBox,
+    emptyListContent,
+    onRowClickAction
+) {
+    var clearAliases, contexts, deleteMailbox, exportAllMailboxes, exportCsvFile, exportSelectedMailboxes, exportWithAliases, getCsvData,
+        grid, refreshMailboxGrid, retrieveSubscriptionDetails, self;
+
+    deleteMailbox = function() {
+        var selected;
+
+        new Confirm({
+            title: _('deleteMailbox'),
+            description: _('delete__itemsCount__SelectedMailboxes?', { itemsCount: self.byId('mailboxesGrid').get('selectionArray').length })
+        }).then(function(response) {
+            var messageList, selectionArray, store;
+
+            store = new Store({
+                target: '/aps/2/resources/'
+            });
+
+            if (!response) return;
+
+            selectionArray = grid.get('selectionArray');
+            messageList = self.byId('apsPageContainer').get('messageList');
+
+            selectionArray.forEach(function(mailboxId) {
+                selected = self.mailboxMemory.query({'aps.id': mailboxId });
+
+                if (!isApsStatusReady(selected[0].aps.status)) {
+                    messageList.addChild(new Message({
+                        type: 'warning',
+                        description: _('mailboxIsNotYetCreated', { name: selected[0].fullName})
+                    }));
+
+                    return;
+                }
+
+                when(store.remove(mailboxId), function() {
+                    var mailbox;
+
+                    if (!isDomainBox(selected[0]) && sessionStorage.getItem(selected[0].server.aps.id + '_serverUsage')) {
+                        sessionStorage.removeItem(selected[0].server.aps.id + '_serverUsage');
+                    }
+
+                    mailbox = self.mailboxMemory.query({'aps.id': mailboxId });
+
+                    messageList.addChild(new Message({
+                        type: 'info',
+                        description: _('mailbox__mailboxName__HasBeenRemoved', {
+                            mailboxName: getFullName(mailbox[0])
+                        })
+                    }));
+                    selectionArray.splice(selectionArray.indexOf(mailboxId), 1);
+                    self.mailboxMemory.data.splice(self.mailboxMemory.data.indexOf(mailbox[0]), 1);
+
+                    if (!selectionArray.length) {
+                        self.byId('mailboxDelete').cancel();
+                        grid.refresh();
+                    }
+                }, function(error) {
+                    self.byId('mailboxDelete').cancel();
+                    displayResponseErrorMessage(error);
+                });
+            });
+        });
+    };
+
+    retrieveSubscriptionDetails = function(mailbox) {
+        if (
+            (!mailbox.subscriptionDetails || JSON.parse(mailbox.subscriptionDetails).expirationDate < 0)
+            || (constants.hourInSeconds < (Math.floor(Date.now() / 1000) - JSON.parse(mailbox.subscriptionDetails).todayTimestamp))
+            || (isSubscriptionDisabled(JSON.parse(mailbox.subscriptionDetails).status) !== isStatusDisabled(mailbox.status))
+        ) {
+            when(xhr('/aps/2/resources/' + mailbox.aps.id + '/retrieveSubscriptionDetails', {
+                method: 'GET'
+            }), function(subscriptionDetails) {
+                mailbox.subscriptionDetails = JSON.stringify(subscriptionDetails);
+                grid.refresh();
+            });
+        }
+    };
+
+    exportSelectedMailboxes = function() {
+        var exportData;
+
+        if (!self.mailboxMemory.data) {
+            displayMessage(_('noMailboxesToExport'));
+            self.byId('exportSelected').set('isBusy', false);
+            return;
+        }
+        exportData = [];
+        grid.get('selectionArray').forEach(function(mailboxId) {
+            exportData.push((self.mailboxMemory.query({'aps.id': mailboxId })[0]));
+        });
+
+        exportWithAliases(exportData, self.byId('exportSelected'));
+    };
+
+    getCsvData = function(mailbox) {
+        if (mailbox.aliases) {
+            mailbox.aliases = mailbox.aliases.sort(function(firstElement, secondElement) {
+                return firstElement[0] > secondElement[0] ? 1 : -1;
+            });
+
+            mailbox.aliases.forEach(function(alias) {
+                if (!mailbox.aliasesNames) {
+                    mailbox.aliasesNames = '';
+                } else {
+                    mailbox.aliasesNames += '\r\n';
+                }
+
+                mailbox.aliasesNames += alias;
+            });
+        }
+
+        return [
+            '"' + mailbox.name + '"',
+            mailbox.domain === 'All domains' ? _('allDomains') : '"' + mailbox.domain + '"',
+            mailbox.server.name ? '"' + mailbox.server.name + '"' : _('none'),
+            mailbox.aliasesNames === '' ? _('none') : '"' + mailbox.aliasesNames + '"',
+            mailbox.usedSpace ? mailbox.usedSpace : 0,
+            mailbox.reservedSpace,
+            _('type' + mailbox.type.charAt(0).toUpperCase() + mailbox.type.slice(1)),
+            mailbox.status ? _(mailbox.status) : _('mailboxApsStatusCreateInProgress')
+        ];
+    };
+
+    clearAliases = function(mailbox) {
+        mailbox.aliases = [];
+        mailbox.aliasesNames = '';
+
+        return mailbox;
+    };
+
+    exportWithAliases = function(exportData, button) {
+        var mailbox, mailboxIndex, mappedData;
+
+        mappedData = exportData.map(clearAliases);
+
+        xhr('/aps/2/resources/?implementing(http://home.pl/types/mailbox/core_alias/1.0),select(mailbox,personalEmail)').then(function(aliases) {
+            aliases.forEach(function(alias) {
+                mailboxIndex = mappedData.findIndex(function(mail) {
+                    if (alias.mailbox) {
+                        return mail.aps.id === alias.mailbox.aps.id;
+                    }
+                    return mail.aps.id === alias.personalEmail.aps.id;
+                });
+
+                if (mailboxIndex !== -1) {
+                    mailbox = mappedData[mailboxIndex];
+
+                    if (!mailbox.aliases) {
+                        mailbox.aliases = [alias.name + '@' + _(alias.domain)];
+                    } else {
+                        mailbox.aliases.push(alias.name + '@' + _(alias.domain));
+                    }
+                }
+            });
+
+            if (self.byId('aliasesSearch') && self.byId('aliasesSearch').get('value')) {
+                mappedData = mappedData.filter(function(mailbox) {
+                    return mailbox.aliases.find(function(aliases) { return aliases.includes(self.byId('aliasesSearch').get('value')); });
+                });
+            }
+
+            exportCsvFile(mappedData.map(getCsvData), button);
+        });
+    };
+
+    exportAllMailboxes = function() {
+        var exportData;
+
+        if (!self.mailboxMemory.data) {
+            self.byId('exportAll').set('isBusy', false);
+            displayMessage(_('noMailboxesToExport'));
+            return;
+        }
+
+        exportData = self.mailboxMemory.data;
+
+        if (grid.filters.fullName) {
+            exportData = exportData.filter(function(mailbox) {
+                return mailbox.fullName.includes(grid.filters.fullName.substring(1, grid.filters.fullName.length - 1));
+            });
+        }
+
+        if (grid.filters.type) {
+            exportData = exportData.filter(function(mailbox) {
+                return mailbox.type === grid.filters.type;
+            });
+        }
+
+        if (grid.filters['server.name']) {
+            exportData = exportData.filter(function(mailbox) {
+                return mailbox.server.name && mailbox.server.name.includes(grid.filters['server.name'].substring(1, grid.filters['server.name'].length - 1));
+            });
+        }
+
+        exportWithAliases(exportData, self.byId('exportAll'));
+    };
+
+    exportCsvFile = function(data, button) {
+        var csvContent, link, sortedData;
+
+        if (data.length === 0) {
+            displayMessage(_('noMailboxesToExport'));
+            button.set('isBusy', false);
+            return;
+        }
+
+        sortedData = data.sort(function(firstElement, secondElement) {
+            return firstElement[0] > secondElement[0] ? 1 : -1;
+        });
+
+        sortedData.unshift([
+            _('name'),
+            _('domain'),
+            _('serverName'),
+            _('aliases'),
+            _('usedSpace'),
+            _('reservedSpace'),
+            _('type'),
+            _('status')
+        ]);
+
+        csvContent = 'data:text/csv;charset=utf-8,' + sortedData.map(function(row) {
+            return row.join(',');
+        }).join('\n');
+
+        link = document.createElement('a');
+        link.setAttribute('href', encodeURI(csvContent));
+        link.setAttribute('download', _('exportedMailboxes') + '.csv');
+        document.body.appendChild(link);
+
+        link.click();
+        link.remove();
+        button.set('isBusy', false);
+    };
+
+    refreshMailboxGrid = function() {
+        var context, serverApsIds;
+
+        serverApsIds = [];
+
+        xhr('/aps/2/resources/?implementing(http://home.pl/types/core/box/5.0),select(server),limit(0,65535)').then(function(mailboxes) {
+            var filters, searchBoxOptions;
+
+            mailboxes.forEach(function(mailbox) {
+                var boxType;
+
+                mailbox.fullName = getFullName(mailbox);
+
+                if (aps.app.model.get('usageModel')[mailbox.aps.id]) {
+                    mailbox.usedSpace = aps.app.model.get('usageModel')[mailbox.aps.id];
+                    mailbox.percentageUsedSpace = Math.floor((mailbox.usedSpace / mailbox.reservedSpace) * 100);
+                }
+
+                boxType = isPersonalEmail(mailbox) ? 'personalEmail' : isDomainBox(mailbox) ? 'domainBox' : 'mailbox';
+
+                if (boxType === 'mailbox') {
+                    mailbox.blocked = self.blockades.mailbox;
+                    return;
+                }
+
+                mailbox.server = {
+                    name: undefined
+                };
+
+                if (boxType in self.blockades) {
+                    mailbox.blocked = self.blockades[boxType];
+
+                    return;
+                }
+
+                when(xhr('/aps/2/resources/' + mailbox.aps.id + '/readSettings', {sync:true}), function(response) {
+                    self.blockades = Object.assign(self.blockades, response.blockades);
+                    mailbox.blocked = self.blockades[boxType];
+
+                    if (self.blockades[boxType]) {
+                        displayMessage(_('technicalBreakInProgress'), 'info');
+                    }
+                });
+            });
+
+            self.mailboxMemory.setData(mailboxes);
+
+            if (!mailboxes.length) {
+                self.byId('emptyContentContainer').removeAll();
+                emptyListContent(self, 'emptyContentContainer', _('noEmailsPresent'));
+            } else {
+                self.byId('emptyContentContainer').set('visible', false);
+            }
+
+            grid.set('store', self.mailboxMemory);
+            grid.refresh();
+
+            searchBoxOptions = [{
+                name: 'fullName',
+                type: 'text',
+                label: _('name')
+            }, {
+                name: 'server.name',
+                type: 'text',
+                label: _('serverName')
+            }, {
+                name: 'type',
+                type: 'select',
+                label: _('type')
+            }];
+
+            customSearchBox(self, 'mailboxesGrid', searchBoxOptions);
+
+            if (aps.app.filters) {
+                filters = {};
+
+                Object.keys(aps.app.filters).forEach(function(filterName) {
+                    if (!self.byId('mailboxesGrid-search-text-' + filterName)) {
+                        return;
+                    }
+
+                    filters[filterName] = aps.app.filters !== self.byId('mailboxesGrid-search-text-' + filterName).value
+                        ? aps.app.filters[filterName]
+                        : undefined;
+                });
+                if (!Object.keys(filters).length) {
+                    return;
+                }
+                grid.resetFilters();
+                Object.keys(filters).map(function(filterName) {
+                    self.byId('mailboxesGrid-search-text-' + filterName).attr({value: filters[filterName]});
+                });
+                grid.submitFilters();
+                delete aps.app.filters;
+            }
+
+            if (mailboxes.length) {
+                self.byId('exportAll').set('visible', aps.context.visibleMode !== 'xs');
+            }
+
+            mailboxes.forEach(function(mailbox) {
+                if (isPersonalEmail(mailbox) || isDomainBox(mailbox)) {
+                    if (isPersonalEmail(mailbox)) {
+                        retrieveSubscriptionDetails(mailbox);
+                    }
+
+                    if (isApsStatusReady(mailbox.aps.status) || isApsStatusInProgress(mailbox.aps.status)) {
+                        when(xhr('/aps/2/resources/' + mailbox.aps.id + '/getUsage', {method: 'GET'}), function(usage) {
+                            var usageObject;
+
+                            if (usage !== mailbox.usedSpace) {
+                                mailbox.usedSpace = usage;
+                                mailbox.percentageUsedSpace = Math.floor((mailbox.usedSpace / mailbox.reservedSpace) * 100);
+                                usageObject = {};
+                                usageObject[mailbox.aps.id] = usage;
+                                aps.app.model.set('usageModel', Object.assign(aps.app.model.get('usageModel'), usageObject));
+                                grid.refresh();
+                            }
+
+                            self.byId('accountRefresh').cancel();
+                        }, function(error) {
+                            displayResponseErrorMessage(error);
+                        });
+                    }
+
+                    return;
+                }
+
+                // Pomijamy mailboxa, jeśli zleciliśmy pobranie zajętości skrzynek z jego serwera
+                if (serverApsIds.indexOf(mailbox.server.aps.id) !== -1) {
+                    return;
+                }
+
+                serverApsIds.push(mailbox.server.aps.id);
+
+                context = contexts.find(function(context) {
+                    return context.subscription === mailbox.aps.subscription;
+                });
+
+                when(xhr(
+                    '/aps/2/resources/' + context.id + '/getResourceUsage', {
+                        method: 'GET'
+                    }), function(usage) {
+                    if (!usage) {
+                        return;
+                    }
+
+                    aps.app.model.set('usageModel', Object.assign(aps.app.model.get('usageModel'), usage));
+
+                    mailboxes.forEach(function(box) {
+                        if (usage[box.aps.id] !== undefined) {
+                            box.usedSpace = usage[box.aps.id];
+                            box.percentageUsedSpace = Math.floor((box.usedSpace / box.reservedSpace) * 100);
+                        }
+                    });
+
+                    grid.refresh();
+
+                    self.byId('accountRefresh').cancel();
+                });
+            });
+        });
+    };
+
+    return declare(_View, {
+        init: function() {
+            var daysToExpireValue, isInactive, selectionArray, subscriptionDetails;
+
+            self = this;
+
+            self.blockades = {};
+
+            selectionArray = new StatefulArray([]);
+
+            selectionArray.watchElements(function(index, removals, adds) {
+                var domainBoxes;
+
+                if (!adds.length) return;
+
+                domainBoxes = adds.map(function(addedItem) {
+                    var boxDetails;
+
+                    boxDetails = self.mailboxMemory.query({'aps.id':addedItem})[0];
+                    return boxDetails.type === 'domainbox' ? boxDetails : undefined;
+                }).filter(function(box) {
+                    return box !== undefined;
+                });
+
+                if (!domainBoxes.length) return;
+
+                new Confirm({
+                    title: _('deleteDomainBox'),
+                    description: _('confirmDeleteDomainBoxes', { domainBoxNames: domainBoxes.map(function(box) { return box.name; }).join(', ')})
+                }).then(function(response) {
+                    if (response) return;
+
+                    domainBoxes.forEach(function(domainBox) {
+                        grid.get('selectionArray').splice(grid.get('selectionArray').indexOf(domainBox.aps.id), 1);
+                    });
+                });
+            });
+
+            self.mailboxMemory = new Memory({
+                data: [],
+                idProperty: 'aps.id',
+                childrenProperty: 'addresses'
+            });
+
+            aps.app.model.set('usageModel', {});
+            return ['aps/Tiles', {
+                id: self.genId('tiles')
+            }, [
+                ['aps/Grid', {
+                    id: this.genId('mailboxesGrid'),
+                    selectionArray: selectionArray,
+                    rowsPerPage: constants.rowsPerPage,
+                    selectionMode: 'multiple',
+                    gridSize: 'xs-12 md-8',
+                    noDataText: '',
+                    noEntriesFoundText: _('noMailboxesMeetYourSearchCriteria'),
+                    baseClass: 'custom-grid',
+                    sort: {
+                        attribute: 'fullName',
+                        descending: false
+                    },
+                    isRowSelectable: function(row) {
+                        return !row.isSubRow && !isPersonalEmail(row) && isApsStatusReady(row.aps.status);
+                    },
+                    onRowClick: function(object) {
+                        var onRowClickActionTarget;
+
+                        if (object.isSubRow) {
+                            return null;
+                        }
+
+                        if (isPersonalEmail(object)) {
+                            onRowClickActionTarget = self.blockades.personalEmail ? null : 'personal-email-edit';
+                        } else if (isDomainBox(object)) {
+                            onRowClickActionTarget = self.blockades.domainBox ? null : 'domain-box-edit';
+                        } else {
+                            onRowClickActionTarget = self.blockades.mailbox ? null : 'mailbox-edit';
+                        }
+                        return isSuspendableResourceDisabled(object.status) || object.usedSpace === null ? null : onRowClickAction((onRowClickActionTarget), object);
+                    },
+                    submitFilters: function() {
+                        if (self.byId('aliasesSearch') && self.byId('aliasesSearch').get('value')) {
+                            grid.set('isBusy', true);
+                            xhr('/aps/2/resources/?implementing(http://home.pl/types/mailbox/core_alias/1.0),select(mailbox,personalEmail),like(name,*' + self.byId('aliasesSearch').get('value') + '*)').then(function(aliases) {
+                                var boxesWithAliases;
+
+                                if (!aliases.length) {
+                                    grid._submitFilters();
+                                    grid.set('isBusy', false);
+                                    return;
+                                }
+
+                                boxesWithAliases = self.mailboxMemory.query().filter(function(box) {
+                                    return aliases.find(function(alias) {
+                                        var aliasBox;
+
+                                        aliasBox = alias.mailbox || alias.personalEmail;
+                                        return aliasBox.aps.id === box.aps.id;
+                                    });
+                                });
+                                grid.set('store', new Memory({
+                                    data: boxesWithAliases,
+                                    idProperty: 'aps.id',
+                                    childrenProperty: 'addresses'
+                                }));
+
+                                grid._submitFilters();
+                                grid.set('isBusy', false);
+                            }, function() {
+                                grid.resetFilters();
+                                grid.set('isBusy', false);
+                            });
+                            return;
+                        }
+
+                        grid.set('store', self.mailboxMemory);
+                        this._submitFilters();
+                    },
+                    resetFilters: function() {
+                        grid.set('store', self.mailboxMemory);
+                        if (self.byId('aliasesSearch') && self.byId('aliasesSearch').get('value')) {
+                            self.byId('aliasesSearch').set('value', '');
+                        }
+                        this.set('filters', {});
+                    },
+                    columns: [{
+                        field: 'fullName',
+                        name: _('name'),
+                        filter: true,
+                        renderCell: function(object) {
+                            var mailboxNameContent, subscriptionStatusDetailsOutputContent;
+
+                            if (object.isSubRow) {
+                                return new Output({
+                                    content: object.fullName.map(function(fullName) {
+                                        return '<small>' + common.escape(fullName) + '</small></br>';
+                                    }).join('')
+                                });
+                            }
+                            isInactive = !isObjectCreated(object.aps.status) || isSuspendableResourceDisabled(object.status) || object.usedSpace === null;
+
+                            mailboxNameContent = new FieldSet({
+                                id: self.genId('FieldSet' + object.aps.id),
+                                showLabels: false,
+                                className: isInactive && 'inactive'
+                            });
+
+                            mailboxNameContent.addChild(new Output({
+                                id: self.genId('editMailboxName' + object.aps.id),
+                                href: 'javascript:void(0)',
+                                content: '${value}',
+                                value: object.fullName
+                            }));
+
+                            if (isPersonalEmail(object) && object.subscriptionDetails && aps.context.visibleMode !== 'xs') {
+                                subscriptionDetails = JSON.parse(object.subscriptionDetails);
+                                daysToExpireValue = daysToExpire(subscriptionDetails.expirationDate, subscriptionDetails.todayTimestamp);
+
+                                subscriptionStatusDetailsOutputContent = object.type === 'lifetime_email'
+                                    ? _('lifetimeSubscription')
+                                    : daysToExpireValue === 0
+                                        ? _('disableToday')
+                                        : daysToExpireValue < 0
+                                            ? daysToExpireValue === -1
+                                                ? _('expiredOneDayAgo')
+                                                : _('expired__expiredDays__ago', {expiredDays:  Math.abs(daysToExpireValue)})
+                                            : _('expiresIn__daysToExpire__days', {daysToExpire: daysToExpireValue});
+
+                                mailboxNameContent.addChild(new Output({
+                                    id: self.genId('outputExpiration_' + object.aps.id),
+                                    content: '<small class=\'help-block\'>${subscriptionStatusDetailsOutputContent}<small>',
+                                    subscriptionStatusDetailsOutputContent: subscriptionStatusDetailsOutputContent
+                                }));
+
+                                mailboxNameContent.addChild(new Output({
+                                    id: self.genId('outputSubscriptionId_' + object.aps.id),
+                                    content: '<small class=\'help-block\'>${subscriptionIdOutputContent}</small>',
+                                    subscriptionIdOutputContent: _('id__subscriptionId__', {subscriptionId: subscriptionDetails.subscriptionId})
+                                }));
+                            }
+                            return mailboxNameContent;
+                        }
+                    }, {
+                        field: 'fullName',
+                        hideFor: 'md',
+                        name: _('subscriptionDetails'),
+                        renderCell: function(object) {
+                            var subscriptionStatusDetailsOutputContent;
+
+                            if (!isPersonalEmail(object) || !object.subscriptionDetails || aps.context.visibleMode !== 'xs') {
+                                return;
+                            }
+
+                            subscriptionDetails = JSON.parse(object.subscriptionDetails);
+                            daysToExpireValue = daysToExpire(subscriptionDetails.expirationDate, subscriptionDetails.todayTimestamp);
+
+                            subscriptionStatusDetailsOutputContent = object.type === 'lifetime_email'
+                                ? _('lifetimeSubscription')
+                                : daysToExpireValue === 0
+                                    ? _('disableToday')
+                                    : daysToExpireValue < 0
+                                        ? daysToExpireValue === -1
+                                            ? _('expiredOneDayAgo')
+                                            : _('expired__expiredDays__ago', {expiredDays:  Math.abs(daysToExpireValue)})
+                                        : _('expiresIn__daysToExpire__days', {daysToExpire: daysToExpireValue});
+
+                            return new Output({
+                                id: self.genId('outputExpiration_' + object.aps.id),
+                                content: '<small class=\'help-block\'>${subscriptionIdOutputContent}</small><small class=\'help-block\'>${subscriptionStatusDetailsOutputContent}<small>',
+                                subscriptionIdOutputContent: _('id__subscriptionId__', {subscriptionId: subscriptionDetails.subscriptionId}),
+                                subscriptionStatusDetailsOutputContent: subscriptionStatusDetailsOutputContent
+                            });
+                        }
+                    }, {
+                        field: 'percentageUsedSpace',
+                        name: _('space'),
+                        renderCell: function(object) {
+                            var fieldsetElement, gaugeElement;
+
+                            if (object.isSubRow) {
+                                return;
+                            }
+
+                            gaugeElement = new Gauge({
+                                id: self.genId('reservedSpace' + object.aps.id),
+                                legend: '${usedSpace}/${maxSpace}',
+                                minimum: 0,
+                                maximum: object.reservedSpace,
+                                maxSpace: changeValueAndUnits(object.reservedSpace),
+                                usedSpace: changeValueAndUnits(object.usedSpace),
+                                value: object.usedSpace || 0
+                            });
+
+                            fieldsetElement = new FieldSet({
+                                id: self.genId('reservedSpaceFieldset' + object.aps.id),
+                                className: isInactive && 'inactive'
+                            });
+
+                            fieldsetElement.addChild(gaugeElement);
+
+                            return fieldsetElement;
+                        }
+                    }, {
+                        field: 'type',
+                        name: _('type'),
+                        filter: {
+                            options: [{
+                                value: 'domainbox',
+                                label:_('type' + ucfirst('domainbox'))
+                            }, {
+                                value: 'mbox',
+                                label:_('type' + ucfirst('mbox'))
+                            }, {
+                                value: 'email',
+                                label: _('type' + ucfirst('email'))
+                            }, {
+                                value: 'mboxftp',
+                                label: _('mboxftp')
+                            }, {
+                                value: 'mboxchroot',
+                                label: _('mboxchroot')
+                            }]
+                        },
+                        renderCell: function(object) {
+                            if (object.isSubRow) {
+                                return new Output({
+                                    content: '${value}',
+                                    value: _('availableEmailType' + snakeToPascalCase(object.type))
+                                });
+                            }
+
+                            return new Output({
+                                content: '${value}',
+                                value: _('type' + ucfirst(object.type)),
+                                baseClass: isInactive && 'inactive'
+                            });
+                        }
+                    }, {
+                        field: 'server.name',
+                        name: _('accessFTP'),
+                        filter: true,
+                        renderCell: function(object) {
+                            if (object.isSubRow) {
+                                return;
+                            }
+                            if (isPersonalEmail(object) || isDomainBox(object)) {
+                                if (self.byId(object.aps.id + 'subscriptionIdOutput')) {
+                                    self.byId(object.aps.id + 'subscriptionIdOutput').destroy();
+                                }
+
+                                return new Output({
+                                    id: self.genId(object.aps.id + 'subscriptionIdOutput'),
+                                    content: _('none'),
+                                    baseClass: isInactive ? 'inactive' : 'access-information'
+                                });
+                            }
+
+                            if (isSuspendableResourceDisabled(object.status)) {
+                                return new Output({
+                                    id: self.genId(object.aps.id + 'mailboxListDisabledServer'),
+                                    content: '<span class="inactive">${serverName}</span><span class="fa fa-warning" style="padding-left:10px;color:orange"></span>',
+                                    serverName: object.server.name
+                                });
+                            }
+
+                            return new Output({
+                                id: self.genId(object.aps.id + 'mailboxListDisabledServer'),
+                                content: '<div>' + _(object.serverAccess) + (object.serverAccess === 'directory' ? ': ' + '${folder}' : '') + '</div>'
+                                + '<div>${serverName}</div>',
+                                folder: object.folder,
+                                serverName: object.server.name
+                            });
+                        }
+                    }, {
+                        field: 'mailboxStatus',
+                        name: _('status'),
+                        align: 'center',
+                        sortable: false,
+                        renderCell: function(object) {
+                            var subscriptionStatusClass, subscriptionStatusOutputContent;
+
+                            if (object.isSubRow) {
+                                return;
+                            }
+                            if (object.usedSpace === null && !isApsStatusInProgress(object.aps.status)) {
+                                return new Output({
+                                    id: self.genId('status_' + object.aps.id + '_output'),
+                                    content: '<div class="badge-status status__disabled" title="' + _('boxDamaged') + '"></div>'
+                                });
+                            }
+
+                            if (!isPersonalEmail(object)) {
+                                return new Output({
+                                    id: self.genId('status_' + object.aps.id + '_output'),
+                                    content: '<div class="${classStyle}" title="' + _(renderCellObjectApsStatus('mailboxApsStatus', object.aps.status)) + '"></div>',
+                                    classStyle: 'badge-status status__' +  statuses[object.aps.status]
+                                });
+                            }
+
+                            subscriptionStatusOutputContent = _(subscriptionStatusIdToDescription()[subscriptionDetails.status]);
+
+                            if (isSubscriptionExpired(subscriptionDetails.status) || isSubscriptionDisabled(subscriptionDetails.status)) {
+                                subscriptionStatusClass = 'status__deleted';
+                            } else if (constants.expirationWarningThreshold < daysToExpireValue) {
+                                subscriptionStatusClass = 'status__created';
+                            } else {
+                                subscriptionStatusClass = 'status__deleteInProgres';
+                                subscriptionStatusOutputContent = _('expiring');
+                            }
+
+                            return new Output({
+                                id: self.genId('status_' + object.aps.id + '_output'),
+                                content: '<div class="${classStyle}" title="' + subscriptionStatusOutputContent + '"></div>',
+                                classStyle: 'badge-status ' +  subscriptionStatusClass
+                            });
+                        }
+                    }, {
+                        field: 'actionsCell',
+                        sortable: false,
+                        renderCell: function(object) {
+                            var gotoSubscription, subscriptionClass, subscriptionLabel;
+
+                            if (object.isSubRow) {
+                                return object.actionsCell ? new Button({
+                                    title: _('showAll'),
+                                    onClick: function() {
+                                        aps.apsc.gotoView('mailbox-available-email-list', object.aps.id);
+                                    }
+                                }) : null;
+                            }
+                            gotoSubscription = function() {
+                                xhr('/aps/2/resources/' + object.aps.subscription).then(function(subscriptionResource) {
+                                    gotoSubscriptionDetailsView(subscriptionResource.subscriptionId);
+                                });
+                            };
+
+                            if (isDomainBox(object)) {
+                                return new Button({
+                                    id: self.genId('editDomainBoxButton_' + object.aps.id),
+                                    title: _('editBox'),
+                                    onClick: function() {
+                                        aps.apsc.gotoView('domain-box-edit', object.aps.id);
+                                    }
+                                });
+                            }
+                            if (isPersonalEmail(object) && subscriptionDetails && object.type !== 'lifetime_email') {
+                                if (isSubscriptionTrial(subscriptionDetails.status)) {
+                                    subscriptionLabel = _('buy');
+                                    subscriptionClass = 'text-info';
+                                } else if (constants.expirationWarningThreshold > daysToExpireValue && !isSubscriptionDisabled(subscriptionDetails.status)) {
+                                    subscriptionLabel = _('prolong');
+                                    subscriptionClass = 'text-warning';
+                                }
+                            }
+                            return new DropDownButton({
+                                id: self.genId('actions_button_' + object.aps.id),
+                                label: _('options'),
+                                disabled: isInactive,
+                                items: [
+                                    {
+                                        id: self.genId('subscription_' + subscriptionLabel + object.aps.id),
+                                        label: subscriptionLabel,
+                                        visible: !!subscriptionLabel,
+                                        onClick: gotoSubscription,
+                                        baseClass: 'font-bold ' + subscriptionClass,
+                                        mailboxId: object.aps.id
+                                    }, {
+                                        id: self.genId('separator_sub' + object.aps.id),
+                                        type: 'separator'
+                                    }, {
+                                        id: self.genId('general_settings' + object.aps.id),
+                                        label: _('mailboxGeneralSettings'),
+                                        disabled: at(object, 'blocked'),
+                                        onClick: function() {
+                                            if (object.blocked) {
+                                                return;
+                                            }
+
+                                            aps.apsc.gotoView(!isPersonalEmail(object) ? 'mailbox-edit' : 'personal-email-edit', object.aps.id);
+                                        },
+                                        mailboxId: object.aps.id
+                                    }, {
+
+                                        id: self.genId('2fa_settings_' + object.aps.id),
+                                        label: _('2fa'),
+                                        disabled: at(object, 'blocked'),
+                                        onClick: function() {
+                                            if (object.blocked) {
+                                                return;
+                                            }
+
+                                            aps.apsc.gotoView('mailbox-2fa-settings', object.aps.id);
+                                        },
+                                        mailboxId: object.aps.id
+
+                                    }, {
+                                        id: self.genId('antispam_settings_' + object.aps.id),
+                                        label: _('antispam'),
+                                        disabled: at(object, 'blocked'),
+                                        onClick: function() {
+                                            if (object.blocked) {
+                                                return;
+                                            }
+
+                                            aps.apsc.gotoView('mailbox-antispam-settings', object.aps.id);
+                                        },
+                                        mailboxId: object.aps.id
+                                    }, {
+                                        id: self.genId('autoresponder_settings_' + object.aps.id),
+                                        label: _('autoresponder'),
+                                        disabled: at(object, 'blocked'),
+                                        visible: !isDomainBox(object),
+                                        onClick: function() {
+                                            if (object.blocked) {
+                                                return;
+                                            }
+
+                                            aps.apsc.gotoView('mailbox-autoresponder-settings', object.aps.id);
+                                        },
+                                        mailboxId: object.aps.id
+                                    }, {
+                                        id: self.genId('redirections_settings_' + object.aps.id),
+                                        label: _('redirections'),
+                                        disabled: at(object, 'blocked'),
+                                        visible: !isDomainBox(object),
+                                        onClick: function() {
+                                            if (object.blocked) {
+                                                return;
+                                            }
+
+                                            aps.apsc.gotoView('mailbox-redirections-settings', object.aps.id);
+                                        },
+                                        mailboxId: object.aps.id
+                                    }, {
+                                        id: self.genId('separator_' + object.aps.id),
+                                        type: 'separator'
+                                    }, {
+                                        id: self.genId('aliases' + object.aps.id),
+                                        label: _('aliasList'),
+                                        onClick: function() {
+                                            aps.apsc.gotoView('aliases', object.aps.id, {blockade: isPersonalEmail(object) ? self.blockades.personalEmailAlias : self.blockades.mailboxAlias});
+                                        },
+                                        mailboxId: object.aps.id
+                                    }, {
+                                        id: self.genId('servers' + object.aps.id),
+                                        label: _('mailboxServers'),
+                                        disabled: at(object, 'blocked'),
+                                        onClick: function() {
+                                            if (object.blocked) {
+                                                return;
+                                            }
+
+                                            aps.apsc.gotoView('mailbox-server-settings', object.aps.id);
+                                        },
+                                        mailboxId: object.aps.id
+                                    }, {
+                                        id: self.genId('addresses' + object.aps.id),
+                                        label: object.close ? _('availableEmailListOff') : _('availableEmailList'),
+                                        close: !!object.close,
+                                        onClick: function() {
+                                            if (object.blocked) {
+                                                return;
+                                            }
+
+                                            if (aps.context.visibleMode === 'xs') {
+                                                aps.apsc.gotoView('mailbox-available-email-list', object.aps.id);
+                                                return;
+                                            }
+
+                                            if (self.byId('addresses' + object.aps.id).close) {
+                                                delete object.addresses;
+
+                                                object.close = false;
+
+                                                grid.refresh();
+
+                                                return;
+                                            }
+
+                                            xhr('/aps/2/resources/' + object.aps.id + '/availableEmailList').then(function(availableEmails) {
+                                                object.addresses = Object.entries(availableEmails.responseContent).map(function(availableEmail) {
+                                                    return {
+                                                        aps: object.aps,
+                                                        fullName: availableEmail[1].slice(0, 5),
+                                                        type: availableEmail[0],
+                                                        actionsCell: availableEmail[1].length > 5
+                                                    };
+                                                });
+                                                object.close = true;
+
+                                                grid.refresh();
+                                            });
+                                        },
+                                        mailboxId: object.aps.id
+                                    }
+                                ]
+                            });
+                        }
+                    }
+                    ]}, [
+                    ['aps/Toolbar', {
+                        gridSize: 'xs-12 md-12'
+                    }, [
+                        ['aps/ToolbarButton', {
+                            id: this.genId('addNew'),
+                            iconClass: 'fa-plus',
+                            label: _('add'),
+                            autoBusy: false,
+                            onClick: function() {
+                                var serverApsName;
+
+                                serverApsName = aps.context.visibleMode !== 'xs'
+                                    ? self.byId('mailboxesGrid-search-text-server.name').value
+                                    : aps.app.serverName;
+
+                                aps.apsc.gotoView('mailbox-new-advanced', null, {serverApsName: serverApsName || undefined});
+                            }
+                        }],
+                        ['aps/ToolbarButton', {
+                            id: this.genId('mailboxDelete'),
+                            iconClass: 'fa-minus',
+                            label: _('delete'),
+                            autoBusy: false,
+                            requireItems: true,
+                            onClick: deleteMailbox
+                        }],
+                        ['aps/ToolbarButton', {
+                            id: this.genId('accountRefresh'),
+                            iconClass: 'fa-refresh',
+                            label: _('refresh'),
+                            busyLabel: _('refreshing'),
+                            onClick: function() {
+                                refreshMailboxGrid();
+                            }
+                        }],
+                        ['aps/ToolbarSeparator', {
+                            baseClass: 'export-separator'
+                        }],
+                        ['aps/ToolbarButton', {
+                            id: this.genId('exportSelected'),
+                            label: _('exportSelected'),
+                            requireItems: true,
+                            busyLabel: _('exporting'),
+                            onClick: function() {
+                                exportSelectedMailboxes();
+                            },
+                            visible: aps.context.visibleMode !== 'xs'
+                        }],
+                        ['aps/ToolbarButton', {
+                            id: this.genId('exportAll'),
+                            label: _('exportAll'),
+                            busyLabel: _('exporting'),
+                            onClick: function() {
+                                exportAllMailboxes();
+                            },
+                            visible: false
+                        }],
+                        ['aps/ToolbarButton', {
+                            id: self.genId('goToLoginPage'),
+                            label: _('goToLoginPage'),
+                            className: 'btn apsButton btn-default custom-login-button',
+                            onClick: function() {
+                                window.open(brandData.webmailAddress, '_blank');
+                            },
+                            autoBusy: false,
+                            visible: false
+                        }]
+                    ]]
+                ]],
+                ['aps/Container', {
+                    id: self.genId('emptyContentContainer'),
+                    gridSize: 'md-8 xs-12',
+                    visible: false
+                }]
+            ]];
+        },
+
+        onContext: function() {
+            var aliasesSearchFieldSet;
+
+            self.byId('goToLoginPage').set('visible', brandData.webmailAddress);
+
+            grid = self.byId('mailboxesGrid');
+
+            // Usuwając Domainboxa zlecamy anulowanie i likwidację subskrypcji, a to powoduje ponowne wywołanie onContext.
+            // W związku musimy zadbać o to, by nie generować elementów już istniejących.
+            if (aps.context.visibleMode !== 'xs' && !self.byId('aliasesSearchFieldSet')) {
+                aliasesSearchFieldSet = new FieldSet({
+                    id: self.genId('aliasesSearchFieldSet')
+                });
+
+                aliasesSearchFieldSet.addChild(new TextBox({
+                    id: self.genId('aliasesSearch'),
+                    placeHolder: _('alias'),
+                    gridSize: 'md-3'
+                }));
+                aliasesSearchFieldSet.placeAt(self.byId('mailboxes_mailboxesGrid_filtersFS'), 'after');
+            }
+
+            if (!aps.app.filters && aps.context.params.filters) {
+                aps.app.filters = typeof aps.context.params.filters === 'object' ? aps.context.params.filters : JSON.parse(aps.context.params.filters);
+
+                if (aps.context.visibleMode === 'xs') {
+                    aps.app.serverName = aps.app.filters['server.name'] ? aps.app.filters['server.name'] : undefined;
+                }
+
+                delete aps.context.params.filters;
+            }
+
+            if (!self.byId('help_container')) {
+                self.byId('tiles').addChild(new ExplanationSection({
+                    id: self.genId('help_container'),
+                    gridSize: 'md-4 xs-12',
+                    mainDescription: {label:'mailboxListHelpText', translation: _('mailboxListHelpText')}
+                }));
+            }
+
+            clearSelection(grid);
+
+            xhr('/aps/2/resources/?implementing(http://home.pl/types/hosting/server/13.1),eq(aps.status,aps:ready),limit(0,1)').then(function(server) {
+                if (server[0]) {
+                    xhr('/aps/2/resources/' + server[0].aps.id + '/readSettings').then(function(serverSettings) {
+                        self.blockades = Object.assign(self.blockades, serverSettings.blockades ? serverSettings.blockades : {});
+
+                        if (self.blockades.mailbox || self.blockades.personalEmail) {
+                            displayMessage(_('technicalBreakInProgress'), 'info');
+                        }
+
+                        if (self.blockades.mailbox) {
+                            self.byId('mailboxDelete').set({disabled: true, onClick: null});
+                            self.byId('addNew').set({disabled: true, onClick: null});
+                        }
+                    });
+                }
+            });
+
+            xhr('/aps/2/resources/?implementing(http://home.pl/types/mailbox/context/4.1)').then(function(context) {
+                contexts = context.map(function(data) {
+                    return data.aps;
+                });
+
+                self.byId('addNew').set('visible', contexts[0]);
+
+                refreshMailboxGrid();
+                aps.apsc.hideLoading();
+            }, function(error) {
+                displayResponseErrorMessage(error);
+            });
+        },
+
+        onHide: function() {
+            self.byId('tiles').removeChild(self.byId('help_container'));
+
+            if (aps.context.visibleMode !== 'xs') {
+                self.byId('aliasesSearchFieldSet').destroy();
+            } else {
+                delete aps.app.serverName;
+            }
+        },
+
+        blockades: {}
+    });
+});

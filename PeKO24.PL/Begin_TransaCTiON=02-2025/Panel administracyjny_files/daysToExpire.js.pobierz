@@ -1,0 +1,22 @@
+define([], function() {
+    /**
+     * Funkcja wylicza ilości dni pozostałych do wygaśnięcia.
+     *
+     * W przypadku, gdy subskrypcja już wygasła funkcja zwraca wartość ujemną dni po wygaśnięciu usługi.
+     *
+     * @param {!number} expirationDate data wygaśnięcia w formacie UNIXowego znacznika czasu
+     * @param {number}  timestamp      data w formacie UNIXowego znacznika czasu, jeśli nie zostanie podany funkcja użyje bieżącego czasu
+     *
+     * @return {number} ilość dni pozostałych do wygaśnięcia
+     */
+    return function(expirationDate, timestamp = null) {
+        var dateTimestamp;
+
+        dateTimestamp = timestamp;
+        if (dateTimestamp === null) {
+            dateTimestamp = Math.floor(Date.now() / 1000);
+        }
+
+        return Math.ceil((expirationDate - dateTimestamp) / 60 / 60 / 24);
+    };
+});

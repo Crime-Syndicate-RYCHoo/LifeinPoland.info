@@ -1,0 +1,28 @@
+define(['aps/xhr'], function(xhr) {
+    /**
+     * Funkcja zwracająca konfiguracje revDns dla podanego serwera.
+     *
+     * @param  {string} serverId id serwera
+     *
+     * @returns {array} konfiguracja serwera
+     */
+    return function(serverId) {
+        var revDns;
+
+        if (!sessionStorage.getItem(serverId + '_readRevDns')) {
+            xhr('/aps/2/resources/' + serverId + '/readRevDns', {sync: true}).then(function(readRevDns) {
+                revDns = {
+                    domain: readRevDns.domain,
+                    available: readRevDns.available
+                };
+
+                sessionStorage.setItem(
+                    serverId + '_readRevDns',
+                    JSON.stringify(revDns)
+                );
+            });
+        }
+
+        return revDns ? revDns : JSON.parse(sessionStorage.getItem(serverId + '_readRevDns'));
+    };
+});

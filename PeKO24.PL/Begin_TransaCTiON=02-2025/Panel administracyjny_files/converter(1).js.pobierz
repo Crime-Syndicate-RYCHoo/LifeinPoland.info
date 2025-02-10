@@ -1,0 +1,111 @@
+define([
+	"aps/Message",
+	"dijit/registry",
+	"dojo/has",
+	"aps/ready!"
+], function (
+	Message,
+	registry,
+	has
+){
+	"use strict";
+
+	var _;
+
+	function createCrossPackageLocalization(view){
+		var old = window._;
+		if(old.crossPackage){
+			// unwrap
+			old = old.old;
+		}
+		var func = function(a, b, c, d){
+			if(d) {
+				return old(a, b, c, d);
+			} else if(c) {
+				return old(a, b, c, view);
+			} else if(b) {
+				return old(a, b, view);
+			} else {
+				return old(a, view);
+			}
+		};
+		func.crossPackage = true;
+		func.old = old;
+		return func;
+	}
+
+	/**
+	 * Setup cross package localization
+	 * @param view
+	 * @returns {*}
+	 */
+	function setLocalizationContext(view){
+		_ = createCrossPackageLocalization(view);
+		// force load localization files
+		_("Home");
+		return _;
+	}
+
+	function getErrorMessage(errorMessage) {
+		var _ = window._;
+		var messageDescription;
+		if (errorMessage && errorMessage.response && errorMessage.response.data) {
+			var data = errorMessage.response.data;
+			messageDescription = _(data.message, data.details, {}, data.pkgId);
+		} else {
+			messageDescription = typeof errorMessage === "string" ? errorMessage :
+				_("Unable to complete the operation, please cancel and try again later");
+		}
+		return messageDescription;
+	}
+	function showError(errorMessage) {
+		window.aps.apsc.removeAllMessages();
+		window.aps.apsc.displayMessage(getErrorMessage(errorMessage), 'error');
+	}
+
+	function durationToString(duration) {
+		return duration.toFixed(8).replace(/\.?0*$/, "");
+	}
+
+	function processAmount(amount, currencyId) {
+		return (amount == undefined || amount == null) ? '' : window._.formatCurrency(amount, currencyId ? currencyId : aps.context.bssCurrencySettings.currencyId);
+	}
+
+	return {
+		setLocalizationContext: setLocalizationContext,
+		durationToString: durationToString,
+		getErrorMessage: getErrorMessage,
+		showError: showError,
+
+		isDisplayPrice: function(){
+			return aps.apsc.checkPrivilege("http://www.parallels.com/pa/pa-core-services#show_prices_everywhere_in_ccp_v2");
+		},
+
+		isShowAutoTopupButtonInUX1: function(){
+			return aps.apsc.checkPrivilege("http://www.parallels.com/pa/pa-core-services#show_auto_topup_button_in_ux1");
+		},
+
+		formatCurrency: function (amount, currencyId) {
+			return processAmount(amount, currencyId);
+		},
+		isUpgradeAllowed: function(){
+			return true;
+		},
+        isSensitiveDataShown: function(){
+            return aps.apsc.checkPrivilege("http://www.parallels.com/pa/pa-core-services#sensitive_account_info-view");
+        },
+        isCCPv2: function() {
+            return has("aps-bs");
+        },
+        isCCPv1: function() {
+            return !this.isCCPv2();
+        },
+        selectCCPVariant: function(ccpv1, ccpv2){
+            return this.isCCPv2() ? ccpv2 : ccpv1;
+        },
+		EARMEnabled: function(){
+        	return (aps.context.vars && aps.context.vars.EARMEnabled !== undefined) || false;
+		}
+	};
+
+});

@@ -1,0 +1,51 @@
+define([
+	"./converter",
+	"aps/alert"
+], function (
+	converterBase,
+	alert
+) {
+	return {
+		show: function(type, params) {
+			var viewId;
+			if (type === "payment-confirmation-popup") {
+				viewId = converterBase.selectCCPVariant("http://www.odin.com/oa/billing/paymentmanagement#payment-confirmation","http://www.odin.com/oa/billing/paymentmanagement#payment-confirmation-popup");
+			} else {
+				viewId = "http://www.parallels.com/ccp-billing#" + type;
+			}
+
+			return aps.apsc.showPopup({
+				viewId: viewId,
+				params: params,
+				modal: true
+			}).then(function(result) {
+				var popupRes = {
+					btnType : result.btnType
+				};
+
+				if (result.data && result.data.status == 'redirecting') {
+					aps.apsc.cancelProcessing();
+
+					alert({
+						title: _('Please Wait'),
+						description: _('We are redirecting you to the external payment gateway...')
+					});
+
+					popupRes.btnType = "redirect";
+				}
+
+				if (result.data && result.data.orderId) {
+					popupRes.data = result.data.orderId;
+				}
+
+				if (result.data && result.data.paymentId) {
+					popupRes.data = {
+                        "paymentId": result.data.paymentId
+                    };
+				}
+
+				return popupRes;
+			});
+		}
+	};
+});

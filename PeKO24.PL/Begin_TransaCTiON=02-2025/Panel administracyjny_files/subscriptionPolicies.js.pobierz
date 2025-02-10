@@ -1,0 +1,37 @@
+define([
+    "./impl/rest",
+    "dojo/promise/all"
+], function (
+    Rest, all
+) {
+    "use strict";
+    var rest = new Rest(aps.context.billingId.aps.id);
+    return {
+        isSubscriptionCancellationAllowed: function(subscriptionId) {
+            return rest.getAllowedOperations(subscriptionId, "getSubscriptionOperations")
+                .then(function(subscriptionOperations) {
+                    if (!subscriptionOperations) {
+                        throw new Error("no reply from custom subscriptions API");
+                    }
+                    return subscriptionOperations.cancellationAllowed;
+                });
+        },
+        getAllowedResourceOperations: function(subscriptionId) {
+            return rest.getSubscriptionDetails(subscriptionId).then(function(subscription) {
+                return all({
+                    resourceOperations: rest.getAllowedOperations(subscriptionId, "getSubscriptionResourceOperations"),
+                    resources: rest.getSubscriptionResources(subscription.aps.id)
+                }).then(function(data) {
+                    var resourcesMap = data.resources.reduce(function(acc, resource) {
+                        acc[resource.resourceId] = resource.internalResourceId;
+                        return acc;
+                    }, {});
+                    return data.resourceOperations.reduce(function(acc, resourceOperation) {
+                        acc[resourcesMap[resourceOperation.resourceId]] = resourceOperation;
+                        return acc;
+                    }, {});
+                });
+            });
+        }
+    };
+});

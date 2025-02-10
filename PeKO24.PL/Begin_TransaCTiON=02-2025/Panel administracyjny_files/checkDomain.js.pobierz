@@ -1,0 +1,85 @@
+define(['aps/xhr', 'dojo/when', 'helpers/views/displayResponseErrorMessage'], function(xhr, when, displayResponseErrorMessage) {
+    var checkDomainRecords, checkDomainServices, self;
+
+    aps.app.domainRecords = {};
+    aps.app.domainServices = {};
+
+    checkDomainRecords = function(domainApsId) {
+        var domain, records;
+
+        if (!aps.app.domainRecords[domainApsId]) {
+            records = {a: [], mx: []};
+            domain = self.domainStore.query({'aps.id': domainApsId});
+
+            domain[0].records.forEach(function(record) {
+                if (record.RRState !== 'active') {
+                    return;
+                }
+
+                if (record.aps.type === 'http://parallels.com/aps/types/pa/dns/record/a/1.0' && ['', '*'].indexOf(record.source) !== -1) {
+                    records.a.push(record.data);
+                } else if (record.aps.type === 'http://parallels.com/aps/types/pa/dns/record/mx/1.0' && record.source === '') {
+                    records.mx.push(record.data);
+                }
+            });
+
+            aps.app.domainRecords[domainApsId] = records;
+        }
+
+        if (aps.app.domainRecords[domainApsId].a.length) {
+            self.byId('domainRedirectionWarning').set({ records: aps.app.domainRecords[domainApsId].a.join(', '), visible: true });
+        } else {
+            self.byId('domainRedirectionWarning').set({ records: '', visible: false });
+        }
+
+        aps.app.model.domainModel.domain.aps.set('id', domainApsId);
+
+        if (self.byId('mailRedirectionWarning')) {
+            self.byId('mailRedirectionWarning').set('visible', aps.app.domainRecords[domainApsId].mx.length);
+        }
+    };
+
+    aps.app.domainServices = {};
+    checkDomainServices = function(domainName) {
+        if (!aps.app.model.applicationModel.migrationFlow) {
+            return;
+        }
+
+        if (aps.app.domainServices[domainName] !== undefined) {
+            return;
+        }
+
+        when(xhr(
+            '/aps/2/resources/' + aps.app.model.applicationModel.domainServiceUuid + '/getDomainServices?domainName=' + domainName,
+            {
+                method: 'GET'
+            }
+        ), function(response) {
+            aps.app.domainServices[domainName] = response ? response : 0;
+        }, function(error) {
+            displayResponseErrorMessage(error);
+        });
+    };
+
+
+    /**
+     * Funkcja sortująca podaną listę domen wg daty wygasania
+     *
+     * @param {Object} view Obiekt widoku
+     * @param {Object} select Obiekt widgetu aps/Select z listą domen
+     *
+     * @return {void}
+     */
+    return function(view, select) {
+        self = view;
+        if (!select.value) {
+            if (self.byId('mailRedirectionWarning')) {
+                self.byId('mailRedirectionWarning').set('visible', false);
+            }
+            return;
+        }
+
+        checkDomainRecords(select.value);
+        checkDomainServices(select.getOption(select.value)[0].label);
+    };
+});

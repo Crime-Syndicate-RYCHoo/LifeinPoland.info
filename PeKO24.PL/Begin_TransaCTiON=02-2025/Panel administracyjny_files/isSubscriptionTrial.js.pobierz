@@ -1,0 +1,16 @@
+define([
+    'helpers/statuses/subscriptionStatuses'
+], function(
+    subscriptionStatuses
+) {
+    /**
+     * Funkcja odpowiada za sprawdzenie, czy subskrypcja jest w statusie trial.
+     *
+     * @param {!number} subscriptionStatusId identyfikator statusu subskrypcji
+     *
+     * @return {boolean} true, jeśli subskrypcja jest w statusie trial
+     */
+    return function(subscriptionStatusId) {
+        return subscriptionStatuses['trial'] === subscriptionStatusId;
+    };
+});

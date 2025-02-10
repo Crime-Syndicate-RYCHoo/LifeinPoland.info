@@ -1,0 +1,52 @@
+define([
+    'aps/nav/ViewPlugin',
+    'aps/FieldSet',
+    'aps/Output',
+    'aps/Tile',
+    'dojo/_base/declare',
+    'aps/ready!'
+], function(
+    ViewPlugin,
+    FieldSet,
+    Output,
+    Tile,
+    declare
+) {
+    return declare(ViewPlugin, {
+        init: function(mediator) {
+            var self, tile, tileFieldset;
+
+            self = this;
+
+            tile = new Tile({
+                id: self.genId('partnerProgramTile'),
+                title: _('partnerProgram', self),
+                buttons: [{
+                    id: self.genId('partnerProgramButton'),
+                    title: _('goToPartnerProgram', self),
+                    autoBusy: false,
+                    onClick: function() {
+                        window.open('https://netsalesmedia.pl/register/?partner=home');
+                    }
+                }],
+                onClick: function() {
+                    window.open('https://netsalesmedia.pl/register/?partner=home');
+                }
+            });
+
+            tileFieldset = new FieldSet({id: self.genId('partnerProgramTileFieldSet')});
+
+            tileFieldset.addChild(new Output({
+                id: self.genId('partnerProgramOutput'),
+                content: '<span class="tile-description">${value}</span>',
+                value: _('partnerProgramInformation', self)
+            }));
+
+            tile.addChild(tileFieldset);
+
+            mediator.getWidget = function() {
+                return tile;
+            };
+        }
+    });
+});

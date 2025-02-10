@@ -1,0 +1,19 @@
+define([
+    'helpers/statuses/objectApsStatuses',
+    'helpers/mappers/ucfirst'
+], function(
+    statuses,
+    ucfirst
+) {
+    /**
+     * Funkcja zwracająca etykietkę do tłumaczeń wynikającą z prefiksu oraz statusu systemowego zasobu.
+     *
+     * @param {string} prefix przedrostek etykietki
+     * @param {string} status status zasobu
+     *
+     * @return {string} etykietka do tłumaczeń wynikającą z prefiksu oraz statusu systemowego zasobu
+     */
+    return function(prefix, status) {
+        return prefix + ucfirst(statuses[status]);
+    };
+});

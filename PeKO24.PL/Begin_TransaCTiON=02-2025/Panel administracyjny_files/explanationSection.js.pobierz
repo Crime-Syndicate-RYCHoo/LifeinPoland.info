@@ -1,0 +1,63 @@
+define(['aps/Container', 'aps/declare', 'aps/Output', 'helpers/constants/brandData', 'helpers/mappers/ucfirst'], function(Container, declare, Output, brandData, ucfirst) {
+    return declare([Container], {
+        mainDescription: {label: ''},
+
+        list: [],
+
+        additionalDescriptions: [],
+
+        title: aps.context.visibleMode === 'xs' ? _('ContainerHelpTitle') : '',
+        collapsible: aps.context.visibleMode === 'xs',
+        collapsed: aps.context.visibleMode === 'xs',
+        parameters: {},
+
+        startup: function() {
+            var listContent, parameters, self;
+
+            this.inherited(arguments);
+
+            self = this;
+
+            parameters = Object.assign({
+                context: brandData.brandName ? 'brand' + ucfirst(brandData.brandName) : '',
+                companyName: brandData.companyName
+            }, self.parameters);
+
+            if (aps.context.visibleMode !== 'xs') {
+                self.addChild(new Output({
+                    baseClass: 'help-container__header',
+                    content: _('ContainerHelpTitle')
+                }));
+            }
+
+            if (self.mainDescription.label) {
+                self.addChild(new Output({
+                    content: _(self.mainDescription.label, parameters),
+                    baseClass: 'help-container__text'
+                }));
+            }
+
+            if (self.list.length) {
+                listContent = '';
+
+                self.list.forEach(function(element) {
+                    listContent += '<li class="explanation_section_list">' + _(element.label, parameters).trim() + '</li>';
+                });
+
+                self.addChild(new Output({
+                    content: '<ul>' + listContent + '</ul>',
+                    baseClass: 'help-container__text'
+                }));
+            }
+
+            if (self.additionalDescriptions.length) {
+                self.additionalDescriptions.forEach(function(element) {
+                    self.addChild(new Output({
+                        content: _(element.label, parameters),
+                        baseClass: 'help-container__text'
+                    }));
+                });
+            }
+        }
+    });
+});

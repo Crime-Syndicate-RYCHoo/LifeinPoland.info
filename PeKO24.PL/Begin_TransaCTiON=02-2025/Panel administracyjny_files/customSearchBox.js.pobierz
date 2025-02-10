@@ -1,0 +1,37 @@
+define(['dojo/query'], function(query) {
+    /**
+     * Funkcja pomocnicza używana do tworzenia wyglądu wyszukiwarki dostosowanej do wyglądu panelu v2.0
+     *
+     * @param {object} self      obiekt modyfikowanego widoku listy
+     * @param {string} gridId    identyfikator siatki (grid)
+     * @param {array}  viewArray tablica pól filtrów z widoku listy (name, label, type, value)
+     *
+     * @return {void}
+     */
+    return function(self, gridId, viewArray) {
+        if (aps.context.visibleMode === 'xs') {
+            return;
+        }
+
+        if (self.byId(gridId + '-search-text-aps.type') !== undefined) {
+            self.byId(gridId + '-search-text-aps.type').destroy();
+        }
+
+        viewArray.forEach(function(object) {
+            if (object.type === 'select') {
+                self.byId(gridId + '-search-select-' + object.name).updateOption({label: object.label, value:''});
+            } else {
+                self.byId(gridId + '-search-text-' + object.name).attr({placeholder: object.label,
+                    value: object.value ? object.value : self.byId(gridId + '-search-text-' + object.name).get('value') });
+            }
+        });
+
+        query('#' + self.byId(gridId + '_filtersFS').id + ' .form-group').forEach(function(element) {
+            element.classList.remove('col-md-2');
+            element.classList.add('col-md-4');
+
+            query('label', element)[0].style.display = 'none';
+        });
+        query('.custom-grid nav')[0].classList.add('col-md-12');
+    };
+});

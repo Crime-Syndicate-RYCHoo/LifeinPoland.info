@@ -1,0 +1,233 @@
+define([
+	"dojo/_base/declare",
+	"dojo/Deferred",
+	"dojo/promise/all",
+	"dojox/mvc/getStateful",
+	"dijit/registry",
+	"aps/nav/ViewPlugin",
+	"aps/tiles/UsageInfoTile",
+	"aps/ResourceStore",
+	"aps/Container",
+	"aps/Output",
+	"aps/FieldSet",
+	"aps/Status",
+	"aps/xhr",
+	"aps/common",
+	"../../common/utils/converter",
+	"../../../utils/converter",
+	"../../../utils/confirmationPopup",
+	"../../../account-management/impl/rest",
+	"../impl/rest",
+	"../../../account-management/impl/types",
+	"aps/ready!"
+], function (
+	declare,
+	Deferred,
+	all,
+	getStateful,
+	registry,
+	ViewPlugin,
+	Tile,
+	ResourceStore,
+	Container,
+	Output,
+	FieldSet,
+	ApsStatus,
+	xhr,
+	common,
+	converter,
+	converterBase,
+	confirmationPopup,
+	AccountRest,
+	DocumentRest,
+	accountTypes
+) {
+	"use strict";
+
+	var apsPluginContext;
+	var widget;
+	var _;
+	var accountManagementRest;
+	var documentManagementRest;
+	var _self;
+	var account = {
+		fullyRegistered: true
+	};
+	var moneyDiffTolerant = 0.001;
+
+	function createButtonOptions() {
+		return {
+			id: "pay_invoices",
+			label: _("Pay Now"),
+			iconClass: "fa-arrow-right",
+			autoBusy: false,
+			onClick: function () {
+				var invoiceDef = new Deferred();
+				var invoicesData;
+				documentManagementRest.getUnpaidDocuments().then(function (data) {
+					invoicesData = data.map(function (row) {
+						return {
+							documentId: row.documentId,
+							type: converter.documentTypeToStr(row.type + "_doc"),
+							number: row.number,
+							description: row.description,
+							dueDate: row.dueDate,
+							dueAmountStr: converterBase.formatCurrency(row.balance),
+							dueAmount: row.balance,
+							isOrder: false
+						};
+					});
+					invoiceDef.resolve();
+				});
+				invoiceDef.then(function () {
+					if (!account.fullyRegistered) {
+						aps.apsc.gotoView("http://www.parallels.com/ccp-billing#unpaid-documents", null, {
+							payDocs: true,
+							data: {
+								preorder: invoicesData
+							}
+						});
+					} else {
+						confirmationPopup.show("payment-confirmation-popup", {
+							data: {
+								preorder: invoicesData
+							}
+						}).then(function (result) {
+							if (result && result.btnType !== "cancel") {
+								if (!result.data) {
+									_self.onContext(apsPluginContext);
+								}
+							}
+						});
+					}
+				});
+				
+			}
+		};
+	}
+
+	function cleanupWidgets() {
+		registry.byId("Billing_Balance_Tile").set({
+			buttons: [],
+			description: "",
+			info: null,
+			isBusy: true,
+			textPrefix: "",
+			textSuffix: "",
+			usageHint: "",
+			value: ""
+		});
+	}
+
+	return declare(ViewPlugin, {
+		init: function (mediator) {
+			_ = converterBase.setLocalizationContext(this);
+			_self = this;
+			var showAccountPrivilege = aps.apsc.checkPrivilege("http://www.parallels.com/pa/pa-core-services#ux1_show_account_menu");
+			var elementAccessPrivilege = aps.apsc.checkPrivilege("http://www.parallels.com/pa/pa-core-services#aps_navigation_element_implicit_access");
+
+			widget = new Tile({
+				title: _('Invoices'),
+				gridSize: "md-4 xs-12",
+				id: "Billing_Balance_Tile",
+				showPie: false,
+				visible: showAccountPrivilege && elementAccessPrivilege,
+				isBusy: true,
+				iconName: _self.buildStaticURL('img/invoices-icon.png'),
+				onClick: function () {
+					aps.apsc.gotoView("http://www.parallels.com/ccp-billing#unpaid-documents");
+				}
+			});
+
+			mediator.getWidget = function () {
+				return widget;
+			};
+
+			mediator.onHide = cleanupWidgets;
+		},
+
+		onContext: function (apsContext) {
+			const earmEnabled = apsContext.vars ? apsContext.vars.EARMEnabled : null;
+			if (earmEnabled && earmEnabled.bssAccountInfo.externalARManagement) {
+				widget.destroy();
+				return;
+			}
+
+			apsPluginContext = apsContext;
+			accountManagementRest = new AccountRest(aps.context.billingId.aps.id);
+			documentManagementRest = new DocumentRest(aps.context.billingId.aps.id);
+			widget.set({isBusy: true});
+			accountManagementRest.getAccountBalance().then(function (accountBalance) {
+				if (!accountBalance) {
+					return;
+				}
+				account = accountBalance.account;
+
+				var _value = ((accountBalance.debt > moneyDiffTolerant) ? accountBalance.debt : 0);
+				var widgetProperties = {
+					buttons: (accountBalance.debt <= moneyDiffTolerant) ? [] : [createButtonOptions()],
+					description: "",
+					info: null,
+					isBusy: false,
+					textPrefix: _value > moneyDiffTolerant ? aps.context.bssCurrencySettings.currencySymbol : "",
+					textSuffix: "",
+					usageHint: converterBase.isDisplayPrice() ?
+						_("Credit Balance __val__", {val: converterBase.formatCurrency(accountBalance.creditAvailable)}) :
+						"",
+					value: _value
+				};
+
+				var status;
+				if (accountTypes.ACCOUNT_STATUS.CREDIT_HOLD === account.status ||
+					accountTypes.ACCOUNT_STATUS.ADMIN_HOLD === account.status ||
+					accountTypes.ACCOUNT_STATUS.FULL_HOLD === account.status) {
+					status = {
+						type: "error",
+						label: _("ACCOUNT IS PUT ON HOLD")
+					};
+				}
+
+				if (widgetProperties.value > moneyDiffTolerant) {
+					if (!status) {
+						if (accountBalance.daysToPay === 0) {
+							status = {
+								type: "error",
+								label: widgetProperties.value - accountBalance.creditAvailable > moneyDiffTolerant ?
+									_(" __days__ Day(s) before hold", {days: accountBalance.daysUntilHold}) :
+									_("You Have Overdue Invoices")
+							};
+						} else {
+							status = {
+								type: "warn",
+								label: _("__days__ Day(s) to Pay", {days: accountBalance.daysToPay})
+							};
+						}
+					}
+
+					widgetProperties.textPrefix = aps.context.bssCurrencySettings.currencySymbol;
+					widgetProperties.precision = aps.context.bssCurrencySettings.currencyPrecision;
+					widgetProperties.textFirstNumber = "${value}";
+					widgetProperties.textSuffix = _("To Pay");
+				} else {
+					widgetProperties.textFirstNumber = "";
+					widgetProperties.description = _("All Invoices are Paid");
+				}
+
+				if (status) {
+					widgetProperties.info = new ApsStatus({
+						id: "Billing_Balance_Status_" + Date.now(),
+						status: status.type,
+						useIcon: false,
+						statusInfo: {
+							warn: {label: status.label, type: "warning"},
+							error: {label: status.label, type: "danger"}
+						}
+					});
+				}
+				widget.set(widgetProperties);
+			}, function (error) {
+				converterBase.showError(error);
+			});
+		}
+	});
+});

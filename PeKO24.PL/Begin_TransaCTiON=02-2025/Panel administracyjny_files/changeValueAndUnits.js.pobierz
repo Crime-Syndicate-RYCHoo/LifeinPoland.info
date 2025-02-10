@@ -1,0 +1,23 @@
+define([], function() {
+    /**
+     * Funkcja zwraca wartość w MB lub GB zależnie od wielkości.
+     *
+     * @param {!number} value wartość do przeformatowania
+     *
+     * @return {string} zwracana wartość wraz z jednostką
+     */
+    return function(value) {
+        var valueGB;
+
+        if (!value) {
+            return 0 + 'MB';
+        }
+
+        valueGB = 1024;
+        if (valueGB <= value) {
+            return (value / valueGB).toFixed(1) + 'GB';
+        }
+
+        return value + 'MB';
+    };
+});

@@ -1,0 +1,17 @@
+define([], function() {
+    /**
+     * Funkcja czyszcząca zaznaczenie elementów na siatce.
+     *
+     * @param {object} grid siatka do wyczyszczenia zaznaczenia
+     *
+     * @return {void}
+     */
+    return function(grid) {
+        var selectedRow, selectedRows;
+
+        selectedRows = grid.get('selectionArray');
+        for (selectedRow in selectedRows) {
+            selectedRows.splice(selectedRow, 1);
+        }
+    };
+});

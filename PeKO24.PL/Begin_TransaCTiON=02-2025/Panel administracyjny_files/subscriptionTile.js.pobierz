@@ -1,0 +1,1011 @@
+define([
+	"dojox/mvc/at",
+	"dojox/mvc/getStateful",
+    "dojo/Deferred",
+    "dojo/promise/all",
+	"dijit/registry",
+	"aps/declare",
+	"aps/Status",
+	"aps/FieldSet",
+	"aps/Output",
+	"aps/Container",
+	"aps/Message",
+	"aps/Button",
+	"aps/common",
+    "aps/confirm",
+	"./converter",
+	"../utils/converter",
+	"./impl/types",
+	"./aps-api",
+	"./impl/rest",
+    "../account-management/impl/rest",
+    "../account-management/impl/types",
+	"./subscriptionPolicies",
+    "../utils/types",
+	"aps/ready!"
+], function(
+		at,
+		getStateful,
+		Deferred,
+		all,
+		registry,
+		declare,
+		Status,
+		FieldSet,
+		Output,
+		Container,
+		Message,
+		Button,
+		apsCommon,
+		confirm,
+		converter,
+		converterBase,
+		types,
+		ApsApi,
+        Rest,
+        AccountRest,
+		accountTypes,
+		SubscriptionPolicies,
+		typesBase
+	) {
+	var apsPluginContext;
+	var apsApi;
+	var subscriptionTile;
+	var tileTitle;
+	var plan;
+	var hasUpgrades;
+	var subscriptionData;
+	var STATUS = types.STATUS;
+	var SERVICE_STATUS = types.SERVICE_STATUS;
+	var CHARGE_TYPE = types.CHARGE_TYPE;
+	var CANC_ORDER_TYPES = types.CANC_ORDER_TYPES;
+	var _;
+	var SHOW_TAX = typesBase.SHOW_TAX;
+
+	function getRenewPriceVisible() {
+		return plan && converterBase.isDisplayPrice();
+	}
+
+	function findAutoRenewPeriod(plan, subscrPeriod) {
+		var autoRenewPeriodId = (plan.autoRenewPlanPeriodId) ? plan.autoRenewPlanPeriodId : subscrPeriod;
+		plan.periods.forEach(function(period) {
+			if (period.planPeriodId == subscrPeriod && period.autoRenewalPlanPeriodId && period.enabled) {
+				autoRenewPeriodId = period.autoRenewalPlanPeriodId;
+				return plan.periods.some(function(period) {
+					return period.planPeriodId == subscrPeriod;
+				});
+			}
+		});
+		return autoRenewPeriodId;
+	}
+
+	function isResourcesUpgradeAllowed() {
+		return subscriptionData.resourceRates.some(function (res) {
+			return res.hasOwnProperty("categoryId") && res.showInCP && res.resMngAllowed &&
+				(res.included < res.maximum || (res.included !== -1 && res.maximum === -1));
+		});
+	}
+
+	function removeWarnings() {
+		var msgList = ['warn_ordered', 'warn_trial', 'warn_auto_renew_trial', 'warn_graced', 'err_expired', 'err_adm_hold', 'err_credit_hold', 'warn_pendingOrder', 'warn_in_sync'];
+
+		msgList.forEach(function(ms) {
+			var msgObj = registry.byId(ms);
+			msgObj && msgObj.destroy();
+		});
+	}
+
+	function showWarningPending(lastOrder) {
+		var text;
+
+		if (lastOrder) {
+			var link = "<a href='javascript: aps.apsc.gotoView(\"http://www.parallels.com/ccp-billing#order\", null, { pbaOrderId: " + lastOrder.orderId + " })'>" + lastOrder.number + "</a>";
+			if (lastOrder.type == CANC_ORDER_TYPES.CL || lastOrder.type == CANC_ORDER_TYPES.CF ){
+				text = converter.WARNING() + _("This subscription is being cancelled and cannot be changed.");
+			}else{
+				text = converter.WARNING() + _("This subscription has a pending order __lastOrderLink__. Wait until the order is completed to be able to change the subscription.", {lastOrderLink: link});
+			}
+		} else {
+			text = converter.WARNING() + _("This subscription has a pending order. Please wait until we process this request.");
+		}
+
+		converter.showWarning({
+			id: 'warn_pendingOrder',
+			type: 'warning',
+			description: text
+		});
+	}
+
+	function showWarningOrdered() {
+		converter.showWarning({
+			id: 'warn_ordered',
+			type: 'warning',
+			description: converter.WARNING() + _("This subscription has been purchased but not provisioned yet. Please wait.")
+		});
+	}
+
+	function showWarningExpired() {
+		converter.showWarning({
+			id: 'err_expired',
+			type: 'error',
+			description: converter.ALERT() + _("This subscription has expired and services have been stopped. Renew it to activate the services.")
+		});
+	}
+
+	function showCancellationError() {
+		converter.showWarning({
+			id: 'cancellation_not_allowed',
+			type: 'warning',
+			description: converter.WARNING() +
+				_("According to your terms of service, you cannot cancel this subscription. Please turn off auto-renewal for the subscription and wait until the end of the subscription period.")
+		});
+	}
+
+	function showWarningGraced(date) {
+		converter.showWarning({
+			id: 'warn_graced',
+			type: 'warning',
+			description: converter.WARNING() + _("This subscription has expired and services will be stopped on __expireDate__. Renew it to continue using the services.", {
+				expireDate: converter.toTzAlignedDateStr(date)
+			})
+		});
+	}
+
+	function showWarningTrial(date) {
+		converter.showWarning({
+			id: 'warn_trial',
+			type: 'warning',
+			description: converter.WARNING() + _("This trial subscription expires on __expireDate__. Upgrade it to continue using services.", {
+				expireDate: converter.toTzAlignedDateStr(date)
+			})
+		});
+	}
+
+	function showAutoRenewWarningTrial(date) {
+		converter.showWarning({
+			id: 'warn_auto_renew_trial',
+			type: 'warning',
+			description: converter.WARNING() + _("This trial subscription will be upgraded to paid on __expireDate__ automatically.", {
+				expireDate: converter.toTzAlignedDateStr(date)
+			})
+		});
+	}
+
+
+	function showWarningTrialNoPlans() {
+		converter.showWarning({
+			id: 'warn_trial_no_plans',
+			type: 'warning',
+			description: converter.WARNING() + _("At the moment, there are no service plans to upgrade to.")
+		});
+
+		/* TODO add "Contact Support" button. Blocked by: https://jira.int.zone/browse/PBA-70493
+		if(!registry.byId("warn_trial_no_plans_button")) {
+			var button = new Button({
+				id: "warn_trial_no_plans_button",
+				label: _("Contact Support"),
+				iconClass: "fa-life-ring",
+				autoBusy: false,
+				onClick: function() {
+					window.open("http://www.odin.com/support/");
+				}
+			});
+			registry.byId("warn_trial_no_plans").addChild(button);
+		}
+		*/
+	}
+
+	function showWarningHold(status) {
+		var msgId = (status == STATUS.CREDIT_HOLD) ? 'err_credit_hold' : 'err_adm_hold';
+		var msgDescr = (status == STATUS.CREDIT_HOLD) ?
+			converter.WARNING() + _("The subscription was suspended and services were stopped because of overdue invoices. To activate it, please pay all your outstanding invoices.") :
+			converter.ALERT() + _("The subscription was suspended and services were stopped. To activate it, contact technical support.");
+		converter.showWarning({
+			id: msgId,
+			type: (status == STATUS.CREDIT_HOLD) ? 'warning' : 'error',
+			description: msgDescr
+		});
+	}
+
+	function showWarningInSync(status) {
+		converter.showWarning({
+			id: 'warn_in_sync',
+			type: 'warning',
+			description: converter.WARNING() + _("This subscription is locked for synchronization. Please wait.")
+		});
+	}
+
+	function setElementsParams(state, genId) {
+		apsCommon.forEach(state, function(params, id) {
+			var elem = registry.byId(genId + id);
+            if (!elem) elem = registry.byId(id);
+			if (elem) {
+				elem.set(params);
+			}
+		});
+	}
+
+	function gotoReturnView(returnView, defaultViewId) {
+		if (returnView) {
+			if (typeof returnView === "string") {
+				aps.apsc.gotoView(returnView);
+			} else {
+				aps.apsc.gotoView(returnView.viewId, null, returnView.params);
+			}
+		} else {
+			aps.apsc.gotoView(defaultViewId);
+		}
+	}
+
+	function createState(){
+		var result = {};
+		[
+			"si_subscrStatusInfo",
+			"si_subscrExp",
+			"si_subscrPeriod",
+			"si_subscrNextBillingDate",
+			"si_autoRenewInfo",
+			"si_autoRenewStatus",
+			"si_subscrPrice",
+			"si_subscrId",
+			"si_createdDate",
+			"autoRenewButtonId",
+			"renewButtonId",
+			"upgradeToPaidButtonId",
+			"cancelSubscrButtonId",
+			"cancelSubscrButtonIdSeparator",
+			"payInvoicesButtonId",
+			"changePlanButtonId",
+			"changeResLimButtonId",
+			"viewSubscrButtonId",
+			"spInfo",
+			"servicesContainer"
+		].forEach(function(name){
+			result[name] = {visible: false, disabled: false};
+		});
+
+		result.si_subscrInfoTile = {
+			title: tileTitle || _("Subscription")
+		};
+
+		return result;
+	}
+
+	function createAutoRenewButton(ctx){
+		return {
+			type: !ctx.autoRenew ? "primary" : "default",
+			visible: ctx.isAutoRenewButtonVisible,
+			disabled: ctx.isCancelling,
+			title: ctx.autoRenew ? _("Disable Automatic Renewal") : _("Enable Automatic Renewal"),
+			iconClass: ctx.autoRenew ? "fa-power-off" : "fa-refresh"
+		};
+	}
+
+	function createStateForOrderedStatus(ctx){
+		var state = createState();
+
+		// labels visible for plugin
+		state.si_subscrStatusInfo = {visible: ctx.isPlugin};
+		state.si_subscrExp = {visible: ctx.chargingType !== CHARGE_TYPE.EXT};
+		state.si_autoRenewInfo = {visible: ctx.notTrial && ctx.chargingType !== CHARGE_TYPE.EXT};
+		state.si_autoRenewStatus = {visible: ctx.notTrial};
+		state.si_subscrPrice = {visible: ctx.notTrial && getRenewPriceVisible()};
+
+		// labels visible for subscription
+		if(!ctx.isPlugin){
+			state.si_subscrPeriod = {visible: ctx.notTrial && ctx.chargingType !== CHARGE_TYPE.EXT};
+			state.si_subscrNextBillingDate = {visible: (ctx.notTrial || ctx.chargingType !== CHARGE_TYPE.BSP) && ctx.chargingType !== CHARGE_TYPE.EXT};
+			state.si_subscrId = {visible: true};
+			state.si_createdDate = {visible: true};
+		}
+
+		return state;
+	}
+
+	function createStateForExpiredOrGracedStatus(ctx){
+		var state = createState();
+
+		// labels visible for plugin
+		state.si_subscrStatusInfo = {visible: ctx.isPlugin};
+		state.si_subscrExp = {visible: ctx.chargingType !== CHARGE_TYPE.EXT};
+		state.si_autoRenewInfo = {visible: ctx.chargingType !== CHARGE_TYPE.EXT};
+		state.si_autoRenewStatus = {visible: true};
+		state.si_subscrPrice = {visible: getRenewPriceVisible()};
+
+		// labels visible for subscription
+		if(!ctx.isPlugin){
+			state.si_subscrPeriod = {visible: ctx.chargingType !== CHARGE_TYPE.EXT};
+			state.si_subscrId = {visible: true};
+			state.si_createdDate = {visible: true};
+		}
+
+		state.autoRenewButtonId = createAutoRenewButton(ctx);
+		state.renewButtonId = {visible: ctx.renewalAllowed};
+		if (!ctx.isActivity && ctx.renewalAllowed) {
+			state.renewButtonId.type = ctx.status === STATUS.EXPIRED ? "danger" : "warning";
+		}
+		state.cancelSubscrButtonId = {visible: ctx.isCancelButtonVisible};
+		state.cancelSubscrButtonIdSeparator = {visible: ctx.isCancelButtonVisible};
+		state.changePlanButtonId = {visible: ctx.hasUpgrades && !ctx.isDomain, disabled: true};
+		state.changeResLimButtonId = {visible: ctx.isResourcesUpgradeAllowed, disabled: true};
+
+		return state;
+	}
+
+	function createStateForTrialStatus(ctx){
+		var state = createState();
+
+		// labels visible for plugin
+		state.si_subscrStatusInfo = {visible: ctx.isPlugin};
+		state.si_subscrExp = {visible: ctx.chargingType !== CHARGE_TYPE.EXT};
+
+		// labels visible for subscription
+		if(!ctx.isPlugin){
+			state.si_subscrId = {visible: true};
+			state.si_createdDate = {visible: true};
+		}
+
+		if (ctx.autoRenew) {
+		    state.changePlanButtonId = {visible: ctx.hasUpgrades && !ctx.isDomain}
+        }
+        else {
+		    state.upgradeToPaidButtonId = {visible: ctx.isUpgradeToPaidAllowed, type: "warning"};
+        }
+		state.cancelSubscrButtonId = {visible: ctx.isCancelButtonVisible};
+		state.cancelSubscrButtonIdSeparator = {visible: ctx.isCancelButtonVisible};
+		state.changeResLimButtonId = {visible: ctx.isResourcesUpgradeAllowed};
+		if (ctx.isResourcesUpgradeAllowed && subscriptionData.resourceRates.every(function(res) {
+				return res.showInCP && res.modifyInTrial && res.resMngAllowed ? res.maximum >= 0 && res.usage > res.maximum : true;
+			})) {
+			state.changeResLimButtonId.disabled = true;
+		}
+
+		return state;
+	}
+
+	function createStateForTerminatedStatus(ctx){
+		var state = createState();
+
+		// labels visible for plugin
+		state.si_subscrStatusInfo = {visible: ctx.isPlugin};
+		state.si_subscrExp = {
+			visible: ctx.chargingType !== CHARGE_TYPE.EXT,
+			label: _("Expired"),
+			value: ctx.terminationDate
+		};
+
+		// labels visible for subscription
+		if(!ctx.isPlugin){
+			state.si_subscrId = {visible: true};
+			state.si_createdDate = {visible: true};
+		}
+
+		return state;
+	}
+
+	function createStateForActiveStatus(ctx, subscriptionData){
+		var state = createState();
+
+		// labels visible for plugin
+		state.si_subscrStatusInfo = {visible: ctx.isPlugin};
+		state.si_subscrExp = {visible: ctx.chargingType !== CHARGE_TYPE.EXT};
+		state.si_autoRenewInfo = {visible: ctx.chargingType !== CHARGE_TYPE.EXT};
+		state.si_autoRenewStatus = {visible: true};
+		state.si_subscrPrice = {visible: getRenewPriceVisible()};
+
+		// labels visible for subscription
+		if(!ctx.isPlugin){
+			state.si_subscrPeriod = {visible: ctx.chargingType !== CHARGE_TYPE.EXT};
+			state.si_subscrNextBillingDate = {visible: ctx.chargingType !== CHARGE_TYPE.BSP && ctx.chargingType !== CHARGE_TYPE.EXT};
+			state.si_subscrId = {visible: true};
+			state.si_createdDate = {visible: true};
+		}
+
+		state.autoRenewButtonId = createAutoRenewButton(ctx);
+		state.renewButtonId = {visible: ctx.renewalAllowed};
+		state.cancelSubscrButtonId = {visible: ctx.isCancelButtonVisible};
+		state.cancelSubscrButtonIdSeparator = {visible: ctx.isCancelButtonVisible};
+		state.changePlanButtonId = {visible: ctx.hasUpgrades && !ctx.isDomain};
+		state.changeResLimButtonId = {visible: ctx.isResourcesUpgradeAllowed};
+		if (ctx.isResourcesUpgradeAllowed && subscriptionData.resourceRates.every(function(res) {
+				return res.showInCP && res.resMngAllowed ? res.maximum >= 0 && res.usage > res.maximum : true;
+			})) {
+			state.changeResLimButtonId.disabled = true;
+		}
+
+		return state;
+	}
+
+	function createStateForHoldStatus(ctx){
+		var state = createState();
+
+		// labels visible for plugin
+		state.si_subscrStatusInfo = {visible: ctx.isPlugin, disabled: true};
+		state.si_subscrExp = {visible: ctx.chargingType !== CHARGE_TYPE.EXT};
+		state.si_autoRenewInfo = {visible: ctx.notTrial && ctx.chargingType !== CHARGE_TYPE.EXT};
+		state.si_autoRenewStatus = {visible: ctx.notTrial};
+		state.si_subscrPrice = {visible: ctx.notTrial && getRenewPriceVisible()};
+
+		// labels visible for subscription
+		if(!ctx.isPlugin){
+			state.si_subscrPeriod = {visible: ctx.notTrial && ctx.chargingType !== CHARGE_TYPE.EXT};
+			state.si_subscrNextBillingDate = {visible: (ctx.notTrial || ctx.chargingType !== CHARGE_TYPE.BSP) && ctx.chargingType !== CHARGE_TYPE.EXT};
+			state.si_subscrId = {visible: true};
+			state.si_createdDate = {visible: true};
+		}
+
+
+        // allow cancel only if privileges allows
+		state.cancelSubscrButtonId = {visible: ctx.isCancelButtonVisible};
+		state.cancelSubscrButtonIdSeparator = {visible: ctx.isCancelButtonVisible};
+
+		if (ctx.isAdministrativeHold) {
+			// color 'View Subcritpion' button
+			state.viewSubscrButtonId = {visible: ctx.isPlugin, disabled: false, type: "danger"};
+			state.payInvoicesButtonId = {visible: false};
+		} else {
+			// allow paying invoices only for credit hold
+			state.payInvoicesButtonId = {visible: true, type: "danger"};
+		}
+
+		if(ctx.trial){
+			// allow upgrade to paid in case of Trial and CreditHold
+			state.upgradeToPaidButtonId = {visible: ctx.isUpgradeToPaidAllowed, disabled: ctx.isAdministrativeHold};
+		} else {
+			// other buttons allowed only for Non Trial subscriptions
+			state.autoRenewButtonId = createAutoRenewButton(ctx);
+			state.autoRenewButtonId.disabled = ctx.isAdministrativeHold;
+			state.renewButtonId = {visible: ctx.renewalAllowed, disabled: ctx.isAdministrativeHold || ctx.isCreditHold};
+			state.changePlanButtonId = {visible: ctx.hasUpgrades && !ctx.isDomain, disabled: true};
+			state.changeResLimButtonId = {visible: ctx.isResourcesUpgradeAllowed, disabled: true};
+		}
+
+		return state;
+	}
+
+	function createStateForInSyncStatus(ctx){
+		var state = createState();
+
+		// labels visible for plugin
+		state.si_subscrStatusInfo = {visible: ctx.isPlugin};
+		state.si_subscrExp = {visible: ctx.chargingType !== CHARGE_TYPE.EXT};
+		state.si_autoRenewInfo = {visible: ctx.chargingType !== CHARGE_TYPE.EXT};
+		state.si_autoRenewStatus = {visible: true};
+		state.si_subscrPrice = {visible: getRenewPriceVisible()};
+
+		// labels visible for subscription
+		if(!ctx.isPlugin){
+			state.si_subscrPeriod = {visible: ctx.chargingType !== CHARGE_TYPE.EXT};
+			state.si_subscrId = {visible: true};
+			state.si_createdDate = {visible: true};
+		}
+                
+		state.renewButtonId = {visible: ctx.renewalAllowed, disabled: true};
+		state.cancelSubscrButtonId = {visible: ctx.isCancelButtonVisible, disabled: true};
+		state.cancelSubscrButtonIdSeparator = {visible: ctx.isCancelButtonVisible, disabled: true};
+		state.changePlanButtonId = {visible: ctx.hasUpgrades && !ctx.isDomain, disabled: true};
+		state.changeResLimButtonId = {visible: ctx.isResourcesUpgradeAllowed, disabled: true};
+
+		return state;
+	}
+
+	return declare(null, {
+		/**
+		 * Constructs an instance of the class.
+		 *
+		 * @param owner {Object} the object that uses this class
+		 */
+		constructor: function (owner) {
+			_ = converterBase.setLocalizationContext(owner);
+		},
+
+		getViewSubscriptionButton: function(genId, subscriptionId){
+			return {
+				id: genId + "viewSubscrButtonId",
+				title: _("View Subscription"),
+				iconClass: "fa-arrow-right",
+				visible: false,
+				onClick: function() {
+					aps.apsc.gotoView("http://www.parallels.com/ccp-billing#subscription", null, {
+						subscriptionId: (subscriptionId)? subscriptionId : subscriptionData.subscriptionId
+					});
+				}
+			};
+		},
+
+		getPayInvoicesButton: function(genId) {
+			return {
+				id: genId + "payInvoicesButtonId",
+				title: _("Pay Invoices"),
+				iconClass: "fa-arrow-right",
+				visible: false,
+				autoBusy: false,
+				onClick: function() {
+					converter.payInvoices(apsApi);
+				}
+			};
+		},
+
+		getRenewButton: function(genId, subscrData) {
+			return {
+				id: genId + "renewButtonId",
+				title: _("Renew"),
+				iconClass: "fa-repeat",
+				visible: false,
+				autoBusy: false,
+				onClick: function() {
+					converter.renewSubscription((subscrData)?subscrData:subscriptionData, aps.context.billingId.aps.id);
+				}
+			};
+		},
+
+		getAutoRenewButton: function(genId, subscrData) {
+			return {
+				id: genId + "autoRenewButtonId",
+				title: _("Loading"),
+				visible: false,
+				autoBusy: false,
+				iconClass: "fa-refresh",
+				onClick: function() {
+					aps.apsc.showLoading();
+                    var subscrContent = (subscrData)? subscrData : subscriptionData;
+					var subscriptionRest = new Rest(aps.context.billingId.aps.id);
+					subscriptionRest.putAutoRenew(subscrContent.subscriptionId, {value: !subscrContent.autoRenew}, {"Content-Type": "application/json"});
+				}
+			};
+		},
+
+		getUpgradeToPaidButton: function(genId, subscrData) {
+			return {
+				id: genId + "upgradeToPaidButtonId",
+				title: _("Upgrade To Paid"),
+				visible: false,
+				autoBusy: false,
+				iconClass: "fa-arrow-up",
+				onClick: function() {
+					converter.upgradeToPaid(apsApi, (subscrData)? subscrData : subscriptionData, showWarningTrialNoPlans);
+				}
+			};
+		},
+
+		getCancelSubscrButtonSeparator: function(genId) {
+			return {
+				id: genId + "cancelSubscrButtonIdSeparator",
+				type: "separator",
+				visible: false
+			};
+		},
+
+		getCancelSubscrButton: function(genId, isPlugin, subscrData) {
+			var model = getStateful({
+				isCancelButtonDisabled: false
+			});
+			return {
+				id: genId + "cancelSubscrButtonId",
+				title: _("Cancel Subscription"),
+				iconClass: "fa-remove",
+				visible: false,
+				disabled: at(model, "isCancelButtonDisabled"),
+				autoBusy: false,
+				onClick: function() {
+					var subscriptionId = (subscrData)? subscrData.subscriptionId : subscriptionData.subscriptionId;
+					SubscriptionPolicies.isSubscriptionCancellationAllowed(subscriptionId).then(function(isCancellationAllowed) {
+						if (!isCancellationAllowed) {
+							showCancellationError();
+							model.set('isCancelButtonDisabled', true);
+							return;
+						}
+						aps.apsc.showLoading();
+						var data = [];
+						data.push({
+							subscriptionId: subscriptionId,
+							subscriptionName: (subscrData)? subscrData.subscriptionName : subscriptionData.subscriptionName
+						});
+						aps.apsc.showPopup({
+							viewId: "http://www.parallels.com/ccp-billing#cancel-subscription-confirmation",
+							params: {
+								data: {
+									"cancellationList": data
+								}
+							}
+						}).then(function(result) {
+							if (!isPlugin && result.btnType === "submit") {
+								aps.apsc.gotoView("http://www.parallels.com/ccp-billing#all-subscriptions");
+							}
+						});
+					})
+					.otherwise(function() {
+						converter.showWarning({
+							id: 'error_in_subscription_policies',
+							type: 'error',
+							description: converter.ERROR() + _("An error occurred when retrieving information about this subscription")
+						});
+					});
+				}
+			};
+		},
+
+		getChangePlanButton: function(genId) {
+			return {
+				id: genId + "changePlanButtonId",
+				title: _("Change Service Plan"),
+				iconClass: "fa-repeat",
+				visible: false,
+				autoBusy: false,
+				onClick: function() {
+					aps.apsc.gotoView("http://www.parallels.com/ccp-billing-subscription-management#upgrade-wizard", null, {
+						subscriptionId: subscriptionData.subscriptionId,
+						returnUrl: converter.createReturnUrl()
+					});
+					this.cancel();
+				}
+			};
+		},
+
+		getChangeResLimButton: function(genId) {
+            return {
+                id: genId + "changeResLimButtonId",
+                visible: false,
+                autoBusy: false,
+                label: _("Change Resource Limits"),
+                iconClass: "fa-pencil",
+                onClick: function () {
+                    var viewID = "http://www.parallels.com/ccp-billing#change-resource-limits";
+                    var view_params = {
+                        subscriptionId: subscriptionData.subscriptionId
+                    };
+
+                    var accountDef = new Deferred();
+                    var isFullyRegistered;
+
+                    var accountManagementRest = new AccountRest(aps.context.billingId.aps.id);
+                    if (accountManagementRest) {
+                        accountManagementRest.getAccount().then(function (data) {
+                            isFullyRegistered = data.fullyRegistered;
+                            accountDef.resolve(data);
+                        });
+                    } else {
+                        isFullyRegistered = true;
+                        accountDef.resolve({});
+                    }
+
+                    all([accountDef]).then(function (accountData) {
+                        if (isFullyRegistered) {
+							view_params.vendorPaUuid = accountData[0].vendorPaAccountUuid;
+                            aps.apsc.gotoView(viewID, null, view_params);
+                        } else {
+                            confirm(accountTypes.CONFIRM_POPUP_PARAMS).then(function(response) {
+                                if (response === true) {
+                                    var params = {
+                                        returnUrl: converter.createReturnUrl.viewId,
+                                        returnType: accountTypes.RETURN_TYPES.CHANGE_RESOURCE_LIMITS,
+                                        returnTypeName: viewID,
+                                        data: view_params
+                                    };
+                                    aps.apsc.gotoView("http://www.parallels.com/ccp-billing#complete_registration_screen", null, params);
+                                }
+                                else aps.apsc.cancelProcessing();
+                            });
+                        }
+                    });
+                }
+            };
+        },
+
+
+		initFieldSets: function(tile, content, genId, isPlugin) {
+			subscriptionTile = tile;
+
+			var fs, cont, size = isPlugin ? "md-6 xs-12" : "md-3 xs-12";
+			fs = new FieldSet();
+
+			fs.addChild(new Output({
+				id: genId + "si_subscrExp",
+				label: _("Expires"),
+				value: at(content, "expDateStr"),
+				gridSize: size,
+				visible: false
+			}));
+
+			cont = new Container({
+				id: genId + "si_autoRenewInfo",
+				label: _("Automatic Renewal"),
+				gridSize: size,
+				visible: false
+			});
+			var renewStatuses = {
+				"true": {
+					label: _("Enabled"),
+					type: "success"
+				},
+				"false": {
+					label: _("Disabled"),
+					icon: "fa-circle-o",
+					type: "default"
+				}
+			};
+			cont.addChild(new Status({
+				id: genId + "si_autoRenewStatus",
+				status: at(content, "autorenew"),
+				visible: false,
+				statusInfo: renewStatuses
+			}));
+			fs.addChild(cont);
+
+			fs.addChild(new Output({
+				id: genId + "si_subscrPrice",
+				label: at(content, "subscrFeeColumnName"),
+				value: at(content, "subscrFee"),
+				gridSize: size,
+				visible: false
+			}));
+
+			fs.addChild(new Output({
+				id: genId + "si_subscrPeriod",
+				label: _("Subscription Period"),
+				value: at(content, "periodStr"),
+				gridSize: size,
+				visible: false
+			}));
+
+			fs.addChild(new Output({
+				id: genId + "si_subscrNextBillingDate",
+				label: _("Next Billing Date"),
+				value: at(content, "nextBillingDateStr"),
+				gridSize: size,
+				visible: false
+			}));
+
+			fs.addChild(new Output({
+				id: genId + "si_subscrId",
+				label: _("Subscription ID"),
+				value: at(content, "subscrId"),
+				gridSize: size,
+				visible: false
+			}));
+
+			fs.addChild(new Output({
+				id: genId + "spInfo",
+				label: _("Service Plan"),
+				value: at(content, "planName"),
+				gridSize: size,
+				visible: false
+			}));
+
+			fs.addChild(new Output({
+				id: genId + "si_createdDate",
+				label: _("Created"),
+				value: at(content, "createdDate"),
+				gridSize: size,
+				visible: false
+			}));
+
+			tile.addChild(fs);
+		},
+
+
+		getSubscrContent: function(data) {
+			var content = data.content, isPlugin = data.isPlugin;
+			subscriptionData = data.subscriptionData;
+			apsPluginContext = data.context;
+			tileTitle = data.title;
+			apsApi = ApsApi.createNew({context: apsPluginContext});
+
+			aps.apsc.showLoading();
+			plan = subscriptionData.plan;
+			return apsApi.isSubscriptionHasPlanOrPeriodUpgrades(subscriptionData).then(function(_hasUpgrades) {
+				hasUpgrades = _hasUpgrades;
+				var autoRenewPeriod = findAutoRenewPeriod(plan, subscriptionData.planPeriodId);
+
+				content.set({
+					subscrFeeColumnName: _("Renewal Price"),
+					subscrFee: "-"
+				});
+
+				var deferred = new Deferred();
+
+				switch (plan.chargingType) {
+					case CHARGE_TYPE.ABP:
+					case CHARGE_TYPE.BBP:
+						apsApi.calculateBillingCost(subscriptionData.subscriptionId).then(function(price) {
+							subscriptionData.renewalFee = price;
+							content.set({
+								subscrFee: price,
+								subscrFeeColumnName: (plan.pricePeriodType == 1) ? _("Monthly Price") : converter.BillPeriodToStr(plan)
+							});
+							deferred.resolve([content, subscriptionData]);
+						});
+					break;
+
+					default:
+					    if (getRenewPriceVisible() && !(subscriptionData.status === STATUS.ORDERED && (subscriptionData.serviceStatus === SERVICE_STATUS.PROVISIONING || subscriptionData.serviceStatus === SERVICE_STATUS.NOT_PROVISIONED))) {
+					    	var subscriptionRest = new Rest(aps.context.billingId.aps.id);
+					        subscriptionRest.getSubscriptionRenewPeriods(String(subscriptionData.subscriptionId)).then(function (subPeriods) {
+					            var currPeriod = subPeriods.filter(function (subPeriod) {
+					                return subPeriod.bssPlanPeriod.planPeriodId === autoRenewPeriod;
+					            });
+					            if (currPeriod.length > 0) {
+					                subscriptionData.renewalFee = currPeriod[0].pricePerPeriod;
+					                content.set({
+                                        subscrFee: converterBase.formatCurrency(currPeriod[0].pricePerPeriod) + (isPlugin ? ("/" + converter.periodToStr(subscriptionData)) : "")
+					                });
+                                }
+								deferred.resolve([content, subscriptionData]);
+                            });
+                        } else {
+							deferred.resolve([content, subscriptionData]);
+						}
+                }
+
+				var subStatus = ((subscriptionData.status === STATUS.ACTIVE || subscriptionData.status === STATUS.TRIAL) &&
+				subscriptionData.serviceStatus === SERVICE_STATUS.STOPPED) ?
+					STATUS.CANCELING : subscriptionData.status;
+
+				content.set({
+					status: subStatus.toString(),
+					expDateStr: converter.toTzAlignedDateStr(subscriptionData.expirationDate),
+					periodStr: converter.periodToStr(subscriptionData),
+					createdDate: converter.toTzAlignedDateStr(subscriptionData.startDate),
+					nextBillingDateStr: converter.toTzAlignedDateStr(subscriptionData.nextBillDate),
+					autorenew: subscriptionData.autoRenew,
+					subscrId: subscriptionData.subscriptionId,
+					name: subscriptionData.subscriptionName,
+					planName: plan.name,
+					planDescr: plan.shortDescription
+				});
+
+				aps.apsc.hideLoading();
+
+				return deferred;
+			});
+		},
+
+	removeWarnings: removeWarnings,
+
+
+        showSubscriptionInfo: function(genId, isPlugin, lastOrder, subscrData) {
+			removeWarnings();
+
+			var isDomain = aps.context.vars.isDomain ? aps.context.vars.isDomain : false;
+			var subscrContent = (subscrData) ? subscrData : subscriptionData;
+			var isUpgradeAllowed = converter.isUpgradeAllowed(subscrContent);
+
+			var state,
+				ctx = {
+					status: subscrContent.status,
+					trial: subscrContent.trial,
+					notTrial: !subscrContent.trial,
+					isPlugin: isPlugin,
+					chargingType: plan.chargingType,
+					autoRenew: subscrContent.autoRenew,
+					activityStatus : subscrContent.activityStatus,
+					isActivity: subscrContent.activityStatus !== 0,
+					isDomain: isDomain,
+					isResourcesUpgradeAllowed: isResourcesUpgradeAllowed() && isUpgradeAllowed,
+					isAutoRenewButtonVisible: aps.context._privileges["http://www.parallels.com/pa/pa-core-services"]
+						.indexOf('allow_to_change_auto-renew_policy_in_ccp_v2') >=0 &&
+						subscrContent.autoRenewType > 0 && plan.chargingType !== CHARGE_TYPE.EXT,
+					isCancelButtonVisible: aps.context._privileges["http://www.parallels.com/pa/pa-core-services"]
+						.indexOf('allow_to_cancel_subscriptions_in_ccp_v2') >=0,
+					hasUpgrades: hasUpgrades && isUpgradeAllowed,
+					isUpgradeToPaidAllowed: isUpgradeAllowed,
+					terminationDate: converter.toTzAlignedDateStr(subscrContent.terminationDateStr || subscrContent.terminationDate),
+					isAdministrativeHold: subscrContent.status != STATUS.CREDIT_HOLD,
+					isCreditHold: subscrContent.status == STATUS.CREDIT_HOLD,
+					isCancelling: converter.getSubscriptionStatus(subscrContent) == STATUS.CANCELING,
+					renewalAllowed: (plan.published && plan.chargingType !== CHARGE_TYPE.EXT && plan.periods.some(function (period) {
+						return period.enabled;
+					}))
+				};
+
+			if (subscrContent.inconsistent) {
+				converter.showWarning({
+					id: 'inconsistent_subscription',
+					type: 'error',
+					description: converter.WARNING() + _("An error occurred when retrieving information about this subscription.")
+				});
+			}
+
+			switch (subscrContent.status) {
+				case STATUS.ORDERED:
+					showWarningOrdered();
+					state = createStateForOrderedStatus(ctx);
+					break;
+
+				case STATUS.EXPIRED:
+				case STATUS.GRACED:
+					if (subscrContent.activityStatus === 0) {
+						if(subscrContent.status == STATUS.EXPIRED) {
+							showWarningExpired();
+						} else {
+							showWarningGraced(subscrContent.shutdownDate);
+						}
+					} else {
+						showWarningPending(lastOrder);
+					}
+					state = createStateForExpiredOrGracedStatus(ctx);
+					break;
+
+				case STATUS.TRIAL:
+					if (subscrContent.activityStatus === 0) {
+						if (subscrContent.autoRenew){
+						    showAutoRenewWarningTrial(subscrContent.expirationDate);
+                        }
+						else {
+						    showWarningTrial(subscrContent.expirationDate);
+                        }
+					} else {
+						showWarningPending(lastOrder);
+					}
+					state = createStateForTrialStatus(ctx);
+					break;
+
+				case STATUS.TERMINATED:
+					state = createStateForTerminatedStatus(ctx);
+					break;
+
+				case STATUS.ACTIVE:
+					if (subscrContent.activityStatus !== 0) {
+						showWarningPending(lastOrder);
+					}
+					state = createStateForActiveStatus(ctx, subscrContent);
+					break;
+
+				case STATUS.ADMIN_HOLD:
+				case STATUS.CREDIT_HOLD:
+				case STATUS.CREDIT_ADMIN_HOLD:
+					showWarningHold(subscrContent.status);
+					state = createStateForHoldStatus(ctx);
+					break;
+				case STATUS.IN_SYNC:
+					showWarningInSync(subscrContent.status);
+					state = createStateForInSyncStatus(ctx);
+					break;
+			}
+
+			state.spInfo = {visible: !isPlugin};
+			state.servicesContainer = {
+				visible: !isPlugin && (subscrContent.resourceRates.length > 0) && subscrContent.resourceRates.some(function(res) {
+								return res.hasOwnProperty("categoryId") && res.showInCP && res.resMngAllowed;}),
+				title: subscrContent.status == STATUS.TERMINATED ? _("Resource Limits") : _("Resource Limits and Usage")
+			};
+			state.viewSubscrButtonId.visible = isPlugin;
+
+			if(!isPlugin){
+				state.renewButtonId.type = "primary";
+				state.upgradeToPaidButtonId.type = "primary";
+				state.payInvoicesButtonId.type = "primary";
+				state.changePlanButtonId.type = "primary";
+				state.changeResLimButtonId.type = "primary";
+			}
+
+			// use || operator to save disabled value from createState* methods and override it while there are pending orders
+			state.renewButtonId.disabled = state.renewButtonId.disabled || ctx.isActivity || subscrContent.inconsistent;
+			state.upgradeToPaidButtonId.disabled = state.upgradeToPaidButtonId.disabled || ctx.isActivity || subscrContent.inconsistent;
+			state.cancelSubscrButtonId.disabled = state.cancelSubscrButtonId.disabled || ctx.isActivity || subscrContent.inconsistent;
+			state.changePlanButtonId.disabled = state.changePlanButtonId.disabled || ctx.isActivity || subscrContent.inconsistent;
+			state.changeResLimButtonId.disabled = state.changeResLimButtonId.disabled || ctx.isActivity || subscrContent.inconsistent;
+			state.payInvoicesButtonId.disabled = state.payInvoicesButtonId.disabled || ctx.isActivity || subscrContent.inconsistent;
+
+	        if (subscriptionTile) {
+				var subscriptionFee = subscrContent.subscriptionFee || 0;
+				var renewalFee = subscrContent.renewalFee || 0;
+                setElementsParams(state, genId);
+                registry.byId(genId + "si_subscrPrice").set("visible", !!(subscriptionFee + renewalFee));
+                subscriptionTile.set("visible", true);
+            } else
+                return state;
+		},
+
+
+		cleanUI: function(content, isPlugin, genId) {
+			var state = createState();
+			setElementsParams(state, genId);
+			subscriptionTile.set("title", "");
+			subscriptionTile.set("visible", false);
+		},
+
+
+		gotoReturnView: gotoReturnView
+	});
+});

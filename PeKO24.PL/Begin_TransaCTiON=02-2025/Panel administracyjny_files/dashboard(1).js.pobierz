@@ -1,0 +1,105 @@
+/* jshint laxbreak: true */
+define([
+    'aps/nav/ViewPlugin',
+    'aps/Output',
+    'aps/Tile',
+    'aps/UsageInfo',
+    'aps/xhr',
+    'dojo/_base/declare',
+    'dojo/Stateful',
+    'dojox/mvc/at',
+    '../lib/helpers/src/validators/isPersonalEmail'
+], function(
+    ViewPlugin,
+    Output,
+    Tile,
+    UsageInfo,
+    xhr,
+    declare,
+    Stateful,
+    at,
+    isPersonalEmail
+) {
+    var mailboxesCount, self, widget;
+
+    return declare(ViewPlugin, {
+        init: function(mediator) {
+            self = this;
+            mailboxesCount = new Stateful({usage: 0, mbox: 0, personal: 0});
+
+            widget = new Tile({
+                id: self.genId('mailboxesListPluginTile'),
+                title: _('mailbox', self),
+                iconName: self.buildStaticURL('images/icon.svg'),
+                baseClass: 'custom-tile__service',
+                onClick: function() {
+                    aps.apsc.gotoView('http://home.pl/mailboxes#mailboxes');
+                },
+                buttons: [{
+                    id: self.genId('createMailbox'),
+                    title: _('add', self),
+                    autoBusy: false,
+                    onClick: function() {
+                        aps.apsc.gotoView('http://home.pl/mailboxes#mailbox-new');
+                    }
+                }, {
+                    id: self.genId('manageMailboxes'),
+                    title: _('allMailboxes', self),
+                    autoBusy: false,
+                    onClick: function() {
+                        aps.apsc.gotoView('http://home.pl/mailboxes#mailboxes');
+                    }
+                }]
+            });
+
+            mediator.getWidget = function() {
+                return widget;
+            };
+        },
+        onContext: function() {
+            xhr('/aps/2/resources/?implementing(http://home.pl/types/core/box/5.0),select(server),limit(0,65535)').then(function(mailboxes) {
+                var mboxCount, personalboxCount;
+
+                mboxCount = 0;
+                personalboxCount = 0;
+
+                mailboxes.forEach(function(mailbox) {
+                    if (isPersonalEmail(mailbox)) {
+                        ++personalboxCount;
+                    } else {
+                        ++mboxCount;
+                    }
+                });
+
+                mailboxesCount.set({
+                    usage: personalboxCount + mboxCount,
+                    mbox: mboxCount,
+                    personalbox: personalboxCount
+                });
+            });
+
+            if (self.byId('mailboxesCountInfo')) { widget.removeChild(self.byId('mailboxesCountInfo')); }
+            if (self.byId('mailboxesCountOutput')) { widget.removeChild(self.byId('mailboxesCountOutput')); }
+
+            widget.addChild(new UsageInfo({
+                id: self.genId('mailboxesCountInfo'),
+                value: at(mailboxesCount, 'usage'),
+                textFirstNumber: '${value}',
+                description: _('total', self),
+                showPie: false
+            }));
+
+            widget.addChild(new Output({
+                id: self.genId('mailboxesCountOutput'),
+                personal: at(mailboxesCount, 'personalbox'),
+                personalText: _('pmailType', self),
+                email: at(mailboxesCount, 'mbox'),
+                emailText: _('emailInbox', self),
+                content: '<div class="service-output">'
+                    + '<div><span class="text-muted">${email}</span>${emailText}</div>'
+                    + '<div><span class="text-muted">${personal}</span>${personalText}</div>'
+                    + '</div>'
+            }));
+        }
+    });
+});

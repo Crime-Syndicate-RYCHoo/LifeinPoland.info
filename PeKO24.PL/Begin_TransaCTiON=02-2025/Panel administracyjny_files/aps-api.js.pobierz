@@ -1,0 +1,166 @@
+define([
+    "dojo/Deferred",
+
+    "aps/xhr",
+
+    "./impl/types"
+], function (
+    Deferred,
+
+    xhr,
+
+    types
+) {
+    "use strict";
+
+    /**
+     * Caches result of deferred for specified time.
+     * @param timeout
+     * @constructor
+     */
+    var DeferredCache = function(timeout){
+        this.timeout = timeout;
+        this.cache = {};
+        this.get = this.get.bind(this);
+    };
+
+    DeferredCache.prototype.get = function(key, deferredProvider, clearCache){
+        if(clearCache){
+            this.cache[key] = null;
+        }
+
+        var now = Date.now();
+        var entry = this.cache[key];
+
+        if(!entry || entry.expiresAt <= now){
+            console.log("cache for key", key, "is expired");
+            entry = {};
+            entry.expiresAt = now + this.timeout;
+            entry.deferred = deferredProvider();
+            this.cache[key] = entry;
+        }
+
+        return entry.deferred;
+    };
+
+    DeferredCache.defaultCache = new DeferredCache(15000);
+    DeferredCache.shortLivingCache = new DeferredCache(3000);
+    DeferredCache.longLivingCache = new DeferredCache(120000);
+
+    var ApsApi = function (opts){
+        opts = opts || {};
+        this.context = opts.context;
+    };
+
+    ApsApi.prototype.createNew = function(opts){
+        return new ApsApi(opts);
+    };
+
+    ApsApi.prototype.getContext = function(){
+        return this.context || aps.context;
+    };
+
+    ApsApi.prototype.getRequiredProductCatalogId = function (){
+        var catalog = aps.context.billingId;
+        if(!catalog){
+            throw "productCatalog variable is not accessible";
+        }
+        return catalog.aps.id;
+    };
+
+    ApsApi.prototype.getRequiredOrderManagementId = function (){
+        var om = aps.context.billingId;
+        if(!om){
+            throw "orderManagementInterface variable is not accessible";
+        }
+        return om.aps.id;
+    };
+
+    ApsApi.prototype.getRequiredAccountManagementId = function (){
+        var om = aps.context.billingId;
+        if(!om){
+            throw "accountManagement variable is not accessible";
+        }
+        return om.aps.id;
+    };
+
+    ApsApi.prototype.getPlans = function (opts){
+        var productCatalogId = opts.productCatalogId || this.getRequiredProductCatalogId();
+        var subscriptionId = opts.subscriptionId;
+        var rql = opts.rql ? "?" + opts.rql : "";
+
+        if(!subscriptionId){
+            throw "subscriptionId parameter is required";
+        }
+
+        var key = JSON.stringify({subscriptionId: opts.subscriptionId});
+
+        return DeferredCache.defaultCache.get("getPlans-" + key, function(){
+            return xhr.get("/aps/2/resources/" + productCatalogId + "/pc/plans" + rql, {
+                headers: { "Subscription-ID": subscriptionId }
+            });
+        });
+    };
+
+    ApsApi.prototype.isSubscriptionHasPlanOrPeriodUpgrades = function (subscription){
+        var subscrTrialAndRenew = subscription.trial && subscription.autoRenew;
+        var isPeriodToChange = (subscription.plan.published && subscription.plan.periods.some(function(period) {
+            return (subscrTrialAndRenew ? period.trial : !period.trial) && period.planPeriodId !== subscription.planPeriodId && period.enabled;
+        }));
+        if(isPeriodToChange) {
+            return new Deferred().resolve(true);
+        } else {
+            return this.isSubscriptionHasPlanUpgrades(subscription);
+        }
+    };
+
+    ApsApi.prototype.isSubscriptionHasPlanUpgrades = function (subscription){
+        if (!subscription.plan || !subscription.plan.upgrades.length) {
+            return new Deferred().resolve(false);
+        }
+        var subscrTrialAndRenew = subscription.trial && subscription.autoRenew;
+        // plan have one or more plans to upgrade in same sales category
+        var upgradePlansQuery = subscription.plan.upgrades.map(function (plan) {
+            return "planId=" + plan.toPlanId;
+        }).join(";");
+
+        return this.getPlans({
+            productCatalogId: subscription.productCatalogId,
+            subscriptionId: subscription.subscriptionId,
+            rql: upgradePlansQuery
+        }).then(function (upgradePlans) {
+            return upgradePlans.some(function (up) {
+                var hasEnabledPeriod = up.periods.some(function (period) {
+                    return (subscrTrialAndRenew ? period.trial : !period.trial) && period.enabled;
+                });
+
+                return hasEnabledPeriod && up.salesCategories.length;
+            });
+        });
+    };
+
+    ApsApi.prototype.calculateRenewOrder = function(renewData){
+        return xhr.post("/aps/2/resources/" + this.getRequiredOrderManagementId() + "/om/subscription-renew/calculate", {
+            data: JSON.stringify(renewData),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+    };
+
+    ApsApi.prototype.calculateBillingCost = function(subscriptionId){
+        return xhr("/aps/2/resources/" + this.getRequiredOrderManagementId() + "/om/subscription-billing-cost?subscriptionId=" + subscriptionId, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            handleAs: 'string'
+        });
+    };
+
+    ApsApi.prototype.getUnpaidDocuments = function(){
+        return xhr.get("/aps/2/resources/" + this.getRequiredAccountManagementId() + "/bss/account/unpaid-documents");
+    };
+
+    return new ApsApi();
+});

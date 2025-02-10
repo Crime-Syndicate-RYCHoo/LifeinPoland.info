@@ -1,0 +1,42 @@
+define(['dijit/registry', 'aps/Message'], function(registry, Message) {
+    /**
+     * Funkcja wyświetla komunikat dla użytkownika.
+     *
+     * @param {array|string} messages tablica z komunikatami lub komunikat
+     * @param {string}      type  (optional) rodzaj komunikatu, domyślnie 'error'
+     *
+     * @return {void}
+     */
+    return function(messages, type = 'error') {
+        var messageList, page;
+
+        aps.apsc.cancelProcessing();
+
+        page = registry.byId('apsPageContainer');
+
+        if (!page) {
+            return;
+        }
+
+        messageList = page.get('messageList');
+        messageList.getChildren().filter(function(message) {
+            return message.type === type;
+        }).forEach(function(messageOfType) {
+            messageList.removeChild(messageOfType);
+        });
+
+        if (Array.isArray(messages)) {
+            messages.forEach(function(message) {
+                messageList.addChild(new Message({
+                    description: message,
+                    type: (type)
+                }));
+            });
+        } else {
+            messageList.addChild(new Message({
+                description: messages,
+                type: (type)
+            }));
+        }
+    };
+});

@@ -1,0 +1,203 @@
+define([
+    'aps/FieldSet',
+    'aps/Gauge',
+    'aps/Output',
+    'aps/Tile',
+    'aps/UsageInfo',
+    'dojox/mvc/at',
+    'helpers/constants/constants',
+    'helpers/getters/getServerAddress',
+    'helpers/getters/getUsageCountText',
+    'helpers/validators/isResourceLimitReached'
+], function(
+    FieldSet,
+    Gauge,
+    Output,
+    Tile,
+    UsageInfo,
+    at,
+    constants,
+    getServerAddress,
+    getUsageCountText,
+    isResourceLimitReached
+) {
+    return function(view, container, data) {
+        var databaseObject, databaseTile, databasesCounters, defaultDatabasesParams, serverName, setGauge, usageData;
+
+        databaseObject = data[0];
+        usageData = data[1];
+
+        setGauge = function(databaseCounterObject, databaseGaugeName) {
+            var databaseGauge;
+
+            databaseGauge = view.byId(databaseGaugeName);
+            databaseGauge.set(defaultDatabasesParams);
+
+            if (databaseCounterObject.limit || typeof databaseCounterObject.limit === 'undefined') {
+                databaseGauge.set({
+                    maximum: databaseCounterObject.limit ? databaseCounterObject.limit : 1,
+                    value: databaseCounterObject.usage,
+                    maximumValue: databaseCounterObject.limit ? (' / ' + databaseCounterObject.limit) : '',
+                    currentValue: databaseCounterObject.usage,
+                    classesMap: typeof databaseCounterObject.limit === 'undefined' ? {'0%': 'progress-bar-info'} : {'0%': 'progress-bar-success', '37%': 'progress-bar-warning', '62%': 'progress-bar-danger'}
+                });
+            }
+        };
+
+        serverName = getServerAddress(view.application.baseHost, aps.context.vars.server.name);
+
+        databaseTile = new Tile({
+            id: view.genId('databaseTile'),
+            gridSize: 'md-4 xs-12',
+            baseClass: 'server-tile custom-tile',
+            title: false,
+            buttons: [
+                {
+                    id: view.genId('databaseCreateButton'),
+                    label: _('create'),
+                    disabled: view.application.blockades.database || isResourceLimitReached(databaseObject.databases),
+                    onClick: function() {
+                        if (view.application.blockades.database) {
+                            return;
+                        }
+
+                        aps.apsc.gotoView('database-new', aps.context.vars.server.aps.id);
+                    }
+                },
+                {
+                    id: view.genId('databaseListButton'),
+                    label: _('all'),
+                    onClick: function() {
+                        aps.apsc.gotoView('databases', aps.context.vars.server.aps.id, {blockade: view.application.blockades.database});
+                    }
+                }
+            ]
+        });
+
+        container.addChild(databaseTile);
+
+        databaseTile.addChild(new Output({
+            id: view.genId('databaseOutputHeader'),
+            baseClass: 'server-tile__header col-md-12',
+            content: '<div class="flex-between"><h3>${title}</h3><span class="text-danger">${databaseCount}</small></span>',
+            title: _('databases'),
+            databaseCount: getUsageCountText(databaseObject.databases)
+        }));
+
+        databaseTile.addChild(new FieldSet({
+            id: view.genId('databasesUsage'),
+            baseClass: 'server-container databases-usage text-right'
+        }));
+
+        if (!usageData.max) {
+            view.byId('databasesUsage').addChild(new Output({
+                id: view.genId('unlimitedUsageInfo'),
+                gridSize: 'md-6',
+                content: '<div class="unlimitedUsageInfo" style="min-height:70px"></div>'
+            }));
+        }
+
+        view.byId('databasesUsage').addChild(new UsageInfo({
+            id: view.genId('totalDatabasesUsage'),
+            label: _('used'),
+            align: 'right',
+            minimum: 0,
+            maximum: usageData.max,
+            value: usageData.value,
+            textFirstNumber: '',
+            description: '${value} / ' + _('unlimited'),
+            showPie: usageData.max
+        }));
+
+        if (usageData.max) {
+            view.byId('totalDatabasesUsage').set({
+                textFirstNumber: '${percent}%',
+                description: '${value} / ${maximum}'
+            });
+        }
+
+        databaseTile.addChild(new FieldSet({
+            id: view.genId('databasesCounters'),
+            baseClass: 'server-container'
+        }));
+
+        databasesCounters = view.byId('databasesCounters');
+
+        defaultDatabasesParams = {
+            gridSize: 'md-12',
+            maximum: 1,
+            value: 1,
+            maximumValue: _('unlimited'),
+            currentValue: 0,
+            classesMap: {'62%': 'progress-bar-info'}
+        };
+
+        if (databaseObject.mySql8) {
+            databasesCounters.addChild(new FieldSet({
+                id: view.genId('mySql8FieldSet'),
+                baseClass: 'databases-container'
+            }));
+
+            view.byId('mySql8FieldSet').addChild(new Gauge({
+                id: view.genId('mySql8Gauge'),
+                legend: '<div class="flex-between"><span>' + _('databaseTypeMysql8') + '</span><span class="text-muted">${currentValue}${maximumValue} </span></div>'
+            }));
+
+            setGauge(databaseObject.mySql8, 'mySql8Gauge');
+
+            view.byId('mySql8FieldSet').addChild(new Output({
+                id: view.genId('mySql8Output'),
+                baseClass: 'server-list__info',
+                content: '<div><a class="text-muted" href="https://${serverName}${suffix}" target="_blank"><span class="fa fa-external-link"></span>' + _('adminPanel') + '</a></div>',
+                serverName: serverName,
+                suffix: constants.mysql8AdministrationPanelUrlSuffix
+            }));
+        }
+
+        if (databaseObject.mySql) {
+            databasesCounters.addChild(new FieldSet({
+                id: view.genId('mySqlFieldSet'),
+                baseClass: 'databases-container'
+            }));
+
+            view.byId('mySqlFieldSet').addChild(new Gauge({
+                id: view.genId('mySqlGauge'),
+                legend: '<div class="flex-between"><span>' + _('databaseTypeMysql') + '</span><span class="text-muted">${currentValue}${maximumValue} </span></div>'
+            }));
+
+            setGauge(databaseObject.mySql, 'mySqlGauge');
+
+            view.byId('mySqlFieldSet').addChild(new Output({
+                id: view.genId('mySqlOutput'),
+                baseClass: 'server-list__info',
+                content: '<div><a class="text-muted" href="https://${serverName}${suffix}" target="_blank"><span class="fa fa-external-link"></span>' + _('adminPanel') + '</a></div>',
+                serverName: serverName,
+                suffix: constants.mysqlAdministrationPanelUrlSuffix
+            }));
+        }
+
+        if (databaseObject.pgSql) {
+            databasesCounters.addChild(new FieldSet({
+                id: view.genId('pgSqlFieldSet'),
+                baseClass: 'databases-container'
+            }));
+
+            view.byId('pgSqlFieldSet').addChild(new Gauge({
+                id: view.genId('pgSqlGauge'),
+                legend: '<div class="flex-between"><span>' + _('databaseTypePgsql') + '</span><span class="text-muted">${currentValue}${maximumValue} </span></div>'
+            }));
+
+            setGauge(databaseObject.pgSql, 'pgSqlGauge');
+
+            view.byId('pgSqlFieldSet').addChild(new Output({
+                id: view.genId('pgSqlOutput'),
+                baseClass: 'server-list__info',
+                content: '<div><a class="text-muted" href="https://${serverName}${suffix}" target="_blank"><span class="fa fa-external-link"></span>' + _('adminPanel') + '</a></div>',
+                serverName: serverName,
+                suffix: constants.pgsqlAdministrationPanelUrlSuffix
+            }));
+        }
+
+        return databaseTile;
+    };
+});

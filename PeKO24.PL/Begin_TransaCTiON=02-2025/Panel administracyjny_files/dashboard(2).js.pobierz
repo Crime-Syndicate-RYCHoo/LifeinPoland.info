@@ -1,0 +1,231 @@
+define([
+	"dojo/_base/declare",
+	"dojo/_base/lang",
+	"aps/nav/ViewPlugin",
+	"dojo/Deferred",
+	"aps/tiles/UsageInfoTile",
+	"aps/Status",
+	"aps/xhr",
+	"../converter",
+	"../../utils/converter",
+	"../aps-api",
+	"aps/ready!"
+], function (declare, dojo, ViewPlugin, Deferred, UsageInfoTile, Status, xhr, converter, converterBase, ApsApi) {
+	"use strict";
+
+	var STATUS = converter.subscriptionStatus();
+	// callback to notify dashboard about availability of new widgets
+	var requestPluginUpdate;
+	var apsApi;
+	var subscriptions;
+	var _;
+
+	function isNumeric(value) {
+		return Number(value) == value;
+	}
+
+	return declare(ViewPlugin, {
+		init: function (mediator) {
+			_ = converterBase.setLocalizationContext(this);
+
+			mediator.watch("handlers", function (name, oldValue, newValue) {
+				requestPluginUpdate = newValue && newValue.requestPluginUpdate;
+			});
+
+			mediator.getWidget = function () {
+				var tiles = [];
+
+				Array.isArray(subscriptions) && subscriptions.forEach(function (bssSubscription) {
+					if (!bssSubscription.tileContent) {
+						return;
+					}
+
+					var tileContent = JSON.parse(bssSubscription.tileContent);
+					var tileOptions = {
+						id: "Billing_DummyGate_Tile_" + bssSubscription.subscriptionId,
+						title: tileContent.title || bssSubscription.subscriptionName,
+						gridSize: tileContent.gridSize || "md-4 xs-12",
+						onClick: function () {
+							aps.apsc.gotoView(
+								"http://www.parallels.com/ccp-billing#subscription",
+								null, {
+									subscriptionId: bssSubscription.subscriptionId
+								}
+							);
+						}
+					};
+
+					if (bssSubscription.status === STATUS.TRIAL || bssSubscription.status === STATUS.ACTIVE) {
+						tileOptions.isBusy = (bssSubscription.activityStatus && bssSubscription.activityStatus > 0);
+					} else {
+						tileOptions.isBusy = bssSubscription.status === STATUS.ORDERED;
+					}
+
+					var statuses = {
+						expireSoon: {
+							label: _("__daysLeft__ DAY(S) LEFT", {
+								daysLeft: converter.daysLeftTo(bssSubscription.expirationDate)
+							}),
+							type: "warning"
+						},
+						expired: {
+							label: _("EXPIRED"),
+							type: "warning"
+						},
+						hold: {
+							label: _("ON HOLD"),
+							type: "warning"
+						}
+					};
+
+					switch (bssSubscription.status) {
+						case STATUS.TRIAL:
+							if(!converter.isUpgradeAllowed(bssSubscription)) {
+								break;
+							}
+							
+							tileOptions.info = new Status({
+								id: "Billing_DummyGate_Tile_Status_" + bssSubscription.subscriptionId,
+								status: "expireSoon",
+								useIcon: true,
+								statusInfo: statuses
+							});
+							tileOptions.buttons = [{
+								label: _("Upgrade To Paid"),
+								iconClass: "fa-shopping-cart",
+								autoBusy: false,
+								onClick: function () {
+									converter.upgradeToPaid(apsApi, bssSubscription, function(){
+										converter.showWarning({
+											id: 'warn_trial_no_plans',
+											type: 'warning',
+											description: converter.WARNING() + _("At the moment, there are no service plans to upgrade to.")
+										});
+									});
+								}
+							}];
+						break;
+
+						case STATUS.GRACED:
+						case STATUS.EXPIRED:
+							tileOptions.info = new Status({
+								id: "Billing_DummyGate_Tile_Status_" + bssSubscription.subscriptionId,
+								status: (bssSubscription.status === STATUS.GRACED ? "expireSoon" : "expired"),
+								useIcon: true,
+								statusInfo: statuses
+							});
+							tileOptions.buttons = [{
+								label: _("Renew"),
+								iconClass: "fa-refresh",
+								autoBusy: false,
+								onClick: function () {
+									converter.renewSubscription(bssSubscription, aps.context.billingId.aps.id);
+								}
+							}];
+						break;
+
+						case STATUS.CREDIT_HOLD:
+							if (!bssSubscription.trial) {
+								tileOptions.buttons = [{
+									label: _("Pay Invoices"),
+									iconClass: "fa-arrow-right",
+									autoBusy: false,
+									onClick: function () {
+										converter.payInvoices(apsApi);
+									}
+								}];
+							}
+							// nobreak;
+						case STATUS.ADMIN_HOLD:
+						case STATUS.CREDIT_ADMIN_HOLD:
+							tileOptions.info = new Status({
+								id: "Billing_DummyGate_Tile_Status_" + bssSubscription.subscriptionId,
+								status: "hold",
+								useIcon: true,
+								statusInfo: statuses
+							});
+						break;
+					}
+					if (tileContent.type === "usage") {
+						if (tileContent.resourceId) {
+							bssSubscription.resourceRates.forEach(function (resource) {
+								if (tileContent.resourceId === resource.resourceId) {
+									tileContent.value = isNumeric(resource.usage) ? Number(resource.usage) : 0;
+									tileContent.maximum = (isNumeric(resource.amount) ? Number(resource.amount) : 0) + resource.included;
+									tileContent.suffix = tileContent.suffix || ((!resource.units || resource.units === "Boolean") ? "" : _(resource.units));
+									tileContent.description = tileContent.description || _("__resourceName__ Used", { resourceName: resource.resourceName });
+								}
+							});
+						}
+						if (isNumeric(tileContent.value)) {
+							tileOptions.showPie = tileContent.showPie || false;
+							if (tileContent.prefix) {
+								tileOptions.textPrefix = tileContent.prefix;
+							}
+							tileOptions.value = Number(tileContent.value);
+							if (isNumeric(tileContent.minimum)) {
+								tileOptions.minimum = Number(tileContent.minimum);
+							}
+							if (isNumeric(tileContent.maximum)) {
+								tileOptions.maximum = Number(tileContent.maximum);
+								if (tileContent.percent) {
+									tileOptions.textFirstNumber = converter.numberToPercentStr(
+										tileOptions.value / tileOptions.maximum,
+										tileContent.precision
+									) + " ";
+								} else {
+									tileOptions.textFirstNumber = converter.numberToDecimalStr(
+										tileOptions.value,
+										tileContent.precision
+									);
+									tileOptions.textSecondNumber = converter.numberToDecimalStr(
+										tileOptions.maximum,
+										tileContent.precision
+									);
+								}
+							} else {
+								tileOptions.textFirstNumber = converter.numberToDecimalStr(
+									tileOptions.value,
+									tileContent.precision
+								);
+							}
+							if (tileContent.suffix) {
+								tileOptions.textSuffix = tileContent.suffix;
+							}
+						} else {
+							tileOptions.showPie = false;
+							tileOptions.textFirstNumber = "";
+						}
+						if (tileContent.description) {
+							tileOptions.description = tileContent.description;
+						}
+						if (tileContent.hint) {
+							tileOptions.usageHint = tileContent.hint;
+						}
+						tiles.push(new UsageInfoTile(tileOptions));
+					} else {
+						console.error("Unknown type of tile: " + tileContent.type);
+					}
+				});
+
+				return tiles;
+			};
+		},
+
+		onContext: function(apsContext) {
+			apsApi = ApsApi.createNew({context: apsContext});
+
+			var mediatorId = this.$mediator.id;
+
+			xhr.get("/aps/2/resources/" + aps.context.billingId.aps.id + "/sm/subscriptions-by-gate?gate=DUMMYGATE").then(function (bssSubscriptions) {
+				subscriptions = bssSubscriptions;
+
+				if (requestPluginUpdate) {
+					requestPluginUpdate(mediatorId);
+				}
+			}, function (error) {
+				converterBase.showError(error);
+			});
+		}
+	});
+});

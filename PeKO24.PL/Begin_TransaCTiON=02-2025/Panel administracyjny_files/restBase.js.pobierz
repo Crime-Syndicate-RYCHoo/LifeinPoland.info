@@ -1,0 +1,54 @@
+define([
+		"dojo/_base/declare",
+		"aps/xhr"
+	], function (declare, xhr) {
+
+		function prepareRequest(params) {
+			var request = {};
+			request["url"] = params.resource ? params.resource : "";
+			request["url"] += params.operation? "/" + params.operation : "";
+			request["url"] += params.rql? "?" + params.rql : "";
+			request["headers"] = params.headers? params.headers : {};
+			request["data"] = params.data? params.data : {};
+			request["timeout"] = params.timeout? params.timeout : 0;
+			if ( params.handleAs ) {
+				request["handleAs"] = params.handleAs;
+			}
+			return request;
+		}
+
+		return declare(null, {
+			path: "/aps/2/resources/",
+			constructor: function (resourceId) {
+				if (resourceId) {
+					this.path += resourceId;
+				}
+			},
+			setPath: function (path) {
+				this.path += (path)? "/" + path : "";
+			},
+			get: function (params) {
+				var preparedParams = prepareRequest(params);
+				var getParams = {headers: preparedParams.headers};
+				if ( preparedParams.handleAs ) getParams.handleAs = preparedParams.handleAs;
+				return xhr.get(this.path + preparedParams.url, getParams);
+			},
+			post: function (params) {
+				var preparedParams = prepareRequest(params);
+				return xhr.post(this.path + preparedParams.url, {
+					headers: { "Content-Type": "application/json" },
+					data: JSON.stringify(preparedParams.data),
+					timeout: preparedParams.timeout
+				});
+			},
+			put: function (params) {
+				var preparedParams = prepareRequest(params);
+				return xhr.put(this.path + preparedParams.url, {
+					headers: { "Content-Type": "application/json" },
+					data: JSON.stringify(preparedParams.data),
+					timeout: preparedParams.timeout
+				});
+			}
+		});
+	}
+);

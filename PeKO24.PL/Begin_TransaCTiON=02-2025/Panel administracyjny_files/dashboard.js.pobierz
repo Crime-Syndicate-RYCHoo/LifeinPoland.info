@@ -1,0 +1,85 @@
+define([
+    'aps/nav/ViewPlugin',
+    'aps/Output',
+    'aps/ResourceStore',
+    'aps/Tile',
+    'aps/UsageInfo',
+    'dojo/_base/declare',
+    'dojo/Stateful',
+    'dojox/mvc/at'
+], function(
+    ViewPlugin,
+    Output,
+    Store,
+    Tile,
+    UsageInfo,
+    declare,
+    Stateful,
+    at
+) {
+    var self, serversCount, widget;
+
+    return declare(ViewPlugin, {
+        init: function(mediator) {
+            self = this;
+
+            serversCount = new Stateful({usage: 0});
+
+            widget = new Tile({
+                id: self.genId('serversListPluginTile'),
+                title: _('hosting', self),
+                iconName: self.buildStaticURL('images/icon.svg'),
+                baseClass: 'custom-tile__service',
+                onClick: function() {
+                    aps.apsc.gotoView('http://home.pl/hosting#servers-list');
+                },
+                buttons: [{
+                    id: self.genId('manageHostingButton'),
+                    title: _('manageHosting', self),
+                    iconClass: 'fa-plus',
+                    autoBusy: false,
+                    onClick: function() {
+                        aps.apsc.gotoView('http://home.pl/hosting#servers-list');
+                    }
+                }]
+            });
+
+            mediator.getWidget = function() {
+                return widget;
+            };
+        },
+
+        onContext: function() {
+            new Store({apsType: 'http://home.pl/types/hosting/server/13.1', target: '/aps/2/resources/'}).query('limit(0,65535)').then(function(serverObjects) {
+                serversCount.set(
+                    'usage', serverObjects.length
+                );
+                if (serversCount.usage <= 2) {
+                    serversCount.set(
+                        'servers', serverObjects.slice(0, 2).map(function(serverObject) {
+                            return serverObject.name;
+                        }).join(' ')
+                    );
+
+                    if (self.byId('serversCountOutput')) { widget.removeChild(self.byId('serversCountOutput')); }
+
+                    widget.addChild(new Output({
+                        id: self.genId('serversCountOutput'),
+                        value: at(serversCount, 'servers'),
+                        content: '<div class="service-output servers">${value}</div>'
+                    }));
+                }
+            });
+
+            if (self.byId('serversCountInfo')) { widget.removeChild(self.byId('serversCountInfo')); }
+
+            widget.addChild(new UsageInfo({
+                id: self.genId('serversCountInfo'),
+                value: at(serversCount, 'usage'),
+                textFirstNumber: '${value}',
+                description: _('total', self),
+                showPie: false
+            }));
+        }
+    });
+});

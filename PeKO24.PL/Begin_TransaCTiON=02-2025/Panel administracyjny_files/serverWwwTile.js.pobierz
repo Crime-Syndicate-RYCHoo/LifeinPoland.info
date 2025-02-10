@@ -1,0 +1,316 @@
+define([
+    'aps/FieldSet',
+    'aps/Gauge',
+    'aps/Hr',
+    'aps/Output',
+    'aps/Tile',
+    'aps/UsageInfo',
+    'aps/xhr',
+    'dojo/when',
+    'dojox/mvc/at',
+    'helpers/getters/getRevDns',
+    'helpers/validators/isClickweb',
+    'helpers/views/displayResponseErrorMessage',
+    'helpers/views/gotoSubscriptionDetailsView'
+], function(
+    FieldSet,
+    Gauge,
+    ApsHr,
+    Output,
+    Tile,
+    UsageInfo,
+    xhr,
+    when,
+    at,
+    getRevDns,
+    isClickwebCheck,
+    displayResponseErrorMessage,
+    gotoSubscriptionDetailsView
+) {
+    var serverTile;
+
+    return function(view, container, data) {
+        var buttons, inodes, isClickweb, resources, serverCounters, serverInfo, serverPreferences, serverSsl, serverSslCertificate, usageData;
+
+        inodes = data[3];
+        resources = data[4];
+        usageData = data[5];
+
+        isClickweb = isClickwebCheck(aps.app.model.configurationModels[aps.context.vars.server.aps.id].name);
+
+        serverSslCertificate = data[0];
+
+        serverPreferences = function() {
+            if (view.application.blockades.server) {
+                return;
+            }
+
+            aps.apsc.gotoView('server-preferences', aps.context.vars.server.aps.id);
+        };
+
+        serverSsl = function() {
+            aps.apsc.gotoView('ssl-certificates', aps.context.vars.server.aps.id);
+        };
+
+        buttons = [{
+            id: view.genId('manageSubscriptionButton'),
+            title: _('manageSubscription'),
+            onClick: function() {
+                gotoSubscriptionDetailsView(data[2].subscriptionId);
+                this.cancel();
+            }
+        }, {
+            id: view.genId('creatorButton'),
+            title: _('gotoCreator'),
+            visible: isClickweb,
+            onClick: function() {
+                when(xhr('/aps/2/resources/' + aps.context.vars.server.aps.id + '/getCreatorUrl', {
+                    method: 'GET'
+                }), function(url) {
+                    window.open(url, '_blank');
+                    view.byId('creatorButton').cancel();
+                }, function(error) {
+                    displayResponseErrorMessage(error);
+                    view.byId('creatorButton').cancel();
+                });
+            }
+        }, {
+            id: view.genId('preferencesButton'),
+            title: _('serverPreferences'),
+            disabled: view.application.blockades.server,
+            onClick: function() {
+                if (view.application.blockades.server) {
+                    this.cancel();
+                    return;
+                }
+
+                aps.apsc.gotoView('server-preferences', aps.context.vars.server.aps.id);
+                this.cancel();
+            }
+        }, {
+            id: view.genId('ratioSettingsButton'),
+            title: _('ratio'),
+            visible: aps.app.model.configurationModels[aps.context.vars.server.aps.id].ratioChange,
+            disabled: view.application.blockades.server || usageData.value === 'error',
+            onClick: function() {
+                if (view.application.blockades.server) {
+                    this.cancel();
+                    return;
+                }
+
+                aps.apsc.gotoView('server-ratio', aps.context.vars.server.aps.id);
+                this.cancel();
+            }
+        }, {
+            id: view.genId('revDnsButton'),
+            title: _('revDnsSettings'),
+            visible: false,
+            onClick: function() {
+                if (view.application.blockades.server) {
+                    this.cancel();
+                    return;
+                }
+
+                aps.apsc.gotoView('server-revdns', aps.context.vars.server.aps.id);
+                this.cancel();
+            }
+        }, {
+            id: view.genId('sslCertificateButton'),
+            title: _('sslCertificates'),
+            visible: !isClickweb,
+            disabled: view.application.blockades.server,
+            onClick: function() {
+                aps.apsc.gotoView('ssl-certificates', aps.context.vars.server.aps.id);
+                this.cancel();
+            }
+        }];
+
+        if (aps.app.model.configurationModels[aps.context.vars.server.aps.id].phpReports) {
+            buttons.push({
+                id: view.genId('phpReportButton'),
+                title: _('phpReport'),
+                disabled: view.application.blockades.server,
+                onClick: function() {
+                    aps.apsc.gotoView('server-phpreport', aps.context.vars.server.aps.id);
+                    this.cancel();
+                }
+            });
+        }
+
+        buttons.push({
+            id: view.genId('settingsSeparator'),
+            type: 'separator'
+        });
+
+        if (resources.basicAuthUsers) {
+            buttons.push({
+                id: view.genId('basicAuthUsersButton'),
+                title: _('basicAuthUsers'),
+                visible: !isClickweb,
+                onClick: function() {
+                    aps.apsc.gotoView('basic-auth-users', aps.context.vars.server.aps.id);
+                    this.cancel();
+                }
+            });
+        }
+
+        buttons.push({
+            id: view.genId('changePasswordButton'),
+            title: _('serverPassword'),
+            disabled: view.application.blockades.server,
+            onClick: function() {
+                if (view.application.blockades.server) {
+                    this.cancel();
+                    return;
+                }
+
+                aps.apsc.gotoView('server-change-password', aps.context.vars.server.aps.id);
+                this.cancel();
+            }
+        });
+
+        container.addChild(new Tile({
+            id: view.genId('serverTile'),
+            gridSize: 'md-4 xs-12',
+            baseClass: 'server-tile custom-tile',
+            title: false,
+            buttons: [{
+                title: _('settings'),
+                items: buttons
+            }]
+        }));
+
+        serverTile = view.byId('serverTile');
+
+        serverTile.addChild(new Output({
+            id: view.genId('serverOutputHeader'),
+            baseClass: 'server-tile__header col-md-12',
+            content: '<div class="flex-between"><h3>${title}</h3><p><span class="text-muted" title="${serverName}">${serverName}</span><br /><small class="text-muted">${comment}</small></p></div>',
+            title: _('serverWWW'),
+            comment: aps.context.vars.server.comment,
+            serverName: aps.context.vars.server.name
+        }));
+
+        serverTile.addChild(new FieldSet({
+            id: view.genId('serverCounters'),
+            baseClass: 'server-container text-right'
+        }));
+
+        if (!isClickweb) {
+            serverCounters = view.byId('serverCounters');
+            serverCounters.addChild(new UsageInfo({
+                id: view.genId('totalSpaceUsageInfo'),
+                label: _('serverSpaceUsage'),
+                align: 'right',
+                minimum: 0,
+                maximum: usageData.max,
+                value: (usageData.value === 'error') ? 0 : usageData.value,
+                textFirstNumber: '${percent}%',
+                description: (usageData.value === 'error') ? '' : '${value}GB / ${maximum}GB'
+            }));
+
+            serverCounters.addChild(new Gauge({
+                id: view.genId('serverFilesGauge'),
+                legend: '<div class="flex-between"><span class="font-bold">' + _('files') + '</span><span class="text-muted">${value} / ${maximum}</span></div>',
+                gridSize: 'md-12',
+                minimum: 0,
+                maximum: inodes.limit,
+                value: inodes.usage
+            }));
+
+            serverCounters.addChild(new ApsHr({
+                id: view.genId('serverHr')
+            }));
+        }
+
+        serverTile.addChild(new FieldSet({
+            id: view.genId('serverInfo'),
+            baseClass: 'flex-between__row server-container'
+        }));
+
+        serverInfo = view.byId('serverInfo');
+
+        if (aps.app.model.configurationModels[aps.context.vars.server.aps.id].http3) {
+            serverInfo.addChild(new Output({
+                id: view.genId('http3'),
+                label: _('http3Support'),
+                content: '<div class="server-link flex-center"><span class="text-muted">${http3Title}</span><div title="${http3Title}" class="badge-status status__${http3Status}"></div></div>',
+                http3Title: data[1].user_options__http3 ? _('http3Active') : _('http3Inactive'),
+                http3Status: data[1].user_options__http3 ? 'active' : 'inactive',
+                onClick: serverPreferences
+            }));
+        }
+
+        if (serverSslCertificate) {
+            serverInfo.addChild(new Output({
+                id: view.genId('sslStatus'),
+                label: _('sslStatus'),
+                content: '<div class="server-link flex-center"><span class="text-muted">${certificateTitle}</span><div title="${certificateTitle}" class="badge-status status__${certificateStatus}"></div></div>',
+                certificateTitle: serverSslCertificate.certificateId ? _('active') : _('inactive'),
+                certificateStatus: serverSslCertificate.certificateId ? 'active' : 'inactive',
+                onClick: serverSsl
+            }));
+        }
+
+        if (aps.app.model.configurationModels[aps.context.vars.server.aps.id].revDns) {
+            serverInfo.addChild(new Output({
+                id: view.genId('revDnsStatus'),
+                visible: false,
+                label: _('revDnsStatus'),
+                content: '<div class="server-link flex-center">${revDnsStatus}<div class="server-link__icon revdns-icon"></div></div>',
+                revDnsStatus: '',
+                onClick: function() {
+                    if (view.application.blockades.server) {
+                        return;
+                    }
+
+                    aps.apsc.gotoView('server-revdns', aps.context.vars.server.aps.id);
+                }
+            }));
+        }
+
+        if (aps.app.model.configurationModels[aps.context.vars.server.aps.id].revDns) {
+            when(getRevDns(aps.context.vars.server.aps.id)).then(function(revDns) {
+                view.byId('revDnsButton').set('visible', revDns.available);
+                view.byId('revDnsStatus').set({
+                    visible: revDns.available,
+                    revDnsStatus: revDns.domain ? _('self') : _('default')
+                });
+            });
+        }
+
+        if (aps.app.model.configurationModels[aps.context.vars.server.aps.id].statistics) {
+            serverInfo.addChild(new Output({
+                id: view.genId('statistics'),
+                label: _('statistics'),
+                content: '<div class="server-link flex-center">' + _('show') + '<div class="server-link__icon stats-i"></div></div>',
+                onClick: function() {
+                    var statsUrl;
+
+                    statsUrl = '/aps/2/resources/' + aps.context.vars.server.aps.id + '/getStatsUrl';
+
+                    when(xhr(statsUrl, {
+                        method: 'GET'
+                    }), function(url) {
+                        window.open(url, '_blank');
+                    }, function(error) {
+                        displayResponseErrorMessage(error);
+                    });
+                    this.cancel();
+                }
+            }));
+        }
+
+        if (data[1].user_php_version) {
+            serverInfo.addChild(new Output({
+                id: view.genId('interpreter'),
+                label: _('interpreter'),
+                content: '<div class="server-link flex-center">PHP ${phpVersion}<div class="server-link__icon interpreter-i"></div></div>',
+                phpVersion: data[1].user_php_version,
+                onClick: serverPreferences
+            }));
+        }
+
+        return serverTile;
+    };
+});

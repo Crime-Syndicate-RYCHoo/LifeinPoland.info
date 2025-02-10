@@ -1,0 +1,13 @@
+define([], function() {
+    /**
+     * Funkcja zwracająca adres URL serwera.
+     *
+     * @param {string} baseHost nazwa hosta, w ramach którego została utworzona usługa
+     * @param {string} name     nazwa usługi
+     *
+     * @returns {string} adres URL serwera
+     */
+    return function(baseHost, name) {
+        return name + '.' + baseHost;
+    };
+});

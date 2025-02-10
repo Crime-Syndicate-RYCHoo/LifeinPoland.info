@@ -1,0 +1,63 @@
+define([
+    'aps/nav/ViewPlugin',
+    'aps/FieldSet',
+    'aps/Output',
+    'aps/Tile',
+    'aps/xhr',
+    'dojo/_base/declare',
+    'dojo/when',
+    'aps/ready!'
+], function(
+    ViewPlugin,
+    FieldSet,
+    Output,
+    Tile,
+    xhr,
+    declare,
+    when
+) {
+    return declare(ViewPlugin, {
+        init: function(mediator) {
+            var self, tile, tileFieldset;
+
+            self = this;
+
+            tile = new Tile({
+                id: self.genId('paymentMethodsTile'),
+                title: _('Payment methods', self),
+                visible: false,
+                buttons: [{
+                    id: self.genId('paymentMethodsButton'),
+                    title: _('Continue', self),
+                    autoBusy: false,
+                    onClick: function() {
+                        aps.apsc.gotoView('http://www.parallels.com/ccp-billing#payment-methods');
+                    }
+                }],
+                onClick: function() {
+                    aps.apsc.gotoView('http://www.parallels.com/ccp-billing#payment-methods');
+                }
+            });
+
+            when(xhr('/aps/2/resources/' + aps.context.billingId.aps.id + '/bss/payment-methods-info', {
+                method: 'GET'
+            }), function(response) {
+                if (Object.keys(response.defaultPaymentMethod).length === 0) {
+                    self.byId('paymentMethodsTile').set('visible', true);
+                }
+            });
+
+            tileFieldset = new FieldSet({id: self.genId('paymentMethodsTileFieldSet')});
+
+            tileFieldset.addChild(new Output({
+                id: self.genId('paymentMethodsOutput'),
+                content: _('paymentMethodsInformation', self)
+            }));
+            tile.addChild(tileFieldset);
+
+            mediator.getWidget = function() {
+                return tile;
+            };
+        }
+    });
+});

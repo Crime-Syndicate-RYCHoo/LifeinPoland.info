@@ -1,0 +1,740 @@
+/* jshint laxbreak: true, esnext:true */
+define([
+    'aps/_View',
+    'aps/Button',
+    'aps/Container',
+    'aps/FieldSet',
+    'aps/Gauge',
+    'aps/Hr',
+    'aps/Output',
+    'aps/Tile',
+    'aps/xhr',
+    'dojo/_base/declare',
+    'dojo/text!settings/orderData.json',
+    'dojo/when',
+    'dojox/mvc/at',
+    'dojox/mvc/getStateful',
+    'helpers/constants/brandData',
+    'helpers/getters/getConfiguration',
+    'helpers/getters/getCurrentServerUsage',
+    'helpers/getters/getResources',
+    'helpers/mappers/ucfirst',
+    'helpers/statuses/isStatusDisabled',
+    'helpers/statuses/isSubscriptionDisabled',
+    'helpers/statuses/isSubscriptionExpired',
+    'helpers/statuses/subscriptionStatuses',
+    'helpers/validators/isClickweb',
+    'helpers/validators/isResourceLimitReached',
+    'helpers/views/displayMessage',
+    'helpers/views/gotoSubscriptionDetailsView'
+], function(
+    _View,
+    Button,
+    Container,
+    FieldSet,
+    Gauge,
+    ApsHr,
+    Output,
+    Tile,
+    xhr,
+    declare,
+    orderDataJson,
+    when,
+    at,
+    getStateful,
+    brandData,
+    getConfiguration,
+    getCurrentServerUsage,
+    getResources,
+    ucfirst,
+    isStatusDisabled,
+    isSubscriptionDisabled,
+    isSubscriptionExpired,
+    subscriptionStatuses,
+    isClickwebCheck,
+    isResourceLimitReached,
+    displayMessage,
+    gotoSubscriptionDetailsView
+) {
+    const dayExpiringPeriodStarts = 14,
+        timeToRefreshSubscriptionDetails  = 300;
+
+    var drawNewServerTile, drawOrderTile, drawOrderWWWConsultationTile, drawTile, generateEncourageText, generateExpiredInfoText, generateHostingInfoText, getSubscriptionDates, self, sendVisitorData, switchToWarningTile, tileSet;
+
+    getSubscriptionDates = function(subscriptionDetails) {
+        var maxDate, timestampNow, todayTimestamp;
+
+        maxDate = subscriptionDetails.expirationDate - subscriptionDetails.lastBillDate;
+        timestampNow = Math.floor(Date.now() / 1000);
+        todayTimestamp = subscriptionDetails.todayTimestamp;
+
+        return {
+            todayTimestamp: todayTimestamp,
+            timestampNow: timestampNow,
+            maxDate: subscriptionDetails.expirationDate - subscriptionDetails.lastBillDate,
+            expirationDate: new Date(subscriptionDetails.expirationDate * 1000),
+            now: timestampNow - subscriptionDetails.lastBillDate,
+            expiresDays: Math.ceil((maxDate - (timestampNow - subscriptionDetails.lastBillDate)) / 86400)
+        };
+    };
+
+    generateHostingInfoText = function(expiresDays) {
+        return expiresDays > 0
+            ? expiresDays === 1
+                ? _('expiresInOneDay')
+                : _('expiresIn__daysToExpire__days', {daysToExpire: expiresDays})
+            : expiresDays === 0
+                ? _('subsctiptionWillExpiredToday')
+                : expiresDays === -1
+                    ?   _('expiredOneDayAgo')
+                    : !isNaN(expiresDays)
+                        ? _('expired__expiredDays__ago', {expiredDays:  Math.abs(expiresDays)})
+                        : '';
+    };
+
+    sendVisitorData = function() {
+        var OAO, dataLoaded, mostUsedMail, mostUsedWWW, servers, visitorData;
+
+        visitorData = [];
+        servers = aps.context.vars.servers.filter(function(server) {
+            return server.aps.status === 'aps:ready';
+        });
+
+        dataLoaded = servers.every(function(server) {
+            if (!aps.app.model.spacesModel[server.aps.id]) {
+                return false;
+            }
+            visitorData.push({
+                planId: server.subscriptionDetails.planId,
+                name: server.name,
+                mailUsagePercent: Math.round((aps.app.model.spacesModel[server.aps.id].totalMailspaceUsed / aps.app.model.spacesModel[server.aps.id].mail) * 100),
+                wwwUsagePercent: Math.round((aps.app.model.spacesModel[server.aps.id].wwwspace / aps.app.model.spacesModel[server.aps.id].www) * 100)
+            });
+            return true;
+        });
+
+        if (!dataLoaded) {
+            return;
+        }
+
+        mostUsedMail = visitorData.sort(function(first, second) {
+            return first.mailUsagePercent > second.mailUsagePercent ? -1 : 1;
+        })[0];
+
+        mostUsedWWW = visitorData.sort(function(first, second) {
+            return first.wwwUsagePercent > second.wwwUsagePercent ? -1 : 1;
+        })[0];
+
+        OAO = window.parent.OAO;
+
+        if (!OAO || !OAO.q.ias) return;
+
+        OAO.q.ias.push(['addVisitorData', 'serverWWWUsagePlan', mostUsedWWW.planId]);
+        OAO.q.ias.push(['addVisitorData', 'serverWWWUsageName', mostUsedWWW.name]);
+        OAO.q.ias.push(['addVisitorData', 'serverWWWUsagePercent', mostUsedWWW.wwwUsagePercent]);
+        OAO.q.ias.push(['addVisitorData', 'serverMailUsagePlan', mostUsedMail.planId]);
+        OAO.q.ias.push(['addVisitorData', 'serverMailUsageName', mostUsedMail.name]);
+        OAO.q.ias.push(['addVisitorData', 'serverMailUsagePercent', mostUsedMail.mailUsagePercent]);
+
+        aps.apsc.pushAnalytics({
+            event: 'hostingListBootstrapped',
+            eventLabel: aps.context._view.id,
+            eventValue: window.performance.now()
+        });
+    };
+
+    switchToWarningTile = function(tile, serverName, subscriptionDates, subscriptionDetails) {
+        var disabledFieldSet;
+
+        disabledFieldSet = new FieldSet({id:self.genId(serverName + 'disabledFieldSet')});
+        disabledFieldSet.addChild(new Output({
+            id: self.genId(serverName + 'HostingDisabledInfo'),
+            content: '<div class="server-disabled-info"><div class="server-disabled_icon warning-icon"></div><span title="${expiredInfo}">${expiredInfo}</span></div><div class="server-disabled-info-line">${payNowToResume}</div>',
+            expiredInfo: generateExpiredInfoText(subscriptionDates.expiresDays, subscriptionDates.expirationDate, subscriptionDetails),
+            payNowToResume: generateEncourageText(subscriptionDates.expiresDays, subscriptionDetails)
+        }));
+
+        disabledFieldSet.addChild(new ApsHr({
+            id: self.genId(serverName + 'serverListHr'),
+            className: 'custom-margin no-margin__vertical'
+        }));
+        tile.addChild(disabledFieldSet, 0);
+
+        tile.set('className', tile.get('baseClass').replace('hosting', 'hosting-disabled') + ' ' + tile.get('gridSize').replace('xs', 'col-xs').replace('md', 'col-md'));
+    };
+
+    generateExpiredInfoText = function(expiresDays, expirationDate, subscriptionDetails) {
+        return expiresDays >= 0 && isSubscriptionDisabled(subscriptionDetails.status)
+            ? _('blockedInfo')
+            : expiresDays >= 0
+                ? _('subscriptionWillExpired__date__year', {date: expirationDate.getDate() + '.' + (expirationDate.getMonth() + 1) + '.' + expirationDate.getFullYear()})
+                : _('subscriptionExpired__date__year', {date: expirationDate.getDate() + '.' + (expirationDate.getMonth() + 1) + '.' + expirationDate.getFullYear()});
+    };
+
+    generateEncourageText = function(expiresDays, subscriptionDetails) {
+        return expiresDays >= 0 && isSubscriptionDisabled(subscriptionDetails.status)
+            ? _('contactUs')
+            : expiresDays >= 0
+                ? _('payBefore')
+                : _('payNowToResume');
+    };
+
+    // eslint-disable-next-line no-unused-vars
+    drawOrderTile = function() {
+        var offerTile, preorderData;
+
+        preorderData = JSON.parse(orderDataJson);
+
+        offerTile = new Tile({
+            id: self.genId('offerTile'),
+            title: _('offerForYou'),
+            baseClass: 'server-list__order',
+            gridSize: 'xs-12 md-4'
+        });
+
+        tileSet.addChild(offerTile);
+
+        offerTile.addChild(new Output({
+            id: self.genId('orderHosting'),
+            isBusy: true,
+            baseClass: 'order-content',
+            content: '<div class="order-content__img"></div><div><h3>${planName}</h3><p>${price} ${priceDescription}</p></div>',
+            planName: '',
+            price: 0,
+            priceDescription: _('priceDescription')
+        }));
+
+        offerTile.addChild(new Button({
+            id: self.genId('orderHostingButton'),
+            isBusy: true,
+            title: _('orderAndPay'),
+            onClick: function() {
+                when(xhr('/aps/2/collections/accounts?eq(id,' + aps.context._accountId + ')', {
+                    method: 'GET'
+                }), function(response) {
+                    preorderData.accountApsId = response[0].aps.id;
+                    preorderData.products[0].planPeriodId = brandData.hostingOffer.planPeriodId;
+
+                    when(xhr('/aps/2/resources/' + aps.context.billingId.aps.id + '/om/sale/calculate', {
+                        headers: {'Content-Type': 'application/json'},
+                        method: 'POST',
+                        data: JSON.stringify(preorderData)
+                    }), function(response) {
+                        aps.apsc.showPopup({
+                            viewId: 'http://www.parallels.com/ccp-billing#order-confirmation-popup',
+                            params: {
+                                data: {
+                                    orderType: 'sale',
+                                    preorder: preorderData,
+                                    calculatedOrder: response
+                                }
+                            },
+                            modal: true,
+                            isPopup: true
+                        }).then(function() {
+                            self.byId('orderHostingButton').set('isBusy', false);
+                        });
+                    });
+                });
+            }
+        }));
+
+        if (aps.app.model.get('orderHosting')) {
+            self.byId('orderHosting').set('planName', aps.app.model.get('orderHosting').planName);
+            self.byId('orderHosting').set('price', aps.app.model.get('orderHosting').price);
+            self.byId('orderHostingButton').set('isBusy', false);
+        } else {
+            when(xhr('/aps/2/resources/' + aps.context.billingId.aps.id + '/pc/sales-category/' + brandData.hostingOffer.salesCategory + '/plans', {
+                method: 'GET'
+            }), function(plans) {
+                var orderPeriod, orderPlan;
+
+                if (!plans.length) {
+                    tileSet.removeChild(offerTile);
+                    drawNewServerTile();
+                    return;
+                }
+
+                orderPlan = plans.find(function(plan) {
+                    orderPeriod = plan.periods.find(function(period) {
+                        return period.planPeriodId === brandData.hostingOffer.planPeriodId;
+                    });
+                    return orderPeriod !== undefined;
+                });
+
+                if (!orderPlan) {
+                    self.byId('offerTile').set('visible', false);
+                    drawNewServerTile();
+                    return;
+                }
+
+                aps.app.model.set('orderHosting', getStateful({planName:  orderPlan.name, price: orderPeriod.setupFee.amount}));
+
+                self.byId('orderHosting').set('planName', orderPlan.name);
+                self.byId('orderHosting').set('price', orderPeriod.setupFee.amount);
+                self.byId('orderHostingButton').set('isBusy', false);
+            });
+        }
+    };
+
+    drawNewServerTile = function() {
+        tileSet.addChild(new Tile({
+            id: self.genId('serverRunNew'),
+            title: _('serverRunNew'),
+            gridSize: 'xs-12 md-4',
+            baseClass: 'server-list__new',
+            buttons: [{
+                id: self.genId('gotoShop'),
+                title: _('gotoShop'),
+                onClick: function() {
+                    aps.apsc.gotoView(brandData.marketplaceViewId);
+                }
+            }]}
+        ));
+
+        self.byId('serverRunNew').addChild(new Output({
+            id: self.genId('serverRunNewOutput'),
+            baseClass: 'empty-content',
+            innerHTML: '<div class="empty-content__img server-new"></div>'
+        }));
+
+        return;
+    };
+
+    drawOrderWWWConsultationTile = function() {
+        tileSet.addChild(new Tile({
+            id: self.genId('orderWWWConsultationTile'),
+            title: _('orderWWWConsultationTileTitle'),
+            gridSize: 'xs-12 md-4',
+            baseClass: 'server-list__orderWWWConsultation'
+        }
+        ));
+
+        self.byId('orderWWWConsultationTile').addChild(new Output({
+            id: self.genId('orderWWWConsultationOutput'),
+            content: _('orderWWWConsultationOutput')
+        }));
+
+        self.byId('orderWWWConsultationTile').addChild(new Button({
+            id: self.genId('orderWWWConsultationButton'),
+            title: _('orderWWWConsultationButton'),
+            autoBusy: false,
+            onClick: function() {
+                aps.apsc.showPopup({
+                    viewId: brandData.csAppId + '#site-valuation',
+                    resourceId: null,
+                    params: {},
+                    modal: true,
+                    isPopup: true
+                }).then(function(result) {
+                    if (result.btnType === 'submit') {
+                        aps.apsc.displayMessage(_('consultationRequestSent'), 'info');
+                    }
+
+                    aps.apsc.cancelProcessing();
+                    aps.apsc.hideLoading();
+                });
+            }
+        }));
+
+        return;
+    };
+
+    drawTile = function(serverObject, subscriptionDetails) {
+        var expiresDays, expiringPeriodState, mainFieldSet, maxDate, now, serverName, subscriptionComment, subscriptionDisabled, subscriptionIdHint, tile;
+
+        subscriptionIdHint = _('subscriptionId__subscriptionId__', {
+            subscriptionId: subscriptionDetails.subscriptionId
+        });
+        subscriptionComment = serverObject.comment ? ' (' + serverObject.comment + ')' : '';
+        serverName = serverObject.name || subscriptionDetails.subscriptionId.toString();
+
+        tile = self.byId('tile' + serverObject.aps.id);
+
+        tile.set({
+            title: serverObject.name || subscriptionDetails.subscriptionName,
+            hint: subscriptionIdHint
+        });
+
+        mainFieldSet = new FieldSet({
+            id: self.genId(serverName + 'FieldSet'),
+            showLabels: true,
+            baseClass: 'server-list__field'
+        });
+
+        if (subscriptionDetails.status === subscriptionStatuses['ordered']) {
+            mainFieldSet.addChild(new Output({
+                id: self.genId(serverName + 'InProgressServerImage'),
+                baseClass: 'empty-content',
+                innerHTML: '<div class="empty-content__img server-inprogress"></div>'
+            }));
+            mainFieldSet.addChild(new Output({
+                id: self.genId(serverName + 'InProgressServerText'),
+                content: '<div class="empty-content__text">${emptyText}</div>',
+                emptyText: _('createInProgressServerText'),
+                className: 'col-xs-12 text-center'
+            }));
+            tile.addChild(mainFieldSet);
+            tile.set('disabled', false);
+
+            return;
+        }
+
+        if (subscriptionDetails.expirationDate < 0) {
+            expiresDays = dayExpiringPeriodStarts;
+            maxDate = dayExpiringPeriodStarts;
+            now = 0;
+        } else {
+            maxDate = subscriptionDetails.expirationDate - subscriptionDetails.lastBillDate;
+            now = Math.floor(Date.now() / 1000) - subscriptionDetails.lastBillDate;
+
+            expiresDays = Math.ceil((maxDate - now) / 86400);
+        }
+
+        expiringPeriodState = expiresDays <= dayExpiringPeriodStarts;
+        subscriptionDisabled = isSubscriptionDisabled(subscriptionDetails.status) || isSubscriptionExpired(subscriptionDetails.status) || isStatusDisabled(serverObject.status);
+
+        tile.set({
+            hint: subscriptionIdHint + subscriptionComment,
+            onClick: subscriptionDisabled ? undefined : function() {
+                aps.apsc.gotoView('server-management', aps.app.model.get(serverName + 'Model').aps.id);
+                this.cancel();
+            }}
+        );
+        mainFieldSet.set('disabled', subscriptionDisabled);
+
+        aps.app.model.set(serverName + 'Model', getStateful(serverObject));
+
+        when(getConfiguration(serverObject), function(configuration) {
+            var apsTypes, isClickweb, isWordpressHosting;
+
+            isClickweb = isClickwebCheck(aps.app.model.configurationModels[aps.app.model.get(serverName + 'Model').aps.id].name);
+            isWordpressHosting = configuration.name.includes('wordpress');
+
+            apsTypes = {
+                database: 'http://home.pl/types/hosting/database/',
+                ftps: 'http://home.pl/types/hosting/ftp/',
+                mailApplication: 'http://home.pl/types/mailbox/application/6.0',
+                mailboxes: 'http://home.pl/types/mailbox/mailbox/12.1',
+                domains: 'http://home.pl/types/hosting/domain/',
+                softwares: 'http://home.pl/types/hosting/software/'
+            };
+
+            when(getResources(serverObject.aps.subscription, apsTypes), function(resources) {
+                var actionButtons, countersContainer, databaseLimit, databasesGauge, gaugeContainer,
+                    hostingPlanGauge, hostingPlanInfo;
+
+                hostingPlanInfo = new Output({
+                    id: self.genId(serverName + 'HostingPlanInfo'),
+                    baseClass: 'server-list__info',
+                    content: '<div class="flex-between"><div class="font-bold">${hostingLabel}</div><div class="${textClass}">${hostingInfo}</div></div>',
+                    hostingLabel: configuration.description,
+                    hostingInfo: generateHostingInfoText(expiresDays),
+                    textClass: expiringPeriodState && expiresDays >= 0 ? 'text-danger' : 'text-muted',
+                    serverName: serverName
+                });
+
+                hostingPlanGauge = new Container({
+                    id: self.genId(serverName + 'GaugeFieldSet'),
+                    gridSize: 'md-12'
+                });
+
+                hostingPlanGauge.addChild(new Gauge({
+                    id: self.genId(serverName + 'HostingPlanGauge'),
+                    legend: '',
+                    minimum: 0,
+                    gridSize: 'md-12',
+                    maximum: Math.ceil((maxDate) / 86400),
+                    value: Math.ceil((now) / 86400)
+                }));
+
+                hostingPlanGauge.addChild(new Output({
+                    id: self.genId(serverName + 'HostingPlanOutput'),
+                    content: '<div class="text-muted">' + _('available') + ': ${availableSpace} GB</div>',
+                    availableSpace: at(aps.app.model.spacesModel.get(serverObject.aps.id), 'available')
+                }));
+
+                gaugeContainer = new Container({
+                    id: self.genId(serverName + 'GaugeContainer'),
+                    label: '',
+                    gridSize: 'md-12'
+                });
+
+                if (resources.mailApplication) {
+                    gaugeContainer.addChild(new Gauge({
+                        id: self.genId(serverName + 'MailboxesGauge'),
+                        legend: _('mailboxesAccounts'),
+                        gridSize: 'md-6',
+                        minimum: 0,
+                        maximum: at(aps.app.model.spacesModel.get(serverObject.aps.id), 'mail'),
+                        value: at(aps.app.model.spacesModel.get(serverObject.aps.id), 'totalMailspaceUsed')
+                    }));
+                }
+
+                if (resources.database) {
+                    databaseLimit = resources.database.limit;
+                    aps.app.model.get(serverName + 'Model').set('databasePlan', getStateful(resources.database));
+
+                    databasesGauge = new Gauge({
+                        id: self.genId(serverName + 'DatabasesGauge'),
+                        baseClass: 'custom-gauge',
+                        legend: '<div class="flex-between">' + _('databases') + '<small class="text-muted">${limitLabel}</small></div>',
+                        gridSize: 'md-6',
+                        minimum: 0,
+                        maximum: databaseLimit ? databaseLimit : 1,
+                        value: databaseLimit ? at(aps.app.model.get(serverName + 'Model').databasePlan, 'usage') : 1,
+                        limitLabel: !databaseLimit ? _('unlimited') : '',
+                        classesMap: databaseLimit ? {'0%': 'progress-bar-success', '37%': 'progress-bar-warning', '62%': 'progress-bar-danger'} : {'62%': 'progress-bar-info'}
+                    });
+
+                    gaugeContainer.addChild(databasesGauge);
+                }
+
+                countersContainer = new Container({
+                    id: self.genId(serverName + 'CountersContainer'),
+                    label: '',
+                    gridSize: 'md-12'
+                });
+
+                countersContainer.addChild(new Output({
+                    id: self.genId(serverName + 'DomainOutput'),
+                    content: '<div><span class="${textClass}">' + _('domains') + '</span>&emsp;<span class="text-muted">${domains}</span></div>',
+                    domains: !resources.domains.usage ? _('none') : resources.domains.usage,
+                    textClass: !resources.domains.usage ? 'text-muted font-bold' : '',
+                    baseClass: 'col-xs-6 col-md-6'
+                }));
+
+                if (isWordpressHosting) {
+                    countersContainer.addChild(new Output({
+                        id: self.genId(serverName + 'ApplicationOutput'),
+                        content: '<div><span class="${textClass}">' + _('autoInstallations') + '</span>&emsp;<span class="text-muted">${software}</span></div>',
+                        software: !resources.softwares.usage ? _('none') : resources.softwares.usage,
+                        textClass: !resources.softwares.usage ? 'text-muted font-bold' : '',
+                        baseClass: 'col-xs-6 col-md-6'
+                    }));
+
+                    tile.set('className', 'server-list__wordpress-hosting col-xs-12 col-md-4');
+                } else if (resources.ftps) {
+                    countersContainer.addChild(new Output({
+                        id: self.genId(serverName + 'FtpOutput'),
+                        content: '<div><span class="${textClass}">' + _('ftpServer') + '</span>&emsp;<span class="text-muted">${ftp}</span></div>',
+                        ftp: !resources.ftps.usage ? _('none') : resources.ftps.usage,
+                        textClass: !resources.ftps.usage ? 'text-muted font-bold' : '',
+                        baseClass: 'col-xs-6 col-md-6'
+                    }));
+                }
+
+                if (expiringPeriodState || subscriptionDisabled) {
+                    switchToWarningTile(tile, serverObject.name, getSubscriptionDates(subscriptionDetails), subscriptionDetails);
+                }
+
+                actionButtons = [
+                    {
+                        id: self.genId(serverName + 'AddDomainActionButton'),
+                        title: _('assignDomain'),
+                        disabled: self.blockades.domain || isResourceLimitReached(resources.domains),
+                        onClick: function() {
+                            if (self.blockades.domain) {
+                                return;
+                            }
+                            aps.apsc.gotoView('assign-domain', aps.app.model.get(serverName + 'Model').aps.id);
+                        }
+                    }
+                ];
+
+                if (resources.mailApplication) {
+                    actionButtons.push({
+                        id: self.genId(serverName + 'CreateMailboxActionButton'),
+                        title: _('createMailbox'),
+                        disabled: self.blockades.mailbox || isResourceLimitReached(resources.mailboxes),
+                        onClick: function() {
+                            if (self.blockades.mailbox) {
+                                return;
+                            }
+                            aps.apsc.gotoView('http://home.pl/mailboxes#mailbox-new', aps.app.model.get(serverObject.name + 'Model').aps.id);
+                        }
+                    });
+                }
+
+                if (resources.database) {
+                    actionButtons.push({
+                        id: self.genId(serverName + 'CreateDatabaseActionButton'),
+                        title: _('createDatabase'),
+                        disabled: self.blockades.database || isResourceLimitReached(resources.database),
+                        onClick: function() {
+                            if (self.blockades.database) {
+                                return;
+                            }
+
+                            aps.apsc.gotoView('database-new', aps.app.model.get(serverName + 'Model').aps.id);
+                        }
+                    });
+                }
+
+                if (!isClickweb) {
+                    actionButtons.push({
+                        id: self.genId(serverName + 'sslCertificateButton'),
+                        title: _('sslCertificates'),
+                        disabled: self.blockades.server,
+                        onClick: function() {
+                            if (self.blockades.server) {
+                                return;
+                            }
+                            aps.apsc.gotoView('ssl-certificates', aps.app.model.get(serverName + 'Model').aps.id);
+                        }
+                    });
+                }
+
+                actionButtons.push({
+                    id: self.genId(serverName + 'separator'),
+                    type: 'separator'
+                });
+
+                actionButtons.push({
+                    id: self.genId(serverName + 'ManagementActionButton'),
+                    title: _('gotoManagement'),
+                    onClick: function() {
+                        aps.apsc.gotoView('server-management', aps.app.model.get(serverName + 'Model').aps.id);
+                        this.cancel();
+                    }
+                });
+
+                if (brandData.backupOffer && !isClickweb) {
+                    actionButtons.push({
+                        id: self.genId(serverName + 'BackupButton'),
+                        title: _('orderBackup'),
+                        onClick: function() {
+                            aps.apsc.gotoView('backup-wizard', aps.app.model.get(serverName + 'Model').aps.id, {server: subscriptionDetails.subscriptionId});
+                        }
+                    });
+                }
+
+                tile.set('buttons', [
+                    {
+                        id: self.genId(serverName + 'Options'),
+                        title: _('options'),
+                        items: actionButtons,
+                        visible: !subscriptionDisabled
+                    },
+                    {
+                        id: self.genId(serverName + 'WarningButton'),
+                        title: expiresDays < 0 ? _('payNow') : _('checkSubscription'),
+                        autoBusy: false,
+                        onClick: function() {
+                            gotoSubscriptionDetailsView(subscriptionDetails.subscriptionId);
+                        },
+                        visible: expiringPeriodState || subscriptionDisabled
+                    }
+                ]);
+
+                [hostingPlanInfo, hostingPlanGauge, gaugeContainer, countersContainer].forEach(function(child) {
+                    mainFieldSet.addChild(child);
+                });
+
+                tile.addChild(mainFieldSet);
+            });
+        });
+
+        tile.set('disabled', false);
+    };
+
+    return declare(_View, {
+        init: function() {
+            self = this;
+
+            aps.app.model.set('spacesModel', getStateful({}));
+
+            return ['aps/Tiles', {
+                id: self.genId('tiles'),
+                baseClass: 'server-list'
+            }];
+        },
+
+        onContext: function() {
+            var retrieveSubscriptionDetails;
+
+            retrieveSubscriptionDetails = function(server) {
+                var subscriptionDates;
+
+                if (server.subscriptionDetails) {
+                    subscriptionDates = getSubscriptionDates(server.subscriptionDetails);
+                    if (subscriptionDates.todayTimestamp && subscriptionDates.timestampNow - parseInt(subscriptionDates.todayTimestamp, 10) <= timeToRefreshSubscriptionDetails) {
+                        return server.subscriptionDetails;
+                    }
+                }
+                return xhr('/aps/2/resources/' + server.aps.id + '/retrieveSubscriptionDetails');
+            };
+
+            when(xhr('/aps/2/resources/' + aps.context.vars.servers[0].aps.id + '/readSettings'), function(applicationSettings) {
+                var blockade, sortedServers;
+
+                self.blockades = applicationSettings.blockades;
+
+                for (blockade in self.blockades) {
+                    if (self.blockades[blockade]) {
+                        displayMessage(_('technicalBreakInProgress'), 'info');
+                        break;
+                    }
+                }
+
+                tileSet = self.byId('tiles');
+
+                // Jeśli przy aktywnym ekranie listy hostingów nastąpi wyłączenie subskrypcji, to Odin ponownie uruchomi zdarzenie 'onContext'.
+                // W związku z tym czyścimy TileSet'a przed ponownym wygenerowaniem kafelków.
+                tileSet.removeAll();
+
+                sortedServers = aps.context.vars.servers.map(function(server) {
+                    if (server.subscriptionDetails) {
+                        server.subscriptionDetails = JSON.parse(server.subscriptionDetails);
+                    }
+                    return server;
+                }).sort(function(server1, server2) {
+                    return server1.aps.status === 'aps:provisioning' || !server1.subscriptionDetails || !server2.subscriptionDetails
+                        ? -1
+                        : server1.subscriptionDetails.subscriptionId > server2.subscriptionDetails.subscriptionId ? 1 : -1;
+                });
+
+                sortedServers.forEach(function(server) {
+                    tileSet.addChild(new Tile({
+                        id: self.genId('tile' + server.aps.id),
+                        gridSize: 'xs-12 md-4',
+                        baseClass: 'server-list__hosting',
+                        disabled: true
+                    }));
+                    when(retrieveSubscriptionDetails(server), function(subscriptionDetails) {
+                        drawTile(server, subscriptionDetails);
+                    }, function() {
+                        if (server.subscriptionDetails) {
+                            drawTile(server, server.subscriptionDetails);
+                        }
+                    });
+                    aps.app.model.get('spacesModel')[server.aps.id] = getStateful({});
+
+                    when(getCurrentServerUsage.fetchData(server.aps.id), function(data) {
+                        getCurrentServerUsage.convertToGB(data);
+
+                        aps.app.model.get('spacesModel')[server.aps.id].set(Object.assign(
+                            data,
+                            {
+                                available: data.error ? '-' : (data.total - data.totalSpaceUsed).toFixed(2)
+                            }
+                        ));
+
+                        sendVisitorData();
+                    });
+                });
+                if (brandData.hostingContact) {
+                    drawOrderWWWConsultationTile();
+                } else {
+                    drawNewServerTile();
+                }
+                aps.apsc.hideLoading();
+            });
+        },
+
+        onHide: function() {
+            aps.app.model.set('spacesModel', getStateful({}));
+            tileSet.removeAll();
+        }
+    });
+});

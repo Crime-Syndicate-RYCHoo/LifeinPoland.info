@@ -1,0 +1,16 @@
+define([
+    'helpers/statuses/suspendableResourceStatuses'
+], function(
+    suspendableResourceStatuses
+) {
+    /**
+     * Funkcja odpowiada za sprawdzenie, czy zasób implementujący suspendableResource jest nieaktywny.
+     *
+     * @param {!string} suspendableResourceStatus status zasobu implementującego suspendableResource
+     *
+     * @return {boolean} true, jeśli zasób implementujący suspendableResource jest nieaktywny
+     */
+    return function(suspendableResourceStatus) {
+        return suspendableResourceStatuses.disabled === suspendableResourceStatus;
+    };
+});

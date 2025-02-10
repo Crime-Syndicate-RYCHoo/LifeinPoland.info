@@ -1,0 +1,52 @@
+define([
+    'aps/nav/ViewPlugin',
+    'aps/FieldSet',
+    'aps/Output',
+    'aps/Tile',
+    'dojo/_base/declare',
+    'aps/ready!'
+], function(
+    ViewPlugin,
+    FieldSet,
+    Output,
+    Tile,
+    declare
+) {
+    return declare(ViewPlugin, {
+        init: function(mediator) {
+            var self, tile, tileFieldset;
+
+            self = this;
+
+            tile = new Tile({
+                id: self.genId('csCustomerPanelTile'),
+                title: _('Customer Service', self),
+                iconName: self.buildStaticURL('images/info_icon.png'),
+                buttons: [{
+                    id: self.genId('csCustomerPanelButton'),
+                    title: _('Continue', self),
+                    autoBusy: false,
+                    onClick: function() {
+                        aps.apsc.gotoView('http://home.pl/customer_service#contact-view');
+                    }
+                }],
+                onClick: function() {
+                    aps.apsc.gotoView('http://home.pl/customer_service#contact-view');
+                }
+            });
+
+            tileFieldset = new FieldSet({id: self.genId('csCustomerPanelTileFieldSet')});
+
+            tileFieldset.addChild(new Output({
+                id: self.genId('csCustomerPanelOutput'),
+                content: _('customerPanelInformation', self)
+            }));
+
+            tile.addChild(tileFieldset);
+
+            mediator.getWidget = function() {
+                return tile;
+            };
+        }
+    });
+});

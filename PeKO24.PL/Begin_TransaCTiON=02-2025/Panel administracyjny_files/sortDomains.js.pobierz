@@ -1,0 +1,37 @@
+define(['helpers/mappers/daysToExpire'], function(daysToExpire) {
+    /**
+     * Funkcja sortująca podaną listę domen wg daty wygasania
+     *
+     * @param {Object} domains obiekt zawierający listę domen przypisanych do serwera
+     * @param {Object} domainsDetails obiekt zawierający listę zasobów billingowych domen
+     *
+     * @return {Object} posortowana list domen
+     */
+    return function(domains, domainsDetails) {
+        var domainDetails;
+
+        domains.forEach(function(domain) {
+            domainDetails = domainsDetails.find(function(element) {
+                return element.name === domain.name;
+            });
+            if (domainDetails && domainDetails.parentDomain) {
+                domainDetails = domainsDetails.find(function(element) {
+                    return element.name === domainDetails.parentDomain.name;
+                });
+                domain.subdomain = true;
+            }
+            domain.expireDays = domainDetails && domainDetails.registrationInfo ? daysToExpire(new Date(domainDetails.registrationInfo.registrarExpirationDate).getTime() / 1000) : false;
+        });
+        domains.sort(function(firstValue, secondValue) {
+            if (firstValue.subdomain || secondValue.subdomain) {
+                return firstValue.subdomain ? 1 : -1;
+            }
+            if (!firstValue.expireDays) {
+                return 1;
+            }
+            return firstValue.expireDays - secondValue.expireDays;
+        });
+
+        return domains;
+    };
+});

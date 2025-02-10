@@ -1,0 +1,16 @@
+define([
+    'helpers/statuses/subscriptionStatuses'
+], function(
+    subscriptionStatuses
+) {
+    /**
+     * Tablica z definicjami statusów nieaktywnych subskrypcji.
+     */
+    return [
+        subscriptionStatuses['administrativeHold'],
+        subscriptionStatuses['administrativeAndCreditHold'],
+        subscriptionStatuses['creditHold'],
+        subscriptionStatuses['inactive'],
+        subscriptionStatuses['terminated']
+    ];
+});

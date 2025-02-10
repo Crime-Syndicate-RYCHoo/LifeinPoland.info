@@ -1,0 +1,169 @@
+define([
+	"dojo/_base/declare",
+	"dojo/Deferred",
+	"dijit/registry",
+
+	"aps/nav/ViewPlugin",
+	"aps/Tile",
+	"aps/Container",
+	"aps/Status",
+	"aps/UsageInfo",
+	"aps/ResourceStore",
+	"aps/validate/web",
+
+	"../users/UserStatus"
+], function (
+	declare,
+	Deferred,
+	registry,
+
+	ViewPlugin,
+	Tile,
+	Container,
+	Status,
+	UsageInfo,
+	ResourceStore,
+	webValidator,
+
+	UserStatus
+) {
+	var getUserStatusWidget = function (user) {
+		var userStatus = new UserStatus(user);
+		userStatus._getLabel = function () {
+			return user.displayName;
+		};
+		return userStatus.getWidget({id: user.aps.id + "_dshb_status"});
+	};
+	var getTileStatusWidget = function (users, viewPlugin) {
+		var stat = {
+			status: '',
+			priority: Infinity,
+			locked: {p: 0, v: 0},
+			invited: {p: 1, v: 0},
+			deleting: {p: 2, v: 0},
+			updating: {p: 3, v: 0},
+			creating: {p: 4, v: 0},
+			disabled: {p: 5, v: 0}
+		};
+		users.forEach(function (user) {
+			var s = UserStatus.getStatus(user);
+			if (!stat[s]) {
+				return;
+			}
+			if(stat.priority > stat[s].p) {
+				stat.priority = stat[s].p;
+				stat.status = s;
+			}
+			stat[s].v++;
+		});
+		if (stat.status) {
+			var statusId = viewPlugin.genId('usersStatus');
+			var oldStatus = registry.byId(statusId);
+			if (oldStatus) oldStatus.destroy();
+			return new Status({
+				id: statusId,
+				status: stat.status,
+				useIcon: true,
+				statusInfo: {
+					locked: {
+						label: _("__users__ Locked", {
+							users: stat.locked.v
+						}, {}, viewPlugin),
+						type: "danger"
+					},
+					invited: {
+						label: _("__users__ Not Activated", {
+							users: stat.invited.v
+						}, {}, viewPlugin),
+						type: "warning"
+					},
+					deleting: {
+						label: _("__users__ Deleting", {
+							users: stat.deleting.v
+						}, {}, viewPlugin),
+						type: "danger",
+						isLoad: true
+					},
+					updating: {
+						label: _("__users__ Updating", {
+							users: stat.updating.v
+						}, {}, viewPlugin),
+						type: "warning",
+						isLoad: true
+					},
+					creating: {
+						label: _("__users__ Creating", {
+							users: stat.creating.v
+						}, {}, viewPlugin),
+						type: "default",
+						isLoad: true
+					},
+					disabled: {
+						label: _("__users__ Disabled", {
+							users: stat.disabled.v
+						}, {}, viewPlugin),
+						type: "danger"
+					}
+				}
+			});
+		}
+	};
+	return declare(ViewPlugin, {
+		init: function (mediator) {
+			var self = this;
+
+			var widget = new Tile({
+				id: self.genId("userList"),
+				title: _("Users", {}, {}, self),
+				gridSize: "md-4 xs-12",
+				iconName: self.buildStaticURL('images/users.png'),
+				isBusy: true,
+				buttons: [{
+					id: self.genId("addUserBtn"),
+					title: _("Add New User", {}, {}, self),
+					iconClass: "fa-plus",
+					autoBusy: false,
+					onClick: function () {
+						aps.apsc.gotoView("http://www.parallels.com/ccp-users#addUser");
+					}
+				}],
+				onClick: function () {
+					aps.apsc.gotoView("http://www.parallels.com/ccp-users#usersview");
+				}
+			});
+			mediator.getWidget = function () {
+				return widget;
+			};
+
+			var deferred = new Deferred();
+			deferred.resolve();
+			return deferred;
+		},
+		onContext: function (context) {
+			var widget = this.byId("userList");
+			var count = +context.varsMeta.users.range.split("/").pop();
+			var users = context.vars.users;
+
+			widget.removeAll();
+			widget.set({
+				isBusy: false,
+				info: getTileStatusWidget(users, this)
+			});
+			if (count < 4) {
+				users.forEach(function (user) {
+					var status = getUserStatusWidget(user);
+					var container = new Container();
+					container.addChild(status);
+					widget.addChild(container);
+				});
+			} else {
+				widget.addChild(new UsageInfo({
+					id: this.genId('usage_info'),
+					value: count,
+					description: _("Total", {}, {}, this),
+					showPie: false
+				}));
+			}
+		}
+	});
+});

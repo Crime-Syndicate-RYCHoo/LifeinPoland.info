@@ -1,0 +1,142 @@
+/* jshint laxbreak: true */
+define([
+    'aps/FieldSet',
+    'aps/Hr',
+    'aps/Output',
+    'aps/Tile',
+    'dojox/mvc/getStateful',
+    'helpers/getters/getUsageCountText',
+    'helpers/validators/isResourceLimitReached'
+], function(
+    FieldSet,
+    ApsHr,
+    Output,
+    Tile,
+    getStateful,
+    getUsageCountText,
+    isResourceLimitReached
+) {
+    var installationTile;
+
+    return function(view, container, softwareResource, data) {
+        var autoinstallAvailableApps, blockade, softwareObjects, sortedSoftwareObjects;
+
+        softwareObjects = data[0];
+        autoinstallAvailableApps = data[1].autoinstallAvailableApps[data[1].webserver] || data[1].autoinstallAvailableApps._default;
+
+        blockade = view.application.blockades.software || view.application.blockades.domain || view.application.blockades.database;
+        container.addChild(new Tile({
+            id: view.genId('installationTile'),
+            gridSize: 'md-4 xs-12',
+            baseClass: 'server-tile custom-tile',
+            title: false,
+            buttons: [
+                {
+                    id: view.genId('newSoftwareButton'),
+                    label: _('newSoftwareInstall'),
+                    disabled: blockade || isResourceLimitReached(softwareResource),
+                    onClick: function() {
+                        if (blockade) {
+                            return;
+                        }
+
+                        if (autoinstallAvailableApps.length === 1) {
+                            aps.apsc.gotoView('software-install-step-2', aps.context.vars.server.aps.id, { applicationName: autoinstallAvailableApps[0] });
+                        } else {
+                            aps.apsc.gotoView('software-install-step-1', aps.context.vars.server.aps.id);
+                        }
+                    }
+                },
+                {
+                    id: view.genId('allSoftwareButton'),
+                    label: _('allSoftwareInstall'),
+                    visible: softwareObjects.length,
+                    onClick: function() {
+                        aps.apsc.gotoView('software', aps.context.vars.server.aps.id, {blockade: blockade});
+                    }
+                }
+            ]
+        }));
+
+        installationTile = view.byId('installationTile');
+
+        installationTile.addChild(new Output({
+            id: view.genId('installationOutputHeader'),
+            baseClass: 'server-tile__header col-md-12',
+            content: '<div class="flex-between"><h3>${title}</h3><span class="text-danger">${instalationsCount}</span></div>',
+            title: _('installations'),
+            instalationsCount: getUsageCountText(softwareResource)
+        }));
+
+        installationTile.addChild(new FieldSet({
+            id: view.genId('installationFieldset'),
+            baseClass: 'server-container'
+        }));
+
+        if (!softwareObjects.length) {
+            view.byId('installationFieldset').addChild(new Output({
+                id: view.genId('emptyContentInstallationOutput'),
+                baseClass: 'empty-content',
+                innerHTML: '<div class="text-center">'
+                + '<div class="empty-content__img software"></div>'
+                + '<div class="empty-content__text">'
+                + _('emptyInstalationContent') + '</div>'
+                + '</div>'
+            }));
+
+            return installationTile;
+        }
+
+        sortedSoftwareObjects = softwareObjects.sort(function(firstElement, secondElement) {
+            var weights;
+
+            weights = {
+                success: 1,
+                in_progress: 2,
+                error: 3
+            };
+
+            return weights[secondElement.status] - weights[firstElement.status];
+        });
+
+        sortedSoftwareObjects.slice(0, 4).map(function(software, index) {
+            view.byId('installationFieldset').addChild(new Output({
+                id: view.genId('software_' + index + 'Output'),
+                baseClass: 'col-md-12'
+            }));
+
+            switch (software.status) {
+                case 'success':
+                    view.byId('software_' + index + 'Output').set({
+                        administrationPanel: software.adminUrl,
+                        installationFolder: software.path,
+                        domain: software.domain === 'noDomain' ? software.url : software.domain,
+                        content: '<div class="domains-list"><span title="${domain}" class="custom-ellipsis">${domain}</span><a class="server-link__icon software-icon" target="_blank" href="${administrationPanel}"></a></div><div class="text-muted">${installationFolder}</div>'
+                    });
+                    break;
+                case 'in_progress':
+                    view.byId('software_' + index + 'Output').set({
+                        instalationStatus:  _('instalationStatusInProgress'),
+                        applicationName: software.name,
+                        content: '<div class="domains-list"><span title="${applicationName}" style="text-transform:capitalize">${applicationName}</span><div class="server-link__icon software-icon-in-progress"></div></div><div class="text-info">${instalationStatus}</div>'
+                    });
+                    break;
+                case 'error':
+                    view.byId('software_' + index + 'Output').set({
+                        instalationStatus:  _('instalationStatusFailed'),
+                        applicationName: software.name,
+                        content: '<div class="domains-list"><span title="${applicationName}" style="text-transform:capitalize">${applicationName}</span><div class="server-link__icon software-icon-failed"></div></div><div class="text-dangered">${instalationStatus}</div>'
+                    });
+                    break;
+            }
+
+            view.byId('installationFieldset').addChild(new ApsHr({
+                id: view.genId('software_' + index + 'Hr'),
+                gridSize: 'md-12',
+                visible: index < (softwareObjects.length - 1)
+            }));
+        });
+
+        return installationTile;
+    };
+});

@@ -1,0 +1,120 @@
+define([], function() {
+    /**
+     * @var {Object} obiekt zawierający stałe wykorzystywane w UI
+     */
+    return {
+        accountFields: {
+            companyName: {
+                minimumLength: 2,
+                maximumLength: 80
+            },
+            firstName: {
+                minimumLength: 2,
+                maximumLength: 20
+            },
+            name: {
+                minimumLength: 2,
+                maximumLength: 80
+            },
+            identificationNumber: {
+                minimumLength: 9,
+                maximumLength: 12
+            },
+            lastName: {
+                minimumLength: 2,
+                maximumLength: 50
+            },
+            street: {
+                minimumLength: 3,
+                maximumLength: 256
+            },
+            number: {
+                minimumLength: 1,
+                maximumLength: 12
+            },
+            postalCode: {
+                minimumLength: 6,
+                maximumLength: 6
+            },
+            city: {
+                minimumLength: 2,
+                maximumLength: 256
+            },
+            email: {
+                minimumLength: 5,
+                maximumLength: 256
+            },
+            phoneNumber: {
+                minimumLength: 8,
+                maximumLength: 12
+            },
+            apartmentNumber: {
+                maximumLength: 12
+            },
+            buildingNumber: {
+                minimumLength: 1,
+                maximumLength: 12
+            }
+        },
+        backupFormConstraints: {
+            maximumLength: 100
+        },
+        backupTextAreaConstraints: {
+            maximumLength: 255
+        },
+        basicAuthUsersConstraints: {
+            minimumLength: 1,
+            maximumLength: 30
+        },
+        boxNameConstraints: {
+            minimumLength: 1,
+            maximumLength: 32
+        },
+        databaseNameConstraints: {
+            minimumLength: 1,
+            maximumLength: 37
+        },
+        expirationWarningThreshold: 14,
+        hourInSeconds: 3600,
+        keyCodes: {
+            backspace: 8,
+            enter: 13,
+            space: 32
+        },
+        maxRedirectionsLength: 250,
+        maxMxServers: 4,
+        minTagsValue: 1,
+        mysqlAdministrationPanelUrlSuffix: '/sql?server=mysql57',
+        mysql8AdministrationPanelUrlSuffix: '/sql?server=mysql8',
+        mysql8Host: 'mysql8',
+        passwordConstraints: {
+            minimumStrength: 3,
+            minimumLength: 8,
+            maximumLength: 40
+        },
+        pgsqlAdministrationPanelUrlSuffix: '/psql',
+        protocols: {
+            ftp: 'ftp://',
+            http: 'http://',
+            https: 'https://'
+        },
+        radix: {
+            decimal: 10
+        },
+        rowsPerPage: 30,
+        textAreaRows: 8,
+        textBoxConstraints: {
+            minimumLength: 1,
+            maximumLength: 255
+        },
+        textAreaConstraints: {
+            maximumLength: 255
+        },
+        timeoutClearServerUsage: 180000,
+        webServerTypes: {
+            0: 'idea',
+            1: 'apache',
+            2: 'openLiteSpeed'
+        }
+    };
+});

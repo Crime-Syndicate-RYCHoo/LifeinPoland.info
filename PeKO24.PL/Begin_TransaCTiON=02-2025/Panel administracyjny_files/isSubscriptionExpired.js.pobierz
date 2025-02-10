@@ -1,0 +1,16 @@
+define([
+    'helpers/statuses/expiredSubscriptionStatuses'
+], function(
+    expiredSubscriptionStatuses
+) {
+    /**
+     * Funkcja odpowiada za sprawdzenie, czy subskrypcja jest w statusie wskazującym na jej wygaśnięcie.
+     *
+     * @param {!number} subscriptionStatusId identyfikator statusu subskrypcji
+     *
+     * @return {boolean} true, jeśli subskrypcja jest w statusie wskazującym na jej wygaśnięcie
+     */
+    return function(subscriptionStatusId) {
+        return expiredSubscriptionStatuses.indexOf(subscriptionStatusId) !== -1;
+    };
+});

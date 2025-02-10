@@ -1,0 +1,160 @@
+define([
+	"dojo/_base/declare",
+	"dojo/_base/lang",
+	"dojox/mvc/getStateful",
+	"dojox/mvc/at",
+	"dijit/registry",
+	"aps/nav/ViewPlugin",
+	"aps/Tile",
+	"aps/Status",
+	"aps/FieldSet",
+	"aps/Output",
+	"aps/Container",
+	"../subscriptionTile",
+	"../converter",
+	"../../utils/converter",
+	"../impl/rest",
+	"dojo/Deferred"
+], function(
+	declare,
+	lang,
+	GetStateful,
+	at,
+	registry,
+	ViewPlugin,
+	Tile,
+	Status,
+	FieldSet,
+	Output,
+	Container,
+	SubscriptionTile,
+	converter,
+	converterBase,
+	Rest,
+	Deferred
+) {
+
+	var apsPluginContext, tile, tileTitle, statusInfo;
+	var self = null;
+	var subscriptionData;
+	var pbaSubscriptionId;
+	var _;
+	var subscriptionRest;
+	var subscriptionTile;
+
+
+	function resolvedDeferred() {
+		var deferred = new Deferred();
+		deferred.resolve();
+		return deferred;
+	}
+
+	function loadSubscrInfo(vp) {
+		var content = vp.content;
+		
+		if (aps.context.params.subscriptionId) pbaSubscriptionId = aps.context.params.subscriptionId;
+
+		subscriptionRest.getSubscriptions("subscriptionId=" + pbaSubscriptionId).then(function(data) {
+			subscriptionData = data[0];
+			subscriptionTile.getSubscrContent({
+				context: apsPluginContext,
+				subscriptionData: subscriptionData,
+				content: content,
+				isPlugin: true,
+				title: tileTitle
+			}).then(function () {
+				if(!registry.byId(vp.si_subscrInfoTile)) {
+					// tile already destroyed
+					return;
+				}
+				subscriptionTile.showSubscriptionInfo(vp.generatedId, true, null, null);
+				registry.byId(this.si_subscrActionButtonId).set("visible", true);
+				aps.apsc.hideLoading();
+			}, function () {
+				aps.apsc.hideLoading();
+			});
+		}, function() {
+			aps.apsc.hideLoading();
+		});
+	}
+
+
+	return declare(ViewPlugin, {
+        generatedId: "",
+        si_subscrInfoTile: "",
+        si_subscrStatusInfo: "",
+        si_subscrActionButtonId: "",
+
+		init: function(mediator) {
+			self = this;
+
+			subscriptionTile = new SubscriptionTile(this);
+			_ = converterBase.setLocalizationContext(this);
+
+            this.generatedId 				= mediator.generatedId 				= this.genId("");
+            this.si_subscrInfoTile 			= mediator.si_subscrInfoTile 		= this.generatedId + "si_subscrInfoTile";
+            this.si_subscrStatusInfo 		= mediator.si_subscrStatusInfo 		= this.generatedId + "si_subscrStatusInfo";
+            this.si_subscrActionButtonId 	= mediator.si_subscrActionButtonId 	= this.generatedId + "si_subscrActionButtonId";
+
+			self.content = new GetStateful({});
+
+			mediator.getWidget = function(subId, opts) {
+				opts = opts || {};
+				tileTitle = opts.title;
+				statusInfo = !!opts.statusInfo ? lang.mixin(converter.subscriptionStatusTypes(), opts.statusInfo): converter.subscriptionStatusTypes();
+				pbaSubscriptionId = subId;
+				tile = new Tile({
+					id: this.si_subscrInfoTile,
+					title: "",
+					gridSize: "md-4 xs-12",
+					info: new Status({
+						id: this.si_subscrStatusInfo,
+						status: at(self.content, "status"),
+						statusInfo: statusInfo,
+						visible: false
+					})
+				});
+
+				subscriptionTile.initFieldSets(tile, self.content, this.generatedId, true);
+
+				tile.set("buttons", [{
+					id: this.si_subscrActionButtonId,
+					title: _("Manage Subscription"),
+					iconClass: "fa-bars",
+					visible: false,
+					items: [
+						subscriptionTile.getViewSubscriptionButton(this.generatedId, null),
+						subscriptionTile.getPayInvoicesButton(this.generatedId),
+						subscriptionTile.getRenewButton(this.generatedId, null),
+						subscriptionTile.getAutoRenewButton(this.generatedId, null),
+						subscriptionTile.getUpgradeToPaidButton(this.generatedId, null),
+						subscriptionTile.getCancelSubscrButtonSeparator(this.generatedId),
+						subscriptionTile.getCancelSubscrButton(this.generatedId, true, null)
+					]
+				}]);
+
+				loadSubscrInfo(self);
+				return tile;
+			};
+
+			mediator.showRenewPopup = function(subId) {
+				pbaSubscriptionId = subId;
+				subscriptionRest.getSubscriptions("subscriptionId=" + pbaSubscriptionId).then(function(data) {
+					var subscriptionData = data[0];
+					converter.renewSubscription(subscriptionData, aps.context.billingId.aps.id);
+				});
+			};
+
+			return resolvedDeferred();
+		},
+
+
+		onContext: function(apsContext) {
+			apsPluginContext = apsContext;
+			subscriptionRest = new Rest(aps.context.billingId.aps.id);
+			if (registry.byId(this.si_subscrInfoTile)) {
+				loadSubscrInfo(this);
+			}
+		}
+	});
+});

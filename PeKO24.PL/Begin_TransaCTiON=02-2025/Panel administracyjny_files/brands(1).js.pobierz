@@ -1,0 +1,96 @@
+define([], function() {
+    return {
+        default: {
+            csApiUrl: 'https://csapi.k8s.home.net.pl',
+            csAppId: 'http://home.pl/customer_service'
+        },
+        14: {
+            backupOffer: {
+                ftpBackupPlanId: '3260',
+                sqlBackupPlanId: '3259',
+                mailBackupPlanId: '3258'
+            },
+            brandName: 'home',
+            companyName: 'home.pl',
+            hostingContact: true,
+            hostingOffer: {
+                salesCategory: 44,
+                planPeriodId: 7505
+            },
+            legacyPhpResourceId: 1000410,
+            marketplaceViewId: 'http://www.parallels.com/marketplace#landing-page',
+            mysql57LegacyButton: true,
+            sslOffer: {
+                view: 'http://home.pl/customer_service#security-offers-view',
+                params: {}
+            },
+            webmailAddress: 'https://login.poczta.home.pl/'
+        },
+        29: {
+            backupOffer: {
+                ftpBackupPlanId: '3260',
+                sqlBackupPlanId: '3259',
+                mailBackupPlanId: '3258'
+            },
+            brandName: 'home',
+            companyName: 'home.pl',
+            hostingContact: true,
+            hostingOffer: {
+                salesCategory: 44,
+                planPeriodId: 7505
+            },
+            legacyPhpResourceId: 1000410,
+            marketplaceViewId: 'http://www.parallels.com/marketplace#landing-page',
+            mysql57LegacyButton: true,
+            sslOffer: {
+                view: 'http://home.pl/customer_service#security-offers-view',
+                params: {}
+            },
+            webmailAddress: 'https://login.poczta.home.pl/'
+        },
+        37: {
+            backupOffer: {
+                ftpBackupPlanId: '3260',
+                sqlBackupPlanId: '3259',
+                mailBackupPlanId: '3258'
+            },
+            marketplaceViewId: 'http://www.parallels.com/marketplace#landing-page',
+            brandName: 'home',
+            companyName: 'home.pl',
+            mysql57LegacyButton: true,
+            hostingContact: true,
+            hostingOffer: {
+                salesCategory: 44,
+                planPeriodId: 7505
+            },
+            legacyPhpResourceId: 1000410,
+            sslOffer: {
+                view: 'http://home.pl/customer_service#security-offers-view',
+                params: {}
+            },
+            webmailAddress: 'https://login.poczta.home.pl/'
+        },
+        52: {
+            backupOffer: {
+                ftpBackupPlanId: '3260',
+                sqlBackupPlanId: '3259',
+                mailBackupPlanId: '3258'
+            },
+            marketplaceViewId: 'http://www.parallels.com/marketplace#landing-page',
+            mysql57LegacyButton: true,
+            brandName: 'home',
+            companyName: 'home.pl',
+            hostingContact: true,
+            hostingOffer: {
+                salesCategory: 44,
+                planPeriodId: 7505
+            },
+            legacyPhpResourceId: 1000410,
+            sslOffer: {
+                view: 'http://home.pl/customer_service#security-offers-view',
+                params: {}
+            },
+            webmailAddress: 'https://login.poczta.home.pl/'
+        }
+    };
+});

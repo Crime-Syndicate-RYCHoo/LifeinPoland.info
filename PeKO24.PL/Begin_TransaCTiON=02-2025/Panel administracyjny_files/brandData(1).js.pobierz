@@ -1,0 +1,27 @@
+define(['helpers/constants/brands', 'exports'], function(brands, exports) {
+    var brandName, exists, translateCurrencyStates;
+
+    exists = function() {
+        return brands[aps.context._oa._brandId] !== undefined;
+    };
+
+    brandName = exists() ? brands[aps.context._oa._brandId].brandName : '';
+
+    translateCurrencyStates  = exists() ? brands[aps.context._oa._brandId].translateCurrencyStates : false;
+
+    exports.backupOffer = exists() ? brands[aps.context._oa._brandId].backupOffer : false;
+    exports.brandName = brandName;
+    exports.companyName = exists () ? brands[aps.context._oa._brandId].companyName : '';
+    exports.csApiUrl = brands.default.csApiUrl;
+    exports.csAppId = brands.default.csAppId;
+    exports.exists = exists;
+    exports.hostingContact = exists () ? brands[aps.context._oa._brandId].hostingContact : false;
+    exports.hostingOffer = exists() ? brands[aps.context._oa._brandId].hostingOffer : false;
+    exports.legacyPhpResourceId = exists() ? brands[aps.context._oa._brandId].legacyPhpResourceId : false;
+    exports.mysql57LegacyButton = exists() ? brands[aps.context._oa._brandId].mysql57LegacyButton : false;
+    exports.mysql8Available = exists() ? brands[aps.context._oa._brandId].mysql8Available : true;
+    exports.sslOffer = exists() ? brands[aps.context._oa._brandId].sslOffer : {};
+    exports.webmailAddress = exists() ? brands[aps.context._oa._brandId].webmailAddress : '';
+    exports.marketplaceViewId = exists() && brands[aps.context._oa._brandId].marketplaceViewId ? brands[aps.context._oa._brandId].marketplaceViewId : 'http://www.parallels.com/ccp-billing#marketplace-board';
+    exports.translateCurrencyStates = translateCurrencyStates;
+});

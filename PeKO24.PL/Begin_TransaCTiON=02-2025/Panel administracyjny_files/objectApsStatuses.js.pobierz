@@ -1,0 +1,13 @@
+define([], function() {
+    /**
+     * @var object Obiekt mapujący natywne statusy zasobów na czytelniejszy zapis.
+     */
+    return {
+        'aps:deleted': 'deleted',
+        'aps:proto': 'createInProgress',
+        'aps:provisioning': 'createInProgress',
+        'aps:ready': 'created',
+        'aps:suspended': 'disabled',
+        'aps:unprovisioning': 'deleteInProgress'
+    };
+});

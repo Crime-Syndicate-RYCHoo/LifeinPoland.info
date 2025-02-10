@@ -1,0 +1,357 @@
+define([
+	"dojo/_base/declare",
+	"aps/_View",
+	"aps/load",
+	"dijit/registry",
+	"aps/nav/ViewPluginManager",
+	"dojo/promise/all",
+	"aps/xhr",
+	"aps/Output",
+	"aps/Memory",
+	"aps/Message",
+	"dojox/mvc/StatefulArray",
+	"aps/confirm",
+	"aps/Store",
+	"dojox/mvc/at",
+	"aps/Container",
+	"aps/FieldSet",
+	"aps/Button",
+	"aps/Toolbar",
+	"./Utils",
+	"aps/DropDownButton",
+	"aps/ready!"
+], function (declare,
+			 _View,
+			 load,
+			 registry,
+			 ViewPluginManager,
+			 all,
+			 xhr,
+			 Output,
+			 Memory,
+			 Message,
+			 StatefulArray,
+			 confirm,
+			 Store,
+			 at,
+			 Container,
+			 FieldSet,
+			 Button,
+			 Toolbar,
+			 Utils,
+			 DropDownButton) {
+	var recordGrid;
+	var domain;
+	var parentDomain;
+	var domainTldFeatures;
+	var selectionArray;
+	var deleteButton;
+	var readOnly = false;
+	var _screen;
+
+	function writeMessage(text, type) {
+		var page = registry.byId("apsPageContainer");
+		if (!page) {
+			return;
+		}
+		var messages = page.get("messageList");
+		if (text === undefined || text === "") {
+			messages.removeAll();
+			return;
+		}
+		messages.addChild(new Message({description: text, type: type || "error", escapeHTML: false}));
+	}
+
+	function refreshDomainRecords(parentDomainParam){
+		parentDomain = parentDomainParam;
+		recordGrid.set('store', new Store({
+			target: "/aps/2/resources/?implementing(http://parallels.com/aps/types/pa/dns/record/1.0),ne(RRState,inactive),zone.aps.id=" + domain.aps.id,
+			idProperty: 'aps.id'
+		}));
+	}
+
+	function getRecordType(type){
+		var typeWithoutVersion = type.substr(0, type.lastIndexOf("/"));
+		return typeWithoutVersion.substr(typeWithoutVersion.lastIndexOf("/") + 1);
+	}
+
+	function deleteRecords(parentDomain){
+		confirm({
+			title: _("Do you want to delete __itemsCount__ selected record(s)?", {itemsCount: selectionArray.length}),
+			submitLabel: _("Delete")
+		}).then(function (response) {
+			if (response === true) {
+				var deferreds = [];
+				selectionArray.forEach(function (id){
+					deferreds.push(
+						xhr("/aps/2/resources/" + id, {method: "DELETE", handleAs: "json"}).
+							then(
+							function() {},
+							function(err){
+								if(err.response && err.response.data) {
+									var data = err.response.data;
+									writeMessage(_(data.message, data.details, {}, data.pkgId));
+								} else {
+									writeMessage(_("Error deleting record"));
+								}
+								aps.apsc.hideLoading();
+							}
+						));
+				});
+				all(deferreds).then(function(){
+					refreshDomainRecords(parentDomain);
+					aps.apsc.hideLoading();
+				});
+				selectionArray.splice(0, selectionArray.length); //clear selectionArray
+			} else {
+				aps.apsc.cancelProcessing();
+			}
+		});
+	}
+
+	function deleteRecord(row){
+		confirm({
+			title: _("Do you want to delete selected record?"),
+			submitLabel: _("Delete")
+		}).then(function (response) {
+			if (response === true) {
+				xhr("/aps/2/resources/" + row.aps.id, {method: "DELETE", handleAs: "json"}).
+					then(
+					function() {
+						refreshDomainRecords(parentDomain);
+						aps.apsc.hideLoading();
+					},
+					function(err){
+						if(err.response && err.response.data) {
+							var data = err.response.data;
+							writeMessage(_(data.message, data.details, {}, data.pkgId));
+						} else {
+							writeMessage(_("Error deleting record"));
+						}
+						aps.apsc.hideLoading();
+					});
+			} else {
+				aps.apsc.cancelProcessing();
+			}
+		});
+	}
+
+	function setReadOnlyMode(readOnlyParameter){
+		readOnly = readOnlyParameter;
+		recordGrid.set({
+			selectionMode: readOnly ? null : "multiple",
+			onRowClick: readOnly ? undefined : function (row) {
+				aps.apsc.showPopup({
+					viewId: "dnsRecordPopup",
+					resourceId: domain.aps.id,
+					params: {
+						currentRecord: row,
+						readOnly: readOnly
+					}
+				});
+			}
+		});
+		registry.byId("dr_registerNewButton").set("disabled", readOnly);
+		var toolbar = registry.byId("dr_toolbar");
+		toolbar.set({visible: !readOnly});
+	}
+
+	function refreshReadOnlyWarning(domain) {
+		if (Utils.canEditRecords(domain)) {
+			writeMessage();
+		} else {
+			writeMessage("<b>" + _("Warning!") + "</b> " + _("You cannot manage DNS records because this domain is hosted by an external name server."), "warning");
+		}
+	}
+
+	return declare(_View, {
+		init: function () {
+			selectionArray = new StatefulArray([]);
+			_screen = this;
+			return ["aps/Container", {id: "dr_mainContainer"}, [
+				["aps/Grid", {
+					id: "dr_grid",
+					selectionMode: "multiple",
+					rowsPerPage: 20,
+					selectionArray: selectionArray,
+					showFilter: false,
+					store: new Memory(),
+					columns: [
+						{
+							name: _("Record Type"),
+							field: "aps.type",
+							sortable: true,
+							filter: {
+								options: [{
+									value: 'http://parallels.com/aps/types/pa/dns/record/a/1.0',
+									label: 'A'
+								}, {
+									value: 'http://parallels.com/aps/types/pa/dns/record/aaaa/1.0',
+									label: 'AAAA'
+								}, {
+									value: 'http://parallels.com/aps/types/pa/dns/record/cname/1.0',
+									label: 'CNAME'
+								}, {
+									value: 'http://parallels.com/aps/types/pa/dns/record/mx/1.0',
+									label: 'MX'
+								}, {
+									value: 'http://parallels.com/aps/types/pa/dns/record/ns/1.0',
+									label: 'NS'
+								}, {
+									value: 'http://parallels.com/aps/types/pa/dns/record/srv/1.0',
+									label: 'SRV'
+								}, {
+									value: 'http://parallels.com/aps/types/pa/dns/record/caa/1.0',
+									label: 'CAA'
+								}, {
+									value: 'http://parallels.com/aps/types/pa/dns/record/tlsa/1.0',
+									label: 'TLSA'
+								}, {
+									value: 'http://parallels.com/aps/types/pa/dns/record/txt/1.0',
+									label: 'TXT'
+								}],
+								"title": _("Record Type")
+							},
+							"renderCell": function (row, data) {
+								if (!data) {
+									return _("");
+								}
+								return getRecordType(data).toUpperCase();
+							}
+						}, {
+							name: _("Host"),
+							field: "sourceFQN",
+							type: "label",
+							"class": 'wrap',
+							nowrap: true,
+							sortable: true,
+							filter: true
+						}, {
+							name: _("Data"),
+							field: "data",
+							"class": 'wrap',
+							nowrap: false,
+							sortable: false,
+							filter: true
+						}, {
+							name: _("TTL"),
+							field: "TTL",
+							filter: true,
+							"renderCell": function (row) {
+								return row.TTL === 0 ? domain.zone.TTL : row.TTL;
+							}
+						}, {
+							align: "right",
+							"renderCell": function (row) {
+								if (((parentDomain && Utils.canEditRecords(parentDomain)) || (!parentDomain && Utils.canEditRecords(domain)))) {
+									var actionItems = [];
+									actionItems.push({
+										iconClass: "fa-pencil",
+										type: "default",
+										label: _("Edit"),
+										onClick: function () {
+											aps.apsc.showPopup({
+												viewId: "dnsRecordPopup",
+												resourceId: domain.aps.id,
+												params: {
+													currentRecord: row,
+													readOnly: readOnly
+												}
+											});
+										}
+									});
+									actionItems.push({type: "separator"});
+									actionItems.push({
+										iconClass: "fa-close",
+										type: "default",
+										label: _("Delete"),
+										onClick: function () {
+											deleteRecord(row);
+										}
+									});
+									return new DropDownButton({
+										id: registry.getUniqueId("dr_dropdownActions"),
+										label: _("Actions"),
+										items: actionItems
+									});
+								}
+								return "";
+							}
+						}
+					]
+				}, [
+					["aps/Toolbar", {
+						id: "dr_toolbar",
+						visible: true
+					}, [
+						["aps/Button", {
+							id: "dr_registerNewButton",
+							autoBusy: false,
+							label: _("Add New Record"),
+							iconClass: "fa-plus",
+							isDefault: true,
+							onClick: function () {
+								aps.apsc.showPopup({viewId: "dnsRecordPopup", resourceId: domain.aps.id});
+							}
+						}],
+						["aps/Button", {
+							id: "dr_deleteButton",
+							autoBusy: false,
+							label: _("Delete"),
+							iconClass: "fa-times",
+							type: "danger",
+							disabled: true,
+							hideFor: "xs",
+							onClick: function () {
+								deleteRecords(parentDomain);
+							}
+						}]
+					]]
+				]]
+			]];
+		},
+
+		onContext: function () {
+			var _self = this;
+			domain = aps.context.vars.selectedDomain;
+			recordGrid = registry.byId("dr_grid");
+			readOnly = false;
+			if (domain.registrationInfo) {
+				xhr("/aps/2/resources/" + domain.registrationInfo.aps.id + "/features", {method: "GET"}).then(function (domainTldFeaturesResponse) {
+					domainTldFeatures = domainTldFeaturesResponse;
+					_self.onContextBody();
+				});
+			} else {
+				_self.onContextBody();
+			}
+		},
+
+		onContextBody: function () {
+			registry.byId("dr_registerNewButton").set("disabled", false);
+
+			if(domain.parentDomain) {//if subDomain
+				xhr("/aps/2/resources/?implementing(http://parallels.com/aps/types/pa/dns/zone/1.1),select(registrationInfo,hosting),aps.id=" + domain.parentDomain.aps.id, {method: "GET"}).
+					then(function (parentDomains) {
+						var parentDomain = parentDomains[0];
+						refreshDomainRecords(parentDomain);
+						setReadOnlyMode(!Utils.canEditRecords(parentDomain));
+						refreshReadOnlyWarning(parentDomain);
+						aps.apsc.hideLoading();
+					});
+			} else {
+				refreshDomainRecords(undefined);
+				setReadOnlyMode(!Utils.canEditRecords(domain));
+				refreshReadOnlyWarning(domain);
+				aps.apsc.hideLoading();
+			}
+
+			deleteButton = registry.byId("dr_deleteButton");
+			selectionArray.watchElements(function(){
+				if(selectionArray.length > 0 && selectionArray.filter(function(id){return id==="fake";}).length === 0)
+					deleteButton.set("disabled", false);
+				else
+					deleteButton.set("disabled", true);
+			});
+		}
+	});
+});

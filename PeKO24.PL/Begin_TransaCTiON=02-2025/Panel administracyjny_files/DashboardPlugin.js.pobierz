@@ -1,0 +1,117 @@
+define([
+	"aps/declare",
+	"aps/nav/ViewPlugin",
+	"dojo/Deferred",
+	"aps/Tile",
+	"aps/FieldSet",
+	"aps/xhr",
+	"dijit/registry",
+	"aps/Output",
+	"aps/Container",
+	"aps/Status",
+	"./../Utils",
+	"aps/UsageInfo"
+], function (declare, ViewPlugin, Deferred, Tile, FieldSet, xhr, registry, Output, Container, Status, Utils, UsageInfo) {
+
+	var goToDomainHandler = function () {
+		aps.apsc.gotoView("http://www.parallels.com/ccp-domains#domains");
+	};
+
+	return declare(ViewPlugin, {
+		init: function (mediator) {
+			var widgetsWrapper = new Tile({
+				"id": "dpb_domainsTile",
+				title: _("Domains", {}, {}, this),
+				gridSize: "md-4 xs-12",
+				iconName: this.buildStaticURL('img/icon.png'),
+				fontColor: "#FFFFFF",
+				buttons: [{
+					title: _("Add New Domain", {}, {}, this),
+					iconClass: "fa-plus",
+					autoBusy: false,
+					visible: Utils.canManageDomains(),
+					onClick: function () {
+						if (!aps.context.billingId) { //no-billing mode
+							aps.apsc.gotoView("http://www.parallels.com/ccp-domains#registerDomain");
+						} else {
+							xhr.get("/aps/2/resources/" + aps.context.billingId.aps.id + "/bss/account").then(function (accountInfo) {
+								var fullyReg = accountInfo.fullyRegistered;
+								if (fullyReg) {
+									aps.apsc.gotoView("http://www.parallels.com/ccp-domains#registerDomain");
+								} else {
+									aps.apsc.gotoView("http://www.parallels.com/ccp-domains#registerDomainAndCompleteUser");
+								}
+							});
+						}
+					}
+				}],
+				onClick: goToDomainHandler
+			});
+			var deferred = new Deferred();
+			mediator.getWidget = function () {
+				return widgetsWrapper;
+			};
+			deferred.resolve();
+			return deferred;
+		},
+		onContext: function (context) {
+			var count = +context.varsMeta.domains.range.split("/").pop();
+			var domains = context.vars.domains;
+			var widgetsWrapper = registry.byId("dpb_domainsTile");
+
+			widgetsWrapper.removeAll();
+			if (count !== 0) {
+				if (count < 4) {
+					domains.forEach(function (domain) {
+						var label = domain.name;
+
+						if (!domain.registrationInfo) {
+							if (domain.parentDomain) {
+								var parentDomainFromShortList;
+								domains.forEach(function (possibleParentDomain) { //maximum 3 iterations
+									if (domain.parentDomain.aps.id == possibleParentDomain.aps.id) {
+										parentDomainFromShortList = possibleParentDomain;
+									}
+								});
+							}
+						}
+
+						var status = new Status({
+							id: registry.getUniqueId("dbp_domainStatus"),
+							status: Utils.determineRegistrationStatus(domain).code,
+							statusInfo: {
+								"none": {label: label, "type": "success"},
+								"ok": {label: label, "type": "success"},
+								"registering": {label: label, "type": "default"},
+								"transfering": {label: label, "type": "default"},
+								"soon": {label: label, "type": "warning"},
+								"expired": {label: label, "type": "danger"},
+								"canceling": {label: _("Canceling"), "type": "default"},
+								"canceled": {label: _("Canceled"), "type": "disabled"}
+							}
+						});
+						var statusWrapper = new Container();
+						statusWrapper.addChild(status);
+						widgetsWrapper.addChild(statusWrapper);
+					});
+				} else {
+					widgetsWrapper.addChild(new UsageInfo({
+						value: count,
+						description: _("total", {}, {}, this),
+						showPie: false,
+						id: "dbp_domainsUsageLotsOfDomainsTile",
+						onClick: goToDomainHandler
+					}));
+				}
+			} else {
+				widgetsWrapper.addChild(new UsageInfo({
+					textFirstNumber: "",
+					description: _("Get Your Own Address", {}, {}, this),
+					showPie: false,
+					id: "dbp_domainsUsageNoDomainsTile",
+					onClick: goToDomainHandler
+				}));
+			}
+		}
+	});
+});

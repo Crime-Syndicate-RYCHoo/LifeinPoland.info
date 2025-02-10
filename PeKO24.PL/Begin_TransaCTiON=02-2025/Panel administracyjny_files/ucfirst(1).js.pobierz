@@ -1,0 +1,12 @@
+define([], function() {
+    /**
+     * Funkcja ustawiająca pierwszy znak na wielką literę w podanym ciągu znaków.
+     *
+     * @param {string} word ciąg znaków
+     *
+     * @return {string} wynik operacji
+     */
+    return function(word) {
+        return word.charAt().toUpperCase() + word.slice(1);
+    };
+});

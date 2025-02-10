@@ -1,0 +1,13 @@
+define([], function() {
+    /**
+     * Sprawdzenie czy możemy zarządzać zaporą WAF. Sterowanie WAF jest możliwe tylko gdy domena będzie przypisana do
+     * głównego katalogu na serwerze lub do padkatalogu.
+     *
+     * @param  {string} redirectionType typ przekierowania
+     *
+     * @return {boolean} wynik sprawdzenia
+     */
+    return function(redirectionType) {
+        return ['no_record', 'a_record', 'frame', 'moved_permanently'].indexOf(redirectionType) === -1;
+    };
+});

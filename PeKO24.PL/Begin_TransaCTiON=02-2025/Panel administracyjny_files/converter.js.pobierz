@@ -1,0 +1,332 @@
+define([
+	"aps/i18n",
+	"../impl/types",
+	"../../../utils/converter",
+	"aps/ready!"
+], function (
+	i18n,
+	types,
+	converterBase
+){
+	"use strict";
+
+	var _ = window._;
+	
+	function orderTypesStr(){
+		return {
+			ORDER: _("Order"),
+			INVOICE: _("Invoice"),
+			PAYMENT: _("Payment"),
+			REFUND: _("Refund"),
+			VOID: _("Void Check"),
+			CA: _("Credit Memo"),
+			DA: _("Debit Memo"),
+			CHECK: _("Fraud Check")
+		};
+	}
+
+	function getCurrentLocale() {
+		return aps.context._locale.split('_').join('-');
+	}
+
+	/** Return formatted string representing date in the current locale
+	 * Static
+	 * @param timeValue {number} number of seconds from start of the Unix epoch
+	 * @return {string}
+	 */
+	function formatDateWithOriginalTZ(timeValue) {
+		const formatter = new window.Intl.DateTimeFormat(getCurrentLocale(), {
+			year: 'numeric',
+			month: 'short',
+			day: 'numeric',
+			timeZone: 'GMT'
+		});
+		return formatter.format(timeValue);
+	}
+
+	return {
+		
+		dateToStr: function (dateTimeWithTimezone, nullText) {
+			if (!dateTimeWithTimezone) {
+				return (nullText === undefined) ? "-" : nullText;
+			}
+			return formatDateWithOriginalTZ(new Date(dateTimeWithTimezone));
+		},
+
+		epochToStr: function (epoch, nullText){
+			if (!epoch) {
+				return (nullText === undefined) ? "-" : nullText;
+			}
+			if (typeof(epoch) === 'string') {
+				return formatDateWithOriginalTZ(new Date(epoch));
+			} else {
+				return formatDateWithOriginalTZ(new Date(epoch * 1000));
+			}
+		},
+
+		toTzAlignedDateStr: function (strDate, nullText){
+			if (!strDate || typeof(strDate) !== 'string') {
+				return (nullText === undefined) ? "-" : nullText;
+			}
+
+			return formatDateWithOriginalTZ(new Date(strDate));
+		},
+
+		formatTimeWithOriginalTZ : function (timeValue) {
+			const formatter = new window.Intl.DateTimeFormat(getCurrentLocale(), {
+				year: 'numeric',
+				month: 'short',
+				day: 'numeric',
+				hour: 'numeric',
+				minute: 'numeric',
+				second: 'numeric',
+				timeZone: 'GMT'
+			});
+			return formatter.format(timeValue);
+		},
+
+		orderTypeToStr: function (){
+			return orderTypesStr().ORDER;
+		},
+
+		orderDetailTypeToStr: function (orderDetailType){
+			switch (orderDetailType) {
+				case types.ORDER_DETAIL_TYPES.PLAN_SETUP: return _("Plan Setup");
+				case types.ORDER_DETAIL_TYPES.PLAN_SETUP_REFUND: return _("Plan Setup Refund");
+				case types.ORDER_DETAIL_TYPES.PLAN_SWITCH_PLAN: return _("Plan Switch");
+				case types.ORDER_DETAIL_TYPES.PLAN_RENEW: return _("Plan Renew");
+				case types.ORDER_DETAIL_TYPES.PLAN_RENEW_REFUND: return _("Plan Renew Refund");
+				case types.ORDER_DETAIL_TYPES.PLAN_TRANSFER: return _("Plan Transfer");
+				case types.ORDER_DETAIL_TYPES.PLAN_TRANSFER_REFUND: return _("Plan Transfer Refund");
+				case types.ORDER_DETAIL_TYPES.PLAN_SUBSCR: return _("Plan Recurring");
+				case types.ORDER_DETAIL_TYPES.PLAN_SUBSCR_REFUND: return _("Plan Recurring Refund");
+
+				case types.ORDER_DETAIL_TYPES.RES_SETUP: return _("Resource Setup");
+				case types.ORDER_DETAIL_TYPES.RES_SETUP_REFUND: return _("Resource Setup Refund");
+				case types.ORDER_DETAIL_TYPES.RES_SWITCH: return _("Resource Switch");
+				case types.ORDER_DETAIL_TYPES.RES_SUBSCR: return _("Resource Recurring");
+				case types.ORDER_DETAIL_TYPES.RES_SUBSCR_REFUND: return _("Resource Recurring Refund");
+				case types.ORDER_DETAIL_TYPES.RES_OVERUSE: return _("Resource Overusage");
+				case types.ORDER_DETAIL_TYPES.RES_DOWNGRADE: return _("Resource Downgrade");
+
+				case types.ORDER_DETAIL_TYPES.DISCOUNT: return _("Discount");
+				case types.ORDER_DETAIL_TYPES.ADJUSTMENT: return _("Adjustment");
+				case types.ORDER_DETAIL_TYPES.CANCELLATION: return _("Cancellation");
+				case types.ORDER_DETAIL_TYPES.HANDLING_FEE: return _("Handling Fee");
+				case types.ORDER_DETAIL_TYPES.NON_PROVISIONING_ITEM: return _("Non Provisioning Item");
+
+				case types.ORDER_DETAIL_TYPES.PAYMENT: return orderTypesStr().PAYMENT;
+				case types.ORDER_DETAIL_TYPES.REFUND: return orderTypesStr().REFUND;
+				case types.ORDER_DETAIL_TYPES.REFUND_ADJ: return _("Refund Adjustment");
+
+				case types.ORDER_DETAIL_TYPES.BILL_PENALTY: return _("Bill Penalty");
+				case types.ORDER_DETAIL_TYPES.BILL_RECORD: return _("Bill Record");
+
+				case types.ORDER_DETAIL_TYPES.RESEL_PMNT: return _("Reseller Payment");
+				case types.ORDER_DETAIL_TYPES.DEPOSIT: return _("Deposit");
+
+				default: return _("Any");
+			}
+		},
+
+		documentTypeToStr: function (documentType) {
+			documentType = documentType.replace(/_doc$/i, "");
+			switch (documentType.toString()) {
+				case types.DOCUMENT_TYPES.INVOICE: return orderTypesStr().INVOICE;
+				case types.DOCUMENT_TYPES.PAYMENT: return orderTypesStr().PAYMENT;
+				case types.DOCUMENT_TYPES.REFUND: return orderTypesStr().REFUND;
+				case types.DOCUMENT_TYPES.VOID: return orderTypesStr().VOID;
+				case types.DOCUMENT_TYPES.CA: return orderTypesStr().CA;
+				case types.DOCUMENT_TYPES.DA: return orderTypesStr().DA;
+				case types.DOCUMENT_TYPES.CHECK: return orderTypesStr().CHECK;
+				default: return "";
+			}
+		},
+
+		formatEarmDocTypeToStr: function (documentType) {
+			documentType = documentType.toString().replace("_", " ").toLowerCase();
+			switch (documentType) {
+				case orderTypesStr().INVOICE.toLowerCase(): return orderTypesStr().INVOICE;
+				case orderTypesStr().PAYMENT.toLowerCase(): return orderTypesStr().PAYMENT;
+				case orderTypesStr().REFUND.toLowerCase(): return orderTypesStr().REFUND;
+				case orderTypesStr().VOID.toLowerCase(): return orderTypesStr().VOID;
+				case orderTypesStr().CA.toLowerCase(): return orderTypesStr().CA;
+				case orderTypesStr().DA.toLowerCase(): return orderTypesStr().DA;
+				case orderTypesStr().CHECK.toLowerCase(): return orderTypesStr().CHECK;
+				default: return "";
+			}
+		},
+
+		documentTypeFilterOptions: function (){
+			return [
+				{ value: 20, label: orderTypesStr().INVOICE },
+				{ value: 80, label: orderTypesStr().CA },
+				{ value: 90, label: orderTypesStr().DA }
+			];
+		},
+		
+		unpaidDocumentTypeFilterOptions: function (){
+			return [
+				{ value: "ORDER", label: orderTypesStr().ORDER },
+				{ value: "20_doc", label: orderTypesStr().INVOICE },
+				{ value: "90_doc", label: orderTypesStr().DA }
+			];
+		},
+
+		ordersStatusTypeFilterOptions: function () {
+			return [
+				{ value: 40, label: _("Unpaid") },
+				{ value: 150, label: _("Processing") },
+				{ value: 120, label: _("Processing Payments") },
+				{ value: 210, label: _("Pending Terms Acceptance") },
+				{ value: 200, label: _("Completed") },
+				{ value: 190, label: _("Canceled") }
+			];
+		},
+		
+		unpaidStatusTypeFilterOptions: function () {
+			return [
+				{ value: 340, label: _("Unpaid") },
+				{ value: 440, label: _("Processing") },
+				{ value: 420, label: _("Processing Payments") },
+				{ value: 450, label: _("Money Captured") },
+				{ value: 490, label: _("Canceled") },
+				{ value: 500, label: _("Closed") }
+			];
+		},
+
+		invoiceStatusTypeFilterOptions: function () {
+			return [
+				{ value: 340, label: _("Unpaid") },
+				{ value: 420, label: _("Processing Payments") },
+				{ value: 500, label: _("Closed") }
+			];
+		},
+		
+		statusTypes: function () {
+			return {
+				0: {
+					label: _("Pending Approval"),
+					type: "warning"
+				},
+				10: {
+					label: _("Order Details Creation"),
+					type: "warning"
+				},
+				20: {
+					label: _("Tax Calculation"),
+					type: "warning"
+				},
+				40: {
+					label: _("Unpaid"),
+					type: "warning"
+				},
+				150: {
+					label: _("Processing"),
+					type: "default",
+					isLoad: true
+				},
+				120: {
+					label: _("Processing Payments"),
+					type: "default",
+					isLoad: true
+				},
+				200: {
+					label: _("Completed"),
+					type: "success"
+				},
+				190: {
+					label: _("Canceled"),
+					type: "disabled"
+				},
+				340: {
+					label: _("Unpaid"),
+					type: "warning"
+				},
+				440: {
+					label: _("Processing"),
+					type: "default",
+					isLoad: true
+				},
+				450: {
+					label: _("Money Captured"),
+					type: "success"
+				},
+				420: {
+					label: _("Processing Payments"),
+					type: "default",
+					isLoad: true
+				},
+				500: {
+					label: _("Closed"),
+					type: "success"
+				},
+				490: {
+					label: _("Canceled"),
+					type: "disabled"
+				},
+				445: {
+					label: _("Declined"),
+					type: "disabled"
+				},
+				210: {
+					label: _("Pending Terms Acceptance"),
+					type: "warning"
+				}
+			};
+		},
+
+		periodToStr: function (detail) {
+			if (detail.duration && detail.durPeriod) {
+				var duration = detail.duration;
+				// pricePeriodType values: {undefined, 0, 1 } and only for 1 (=RPP_MONTH) should no be multiplied
+				if (detail.pricePeriodType !== 1 ) duration *= detail.durPeriod;
+
+				duration = converterBase.durationToString(duration);
+				if (duration > 0) {
+					if (detail.pricePeriodType === 1) {
+						return _("__duration__ month(s)", { duration: duration });
+					} else {
+						switch (detail.durPeriodType) {
+							case 1: return _("__duration__ day(s)", { duration: duration }); // fixed number of days
+							case 2: // fixed number of months
+							case 4: return _("__duration__ month(s)", { duration: duration }); // monthly on statement date
+							case 3: return _("__duration__ year(s)", { duration: duration }); // fixed number of years
+						}
+					}
+				}
+			}
+			return "";
+		},
+
+		quantityToStr: function (detail) {
+			if (detail.quantity) {
+				var quantity = detail.quantity;
+				quantity = ((parseFloat(Number(quantity).toFixed()) === quantity) ? quantity : Number(quantity).toFixed(2));
+				if (quantity !== 0) {
+					return _("__quantity__ __unitOfMeasure__", {
+						quantity: quantity,
+						unitOfMeasure: ((detail.unitOfMeasure === "Boolean") ? _("item") : _(detail.unitOfMeasure))
+					});
+				}
+			}
+			return "";
+		},
+		
+		paymentMethodToStr: function(row) {
+			if (!row.hasOwnProperty("paymentMethod")) return "";
+			var paymentMethod = row.paymentMethod;
+			return (paymentMethod.type === 1 ? _("IBAN") : paymentMethod.paymentSystem) + (paymentMethod.title ? (" " + paymentMethod.title) : "");
+		},
+
+		getInvoiceViewId: function () {
+			return converterBase.selectCCPVariant("ccp-invoice-external","invoice");
+		},
+		getOrderViewId: function () {
+			return converterBase.selectCCPVariant("ccp-order", "order");
+		},
+		getPaymentViewId: function() {
+			return converterBase.selectCCPVariant("ccp-payment-external","payment");
+		}
+	};
+});

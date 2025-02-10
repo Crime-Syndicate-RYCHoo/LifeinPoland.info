@@ -1,0 +1,27 @@
+define(['dojo/_base/declare', 'aps/nav/ViewPlugin', 'aps/xhr'], function(declare, ViewPlugin, xhr) {
+    return declare(ViewPlugin, {
+        init: function(mediator) {
+            var serverNames;
+
+            serverNames = {};
+            mediator.updateState = function(domain, state) {
+                state.status = 'Not Assigned';
+                domain.services.forEach(function(service) {
+                    if (new RegExp('http://home.pl/types/hosting/domain/').test(service.aps.type)) {
+                        state.status = 'Assigned';
+                        if (serverNames[service.aps.subscription]) {
+                            state.title = serverNames[service.aps.subscription];
+
+                            return;
+                        }
+
+                        xhr('/aps/2/resources/' + service.aps.id + '/server', {sync:true}).then(function(server) {
+                            serverNames[service.aps.subscription] = server[0].name;
+                            state.title = server[0].name;
+                        });
+                    }
+                });
+            };
+        }
+    });
+});

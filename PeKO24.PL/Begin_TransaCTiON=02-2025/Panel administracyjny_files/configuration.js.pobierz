@@ -1,0 +1,237 @@
+define([], function() {
+    return {
+        accountApsResource: 'http://parallels.com/aps/types/pa/account/1.2',
+        accountManagementApsResource: 'http://parallels.com/pa/bss-account-management',
+        csApiUrl: 'https://csapi.k8s.home.net.pl',
+        cApiUrl: 'https://cessionapi.k8s.home.net.pl',
+        helpUrl: 'https://pomoc.home.pl/section/onehome',
+        dashboardUrl: 'http://www.parallels.com/ccp-dashboard#dashboard',
+        cessionUrl: 'http://home.pl/customer_service#cession-view',
+        cessionWizardUrl: 'http://home.pl/customer_service#cession-wizard',
+        cessionTermsUrl: 'https://regulaminy.home.pl/regulamin-cesji-20180404.pdf',
+        cessionStatementsUrl: 'https://regulaminy.home.pl/oswiadczenie-cedenta-20170606.pdf',
+        orderConfirmationPopup: 'http://www.parallels.com/ccp-billing#order-confirmation-popup',
+        cessionType: {
+            account: 'account',
+            services: 'services'
+        },
+        cessionAccountType: {
+            newAccount: 'new-account',
+            existingAccount: 'existing-account'
+        },
+        cessionAssigneeType: {
+            'private': 'private',
+            commercial: 'commercial'
+        },
+        cessionStatus: {
+            toVerify: 'to-verify',
+            toDo: 'to-do',
+            inProgress: 'in-progress',
+            resolved: 'resolved',
+            canceled: 'canceled',
+            rejected: 'rejected',
+            needsAttention: 'needs-attention',
+            waitingForCustomer: 'waiting-for-customer',
+            notFound: 'not-found'
+        },
+        cessionAgreement: {
+            enabled: 'agreed',
+            disabled: 'disabled',
+            blocked: 'blocked',
+            notDeclared: 'not-declared',
+            nonEuCountry: 'non-eu-country',
+            nonEuPhoneNumber: 'non-eu-phone-number'
+        },
+        oldPanelUrl: 'https://panel.online.home.pl/',
+        constraints: {
+            authCode: {
+                inputMask: '999999',
+                constraints: {
+                    minimumLength: 20,
+                    maximumLength: 30
+                }
+            },
+            cession: {
+                assigneeAccountId: {
+                    minimumLength: 1
+                },
+                assigneeAuthorizationCode: {
+                    minimumLength: 1
+                },
+                services: {
+                    maximumLength: 10
+                },
+                name: {
+                    pattern: '([^0-9_$%/()^!@#$%^&*,.?<>]+){2,} ([^0-9_$%/()^!@#$%^&*,.?<>]+){2,}',
+                    minimumLength: 4,
+                    maximumLength: 80
+                },
+                identificationNumber: {
+                    pattern: '^[A-Z0-9]+$',
+                    minimumLength: 9,
+                    maximumLength: 12
+                },
+                street: {
+                    minimumLength: 3,
+                    maximumLength: 256
+                },
+                buildingNumber: {
+                    minimumLength: 1,
+                    maximumLength: 12
+                },
+                houseNumber: {
+                    maximumLength: 12
+                },
+                number: {
+                    minimumLength: 1,
+                    maximumLength: 12
+                },
+                postalCode: {
+                    minimumLength: 6,
+                    maximumLength: 6
+                },
+                city: {
+                    minimumLength: 2,
+                    maximumLength: 256
+                },
+                email: {
+                    minimumLength: 5,
+                    maximumLength: 256
+                },
+                phoneNumber: {
+                    minimumLength: 8,
+                    maximumLength: 12
+                }
+            },
+            contactForm: {
+                subjectTextBox: {
+                    minimumLength: 3,
+                    maximumLength: 512
+                },
+                contentTextArea: {
+                    rows: 7,
+                    minimumLength: 5,
+                    maximumLength: 16384
+                }
+            },
+            correspAddress: {
+                name: {
+                    pattern: '([^_$%/()^!@#$%^&*?<>]+)',
+                    minimumLength: 4,
+                    maximumLength: 80
+                },
+                firstName: {
+                    pattern: '([^0-9_$%/()^!@#$%^&*,.?<>]+)',
+                    minimumLength: 2,
+                    maximumLength: 30
+                },
+                lastName: {
+                    pattern: '([^0-9_$%/()^!@#$%^&*,.?<>]+)',
+                    minimumLength: 2,
+                    maximumLength: 30
+                },
+                street: {
+                    minimumLength: 3,
+                    maximumLength: 128
+                },
+                houseNo: {
+                    minimumLength: 1,
+                    maximumLength: 12
+                },
+                apartmentNo: {
+                    maximumLength: 12
+                },
+                postCode: {
+                    minimumLength: 2,
+                    maximumLength: 10
+                },
+                city: {
+                    minimumLength: 2,
+                    maximumLength: 40
+                }
+            },
+            invoiceRecipient: {
+                roleDescription: {
+                    minimumLength: 4,
+                    maximumLength: 80
+                },
+                name: {
+                    pattern: '([^_$%/()^!@#$%^&*?<>]+)',
+                    minimumLength: 4,
+                    maximumLength: 80
+                },
+                firstName: {
+                    pattern: '([^0-9_$%/()^!@#$%^&*,.?<>]+){2,}',
+                    minimumLength: 2,
+                    maximumLength: 30
+                },
+                lastName: {
+                    pattern: '([^0-9_$%/()^!@#$%^&*,.?<>]+){2,}',
+                    minimumLength: 2,
+                    maximumLength: 30
+                },
+                identificationNumber: {
+                    pattern: '^[0-9]+$',
+                    minimumLength: 9,
+                    maximumLength: 12
+                },
+                identificationNumberInternal: {
+                    pattern: '^[0-9]+$',
+                    minimumLength: 7,
+                    maximumLength: 12
+                },
+                street: {
+                    minimumLength: 3,
+                    maximumLength: 128
+                },
+                houseNo: {
+                    minimumLength: 1,
+                    maximumLength: 12
+                },
+                apartmentNo: {
+                    maximumLength: 12
+                },
+                postCode: {
+                    minimumLength: 2,
+                    maximumLength: 10
+                },
+                city: {
+                    minimumLength: 2,
+                    maximumLength: 40
+                }
+            },
+            icvpsSearchPanel: {
+                ipv4SearchTextBox: {
+                    pattern: '[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}',
+                    minimumLength: 7,
+                    maximumLength: 15
+                }
+            }
+        },
+        patterns: {
+            descriptionTextBox: '^[a-zA-Z0-9\\p{L}\\s.,?!\\-:]+$',
+            emailAddress: '^[^@ *]+@[^@ \\.*]+(\\.[^@ \\.*]+)+$',
+            name: '([^0-9_$%/()^!@#$%^&*,.?<>]+)',
+            phoneNumber: '^(\\+\\d{2})?[\\s-]?\\d{3}[\\s-]?\\d{3}[\\s-]?\\d{3}$',
+            textArea: '^[a-zA-Z0-9\\p{L}\\s.,?!\\-:]+$'
+        },
+        defaults: {
+            serverslist: {
+                limit: 1000,
+                page: 1,
+                serverResourceType: 'http://home.pl/types/hosting/server/',
+                serverResourceMajorVersion: 8,
+                serverResourceMinorVersion: 1
+            }
+        },
+        europeanUnionCountries: [
+            'AT', 'BE', 'BG', 'CY', 'CZ', 'DE', 'DK', 'EE', 'ES', 'FI', 'FR', 'GR', 'HR', 'HU',
+            'IE', 'IT', 'LT', 'LU', 'LV', 'MT', 'NL', 'PL', 'PT', 'RO', 'SE', 'SI', 'SK'
+        ],
+        salesWizardViewId: 'http://www.parallels.com/marketplace#landing-page',
+        templateIdOffice: '{{TEMPLATE_ID_OFFICE}}',
+        templateIdGSuite: '{{TEMPLATE_ID_GSUITE}}',
+        viewIdOffice: 'http://www.parallels.com/Office365#office365-view',
+        viewIdGSuite: 'http://www.googleappsforwork.com/googleappsvault/googleapps/1.0#service'
+    };
+});

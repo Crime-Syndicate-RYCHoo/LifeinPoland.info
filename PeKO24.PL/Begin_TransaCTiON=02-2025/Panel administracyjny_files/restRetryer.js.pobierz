@@ -1,0 +1,36 @@
+define([
+	"aps/declare",
+	"dojo/Deferred",
+	"../../../utils/converter"
+], function (declare, Deferred, converterBase) {
+
+	var postAttempt = 0;
+	var postTimeout = 2000;
+	var errorMessage = _('Your payment is being processed and will be visible in the system on completion. ' +
+        'If the payment is not processed swiftly, please contact your administrator. ' +
+        'Do not repeat the payment until the current processing is complete.');
+
+	return declare(null, {
+		postPaymentResult: function postPaymentResult(EARMRestInstance, paymentId, documentIds, timeout) {
+			return EARMRestInstance.postPaymentResult({
+				paymentId: paymentId,
+				documentIds: documentIds
+			}, timeout).otherwise(function (error) {
+				var deferred = new Deferred();
+				if (postAttempt < 3) {
+					postAttempt++;
+					postPaymentResult(EARMRestInstance, paymentId, documentIds, postTimeout).then(function () {
+						deferred.resolve();
+					}).otherwise(function () {
+						deferred.reject();
+					});
+				} else {
+					postAttempt = 0;
+					converterBase.showError(errorMessage);
+					deferred.reject();
+				}
+				return deferred;
+			});
+		}
+	});
+});

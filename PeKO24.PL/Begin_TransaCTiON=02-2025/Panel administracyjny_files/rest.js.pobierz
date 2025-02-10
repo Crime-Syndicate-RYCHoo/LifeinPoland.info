@@ -1,0 +1,30 @@
+define([
+	"dojo/_base/declare",
+	"../../../utils/restBase"
+	], function (declare, restBase) {
+
+		return declare(restBase, {
+			constructor: function (){
+				this.setPath("bss");
+			},
+			getUnpaidDocuments: function(rql) {
+				return this.get({operation: "account/unpaid-documents", rql: rql});
+			},
+			getDocumentDetails: function(rql) {
+				return this.get({operation: "account/document-details", rql: rql});
+			},
+			getAllUnpaidDocuments: function() {
+				return this.get({operation: "account/all-unpaid-documents"});
+			},
+			getAllPendingDocuments: function() {
+				return this.get({operation: "account/all-pending-documents"});
+			},
+            getPDFDocument: function (docId) {
+                return this.get({operation: "account/document-pdf?document_id="+docId, headers: {"Content-Type": "application/text"}, handleAs: "text"});
+
+            },
+			getDocumentAvailability: function(docId){
+                return this.get({operation: "account/document-pdf/availability?document_id=" + docId, headers: {"Content-Type": "application/json"}});
+			}
+		});
+});

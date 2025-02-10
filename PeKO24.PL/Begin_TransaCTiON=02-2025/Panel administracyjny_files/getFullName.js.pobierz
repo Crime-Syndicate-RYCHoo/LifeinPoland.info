@@ -1,0 +1,16 @@
+define([], function() {
+    var allDomainsLables;
+
+    allDomainsLables = ['', 'All domains', 'AllDomains'];
+    /**
+     * Funkcja zwraca pełną nazwę usługi uwzględniając tłumaczenie frazy "we wszystkich domenach" lub przypisaną domenę.
+     *
+     * @param {Object} service usługa, dla której chcemy utworzyć pełna nazwę
+     *
+     * @return {string}  pełna nazwa usługi
+     */
+    return function(service) {
+        return service.name + '@' + (allDomainsLables.indexOf(service.domain) === -1 ? service.domain : _('inAllDomains'));
+    };
+});
+

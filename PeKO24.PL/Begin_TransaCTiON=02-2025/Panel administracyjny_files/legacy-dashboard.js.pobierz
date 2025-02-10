@@ -1,0 +1,155 @@
+define([
+	"dojo/Deferred",
+
+	"aps/declare",
+	"aps/nav/ViewPlugin",
+	"aps/Container",
+	"aps/Output",
+	"aps/Tile",
+	"aps/xhr"
+], function (
+	Deferred,
+
+	declare,
+	ViewPlugin,
+	Container,
+	Output,
+	Tile,
+	xhr
+) {
+
+	// callback to notify dashboard about availability of new widgets
+	var requestPluginUpdate;
+
+	// list of dashboard elements
+	var legacyAps1AppsDashboard;
+
+	var createNavigator = function(view) {
+		return function() {
+			aps.apsc.gotoView(view);
+		};
+	};
+
+	var gotoLegacyCCP = function() {
+		return function() {
+			window.open('/ccp/legacy-ccp?bw_id=' + aps.context._sessionId + '&lang=' + aps.context._locale);
+		};
+	};
+
+	var resolvedDeferred = function(val) {
+		var def = new Deferred();
+		def.resolve(val);
+		return def;
+	};
+
+	var shorten = function(text) {
+		// TODO: this would not work with RTL locales (see also APS-19831)
+		var limit = 100;
+		var result = '';
+		var words = text.split(" ");
+		for(var i = 0; i < words.length; i++) {
+			result += words[i];
+			if (result.length > limit) {
+				result += '...';
+				break;
+			}
+			result += " ";
+		}
+		return result;
+	};
+
+	var itemId = function(i, sfx) {
+		return "legacy_aps1_app" + i + (sfx ? sfx : '');
+	};
+
+	var generateLegacyItems = function(args) {
+		var widgets = [];
+		var subscription = args && args.subscription;
+		if (legacyAps1AppsDashboard) {
+			legacyAps1AppsDashboard.forEach(function(item, i){
+				if (subscription && subscription.subscriptionId != item.subId) return;
+				var tileSpec = {
+					id: itemId(i),
+					title: item.title,
+					gridSize: 'md-4 xs-12',
+					isBusy: false,
+					iconName: '/puiStatic/images/applications/' + item.icon,
+					useOriginalIcon: true,
+					onClick: createNavigator(item.view)
+				};
+				if (item.hint) {
+					tileSpec.hint = item.hint;
+				}
+				var tile = new Tile(tileSpec);
+				tile.addChild( new Output({
+					id: itemId(i, "desc"),
+					value: shorten(item.description),
+					gridSize: "md-6 xs-10"
+				}) );
+				widgets.push(tile);
+			});
+		}
+		if (aps.context._legacy.unsupported.hasServices && !subscription) {
+			var viewPlugin = this;
+			var tile;
+			tile = viewPlugin.byId("unsupported_services");
+			if (tile) {
+				tile.destroy();
+			}
+			tile = new Tile({
+				id: "unsupported_services",
+				class: "unsupported_services",
+				title: _("More Services", viewPlugin),
+				gridSize: 'md-4 xs-12',
+				isBusy: false,
+				onClick: gotoLegacyCCP()
+			});
+			var c = new Container();
+			c.addChild( new Output({
+				id: "unsupported_services_desc",
+				value: _("Click to switch to the previous version of Control Panel to manage the following services:", viewPlugin),
+				gridSize: "md-6 xs-10"
+			}) );
+			tile.addChild(c);
+			var services = "<ul>";
+			aps.context._legacy.unsupported.services.forEach(function(item, i) {
+				if (aps.context._legacy.unsupported.services.length <= 5) {
+				    services = services + "<li>" + item + "</li>";
+				} else if (i < 4) {
+				    services = services + "<li>" + item + "</li>";
+				} else if (i == 4) {
+				    services = services + "<li>" + _("and others", viewPlugin) + "</li>";
+				}
+			});
+			services = services + "<ul>";
+			var c = new Container();
+			c.addChild( new Output({
+				id: "unsupported_services_list",
+				content: services,
+				gridSize: "md-6 xs-10"
+			}) );
+			tile.addChild(c);
+			widgets.push(tile);
+		}
+		return widgets;
+	};
+
+	return declare(ViewPlugin, {
+		init: function (mediator) {
+			mediator.getWidget = generateLegacyItems.bind(this);
+			mediator.watch("handlers", function(name, ov, nv) {
+				requestPluginUpdate = nv.requestPluginUpdate;
+			});
+			return resolvedDeferred();
+		},
+		onContext: function() {
+			if (aps.context._legacy.aps.hasApps || legacyAps1AppsDashboard && legacyAps1AppsDashboard.length) {
+				xhr.get('/aps/2/ccp/legacy/dashboard?bw_id=' + aps.context._sessionId).then(
+				  (function(items) {
+					legacyAps1AppsDashboard = items;
+					if (requestPluginUpdate) requestPluginUpdate(this.$mediator.id);
+				  }).bind(this));
+			}
+		}
+	});
+});

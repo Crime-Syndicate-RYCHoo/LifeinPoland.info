@@ -1,0 +1,12 @@
+define([
+    'helpers/statuses/subscriptionStatuses'
+], function(
+    subscriptionStatuses
+) {
+    /**
+     * Tablica statusów subskrypcji wskazujących na jej wygaśnięcie.
+     */
+    return [
+        subscriptionStatuses['graced']
+    ];
+});

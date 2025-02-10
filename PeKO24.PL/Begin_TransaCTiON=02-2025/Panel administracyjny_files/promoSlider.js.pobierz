@@ -1,0 +1,178 @@
+define([
+    'aps/nav/ViewPlugin',
+    'aps/load',
+    'aps/Tile',
+    'aps/xhr',
+    'dojo/_base/declare',
+    'dojo/when',
+    '../../lib/configuration',
+    'dojo/text!./../../lib/orderData.json',
+    'aps/ready!'
+], function(
+    ViewPlugin,
+    load,
+    Tile,
+    xhr,
+    declare,
+    when,
+    configuration,
+    orderDataJson
+) {
+    var self;
+
+    return declare(ViewPlugin, {
+        init: function(mediator) {
+            var placeOrder, tile;
+
+            self = this;
+
+            placeOrder = function(orderData) {
+                // Pobieramy informacje o koncie klienta w celu pobrania apsId zasobu konta do kolejnego żądania
+                when(xhr('/aps/2/collections/accounts?eq(id,' + aps.context._accountId + ')', {
+                    method: 'GET'
+                }), function(response) {
+                    var accountApsId;
+
+                    accountApsId = response[0].aps.id;
+                    orderData.accountApsId = accountApsId;
+
+                    // Żądanie na zasób billingu, przeliczające detale zamównienia
+                    when(xhr('/aps/2/resources/' + aps.context.billingId.aps.id + '/om/sale/calculate', {
+                        headers: {'Content-Type': 'application/json'},
+                        method: 'POST',
+                        data: JSON.stringify(orderData)
+                    }), function(response) {
+                        aps.apsc.showPopup({
+                            viewId: configuration.orderConfirmationPopup,
+                            params: {
+                                data: {
+                                    orderType: 'sale',
+                                    preorder: orderData,
+                                    calculatedOrder: response
+                                }
+                            },
+                            modal: true,
+                            isPopup: true
+                        }).then(function() {
+                            self.byId('domainName').set('value', '');
+                        });
+                    });
+                });
+            };
+
+            tile = new Tile({
+                id: self.genId('sliderContainer'),
+                gridSize: 'md-12',
+                baseClass: 'promo-slider'
+            });
+
+            load(['aps/Carousel', {
+                id: self.genId('promoSlider'),
+                currentPage: 1
+            },
+            [
+                ['aps/Tile', {
+                    id: self.genId('creatorWWW'),
+                    gridSize: 'md-6',
+                    baseClass: 'slider-tile no-header-tile',
+                    onClick: function() {
+                        window.open('https://home.pl/strony/?utm_source=panel_klienta&utm_medium=baner_waski&utm_campaign=kreator_www');
+                    }
+                }, []],
+                ['aps/Tile', {
+                    id: self.genId('shoper'),
+                    gridSize: 'md-6',
+                    baseClass: 'slider-tile no-header-tile',
+                    onClick: function() {
+                        aps.apsc.gotoView('http://home.pl/customer_service#shop-offers-view');
+                    }
+                }, []],
+                ['aps/Tile', {
+                    id: self.genId('cloudTax'),
+                    title: _('cloudTax', self),
+                    gridSize: 'md-6',
+                    baseClass: 'slider-tile'
+                }, [
+                    ['aps/Output', {
+                        id: self.genId('cloudTaxDescription'),
+                        content: _('cloudTaxDescription', self)
+                    }],
+                    ['aps/Button', {
+                        id: self.genId('cloudTaxButton'),
+                        title: _('buy', self),
+                        autoBusy: false,
+                        onClick: function() {
+                            placeOrder(JSON.parse(orderDataJson).cloudTax);
+                        }
+                    }]
+                ]],
+                ['aps/Tile', {
+                    id: self.genId('wwwProtection'),
+                    title: _('wwwProtection', self),
+                    gridSize: 'md-6',
+                    baseClass: 'slider-tile'
+                }, [
+                    ['aps/Output', {
+                        id: self.genId('wwwProtectionDescription'),
+                        content: _('wwwProtectionDescription', self)
+                    }],
+                    ['aps/TextBox', {
+                        id: self.genId('domainName'),
+                        placeHolder: _('protectedDomainName', self),
+                        pattern: '(?:[^!=@#?+$%\\s^&*(_),/;.]+\\.)+(?:[a-z]{2,})$',
+                        required: true,
+                        gridSize: 'md-12'
+                    }],
+                    ['aps/Button', {
+                        id: self.genId('wwwProtectionButton'),
+                        title: _('buy', self),
+                        autoBusy: false,
+                        onClick: function() {
+                            var orderData;
+
+                            self.byId('domainName').focus();
+                            if (!self.byId('domainName').validate()) {
+                                return;
+                            }
+
+                            orderData = JSON.parse(orderDataJson).cwatch;
+                            orderData.products[0].provisioningParams[0].paramValue = self.byId('domainName').get('value');
+
+                            placeOrder(orderData);
+                        }
+                    }]
+                ]],
+                ['aps/Tile', {
+                    id: self.genId('remoteWork'),
+                    title: _('remoteWork', self),
+                    gridSize: 'md-6',
+                    baseClass: 'slider-tile'
+                }, [
+                    ['aps/Output', {
+                        id: self.genId('remoteWorkDescription'),
+                        content: _('remoteWorkDescription', self)
+                    }],
+                    ['aps/Output', {
+                        id: self.genId('remoteWorkAdditionalContent'),
+                        baseClass: 'additionalContent',
+                        content: '<div id=\'remoteWork-slider-tile\' class=\'additional-icons\'></div>'
+                    }],
+                    ['aps/Button', {
+                        id: self.genId('remoteWorkButton'),
+                        title: _('try', self),
+                        autoBusy: false,
+                        onClick: function() {
+                            aps.apsc.gotoView('http://home.pl/customer_service#remote-work-offers-view');
+                        }
+                    }]
+                ]]
+            ]
+
+            ], tile);
+
+            mediator.getWidget = function() {
+                return tile;
+            };
+        }
+    });
+});

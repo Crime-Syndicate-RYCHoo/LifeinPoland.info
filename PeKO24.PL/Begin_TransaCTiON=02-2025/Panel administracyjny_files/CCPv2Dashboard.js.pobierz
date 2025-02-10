@@ -1,0 +1,8 @@
+define([
+    "aps/declare",
+    "app/DashboardBase"
+], function(declare, DashboardBase) {
+    return declare(DashboardBase, {
+		pluginPlaceholderId: "dashboard"
+    });
+});

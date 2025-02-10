@@ -1,0 +1,12 @@
+define([], function() {
+    /**
+     * Sprawdzenie na podstawie nazwy oferty, czy usługa jest typu Click Web
+     *
+     * @param  {string} name nazwa typu usługi
+     *
+     * @return {boolean} wynik sprawdzenia
+     */
+    return function(name) {
+        return name.indexOf('clickweb_') === 0;
+    };
+});

@@ -1,0 +1,37 @@
+define(['aps/Container', 'aps/Output'], function(Container, Output) {
+    /**
+     * Funkcja tworząca wygląd empty states dla list
+     *
+     * @param {Object} self      	 obiekt modyfikowanego widoku
+     * @param {string} containerId 	 identyfikator kontenera, w którym umieszczony zostanie empty states
+     * @param {string} emptyListText tekst empty states
+     * @param {bool}   setVisible       flaga sterująca widocznością kontenera
+     *
+     * @return {void}
+     */
+    return function(self, containerId, emptyListText, setVisible = true) {
+        var container;
+
+        container = self.byId(containerId);
+
+        if (self.byId('emptyContentOutput')) {
+            container.removeChild(self.byId('emptyContentOutput'));
+        }
+
+        if (setVisible) {
+            container.set('visible', true);
+        }
+
+        container.addChild(new Output({
+            id: self.genId('emptyContentOutput'),
+            baseClass: 'empty-content',
+            gridSize: 'md-8 xs-12',
+            innerHTML: '<div class="text-center">'
+                + '<div class="empty-content__img list"></div>'
+                + '<div class="empty-content__text">'
+                + '<div><strong>' + _('emptyContent') + '</strong></div>'
+                + emptyListText + '</div>'
+                + '</div>'
+        }));
+    };
+});

@@ -1,0 +1,111 @@
+define(['dijit/registry', 'helpers/views/displayMessage'], function(registry, displayMessage) {
+    var displayConflictErrorMessage, displayInvalidFormErrorMessage, displayLimitErrorMessage;
+
+    const limitError = 'APS::Util::OutOfResourceLimits';
+
+    /**
+     * Funkcja wyświetla i formatuje błędne dane formularza przekazane z backendu.
+     *
+     * @param {Object}  error   odpowiedź z błędem
+     *
+     * @return {void}
+     */
+    displayInvalidFormErrorMessage = function(error) {
+        var invalidValues, messages;
+
+        messages = [];
+        if (error.details) {
+            if (typeof error.details === 'string') {
+                displayMessage(_(error.message) + error.details);
+            } else {
+                registry.byId('apsPageContainer').get('messageList').removeAll();
+                Object.keys(error.details).forEach(function(key) {
+                    invalidValues = error.details[key].map(function(element) {
+                        return element.value;
+                    }).join(', ');
+
+                    messages.push(_('invalidFormData') + _(key + 'FieldInvalid') + ' : ' + invalidValues);
+                });
+                displayMessage(messages);
+            }
+        } else {
+            displayMessage(_(error.message));
+        }
+    };
+
+    /**
+     * Funkcja wyświetla informacje o błędach użytkownika z dodatkowym sposobem wyświetlania błędu konfliktu.
+     *
+     * @param {Object}  data    odpowiedź z zdekodowanym błędem
+     *
+     * @return {void}
+     */
+    displayConflictErrorMessage = function(data) {
+        var domainName, errorParsed, parentName, parsedErrorMessage;
+
+        errorParsed = data.details ? data.details : data.message;
+
+        try {
+            parsedErrorMessage = JSON.parse(errorParsed);
+            domainName = parsedErrorMessage.domainName ? parsedErrorMessage.domainName : _('inAllDomains');
+
+            if (parsedErrorMessage.productType === 'alias') {
+                parentName = parsedErrorMessage.parentMail === null ? parsedErrorMessage.parentName + '@' + _('inAllDomains') : parsedErrorMessage.parentMail;
+                displayMessage(_('conflictMessageAlias', { name: parsedErrorMessage.productName + '@' + domainName, parent: parentName}));
+            } else {
+                displayMessage(_('conflictMessage', { name: parsedErrorMessage.productName + '@' + domainName, type: _(parsedErrorMessage.productType + 'Conflict')}));
+            }
+        } catch (exception) { // eslint-disable-line no-unused-vars
+            displayMessage(_(errorParsed));
+        }
+    };
+
+    /**
+     * Funkcja wyświetla informacje o błędach dotyczącym przekroczenia limitu zasobów jeżeli przekroczony został limit.
+     *
+     * @param {Object} error    odpowiedź z błędem
+     * @param {Object} data     dane błedu
+     * @param {string} message  wiadomość z komunikatem błędu
+     *
+     * @return {void}
+     */
+    displayLimitErrorMessage = function(error, data, message) {
+        if (typeof error.response.data === 'string' && JSON.parse(error.response.data).error === limitError) {
+            displayMessage(message ? message : _('limitErrorExceeded'));
+        } else {
+            displayMessage(data.message);
+        }
+    };
+
+    /**
+     * Funkcja wyświetla i formatuje informacje o błedzie odpowiedzi na wykonane żądanie.
+     *
+     * @param {Object}  error                   odpowiedź z błędem
+     * @param {string}  limitErrorTranslation   (optional) dedykowany komunikat błedu gdyb osiągniety zostanie limit zasobu
+     *
+     * @return {void}
+     */
+    return function(error, limitErrorTranslation) {
+        var data;
+
+        try {
+            data = JSON.parse(error.response.data);
+        } catch (exception) { // eslint-disable-line no-unused-vars
+            data = error.response.data;
+        }
+
+        switch (error.response.status) {
+            case 400:
+                displayInvalidFormErrorMessage(data);
+                break;
+            case 403:
+                displayLimitErrorMessage(error, data, limitErrorTranslation);
+                break;
+            case 409:
+                displayConflictErrorMessage(data);
+                break;
+            default:
+                displayMessage(_(data.message));
+        }
+    };
+});

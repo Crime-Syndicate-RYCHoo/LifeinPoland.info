@@ -1,0 +1,20 @@
+define([], function () {
+    'use strict';
+
+    return {
+        BILLING: {
+            PERIOD: {
+                DAILY: 1,
+                MONTHLY: 2,
+                YEARLY: 3,
+                RECURRING: {
+                    PER_BILLING_PERIOD: 0,
+                    PER_MONTH: 1
+                }
+            }
+        },
+        UX1_MARKETPLACE_SELECT_CUSTOMER_VIEW_ID: 'http://www.parallels.com/marketplace#select-customer',
+        UX1_MARKETPLACE_SALES_WIZARD_VIEW_ID: 'http://www.parallels.com/marketplace#sales-wizard',
+        UX1_MARKETPLACE_LINK_DOMAIN_VIEW_ID: 'http://www.parallels.com/ccp-domains#ExternalGetDomainView'
+    };
+});

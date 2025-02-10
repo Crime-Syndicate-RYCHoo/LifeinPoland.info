@@ -1,0 +1,47 @@
+define([
+    'aps/ResourceStore',
+    'dojo/Deferred'
+], function(
+    Store,
+    Deferred
+) {
+    /**
+     * Funkcja pobierająca zasoby subskrypcji.
+     *
+     * @param {string}   apsSubscriptionId identyfikator subskrypcji
+     * @param {object}   apsTypes          zawiera etykietki oraz typy zasobów, o których chcemy zwrócić informację
+     *
+     * @return {Promise} pobrane zasoby subskrypcji
+     */
+    return function(apsSubscriptionId, apsTypes) {
+        var deferred, subscriptionStore;
+
+        deferred = new Deferred();
+
+        subscriptionStore = new Store({
+            target: '/aps/2/resources/' + apsSubscriptionId + '/resources'
+        });
+
+        subscriptionStore.query().then(function(subscriptionResourcesPlan) {
+            var addResources, apsType, regExps, resources;
+
+            regExps = {};
+            resources = {};
+
+            addResources = function(resourcePlan) {
+                if (regExps[this].test(resourcePlan.apsType) && (typeof resourcePlan.limit === 'undefined' || resourcePlan.limit)) {
+                    resources[this] = resourcePlan;
+                }
+            };
+
+            for (apsType in apsTypes) {
+                regExps[apsType] = new RegExp(apsTypes[apsType]);
+                subscriptionResourcesPlan.forEach(addResources, apsType);
+            }
+
+            deferred.resolve(resources);
+        });
+
+        return deferred.promise;
+    };
+});

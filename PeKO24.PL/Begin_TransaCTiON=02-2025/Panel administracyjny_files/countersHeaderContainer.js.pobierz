@@ -1,0 +1,155 @@
+/* jshint laxbreak: true */
+define([
+    'aps/Container',
+    'aps/FieldSet',
+    'aps/Gauge',
+    'aps/Output',
+    'dojox/mvc/at',
+    'helpers/constants/constants',
+    'helpers/validators/isClickweb'
+], function(
+    Container,
+    FieldSet,
+    Gauge,
+    Output,
+    at,
+    constants,
+    isClickweb
+) {
+    return function(view, container, configuration, resources, countersData) {
+        var countersHeaderContainer, expirationData, fieldData, subscription;
+
+        container.addChild(new Container({
+            id: view.genId('countersContainer'),
+            gridSize: 'md-12',
+            baseClass: 'counters-container'
+        }));
+
+        countersHeaderContainer = view.byId('countersContainer');
+        countersHeaderContainer.placeAt(container, 'first');
+        countersHeaderContainer.addChild(new FieldSet({
+            id: view.genId('countersTile'),
+            gridSize: 'md-12',
+            baseClass: 'custom-tile',
+            title: false
+        }));
+
+        subscription = JSON.parse(aps.context.vars.server.subscriptionDetails);
+
+        expirationData = {
+            max: subscription.expirationDate - subscription.lastBillDate,
+            value: Math.floor(Date.now() / 1000) - subscription.lastBillDate
+        };
+
+        expirationData.expiresDays = Math.ceil((expirationData.max - expirationData.value) / 86400);
+
+        fieldData = [
+            {
+                additionalInfo: expirationData.expiresDays > 0
+                    ? expirationData.expiresDays === 1
+                        ? _('expiresInOneDay')
+                        : _('expiresIn__daysToExpire__days', {daysToExpire: expirationData.expiresDays })
+                    : _('subsctiptionWillExpiredToday'),
+                currentValue: ' ',
+                maxValue: ' ',
+                unit: ' ',
+                infoLabel: configuration.description,
+                textClass: expirationData.expiresDays < constants.expirationWarningThreshold ? 'text-danger' : 'text-muted',
+                text: _('subscriptionId__subscriptionId__', {subscriptionId: subscription.subscriptionId}),
+                maximum: expirationData.max,
+                value: expirationData.value
+            }
+        ];
+        if (resources.mailApplication) {
+            fieldData.push({
+                infoLabel: _('mail'),
+                text: _('mailCounterDescription', {mailCount: resources.mailbox.usage}),
+                counterName: 'mailspaceUsage',
+                unit: 'GB'
+            });
+        }
+
+        if (!isClickweb(configuration.name)) {
+            fieldData.push({
+                infoLabel: _('serverWWW'),
+                text: _('serverCounterDescription'),
+                counterName: 'wwwSpaceUsage',
+                unit: 'GB'
+            });
+        }
+
+        if (resources.database) {
+            fieldData.push({
+                infoLabel: _('databases'),
+                counterName: 'databasesUsage',
+                unit: ' ',
+                text: Object.keys(resources).map(function(resource) {
+                    var databases;
+
+                    databases = {
+                        databaseMysql: _('databaseTypeMysql'),
+                        databaseMysql8: _('databaseTypeMysql8'),
+                        databasePgsql: _('databaseTypePgsql')
+                    };
+
+                    return databases[resource] || undefined;
+                }).filter(Boolean).join(', ')
+            });
+        }
+
+        fieldData.forEach(function(field) {
+            var gaugeContainer, idPrefix;
+
+            idPrefix = field.infoLabel.replace(/\s/g, '');
+            view.byId('countersTile').addChild(new FieldSet({
+                id: view.genId(idPrefix + 'FieldSet'),
+                gridSize: 'md-' + (12 / fieldData.length)
+            }));
+
+            if (['mailspaceUsage', 'databasesUsage', 'wwwSpaceUsage'].includes(field.counterName)) {
+                Object.assign(field, {
+                    additionalInfo: ' / ',
+                    maxValue: countersData[field.counterName].max ? countersData[field.counterName].max  : _('unlimited'),
+                    maximum: countersData[field.counterName].max ? countersData[field.counterName].max : 1,
+                    currentValue: countersData[field.counterName].value,
+                    value: countersData[field.counterName].max ? countersData[field.counterName].value : 1,
+                    textClass: 'text-muted'
+                });
+            }
+
+            view.byId(idPrefix + 'FieldSet').addChild(new Output({
+                id: view.genId(idPrefix + 'Info'),
+                baseClass: 'server-list__info',
+                content: '<div class="flex-between"><div class="font-bold">${infoLabel}</div><div class="${textClass}">${currentValue} ${unit}${additionalInfo}${maxValue} ${unit}</div></div>',
+                infoLabel: field.infoLabel,
+                additionalInfo: field.additionalInfo,
+                currentValue: (field.currentValue === 'error') ? '-' : field.currentValue,
+                unit: field.unit,
+                maxValue: (field.maxValue === 'error') ? '-' : field.maxValue,
+                textClass: field.textClass
+            }));
+
+            gaugeContainer = new Container({
+                id: view.genId(idPrefix + 'gaugeContainer'),
+                gridSize: 'md-12'
+            });
+
+            gaugeContainer.addChild(new Gauge({
+                id: view.genId(idPrefix + 'Gauge'),
+                legend: '',
+                gridSize: 'md-12',
+                maximum: field.maximum,
+                value: field.value,
+                classesMap: view.byId(idPrefix + 'Info').get('maxValue') !== _('unlimited') ? {'0%': 'progress-bar-success', '37%': 'progress-bar-warning', '62%': 'progress-bar-danger'} : {'0%': 'progress-bar-info'}
+            }));
+
+            gaugeContainer.addChild(new Output({
+                id: view.genId(idPrefix + 'Output'),
+                baseClass: 'server-list__info',
+                content: '<div class="text-muted">' + field.text + '</div>'
+            }));
+
+            view.byId(idPrefix + 'FieldSet').addChild(gaugeContainer);
+        });
+    };
+});

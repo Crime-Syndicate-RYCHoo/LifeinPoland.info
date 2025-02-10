@@ -1,0 +1,164 @@
+define([
+	"dojo/_base/declare",
+	"dojo/Deferred",
+	"dojo/promise/all",
+	"dijit/registry",
+	"aps/nav/ViewPlugin",
+	"aps/tiles/UsageInfoTile",
+	"../../common/utils/converter",
+	"../../../utils/converter",
+	"../../../utils/confirmationPopup",
+	"../impl/rest",
+	"aps/ready!"
+], function (
+	declare,
+	Deferred,
+	all,
+	registry,
+	ViewPlugin,
+	Tile,
+	converter,
+	converterBase,
+	confirmationPopup,
+	DocumentRest
+) {
+	"use strict";
+
+	var apsPluginContext;
+	var widget;
+	var _;
+	var documentManagementRest;
+	var _self;
+	var account = {
+		fullyRegistered: true
+	};
+	var moneyDiffTolerant = 0.001;
+
+	function createButtonOptions() {
+		return {
+			id: "pay_orders",
+			label: _("Pay Now"),
+			iconClass: "fa-arrow-right",
+			autoBusy: false,
+			onClick: function () {
+				var orderDef = new Deferred();
+				var ordersData;
+				documentManagementRest.getAllUnpaidDocuments().then(function (data) {
+					ordersData = data
+						.filter(function(row){
+							return row.isOrder;
+						}).map(function (row) {
+							return {
+								documentId: row.id,
+								type: row.orderType,
+								number: row.number,
+								description: row.description,
+								dueDate: row.dueDate,
+								dueAmountStr: converterBase.formatCurrency(row.pendingTotal),
+								dueAmount: row.pendingTotal,
+								isOrder: true
+							};
+						});
+					orderDef.resolve();
+				});
+
+				orderDef.then(function () {
+					if (!account.fullyRegistered) {
+						aps.apsc.gotoView("http://www.parallels.com/ccp-billing#unpaid-documents", null, {
+							payDocs: true,
+							data: {
+								preorder: ordersData
+							}
+						});
+					} else {
+						confirmationPopup.show("payment-confirmation-popup", {
+							data: {
+								preorder: ordersData
+							}
+						}).then(function (result) {
+							if (result && result.btnType !== "cancel" && !result.data) {
+								_self.onContext(apsPluginContext);
+							}
+						});
+					}
+				});
+
+			}
+		};
+	}
+
+	function cleanupWidgets() {
+		registry.byId("Unpaid_Orders_Tile").set({
+			buttons: [],
+			description: "",
+			info: null,
+			isBusy: true,
+			textPrefix: "",
+			textSuffix: "",
+			usageHint: "",
+			value: ""
+		});
+	}
+
+	return declare(ViewPlugin, {
+		init: function (mediator) {
+			_ = converterBase.setLocalizationContext(this);
+			_self = this;
+
+			widget = new Tile({
+				title: _('Orders'),
+				gridSize: "md-4 xs-12",
+				id: "Unpaid_Orders_Tile",
+				showPie: false,
+				isBusy: true,
+				iconName: _self.buildStaticURL('img/invoices-icon.png'),
+				onClick: function () {
+					aps.apsc.gotoView("http://www.parallels.com/ccp-billing#unpaid-documents");
+				}
+			});
+
+			mediator.getWidget = function () {
+				return widget;
+			};
+
+			mediator.onHide = cleanupWidgets;
+		},
+
+		onContext: function () {
+			documentManagementRest = new DocumentRest(aps.context.billingId.aps.id);
+			widget.set({isBusy: true});
+
+			documentManagementRest.getAllUnpaidDocuments().then(function (data) {
+				var total = 0;
+				data.forEach(function (doc) {
+					if (doc.isOrder) {
+						total += doc.pendingTotal;
+					}
+				});
+				var _value = ((total > moneyDiffTolerant) ? total : 0);
+				var widgetProperties = {
+					buttons: (total <= moneyDiffTolerant) ? [] : [createButtonOptions()],
+					description: "",
+					info: null,
+					isBusy: false,
+					textPrefix: _value > moneyDiffTolerant ? aps.context.bssCurrencySettings.currencySymbol : "",
+					textSuffix: "",
+					value: _value
+				};
+
+				if (widgetProperties.value > moneyDiffTolerant) {
+					widgetProperties.textPrefix = aps.context.bssCurrencySettings.currencySymbol;
+					widgetProperties.precision = aps.context.bssCurrencySettings.currencyPrecision;
+					widgetProperties.textFirstNumber = "${value}";
+					widgetProperties.textSuffix = _("To Pay");
+				} else {
+					widgetProperties.textFirstNumber = "";
+					widgetProperties.description = _("All Orders are Paid");
+				}
+				widget.set(widgetProperties);
+			}, function (error) {
+				converterBase.showError(error);
+			});
+		}
+	});
+});

@@ -1,0 +1,494 @@
+define([
+    'aps/Button',
+    'aps/FieldSet',
+    'aps/Output',
+    'aps/RadioButton',
+    'aps/TextBox',
+    'dojox/mvc/at',
+    'helpers/constants/patterns',
+    'exports'
+], function(
+    Button,
+    FieldSet,
+    Output,
+    RadioButton,
+    TextBox,
+    at,
+    patterns,
+    exports
+) {
+    var MAX_MX_SERVER_FIELDS, addMxServerField, createDomainRedirectionTextBox, createMailLocationFields, createMxField, createWebsiteLocationFields, fillMailRedirectionModel, lastValues, mailLocationChange,
+        removeMxServerField, setDefaultLastValues, setMailRedirection, setMxRedirection, translateDomainRedirection, translateMailRedirection, validateMxServers, websiteLocationChanged, websiteLocations;
+
+    MAX_MX_SERVER_FIELDS = 5;
+
+    websiteLocationChanged = function(view, data) {
+        var changesAttributes, domainRedirection;
+
+        domainRedirection = aps.app.model.get('domainModel').get('domainRedirection');
+
+        if (domainRedirection.get('value')) {
+            lastValues.domainRedirection[domainRedirection.get('type')] = domainRedirection.get('value');
+        }
+
+        changesAttributes = {
+            legend: '',
+            disabled: false,
+            visible: true,
+            required: true,
+            value: lastValues.domainRedirection[data.value]
+        };
+
+        domainRedirection.set('type', data.value);
+
+        switch (data.value) {
+            case '':
+            case 'no_record':
+                changesAttributes.disabled = true;
+                changesAttributes.visible = false;
+                changesAttributes.required = false;
+                break;
+            case 'frame':
+            case 'moved_permanently':
+                changesAttributes.pattern =  patterns.domainForwardFrame;
+                changesAttributes.legend =  _('exampleUrl');
+                break;
+            case 'global_folder':
+                changesAttributes.pattern =  patterns.globalFolder;
+                changesAttributes.legend =  _('exampleDirectory');
+                break;
+            case 'separated_folder':
+                changesAttributes.pattern =  patterns.globalFolder;
+                changesAttributes.legend =  _('exampleDirectory');
+                break;
+            case 'a_record':
+                changesAttributes.pattern =  patterns.ipv4;
+                changesAttributes.legend =  _('exampleIp');
+                break;
+            default:
+                break;
+        }
+
+        view.byId('domainRedirectionTextBox').placeAt(view.byId('domainRedirection' + data.value));
+        view.byId('domainRedirectionTextBox').set(changesAttributes);
+        view.byId('domainRedirectionTextBox').validate();
+    };
+
+    createDomainRedirectionTextBox = function(view, additionalParameters) {
+        new TextBox(Object.assign(typeof (additionalParameters) === 'object' ? additionalParameters : {}, {
+            id: view.genId('domainRedirectionTextBox'),
+            gridSize: 'md-12',
+            value: at(aps.app.model.domainModel.domainRedirection, 'value'),
+            optionalText: ''
+        }));
+    };
+
+    translateDomainRedirection = {
+        frame: _('urlRedirection'),
+        global_folder: _('subfolderWithoutServiceSeparation'),
+        separated_folder: _('subfolderWithServiceSeparation'),
+        moved_permanently: _('301Redirection'),
+        a_record: _('aRecord'),
+        no_record: _('noARecordFilter')
+    };
+
+    websiteLocations = [
+        {
+            label: _('mainFolder'),
+            value: ''
+        }, {
+            label: translateDomainRedirection.frame,
+            value: 'frame'
+        }, {
+            label: translateDomainRedirection.global_folder,
+            value: 'global_folder'
+        }, {
+            label: translateDomainRedirection.separated_folder,
+            value: 'separated_folder'
+        }, {
+            label: translateDomainRedirection.moved_permanently,
+            value: 'moved_permanently'
+        }, {
+            label: translateDomainRedirection.a_record,
+            value: 'a_record'
+        }, {
+            label: _('noARecord'),
+            value: 'no_record'
+        }
+    ];
+
+    createWebsiteLocationFields = function(view, createTextBox, availableRedirections, domainRedirection = null) {
+        var domainRedirectionFieldSet;
+
+        domainRedirectionFieldSet = view.byId('domainRedirectionFieldSet');
+        domainRedirectionFieldSet.removeAll();
+
+        domainRedirectionFieldSet.addChild(
+            new Output({
+                id: view.genId('domainRedirectionWarning'),
+                visible: false,
+                content: '<img src="' + view.buildStaticURL('images/warning_icon.png') + '" /><div>' + _('domainRedirectionWarning', { records: '${records}' }) + '</div>',
+                records: '',
+                gridSize: 'md-12',
+                className: 'domain-redirection-record-warning'
+            })
+        );
+
+        websiteLocations.forEach(function(location) {
+            if (!availableRedirections[location.value]) {
+                return;
+            }
+
+            domainRedirectionFieldSet.addChild(new RadioButton({
+                id: view.genId('domainRedirection' + location.value),
+                name: 'domainRedirection',
+                value: location.value,
+                description: location.label,
+                onChange: function() {
+                    websiteLocationChanged(view, this);
+                }
+            }));
+        });
+
+        if (createTextBox) {
+            createDomainRedirectionTextBox(view, {disabled: true, visible: false});
+        }
+
+        if (domainRedirection && domainRedirection.value) {
+            lastValues.domainRedirection[domainRedirection.type] = domainRedirection.value;
+        }
+    };
+
+    translateMailRedirection = {
+        mail: _('mailRedirection'),
+        mx_servers: _('otherMxRecords'),
+        no_record: _('noMXRecord')
+    };
+
+    setDefaultLastValues = function() {
+        lastValues = {
+            domainRedirection: {
+                frame: '',
+                global_folder: '',
+                separated_folder: '',
+                moved_permanently: '',
+                a_record: '',
+                no_record: ''
+            },
+            mailRedirection: {
+                mail: '',
+                mx_servers: '',
+                no_record: ''
+            }
+        };
+    };
+
+    createMailLocationFields = function(view, excludedFields = []) {
+        var mailLocationFields, mailLocations;
+
+        setDefaultLastValues();
+
+        mailLocations = [
+            {
+                label: _('thisServer'),
+                value: ''
+            }, {
+                label: translateMailRedirection.mx_servers,
+                value: 'mx_servers'
+            }, {
+                label: translateMailRedirection.mail,
+                value: 'mail'
+            }, {
+                label: translateMailRedirection.no_record,
+                value: 'no_record'
+            }
+        ];
+
+        if (excludedFields) {
+            mailLocations = mailLocations.filter(function(mailLocation) {
+                return !excludedFields.find(function(field) {
+                    return mailLocation.value === field;
+                });
+            });
+        }
+
+        mailLocationFields = [
+            ['aps/Output', {
+                id: view.genId('mailRedirectionWarning'),
+                visible: false,
+                content: '<img src="' + view.buildStaticURL('images/warning_icon.png') + '" /><div>' + _('mailRedirectionWarning', { records: '${records}' }) + '</div>',
+                records: '',
+                gridSize: 'md-12',
+                className: 'domain-redirection-record-warning'
+            }]
+        ];
+
+        mailLocations.forEach(function(redirection) {
+            mailLocationFields.push(
+                ['aps/RadioButton', {
+                    id: view.genId('mailRedirection' + redirection.value),
+                    name: 'mailRedirection',
+                    value: redirection.value,
+                    description: redirection.label,
+                    onClick: function() {
+                        mailLocationChange(view, this);
+                    }
+                }]
+            );
+        });
+
+        return mailLocationFields;
+    };
+
+    setMxRedirection = function(view, mailRedirection) {
+        var mxServers;
+
+        mxServers = mailRedirection.split('/');
+        mxServers.forEach(function(mxServer, index) {
+            var fieldNumber, mxServerParts;
+
+            fieldNumber = index + 1;
+
+            mxServerParts = mxServer.split(';');
+            if (!view.byId('mailRedirectionHostTextBox' + fieldNumber)) {
+                createMxField(view, fieldNumber);
+            }
+
+            view.byId('mailRedirectionHostTextBox' + fieldNumber).set('value', mxServerParts[0]);
+            view.byId('mailRedirectionPriorityTextBox' + fieldNumber).set('value', (mxServerParts[1] ? mxServerParts[1] : fieldNumber * 10));
+        });
+    };
+
+    setMailRedirection = function(view, mailRedirection) {
+        setDefaultLastValues();
+
+        view.byId('mailRedirection' + mailRedirection.type).set('checked', true);
+        mailLocationChange(view, view.byId('mailRedirection' + mailRedirection.type));
+
+        if (mailRedirection.type) {
+            lastValues.mailRedirection[mailRedirection.type] = mailRedirection.value;
+        }
+
+        switch (mailRedirection.type) {
+            case '':
+            case 'no_record':
+                break;
+            case 'mx_servers':
+                setMxRedirection(view, mailRedirection.value);
+                break;
+            case 'mail':
+                view.byId('mailRedirectionValueTextBox').set('value', mailRedirection.value);
+                break;
+            default:
+                break;
+        }
+    };
+
+    mailLocationChange = function(view, data) {
+        var hostId, mailRedirectionFieldsCount, mailRedirectionValueFieldSet, mxServers;
+
+        mailRedirectionValueFieldSet = view.byId('mailRedirectionValueFieldSet') || new FieldSet ({
+            id: view.genId('mailRedirectionValueFieldSet'),
+            gridSize: 'md-12'
+        });
+
+        if (view.byId('mailRedirectionValueTextBox')) {
+            lastValues.mailRedirection['mail'] = view.byId('mailRedirectionValueTextBox').get('value');
+        }
+
+        if (view.byId('mailRedirectionValueFieldSetFields')) {
+            mxServers = [];
+            mailRedirectionFieldsCount = Math.ceil((view.byId('mailRedirectionValueFieldSetFields').getChildren().length - 1) / 2);
+            mailRedirectionFieldsCount = mailRedirectionFieldsCount < MAX_MX_SERVER_FIELDS ? mailRedirectionFieldsCount + 1  : MAX_MX_SERVER_FIELDS + 1;
+            for (hostId = 1; hostId < mailRedirectionFieldsCount; hostId++) {
+                if (!view.byId('mailRedirectionHostTextBox' + hostId)) {
+                    continue;
+                }
+                mxServers.push(view.byId('mailRedirectionHostTextBox' + hostId).get('value') + ';' + view.byId('mailRedirectionPriorityTextBox' + hostId).get('value'));
+            }
+            lastValues.mailRedirection['mx_servers'] = mxServers.join('/');
+        }
+
+        mailRedirectionValueFieldSet.removeAll();
+        mailRedirectionValueFieldSet.placeAt(view.byId('mailRedirection' + data.value));
+
+        aps.app.model.get('domainModel').get('mailRedirection').set('type', data.value);
+
+        switch (data.value) {
+            case 'mx_servers':
+                view.byId('mailRedirectionValueFieldSet').addChild(
+                    new FieldSet({
+                        id: view.genId('mailRedirectionValueFieldSetFields'),
+                        gridSize: 'md-12'
+                    })
+                );
+
+                view.byId('mailRedirectionValueFieldSet').addChild(
+                    new Button({
+                        id: view.genId('addMxServerFieldButton'),
+                        baseClass: 'custom-button',
+                        label: _('addMxRecord'),
+                        onClick: function() {
+                            addMxServerField(view, this);
+                        }
+                    })
+                );
+
+                if (lastValues.mailRedirection[data.value]) {
+                    setMxRedirection(view, lastValues.mailRedirection[data.value]);
+                } else {
+                    addMxServerField(view);
+                }
+                break;
+            case 'mail':
+                view.byId('mailRedirectionValueFieldSet').addChild(new TextBox({
+                    id: view.genId('mailRedirectionValueTextBox'),
+                    gridSize: 'md-12',
+                    legend: _('exampleEmail'),
+                    pattern: patterns.emailAddress,
+                    required: true,
+                    value: lastValues.mailRedirection['mail']
+                }));
+                break;
+            default:
+                break;
+        }
+    };
+
+    removeMxServerField = function(view, widget) {
+        if (!widget.fieldNo) {
+            return;
+        }
+
+        view.byId('addMxServerFieldButton').set('visible', true);
+        view.byId('mailRedirectionValueFieldSetFields').removeChild(view.byId('mailRedirectionHostTextBox' + widget.fieldNo));
+        view.byId('mailRedirectionValueFieldSetFields').removeChild(view.byId('mailRedirectionPriorityTextBox' + widget.fieldNo));
+        widget.destroy();
+    };
+
+    validateMxServers = function(view, widget, widgetIdPrefix, additionalIdPrefix) {
+        var hostId, idSuffix;
+
+        for (hostId = 1; hostId <= MAX_MX_SERVER_FIELDS; hostId++) {
+            if (!view.byId(widgetIdPrefix + hostId) || view.genId(widgetIdPrefix + hostId) === widget.id) {
+                continue;
+            }
+
+            if (view.byId(widgetIdPrefix + hostId).value === widget.value) {
+                idSuffix = widget.id.replace(view.genId(widgetIdPrefix), '');
+                if (view.byId(additionalIdPrefix + hostId).value === view.byId(additionalIdPrefix + idSuffix).value) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    };
+
+    createMxField = function(view, hostId) {
+        view.byId('mailRedirectionValueFieldSetFields').addChild(
+            new TextBox({
+                id: view.genId('mailRedirectionPriorityTextBox' + hostId),
+                gridSize: 'md-3',
+                placeHolder: _('priority'),
+                pattern: patterns.mxPriority,
+                required: true,
+                value: '',
+                invalidMessage: _('invalidMxServersMessage'),
+                extraValidator: function() {
+                    return validateMxServers(view, this, 'mailRedirectionPriorityTextBox', 'mailRedirectionHostTextBox');
+                }
+            })
+        );
+
+        view.byId('mailRedirectionValueFieldSetFields').addChild(
+            new TextBox({
+                id: view.genId('mailRedirectionHostTextBox' + hostId),
+                gridSize: 'md-8',
+                placeHolder: _('mailHost'),
+                pattern: patterns.mxHost,
+                required: true,
+                value: '',
+                invalidMessage: _('invalidMxServersMessage'),
+                extraValidator: function() {
+                    return validateMxServers(view, this, 'mailRedirectionHostTextBox', 'mailRedirectionPriorityTextBox');
+                }
+            })
+        );
+
+        if (hostId !== 1) {
+            view.byId('mailRedirectionValueFieldSetFields').addChild(new Button({
+                id: view.genId('removeMxServerFieldButton' + hostId),
+                label: 'X',
+                gridSize: 'md-1',
+                baseClass: 'custom-button',
+                fieldNo: hostId,
+                onClick: function() {
+                    removeMxServerField(view, this);
+                }
+            }));
+
+            view.byId('addMxServerFieldButton').set('visible', hostId < MAX_MX_SERVER_FIELDS);
+        }
+    };
+
+    addMxServerField = function(view, widget) {
+        var hostId;
+
+        for (hostId = 1; hostId <= MAX_MX_SERVER_FIELDS; hostId++) {
+            if (view.byId('mailRedirectionHostTextBox' + hostId)) {
+                continue;
+            }
+
+            createMxField(view, hostId);
+
+            break;
+        }
+
+        if (widget) {
+            widget.cancel();
+        }
+    };
+
+    fillMailRedirectionModel = function(view) {
+        var hostId, mxServers;
+
+        switch (aps.app.model.get('domainModel').get('mailRedirection').get('type')) {
+            case '':
+            case 'no_record':
+                aps.app.model.get('domainModel').get('mailRedirection').set('value', '');
+                break;
+            case 'mx_servers':
+                mxServers = [];
+
+                for (hostId = 1; hostId <= MAX_MX_SERVER_FIELDS; hostId++) {
+                    if (!view.byId('mailRedirectionHostTextBox' + hostId)) {
+                        continue;
+                    }
+
+                    mxServers.push(view.byId('mailRedirectionHostTextBox' + hostId).get('value') + ';' + view.byId('mailRedirectionPriorityTextBox' + hostId).get('value'));
+                }
+
+                aps.app.model.get('domainModel').get('mailRedirection').set('value', mxServers.join('/'));
+                break;
+            case 'mail':
+                aps.app.model.get('domainModel').get('mailRedirection').set('value', view.byId('mailRedirectionValueTextBox').get('value'));
+                break;
+            default:
+                break;
+        }
+    };
+
+    exports.createWebsiteLocationFields = createWebsiteLocationFields;
+    exports.createDomainRedirectionTextBox = createDomainRedirectionTextBox;
+    exports.websiteLocations = websiteLocations;
+
+    exports.createMailLocationFields = createMailLocationFields;
+    exports.fillMailRedirectionModel = fillMailRedirectionModel;
+    exports.setDefaultLastValues = setDefaultLastValues;
+    exports.setMailRedirection = setMailRedirection;
+
+    exports.translates = {
+        domain: translateDomainRedirection,
+        mail: translateMailRedirection
+    };
+});

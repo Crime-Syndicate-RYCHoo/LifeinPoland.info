@@ -1,0 +1,151 @@
+define([
+	"dojo/Deferred",
+
+	"aps/_typeInfo",
+	"aps/common",
+	"aps/declare",
+	"aps/xhr",
+	"aps/nav/ViewPlugin",
+
+	"./billingTileProps",
+	"../aps-api",
+	"../impl/types"
+], function (
+	Deferred,
+
+	typeInfo,
+	common,
+	declare,
+	xhr,
+	ViewPlugin,
+
+	billingTileProps,
+	ApsApi,
+	types
+) {
+	var pluginContext, apsApi;
+
+	var STATUS = types.STATUS;
+	var STATUS_ORDER = [STATUS.TERMINATED, STATUS.CREDIT_ADMIN_HOLD, STATUS.ADMIN_HOLD, STATUS.CREDIT_HOLD,
+		STATUS.EXPIRED, STATUS.GRACED, STATUS.TRIAL, STATUS.ACTIVE, STATUS.ORDERED];
+
+	function fulfillPluginsProps(plugins, props, resolve, propFunction) {
+		common.forEach(plugins, function(plg, id) {
+			var def = props[id];
+			if (def.isFulfilled()) return;
+			def[resolve ? 'resolve' : 'reject'](propFunction && propFunction(plg));
+		});
+	}
+
+	function getAppropriateSubscription(subscriptions, ossSubscriptions, apsSubscriptionId) {
+		if (!subscriptions || !subscriptions.length) return;
+		if (apsSubscriptionId) {
+			// find correct subscription for MSS service
+			var subscription = ossSubscriptions.find(function(item) {
+				return item.aps && item.aps.id === apsSubscriptionId;
+			});
+			return subscription && subscriptions.find(function(item) {
+				return item.subscriptionId === subscription.subscriptionId;
+			});
+		}
+
+		// find subscription with the worst status
+		subscriptions.sort(function(a, b) {
+			return STATUS_ORDER.indexOf(a.status) - STATUS_ORDER.indexOf(b.status);
+		});
+		return subscriptions[0];
+	}
+
+	function getAppId(plgId) {
+		var matches = plgId.match(/^(.*?)#/);
+		return matches ? matches[1] : undefined;
+	}
+
+	return declare(ViewPlugin, {
+		getTilesProperties: function(args) {
+			var props = {};
+
+			var serviceApsTypes = {};
+			common.forEach(args.plugins, function(plg, id) {
+				props[id] = new Deferred();
+				var originalType = typeInfo._normalizeVersion(plg.getState().apsType);
+				args.types[originalType].forEach(function(apsType) {
+					serviceApsTypes[apsType] = originalType;
+				});
+			});
+
+			var serviceApsTypesArr = Object.keys(serviceApsTypes);
+			if (serviceApsTypesArr.length) {
+				xhr("/aps/2/resources/" + aps.context.billingId.aps.id + "/sm/subscriptions-by-aps-types", {
+					query: {apsTypes: serviceApsTypesArr}
+				}).then(function(billingSubscriptions) {
+					var notPurchasedPlugins = [];
+					var subscriptionsMapping = billingSubscriptions.reduce(function(acc, subscription) {
+						(subscription.apsTypes || []).forEach(function(apsType) {
+							var originalType = serviceApsTypes[apsType];
+							acc[originalType] = acc[originalType] || [];
+							if (!acc[originalType].find(function(item) {
+								return item.subscriptionId === subscription.subscriptionId;
+							})) {
+								acc[originalType].push(subscription);
+							}
+						});
+						return acc;
+					}, {});
+
+					common.forEach(args.plugins, function(plg, id) {
+						var subscriptions = subscriptionsMapping[typeInfo._normalizeVersion(plg.getState().apsType)];
+						var subscription = getAppropriateSubscription(subscriptions, args.subscriptions[id], plg.subscriptionId);
+						if (args.notPurchasedPlugins[id] || !subscription) {
+							notPurchasedPlugins.push(plg);
+							return;
+						}
+
+						var creator = billingTileProps.getCreatorByStatus(subscription.status);
+						if (!creator) {
+							props[id].reject();
+							return;
+						}
+
+						var sameSubscriptionsCount = subscriptions.filter(function(item) {
+							return item.status === subscription.status;
+						}).length;
+						props[id].resolve(creator(plg, subscription, sameSubscriptionsCount, apsApi));
+					});
+
+					if (notPurchasedPlugins.length) {
+						return xhr("/aps/2/resources/" + aps.context.billingId.aps.id + "/pc/plan-info-by-app-ids", {
+							query: {
+								appIds: notPurchasedPlugins.map(function(plg) {
+									return getAppId(plg.id);
+								})
+							}
+						}).then(function(response) {
+							var planInfos = response.reduce(function(acc, planInfo) {
+								acc[planInfo.appId] = planInfo;
+								return acc;
+							}, {});
+
+							notPurchasedPlugins.forEach(function(plg) {
+								var plgId = plg.id;
+								var appId = getAppId(plgId);
+								var planInfo = planInfos[appId];
+								props[plgId].resolve(planInfo && planInfo.hasServicePlans ? billingTileProps.getPurchaseTileProps(plg, appId,
+									planInfo.isTrialAvailable, args.presentationProperties[plgId]) : billingTileProps.getHiddenTileProps(plg));
+							});
+						}).then(null, fulfillPluginsProps.bind(undefined, args.plugins, props, true, billingTileProps.getHiddenTileProps));
+					}
+				}).then(null, fulfillPluginsProps.bind(undefined, args.plugins, props, false, undefined));
+			} else {
+				fulfillPluginsProps(args.plugins, props);
+			}
+
+			return props;
+		},
+
+		onContext: function(context) {
+			pluginContext = context;
+			apsApi = ApsApi.createNew({context: pluginContext});
+		}
+	});
+});

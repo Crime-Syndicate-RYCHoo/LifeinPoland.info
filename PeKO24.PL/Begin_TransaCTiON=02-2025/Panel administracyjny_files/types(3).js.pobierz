@@ -1,0 +1,14 @@
+define([
+	"aps/ready!"
+], function (){
+	"use strict";
+
+	return {
+		SHOW_TAX: {
+			"ALWAYS": 10,
+			"CONFIRM_TOTAL": 20,
+			"CONFIRM": 30
+		}
+	};
+
+});

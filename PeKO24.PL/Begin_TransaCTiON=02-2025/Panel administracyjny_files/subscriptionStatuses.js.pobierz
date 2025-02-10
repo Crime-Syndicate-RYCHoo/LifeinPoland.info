@@ -1,0 +1,17 @@
+define([], function() {
+    /**
+     * @var {Object} obiekt mapujący opisowe definicje statusów subskrypcji na ich wartości liczbowe.
+     */
+    return {
+        active: 30,
+        administrativeHold: 80,
+        administrativeAndCreditHold: 89,
+        creditHold: 85,
+        graced: 40,
+        inactive: 50,
+        ordered: 10,
+        provisioning: 20,
+        terminated: 60,
+        trial: 15
+    };
+});

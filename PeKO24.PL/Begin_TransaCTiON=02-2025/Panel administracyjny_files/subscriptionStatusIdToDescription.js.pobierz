@@ -1,0 +1,23 @@
+define([], function() {
+    /**
+     * Tablica z definicjami statusów subskrypcji.
+     *
+     * @return {Object[]} tablica z definicjami statusów subskrypcji
+     */
+    return function() {
+        var statuses;
+
+        statuses = [];
+        statuses[10] = 'ordered';
+        statuses[15] = 'trial';
+        statuses[30] = 'active';
+        statuses[40] = 'graced';
+        statuses[50] = 'inactive';
+        statuses[60] = 'terminated';
+        statuses[80] = 'administrativeHold';
+        statuses[85] = 'creditHold';
+        statuses[89] = 'administrativeAndCreditHold';
+
+        return statuses;
+    };
+});

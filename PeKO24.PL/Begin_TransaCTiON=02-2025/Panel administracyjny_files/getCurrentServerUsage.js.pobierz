@@ -1,0 +1,89 @@
+define(['aps/xhr', 'dojo/promise/all', 'helpers/constants/constants', 'helpers/views/displayResponseErrorMessage', 'exports'], function(xhr, all, constants, displayResponseErrorMessage, exports) {
+    var clearUsage, convertToGB, fetchData, getUsage, readSpaces;
+
+    clearUsage = function(serverId) {
+        sessionStorage.removeItem(serverId + '_timeout');
+        sessionStorage.removeItem(serverId + '_readSpaces');
+        sessionStorage.removeItem(serverId + '_serverUsage');
+    };
+
+    convertToGB = function(object) {
+        if (object.error) {
+            return;
+        }
+
+        Object.keys(object).forEach(function(key) {
+            object[key] /= 1024;
+        });
+    };
+
+    /**
+     * Pobranie przestrzeni oraz zajętości serwera www na podstawie danych serwera w miejscach gdzie potrzebujemy najbardziej aktualnych danych.
+     *
+     * @param  {string} serverId id serwera
+     * @param  {bool} forceClean natychmiastowe usunięcie cache z sesji
+     *
+     * @return {array} przestrzenie oraz zajętość serwera
+     */
+    fetchData = function(serverId, forceClean = false)  {
+        if (sessionStorage.getItem(serverId + '_timeout') && forceClean) {
+            clearTimeout(sessionStorage.getItem(serverId + '_timeout'));
+            clearUsage(serverId);
+        }
+
+        if (!sessionStorage.getItem(serverId + '_timeout')) {
+            sessionStorage.setItem(serverId + '_timeout', setTimeout(function() { clearUsage(serverId); }, constants.timeoutClearServerUsage));
+        }
+
+        return all([
+            readSpaces(serverId),
+            getUsage(serverId)
+        ]).then(function(data) {
+            return Object.assign(data[0], data[1]);
+        });
+    };
+
+    getUsage = function(serverId) {
+        if (!sessionStorage.getItem(serverId + '_serverUsage')) {
+            return xhr('/aps/2/resources/' + serverId + '/getUsage').then(function(usage) {
+                usage.mailspace = Math.ceil(usage.mailspace / 512) * 512;
+                usage.totalMailspaceUsed = usage.mailspace + usage.reservedMailspace;
+                usage.totalSpaceUsed = usage.wwwspace + usage.totalMailspaceUsed;
+
+                sessionStorage.setItem(serverId + '_serverUsage',  JSON.stringify(usage));
+                return usage;
+            }, function(error) {
+                displayResponseErrorMessage(error);
+                aps.apsc.hideLoading();
+
+                return {
+                    error: true
+                };
+            });
+        }
+
+        return JSON.parse(sessionStorage.getItem(serverId + '_serverUsage'));
+    };
+
+    readSpaces = function(serverId) {
+        if (!sessionStorage.getItem(serverId + '_readSpaces')) {
+            return xhr('/aps/2/resources/' + serverId + '/readSpaces').then(function(spaces) {
+                sessionStorage.setItem(serverId + '_readSpaces', JSON.stringify(spaces));
+
+                return spaces;
+            }, function(error) {
+                displayResponseErrorMessage(error);
+                aps.apsc.hideLoading();
+
+                return {
+                    error: true
+                };
+            });
+        }
+
+        return JSON.parse(sessionStorage.getItem(serverId + '_readSpaces'));
+    };
+
+    exports.convertToGB = convertToGB;
+    exports.fetchData = fetchData;
+});

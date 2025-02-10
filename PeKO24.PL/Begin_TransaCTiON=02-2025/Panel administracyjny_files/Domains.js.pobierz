@@ -1,0 +1,527 @@
+define([
+	"dojo/_base/array",
+	"dojo/_base/declare",
+	"dojo/Deferred",
+	"dojo/string",
+	"dojo/when",
+	"dojo/promise/all",
+	"dojox/mvc/getStateful",
+	"dojox/mvc/at",
+	"dojox/mvc/StatefulArray",
+	"dijit/registry",
+	"aps/_View",
+	"aps/common",
+	"aps/load",
+	"aps/Store",
+	"aps/Output",
+	"aps/Status",
+	"aps/Container",
+	"aps/DropDownButton",
+	"aps/xhr",
+	"aps/confirm",
+	"aps/nav/ViewPluginManager",
+	"aps/ResourceStore",
+	"aps/Memory",
+	"aps/Message",
+	"./Utils"
+], function (
+			array,
+			declare,
+			 Deferred,
+			 dstring,
+			 when,
+			 all,
+			 getStateful,
+			 at,
+			 StatefulArray,
+			 registry,
+			 _View,
+			 common,
+			 load,
+			 Store,
+			 Output,
+			 Status,
+			 Container,
+			 DropDownButton,
+			 xhr,
+			 confirm,
+			 ViewPluginManager,
+			 ResourceStore,
+			 Memory,
+			 Message,
+			 Utils) {
+	var store;
+	var mediatorSubscription;
+	var mediator;
+	var domainManagementAppId;
+	var subscriptionTileDeferred = new Deferred();
+	var selectionArray = new StatefulArray([]);
+
+	var columnsModelData = {columns: [
+		{
+			name: _("Domain"),
+			field: "name",
+			sortable: "true",
+			filter: true,
+			type: "label"
+		},
+		{
+			name: _("DNS Hosting"),
+			sortable: true,
+			field: "fieldDnsHostingStatus.order",
+			filter: {
+				options: [{
+					value: Utils.dnsHostingStatus.ENABLED.order,
+					label: _("Enabled")
+				}, {
+					value: Utils.dnsHostingStatus.DISABLED.order,
+					label: _("Disabled")
+				}],
+				"title": _("DNS Hosting")
+			},
+			renderCell: function (row) {
+				return new Status({
+					id: registry.getUniqueId("d_gridDomainsStatus"),
+					status: row.fieldDnsHostingStatus.code,
+					statusInfo: {
+						"enabled": {label: _("Enabled"), "type": "success"},
+						"disabled": {label: _("Disabled"), "icon": "fa-circle-o"}
+					}
+				});
+			}
+		},
+		{
+			name: _("Registration Status"),
+			sortable: true,
+			field: "fieldRegistrationStatus.order",
+			filter: {
+				options: [{
+					value: Utils.registrationStatus.OK.order,
+					label: _("Active")
+				}, {
+					value: Utils.registrationStatus.REGISTERING.order,
+					label: _("Registering")
+				}, {
+					value: Utils.registrationStatus.TRANSFERING.order,
+					label: _("Pending Transfer")
+				}, {
+					value: Utils.registrationStatus.SOON.order,
+					label: _("Expires Soon")
+				}, {
+					value: Utils.registrationStatus.EXPIRED.order,
+					label: _("Expired")
+				}, {
+					value: Utils.registrationStatus.CANCELING.order,
+					label: _("Canceling")
+				}, {
+					value: Utils.registrationStatus.CANCELED.order,
+					label: _("Canceled")
+				}, {
+					value: Utils.registrationStatus.NONE.order,
+					label: _("Registered Elsewhere")
+				}],
+				"title": _("Registration Status")
+			},
+			"renderCell": function (row) {
+				if (!!row.fieldRegistrationStatus) {
+					return new Status({
+						id: registry.getUniqueId("d_gridDomainsStatus"),
+						status: row.fieldRegistrationStatus.code,
+						statusInfo: {
+							"ok": {label: _("Active"), "type": "success"},
+							"registering": {label: _("Registering"), "type": "default"},
+							"transfering": {label: _("Pending Transfer"), "type": "warning"},
+							"soon": {label: _("Expires Soon"), "type": "warning"},
+							"expired": {label: _("Expired"), "type": "danger"},
+							"canceling": {label: _("Canceling"), "type": "default"},
+							"canceled": {label: _("Canceled"), "type": "disabled"},
+							"none": {label: _("Registered Elsewhere"), "type": "disabled"}
+						}
+					});
+				}
+				return "";
+			}
+		},
+		{
+			name: _("Expires"),
+			field: "fieldExpirationDate",
+			sortable: true,
+			type: "date",
+			filter: true,
+			renderCell: function (row, data) {
+				if (!data) {
+					return "";
+				}
+				var expDate = new Date(data);
+				var alertType = "default";
+				if (row.fieldRegistrationStatus.code == Utils.registrationStatus.SOON.code)
+					alertType = "warning";
+				else if (row.fieldRegistrationStatus.code == Utils.registrationStatus.EXPIRED.code)
+					alertType = "danger";
+				return new Output({
+					id: registry.getUniqueId("domains_expirationDateOutput"),
+					value: Utils.dateToStr(expDate),
+					alertType: alertType
+				});
+			}
+		},
+		{
+			name: _("Enabled for Services"),
+			sortable: false,
+			field: "serviceLabels",
+			filter: {options: []}
+		},
+		{
+			name: _("Actions"),
+			sortable: false,
+			renderCell: function (row) {
+				var registrationStatusCode = row.fieldRegistrationStatus.code;
+				var domainType = row.fieldType;
+				var actionItems = [];
+				if (!!aps.context.billingId && !aps.context.hiddenViews["http://www.parallels.com/ccp-billing#order"]) { //there is no reason to even show renew button without billing module or orders being disabled
+					if (registrationStatusCode == Utils.registrationStatus.EXPIRED.code || registrationStatusCode == Utils.registrationStatus.SOON.code) { //basically paid and subdomains
+						actionItems.push({
+							type: registrationStatusCode == Utils.registrationStatus.EXPIRED.code || registrationStatusCode == Utils.registrationStatus.SOON.code ?
+								(registrationStatusCode == Utils.registrationStatus.EXPIRED.code ? "danger" : "warning") : "default",
+							label: _("Renew Subscription"),
+							visible: Utils.canPlaceDomainOrders(),
+							onClick: function () {
+								if (domainType == DOMAIN_TYPES.PAID || domainType == DOMAIN_TYPES.FREE) {
+									mediatorSubscription.showRenewPopup(row.registrationInfo.subscriptionId);
+								} else if (domainType == DOMAIN_TYPES.SUBDOMAIN) {
+									mediatorSubscription.showRenewPopup(row.parentDomain.registrationInfo.subscriptionId);
+								}
+							}
+						});
+						actionItems.push({type: "separator"});
+					}
+				}
+				actionItems.push({
+					type: "default",
+					label: _("View Summary"),
+					onClick: function () {
+						aps.apsc.gotoView("viewDomain", row.aps.id);
+					}
+				});
+				if (Utils.canEditRecords(row) && (domainType == DOMAIN_TYPES.PAID || domainType == DOMAIN_TYPES.EXTERNAL)) {
+					actionItems.push({
+						type: "default",
+						label: _("Add Subdomain"),
+						disabled: !(registrationStatusCode == Utils.registrationStatus.NONE.code || registrationStatusCode == Utils.registrationStatus.OK.code ||
+							registrationStatusCode == Utils.registrationStatus.SOON.code),
+						onClick: function () {
+							addSubdomain(row);
+						}
+					});
+				}
+				if ((!row.parentDomain && Utils.canManageDNS(row)) || (!!row.parentDomain && Utils.canManageDNS(row.parentDomain))) {
+					actionItems.push({
+						type: "default",
+						label: _("Manage DNS Records"),
+						disabled: !(registrationStatusCode == Utils.registrationStatus.NONE.code || registrationStatusCode == Utils.registrationStatus.OK.code ||
+							registrationStatusCode == Utils.registrationStatus.SOON.code),
+						onClick: function () {
+							aps.apsc.gotoView("dnsRecords", row.aps.id);
+						}
+					});
+				}
+				if (row.dsRecord && !row.registrationInfo && !row.parentDomain && Utils.canManageDNS(row)) {
+					actionItems.push({
+						type: "default",
+						label: _("View DS Records"),
+						onClick: function () {
+                            aps.apsc.showPopup({viewId: "dsRecordPopup", resourceId: row.aps.id});
+						}
+					});
+				}
+				if (!(row.registrationInfo || (row.serviceLabels && row.serviceLabels.trim().length > 0))) {
+					actionItems.push({type: "separator"});
+					actionItems.push({
+						type: "default",
+						label: _("Delete"),
+						onClick: function () {
+							confirm({
+								title: _("Do you want to delete domain \"__domainName__\"?", {domainName: row.name}),
+								submitType: "danger",
+								submitLabel: _("Delete")
+							}).then(function (response) {
+								if (response === true) {
+									xhr("/aps/2/resources/" + row.aps.id, {
+										method: "DELETE"
+									}).then(function () {
+										aps.apsc.gotoView("domains");
+									},
+									function(err) {
+										writeMessage(_("Could not delete the domain: there are services linked to it. Unlink those services from the domain and try again."), "warning");
+									});
+								} else {
+									aps.apsc.cancelProcessing();
+								}
+							});
+						}
+					});
+				}
+				return new DropDownButton({id: registry.getUniqueId("d_dropdownActions"), label: _("Actions"), items: actionItems });
+			}
+		}
+	]};
+	var columnsModel = getStateful(columnsModelData);
+
+	var DOMAIN_TYPES = {
+		FREE: "free",
+		PAID: "paid",
+		SUBDOMAIN: "subdomain",
+		EXTERNAL: "external"
+	};
+
+	function writeMessage(text, type, cleanMessages) {
+		if (typeof cleanMessages === "undefined") {
+			cleanMessages = true;
+		}
+		var page = registry.byId("apsPageContainer");
+		if (!page) {
+			return;
+		}
+		var messages = page.get("messageList");
+		if (cleanMessages) {
+			messages.removeAll();
+		}
+		messages.addChild(new Message({description: text, type: type || "error"}));
+	}
+
+	function clearAllMessage() {
+		var page = registry.byId("apsPageContainer");
+		if (!page) {
+			return;
+		}
+		var messages = page.get("messageList");
+		messages.removeAll();
+	}
+
+	function setColumnFilter(columnFieldName, options) {
+		columnsModelData.columns.forEach(function (column) {
+			if (column.field == columnFieldName)
+				column.filter = {options: options};
+		});
+		columnsModel.set(columnsModelData);
+	}
+
+	function addSubdomain(domain) {
+		if (!domain.parentDomain) {
+			if (domain.registrationInfo && domain.registrationInfo.registrarStatus == Utils.registrarStatus.REGISTERING) {
+				writeMessage(_("Please wait for domain registration."));
+				return;
+			}
+			if (domain.registrationInfo && domain.registrationInfo.registrarStatus == Utils.registrarStatus.TRANSFERING) {
+				writeMessage(_("Please wait for domain transfer."));
+				return;
+			}
+			clearAllMessage();
+			aps.apsc.showPopup({
+				viewId: "addSubdomainPopup",
+				params: {
+					parentDomainName: domain.name,
+					parentDomainId: domain.aps.id,
+					parentDomainSubscription: domain.aps.subscription
+				}
+			});
+		} else {
+			writeMessage(_("Please select another domain. Only paid and external domains can be used to create subdomains."));
+		}
+	}
+
+	function updateServices(domains) {
+		var serviceMap = {};
+		domains.forEach(function (domain) {
+			if (!domain.services || domain.services.length === 0) {
+				return;
+			}
+			var plugins = mediator.$plugins;
+			var labels = [];
+			common.forEach(plugins, function (plugin) {
+				var services = domain.services;
+				array.forEach(services, function (domainService) {
+					if (!plugin.subscriptionId || plugin.subscriptionId == domainService.aps.subscription) {
+						var service = {};
+						domain.services = [domainService];
+						plugin.updateState(domain, service);
+						if (service.status !== "Not Assigned") {
+							if (labels.indexOf(service.title) < 0) {
+								labels.push(service.title);
+							}
+							serviceMap[service.title] = {label: service.title};
+						}
+					}
+				});
+				domain.services = services;
+			});
+			domain.serviceLabels = labels.join(",");
+		});
+		var serviceFilterOptions = [];
+		var srv;
+		for (srv in serviceMap) {
+			serviceFilterOptions.push({value: srv, label: serviceMap[srv].label});
+		}
+		setColumnFilter("serviceLabels", serviceFilterOptions);
+	}
+
+	function refreshData() {
+		var refreshDataDeferred = new Deferred();
+		var domainsStore = new ResourceStore({
+			idProperty: "aps.id",
+			apsType: "http://parallels.com/aps/types/pa/dns/zone/1.1",
+			target: "/aps/2/resources?select(subdomains,registrationInfo,hosting),eq(parentDomain.aps.id,null())"
+		});
+		var serviceDef = xhr("/aps/2/resources?implementing(http://www.parallels.com/pa/pa-core-services/domain-management/DomainService/1.0),select(domain)");
+
+		// add query options to retrieve 10000 domains to fix https://jira.int.zone/browse/POA-109747.
+		// It doesn't solve the problem completely. The memory store should be replaced by a custom resource store
+		// to fix https://jira.int.zone/browse/PBA-81213.
+		all({
+			"parentDomains": domainsStore.query({}, {start: 0, count: 10000}),
+			"services":	serviceDef
+		}).then(function (data) {
+			var domains = [];
+			var domainsMap = {};
+
+			data.parentDomains.forEach(function (domain) {
+				if (domain.registrationInfo) {
+					if (domain.registrationInfo.isFree) {
+						domain.fieldType = DOMAIN_TYPES.FREE;
+					} else {
+						domain.fieldType = DOMAIN_TYPES.PAID;
+					}
+					if (domain.registrationInfo.registrarExpirationDate) {
+						domain.fieldExpirationDate = domain.registrationInfo.registrarExpirationDate;
+					} else {
+						domain.fieldExpirationDate = null;
+					}
+				} else {
+					domain.fieldType = DOMAIN_TYPES.EXTERNAL;
+					domain.fieldExpirationDate = null;
+				}
+
+				domain.fieldDnsHostingStatus = Utils.determineDnsHostingStatus(domain);
+				domain.fieldRegistrationStatus = Utils.determineRegistrationStatus(domain);
+				domain.services = [];
+				domainsMap[domain.aps.id] = domain;
+				domains.push(domain);
+
+				domain.subdomains.forEach(function (subdomain) {
+					subdomain.parentDomain = domain;
+					subdomain.fieldType = DOMAIN_TYPES.SUBDOMAIN;
+					subdomain.fieldExpirationDate = domain.fieldExpirationDate;
+					subdomain.fieldDnsHostingStatus = domain.fieldDnsHostingStatus;
+					subdomain.fieldRegistrationStatus = domain.fieldRegistrationStatus;
+					subdomain.services = [];
+					domainsMap[subdomain.aps.id] = subdomain;
+					domains.push(subdomain);
+				});
+			});
+
+			data.services.forEach(function (domainService) {
+				if (domainService.domain && domainService.domain.aps.id in domainsMap) {
+					var domain = domainsMap[domainService.domain.aps.id];
+					domain.services.push(domainService); //invocation of plugins according to mediator data structure
+				}
+			});
+			updateServices(domains);
+
+			store = new Memory({
+				data: domains,
+				idProperty: "aps.id"
+			});
+
+			var domainsGrid = registry.byId("domainsGridMainGrid");
+			domainsGrid.set("store", store);
+			refreshDataDeferred.resolve();
+		});
+
+		return refreshDataDeferred;
+	}
+
+	return declare(_View, {
+		init: function () {
+			return ["aps/Grid", {
+				id: "domainsGridMainGrid",
+				showFilter: false,
+				onRowClick: function (row) {
+					aps.apsc.gotoView("viewDomain", row.aps.id);
+				},
+				columns: at(columnsModel, "columns"),
+				sort: {attribute: "name", descending: false},
+				store: new Memory()
+			}, [
+				["aps/Toolbar", [
+					["aps/Button", {
+						id: "gd_registerNewButton",
+						autoBusy: false,
+						label: _("Add New Domain"),
+						iconClass: "fa-plus",
+						isDefault: true,
+						visible: Utils.canManageDomains(),
+						onClick: function () {
+							if (!aps.context.billingId) { //no-billing mode
+								aps.apsc.gotoView("registerDomain");
+							} else {
+								xhr.get("/aps/2/resources/" + aps.context.billingId.aps.id + "/bss/account").then(function (accountInfo) {
+									var fullyReg = accountInfo.fullyRegistered;
+									if (fullyReg) {
+										aps.apsc.gotoView("registerDomain");
+									} else {
+										aps.apsc.gotoView("registerDomainAndCompleteUser");
+									}
+								});
+							}
+						}
+					}]
+				]]
+			]
+			];
+		},
+
+		onHide: function () {
+			selectionArray.splice(0, selectionArray.length);
+			setColumnFilter("serviceLabels", []);
+		},
+
+		onShow: function () {
+			// nothing
+		},
+
+		onContext: function () {
+			domainManagementAppId = aps.context._domainManagement.aps.id;
+
+			if (!mediator) {
+				var manager = new ViewPluginManager("domainListInfo");
+				if (manager.placeholder) {
+					manager.init().then(function () {
+						mediator = manager.get("mediator");
+					}).then(function () {
+						refreshData().then(function () {
+							aps.apsc.hideLoading();
+						});
+					});
+				}
+			} else {
+				refreshData().then(function () {
+					aps.apsc.hideLoading();
+				});
+			}
+
+			if (!mediatorSubscription) {
+				var managerSubscription = new ViewPluginManager("subscriptionPlugin");
+				if (managerSubscription.placeholder) {
+					managerSubscription.init().then(function () {
+						mediatorSubscription = managerSubscription.get("mediator");
+					}).then(function () {
+						subscriptionTileDeferred.resolve();
+					});
+				} else {
+					subscriptionTileDeferred.resolve();
+				}
+			}
+
+		}
+	});
+});

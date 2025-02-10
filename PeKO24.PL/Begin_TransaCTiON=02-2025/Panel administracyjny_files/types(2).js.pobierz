@@ -1,0 +1,67 @@
+define([
+	"aps/ready!"
+], function (){
+	"use strict";
+
+	return {
+	
+	ORDER_TYPES: {
+		ORDER: "ORDER"
+	},
+	
+	ORDER_STATUS: {
+		NEW: 0,
+		UNPAID: 40,
+		PROCESSING: 150,
+		PROCESSING_PAYMENTS: 120,
+		COMPLETED: 200,
+		CANCELED: 190
+	},
+
+	ORDER_DETAIL_TYPES: {
+		PLAN_SETUP: 100, // Plan Setup
+		PLAN_SETUP_REFUND: 10100, // Plan Setup Refund
+		PLAN_SWITCH_PLAN: 101, // Plan Switch
+		PLAN_RENEW: 105, // Plan Renew
+		PLAN_RENEW_REFUND: 10105, // Plan Renew Refund
+		PLAN_TRANSFER: 115, // Plan Transfer
+		PLAN_TRANSFER_REFUND: 11510, // Plan Transfer Refund
+		PLAN_SUBSCR: 110, // Plan Recurring
+		PLAN_SUBSCR_REFUND: 10110, // Plan Recurring Refund
+
+		RES_SETUP: 120, // Resource Setup
+		RES_SETUP_REFUND: 10120, // Resource Setup Refund
+		RES_SWITCH: 125, // Resource Switch
+		RES_SUBSCR: 130, // Resource Recurring
+		RES_SUBSCR_REFUND: 10130, // Resource Recurring Refund
+		RES_OVERUSE: 140, // Resource Overusage
+		RES_DOWNGRADE: 150, // Resource Downgrade
+
+		DISCOUNT: 400, // Discount
+		ADJUSTMENT: 600, // Adjustment
+		CANCELLATION: 650, // Cancellation
+		HANDLING_FEE: 666, // Handling Fee
+		NON_PROVISIONING_ITEM: 700, // Non Provisioning Item
+
+		PAYMENT: 800, // Payment
+		REFUND: 900, // Refund
+		REFUND_ADJ: 905, // Refund Adjustment
+
+		BILL_PENALTY: 699, // Bill Penalty
+		BILL_RECORD: 799, // Bill Record
+
+		RESEL_PMNT: 1000, // Reseller payment
+		DEPOSIT: 2000 // Deposit
+	},
+
+	DOCUMENT_TYPES: {
+		INVOICE: "20", // Invoice
+		PAYMENT: "50", // Payment
+		REFUND: "70", // Refund
+		VOID: "75", // Void Check
+		CA: "80", // Credit Memo
+		DA: "90", // Debit Memo
+		CHECK: "100" // Fraud Check
+	}
+};
+});

@@ -1,0 +1,22 @@
+define([], function() {
+    /**
+     * Akcja przekliku do ekranu w przypadku, gdy zakończyło się prowizjonowanie zasobu.
+     *
+     * @param {string}   view identyfikator ekranu, do którego ma nastąpić przekierowanie
+     * @param {Object[]} object [
+     *              'aps' => object {
+     *                              'id'     => string identyfikator zasobu
+     *                              'status' => string status zasobu
+     *                              }
+     *              ]
+     * @param {Object[]} params []
+     *
+     * @return {void}
+     */
+    return function(view, object, params) {
+        if (object.aps.status !== 'aps:ready') {
+            return;
+        }
+        aps.apsc.gotoView(view, object.aps.id, typeof (params) === 'object' && Object.keys(params).length > 0 ? params : null);
+    };
+});

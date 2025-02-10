@@ -1,0 +1,24 @@
+define(['aps/xhr', 'dojox/mvc/getStateful'], function(xhr, getStateful) {
+    /**
+     * Pobranie oferty na podstawie danych serwera.
+     *
+     * @param  {Object} server obiekt serwera
+     *
+     * @return {Object} konfiguracja oferty
+     */
+    return function(server) {
+        if (aps.app.model.get('configurationModels') === undefined) {
+            aps.app.model.set('configurationModels', getStateful({}));
+        }
+
+        if (aps.app.model.configurationModels.get([server.aps.id]) !== undefined) {
+            return aps.app.model.get('configurationModels')[server.aps.id];
+        }
+
+        return xhr('/aps/2/resources/' + server.aps.id + '/readConfiguration', {sync:true}).then(function(configuration) {
+            aps.app.model.get('configurationModels')[server.aps.id] = configuration;
+
+            return configuration;
+        });
+    };
+});

@@ -1,0 +1,334 @@
+define([
+	"dijit/registry",
+
+	"aps/common",
+	"aps/lang",
+	"aps/i18n",
+	"aps/Status",
+
+	"module",
+
+	"../converter",
+	"../impl/types"
+], function(
+	registry,
+
+	common,
+	lang,
+	i18n,
+	Status,
+
+	module,
+
+	converter,
+	types
+) {
+	var _ = i18n.bindToPackage(common.getPackageId(module));
+
+	var STATUS = types.STATUS;
+	var VIEW = {
+		ALL_SUBSCRIPTIONS: "http://www.parallels.com/ccp-billing#all-subscriptions",
+		UPGRADE_WIZARD: "http://www.parallels.com/ccp-billing-subscription-management#upgrade-wizard",
+		RENEW: "http://www.parallels.com/ccp-billing#subscription",
+		PROVISIONING: "http://www.parallels.com/ccp-billing#provisioning-subscription-popup",
+		SALES_WIZARD: "http://www.parallels.com/ccp-billing-sales-wizard#wizard",
+		SUBSCRIPTION: "http://www.parallels.com/ccp-billing#subscription"
+	};
+
+	function diffInDays(date1, date2) {
+		return Math.ceil((date2.getTime() - date1.getTime()) / (24 * 3600 * 1000));
+	}
+
+	function createTile(plg, params, children) {
+		var def = ["aps/Tile", lang.mixin({id: plg.id + "_tile"}, params)];
+		if (children && children.length) {
+			def.push(children);
+		}
+		return def;
+	}
+
+	function createStatus(plg, params, plain) {
+		var options = lang.mixin({
+			id: registry.getUniqueId(plg.id + "_status")
+		}, params);
+		return plain ? ["aps/Status", options] : new Status(options);
+	}
+
+	function createUsageInfo(plg, params) {
+		return ["aps/UsageInfo", lang.mixin({
+			id: registry.getUniqueId(plg.id + "_usageInfo"),
+			showPie: false,
+			textFirstNumber: ""
+		}, params)];
+	}
+
+	function getHoldTileProps(plg, subscription, count) {
+		return createTile(plg, {
+			buttons: [{
+				autoBusy: false,
+				label: count === 1 ? _("Contact Support") : _("View Suspended Subscriptions"),
+				iconClass: "fa-life-ring",
+				onClick: function() {
+					if (count > 1) {
+						aps.apsc.gotoView(VIEW.ALL_SUBSCRIPTIONS, null, {status: subscription.status});
+						return;
+					}
+					window.open(aps.context._supportLinks.supportContactsLink, '_blank');
+				}
+			}],
+			info: createStatus(plg, {
+				status: "suspended",
+				statusInfo: {
+					suspended: {type: "danger", label: _("Suspended")}
+				}
+			})
+		}, [createUsageInfo(plg, {
+			textSuffix: count === 1 ? _("Service subscription has been suspended") :
+				_("__value__ Service subscription(s) have been suspended", {value: count})
+		})]);
+	}
+
+	function getTrialExpiredTileProps(plg, subscription, count) {
+		var isUpgradeAllowed = converter.isUpgradeAllowed(subscription);
+		var isUpgrade = count === 1 && isUpgradeAllowed;
+		return createTile(plg, {
+			buttons: [{
+				autoBusy: false,
+				label: isUpgrade ? _("Upgrade To Paid") : _("View Expired Subscriptions"),
+				iconClass: isUpgrade ? "fa-shopping-cart" : "fa-list",
+				onClick: function() {
+					if (isUpgrade) {
+						aps.apsc.gotoView(VIEW.UPGRADE_WIZARD, null, {subscriptionId: subscription.subscriptionId});
+						return;
+					}
+					aps.apsc.gotoView(VIEW.ALL_SUBSCRIPTIONS, null, {status: STATUS.EXPIRED});
+				}
+			}],
+			info: createStatus(plg, {
+				status: "expired",
+				statusInfo: {
+					expired: {type: "danger", label: _("Trial Expired")}
+				}
+			})
+		}, [createUsageInfo(plg, {
+			textSuffix: count === 1 ? _("Trial service subscription has been expired") :
+				_("__value__ Trial service subscription(s) have been expired", {value: count})
+		})]);
+	}
+
+	function getTrialGracedTileProps(plg, subscription, count) {
+		var daysLeft = diffInDays(new Date(), new Date(subscription.expirationDate)) + subscription.trialGracePeriod;
+		return createTile(plg, {
+			buttons: [{
+				autoBusy: false,
+				label: count === 1 ? _("Upgrade To Paid") : _("View Graced Subscriptions"),
+				iconClass: count === 1 ? "fa-shopping-cart" : "fa-list",
+				onClick: function() {
+					if (count > 1) {
+						aps.apsc.gotoView(VIEW.ALL_SUBSCRIPTIONS, null, {status: STATUS.GRACED});
+						return;
+					}
+					aps.apsc.gotoView(VIEW.UPGRADE_WIZARD, null, {subscriptionId: subscription.subscriptionId});
+				}
+			}],
+			info: createStatus(plg, {
+				status: "graced",
+				statusInfo: {
+					graced: {
+						type: "warning", label: count > 1 ? _("Trial Graced") : _("Trial Graced, __value__ Days Left", {value: daysLeft})
+					}
+				}
+			})
+		}, count > 1 ? [createUsageInfo(plg, {
+			textSuffix: _("__value__ Trial service subscription(s) will expire soon", {value: count})
+		})] : undefined);
+	}
+
+	function getHiddenTileProps(plg) {
+		return createTile(plg, {
+			visible: false
+		});
+	}
+
+	function getViewId(viewId, plgId){
+		return viewId.includes("#") ? viewId : plgId.split("#")[0] + "#" + viewId;
+	}
+
+	function getPurchaseTileProps(plg, appId, isTrialAvailable, presentation) {
+		var state = plg.getState();
+		var label = state.purchaseLabel ?
+			state.purchaseLabel :
+			presentation && presentation.title ?
+				_("Enable __serviceName__", {serviceName: presentation.title}) :
+				_("Enable Service");
+
+		var onEnter = function() {
+			aps.apsc.gotoView(
+				state.purchaseViewId ? getViewId(state.purchaseViewId, plg.id) : VIEW.SALES_WIZARD,
+				null,
+				state.purchaseViewId ? state.purchaseViewParams : lang.mixin({appId: appId, title: label}, state.purchaseViewParams || {})
+			);
+		};
+
+		return createTile(plg, {
+			buttons: [{
+				autoBusy: false,
+				label: label,
+				iconClass: "fa-plus",
+				onClick: onEnter
+			}],
+			onClick: onEnter,
+			state: 'inactive',
+			info: isTrialAvailable ? createStatus(plg, {
+					status: "trial",
+					statusInfo: {
+						trial: {
+							type: "warning",
+							label: _("Free Trial Available")
+						}
+					}
+				}) : undefined,
+			serviceDescription: (state.promoPrimaryText || "") + " " + (state.promoSecondaryText || "")
+		}, [createUsageInfo(plg)]);
+	}
+
+	var STATUS_MAPPING = {
+		10: function getOrderedTileProps(plg) {
+			return createTile(plg, {
+				buttons: undefined,
+				info: createStatus(plg, {
+					status: "provisioning",
+					statusInfo: {
+						provisioning: {type: "muted", label: _("Provisioning"), icon: "fa-spinner", isLoad: true}
+					}
+				}),
+				onClick: function() {
+					aps.apsc.showPopup({viewId: VIEW.PROVISIONING});
+				},
+				state: 'inProgress',
+				serviceDescription: _("Please Wait...") + " " + _("Your service is provisioning")
+			}, [createUsageInfo(plg)]);
+		},
+		15: function getTrialTileProps(plg, subscription, count) {
+			return createTile(plg, {
+				buttons: [{
+					autoBusy: false,
+					label: count === 1 ? _("Upgrade To Paid") : _("View Trial Subscriptions"),
+					iconClass: count === 1 ? "fa-shopping-cart" : "fa-list",
+					onClick: function() {
+						if (count > 1) {
+							aps.apsc.gotoView(VIEW.ALL_SUBSCRIPTIONS, null, {status: STATUS.TRIAL});
+							return;
+						}
+						aps.apsc.gotoView(VIEW.UPGRADE_WIZARD, null, {subscriptionId: subscription.subscriptionId});
+					}
+				}],
+				info: createStatus(plg, {
+					status: "trial",
+					statusInfo: {
+						trial: {type: "warning", label: count > 1 ? _("Trial") : _("Trial, __value__ Days Left", {
+							value: diffInDays(new Date(), new Date(subscription.expirationDate))
+						})}
+					}
+				})
+			}, count > 1 ? [createUsageInfo(plg, {
+				textSuffix: _("__value__ Trial subscription(s) expire soon", {value: count})
+			})] : undefined);
+		},
+		30: function getActiveTileProps() {},
+		40: function getGracedTileProps(plg, subscription, count) {
+			if (subscription.trial) {
+				return getTrialGracedTileProps(plg, subscription, count);
+			}
+
+			var daysLeft = diffInDays(new Date(), new Date(subscription.expirationDate)) + subscription.gracePeriod;
+			return createTile(plg, {
+				buttons: [{
+					autoBusy: false,
+					label: count === 1 ? _("Renew") : _("View Graced Subscriptions"),
+					iconClass: count === 1 ? "fa-repeat" : "fa-list",
+					onClick: function() {
+						if (count > 1) {
+							aps.apsc.gotoView(VIEW.ALL_SUBSCRIPTIONS, null, {status: STATUS.GRACED});
+							return;
+						}
+						aps.apsc.gotoView(VIEW.RENEW, null, {renewSubscriptionId: subscription.subscriptionId});
+					}
+				}],
+				info: createStatus(plg, {
+					status: "graced",
+					statusInfo: {
+						graced: {type: "warning", label: count > 1 ? _("Graced") : _("Graced, __value__ Days Left", {value: daysLeft})}
+					}
+				})
+			}, count > 1 ? [createUsageInfo(plg, {
+				textSuffix: _("__value__ Service subscription(s) will expire soon", {value: count})
+			})] : undefined);
+		},
+		50: function getExpiredTileProps(plg, subscription, count) {
+			if (subscription.trial) {
+				return getTrialExpiredTileProps(plg, subscription, count);
+			}
+
+			return createTile(plg, {
+				buttons: [{
+					autoBusy: false,
+					label: count === 1 ? _("Renew") : _("View Expired Subscriptions"),
+					iconClass: count === 1 ? "fa-repeat" : "fa-list",
+					onClick: function() {
+						if (count > 1) {
+							aps.apsc.gotoView(VIEW.ALL_SUBSCRIPTIONS, null, {status: STATUS.EXPIRED});
+							return;
+						}
+						aps.apsc.gotoView(VIEW.RENEW, null, {renewSubscriptionId: subscription.subscriptionId});
+					}
+				}],
+				info: createStatus(plg, {
+					status: "expired",
+					statusInfo: {
+						expired: {type: "danger", label: _("Expired")}
+					}
+				})
+			}, [createUsageInfo(plg, {
+				textSuffix: count === 1 ? _("Service subscription has been expired") :
+					_("__value__ Service subscription(s) have been expired", {value: count})
+			})]);
+		},
+		85: function getCreditHoldTileProps(plg, subscription, count, apsApi) {
+			return createTile(plg, {
+				buttons: [{
+					autoBusy: false,
+					label: count === 1 ? _("Pay Invoices") : _("View Suspended Subscriptions"),
+					iconClass: count === 1 ? "fa-arrow-right" : "fa-list",
+					onClick: function() {
+						if (count > 1) {
+							aps.apsc.gotoView(VIEW.ALL_SUBSCRIPTIONS, null, {status: STATUS.CREDIT_HOLD});
+							return;
+						}
+						converter.payInvoices(apsApi);
+					}
+				}],
+				info: createStatus(plg, {
+					status: "hold",
+					statusInfo: {
+						hold: {type: "danger", label: _("Credit Hold")}
+					}
+				})
+			}, [createUsageInfo(plg, {
+				textSuffix: count === 1 ? _("Service subscription has been suspended because of overdue invoices") :
+					_("__value__ Service subscription(s) have been suspended because of overdue invoices", {value: count})
+			})]);
+		},
+		60: getHoldTileProps,
+		80: getHoldTileProps,
+		89: getHoldTileProps
+	};
+
+	return {
+		getCreatorByStatus: function(status) {
+			return STATUS_MAPPING[status];
+		},
+		getPurchaseTileProps: getPurchaseTileProps,
+		getHiddenTileProps: getHiddenTileProps
+	};
+});

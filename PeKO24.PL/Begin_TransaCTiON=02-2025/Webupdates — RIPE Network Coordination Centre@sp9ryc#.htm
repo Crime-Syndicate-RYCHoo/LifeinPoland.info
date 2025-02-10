@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<!-- saved from url=(0045)https://apps-test.db.ripe.net/db-web-ui/legal -->
+<html class=" js flexbox flexboxlegacy canvas canvastext webgl no-touch geolocation postmessage no-websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers no-applicationcache svg inlinesvg smil svgclippaths" style="--vh: 7.38px;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+        <meta name="description" content="Tool that allows to add new objects and edit or delete existing objects in the RIPE Database">
+        <meta content="summary" name="twitter:card">
+        <meta content="Webupdates" name="twitter:title">
+        <meta content="RIPE Network Coordination Centre" property="og:site_name">
+        <meta content="Webupdates" property="og:title">
+        <meta content="website" property="og:type">
+        <meta content="Tool that allows to add new objects and edit or delete existing objects in the RIPE Database" name="twitter:description">
+        <meta content="https://www.ripe.net/manage-ips-and-asns/db/webupdates" name="twitter:url">
+        <meta content="Tool that allows to add new objects and edit or delete existing objects in the RIPE Database" property="og:description">
+        <meta content="https://www.ripe.net/manage-ips-and-asns/db/webupdates" property="og:url">
+        <meta content="https://www.ripe.net/logo.png" name="twitter:image">
+        <meta content="https://www.ripe.net/logo.png" property="og:image">
+        <meta content="image/png" property="og:image:type">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Webupdates — RIPE Network Coordination Centre</title>
+        <!--<base href="/db-web-ui/">--><base href=".">
+        <!-- your custom styles here CSSMARKER -->
+        <!-- Our own css -->
+        <!-- Webupdates specific css end -->
+        <link href="./Webupdates — RIPE Network Coordination Centre@sp9ryc#_files/fontawesome.min.css" media="screen" type="text/css" rel="stylesheet">
+        <link href="./Webupdates — RIPE Network Coordination Centre@sp9ryc#_files/light.min.css" media="screen" type="text/css" rel="stylesheet">
+        <link href="./Webupdates — RIPE Network Coordination Centre@sp9ryc#_files/solid.min.css" media="screen" type="text/css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" media="print" href="./Webupdates — RIPE Network Coordination Centre@sp9ryc#_files/print.css">
+        <link rel="shortcut icon" type="image/x-icon" href="https://apps-test.db.ripe.net/favicon.ico">
+        <link rel="apple-touch-icon" href="https://www.ripe.net/touch_icon.png">
+        <link rel="search" href="https://www.ripe.net/search" title="Search this site">
+        <!-- JQuery JavaScript placeholder here -->
+        <script async="" src="./Webupdates — RIPE Network Coordination Centre@sp9ryc#_files/matomo.js.pobierz"></script><script type="text/javascript" src="./Webupdates — RIPE Network Coordination Centre@sp9ryc#_files/jquery.js.pobierz"></script>
+        <!-- END JQuery JavaScript placeholder here -->
+        <script type="text/javascript" src="./Webupdates — RIPE Network Coordination Centre@sp9ryc#_files/modernizr.js.pobierz"></script>
+        <!-- Matomo -->
+        <script>
+            var _paq = (window._paq = window._paq || []);
+            _paq.push();
+            /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+            _paq.push(['requireCookieConsent']);
+            _paq.push(['trackPageView']);
+            _paq.push(['enableLinkTracking']);
+            (function () {
+                var u = 'https://matomo.ripe.net/';
+                _paq.push(['setTrackerUrl', u + 'matomo.php']);
+                _paq.push(['setSiteId', '38']);
+                var d = document,
+                    g = d.createElement('script'),
+                    s = d.getElementsByTagName('script')[0];
+                g.async = true;
+                g.src = u + 'matomo.js';
+                s.parentNode.insertBefore(g, s);
+            })();
+        </script>
+        <!-- End Matomo Code -->
+    <link rel="stylesheet" href="./Webupdates — RIPE Network Coordination Centre@sp9ryc#_files/styles.df74d34f9ca40867.css"><script src="./Webupdates — RIPE Network Coordination Centre@sp9ryc#_files/configs.php" async="" defer=""></script><style type="text/css"></style><style>[_nghost-ng-c2071628769]{position:relative;display:block;pointer-events:none}[_nghost-ng-c2071628769]   .ngx-spinner[_ngcontent-ng-c2071628769]{transition:.35s linear all;display:block;position:absolute;top:5px;left:0px}[_nghost-ng-c2071628769]   .ngx-spinner[_ngcontent-ng-c2071628769]   .ngx-spinner-icon[_ngcontent-ng-c2071628769]{width:14px;height:14px;border:solid 2px transparent;border-top-color:inherit;border-left-color:inherit;border-radius:50%;-webkit-animation:_ngcontent-ng-c2071628769_loading-bar-spinner .4s linear infinite;animation:_ngcontent-ng-c2071628769_loading-bar-spinner .4s linear infinite}[_nghost-ng-c2071628769]   .ngx-bar[_ngcontent-ng-c2071628769]{transition:width .35s;position:absolute;top:0;left:0;width:100%;height:2px;border-bottom-right-radius:1px;border-top-right-radius:1px}[dir=rtl]   [_nghost-ng-c2071628769]   .ngx-bar[_ngcontent-ng-c2071628769]{right:0;left:unset}[fixed=true][_nghost-ng-c2071628769]{z-index:10002}[fixed=true][_nghost-ng-c2071628769]   .ngx-bar[_ngcontent-ng-c2071628769]{position:fixed}[fixed=true][_nghost-ng-c2071628769]   .ngx-spinner[_ngcontent-ng-c2071628769]{position:fixed;top:10px;left:10px}[dir=rtl]   [fixed=true][_nghost-ng-c2071628769]   .ngx-spinner[_ngcontent-ng-c2071628769]{right:10px;left:unset}@-webkit-keyframes _ngcontent-ng-c2071628769_loading-bar-spinner{0%{transform:rotate(0)}to{transform:rotate(360deg)}}@keyframes _ngcontent-ng-c2071628769_loading-bar-spinner{0%{transform:rotate(0)}to{transform:rotate(360deg)}}</style><style>span[_ngcontent-ng-c1764742176]{color:gray}</style></head>
+    <body id="visual-portal-wrapper" class="mat-typography" dir="ltr">
+        <noscript>
+            <meta http-equiv="refresh" content="5;URL=https://www.ripe.net/about-us/legal/supported-browsers" />
+            <h1 style="text-align: center; margin-top: 20px; background-color: #eee; padding: 20px">
+                Javascript is disabled.<br />You will be redirected to
+                <a href="https://www.ripe.net/about-us/legal/supported-browsers">Supported Browsers</a> page.
+            </h1>
+        </noscript>
+        <app-db-web-ui ng-version="17.3.12"><div><ripe-header><template shadowrootmode="open"><style>:host{display:flex;height:70px;position:sticky;top:0;-webkit-user-select:none;user-select:none;width:100%;z-index:99999}#ripe-header{align-items:center;background:#fff;box-shadow:0 0 9px #0000004d;display:flex;height:70px;justify-content:space-between;left:0;padding-top:var(--ripe-header-padding-top,0);position:fixed;top:0;width:100%}@media print{#ripe-header{position:static}}#ripe-header #menu-container{display:flex;height:100%}#ripe-header #menu-container ::slotted(svg){height:34px;margin-left:20px;margin-top:18px}@media only screen and (max-width:500px){#ripe-header #menu-container ::slotted(svg){height:24px;margin-top:23px;max-width:100px}}#ripe-header #burger-menu-hidden{width:calc(1.4rem - 20px)}#ripe-header #burger-menu{align-items:center;display:flex;height:70px;justify-content:center;width:70px}@media print{#ripe-header #burger-menu{display:none}}#ripe-header #burger-menu button{background:var(--ripe-app-navbar-background,#080037);border:0;cursor:pointer;display:inline-block;height:100%;padding:0;transition:background .2s ease-in-out;vertical-align:middle;width:100%}#ripe-header #burger-menu button:after,#ripe-header #burger-menu button:before{content:""}#ripe-header #burger-menu button span,#ripe-header #burger-menu button:after,#ripe-header #burger-menu button:before{background:#fff;border-radius:.05em;display:block;height:3px;margin:0 auto 3px;transition:transform .2s ease-in-out,opacity .2s ease-in-out,background .2s ease-in-out;width:40%}#ripe-header #burger-menu button:focus-visible{background:var(--ripe-app-primary-100,#b8bbd0)}#ripe-header #burger-menu button:focus-visible span,#ripe-header #burger-menu button:focus-visible:after,#ripe-header #burger-menu button:focus-visible:before{background:var(--ripe-app-primary-900,#080037)}#ripe-header #burger-menu button.light-theme:focus-visible{background:var(--ripe-app-navbar-background,#080037)}#ripe-header #burger-menu button.light-theme:focus-visible span,#ripe-header #burger-menu button.light-theme:focus-visible:after,#ripe-header #burger-menu button.light-theme:focus-visible:before{background:#fff}#ripe-header #burger-menu button.light-theme{background:var(--ripe-app-primary-100,#b8bbd0)}#ripe-header #burger-menu button.light-theme span,#ripe-header #burger-menu button.light-theme:after,#ripe-header #burger-menu button.light-theme:before{background:var(--ripe-app-primary-900,#080037)}#ripe-header #burger-menu button.active span{opacity:0}#ripe-header #burger-menu button.active:before{transform:translateY(6px) rotate(135deg)}#ripe-header #burger-menu button.active:after{transform:translateY(-6px) rotate(-135deg)}#ripe-header #burger-menu button:focus{outline:0}#ripe-header #actions-container{align-items:center;display:flex;gap:.5rem;height:100%;padding:0 1.4rem 0 0}@media only screen and (max-width:400px){#actions-container{justify-content:flex-start}}#skip-nav{clip:rect(0,0,0,0);border-width:0;height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;white-space:nowrap;width:1px}#skip-nav:focus{clip:auto;background-color:#fff;height:auto;left:4px;margin:0;outline:4px solid var(--ripe-app-primary-300,#606591);overflow:visible;padding:16px;position:fixed;top:4px;white-space:normal;width:auto;z-index:10}</style><div id="ripe-header"> <div id="menu-container"><div id="burger-menu"><button aria-label="menu-button" class="active"><span></span></button></div> <a href="https://apps-test.db.ripe.net/" aria-label="go-home-link"><slot name="logo-app"></slot></a></div> <div id="actions-container"><slot></slot></div></div></template><!----><svg slot="logo-app" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 5647.2 569.02" xml:space="preserve" style="enable-background: new 0 0 5647.2 569.02;"><style type="text/css"> .st0 { fill: #26316a; } .st1 { fill: #8b8fb1; } </style><path d="M400.06,228.77v-0.17l0-146.82L263.6,3L127.14,81.78l0,146.82v0.17L0,302.18l0,157.57l136.46,78.79
+                l127.14-73.41l127.14,73.41l136.46-78.79l0-157.57L400.06,228.77z M263.6,296.63l-108.52-62.65l108.52-62.66l108.52,62.66
+                L263.6,296.63z M145.77,250.28l108.52,62.65l0,125.13l-108.52-62.65L145.77,250.28z M272.91,312.93l108.52-62.65l0,125.13
+                l-108.52,62.65L272.91,312.93z M145.77,92.54L263.6,24.5l117.83,68.03l0,125.31L263.6,149.82l-117.83,68.03L145.77,92.54z
+                 M18.63,448.99l0-136.06l108.52-62.65l0,135.89l117.98,68.12l-108.67,62.74L18.63,448.99z M508.58,448.99l-117.83,68.03
+                l-108.67-62.74l117.98-68.12l0-135.89l108.52,62.65L508.58,448.99z" class="st0"></path><g><path d="M848.2,461.1l-75.29-134.56h-43.25V461.1h-95.58V80.38h166.6c37.91,0,67.28,8.01,91.31,25.63
+                    c29.37,21.36,44.85,56.6,44.85,94.51c0,46.46-22.43,91.84-72.09,112.13l87.57,148.44H848.2z M788.39,155.13h-59.27v100.92h59.27
+                    c34.17,0,55.53-19.76,55.53-50.73C843.93,170.08,820.43,155.13,788.39,155.13z" class="st0"></path><path d="M1005.71,461.1V80.38h95.58V461.1H1005.71z" class="st0"></path><path d="M1350.65,329.21h-79.03V461.1h-95.05V80.38h171.94c84.37,0,133.49,51.79,133.49,122.28
+                    C1482.01,265.13,1443.56,329.21,1350.65,329.21z M1333.03,155.13h-61.41v100.92h61.41c32.57,0,55.53-17.09,55.53-51.26
+                    C1388.57,171.69,1367.21,155.13,1333.03,155.13z" class="st0"></path><path d="M1540.21,461.1V80.38h280.33v77.42h-185.29v72.62h155.92v76.89h-155.92v75.82h186.35v77.96H1540.21z" class="st0"></path><path d="M2194.31,461.1h-159.66V80.38h158.59c84.9,0,155.92,45.39,155.92,134.03v107.33
+                    C2349.16,416.24,2274.4,461.1,2194.31,461.1z M2185.77,158.34h-56.07v225.33h58.74c34.71,0,64.61-21.89,64.61-60.87l0.53-104.66
+                    C2253.58,180.76,2223.68,158.34,2185.77,158.34z" class="st0"></path><path d="M2580.37,461.1c0-2.14-2.67-28.83-2.67-31.5h-2.14c-23.49,31.5-56.6,37.38-84.9,37.38
+                    c-53.93,0-92.91-28.83-92.91-81.7c0-66.21,68.88-91.31,125.48-91.31h49.12v-21.89c0-22.43-15.48-35.24-43.79-35.24
+                    s-41.65,13.35-41.65,28.3v8.54h-78.49v-10.15c0-60.87,60.87-89.17,124.95-89.17c64.61,0,126.55,25.63,126.55,96.65v128.15
+                    c0,21.36,3.2,56.6,5.34,61.94H2580.37z M2530.17,343.09c-25.63,0-44.32,7.48-44.32,30.44c0,18.15,11.75,30.44,38.98,30.44
+                    c32.04,0,45.92-18.15,46.99-44.85l0.53-16.02H2530.17z" class="st0"></path><path d="M2831.33,248.04v119.08c0,17.62,6.41,25.63,33.64,25.63c8.54,0,21.36-2.14,25.1-2.67v67.28
+                    c-19.76,5.34-45.92,8.54-61.94,8.54c-42.72,0-84.37-17.62-84.37-76.36v-141.5h-36.31v-64.61h35.78v-79.03h88.1v79.03h59.8v64.61
+                    H2831.33z" class="st0"></path><path d="M3110.59,461.1c0-2.14-2.67-28.83-2.67-31.5h-2.14c-23.49,31.5-56.6,37.38-84.9,37.38
+                    c-53.93,0-92.91-28.83-92.91-81.7c0-66.21,68.88-91.31,125.48-91.31h49.12v-21.89c0-22.43-15.48-35.24-43.79-35.24
+                    s-41.65,13.35-41.65,28.3v8.54h-78.49v-10.15c0-60.87,60.87-89.17,124.95-89.17c64.61,0,126.55,25.63,126.55,96.65v128.15
+                    c0,21.36,3.2,56.6,5.34,61.94H3110.59z M3060.4,343.09c-25.63,0-44.32,7.48-44.32,30.44c0,18.15,11.75,30.44,38.98,30.44
+                    c32.04,0,45.92-18.15,46.99-44.85l0.53-16.02H3060.4z" class="st0"></path><path d="M3415.48,468.04c-27.23,0-53.4-12.82-69.41-33.11h-1.6v26.16h-85.97V80.38h88.1V212.8h0.53
+                    c20.29-26.7,50.19-38.45,77.43-38.45c63.01,0,104.12,38.98,104.12,104.12v84.9C3528.68,428.52,3476.89,468.04,3415.48,468.04z
+                     M3440.04,288.09c0-29.37-20.82-45.39-45.92-45.39c-22.43,0-47.52,12.28-47.52,50.73v64.61c0,30.97,24.56,44.85,48.06,44.85
+                    c22.96,0,45.39-13.88,45.39-46.46V288.09z" class="st0"></path><path d="M3756.15,461.1c0-2.14-2.67-28.83-2.67-31.5h-2.14c-23.5,31.5-56.6,37.38-84.9,37.38
+                    c-53.93,0-92.91-28.83-92.91-81.7c0-66.21,68.88-91.31,125.48-91.31h49.12v-21.89c0-22.43-15.49-35.24-43.79-35.24
+                    s-41.65,13.35-41.65,28.3v8.54h-78.49v-10.15c0-60.87,60.87-89.17,124.95-89.17c64.61,0,126.55,25.63,126.55,96.65v128.15
+                    c0,21.36,3.2,56.6,5.34,61.94H3756.15z M3705.96,343.09c-25.63,0-44.32,7.48-44.32,30.44c0,18.15,11.75,30.44,38.98,30.44
+                    c32.04,0,45.92-18.15,46.99-44.85l0.53-16.02H3705.96z" class="st0"></path><path d="M4019.4,466.97c-52.86,0-100.38-10.68-134.03-51.79l52.33-45.92c17.09,21.36,47.52,35.78,78.49,35.78
+                    c20.29,0,42.72-5.34,42.72-24.03c0-16.02-14.42-20.29-37.38-24.03c-1.6-1.07-20.83-3.74-21.89-3.74
+                    c-6.94-1.6-40.05-11.21-45.39-13.35c-34.71-12.28-55-33.64-55-69.42c0-58.74,49.12-96.11,118.54-96.11
+                    c56.07,0,91.84,12.82,120.14,45.92l-56.07,42.72c-16.02-18.15-38.45-26.7-61.41-26.7c-23.49,0-38.45,6.41-38.45,21.89
+                    c0,12.82,12.82,16.02,29.9,19.22c4.27,2.67,32.57,5.87,36.84,6.94c5.87,1.6,33.64,9.08,37.91,11.21
+                    c39.51,13.88,61.41,40.58,61.41,75.29C4148.08,439.2,4078.67,466.97,4019.4,466.97z" class="st0"></path><path d="M4281.04,349.5v6.41c0,28.83,35.78,43.79,64.08,43.79c25.63,0,56.6-13.35,68.88-18.69l26.16,62.47
+                    c-27.77,14.95-57.13,24.56-109.46,24.56c-67.28,0-139.37-34.17-139.37-114.8v-56.07c0-83.3,67.28-122.81,134.56-122.81
+                    c65.68,0,129.75,35.78,129.75,104.66v70.48H4281.04z M4370.21,282.75c0-29.37-20.82-41.65-43.25-41.65
+                    c-25.1,0-45.92,13.88-45.92,45.39v10.14h89.17V282.75z" class="st0"></path><path d="M4807.52,126.3v334.8h-53.4V126.3h-110V80.38h272.86v45.92H4807.52z" class="st1"></path><path d="M5051.55,467.5c-66.75,0-122.28-35.24-122.28-110v-56.6c0-75.82,51.79-115.87,116.94-115.87
+                    c60.34,0,108.4,36.84,108.4,107.33v48.06H4980v17.09c0,40.58,28.3,68.35,73.69,68.35c25.1,0,48.59-16.02,63.01-35.78l37.91,19.22
+                    C5130.58,448.28,5092.66,467.5,5051.55,467.5z M5106.01,291.83c0-37.38-19.76-65.14-60.34-65.14c-39.51,0-65.68,25.1-65.68,64.08
+                    v13.35h126.02V291.83z" class="st1"></path><path d="M5320.66,467.5c-44.85,0-88.1-12.81-114.27-45.92l34.17-29.37c19.76,21.89,48.59,35.24,79.56,35.24
+                    c30.97,0,62.47-12.82,62.47-40.58c0-26.7-18.16-33.11-51.79-40.58l-35.78-8.01c-37.91-8.54-72.62-28.83-72.62-69.42
+                    c0-51.26,41.12-84.37,101.45-84.37c44.32,0,75.82,9.61,97.72,35.78l-33.11,28.3c-18.69-17.62-35.78-24.56-66.21-24.56
+                    c-29.37,0-50.19,14.95-50.19,36.84c0,22.43,21.36,29.9,46.99,35.24l42.18,9.08c37.91,8.01,72.62,30.44,72.62,74.22
+                    C5433.87,438.67,5374.59,467.5,5320.66,467.5z" class="st1"></path><path d="M5588.18,465.37c-35.78,0-71.55-14.42-71.55-63.01V231.49h-44.32v-39.51h43.79v-88.1h49.12v88.1h73.69v38.98
+                    h-73.69v161.26c0,22.96,12.28,31.5,32.57,31.5c16.02,0,30.44-3.2,43.25-6.94v39.51C5623.42,462.7,5599.92,465.37,5588.18,465.37z" class="st1"></path></g></svg><!----><!----><!----><!----><!----><!----><app-switcher class="web-component"><template shadowrootmode="open"><style>#main{align-items:center;cursor:pointer;display:flex;font-family:var(--ripe-app-font-family),Helvetica,Arial,Sans-serif;font-size:.875rem;font-weight:600;height:40px;justify-content:center;outline:none;position:relative;-webkit-user-select:none;user-select:none;width:40px}@media(pointer:fine){#main:hover circle{fill:var(--ripe-app-header-icon-hover,#080037);transform:scale(1.25);transform-origin:16px 16px;transition:transform .1s ease-in}#main:hover path{fill:#fff}}#main:focus circle,#main:focus-within circle{fill:var(--ripe-app-header-icon-hover,#080037);transform:scale(1.25);transform-origin:16px 16px;transition:transform .1s ease-in}#main:focus path,#main:focus-within path{fill:#fff}#main:focus-within nav{display:block}@media only screen and (max-width:400px){#main{margin-left:.5rem}}@media print{#main{display:none}}.hideclass{display:none!important}svg{all:unset;background:none;border:none;cursor:pointer;height:32px;outline:none;overflow:visible;padding:0;width:32px;z-index:1}svg circle{fill:none;stroke:none}svg path{fill:#080037}nav{display:none;right:-53px;top:20px;width:-moz-fit-content;width:fit-content}nav,nav:after{position:absolute}nav:after{border:10px solid #0000;border-bottom:10px solid var(--ripe-app-navbar-background,#080037);content:" ";height:0;pointer-events:none;right:63px;top:15px;width:0}#apps-list{background-color:var(--ripe-app-navbar-background,#080037);border-radius:.5rem;column-count:2;list-style:none;margin:35px 0 0;padding:1.5rem 1.5rem 0;z-index:999999}#apps-list li{padding-bottom:1.25rem}#apps-list li a{border-bottom:1px solid #0000;color:var(--ripe-app-menuitem,#fff);display:inline-block;overflow:hidden;text-decoration:none;text-overflow:ellipsis;white-space:nowrap}#apps-list li a:focus,#apps-list li a:focus-within,#apps-list li a:hover{border-bottom-color:var(--ripe-app-navbar-active-menuitem,#fff)}#apps-list li a.active{border-bottom:2px solid var(--ripe-app-navbar-indicator,#f59331)}</style><div id="main" tabindex="0" aria-label="Applications" aria-haspopup="menu"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="15"></circle><path d="M11 9C11 10.1046 10.1046 11 9 11C7.89543 11 7 10.1046 7 9C7 7.89543 7.89543 7 9 7C10.1046 7 11 7.89543 11 9Z"></path><path d="M18 9C18 10.1046 17.1046 11 16 11C14.8954 11 14 10.1046 14 9C14 7.89543 14.8954 7 16 7C17.1046 7 18 7.89543 18 9Z"></path><path d="M25 9C25 10.1046 24.1046 11 23 11C21.8954 11 21 10.1046 21 9C21 7.89543 21.8954 7 23 7C24.1046 7 25 7.89543 25 9Z"></path><path d="M11 16C11 17.1046 10.1046 18 9 18C7.89543 18 7 17.1046 7 16C7 14.8954 7.89543 14 9 14C10.1046 14 11 14.8954 11 16Z"></path><path d="M18 16C18 17.1046 17.1046 18 16 18C14.8954 18 14 17.1046 14 16C14 14.8954 14.8954 14 16 14C17.1046 14 18 14.8954 18 16Z"></path><path d="M25 16C25 17.1046 24.1046 18 23 18C21.8954 18 21 17.1046 21 16C21 14.8954 21.8954 14 23 14C24.1046 14 25 14.8954 25 16Z"></path><path d="M11 23C11 24.1046 10.1046 25 9 25C7.89543 25 7 24.1046 7 23C7 21.8954 7.89543 21 9 21C10.1046 21 11 21.8954 11 23Z"></path><path d="M18 23C18 24.1046 17.1046 25 16 25C14.8954 25 14 24.1046 14 23C14 21.8954 14.8954 21 16 21C17.1046 21 18 21.8954 18 23Z"></path><path d="M25 23C25 24.1046 24.1046 25 23 25C21.8954 25 21 24.1046 21 23C21 21.8954 21.8954 21 23 21C24.1046 21 25 21.8954 25 23Z"></path></svg> <nav><ul id="apps-list"><li><a href="https://www.ripe.net/">RIPE.NET</a> </li><li><a href="https://lirportal.ripe.net/">LIR Portal</a> </li><li><a href="https://apps.db.ripe.net/" class="active">RIPE Database</a> </li><li><a href="https://labs.ripe.net/">RIPE Labs</a> </li><li><a href="https://stat.ripe.net/app/">RIPEstat</a> </li><li><a href="https://atlas.ripe.net/">RIPE Atlas</a> </li><li><a href="https://academy.ripe.net/">RIPE NCC Academy</a> </li><li><a href="https://dashboard.rpki.ripe.net/">RPKI</a> </li></ul></nav></div></template></app-switcher><user-login class="web-component"><template shadowrootmode="open"><style>#main{align-items:center;cursor:pointer;display:flex;font-family:var(--ripe-app-font-family),Helvetica,Arial,Sans-serif;font-size:.875rem;font-weight:500;height:40px;justify-content:center;outline:none;position:relative;-webkit-user-select:none;user-select:none;width:40px}#main>a#login{align-items:inherit;display:flex;height:inherit;justify-content:inherit;width:inherit}#main .exclamation-mark{fill:var(--ripe-app-primary-900,#080037)}@media print{#main{display:none}}#main svg{fill:none;enable-background:new 0 0 512 512;height:32px;overflow:visible;width:32px;z-index:1}#main svg.logged-in .st0{fill:var(--ripe-app-worried-80,#ff7a36)}#main svg path{fill:var(--ripe-app-primary-900,#080037)}#main svg circle.hover-ring{fill:none;stroke:none;transition:fill .1s ease-in,transform .1s ease-in}@media(pointer:fine){#main:hover .exclamation-mark,#main:hover svg path{fill:#fff}#main:hover #user-ring{stroke-width:4;transition:stroke-width .1s ease-in}#main:hover .hover-ring{fill:var(--ripe-app-primary-900,#080037);stroke:none;transform:scale(1.25);transform-origin:center;transition:transform .1s ease-in}}#main:focus .exclamation-mark,#main:focus svg path,#main:focus-within .exclamation-mark,#main:focus-within svg path{fill:#fff}#main:focus #user-ring,#main:focus-within #user-ring{stroke-width:4;transition:stroke-width .1s ease-in}#main:focus .hover-ring,#main:focus-within .hover-ring{fill:var(--ripe-app-primary-900,#080037);stroke:none;transform:scale(1.25);transform-origin:center;transition:transform .1s ease-in}#main:focus-within nav{display:block}#main:not(.mobile).logged-in{height:44px;margin:0 8px;width:44px}#main:not(.mobile).logged-in svg{height:inherit;width:inherit}#main.mobile nav{top:25px}#main.mobile nav:after{right:27px}nav{display:none;right:-1rem;text-align:left;top:27px;width:-moz-fit-content;width:fit-content}nav,nav:after{position:absolute}nav:after{border:10px solid #0000;border-bottom:10px solid var(--ripe-app-primary-900,#080037);content:" ";height:0;pointer-events:none;right:28px;top:10px;width:0}nav ul{background:var(--ripe-app-primary-900,#080037);border-radius:.5rem;list-style:none;margin:30px 0 0;padding:0}nav ul li{padding:.75rem 1.25rem;position:relative}nav ul li:first-of-type{padding-top:1.5rem}nav ul li:last-of-type{padding-bottom:1.5rem}nav ul li.divider{border-bottom:1px solid var(--ripe-app-primary-100,#b8bbd0)}nav ul li a{border-bottom:1px solid #0000;color:var(--ripe-app-menuitem,#fff);display:inline-block;overflow:hidden;text-decoration:none;text-overflow:ellipsis;white-space:nowrap}nav ul li a:focus,nav ul li a:hover{border-bottom-color:var(--ripe-app-navbar-active-menuitem,#fff)}nav ul li a.active{border-bottom:2px solid var(--ripe-app-navbar-indicator,#f59331)}</style><div id="main" tabindex="0" aria-label="User Login" aria-haspopup="menu" class="logged-in"><svg id="user-login-icon" class="logged-in" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><g><clippath id="circle-clip"><circle cx="24" cy="24" r="23"></circle></clippath><image id="user-img" href="https://access.ripe.net//picture/b8e8c8b5-65f8-49f2-8049-b9435b2300fd" clip-path="url(#circle-clip)" x="1.5" y="1.5" width="45" height="45" preserveAspectRatio="xMidYMid slice"></image><circle id="user-ring" cx="24" cy="24" r="23" fill="none" stroke="var(--ripe-app-primary-900, #080037)" stroke-width="2"></circle></g></svg> <nav><ul class="links"><li><a href="https://access.ripe.net//profile" aria-label="szer mgr Ryszard CZEKAJ SAGE HO">szer mgr Ryszard CZEKAJ SAGE HO</a> </li><li><a href="https://access.ripe.net//logout?originalUrl=https%3A%2F%2Faccess.ripe.net%2Flogout%3ForiginalUrl%3Dhttps%3A%2F%2Fapps-test.db.ripe.net%2Fdb-web-ui%2F%23query" aria-label="Logout">Logout</a> </li></ul></nav></div></template></user-login></ripe-header></div><main id="app-grid"><swe-menu><app-nav-bar class="ng-star-inserted"><template shadowrootmode="open"><style>::-webkit-scrollbar{background:#0000;width:0}@media only screen and (max-width:1023px){#sidemenu{position:fixed!important}}#overlay{background:#666;display:none;height:100%;left:0;opacity:.3;position:fixed;top:0;width:100%!important;z-index:999}#overlay.menuisopen{display:block}#sidemenu{background-color:var(--ripe-app-navbar-background,#080037);box-shadow:0 0 7px #0000004d;display:flex;flex-direction:column;height:100vh;height:calc(var(--vh, 1vh)*100 - 70px);margin-left:-300px;overflow-x:hidden;overflow-y:scroll;position:sticky;scrollbar-width:none;top:70px;transition:margin-left .2s ease-in-out;-webkit-user-select:none;user-select:none;width:300px;z-index:1000}#sidemenu::-webkit-scrollbar{display:none}#sidemenu.open{margin-left:0}#sidemenu.abs{position:fixed}@media print{#sidemenu{display:none}}#sidemenu #menu{flex:1 0 auto;justify-content:flex-start;margin-top:1rem}#sidemenu #menu menu-item.top-level{margin-bottom:4px}#sidemenu #footer{border-top:1px solid var(--ripe-app-border-line,#2f2c56);justify-content:flex-end;margin-top:3rem;padding-bottom:1rem}</style><nav id="sidemenu" autoclose="" class="open"><div id="menu"><menu-item class="top-level"><template shadowrootmode="open"><style>:host{display:block;transition:height .2s ease-in-out}.item{color:var(--ripe-app-navbar-menuitem,#b8bbd0);cursor:pointer;display:flex;height:60px;position:relative;text-decoration:none;transition:background .2s ease-in-out;-webkit-user-select:none;user-select:none;width:300px}.item.isSelected{color:var(--ripe-app-navbar-active-menuitem,#fff)}.item.isSelected .indicator{opacity:1}.item:focus,.item:hover{color:var(--ripe-app-navbar-active-menuitem,#fff);outline:none}.item:focus-visible .indicator,.item:hover .indicator{opacity:.5}.item .indicator{background:var(--ripe-app-navbar-indicator,#f59331);height:100%;left:0;opacity:0;position:absolute;top:0;width:6px}.item svg.external{fill:var(--ripe-app-navbar-menuitem,#b8bbd0);height:.81rem;margin-left:5px;max-width:20px;vertical-align:initial}.item .icon{align-items:center;display:flex;flex-shrink:0;justify-content:center}.item .icon.menuicon{width:70px}.item .icon.menuicon *{height:24px}.item .icon.chevron{color:#9d9aac;min-width:60px;transition:transform .1s ease-in-out}.item .icon.chevron *{height:14px;width:14px}.item .icon.chevron.expanded{transform:rotate(90deg)}.item .icon.chevron.hasActive{color:gold}.item .text{display:flex;flex-direction:column;font-family:var(--ripe-app-font-family),Helvetica,Arial,Sans-serif;font-size:.91rem;font-weight:600;justify-content:center;line-height:1.3em;padding-right:1rem;text-rendering:geometricPrecision}.item .text .text-wrap{-webkit-box-orient:vertical;display:-webkit-box;overflow:hidden;text-overflow:ellipsis}.item .text .text-wrap.wrapped-title{-webkit-line-clamp:1}.item .text .text-wrap.wrapped-subtitle{-webkit-line-clamp:2}.item .text p{display:block;margin:0}.item .text .title{font-weight:600}.item .text .subtitle{font-size:.78rem;font-weight:175;letter-spacing:.03333rem}.item.isChild{height:60px}.menu-level-0{background-color:var(--ripe-app-primary-900,#080037)}.menu-level-1{background-color:var(--ripe-app-primary-800,#0f154c)}.menu-level-2{background-color:var(--ripe-app-primary-700,#171d58)}button.chevron{background:none;border:none;cursor:pointer;outline:none}button.chevron:focus svg,button.chevron:hover svg{color:gold}button svg{overflow:initial}button.chevron:focus-visible path#focus{stroke:var(--ripe-app-primary-50,#e3e4ec)}</style><div class="item menu-level-0;"><a class="item" tabindex="0" href="https://apps-test.db.ripe.net/db-web-ui/myresources/overview"><div class="indicator"></div> <div class="icon menuicon"><svg aria-hidden="true" focusable="false" data-prefix="fal" data-icon="ethernet" class="svg-inline--fa fa-ethernet fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M496 192h-48v-48c0-8.8-7.2-16-16-16h-48V80c0-8.8-7.2-16-16-16H144c-8.8 0-16 7.2-16 16v48H80c-8.8 0-16 7.2-16 16v48H16c-8.8 0-16 7.2-16 16v224c0 8.8 7.2 16 16 16h480c8.8 0 16-7.2 16-16V208c0-8.8-7.2-16-16-16zm-16 224h-64V288h-32v128h-64V288h-32v128h-64V288h-32v128h-64V288H96v128H32V224h64v-64h64V96h192v64h64v64h64v192z"></path></svg></div> <div class="text"><p class="title text-wrap wrapped-title" title="" id="title-resources">Resources </p> <p class="subtitle text-wrap wrapped-subtitle" title="" id="subtitle-resources">My Resources, Sponsored Resources</p></div></a> </div> <div class="menu-level-0;"></div></template></menu-item><menu-item class="top-level"><template shadowrootmode="open"><style>:host{display:block;transition:height .2s ease-in-out}.item{color:var(--ripe-app-navbar-menuitem,#b8bbd0);cursor:pointer;display:flex;height:60px;position:relative;text-decoration:none;transition:background .2s ease-in-out;-webkit-user-select:none;user-select:none;width:300px}.item.isSelected{color:var(--ripe-app-navbar-active-menuitem,#fff)}.item.isSelected .indicator{opacity:1}.item:focus,.item:hover{color:var(--ripe-app-navbar-active-menuitem,#fff);outline:none}.item:focus-visible .indicator,.item:hover .indicator{opacity:.5}.item .indicator{background:var(--ripe-app-navbar-indicator,#f59331);height:100%;left:0;opacity:0;position:absolute;top:0;width:6px}.item svg.external{fill:var(--ripe-app-navbar-menuitem,#b8bbd0);height:.81rem;margin-left:5px;max-width:20px;vertical-align:initial}.item .icon{align-items:center;display:flex;flex-shrink:0;justify-content:center}.item .icon.menuicon{width:70px}.item .icon.menuicon *{height:24px}.item .icon.chevron{color:#9d9aac;min-width:60px;transition:transform .1s ease-in-out}.item .icon.chevron *{height:14px;width:14px}.item .icon.chevron.expanded{transform:rotate(90deg)}.item .icon.chevron.hasActive{color:gold}.item .text{display:flex;flex-direction:column;font-family:var(--ripe-app-font-family),Helvetica,Arial,Sans-serif;font-size:.91rem;font-weight:600;justify-content:center;line-height:1.3em;padding-right:1rem;text-rendering:geometricPrecision}.item .text .text-wrap{-webkit-box-orient:vertical;display:-webkit-box;overflow:hidden;text-overflow:ellipsis}.item .text .text-wrap.wrapped-title{-webkit-line-clamp:1}.item .text .text-wrap.wrapped-subtitle{-webkit-line-clamp:2}.item .text p{display:block;margin:0}.item .text .title{font-weight:600}.item .text .subtitle{font-size:.78rem;font-weight:175;letter-spacing:.03333rem}.item.isChild{height:60px}.menu-level-0{background-color:var(--ripe-app-primary-900,#080037)}.menu-level-1{background-color:var(--ripe-app-primary-800,#0f154c)}.menu-level-2{background-color:var(--ripe-app-primary-700,#171d58)}button.chevron{background:none;border:none;cursor:pointer;outline:none}button.chevron:focus svg,button.chevron:hover svg{color:gold}button svg{overflow:initial}button.chevron:focus-visible path#focus{stroke:var(--ripe-app-primary-50,#e3e4ec)}</style><div class="item menu-level-1 expanded"><a class="item" tabindex="-1"><div class="indicator"></div> <div class="icon menuicon"><svg aria-hidden="true" focusable="false" data-prefix="fal" data-icon="database" class="svg-inline--fa fa-database fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M224 32c106 0 192 28.75 192 64v32c0 35.25-86 64-192 64S32 163.25 32 128V96c0-35.25 86-64 192-64m192 149.5V224c0 35.25-86 64-192 64S32 259.25 32 224v-42.5c41.25 29 116.75 42.5 192 42.5s150.749-13.5 192-42.5m0 96V320c0 35.25-86 64-192 64S32 355.25 32 320v-42.5c41.25 29 116.75 42.5 192 42.5s150.749-13.5 192-42.5m0 96V416c0 35.25-86 64-192 64S32 451.25 32 416v-42.5c41.25 29 116.75 42.5 192 42.5s150.749-13.5 192-42.5M224 0C145.858 0 0 18.801 0 96v320c0 77.338 146.096 96 224 96 78.142 0 224-18.801 224-96V96c0-77.338-146.096-96-224-96z"></path></svg></div> <div class="text"><p class="title text-wrap wrapped-title" title="" id="title-database">TEST Database </p> </div></a> <button class="icon chevron expanded" aria-label="Collapse TEST Database menu"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><path id="focus" stroke-width="150" d="m18 36-8 8c-4 4-4 12 0 17l196 195L10 451c-4 5-4 13 0 17l8 8c4 4 12 4 16 0l212-212c4-4 4-12 0-16L34 36c-4-4-12-4-16 0z"></path><path stroke="currentColor" stroke-width="40" d="m18 36-8 8c-4 4-4 12 0 17l196 195L10 451c-4 5-4 13 0 17l8 8c4 4 12 4 16 0l212-212c4-4 4-12 0-16L34 36c-4-4-12-4-16 0z"></path></svg></button></div> <div class="menu-level-1"><div class="item menu-level-1; isChild"><a class="item" tabindex="0" href="https://apps-test.db.ripe.net/db-web-ui/query"><div class="indicator"></div> <div class="icon menuicon"></div> <div class="text"><p class="title text-wrap wrapped-title" title="" id="title-query">Query Database </p> </div></a> </div> <div class="menu-level-1;"></div><div class="item menu-level-1; isChild"><a class="item" tabindex="0" href="https://apps-test.db.ripe.net/db-web-ui/fulltextsearch"><div class="indicator"></div> <div class="icon menuicon"></div> <div class="text"><p class="title text-wrap wrapped-title" title="" id="title-fulltextsearch">Full Text Search </p> </div></a> </div> <div class="menu-level-1;"></div><div class="item menu-level-1; isChild"><a class="item" tabindex="0" href="https://apps-test.db.ripe.net/db-web-ui/syncupdates"><div class="indicator"></div> <div class="icon menuicon"></div> <div class="text"><p class="title text-wrap wrapped-title" title="" id="title-syncupdates">Syncupdates </p> </div></a> </div> <div class="menu-level-1;"></div><div class="item menu-level-1; isChild"><a class="item" tabindex="0" href="https://apps-test.db.ripe.net/db-web-ui/webupdates/select"><div class="indicator"></div> <div class="icon menuicon"></div> <div class="text"><p class="title text-wrap wrapped-title" title="" id="title-create">Create an Object </p> </div></a> </div> <div class="menu-level-1;"></div></div></template></menu-item></div> <div id="footer"><menu-item class="top-level"><template shadowrootmode="open"><style>:host{display:block;transition:height .2s ease-in-out}.item{color:var(--ripe-app-navbar-menuitem,#b8bbd0);cursor:pointer;display:flex;height:60px;position:relative;text-decoration:none;transition:background .2s ease-in-out;-webkit-user-select:none;user-select:none;width:300px}.item.isSelected{color:var(--ripe-app-navbar-active-menuitem,#fff)}.item.isSelected .indicator{opacity:1}.item:focus,.item:hover{color:var(--ripe-app-navbar-active-menuitem,#fff);outline:none}.item:focus-visible .indicator,.item:hover .indicator{opacity:.5}.item .indicator{background:var(--ripe-app-navbar-indicator,#f59331);height:100%;left:0;opacity:0;position:absolute;top:0;width:6px}.item svg.external{fill:var(--ripe-app-navbar-menuitem,#b8bbd0);height:.81rem;margin-left:5px;max-width:20px;vertical-align:initial}.item .icon{align-items:center;display:flex;flex-shrink:0;justify-content:center}.item .icon.menuicon{width:70px}.item .icon.menuicon *{height:24px}.item .icon.chevron{color:#9d9aac;min-width:60px;transition:transform .1s ease-in-out}.item .icon.chevron *{height:14px;width:14px}.item .icon.chevron.expanded{transform:rotate(90deg)}.item .icon.chevron.hasActive{color:gold}.item .text{display:flex;flex-direction:column;font-family:var(--ripe-app-font-family),Helvetica,Arial,Sans-serif;font-size:.91rem;font-weight:600;justify-content:center;line-height:1.3em;padding-right:1rem;text-rendering:geometricPrecision}.item .text .text-wrap{-webkit-box-orient:vertical;display:-webkit-box;overflow:hidden;text-overflow:ellipsis}.item .text .text-wrap.wrapped-title{-webkit-line-clamp:1}.item .text .text-wrap.wrapped-subtitle{-webkit-line-clamp:2}.item .text p{display:block;margin:0}.item .text .title{font-weight:600}.item .text .subtitle{font-size:.78rem;font-weight:175;letter-spacing:.03333rem}.item.isChild{height:60px}.menu-level-0{background-color:var(--ripe-app-primary-900,#080037)}.menu-level-1{background-color:var(--ripe-app-primary-800,#0f154c)}.menu-level-2{background-color:var(--ripe-app-primary-700,#171d58)}button.chevron{background:none;border:none;cursor:pointer;outline:none}button.chevron:focus svg,button.chevron:hover svg{color:gold}button svg{overflow:initial}button.chevron:focus-visible path#focus{stroke:var(--ripe-app-primary-50,#e3e4ec)}</style><div class="item menu-level-0;"><a class="item" tabindex="0" href="https://docs.db.ripe.net/"><div class="indicator"></div> <div class="icon menuicon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M356 160H188c-6.6 0-12-5.4-12-12v-8c0-6.6 5.4-12 12-12h168c6.6 0 12 5.4 12 12v8c0 6.6-5.4 12-12 12zm12 52v-8c0-6.6-5.4-12-12-12H188c-6.6 0-12 5.4-12 12v8c0 6.6 5.4 12 12 12h168c6.6 0 12-5.4 12-12zm64.7 268h3.3c6.6 0 12 5.4 12 12v8c0 6.6-5.4 12-12 12H80c-44.2 0-80-35.8-80-80V80C0 35.8 35.8 0 80 0h344c13.3 0 24 10.7 24 24v368c0 10-6.2 18.6-14.9 22.2-3.6 16.1-4.4 45.6-.4 65.8zM128 384h288V32H128v352zm-96 16c13.4-10 30-16 48-16h16V32H80c-26.5 0-48 21.5-48 48v320zm372.3 80c-3.1-20.4-2.9-45.2 0-64H80c-64 0-64 64 0 64h324.3z"></path></svg></div> <div class="text"><p class="title text-wrap wrapped-title" title="" id="title-docs">Documentation <svg class="external" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M440,256H424a8,8,0,0,0-8,8V464a16,16,0,0,1-16,16H48a16,16,0,0,1-16-16V112A16,16,0,0,1,48,96H248a8,8,0,0,0,8-8V72a8,8,0,0,0-8-8H48A48,48,0,0,0,0,112V464a48,48,0,0,0,48,48H400a48,48,0,0,0,48-48V264A8,8,0,0,0,440,256ZM500,0,364,.34a12,12,0,0,0-12,12v10a12,12,0,0,0,12,12L454,34l.7.71L131.51,357.86a12,12,0,0,0,0,17l5.66,5.66a12,12,0,0,0,17,0L477.29,57.34l.71.7-.34,90a12,12,0,0,0,12,12h10a12,12,0,0,0,12-12L512,12A12,12,0,0,0,500,0Z"></path></svg></p> </div></a> </div> <div class="menu-level-0;"></div></template></menu-item><menu-item class="top-level"><template shadowrootmode="open"><style>:host{display:block;transition:height .2s ease-in-out}.item{color:var(--ripe-app-navbar-menuitem,#b8bbd0);cursor:pointer;display:flex;height:60px;position:relative;text-decoration:none;transition:background .2s ease-in-out;-webkit-user-select:none;user-select:none;width:300px}.item.isSelected{color:var(--ripe-app-navbar-active-menuitem,#fff)}.item.isSelected .indicator{opacity:1}.item:focus,.item:hover{color:var(--ripe-app-navbar-active-menuitem,#fff);outline:none}.item:focus-visible .indicator,.item:hover .indicator{opacity:.5}.item .indicator{background:var(--ripe-app-navbar-indicator,#f59331);height:100%;left:0;opacity:0;position:absolute;top:0;width:6px}.item svg.external{fill:var(--ripe-app-navbar-menuitem,#b8bbd0);height:.81rem;margin-left:5px;max-width:20px;vertical-align:initial}.item .icon{align-items:center;display:flex;flex-shrink:0;justify-content:center}.item .icon.menuicon{width:70px}.item .icon.menuicon *{height:24px}.item .icon.chevron{color:#9d9aac;min-width:60px;transition:transform .1s ease-in-out}.item .icon.chevron *{height:14px;width:14px}.item .icon.chevron.expanded{transform:rotate(90deg)}.item .icon.chevron.hasActive{color:gold}.item .text{display:flex;flex-direction:column;font-family:var(--ripe-app-font-family),Helvetica,Arial,Sans-serif;font-size:.91rem;font-weight:600;justify-content:center;line-height:1.3em;padding-right:1rem;text-rendering:geometricPrecision}.item .text .text-wrap{-webkit-box-orient:vertical;display:-webkit-box;overflow:hidden;text-overflow:ellipsis}.item .text .text-wrap.wrapped-title{-webkit-line-clamp:1}.item .text .text-wrap.wrapped-subtitle{-webkit-line-clamp:2}.item .text p{display:block;margin:0}.item .text .title{font-weight:600}.item .text .subtitle{font-size:.78rem;font-weight:175;letter-spacing:.03333rem}.item.isChild{height:60px}.menu-level-0{background-color:var(--ripe-app-primary-900,#080037)}.menu-level-1{background-color:var(--ripe-app-primary-800,#0f154c)}.menu-level-2{background-color:var(--ripe-app-primary-700,#171d58)}button.chevron{background:none;border:none;cursor:pointer;outline:none}button.chevron:focus svg,button.chevron:hover svg{color:gold}button svg{overflow:initial}button.chevron:focus-visible path#focus{stroke:var(--ripe-app-primary-50,#e3e4ec)}</style><div class="item menu-level-0;"><a class="item" tabindex="0" href="https://www.ripe.net/support/contact"><div class="indicator"></div> <div class="icon menuicon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M448 0H64C28.7 0 0 28.7 0 64v288c0 35.3 28.7 64 64 64h96v84c0 7.1 5.8 12 12 12 2.4 0 4.9-.7 7.1-2.4L304 416h144c35.3 0 64-28.7 64-64V64c0-35.3-28.7-64-64-64zm32 352c0 17.6-14.4 32-32 32H293.3l-8.5 6.4L192 460v-76H64c-17.6 0-32-14.4-32-32V64c0-17.6 14.4-32 32-32h384c17.6 0 32 14.4 32 32v288z"></path></svg></div> <div class="text"><p class="title text-wrap wrapped-title" title="" id="title-feedback">Feedback/Support </p> </div></a> </div> <div class="menu-level-0;"></div></template></menu-item><menu-item class="top-level"><template shadowrootmode="open"><style>:host{display:block;transition:height .2s ease-in-out}.item{color:var(--ripe-app-navbar-menuitem,#b8bbd0);cursor:pointer;display:flex;height:60px;position:relative;text-decoration:none;transition:background .2s ease-in-out;-webkit-user-select:none;user-select:none;width:300px}.item.isSelected{color:var(--ripe-app-navbar-active-menuitem,#fff)}.item.isSelected .indicator{opacity:1}.item:focus,.item:hover{color:var(--ripe-app-navbar-active-menuitem,#fff);outline:none}.item:focus-visible .indicator,.item:hover .indicator{opacity:.5}.item .indicator{background:var(--ripe-app-navbar-indicator,#f59331);height:100%;left:0;opacity:0;position:absolute;top:0;width:6px}.item svg.external{fill:var(--ripe-app-navbar-menuitem,#b8bbd0);height:.81rem;margin-left:5px;max-width:20px;vertical-align:initial}.item .icon{align-items:center;display:flex;flex-shrink:0;justify-content:center}.item .icon.menuicon{width:70px}.item .icon.menuicon *{height:24px}.item .icon.chevron{color:#9d9aac;min-width:60px;transition:transform .1s ease-in-out}.item .icon.chevron *{height:14px;width:14px}.item .icon.chevron.expanded{transform:rotate(90deg)}.item .icon.chevron.hasActive{color:gold}.item .text{display:flex;flex-direction:column;font-family:var(--ripe-app-font-family),Helvetica,Arial,Sans-serif;font-size:.91rem;font-weight:600;justify-content:center;line-height:1.3em;padding-right:1rem;text-rendering:geometricPrecision}.item .text .text-wrap{-webkit-box-orient:vertical;display:-webkit-box;overflow:hidden;text-overflow:ellipsis}.item .text .text-wrap.wrapped-title{-webkit-line-clamp:1}.item .text .text-wrap.wrapped-subtitle{-webkit-line-clamp:2}.item .text p{display:block;margin:0}.item .text .title{font-weight:600}.item .text .subtitle{font-size:.78rem;font-weight:175;letter-spacing:.03333rem}.item.isChild{height:60px}.menu-level-0{background-color:var(--ripe-app-primary-900,#080037)}.menu-level-1{background-color:var(--ripe-app-primary-800,#0f154c)}.menu-level-2{background-color:var(--ripe-app-primary-700,#171d58)}button.chevron{background:none;border:none;cursor:pointer;outline:none}button.chevron:focus svg,button.chevron:hover svg{color:gold}button svg{overflow:initial}button.chevron:focus-visible path#focus{stroke:var(--ripe-app-primary-50,#e3e4ec)}</style><div class="item menu-level-0; isSelected"><a class="item isSelected" tabindex="0" href="https://apps-test.db.ripe.net/db-web-ui/legal"><div class="indicator"></div> <div class="icon menuicon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path fill="currentColor" d="M634.4 375.09L525.35 199.12c-3.17-4.75-8.26-7.12-13.35-7.12s-10.18 2.38-13.35 7.12L389.6 375.09c-3.87 5.78-6.09 12.72-5.51 19.64C389.56 460.4 444.74 512 512 512c67.27 0 122.45-51.6 127.91-117.27.57-6.92-1.64-13.86-5.51-19.64zM511.96 238.24L602.27 384H421.02l90.94-145.76zM512 480c-41.28 0-77-26.77-90.42-64h181.2c-13.23 36.87-49.2 64-90.78 64zm17.89-317.21l5.08-15.17c1.4-4.19-.86-8.72-5.05-10.12L379.46 87.15C382.33 79.98 384 72.21 384 64c0-35.35-28.65-64-64-64-29.32 0-53.77 19.83-61.34 46.73L120.24.42c-4.19-1.4-8.72.86-10.12 5.05l-5.08 15.17c-1.4 4.19.86 8.72 5.05 10.12l148.29 49.62c5.91 22.23 23.33 39.58 45.62 45.36V480H104c-4.42 0-8 3.58-8 8v16c0 4.42 3.58 8 8 8h224c4.42 0 8-3.58 8-8V125.74c8.64-2.24 16.5-6.22 23.32-11.58l160.45 53.68c4.18 1.4 8.71-.86 10.12-5.05zM320 96c-17.64 0-32-14.36-32-32s14.36-32 32-32 32 14.36 32 32-14.36 32-32 32zm-64.09 170.73c.58-6.92-1.64-13.86-5.51-19.64L141.35 71.12C138.18 66.38 133.09 64 128 64s-10.18 2.38-13.35 7.12L5.6 247.09c-3.87 5.78-6.09 12.72-5.51 19.64C5.56 332.4 60.74 384 128 384s122.44-51.6 127.91-117.27zM127.96 110.24L218.27 256H37.02l90.94-145.76zM37.58 288h181.2c-13.23 36.87-49.2 64-90.78 64-41.28 0-77-26.77-90.42-64z"></path></svg></div> <div class="text"><p class="title text-wrap wrapped-title" title="" id="title-legal">Legal </p> <p class="subtitle text-wrap wrapped-subtitle" title="" id="subtitle-legal">Copyright, Privacy, Terms and Cookies</p></div></a> </div> <div class="menu-level-0;"></div></template></menu-item></div></nav> <div id="overlay"></div></template></app-nav-bar><!----><!----></swe-menu><div id="main-wrapper"><section id="app-banners-container"><ngx-loading-bar _nghost-ng-c2071628769="" fixed="true" style="color: rgb(34, 153, 221);"><!----></ngx-loading-bar><!----><app-banner id="notification-1" level="warning" permanent="true"><template shadowrootmode="open"><style>.level-info{background-color:var(--ripe-app-info,#29abe2)}.level-positive{background-color:var(--ripe-app-positive,#6ebe49)}.level-warning{background-color:var(--ripe-app-worried,#ff6a00)}.level-accent{background-color:var(--ripe-app-primary-800,#0f154c)}.level-alarm{background-color:var(--ripe-app-warning,#ed1c24)}.app-banner,a,button{font-family:var(--ripe-app-font-family),Helvetica,Arial,sans-serif;font-size:.875rem}.app-banner{align-items:center;border-bottom:1px solid var(--ripe-app-border-line,#2f2c56);color:#fff;display:flex;padding:8px var(--app-banner-padding-right,8px) 8px var(--app-banner-padding-left,8px);text-rendering:geometricprecision;transition:all .2s ease-in-out}@media(max-width:900px){.app-banner{flex-wrap:wrap}}.app-banner.hidden{display:none}.banner-text{margin:0;padding:12px 16px}.banner-text a{color:#fff}.buttons{margin-left:auto;padding:12px 16px;white-space:nowrap}.buttons a,.buttons button{background-color:initial;border:1px solid #fffc;border-radius:4px;color:#fff;margin:0 0 0 10px;padding:9px 10px;text-decoration:none;text-transform:uppercase;white-space:nowrap}.buttons a:focus,.buttons a:hover,.buttons button:focus,.buttons button:hover{background-color:#ffffff26;border:1px solid #ffffff80;cursor:pointer;transition:all .2s ease-in-out}.sr-only{clip:rect(0,0,0,0);border-width:0;height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;white-space:nowrap;width:1px}</style><div class="app-banner level-warning permanent"><p role="status" aria-live="polite" class="banner-text"><span class="sr-only">warning</span> <h1>Welcome to the TEST Environment of the RIPE Database.</h1><p>You can use this environment to learn and experiment with RIPE Database. It uses a TEST source and all changes are reverted each night.</p></p> <div class="buttons"><slot name="buttons"></slot>   </div></div></template></app-banner><!----><!----><alert-banners><!----><!----><!----><!----></alert-banners></section><app-cookie-consent><template shadowrootmode="open"><style>@media(min-width:1500px){.nowrap{white-space:nowrap}}.cookie-banner,a,button{font-family:var(--ripe-app-font-family),Helvetica,Arial,sans-serif;font-size:14px}.cookie-banner{align-items:center;background-color:var(--ripe-app-cookie,#fff);border-bottom:0!important;border-top:1px solid var(--ripe-app-border-line,#2f2c56);bottom:0;color:#080037;display:flex;padding:8px var(--app-banner-padding-right,8px) 8px var(--app-banner-padding-left,8px);position:fixed;right:0;text-rendering:geometricprecision;transition:all .2s ease-in-out;width:calc(100% - 16px);z-index:500000!important}@media(max-width:900px){.cookie-banner{flex-wrap:wrap}}.cookie-banner.hidden{display:none}.banner-text{margin:0;padding:12px 16px}.banner-text a{color:#080037}.buttons{margin-left:auto;padding:12px 16px;white-space:nowrap}.buttons button{background-color:initial;border:1px solid #080037;border-radius:4px;color:#080037;margin:0 0 0 10px;padding:9px 10px;text-decoration:none;text-transform:uppercase;white-space:nowrap}.buttons button:focus,.buttons button:hover{background-color:#08003726;border:1px solid #080037;cursor:pointer;transition:all .2s ease-in-out}.buttons button.allcookies{background-color:#080037;border:1px solid #080037;color:#fff}.buttons button.allcookies:focus,.buttons button.allcookies:hover{background-color:#08003726;border:1px solid #080037;color:#080037!important;cursor:pointer;transition:all .2s ease-in-out}</style></template></app-cookie-consent><section id="app-workspace" class="with-padding"><div id="org-drop-down" class="ng-star-inserted"><org-drop-down><!----></org-drop-down></div><!----><div><router-outlet></router-outlet><legal class="ng-star-inserted"><legal-accordion appname="database"><template shadowrootmode="open"><style>:host{font-family:var(--ripe-app-font-family),Helvetica,Verdana,sans-serif}.heading{align-items:center;display:flex}.button-title{display:inline-block;font-family:var(--ripe-app-font-family),Helvetica,Verdana,sans-serif;font-size:1rem;padding-left:20px;padding-right:20px;position:relative}.sub-title{bottom:0;padding-left:54px}.pageinfo{font-size:1rem;font-weight:400;line-height:1.5;padding:0 5px 15px 0;width:100%}.svgwrap{display:inline-block;flex-shrink:0;margin-left:auto;margin-right:auto;width:30px}a{color:var(--ripe-app-primary-400,#42477d)}a:focus,a:hover{color:var(--ripe-app-primary-800,#0f154c)}a:focus{outline:2px solid var(--ripe-app-primary-300,#606591)}.legalstuff h1,a:visited{color:var(--ripe-app-primary-900,#080037)}.legalstuff h1{font-size:1.563rem;font-weight:700;letter-spacing:-.01562em;line-height:1.3;margin-bottom:0;margin-top:0}.legalstuff{margin:0 auto;max-width:900px}.html-content th{text-align:left;width:33%}.html-content table{border-collapse:collapse;margin-left:70px;margin-right:50px;margin-top:10px}.html-content td{border:1px solid #0000001f;margin:0!important;padding:10px;vertical-align:top}.html-content td p:first-of-type{margin-top:0;padding-top:0}button{appearance:none!important}button.accordion{align-items:center;background-color:initial;border:solid #0000001f;border-radius:0!important;border-width:1px 1px 0;color:#000;cursor:pointer;display:flex;justify-content:space-between;margin:0;min-height:52px;outline-color:#0000001f;outline-style:none;outline-width:0;padding:8px 16px;text-align:left;transition:background-color .4s cubic-bezier(.25,.8,.5,1);width:100%}button.accordion:focus{background-color:silver}.sub{border:0!important;border-left:0!important;border-right:0!important}button.sub:last-of-type{border-bottom:1px solid #0000001f!important}button.sub.active:last-of-type{border-bottom:0 solid #0000001f!important}button.accordion:last-of-type{border-bottom-width:1px}button.accordion.active:last-of-type,button.accordion.active:last-of-type:hover{border-bottom-width:0}button.accordion:hover{background-color:#0000001f;border-bottom:0 solid #0000001f;transition:background-color .4s cubic-bezier(.25,.8,.5,1)}button.accordion.active,button.accordion:last-of-type:hover{border-bottom:1px solid #0000001f}button.accordion.active{background-color:#0000001f}.html-content h1,.html-content h2,.html-content h3,.html-content h4{font-size:1.6rem;font-weight:500;line-height:1.25;margin-bottom:10px;margin-top:15px}p{margin:auto 0;padding:0 0 16px}section.panel{border-left:1px solid #0000001f;border-right:1px solid #0000001f;max-height:0;overflow:auto;transition:max-height .4s}section.panel.subpanel{border-left:0;border-right:0}section.open-panel{height:auto;max-height:10000px;max-width:100%;transition:max-height .4s}section div button{color:#fff;cursor:pointer;font-weight:700;margin:10px 10px 20px;padding:10px 0;width:150px}div button:active,section div button{background-color:#0000001f}.html-content{display:block;width:100%}.html-content>div{display:block;max-width:100%;padding-left:70px;padding-right:30px}.html-content>div:first-of-type{padding-top:20px}.html-content>div:last-of-type{padding-bottom:30px}</style><div id="main" class="legalstuff"><h1>Legal Information</h1> <div class="pageinfo">Below you will find all our legal documentation. Click though items below to visit individual policies and
+    information.</div> <button class="accordion"><span class="heading"><span class="svgwrap"><svg aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">  <path fill="currentColor" d="M256 8C119.033 8 8 119.033 8 256s111.033 248 248 248 248-111.033 248-248S392.967 8 256 8zm216 248c0 118.663-96.055 216-216 216-118.663 0-216-96.055-216-216 0-118.663 96.055-216 216-216 118.663 0 216 96.055 216 216zM360.474 357.366c-9.414 9.142-44.455 38.966-100.106 38.966-77.825 0-136.513-60.551-136.513-140.846 0-77.951 58.345-137.596 135.431-137.596 53.547 0 85.508 24.785 94.028 32.381a11.96 11.96 0 0 1 1.721 16.001l-8.763 12.08c-4.034 5.561-11.877 6.579-17.203 2.329-8.921-7.122-33.509-23.688-69.062-23.688-54.32 0-94.161 41.791-94.161 98.131 0 58.209 40.791 102.104 94.882 102.104 39.538 0 66.522-22.074 73.851-28.84 5.068-4.681 13.054-4.108 17.423 1.239l9.414 11.534c3.969 4.861 3.564 11.828-.942 16.205z"></path> </svg></span> <span class="button-title">Copyright Statement</span></span> <legal-accordion-chevron><template shadowrootmode="open"><style>.chevron{font-size:1.8rem;transform:rotate(-90deg);transition:transform .3s}.chevron.open{transform:rotate(0deg)}</style><svg class="chevron" height="24" width="24" aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="#757575" d="M443.5 162.6l-7.1-7.1c-4.7-4.7-12.3-4.7-17 0L224 351 28.5 155.5c-4.7-4.7-12.3-4.7-17 0l-7.1 7.1c-4.7 4.7-4.7 12.3 0 17l211 211.1c4.7 4.7 12.3 4.7 17 0l211-211.1c4.8-4.7 4.8-12.3.1-17z"></path></svg></template></legal-accordion-chevron></button> <section class="panel"><div class="html-content"><div class="mt-3" id="content-core">
+<div class="content-page">
+
+<div class="block-paragraph"><div class="richtext">
+<p data-block-key="r1zgz"><b>Copyright (c) 1992-2025 the Réseaux IP Européens Network Coordination Centre RIPE NCC. All rights restricted.</b></p><p data-block-key="ao9x4">The User acknowledges that any and all copyright, database rights, trade marks and other intellectual property rights subsisting in or used in connection with the RIPE NCC Materials are and shall remain the property of the RIPE NCC. Except as explicitly provided herein or noted for specific RIPE NCC services, the RIPE NCC Materials may not be used, reproduced and made available to third parties without prior written authorisation from the RIPE NCC.</p><p data-block-key="ngezm">“RIPE NCC Materials” are any materials contained on any webpages whose domain name include the domain name ripe.net, including materials on the RIPE and LIR Portal sections of this website. RIPE NCC Materials do not however include materials on this website that are written by third parties not employed or commissioned by the RIPE NCC (such as <a href="https://www.ripe.net/publications/docs/">RIPE policy documents</a> or <a href="https://www.ripe.net/membership/mail/">mailing list contributions</a>). Any intellectual property rights in such materials may reside in that third party. The RIPE NCC is not responsible for the content of any materials created or written by such third parties.</p><p data-block-key="kt4tl">The RIPE NCC Materials may be used for private purposes, for public non-commercial purpose, for research, for educational or demonstration purposes, or if the materials in question specifically state that use of the material is permissible, and provided the RIPE NCC Materials are not modified and are properly identified as RIPE NCC documents. Unless authorised by the RIPE NCC in writing, any use of the RIPE NCC Materials for advertising or marketing purposes is strictly forbidden and may be prosecuted. The RIPE NCC should be notified of any such activities or suspicions thereof.</p><p data-block-key="yle0u">Please be advised that no copyrights originate with the RIPE community but instead with the creator of the material, whether that be the RIPE NCC or any other individual or organisation whose material appears on the RIPE NCC website or RIPE website.</p><p data-block-key="9saj8">Use of the RIPE Database is subject to the <a href="https://www.ripe.net/manage-ips-and-asns/db/support/documentation/terms/">RIPE Database Terms and Conditions</a> and <a href="https://www.ripe.net/manage-ips-and-asns/db/support/documentation/ripe-database-acceptable-use-policy/">RIPE Database Acceptable Use Policy</a></p>
+</div>
+</div>
+</div>
+</div></div> </section><button class="accordion"><span class="heading"><span class="svgwrap"><svg aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">  <path fill="currentColor" d="M383.9 308.3l23.9-62.6c4-10.5-3.7-21.7-15-21.7h-43.2c1.5-7.8 2.4-15.8 2.4-24 0-7.2-.9-14.2-2.2-21.1 40.5-9.8 66.2-24.2 66.2-40.2 0-16.5-27-31.2-69.3-41-8.9-33.6-27.4-67.9-41.3-85.4-6.3-8-15.7-12.3-25.3-12.3-9.5 0-12.3 2.4-41.8 17.2-12.8 6.4-24.3 2.1-28.6 0C179.9 2.3 177.3 0 167.9 0c-9.6 0-18.9 4.3-25.2 12.2-13.9 17.5-32.4 51.8-41.3 85.4C59 107.4 32 122.2 32 138.7c0 16.1 25.7 30.5 66.2 40.2-1.3 6.9-2.2 13.9-2.2 21.1 0 8.2.9 16.2 2.4 24H56.3c-11.5 0-19.2 11.7-14.7 22.3l25.8 60.2C27.3 329.8 0 372.7 0 422.4v44.8C0 491.9 20.1 512 44.8 512h358.4c24.7 0 44.8-20.1 44.8-44.8v-44.8c0-48.4-25.8-90.4-64.1-114.1zM128 200c0-2.7.3-5.3.6-7.9 1.3.8 5.1 3.3 5.8 5.4 3.9 11.9 7 24.6 16.5 33.4 8 7.4 47 25.1 64-25 2.8-8.4 15.4-8.4 18.3 0 16 47.4 53.9 34.4 64 25 9.5-8.8 12.7-21.5 16.5-33.4.7-2.1 4.4-4.6 5.8-5.4.3 2.6.6 5.2.6 7.9 0 52.9-43.1 96-96 96S128 252.9 128 200zm-.7-75.5c.7-2.7 12.3-57 40.5-92.5 28.7 14.4 37.7 20.5 56.2 20.5 18.6 0 27.7-6.3 56.2-20.5l.1.1c28.1 35.4 39.7 89.6 40.4 92.4 21.4 4.9 35.8 7.9 51 14.2-24.3 9.9-75.4 21.3-147.7 21.3s-123.4-11.4-147.7-21.3c15.2-6.3 29.9-9.3 51-14.2zM44.8 480c-7.1 0-12.8-5.7-12.8-12.8v-44.8c0-36.5 19.2-69.5 51.4-88.2L108 320l-27.4-64h28.9c4.7 9.6 64.3 108.5 64.3 108.5L142.9 480H44.8zm131.2 0l32-120-21.9-38.4c12.1 3.8 24.6 6.4 37.9 6.4s25.9-2.6 37.9-6.4L240 360l32 120h-96zm240-12.8c0 7.1-5.7 12.8-12.8 12.8h-98.1l-30.8-115.5s59.6-98.9 64.3-108.5h31l-25 65.6 22.5 13.9c30.6 18.9 48.9 51.4 48.9 86.9v44.8z"></path> </svg></span> <span class="button-title">RIPE NCC Privacy Statement</span></span> <legal-accordion-chevron><template shadowrootmode="open"><style>.chevron{font-size:1.8rem;transform:rotate(-90deg);transition:transform .3s}.chevron.open{transform:rotate(0deg)}</style><svg class="chevron" height="24" width="24" aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="#757575" d="M443.5 162.6l-7.1-7.1c-4.7-4.7-12.3-4.7-17 0L224 351 28.5 155.5c-4.7-4.7-12.3-4.7-17 0l-7.1 7.1c-4.7 4.7-4.7 12.3 0 17l211 211.1c4.7 4.7 12.3 4.7 17 0l211-211.1c4.8-4.7 4.8-12.3.1-17z"></path></svg></template></legal-accordion-chevron></button> <section class="panel"><div class="html-content"><div class="mt-3" id="content-core">
+<div class="content-page">
+
+<div class="block-paragraph"><div class="richtext">
+<p data-block-key="95n66">This is a live document. We will keep reviewing our processes and updating the Privacy Statement accordingly.</p><h2 data-block-key="2jtel" id="1-introduction">1. Introduction</h2><p data-block-key="e8u4f">The RIPE NCC respects the privacy of your personal information and is committed to protecting the personal information that you provide. This RIPE NCC Privacy Statement applies to all personal information the RIPE NCC processes, including the collecting, publication, sharing and usage of personal information. The RIPE NCC Privacy Statement describes how the RIPE NCC processes your personal data and how you can access and make changes to your personal data.</p><h2 data-block-key="b9f8e" id="2-processing-your-personal-data">2. Processing your personal data</h2><p data-block-key="iipd3">The main purpose for which the RIPE NCC processes personal information is to support its role as a Regional Internet Registry (RIR). The main activity to fulfil this role is the registration and administration of Internet number resources, including the maintenance of the public RIPE Database (see 2.1).</p><p data-block-key="btqrc">Additionally, the RIPE NCC processes personal information for the purpose of performing activities for the benefit of the RIPE NCC members or for the benefit of the RIPE community (see 2.2).</p><h3 data-block-key="bm2kw" id="21-personal-data-in-the-ripe-database">2.1. Personal data in the RIPE Database</h3><p data-block-key="2a2au">The public RIPE Database shows registration details of Internet number resources. The records may contain contact details (name, email address, phone and fax numbers and postal address) of persons responsible for the operation of networks or routers and/or for maintaining the information in the RIPE Database. The records may also contain geolocation information (e.g. country code, region, etc) of where registered Internet number resources are used.</p><p data-block-key="9wsd6">In some cases, the RIPE NCC provides the initial registration. Subsequently, the personal information (e.g. contact details, geolocation information) pertaining to a specific registration is provided and maintained by a person authorised by, or acting on behalf of, the person or entity to which the Internet number resources have been registered. Updating is subject to an authentication and authorisation procedure (see 5). Please note that the RIPE NCC is not responsible for data entered into the RIPE Database by third parties. The person who enters personal data is responsible for keeping all data they maintain accurate and up-to-date, including maintaining correct contact details and receiving the relevant individual’s consent for publishing their personal data in the RIPE Database (see 5).</p><p data-block-key="jr5py">The RIPE NCC publishes the contact details as part of the registration details of Internet number resources to make it possible for the RIPE NCC and the Internet network community to contact the appropriate persons when it is necessary:</p><ul><li data-block-key="tkk1g">To secure the proper functioning of the Internet;</li><li data-block-key="azo35">To prevent or redress possible misuse of the Internet;</li><li data-block-key="bogd4">To improve the quality of the data;</li><li data-block-key="a4pd6">To protect the information stored in the RIPE Database;</li><li data-block-key="kmgd2">To prevent any unauthorised modification of information stored in the RIPE Database;</li><li data-block-key="ptpoa">To ensure accountability for information entered into the RIPE Database.</li></ul><p data-block-key="0rfnx">The RIPE Database may also be mirrored to databases operated by other RIRs, excluding database objects that are meant to include personal information. The databases of other RIRs may also be mirrored to databases operated by the RIPE NCC. This system allows users to retrieve data on all Internet resource registrations worldwide from the RIR in their region<br><br> The RIPE NCC also, for the purposes specified above, allows proxy access to the RIPE Database via third parties. In addition, third parties may use a Near Real Time Mirror (NRTM) of the RIPE Database or access its contents in bulk via nightly dump and split files that are published by the RIPE NCC. In both cases, database objects that are meant to include personal information are excluded.</p><p data-block-key="bs08v">Where necessary for the above purposes, and to comply with statutory obligations, the RIPE NCC may also keep historical data (data that was published in the RIPE Database before the record was updated) and RIPE Database update requests.</p><h3 data-block-key="xc5sz" id="22-processing-your-personal-data-for-other-purposes">2.2. Processing your personal data for other purposes</h3><p data-block-key="l8vnk">In addition to the collection and use of personal data in relation to the RIPE Database, the RIPE NCC provides other services and activities that may require the processing of your personal information. These include:</p><ol><li data-block-key="6ju3l">RIPE&nbsp;NCC member services: the RIPE NCC may request contact details for services such as relationship management, accounting and billing;</li><li data-block-key="yn93k">LIR&nbsp;Portal and the RIPE NCC website (www.ripe.net): processing of messages, service requests and information requests;</li><li data-block-key="tkins">RIPE community and RIPE NCC membership mailing lists: messages including name, email address, date and message content are published in the mailing lists and mailing list archives to support the open and transparent RIPE Policy Development Process and discussions of membership-related issues;</li><li data-block-key="3h2fr">Event registration administration for meetings, training courses and other organised events: the RIPE NCC may publish lists of attendees on a website as part of its commitment to open and transparent policy development. These lists contain the name of the attendee and their organisation, but no contact details or other personal details.</li><li data-block-key="6z1us">Publicly-available services as defined in the RIPE NCC Website and Publicly Available Services Terms of Service: the RIPE NCC may request contact details for purposes related to the provision and proper function of these services such as information requests, installation, support, maintenance, billing, relationship management and administration.</li></ol><p data-block-key="m4nqf">The RIPE NCC may use contact details provided in relation to all of the above activities to send you relevant information on its activities and services, such as announcements on network upgrades, outages, RIPE NCC services, RIPE Meetings, training courses and other organised events. The RIPE NCC may also forward public messages to a particular mailing list on occasion if it is relevant and appropriate for that list. If you do not wish to receive such messages, you can unsubscribe yourself at any time (see 5).</p><p data-block-key="jlf9p">In addition to the above, the RIPE NCC may register, process or transfer your personal data where such is required pursuant to a statutory duty.</p><p data-block-key="1ppai"></p><h3 data-block-key="fs1p" id="23-sharing-your-personal-data-with-ripe-ncc-affiliates">2.3. Sharing your personal data with RIPE NCC affiliates</h3><p data-block-key="5s2tn">The RIPE NCC may share your personal data with the RIPE NCC Middle East FZ-LLC, an affiliate legal entity established in Dubai that is fully owned by the RIPE NCC. The RIPE NCC Middle East FZ-LLC may process your personal data to support the facilitation of meetings, training courses and other events, including their related preparations and activities. Any transfer of personal data from the RIPE NCC to the RIPE NCC Middle East FZ- LLC will happen based on the adoption of standard contractual clauses adopted by the European Commission and, in any case, will be processed in line with Dutch and EU laws.</p><h3 data-block-key="bt7d3" id="24-sharing-your-personal-data-with-third-parties">2.4. Sharing your personal data with third parties</h3><p data-block-key="94tbe">The RIPE NCC may engage third parties for the provision of RIPE NCC services. In such cases, personal data collected for that particular purpose may be shared with these parties.</p><p data-block-key="5g0ha">The RIPE NCC undertakes to engage parties that offer equivalent levels of security and protection and to make any appropriate contractual and organisational arrangements so that the data shared is limited to that required for the respective purpose and is not processed for longer than necessary.</p><p data-block-key="92jew">If for the provision of the third-party services, &nbsp;personal data is transferred to a country outside the European Economic Area, this will happen in accordance with the Dutch and EU data protection laws.</p><h2 data-block-key="7sv9b" id="3-protection-and-secrecy-of-your-information">3. Protection and secrecy of your information</h2><p data-block-key="jt8ev">The RIPE NCC maintains strict procedures to authenticate people's identity and verify their right to authorise changes to their personal information.</p><p data-block-key="ak7u7">Personal data held in the RIPE Database is available to the public. Use of the RIPE Database is subject to the <a href="https://www.ripe.net/manage-ips-and-asns/db/support/documentation/terms/">RIPE Database Terms and Conditions</a>.&nbsp;The RIPE NCC operates a technical query-limiting process as well as an <a href="https://www.ripe.net/manage-ips-and-asns/db/support/documentation/ripe-database-acceptable-use-policy/">Acceptable Use Policy</a>&nbsp;to prevent data mining of large amounts of personal data through the RIPE Database query service. People attempting to abuse this service will have their access to the RIPE Database blocked.</p><p data-block-key="5wit7">The RIPE NCC maintains a high level of physical security and protection for all of its computer and network facilities, especially those in which personal information may be stored.</p><h2 data-block-key="2wc0c" id="4-use-of-cookies">4. Use of Cookies</h2><h4 data-block-key="hrms7">4.1 What is a cookie and what are cookies used for?</h4><p data-block-key="a3chj">“Cookies” are small files that a browser can record after visiting a website. These files are set on your computer (or any other device with which you visit a website) through your browser.</p><p data-block-key="xw2id">The RIPE NCC is using cookies. By indicating your choice and allowing only the required cookies or accepting them all, you confirm that you are aware of the cookies the RIPE NCC is using, and the purposes these cookies are used for, as described herein.</p><p data-block-key="v9m9y">Websites operated by the RIPE NCC may use cookies that:</p><ul><li data-block-key="e4inl">Are strictly necessary for the provision of the services that are available through the website and facilitate your use of these services (e.g. to identify you when you are logged in)</li><li data-block-key="3dice">Improve your experience by recording information about your settings (e.g. your location)</li><li data-block-key="zp2t3">Collect anonymous statistical information on the use of the website that help us improve the performance of the RIPE NCC website (e.g. the number of visitors to each part of our websites and their origin)</li><li data-block-key="da56p">Help us study the IPv6 capability of visitors, by making sure that your IPv6 capability is only measured once</li></ul><p data-block-key="jv9pi">The RIPE NCC <b>does not use&nbsp;</b>cookies for online behavioural advertising purposes nor does it share information collected via cookies with any third parties.</p><p data-block-key="g4l2s">Some of the cookies described above are deleted once you close your browser. Others are set for longer periods of time.</p><p data-block-key="vprgn">On websites operated by the RIPE NCC where no cookies are set or only strictly necessary cookies are present, visitor consent is not required. In these cases, there may be no cookie banner.</p><p data-block-key="ko65l">For detailed information about the cookies used by the RIPE NCC, the purpose of these cookies and the period they remain active, please see <a href="https://www.ripe.net/about-us/legal/cookies/">the list of cookies</a>.</p><h4 data-block-key="4zdp0">4.2 Third party cookies</h4><p data-block-key="az76b">During your visit to the RIPE NCC website, third parties may also set cookies on your device.&nbsp;These cookies are set if you choose to view third-party content embedded on our website, such as a YouTube video, and are beyond the control of the RIPE NCC.<br><br> Prior to viewing third-party content on our website, the RIPE NCC will inform you that by viewing such content, the third-party may set cookies and process your personal data. It will also record your permission to view that party’s content on our website once or for a longer period. If you do not agree to either of these options, the third-party content will not be displayed on our website.</p><h4 data-block-key="2e38w">4.3 Disabling cookies</h4><p data-block-key="zi4zp">You can disable cookies by adjusting your browser settings Please check the “help” menu of your browser for information about how to change your cookie preferences. However you may not be able to use all website features if cookies are disabled.</p><h2 data-block-key="10jy2" id="5-accessing-and-changing-your-information">5. Accessing and changing your information</h2><p data-block-key="rjqru">You have the right to ask that inaccurate or incomplete data relating to you is rectified. In order to fulfil our obligation, the RIPE NCC will ask you to identify yourself.</p><p data-block-key="fq6v0">RIPE NCC members can view their registration information online via the LIR Portal. You may be able to access and change your personal data using the LIR Portal on behalf of your organisation. The RIPE NCC will help those who may have trouble modifying their own data. To prevent unauthorised access and changes to your personal data, you will have to log in with your credentials (i.e. Reg ID, username and password).</p><p data-block-key="jiaeg">If you are not authorised to change your personal data in the RIPE Database, please refer to the authorised person (the maintainer, i.e. the person or entity indicated on the record as “mnt-by:”).&nbsp;The maintainer is responsible for the personal data they input into the RIPE Database and for obtaining the relevant individual’s consent before doing so when required by law. If the maintainer does not respond, you may refer to the <a data-link-type="external" href="https://apps.db.ripe.net/docs/removal-of-personal-data/" rel="nofollow noopener" target="_blank" title="External link to https://apps.db.ripe.net/docs/removal-of-personal-data/">RIPE NCC Procedure for the Removal of Personal Contact Details from the RIPE Database</a>.</p><p data-block-key="7m7r4">This procedure describes the terms under which the RIPE NCC may remove personal data from the RIPE Database upon the request of the data subject.</p><p data-block-key="mugwq">If you are subscribed to any RIPE mailing lists, you can unsubscribe yourself at any time or change your preferences by accessing this web page:</p><p data-block-key="78mm5"><a href="https://www.ripe.net/membership/mail/">http://www.ripe.net/participate/mail</a></p><p data-block-key="0gblf">If you are subscribed to a RIPE NCC membership mailing list, you can unsubscribe by logging in to the LIR Portal of the member you represent and changing your details in the “Subscribed Mailing Lists” section.</p><p data-block-key="hyp38">If your name has been published on the RIPE NCC website as part of the attendee list for an event or meeting and you wish to be deleted from the list, please contact <a href="mailto:meeting@ripe.net">meeting@ripe.net</a>.</p><p data-block-key="kn2lu">If you have questions or concerns about the accuracy or appropriateness of any other personal information held by the RIPE NCC, please contact <a href="mailto:ncc@ripe.net">ncc@ripe.net</a>. RIPE NCC will respond and seek to correct any problems as soon as possible.</p><p data-block-key="uwvnq">If you disagree with the RIPE NCC’s response or did not receive adequate support, you have the right to file a complaint with the <a data-link-type="external" href="https://autoriteitpersoonsgegevens.nl/" rel="nofollow noopener" target="_blank" title="External link to https://autoriteitpersoonsgegevens.nl/">Dutch Data Protection Authority (Autoriteit Persoonsgegevens</a>).</p><h2 data-block-key="1n5cd" id="6-changes-to-this-privacy-statement">6. Changes to this privacy statement</h2><p data-block-key="lu7oh">The RIPE NCC may change this privacy statement from time to time. The current version of the privacy statement will be available on www.ripe.net.</p><h2 data-block-key="f1etl" id="7-questions-or-suggestions">7. Questions or suggestions</h2><p data-block-key="osbeh">If you have any questions, suggestions or concerns about the issues discussed in this document, please email us at <a href="mailto:ncc@ripe.net">ncc@ripe.net</a>.</p>
+</div>
+</div>
+</div>
+</div></div> </section><button class="accordion"><span class="heading"><span class="svgwrap"><svg aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">  <path fill="currentColor" d="M608 352h-64V112C544 50.25 493.75 0 432 0H80C35.88 0 0 35.89 0 80v80c0 17.64 14.34 32 32 32h96v224c0 51.11 40.25 92.62 90.66 95.46v.54h312C590.94 512 640 462.95 640 402.67V384c0-17.64-14.34-32-32-32zM128 160H32V80c0-26.47 21.53-48 48-48s48 21.53 48 48v80zm160 256c0 35.3-28.72 64-64 64s-64-28.7-64-64V80c0-18-5.97-34.62-16.03-48H432c44.12 0 80 35.89 80 80v240H320c-17.66 0-32 14.36-32 32v32zm320-13.33c0 42.64-34.69 77.33-77.34 77.33H295.03c15.35-17.02 24.97-39.32 24.97-64v-32h288v18.67z"></path> </svg></span> <span class="button-title">RIPE Database Terms and Conditions</span></span> <legal-accordion-chevron><template shadowrootmode="open"><style>.chevron{font-size:1.8rem;transform:rotate(-90deg);transition:transform .3s}.chevron.open{transform:rotate(0deg)}</style><svg class="chevron" height="24" width="24" aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="#757575" d="M443.5 162.6l-7.1-7.1c-4.7-4.7-12.3-4.7-17 0L224 351 28.5 155.5c-4.7-4.7-12.3-4.7-17 0l-7.1 7.1c-4.7 4.7-4.7 12.3 0 17l211 211.1c4.7 4.7 12.3 4.7 17 0l211-211.1c4.8-4.7 4.8-12.3.1-17z"></path></svg></template></legal-accordion-chevron></button> <section class="panel"><div class="html-content"><div class="mt-3" id="content-core">
+<div class="content-page">
+
+<div class="block-paragraph"><div class="richtext">
+<h2 id="introduction">Introduction</h2>
+<p>The RIPE NCC is authorised by the RIPE community to act as the registration authority for Internet number resources in its service region and to manage the operation of the RIPE Database.</p>
+<h2 id="article-1-definitions">Article 1 - Definitions</h2>
+<p>In the Terms and Conditions, the following terms shall be understood to have the meanings assigned to them below:</p>
+<p>RIPE NCC - Réseaux IP Européens Network Coordination Centre. A membership association under Dutch law operating its registered office in Amsterdam, the Netherlands.</p>
+<p>RIPE community - RIPE (Réseaux IP Européens) is a collaborative forum open to all parties interested in wide area IP networks in Europe and beyond. The objective of RIPE is to ensure the administrative and technical coordination necessary to enable the operation of a pan-European IP network.</p>
+<p>Update - submitting information for entry into or removal from the RIPE Database</p>
+<p>Query - requesting information from the RIPE Database</p>
+<p>Access - Update and Query the RIPE Database</p>
+<p>Internet number resources - globally unique address space (IPv4 and IPv6) and Autonomous System Numbers (ASNs) issued by any Internet Number Registry.</p>
+<p>Primary objects - Internet number resources and other data object types that are not directly related to any other primary object type and which are defined by Routing Policy Specification Language (RPSL) or which have been agreed by the RIPE Community as acceptable primary data.</p>
+<p>Secondary objects - objects that are defined by RPSL or which have been agreed by the RIPE Community as acceptable secondary data and which are related, either directly or indirectly, to primary objects.</p>
+<p>RIPE Database - the publicly available data collection of Internet Number Registry (INR) and Internet Routing Registry (IRR) data published by the RIPE NCC. It contains all the primary and secondary objects. There is also some non-public data required for the operation of the RIPE Database and the registries, but this non-public data does not form part of the RIPE Database.</p>
+<p>Registrant - a natural person or legal entity to whom an Internet number resource has been registered or who has registered any other primary object in the RIPE Database by specific or general agreement with the RIPE NCC.</p>
+<p>Maintainer - any Registrant or person to whom the authority to Update has been delegated by a Registrant either directly or indirectly, and who holds an identifier that allows updates to be authenticated and authorised.</p>
+<p>User - anyone who Accesses the RIPE Database. This includes Registrants and Maintainers.</p>
+<p>RPSL - <a data-link-type="external" href="https://www.rfc-editor.org/rfc/rfc2622.html" rel="nofollow noopener" target="_blank" title="External link to https://www.rfc-editor.org/rfc/rfc2622.html">Routing Policy Specification Language</a></p>
+<p>Internet Number Registry (INR) - a registry that allocates Internet number resources and holds and publishes details of Internet number resource information.</p>
+<p>Internet Routing Registry (IRR) - a registry that holds and publishes details of Internet routing information.</p>
+<p>Contact details - all details relating to name, postal address, phone, fax, e-mail or any other form of electronic communication that is used by a natural person or a legal entity.</p>
+<h2 id="article-2-general">Article 2 - General</h2>
+<ol>
+<li>Access to the RIPE Database is available to anyone provided these Terms and Conditions are followed.</li>
+<li>A User&nbsp;may only Access the RIPE Database and the data contained therein to the extent permitted by these Terms and Conditions. A User who Accesses the RIPE Database agrees to these Terms and Conditions.</li>
+<li>Only Registrants and the RIPE NCC have the authority to Update the RIPE Database. To Update the RIPE Database, a Registrant has to take on the role of a Maintainer or authorise a third party to act as Maintainer on his behalf.</li>
+<li>A Registrant who accepts a registration of an Internet number resource from the RIPE NCC, or who registers any other Primary object in the RIPE Database, or who copies a registration of an Internet number resource from another registry into the RIPE Database, must accept these Terms and Conditions before assuming a Registrant's authority to Update the RIPE Database, even if that authority is then delegated to a Maintainer.</li>
+<li>A Maintainer who is not a Registrant must accept these Terms and Conditions before accepting the delegated authority from a Registrant to Update the RIPE Database.</li>
+<li>A Maintainer may only Update the RIPE Database with these types of data:
+<ul>
+<li>Internet number resources for which the Registrant holds a valid registration</li>
+<li>Primary objects that are not Internet number resources, for which the Registrant has agreement to register</li>
+<li>Secondary objects related to either of the above</li>
+</ul>
+</li>
+<li>A Secondary object must be related to an existing or intended valid Primary object at the time of the Update to create the Secondary object in the RIPE Database. At any time this relationship becomes no longer valid, or the intended relation is never completed, the Secondary object must be deleted. It may be subject to automatic deletion by the RIPE Database management software at any time if it is invalid.</li>
+<li>Registrants and Maintainers will assist the RIPE NCC with security checks and audits as appropriate.</li>
+</ol>
+<h2 id="article-3-purpose-of-the-ripe-database">Article 3 - Purpose of the RIPE Database</h2>
+<p>The RIPE Database contains information for the following purposes:</p>
+<ul>
+<li>Ensuring the uniqueness of Internet number resource usage through registration of information related to the resources and Registrants</li>
+<li>Publishing routing policies by network operators (IRR)</li>
+<li>Facilitating coordination between network operators (network problem resolution, outage notification etc.)</li>
+<li>Facilitating network operations by publishing geolocation information about the usage of Internet number resources (including country, region, city of the party to which the resources have been distributed by the Registrants)</li>
+<li>Provisioning of Reverse Domain Name System (DNS) and ENUM delegations</li>
+<li>Providing information about the Registrant and Maintainer of Internet number resources when the resources are suspected of being used for unlawful activities, to parties who are authorised under the law to receive such information.</li>
+<li>Scientific research into network operations and topology</li>
+<li>Providing information to parties involved in disputes over Internet number resource registrations to parties who are authorised under the law to receive such information.</li>
+</ul>
+<h2 id="article-4-use-of-the-ripe-database">Article 4 - Use of the RIPE Database</h2>
+<ol>
+<li>A User may only Access the RIPE Database and the data contained therein for any of the purposes as mentioned in Article 3 hereof and provided these Terms and Conditions are followed. The RIPE NCC is not responsible for any use of data retrieved from the RIPE Database directly or indirectly.</li>
+<li>A User may only conduct queries or submit updates of a nature, rate or volume permitted by the <a href="https://www.ripe.net/manage-ips-and-asns/db/support/documentation/ripe-database-acceptable-use-policy/">Acceptable Use Policy.</a></li>
+<li>The RIPE NCC records details about all queries and updates for purposes including detecting and preventing unacceptable use.</li>
+<li>A User may not use the RIPE Database or the data contained therein for advertising, direct marketing, marketing research or similar purposes.</li>
+<li>A User may not re-package, download, compile, re-distribute or re-use any or all of the RIPE Database or the data contained therein unless&nbsp;they do so only with an insubstantial part of the RIPE Database or the data contained therein or when permission to do so is granted by the RIPE NCC.</li>
+<li>A Maintainer can authenticate updates by using a personal or organisation's identifier of a type supported by the RIPE Database authentication scheme.</li>
+<li>The RIPE NCC will assume that any action done, or asked for, using that identifier was carried out, or asked for, by the Maintainer who holds that identifier.</li>
+<li>The RIPE NCC may at its sole discretion implement procedures for dealing with lost, cancelled or insecure identifiers.</li>
+</ol>
+<h2 id="article-5-control-of-the-ripe-database">Article 5 - Control of the RIPE Database</h2>
+<ol>
+<li>The RIPE NCC may correct or delete RIPE Database data:
+<ul>
+<li>according to RIPE policies</li>
+<li>to comply with applicable law</li>
+<li>if so ordered by any competent court</li>
+<li>to fulfill any legal obligation</li>
+<li>when a breach of the Terms and Conditions has occurred</li>
+<li>for management operations of the RIPE Database</li>
+<li>if any data is inaccurate</li>
+<li>if any data is entered by someone who is not authorised to do so</li>
+</ul>
+</li>
+<li>The RIPE NCC may withdraw the service provided hereunder from a User at any time and is entitled, in its sole discretion, to terminate or slow down a User's Access to the RIPE Database for any reason, particularly a failure to adhere to the Terms and Conditions.</li>
+<li>The RIPE NCC may suspend Access to the RIPE Database, or part thereof, for maintenance purposes, upgrades, security fixes and deployment of new services subject to notification of the RIPE community.</li>
+<li>The RIPE NCC may, in accordance with the Removal of Personal Data procedure, remove the personal data of an individual upon request by this individual. The RIPE NCC will only take such action when convinced that a valid request from the right person is received.</li>
+</ol>
+<h2 id="article-6-responsibilities">Article 6 - Responsibilities</h2>
+<ol>
+<li>The RIPE NCC does not guarantee the accuracy, or completeness or availability of the RIPE Database or of the data contained therein.</li>
+<li>The Maintainer is responsible for keeping all data maintained by&nbsp;them accurate and up-to-date, including correct Contact Details. The data must be good enough to allow the RIPE NCC to contact the Maintainer or Registrant within a reasonable time without having to get information from another source.</li>
+<li>The Maintainer who enters personal data into the RIPE Database has a responsibility to inform the individual to whom the data pertains and to obtain&nbsp;their&nbsp;explicit consent for the entry in the public RIPE Database if required by law.</li>
+<li>The RIPE NCC is not responsible for the use and any issues arising from the use of any registered Internet number resources.</li>
+</ol>
+<h2 id="article-7-liability">Article 7 - Liability</h2>
+<ol>
+<li>Use of the RIPE Database and the data contained therein is at the User's own risk.</li>
+<li>With the exception of any wilful damage or gross negligence committed by the RIPE NCC or its managerial staff, neither the RIPE NCC nor any of its officers, directors, employees, agents or other representatives who make the RIPE Database available or provide any other service whatsoever to the User, shall be liable to the User or to any third party, including any governmental agency, for any claims, losses, damages, liabilities or expenses whatsoever relating directly or indirectly to the use of the RIPE Database, and the User agrees to hold harmless, indemnify and defend the RIPE NCC, its officers, directors, employees, agents or other representatives for any such claims, losses, damages, liabilities or expenses, and all costs and expenses that may be incurred in relation to their use of the RIPE Database, including reasonable attorneys' fees.</li>
+<li>All rights of legal action and other entitlements on the part of the User towards the RIPE NCC in connection with the (use of) the RIPE Database shall lapse as soon as a one year term has expired since the date on which the User has become aware of or could in all fairness have been aware of the existence of such rights and entitlements.</li>
+</ol>
+<h2 id="article-8-miscellaneous">Article 8 - Miscellaneous</h2>
+<ol>
+<li>If any provision in these Terms and Conditions is held to be invalid in a court of law, this shall not in any way affect the validity of the remaining provisions.</li>
+<li>The User acknowledges and accepts that the Terms and Conditions may be amended by the RIPE NCC. The RIPE NCC will make an announcement at least one month prior to any such amendment coming into effect, unless a more immediate change is required for legal or operational reasons.</li>
+<li>Changes can also be effected through the <a href="https://www.ripe.net/community/policies/">Policy Development Process</a>.</li>
+</ol>
+<h2 id="article-9-intellectual-property-rights">Article 9 - Intellectual property rights</h2>
+<ol>
+<li>The User acknowledges that any and all copyright, trade marks, database rights and other intellectual property rights subsisting in or used in connection with the RIPE Database, the data contained therein, the underlying software and any accompanying documents and agreements are and shall remain the property of the RIPE NCC.</li>
+<li>Except as provided herein, the RIPE Database, the data contained therein and any accompanying documents and agreements may not be used, reproduced or made available to third parties without prior written authorisation from the RIPE NCC.</li>
+</ol>
+<h2 id="article-10-governing-law">Article 10 - Governing law</h2>
+<p>These Terms and Conditions shall be exclusively governed by the laws of the Netherlands. The competent court in Amsterdam shall have exclusive jurisdiction with regard to disputes arising from these Terms and Conditions.</p>
+</div>
+</div>
+</div>
+</div></div> </section><button class="accordion"><span class="heading"><span class="svgwrap"><svg aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">  <path fill="currentColor" d="M352 328c-13.25 0-24 10.74-24 24 0 13.25 10.75 24 24 24s24-10.75 24-24c0-13.26-10.75-24-24-24zm-8-200c0-13.26-10.75-24-24-24s-24 10.74-24 24c0 13.25 10.75 24 24 24s24-10.75 24-24zm-160 64c0-13.26-10.75-24-24-24s-24 10.74-24 24c0 13.25 10.75 24 24 24s24-10.75 24-24zm8 136c-13.25 0-24 10.74-24 24 0 13.25 10.75 24 24 24s24-10.75 24-24c0-13.26-10.75-24-24-24zm96-96c-13.25 0-24 10.74-24 24 0 13.25 10.75 24 24 24s24-10.75 24-24c0-13.26-10.75-24-24-24zm222.37 22.79l-12.08-76.26a132.493 132.493 0 0 0-37.16-72.95l-54.76-54.75c-19.73-19.72-45.18-32.7-72.71-37.05l-76.7-12.15C250.11.54 243.22 0 236.34 0c-20.72 0-41.25 4.88-59.89 14.38l-69.12 35.21a132.25 132.25 0 0 0-57.79 57.8l-35.1 68.87A132.602 132.602 0 0 0 1.62 257.2l12.08 76.27a132.493 132.493 0 0 0 37.16 72.95l54.76 54.75a132.087 132.087 0 0 0 72.71 37.05l76.7 12.14c6.86 1.09 13.75 1.62 20.63 1.62 20.72 0 41.25-4.88 59.88-14.38l69.12-35.21a132.302 132.302 0 0 0 57.79-57.8l35.1-68.87a132.56 132.56 0 0 0 12.82-80.93zm-41.33 66.41l-35.1 68.88c-9.68 19-24.83 34.15-43.8 43.82l-69.12 35.21c-13.98 7.13-29.67 10.89-45.36 10.89-5.21 0-10.47-.41-15.63-1.23l-76.69-12.14c-20.99-3.33-40.04-13.04-55.09-28.08L73.5 383.79c-15.09-15.09-24.84-34.22-28.18-55.33L33.24 252.2c-3.35-21.12.02-42.36 9.72-61.4l35.1-68.88c9.68-19 24.83-34.15 43.8-43.82l69.12-35.21C204.97 35.77 220.65 32 236.34 32c5.21 0 10.47.41 15.62 1.23l76.7 12.15c20.99 3.32 40.04 13.03 55.08 28.08l54.76 54.75c15.09 15.09 24.84 34.22 28.18 55.33l12.08 76.26c3.35 21.12-.02 42.36-9.72 61.4z"></path> </svg></span> <span class="button-title">Cookies used by the RIPE NCC</span></span> <legal-accordion-chevron><template shadowrootmode="open"><style>.chevron{font-size:1.8rem;transform:rotate(-90deg);transition:transform .3s}.chevron.open{transform:rotate(0deg)}</style><svg class="chevron" height="24" width="24" aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="#757575" d="M443.5 162.6l-7.1-7.1c-4.7-4.7-12.3-4.7-17 0L224 351 28.5 155.5c-4.7-4.7-12.3-4.7-17 0l-7.1 7.1c-4.7 4.7-4.7 12.3 0 17l211 211.1c4.7 4.7 12.3 4.7 17 0l211-211.1c4.8-4.7 4.8-12.3.1-17z"></path></svg></template></legal-accordion-chevron></button> <section class="panel"><div class="html-content"><div class="mt-3" id="content-core">
+<div class="content-page">
+
+<div class="block-paragraph"><div class="richtext">
+<p data-block-key="hhz3d">This page may also cover other non-cookie technologies (e.g. anonymous device fingerprinting, anonymous unique identifiers).</p><p data-block-key="m2l96">For more information on how we use cookies, check our <a data-link-type="internal" href="http://www.ripe.net/about-us/legal/ripe-ncc-privacy-statement#cookies">Privacy Statement</a>.</p><h2 data-block-key="34uko" id="strictly-necessary-cookies">Strictly necessary cookies</h2>
+</div>
+</div>
+<div class="block-table">
+<div class="typed-table">
+<table>
+<thead>
+<tr>
+<th scope="col">Cookie name</th>
+<th scope="col">Purpose</th>
+<th scope="col">Term</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><div class="richtext">
+<p data-block-key="303h2"><b>crowd.token_key</b></p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="fuln1">This cookie identifies the user. It is used to authenticate logged-in single-sign-on (RIPE NCC Access) users.</p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="7lmjk">Expires when the browser session is closed</p>
+</div>
+</td>
+</tr>
+<tr>
+<td><div class="richtext">
+<p data-block-key="mj4dv"><b>crowd.ripe.hint</b></p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="byaz1">This cookie is used to identify logged-in users&nbsp;on RIPE NCC services (Single Sign On).</p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="sjk76">Expires when the browser session is closed</p>
+</div>
+</td>
+</tr>
+<tr>
+<td><div class="richtext">
+<p data-block-key="xi3dd"><b>PHPSESSID</b></p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="m9j9n">This&nbsp;is a session cookie, used to identify a user's session on a website. It is commonly used in PHP-based web applications to store a unique identifier for a user's session on the server.</p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="q8gma">Expires when the browser session is closed</p>
+</div>
+</td>
+</tr>
+<tr>
+<td><div class="richtext">
+<p data-block-key="rtkfo"><b>JSESSIONID</b></p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="wrm1n">This is a general-purpose platform session cookie, used by sites written in JSP. Usually used to maintain an anonymous user session by the server.</p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="a87hl">Expires when the browser session is closed</p>
+</div>
+</td>
+</tr>
+<tr>
+<td><div class="richtext">
+<p data-block-key="vt94e"><b>*_sessionid</b></p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="5wzuy">This cookie is used to authenticate a user's logged-in status and permissions.</p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="s5eke">Expires after&nbsp;2 weeks</p>
+</div>
+</td>
+</tr>
+<tr>
+<td><div class="richtext">
+<p data-block-key="kehbu"><b>*_csrftoken</b></p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="a4ggo">This cookie is associated with the Django web development platform for Python. It is designed to help protect a site against a particular type of software attack on web forms.</p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="5dxol">Expires after 1 year</p>
+</div>
+</td>
+</tr>
+<tr>
+<td><div class="richtext">
+<p data-block-key="5rts7"><b>MoodleSession</b></p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="7b9w6">You must allow this cookie used by our learning platform Moodle into your browser to provide continuity and maintain your login from page to page.</p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="bdcph">Expires when the browser session is closed</p>
+</div>
+</td>
+</tr>
+<tr>
+<td><div class="richtext">
+<p data-block-key="6mpeg"><b>__cf_bm</b></p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="d6syv">The __cf_bm cookie is a cookie necessary to support Cloudflare Bot Management, currently in private beta. As part of our bot management service, this cookie helps manage incoming traffic that matches criteria associated with bots.</p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="kwf8w">Expires after&nbsp;30 minutes</p>
+</div>
+</td>
+</tr>
+<tr>
+<td><div class="richtext">
+<p data-block-key="e0gxh"><b>cf_chl_cc_xxxxxxxxxxxx</b></p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="2dsy1">These cookies are used by Cloudflare for the execution of Javascript or Captcha challenges. They are not used for tracking or beyond the scope of the challenge.</p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="o86di">Expires when the browser session is closed</p>
+</div>
+</td>
+</tr>
+<tr>
+<td><div class="richtext">
+<p data-block-key="po3ux"><b>cf_chl_rc_*</b></p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="po3ux">These cookies are used by Cloudflare for internal use to identify production issues on clients.</p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="po3ux">Expires after 1 day</p>
+</div>
+</td>
+</tr>
+<tr>
+<td><div class="richtext">
+<p data-block-key="j1pe2"><b>cf_chl_2</b></p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="hg6tt">These cookies are used by Cloudflare for the execution of Javascript or Captcha challenges. They are not used for tracking or beyond the scope of the challenge.</p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="feka2">Expires after a few seconds</p>
+</div>
+</td>
+</tr>
+<tr>
+<td><div class="richtext">
+<p data-block-key="wojyn"><b>AWSALB</b></p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="3wkex">AWS ELB application load balancer.</p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="q37rn">Expires after 1 week</p>
+</div>
+</td>
+</tr>
+<tr>
+<td><div class="richtext">
+<p data-block-key="j2ofl"><b>AWSALBCORS</b></p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="mxprc">This cookie is managed by AWS and is used for load balancing.</p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="qqoqn">Expires after 1 week</p>
+</div>
+</td>
+</tr>
+<tr>
+<td><div class="richtext">
+<p data-block-key="88rf9"><b>activeMembershipId</b></p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="olxcy">This cookie represents the ID of the member currently being edited.</p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="kdmk1">Expires when the browser session is closed</p>
+</div>
+</td>
+</tr>
+<tr>
+<td><div class="richtext">
+<p data-block-key="ahgsk"><b>activeRegId</b></p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="0xjpn">Holds the currently selected RegID.</p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="n73sc">Expires when the browser session is closed</p>
+</div>
+</td>
+</tr>
+<tr>
+<td><div class="richtext">
+<p data-block-key="lqb13"><b>nccmeeting</b></p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="jgwnx">Used for sticking the user session to a particular application backend.</p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="z9r0s">Expires when the browser session is closed</p>
+</div>
+</td>
+</tr>
+<tr>
+<td><div class="richtext">
+<p data-block-key="rbrn7"><b>.AspNetCore.Antiforgery.*</b></p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="wpy7r">This cookie is a security token for application operation generated by the&nbsp;&nbsp;<a data-link-type="external" href="http://microsoft.net/" rel="nofollow noopener" target="_blank" title="External link to http://microsoft.net/">Microsoft.net</a> framework.</p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="pmqk0">Expires when the browser session is closed</p>
+</div>
+</td>
+</tr>
+<tr>
+<td><div class="richtext">
+<p data-block-key="ga3aq"><b>arlo_cid</b></p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="r1ony">Arlo_cid is the cart ID and is required for the checkout to function.</p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="mii9r">Expires after&nbsp;30 minutes&nbsp;</p>
+</div>
+</td>
+</tr>
+<tr>
+<td><div class="richtext">
+<p data-block-key="3d2ey"><b>_GRECAPTCHA</b></p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="21p7k">Set by Google reCAPTCHA, which protects forms against spam enquiries.</p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="1qzi1">Expires after 6&nbsp;months</p>
+</div>
+</td>
+</tr>
+<tr>
+<td><div class="richtext">
+<p data-block-key="nn5yu"><b>areYourCookiesEnabled</b></p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="b189t">Used to check if the user's browser supports cookies.</p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="17kgq">Expires when the browser session is closed</p>
+</div>
+</td>
+</tr>
+<tr>
+<td><div class="richtext">
+<p data-block-key="2cyi2"><b>mtm-paq</b></p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="9kbt7">This is our cookie banner, where you can accept or reject cookies.</p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="9dnn6">Expires after 1 year</p>
+</div>
+</td>
+</tr>
+<tr>
+<td><div class="richtext">
+<p data-block-key="aicfx"><b>tag-consent-*</b></p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="pqh76">This is the cookie banner we use for embedded content where you accept cookies per provider of the embedded content.</p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="yh7k0">Expires after 1 month</p>
+</div>
+</td>
+</tr>
+<tr>
+<td><div class="richtext">
+<p data-block-key="jc06l"><b>websiteSearch</b></p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="pj8ga">Added when the user selects the website search as the default NCC search.</p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="yb96p">Expires after 1 year</p>
+</div>
+</td>
+</tr>
+<tr>
+<td><div class="richtext">
+<p data-block-key="l191l"><b>dnsmon_dnsmon_color_range_pls</b></p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="7daf0">Stores user's preferences in the DNSMON widget.</p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="2qnlr">Expires after 4&nbsp;months</p>
+</div>
+</td>
+</tr>
+<tr>
+<td><div class="richtext">
+<p data-block-key="8xnko"><b>pref-ui-mode</b></p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="k2xaq">Keeps information about the selected editor type, i.e. single-line editor or text editor.</p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="8v5la">Expires after 1 day</p>
+</div>
+</td>
+</tr>
+<tr>
+<td><div class="richtext">
+<p data-block-key="bcz9e"><b>zlcprivacy</b></p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="olihe">Used by the Zendesk chat widget to store the visitor's decision on cookie acceptance.</p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="gryht">Expires after 1 year</p>
+</div>
+</td>
+</tr>
+<tr>
+<td><div class="richtext">
+<p data-block-key="yf6ll"><b>zlcmid</b></p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="w8mmu">Used by the Zendesk chat widget to store the visitor's ID for widget authentication.</p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="5cuil">Expires after 1 year</p>
+</div>
+</td>
+</tr>
+<tr>
+<td><div class="richtext">
+<p data-block-key="tbr64"><b>open-live-chat</b></p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="e1r39">Used to open the Zendesk chat widget window.&nbsp;</p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="55m1r">Expires when the browser session is closed</p>
+</div>
+</td>
+</tr>
+<tr>
+<td><div class="richtext">
+<p data-block-key="zluw6"><b>_pk_testcookie_domain</b></p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="r41ps">Matomo cookie that determines whether the browser accepts cookies.&nbsp;</p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="rsb7i">Created, then immediately deleted</p>
+</div>
+</td>
+</tr>
+<tr>
+<td><div class="richtext">
+<p data-block-key="6t15l"><b>cookies-accepted</b></p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="084zy">This is a cookie that we used to identify that a visitor accepted our previous Cookie Policy. It was set for a period of one year. We have now deprecated it, and therefore it can be removed when seen.</p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="5slbn">Expires after 1 year</p>
+</div>
+</td>
+</tr>
+<tr>
+<td><div class="richtext">
+<p data-block-key="y3wov"><b>AUTH_SESSION_ID</b></p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="y3wov">This cookie is used to identify logged in users among RIPE NCC services (Single Sign On).</p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="y3wov">Expires when the browser session is closed</p>
+</div>
+</td>
+</tr>
+<tr>
+<td><div class="richtext">
+<p data-block-key="y3wov"><b>KC_RESTART</b></p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="y3wov">This cookie is used to identify logged in users among RIPE NCC services (Single Sign On).</p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="y3wov">Expires when the browser session is closed</p>
+</div>
+</td>
+</tr>
+<tr>
+<td><div class="richtext">
+<p data-block-key="y3wov"><b>KEYCLOAK_IDENTITY</b></p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="y3wov">This cookie is used to identify logged in users among RIPE NCC services (Single Sign On).</p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="y3wov">Expires when the browser session is closed</p>
+</div>
+</td>
+</tr>
+<tr>
+<td><div class="richtext">
+<p data-block-key="y3wov"><b>KEYCLOAK_SESSION</b></p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="y3wov">This cookie is used to identify logged in users among RIPE NCC services (Single Sign On).</p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="y3wov">Expires after 8 hours</p>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="block-paragraph"><div class="richtext">
+<h2 data-block-key="l3w9s" id="performance-cookies">Performance cookies</h2>
+</div>
+</div>
+<div class="block-table">
+<div class="typed-table">
+<table>
+<thead>
+<tr>
+<th scope="col"></th>
+<th scope="col"></th>
+<th scope="col"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><div class="richtext">
+<p data-block-key="68xp6"><b>_pk_ref<br></b></p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="gsqec">These cookies are created and set by <a data-link-type="external" href="https://matomo.org/" rel="nofollow noopener" target="_blank" title="External link to https://matomo.org/">Matomo</a>, a third-party application,&nbsp;to help us improve the performance of our website. The data collected by this cookie is anonymous, stored internally within the RIPE NCC and is not shared with any third party.</p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="3cbuc">Expires after 6 months</p>
+</div>
+</td>
+</tr>
+<tr>
+<td><div class="richtext">
+<p data-block-key="snn4s"><b>_pk_cvar</b></p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="jqnp0">These cookies are created and set by <a data-link-type="external" href="https://matomo.org/" rel="nofollow noopener" target="_blank" title="External link to https://matomo.org/">Matomo</a>, a third-party application,&nbsp;to help&nbsp;us improve the performance of our website. The data collected by this cookie is anonymous, stored internally within the RIPE NCC and is not shared with any third party.</p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="mheut">Expires after 30 minutes</p>
+</div>
+</td>
+</tr>
+<tr>
+<td><div class="richtext">
+<p data-block-key="u7okn"><b>_pk_id</b></p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="sq0c1">These cookies are created and set by <a data-link-type="external" href="https://matomo.org/" rel="nofollow noopener" target="_blank" title="External link to https://matomo.org/">Matomo</a>, a third-party application, to help us improve the performance of our website. The data collected by this cookie is anonymous, stored internally within the RIPE NCC and is not shared with any third party.</p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="swevb">Expires after 13 months</p>
+</div>
+</td>
+</tr>
+<tr>
+<td><div class="richtext">
+<p data-block-key="yc8oh"><b>_pk_ses</b></p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="4w2xl">These cookies are created and set by <a data-link-type="external" href="https://matomo.org/" rel="nofollow noopener" target="_blank" title="External link to https://matomo.org/">Matomo</a>, a third-party application,&nbsp;to help us improve the performance of our website. The data collected by this cookie is anonymous, stored internally within the RIPE NCC and is not shared with any third party.</p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="xj32s">Expires after&nbsp;30 minutes</p>
+</div>
+</td>
+</tr>
+<tr>
+<td><div class="richtext">
+<p data-block-key="wncot"><b>_pk_hsr</b></p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="p28pi">These cookies are created and set by <a data-link-type="external" href="https://matomo.org/" rel="nofollow noopener" target="_blank" title="External link to https://matomo.org/">Matomo</a>, a third-party application,&nbsp;to help&nbsp;us improve the performance of our website. The data collected by this cookie is anonymous, stored internally within the RIPE NCC and is not shared with any third party.</p>
+</div>
+</td>
+<td><div class="richtext">
+<p data-block-key="0ujjt">Expires after&nbsp;30 minutes</p>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div></div> </section><button class="accordion"><span class="heading"><span class="svgwrap"><svg aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">  <path fill="currentColor" d="M634.4 375.09L525.35 199.12c-3.17-4.75-8.26-7.12-13.35-7.12s-10.18 2.38-13.35 7.12L389.6 375.09c-3.87 5.78-6.09 12.72-5.51 19.64C389.56 460.4 444.74 512 512 512c67.27 0 122.45-51.6 127.91-117.27.57-6.92-1.64-13.86-5.51-19.64zM511.96 238.24L602.27 384H421.02l90.94-145.76zM512 480c-41.28 0-77-26.77-90.42-64h181.2c-13.23 36.87-49.2 64-90.78 64zm17.89-317.21l5.08-15.17c1.4-4.19-.86-8.72-5.05-10.12L379.46 87.15C382.33 79.98 384 72.21 384 64c0-35.35-28.65-64-64-64-29.32 0-53.77 19.83-61.34 46.73L120.24.42c-4.19-1.4-8.72.86-10.12 5.05l-5.08 15.17c-1.4 4.19.86 8.72 5.05 10.12l148.29 49.62c5.91 22.23 23.33 39.58 45.62 45.36V480H104c-4.42 0-8 3.58-8 8v16c0 4.42 3.58 8 8 8h224c4.42 0 8-3.58 8-8V125.74c8.64-2.24 16.5-6.22 23.32-11.58l160.45 53.68c4.18 1.4 8.71-.86 10.12-5.05zM320 96c-17.64 0-32-14.36-32-32s14.36-32 32-32 32 14.36 32 32-14.36 32-32 32zm-64.09 170.73c.58-6.92-1.64-13.86-5.51-19.64L141.35 71.12C138.18 66.38 133.09 64 128 64s-10.18 2.38-13.35 7.12L5.6 247.09c-3.87 5.78-6.09 12.72-5.51 19.64C5.56 332.4 60.74 384 128 384s122.44-51.6 127.91-117.27zM127.96 110.24L218.27 256H37.02l90.94-145.76zM37.58 288h181.2c-13.23 36.87-49.2 64-90.78 64-41.28 0-77-26.77-90.42-64z"></path> </svg></span> <span class="button-title">Legal</span></span> <legal-accordion-chevron><template shadowrootmode="open"><style>.chevron{font-size:1.8rem;transform:rotate(-90deg);transition:transform .3s}.chevron.open{transform:rotate(0deg)}</style><svg class="chevron" height="24" width="24" aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="#757575" d="M443.5 162.6l-7.1-7.1c-4.7-4.7-12.3-4.7-17 0L224 351 28.5 155.5c-4.7-4.7-12.3-4.7-17 0l-7.1 7.1c-4.7 4.7-4.7 12.3 0 17l211 211.1c4.7 4.7 12.3 4.7 17 0l211-211.1c4.8-4.7 4.8-12.3.1-17z"></path></svg></template></legal-accordion-chevron></button> <section class="panel"><button class="accordion sub"><span class="heading"><span class="button-title sub-title">Corporate Governance</span></span> <legal-accordion-chevron><template shadowrootmode="open"><style>.chevron{font-size:1.8rem;transform:rotate(-90deg);transition:transform .3s}.chevron.open{transform:rotate(0deg)}</style><svg class="chevron" height="24" width="24" aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="#757575" d="M443.5 162.6l-7.1-7.1c-4.7-4.7-12.3-4.7-17 0L224 351 28.5 155.5c-4.7-4.7-12.3-4.7-17 0l-7.1 7.1c-4.7 4.7-4.7 12.3 0 17l211 211.1c4.7 4.7 12.3 4.7 17 0l211-211.1c4.8-4.7 4.8-12.3.1-17z"></path></svg></template></legal-accordion-chevron></button> <section class="panel subpanel"><div class="html-content"><div class="mt-3" id="content-core">
+<div class="content-page">
+
+<div class="block-paragraph"><div class="richtext">
+<p data-block-key="9arey">We aim to implement corporate governance best practice where possible. We operate under transparent organisational, management and Executive Board structures.</p><p data-block-key="725sv">We have clear and open communication channels regarding our operations. There is also a clear division of responsibilities and duties between members, the Executive Board and the management team, as stated in the RIPE NCC Articles of Association.</p><ul><li data-block-key="q5hmo"><a data-link-type="internal" href="http://www.ripe.net/ripe/docs/articles-association">RIPE NCC Articles of Association</a></li><li data-block-key="4ow78"><a href="https://www.ripe.net/about-us/legal/corporate-governance/treasury-statute/">RIPE NCC Treasury Statute</a></li><li data-block-key="kllfi"><a data-link-type="external" href="http://ripe.net/ripe/docs/ssa" rel="nofollow noopener" target="_blank" title="External link to http://ripe.net/ripe/docs/ssa">Standard Service Agreement</a></li><li data-block-key="djb5h"><a data-link-type="internal" href="http://www.ripe.net/ripe/docs/clearinghouse">Clearing House Procedure</a></li><li data-block-key="mmrcn"><a href="https://www.ripe.net/about-us/legal/corporate-governance/adoption-process-for-ripe-ncc-corporate-documents/">Adoption Process for RIPE NCC Corporate Documents</a></li><li data-block-key="8ttku"><a href="https://www.ripe.net/about-us/legal/ripe-ncc-privacy-statement/">RIPE NCC Privacy Statement</a></li><li data-block-key="7c96i"><a data-link-type="internal" href="http://www.ripe.net/publications/docs/audit">RIPE NCC Audit Activity</a></li><li data-block-key="vwjxh"><a data-link-type="internal" href="http://www.ripe.net/publications/docs/due-diligence">Due Diligence for the Quality of the RIPE NCC Registration Data</a></li><li data-block-key="5ctee"><a data-link-type="internal" href="http://www.ripe.net//participate/billing/procedure">RIPE NCC Billing Procedure and Fee Schedule Document</a></li><li data-block-key="1g56d"><a data-link-type="internal" href="http://www.ripe.net/ripe/docs/charging">RIPE NCC Charging Scheme</a></li><li data-block-key="lyzup"><a href="https://www.ripe.net/about-us/legal/corporate-governance/ripe-ncc-charging-scheme-approval/">RIPE NCC Charging Scheme Approval</a></li><li data-block-key="juud4"><a href="https://www.ripe.net/about-us/legal/ripe-ncc-data-protection-report/">RIPE NCC Data Protection Report</a></li><li data-block-key="3xv33"><a href="https://www.ripe.net/about-us/legal/corporate-governance/gdpr-and-the-ripe-ncc/">GDPR and the RIPE NCC</a></li><li data-block-key="ssx7w"><a href="https://www.ripe.net/publications/docs/ripe-675/">Handling Requests for Information, Orders and Investigations from Law Enforcement Agencies</a></li><li data-block-key="ipvfu"><a href="https://www.ripe.net/about-us/legal/corporate-governance/the-ripe-ncc-executive-board-2013-nomination-appointment-term-dismissal-and-representation/">The RIPE NCC Executive Board – Nomination, Appointment, Term, Dismissal and Representation</a></li><li data-block-key="222mt"><a href="https://www.ripe.net/about-us/legal/corporate-governance/activity-plan-and-budget-approval/">Activity Plan and Budget Approval</a></li></ul><h2 data-block-key="s3wxv" id="documents-for-members">Documents for Members</h2><ul><li data-block-key="y1z31"><a data-link-type="external" href="http://ripe.net/ripe/docs/ssa" rel="nofollow noopener" target="_blank" title="External link to http://ripe.net/ripe/docs/ssa">Standard Service Agreement</a></li><li data-block-key="0abeo"><a data-link-type="internal" href="http://www.ripe.net/ripe/docs/clearinghouse">Clearing House Procedure</a></li><li data-block-key="a1tpn"><a data-link-type="internal" href="http://www.ripe.net/ripe/docs/charging">RIPE NCC Charging Scheme</a></li><li data-block-key="i2yhv"><a href="https://www.ripe.net/about-us/legal/corporate-governance/ripe-ncc-charging-scheme-approval/">RIPE NCC Charging Scheme Approval</a></li><li data-block-key="5eomi"><a data-link-type="internal" href="http://www.ripe.net/participate/member-support/payment/ripe-ncc-billing-procedure-2024">RIPE NCC Billing Procedure and Fee Schedule Document</a></li><li data-block-key="5xpzn"><a data-link-type="internal" href="http://www.ripe.net/publications/docs/audit">RIPE NCC Audit Activity</a></li><li data-block-key="smgj4"><a data-link-type="internal" href="http://www.ripe.net/publications/docs/due-diligence">Due Diligence for the Quality of the RIPE NCC Registration Data</a></li><li data-block-key="gfqgh"><a href="https://www.ripe.net/publications/docs/ripe-808/">Closure of Members, Deregistration of Internet Resources and Legacy Internet Resources</a></li><li data-block-key="6bcbz"><a data-link-type="internal" href="http://www.ripe.net/publications/docs/arbitration">RIPE NCC Conflict Arbitration Procedure</a></li><li data-block-key="zu0bi"><a href="https://www.ripe.net/manage-ips-and-asns/resource-management/number-resources/independent-resources/requirements/">LIR Direct End User PI Assignment Agreement Requirements</a></li><li data-block-key="j1vdc"><a href="https://www.ripe.net/publications/docs/ripe-747/">RIPE NCC Services for Legacy Internet Resources of RIPE NCC Members Terms and Conditions</a></li><li data-block-key="igq7l"><a data-link-type="internal" href="http://www.ripe.net/ripe/docs/transfer">Transfer of Internet Number Resources and Change of a Member's Official Legal Name</a></li><li data-block-key="lbqhj"><a data-link-type="internal" href="http://www.ripe.net/transfer-agreement">Transfer Agreement Template</a></li><li data-block-key="lk41t"><a href="https://www.ripe.net/publications/docs/ripe-769/">Inter-RIR Transfer of Internet Number Resources</a></li><li data-block-key="fyvwb"><a href="https://www.ripe.net/manage-ips-and-asns/resource-transfers-and-mergers/inter-rir-transfers/inter-rir-transfer-documents/confirmation-of-transfer-to-the-ripe-ncc-service-region/">Confirmation of Transfer to the RIPE NCC Service Region</a></li><li data-block-key="yyg7o"><a href="https://www.ripe.net/manage-ips-and-asns/resource-transfers-and-mergers/inter-rir-transfers/inter-rir-transfer-documents/confirmation-of-transfer-from-the-ripe-ncc-service-region/">Confirmation of Transfer from the RIPE NCC Service Region</a></li><li data-block-key="95enb"><a href="https://www.ripe.net/documents/3559/Statement-for-representatives_v6.pdf">Statement of Lawful Representation</a></li></ul>
+</div>
+</div>
+</div>
+</div></div></section><button class="accordion sub"><span class="heading"><span class="button-title sub-title">Internet Number Resources</span></span> <legal-accordion-chevron><template shadowrootmode="open"><style>.chevron{font-size:1.8rem;transform:rotate(-90deg);transition:transform .3s}.chevron.open{transform:rotate(0deg)}</style><svg class="chevron" height="24" width="24" aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="#757575" d="M443.5 162.6l-7.1-7.1c-4.7-4.7-12.3-4.7-17 0L224 351 28.5 155.5c-4.7-4.7-12.3-4.7-17 0l-7.1 7.1c-4.7 4.7-4.7 12.3 0 17l211 211.1c4.7 4.7 12.3 4.7 17 0l211-211.1c4.8-4.7 4.8-12.3.1-17z"></path></svg></template></legal-accordion-chevron></button> <section class="panel subpanel"><div class="html-content"><div class="mt-3" id="content-core">
+<div class="content-page">
+
+<div class="block-paragraph"><div class="richtext">
+<h2 id="internet-number-resource-documents">Internet Number Resource Documents</h2>
+<ul>
+<li><a data-link-type="external" href="http://ripe.net/ripe/docs/ssa" rel="nofollow noopener" target="_blank" title="External link to http://ripe.net/ripe/docs/ssa">Standard Service Agreement</a></li>
+<li><a href="https://www.ripe.net/about-us/legal/ripe-ncc-lir-account-agreement/">RIPE NCC LIR Account Agreement</a></li>
+<li><a data-link-type="internal" href="http://www.ripe.net/publications/docs/mergers">Transfer of Internet Number Resources and Change of a Member's Official Legal Name</a></li>
+<li><a href="https://www.ripe.net/documents/8/Transfer_Agreement_Template_v6.0_FINAL.doc">Transfer Agreement Template</a></li>
+<li><a data-link-type="internal" href="http://www.ripe.net/publications/docs/inter-rir-transfer-of-inr">Inter-RIR Transfer of Internet Number Resources</a></li>
+<li><a href="https://www.ripe.net/manage-ips-and-asns/resource-transfers-and-mergers/inter-rir-transfers/inter-rir-transfer-documents/confirmation-of-transfer-to-the-ripe-ncc-service-region/">Confirmation of Transfer to the RIPE NCC Service Region</a></li>
+<li><a href="https://www.ripe.net/manage-ips-and-asns/resource-transfers-and-mergers/inter-rir-transfers/inter-rir-transfer-documents/confirmation-of-transfer-from-the-ripe-ncc-service-region/">Confirmation of Transfer from the RIPE NCC Service Region</a></li>
+<li><a data-link-type="internal" href="http://www.ripe.net/publications/docs/closure">Closure of Members, Deregistration of Internet Resources and Legacy Internet Resources</a></li>
+<li><a data-link-type="internal" href="http://www.ripe.net/ripe/docs/due-diligence">Due Diligence for the Quality of the RIPE NCC Registration Data</a></li>
+<li><a data-link-type="internal" href="http://www.ripe.net/ripe/docs/lir-end-user-contractual-changes">Independent Internet Number Resources - Contractual Relationship Changes Between Sponsoring LIR and End Users</a></li>
+<li><a data-link-type="internal" href="http://www.ripe.net/publications/docs/audit">RIPE NCC Audit Activity</a></li>
+<li><a data-link-type="internal" href="http://www.ripe.net/ripe/docs/charging">RIPE NCC Charging Scheme</a></li>
+<li><a href="https://www.ripe.net/participate/billing/procedure">RIPE NCC Billing Procedure and Fee Schedule Document</a></li>
+</ul>
+<div>
+<h2 id="independent-assignments-documents">Independent Assignments Documents</h2>
+<ul>
+<li><a href="https://www.ripe.net/manage-ips-and-asns/resource-management/number-resources/independent-resources/requirements/">LIR Direct End User PI Assignment Agreement Requirements</a></li>
+<li><a data-link-type="internal" href="http://www.ripe.net/ripe/docs/lir-end-user-contractual-changes">Independent Internet Number Resources - Contractual Relationship Changes Between Sponsoring LIR and End Users</a></li>
+<li><a data-link-type="internal" href="http://www.ripe.net/publications/docs/mergers">Transfer of Internet Number Resources and Change of a Member's Official Legal Name</a></li>
+<li><a href="https://www.ripe.net/documents/8/Transfer_Agreement_Template_v6.0_FINAL.doc">Transfer Agreement Template</a></li>
+<li><a data-link-type="external" href="http://ripe.net/publications/docs/inter-rir-transfer-of-inr" rel="nofollow noopener" target="_blank" title="External link to http://ripe.net/publications/docs/inter-rir-transfer-of-inr">Inter-RIR Transfer of Internet Number Resources</a></li>
+<li><a href="https://www.ripe.net/manage-ips-and-asns/resource-transfers-and-mergers/inter-rir-transfers/inter-rir-transfer-documents/confirmation-of-transfer-to-the-ripe-ncc-service-region/">Confirmation of Transfer to the RIPE NCC Service Region</a></li>
+<li><a href="https://www.ripe.net/manage-ips-and-asns/resource-transfers-and-mergers/inter-rir-transfers/inter-rir-transfer-documents/confirmation-of-transfer-from-the-ripe-ncc-service-region/">Confirmation of Transfer from the RIPE NCC Service Region</a></li>
+<li><a data-link-type="internal" href="http://www.ripe.net/publications/docs/closure">Closure of Members, Deregistration of Internet Resources and Legacy Internet Resources</a></li>
+<li><a data-link-type="internal" href="http://www.ripe.net/ripe/docs/charging">RIPE NCC Charging Scheme</a></li>
+<li><a href="https://www.ripe.net/participate/billing/procedure">RIPE NCC Billing Procedure and Fee Schedule Document</a></li>
+<li><a data-link-type="internal" href="http://www.ripe.net/ripe/docs/due-diligence">Due Diligence for the Quality of the RIPE NCC Registration Data</a></li>
+</ul>
+</div>
+<h2 id="documents-for-legacy-internet-resource-holders">Documents for Legacy Internet Resource Holders</h2>
+<div>
+<ul>
+<li><a data-link-type="internal" href="http://www.ripe.net/publications/docs/ncc-services-to-legacy-holders">RIPE NCC Services to Legacy Internet Resource Holders</a></li>
+<li><a data-link-type="internal" href="http://www.ripe.net/publications/docs/legacy-internet-resources-agreement">RIPE NCC Services for Legacy Internet Resources Agreement (Legacy Agreement)</a></li>
+<li><a data-link-type="internal" href="http://www.ripe.net/publications/docs/legacy-internet-resources-terms-conditions">RIPE NCC Services for Legacy Internet Resources of RIPE NCC Members Terms and Conditions</a></li>
+<li><a data-link-type="internal" href="http://www.ripe.net/ripe/docs/legacy-internet-resources-agreement-sponsor">Terms and Conditions Required for RIPE NCC Services for Legacy Internet Resources Agreement with a Sponsoring LIR</a></li>
+<li><a data-link-type="internal" href="http://www.ripe.net/publications/docs/sponsoring-lir-legacy-contractual-relationship">Legacy Internet Resources – Contractual Relationship Changes Between Sponsoring LIR and Legacy Internet Resource Holder</a></li>
+<li><a data-link-type="internal" href="http://www.ripe.net/publications/docs/closure">Closure of Members, Deregistration of Internet Resources and Legacy Internet Resources</a></li>
+<li><a href="https://www.ripe.net/manage-ips-and-asns/legacy-resources/confirmation-of-the-legacy-holder-for-requesting-changes-in-the-ripe-registry/">Confirmation of the Legacy Holder for Requesting Changes in the RIPE Registry</a></li>
+<li><a href="https://www.ripe.net/manage-ips-and-asns/legacy-resources/confirmation-of-request-for-transfer-of-legacy-internet-resources/">Confirmation of Request for Transfer of Legacy Internet Resources</a></li>
+<li><a data-link-type="external" href="http://ripe.net/publications/docs/inter-rir-transfer-of-inr" rel="nofollow noopener" target="_blank" title="External link to http://ripe.net/publications/docs/inter-rir-transfer-of-inr">Inter-RIR Transfer of Internet Number Resources</a></li>
+<li><a href="https://www.ripe.net/manage-ips-and-asns/resource-transfers-and-mergers/inter-rir-transfers/inter-rir-transfer-documents/confirmation-of-transfer-to-the-ripe-ncc-service-region/">Confirmation of Transfer to the RIPE NCC Service Region</a></li>
+<li><a href="https://www.ripe.net/manage-ips-and-asns/resource-transfers-and-mergers/inter-rir-transfers/inter-rir-transfer-documents/confirmation-of-transfer-from-the-ripe-ncc-service-region/">Confirmation of Transfer from the RIPE NCC Service Region</a></li>
+<li><a href="https://www.ripe.net/manage-ips-and-asns/resource-transfers-and-mergers/inter-rir-transfers/inter-rir-transfer-documents/confirmation-of-transfer-to-the-ripe-ncc-service-region-legacy-resources-without-contract/">Confirmation of Transfer to the RIPE NCC Service Region (Legacy Resources Without a Contract)</a></li>
+<li><a href="https://www.ripe.net/manage-ips-and-asns/resource-transfers-and-mergers/inter-rir-transfers/inter-rir-transfer-documents/confirmation-of-transfer-from-the-ripe-ncc-service-region-legacy-resources-without-contract/">Confirmation of Transfer from the RIPE NCC Service Region (Legacy Resources Without a Contract)</a></li>
+<li><a data-link-type="internal" href="http://www.ripe.net/publications/docs/charging">RIPE NCC Charging Scheme</a></li>
+<li><a data-link-type="internal" href="http://www.ripe.net/ripe/docs/due-diligence">Due Diligence for the Quality of the RIPE NCC Registration Data</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div></div></section><button class="accordion sub"><span class="heading"><span class="button-title sub-title">Information for Law Enforcement Agencies</span></span> <legal-accordion-chevron><template shadowrootmode="open"><style>.chevron{font-size:1.8rem;transform:rotate(-90deg);transition:transform .3s}.chevron.open{transform:rotate(0deg)}</style><svg class="chevron" height="24" width="24" aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="#757575" d="M443.5 162.6l-7.1-7.1c-4.7-4.7-12.3-4.7-17 0L224 351 28.5 155.5c-4.7-4.7-12.3-4.7-17 0l-7.1 7.1c-4.7 4.7-4.7 12.3 0 17l211 211.1c4.7 4.7 12.3 4.7 17 0l211-211.1c4.8-4.7 4.8-12.3.1-17z"></path></svg></template></legal-accordion-chevron></button> <section class="panel subpanel"><div class="html-content"><div class="mt-3" id="content-core">
+<div class="content-page">
+
+<div class="block-paragraph"><div class="richtext">
+<ul><li data-block-key="5rm8j"><a data-link-type="internal" href="http://www.ripe.net/publications/docs/handling-requests-from-lea">Handling Requests for Information, Orders and Investigations from Law Enforcement Agencies</a></li><li data-block-key="l83wy"><a href="https://www.ripe.net/publications/docs/due-diligence">Due Diligence for the Quality of the RIPE NCC Registration Data</a></li><li data-block-key="wqpqe"><a data-link-type="internal" href="http://www.ripe.net/publications/docs/audit">RIPE NCC Audit Activity</a></li><li data-block-key="watbp"><a href="https://www.ripe.net/publications/docs/ripe-819/">Transparency Report</a></li></ul>
+</div>
+</div>
+</div>
+</div></div></section><button class="accordion sub"><span class="heading"><span class="button-title sub-title">Other RIPE NCC Services Documents</span></span> <legal-accordion-chevron><template shadowrootmode="open"><style>.chevron{font-size:1.8rem;transform:rotate(-90deg);transition:transform .3s}.chevron.open{transform:rotate(0deg)}</style><svg class="chevron" height="24" width="24" aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="#757575" d="M443.5 162.6l-7.1-7.1c-4.7-4.7-12.3-4.7-17 0L224 351 28.5 155.5c-4.7-4.7-12.3-4.7-17 0l-7.1 7.1c-4.7 4.7-4.7 12.3 0 17l211 211.1c4.7 4.7 12.3 4.7 17 0l211-211.1c4.8-4.7 4.8-12.3.1-17z"></path></svg></template></legal-accordion-chevron></button> <section class="panel subpanel"><div class="html-content"><div class="mt-3" id="content-core">
+<div class="content-page">
+
+<div class="block-paragraph"><div class="richtext">
+<h3 data-block-key="6sjje" id="ripe-ncc-lir-account">RIPE NCC LIR Account</h3><ul><li data-block-key="mgsow"><a href="https://www.ripe.net/about-us/legal/ripe-ncc-lir-account-agreement/">RIPE NCC LIR Account Agreement</a></li><li data-block-key="sq1tm"><a href="https://www.ripe.net/documents/3559/Statement-for-representatives_v6.pdf">Statement of Lawful Representation</a></li></ul><h3 data-block-key="w6oxk" id="ripe-atlas">RIPE Atlas</h3><ul><li data-block-key="odjct"><a href="https://www.ripe.net/about-us/legal/ripe-atlas-service-terms-and-conditions/">RIPE Atlas Service Terms and Conditions</a></li><li data-block-key="lcdav"><a data-link-type="external" href="https://atlas.ripe.net/legal/anchors/memorandum/" rel="nofollow noopener" target="_blank" title="External link to https://atlas.ripe.net/legal/anchors/memorandum/">RIPE Atlas Anchor Memorandum of Understanding</a></li></ul><h3 data-block-key="rol4k" id="ripestat">RIPEstat</h3><ul><li data-block-key="s55q8"><a href="https://www.ripe.net/about-us/legal/ripestat-service-terms-and-conditions/">RIPEstat Service Terms and Conditions</a></li></ul><h3 data-block-key="vkkql" id="ripe-database">RIPE Database</h3><ul><li data-block-key="a0zka"><a href="https://www.ripe.net/manage-ips-and-asns/db/support/documentation/terms/">RIPE Database Terms and Conditions</a></li><li data-block-key="10t2z"><a href="https://www.ripe.net/manage-ips-and-asns/db/support/documentation/ripe-database-acceptable-use-policy/">RIPE Database Acceptable Use Policy</a></li><li data-block-key="l2nu8"><a data-link-type="external" href="https://apps.db.ripe.net/docs/removal-of-personal-data/" rel="nofollow noopener" target="_blank" title="External link to https://apps.db.ripe.net/docs/removal-of-personal-data/">Procedure for the Removal of Personal Contact Details from the RIPE Database</a></li></ul><h3 data-block-key="e8g5l" id="ripe-ncc-certification">RIPE NCC Certification</h3><ul><li data-block-key="i4005"><a href="https://www.ripe.net/manage-ips-and-asns/resource-management/rpki/legal/ripe-ncc-certification-service-terms-and-conditions/">RIPE NCC Certification Service Terms and Conditions</a></li><li data-block-key="5y13o"><a href="https://www.ripe.net/manage-ips-and-asns/resource-management/rpki/legal/ripe-ncc-certification-repository-terms-and-conditions/">RIPE NCC Certification Repository Terms and Conditions</a></li><li data-block-key="sdae1"><a href="https://www.ripe.net/manage-ips-and-asns/resource-management/rpki/legal/ripe-ncc-publish-in-parent-service-and-repository-terms-and-conditions/">RIPE NCC Publish in Parent Service and Repository Terms and Conditions</a></li></ul><h3 data-block-key="b69t3" id="ripe-ncc-community-projects-fund">RIPE NCC Community Projects Fund</h3><ul><li data-block-key="5dabd"><a href="https://www.ripe.net/community/community-initiatives/cpf/terms-and-conditions/">RIPE NCC Community Projects Fund Terms and Conditions</a></li></ul><h3 data-block-key="pg5n7" id="ripe-ncc-secondary-dns-service">RIPE NCC Secondary DNS Service</h3><ul><li data-block-key="xr630"><a href="https://www.ripe.net/about-us/legal/ripe-ncc-secondary-dns-service-terms-and-conditions/">RIPE NCC Secondary DNS Service Terms and Conditions</a></li></ul><h3 data-block-key="sus5x" id="ripe-ncc-website-and-publicly-available-ripe-ncc-services">RIPE NCC Website and Publicly Available RIPE NCC Services</h3><ul><li data-block-key="4kv2p"><a href="https://www.ripe.net/about-us/legal/terms-of-service/">Terms of Service</a></li></ul><h3 data-block-key="8igeb" id="ripe-ncc-organised-events">RIPE NCC Organised Events&nbsp;</h3><ul><li data-block-key="3wsdv"><a href="https://www.ripe.net/about-us/legal/hybrid-meeting-registration-terms-and-conditions/">Meeting Registration Terms and Conditions</a></li><li data-block-key="qk5r6"><a href="https://www.ripe.net/about-us/legal/virtual-meeting-registration-terms-and-conditions/">Virtual Meeting Registration Terms and Conditions</a></li><li data-block-key="2fwld"><a href="https://www.ripe.net/about-us/legal/ripe-ncc-learning-events-terms-and-conditions/">RIPE NCC Learning Events Terms and Conditions</a></li></ul><h3 data-block-key="1db0d" id="the-ripe-academic-cooperation-initiative-raci">The RIPE Academic Cooperation Initiative (RACI)</h3><ul><li data-block-key="skyfm"><a href="https://www.ripe.net/about-us/legal/the-ripe-academic-cooperation-initiative-terms-and-conditions/">The RIPE Academic Cooperation Initiative Terms and Conditions</a></li></ul><h3 data-block-key="tsnrs" id="monitoring-infrastructure-domains-in-dnsmon">Monitoring Infrastructure Domains in DNSMON</h3><ul><li data-block-key="n63xe"><a href="https://www.ripe.net/about-us/legal/terms-conditions-for-monitoring-infrastructure-domains-in-dnsmon/">Terms and Conditions for Monitoring Infrastructure Domains in DNSMON</a></li></ul><h3 data-block-key="k4x1y" id="ripe-data-repository">RIPE Data Repository</h3><ul><li data-block-key="3qhzx"><a href="https://www.ripe.net/about-us/legal/ripe-data-repository-terms-and-conditions/">RIPE Data Repository Terms and Conditions</a></li></ul><h3 data-block-key="cetyy" id="ripe-ncc-certified-professionals">RIPE NCC Certified Professionals</h3><ul><li data-block-key="5f7rq"><a href="https://www.ripe.net/about-us/legal/ripe-ncc-certified-professionals-service-terms-and-conditions/">RIPE NCC Certified Professionals Service Terms and Conditions</a></li></ul>
+</div>
+</div>
+</div>
+</div></div></section> </section> </div></template></legal-accordion></legal><!----><ngx-loading-bar _nghost-ng-c2071628769="" fixed="true" style="color: rgb(34, 153, 221);"><!----></ngx-loading-bar><web-app-version _nghost-ng-c1764742176="" class="ng-star-inserted"><div _ngcontent-ng-c1764742176=""><!----></div></web-app-version><!----></div><div class="space-bottom-for-livechat"></div><live-chat style="right: 20px; bottom: 20px;"><template shadowrootmode="open"><style>:host{bottom:20px;position:fixed;right:20px}button{background-color:var(--ripe-app-navbar-background,#080037);border:1px;border-color:#fff;border-radius:25px;border-style:solid;color:#fff;height:50px;padding-top:5px;width:50px}button:focus,button:hover{cursor:pointer}.bubble{background-color:var(--ripe-app-alarmed,#ed1c24);border-radius:8px;color:var(--ripe-app-navbar-active-menuitem,#fff);font-size:11px;font-weight:700;height:16px;left:35px;line-height:14px;position:absolute;text-align:center;width:16px}.bubble .text{position:relative;top:2px}svg{height:26px;width:26px}</style><div id="main"> <button aria-label="Start live chat"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" viewBox="0 0 512 512"><path fill="currentColor" d="M128 216a24 24 0 1 0 0 48 24 24 0 1 0 0-48zm128 0a24 24 0 1 0 0 48 24 24 0 1 0 0-48zm128 0a24 24 0 1 0 0 48 24 24 0 1 0 0-48zM256 32C115 32 0 125 0 240c0 48 20 91 53 126-15 40-46 73-46 74a24 24 0 0 0 17 40c62 0 110-26 139-46 29 9 60 14 93 14 141 0 256-93 256-208S397 32 256 32zm0 384c-28 0-56-4-83-13l-15-5-13 10c-23 16-59 35-103 39 12-15 30-40 41-69l7-19-14-15c-29-30-44-66-44-104 0-97 101-176 224-176s224 79 224 176-100 176-224 176z"></path></svg></button></div></template></live-chat></section></div></main></app-db-web-ui>
+        <script>
+            loadModuleOrValid().then((results) => {
+                if (results === 'valid' || results.test(navigator.userAgent)) {
+                    printUnsupportedBrowserMessage();
+                }
+            });
+
+            //Some old browsers does not support import module
+            function loadModuleOrValid() {
+                try {
+                    return new Function("return import('./assets/blockedBrowsers.js').then(r => r.default)")();
+                } catch (e) {
+                    return Promise.resolve('valid');
+                }
+            }
+
+            function printUnsupportedBrowserMessage() {
+                document.write(
+                    "    <h1 style='text-align: center; margin-top: 20px; background-color: #eee; padding: 20px;'>" +
+                        "      Your browser is not supported by this application. Some features may not display or function properly. Please upgrade to a <a href='https://www.ripe.net/about-us/legal/supported-browsers' target='_blank'>supported browser</a>.\n" +
+                        '    </h1>',
+                );
+            }
+        </script>
+
+        <!--  Webupdates specific body-end end -->
+    <script src="./Webupdates — RIPE Network Coordination Centre@sp9ryc#_files/runtime.62c07cdb0c9e5212.js.pobierz" type="module"></script><script src="./Webupdates — RIPE Network Coordination Centre@sp9ryc#_files/polyfills.7d0923a8362f2ed4.js.pobierz" type="module"></script><script src="./Webupdates — RIPE Network Coordination Centre@sp9ryc#_files/main.a15818b8ec98a064.js.pobierz" type="module"></script>
+
+</body></html>

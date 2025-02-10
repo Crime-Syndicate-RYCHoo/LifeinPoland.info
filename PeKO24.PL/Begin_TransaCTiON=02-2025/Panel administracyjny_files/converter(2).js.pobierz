@@ -1,0 +1,499 @@
+define([
+	"module",
+	"dijit/registry",
+	"aps/common",
+	"aps/Message",
+	"aps/i18n",
+	'aps/lang',
+    "aps/xhr",
+    "aps/confirm",
+    "dojo/Deferred",
+    "dojo/promise/all",
+	"./impl/types",
+	"../utils/confirmationPopup",
+    "../account-management/impl/rest",
+    "../account-management/impl/types",
+	"../financial-documents/common/impl/rest",
+	"../financial-documents/common/impl/restRetryer",
+	"../utils/converter",
+	"aps/ready!"
+], function (
+	module,
+	registry,
+	common,
+	Message,
+	i18n,
+	lang,
+	xhr,
+	confirm,
+	Deferred,
+	all,
+	types,
+	confirmationPopup,
+	AccountRest,
+	accountTypes,
+	ExternalARMRest,
+	EARMRestRetryer,
+	converterBase
+){
+	"use strict";
+
+	var _ = i18n.bindToPackage(common.getPackageId(module));
+
+	var EARMRestInstance;
+
+	function defineEARMRestInstance() {
+		if (EARMRestInstance) {
+			var promise = new Deferred();
+			promise.resolve(EARMRestInstance);
+			return promise;
+		} else {
+			return xhr.get("/aps/2/resources/?implementing(http://www.odin.com/earm/1.0)")
+				.then(function (resources) {
+					EARMRestInstance = new ExternalARMRest(resources[0].aps.id);
+					return EARMRestInstance;
+				});
+		}
+	}
+
+	function isNumeric(value) {
+		return Number(value) == value;
+	}
+
+	function epochToDate(epoch){
+		if (!epoch) {
+			return new Date(0);
+		}
+
+		if (typeof(epoch) === 'object') {
+			return epoch;
+		} else if (typeof(epoch) === 'string') {
+			return new Date(epoch);
+		} else {
+			return new Date(epoch * 1000);
+		}
+	}
+
+	function createReturnUrl(){
+		var params = JSON.parse(JSON.stringify(aps.context.params || {}));
+		var resourceId = null;
+		var viewId = null;
+        var nav;
+
+		if(aps.navigation && aps.navigation.tree && aps.navigation.tree.context){
+			nav = aps.navigation.tree.context.slice(-1)[0];
+			viewId = nav.viewId;
+			resourceId = nav.resourceId;
+		} else if(window.parent && window.parent.aps) {
+			nav = window.parent.aps.navigation.tree.context.slice(-1)[0];
+			viewId = nav.viewId;
+			resourceId = nav.resourceId;
+		} else {
+			viewId = aps.context.view.id;
+			// resourceId = ????
+		}
+
+		return {
+			viewId: viewId,
+			resourceId: resourceId,
+			params: params
+		};
+	}
+
+	function getCurrentLocale() {
+		return aps.context._locale.split('_').join('-');
+	}
+
+	/** Return formatted string representing date in the current locale
+	 * Static
+	 * @param timeValue {number} number of seconds from start of the Unix epoch
+	 * @return {string}
+	 */
+	function formatUTCDate(timeValue) {
+		const formatter = new window.Intl.DateTimeFormat(getCurrentLocale(), {
+			year: 'numeric',
+			month: 'short',
+			day: 'numeric',
+			timeZone: 'GMT'
+		});
+		return formatter.format(timeValue);
+	}
+
+	return {
+
+		epochToStr: function (epoch){
+			if (!epoch) {
+				return "-";
+			}
+
+			if (typeof(epoch) === 'object') {
+				return formatUTCDate(epoch);
+			} else if (typeof(epoch) === 'string') {
+				return formatUTCDate(new Date(epoch));
+			} else {
+				return formatUTCDate(new Date(epoch * 1000));
+			}
+		},
+
+		toTzAlignedDateStr: function (strDate, nullText){
+			if (!strDate || typeof(strDate) !== 'string') {
+				return (nullText === undefined) ? "-" : nullText;
+			}
+
+			return formatUTCDate(new Date(strDate));
+		},
+
+		epochToDate: epochToDate,
+
+		daysPassedFrom: function(date){
+			date = epochToDate(date);
+			return Math.ceil((Date.now() - date.getTime()) / 86400000);
+		},
+
+		daysLeftTo: function(date){
+			date = epochToDate(date);
+			return Math.ceil((date.getTime() - Date.now()) / 86400000);
+		},
+
+		periodToStr: function (detail) {
+			if (detail.period && detail.periodType) {
+				switch (detail.periodType) {
+					case 1: return (detail.period === 1) ? _("__duration__ Day", { duration: detail.period }) : _("__duration__ Days", { duration: detail.period });
+					case 2:
+					case 4: return (detail.period === 1) ? _("__duration__ Month", { duration: detail.period }) : _("__duration__ Months", { duration: detail.period });
+					case 3: return (detail.period === 1) ? _("__duration__ Year", { duration: detail.period }) : _("__duration__ Years", { duration: detail.period });
+				}
+			}
+			return "";
+		},
+
+		BillPeriodToStr: function (detail) {
+			if (detail.billPeriodType) {
+				switch (detail.billPeriodType) {
+					case 3: return _("Annual Price");
+					case 4:
+					case 2:
+						switch (detail.billPeriod) {
+							case 1: return _("Monthly Price");
+							case 3: return _("Quarterly Price");
+							case 6: return _("Semiannual Price");
+							default:
+								return _("Price per " + detail.billPeriod + " month(s)");
+						}
+				}
+			}
+			return "";
+		},
+
+		subscriptionStatus: function () {
+			return types.STATUS;
+		},
+
+		subscriptionServiceStatus: function () {
+			return types.SERVICE_STATUS;
+		},
+
+		subscriptionStatusFilterOptions: function () {
+			return [
+				{ value: types.STATUS.ORDERED, label: _("Ordered") },
+				{ value: types.STATUS.TRIAL, label: _("Trial") },
+				{ value: types.STATUS.ACTIVE, label: _("Active") },
+				{ value: types.STATUS.GRACED, label: _("Graced") },
+				{ value: types.STATUS.EXPIRED, label: _("Expired") },
+				{ value: types.STATUS.TERMINATED, label: _("Terminated") },
+				{ value: types.STATUS.CREDIT_HOLD, label: _("Credit Hold") },
+				{ value: types.STATUS.ADMIN_HOLD, label: _("Administrative Hold") },
+				{ value: types.STATUS.IN_SYNC, label: _("Synchronizing") }
+			];
+		},
+
+		getSubscriptionStatus: function(subscription){
+			if (
+				(subscription.status === types.STATUS.ACTIVE || subscription.status === types.STATUS.TRIAL) &&
+				(subscription.serviceStatus === types.SERVICE_STATUS.STOPPED || subscription.serviceStatus === types.SERVICE_STATUS.REMOVING) &&
+				subscription.activityStatus !== 0
+			) {
+				return types.STATUS.CANCELING;
+			}
+			return subscription.status;
+		},
+
+		subscriptionStatusTypes: function () {
+			return {
+				"10": {
+					label: _("Ordered"),
+					type: "default",
+					isLoad: true
+				},
+				"15": {
+					label: _("Trial"),
+					type: "warning"
+				},
+				"30": {
+					label: _("Active"),
+					type: "success"
+				},
+				"35": {
+					label: _("Canceling"),
+					type: "default",
+					isLoad: true
+				},
+				"40": {
+					label: _("Graced"),
+					type: "danger"
+				},
+				"50": {
+					label: _("Expired"),
+					type: "danger"
+				},
+				"60": {
+					label: _("Terminated"),
+					type: "disabled"
+				},
+				"80": {
+					label: _("Administrative Hold"),
+					type: "danger"
+				},
+				"85": {
+					label: _("Credit Hold"),
+					type: "danger"
+				},
+				"89": {
+					label: _("Administrative Hold"),
+					type: "danger"
+				},
+				"95": {
+					label: _("Synchronizing"),
+					type: "warning"
+				}
+			};
+		},
+
+		numberToDecimalStr: function (value, precision) {
+			var formatOptions = {
+				style: "decimal"
+			};
+
+			if (isNumeric(precision)) {
+				formatOptions.maximumFractionDigits = Number(precision);
+			}
+
+			var valueFormatter = new window.Intl.NumberFormat(aps.context._locale.replace(/_/g, "-"), formatOptions);
+
+			return valueFormatter.format(isNumeric(value) ? Number(value) : 0);
+		},
+
+		numberToPercentStr: function (value, precision) {
+			var valueFormatter = new window.Intl.NumberFormat(aps.context._locale.replace(/_/g, "-"), {
+				style: "percent",
+				maximumFractionDigits: isNumeric(precision) ? Number(precision) : 2
+			});
+
+			return valueFormatter.format(isNumeric(value) ? Number(value) : 0);
+		},
+
+		showWarning: function (msg) {
+			if (registry.byId(msg.id)) {
+				return;
+			}
+
+			registry.byId("apsPageContainer").get("messageList").addChild(new Message({
+				description: msg.description,
+				type: msg.type,
+				closeable: true,
+				id: msg.id,
+				escapeHTML: false
+			}));
+		},
+
+		hideWarning: function(id){
+			var node = registry.byId(id);
+			if (node) {
+				registry.byId(id).remove();
+			}
+		},
+		WARNING: function (){
+			return "<b>" + _("Warning!") + "</b> ";
+		},
+		ALERT: function (){
+			return "<b>" + _("Alert!") + "</b> ";
+		},
+		ERROR: function (){
+			return "<b>" + _("Error!") + "</b> ";
+		},
+		createReturnUrl: createReturnUrl,
+
+        renewSubscription: function(subscription, accountManagementAppId){
+            var viewID = "http://www.parallels.com/ccp-billing#renew-subscription-popup";
+            var view_params = {
+                title: _("Renew Subscription"),
+                viewData: subscription,
+                subscriptionId: subscription.subscriptionId,
+                renewOrderDescription: _("To renew the selected subscription you need to place the following order and pay for it")
+            };
+            var accountDef = new Deferred();
+            var isFullyRegistered;
+
+            var accountManagementRest = new AccountRest(accountManagementAppId);
+            if (accountManagementRest) {
+                accountManagementRest.getAccount().then(function (data) {
+                    isFullyRegistered = data.fullyRegistered;
+                    accountDef.resolve(data);
+                });
+            } else {
+                isFullyRegistered = true;
+                accountDef.resolve({});
+            }
+
+            all([accountDef]).then(function(accountData) {
+                if (isFullyRegistered) {
+	                view_params.vendorPaUuid = accountData[0].vendorPaAccountUuid;
+                    aps.apsc.showPopup({
+                        viewId: viewID,
+                        params: view_params
+                    });
+                } else {
+                    aps.apsc.hideLoading();
+                    confirm(accountTypes.CONFIRM_POPUP_PARAMS).then(function (response) {
+                        if (response === true) {
+                            var params = {
+                                returnType: accountTypes.RETURN_TYPES.RENEW_POPUP,
+                                data: {
+                                    subscriptionId: view_params.subscriptionId
+                                }
+                            };
+                            aps.apsc.gotoView("http://www.parallels.com/ccp-billing#complete_registration_screen", null, params);
+                        } else {
+                            aps.apsc.cancelProcessing();
+                        }
+                    });
+                }
+            });
+		},
+
+		payInvoices: function(apsApi){
+			aps.apsc.showLoading();
+			var accountDef = new Deferred();
+			var invoiceDef = new Deferred();
+			var isFullyRegistered;
+			var isEARMEnabled;
+			var invoicesData;
+
+			var accountManagementRest = new AccountRest(aps.context.billingId.aps.id);
+			if (accountManagementRest) {
+				accountManagementRest.getAccount().then(function (data) {
+					isFullyRegistered = data.fullyRegistered;
+					isEARMEnabled = data.externalARManagement;
+					accountDef.resolve();
+				});
+			} else {
+				isFullyRegistered = true;
+				isEARMEnabled = false;
+				accountDef.resolve();
+			}
+
+			accountDef.then(function () {
+				var documentsPromise;
+
+				if (isEARMEnabled) {
+					documentsPromise = defineEARMRestInstance().then(function () {
+							return EARMRestInstance.getUnpaidDocuments();
+						}).then(function (documents) {
+							return documents.map(function (row) {
+								return lang.mixin(row, {
+									documentId: row.id,
+									type: null,
+									balance: row.pendingTotal
+								});
+							});
+						});
+				} else {
+					documentsPromise = apsApi.getUnpaidDocuments();
+				}
+				documentsPromise.then(function (documents) {
+					if (!documents.length) {
+						aps.apsc.hideLoading();
+						return;
+					}
+
+					invoicesData = documents.map(function (row) {
+						return {
+							documentId: row.documentId,
+							type: row.type,
+							number: row.number,
+							description: row.description,
+							dueDate: row.dueDate,
+							dueAmountStr: converterBase.formatCurrency(row.balance),
+							dueAmount: row.balance,
+							isOrder: false
+						};
+					});
+
+					invoiceDef.resolve();
+				});
+			});
+
+			all([accountDef, invoiceDef]).then(function() {
+                if (!isFullyRegistered) {
+                    aps.apsc.hideLoading();
+                    confirm(accountTypes.CONFIRM_POPUP_PARAMS).then(function(response) {
+                        if (response === true) {
+                            var params = {
+                                returnUrl: createReturnUrl().viewId,
+                                returnType: accountTypes.RETURN_TYPES.CONFIRMATION_POPUP,
+                                returnTypeName: "payment-confirmation-popup",
+                                data: {
+                                    "preorder": invoicesData
+                                }
+                            };
+                            aps.apsc.gotoView("http://www.parallels.com/ccp-billing#complete_registration_screen", null, params);
+                        }
+                        else aps.apsc.cancelProcessing();
+                    });
+                } else {
+					confirmationPopup.show("payment-confirmation-popup", {
+						data: {
+							preorder: invoicesData
+						}
+					}).then(function (result) {
+						if (result && result.btnType !== "cancel") {
+							if (result.data && result.data.paymentId) {
+								if (isEARMEnabled) {
+									new EARMRestRetryer().postPaymentResult(EARMRestInstance,
+										result.data.paymentId,
+										invoicesData.map(function (el) {
+											return el.documentId;
+										})
+									);
+								}
+							}
+						}
+					});
+				}
+			});
+		},
+
+		upgradeToPaid: function(apsApi, subscription, noUpgradesHandler){
+			aps.apsc.showLoading();
+			var hasUpgrades = apsApi.isSubscriptionHasPlanOrPeriodUpgrades(subscription);
+			if(!hasUpgrades){
+				aps.apsc.hideLoading();
+				if(noUpgradesHandler){
+					noUpgradesHandler();
+				}
+				return;
+			}
+
+			aps.apsc.gotoView("http://www.parallels.com/ccp-billing-subscription-management#upgrade-wizard", null, {
+				subscriptionId: subscription.subscriptionId,
+				returnUrl: createReturnUrl()
+			});
+		},
+
+		isUpgradeAllowed: converterBase.isUpgradeAllowed,
+
+		createCCPv1Link: function(text){
+			return "<a href='/ccp/legacy-ccp?bw_id=" + aps.context._sessionId +"' target='_blank'>" + text + "</a>";
+		}
+	};
+});

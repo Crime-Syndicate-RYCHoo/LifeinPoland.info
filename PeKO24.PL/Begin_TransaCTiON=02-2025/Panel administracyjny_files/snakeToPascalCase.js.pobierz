@@ -1,0 +1,18 @@
+define([
+    'helpers/mappers/ucfirst'
+], function(
+    ucfirst
+) {
+    /**
+     * Funkcja konwertuje zapis snake_case na PascalCase.
+     *
+     * @param {string} chain łańcuch znaków do przekonwertowania
+     *
+     * @return {string} wartość zwrócona w formie PascalCase
+     */
+    return function(chain) {
+        return ucfirst(chain).replace(/(_\w)/g, function(word) {
+            return word[1].toUpperCase();
+        });
+    };
+});
