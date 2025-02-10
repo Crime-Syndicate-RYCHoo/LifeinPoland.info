@@ -1,0 +1,242 @@
+/*
+ Theme Name:   SuperMag Child
+ Theme URI:    http://example.com/twenty-fifteen-child/
+ Description:  SuperMag Child Theme
+ Author:       WydzialyKomunikacji.pl
+ Author URI:   http://example.com
+ Template:     supermag
+ Version:      1.0.0
+ License:      GNU General Public License v2 or later
+ License URI:  http://www.gnu.org/licenses/gpl-2.0.html
+ Tags:         light, dark, two-columns, right-sidebar, responsive-layout, accessibility-ready
+ Text Domain:  supermag-child
+*/
+
+
+/* ----------------------------------------------------------- */
+
+/* testowo, zeby spr czy child dziala */
+
+.top-header-section {
+
+	background: #007E36;
+}
+
+/* ----------------------------------------------------------- */
+
+/* usuwa obrazek z single post */
+
+.single-feat.clearfix {
+display: none;
+}
+
+/* ----------------------------------------------------------- */
+/* CZCIONKI -------------------------------------------------- */
+/*  ---------------------------------------------------------- */
+
+/* headery */
+h1 { font-size:40px; }
+h2 { font-size:32px; }
+h3 { font-size:28px; }
+h4 { font-size:25px; }
+h5 { font-size:22px; }
+
+
+h1, h2, h3, h4, h5, h6 {margin: 0 0 2px; }
+
+/* header - nazwa posta */
+
+article.post .entry-header .entry-title {
+	font-size: 40px;
+	margin: 0 0 10px;
+	line-height: 38px;
+}
+
+/* tekst w body */
+
+p { font-size:18px; line-height:25px; font-family: Arial, Helvetica, Tahoma, san-serif; }
+.single .entry-content {
+    color: #3f3f3f;}
+
+/* kolor linków w contencie */
+
+p > strong > a {color: #005689;}
+p > a {color: #005689;}
+
+
+/* Ustawia styl div-a do przykladowych obliczen w artykulach*/
+.przyklad {
+border-left: solid #E40000;
+padding-left: 10px;
+font-size: 16px;
+}
+
+/* Ustawia styl zielonych ramek w postach CZY WIESZ ZE */
+
+.jak {
+border: solid 1px #00cc00;
+background-color: #F2FFE5;
+padding: 10px;
+margin: 5px 0px;
+font-size: 16px;
+}
+
+
+/* Ustawia styl ramek w stylu UWAGA */
+
+.uwaga {
+border: solid 1px #b30000;
+background-color: #ffe5e5;
+padding: 20px 10px 10px 10px;
+margin: 5px 0px;
+font-size: 16px;
+}
+
+
+/* stylizuje listy wypunktowane */
+.entry-content > ul {margin: 0px 0px 15px 30px; font-size: 16px;}
+
+
+/* stylizuje logo */
+
+.site-logo.float-left > a {padding: 0px;}
+
+
+/* przezroczyste tlo pod data na gorze */
+.bn-title {
+background: transparent !important;
+}
+
+/* margines w stopce */
+.site-info {
+margin: 0px 20px; }
+
+
+
+/* stylizuje button na str 9 sposobow na tansze OC */
+.btn {
+  background: #e20007;
+  background-image: -webkit-linear-gradient(top, #e20007, #a10005);
+  background-image: -moz-linear-gradient(top, #e20007, #a10005);
+  background-image: -ms-linear-gradient(top, #e20007, #a10005);
+  background-image: -o-linear-gradient(top, #e20007, #a10005);
+  background-image: linear-gradient(to bottom, #e20007, #a10005);
+  -webkit-border-radius: 3;
+  -moz-border-radius: 3;
+  border-radius: 3px;
+  text-shadow: 2px 2px 2px #666666;
+  -webkit-box-shadow: 0px 1px 3px #666666;
+  -moz-box-shadow: 0px 1px 3px #666666;
+  box-shadow: 0px 1px 3px #666666;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 25px;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+  margin: 10px	
+}
+
+.btn:hover {
+  background: #fc0008;
+  background-image: -webkit-linear-gradient(top, #fc0008, #c90007);
+  background-image: -moz-linear-gradient(top, #fc0008, #c90007);
+  background-image: -ms-linear-gradient(top, #fc0008, #c90007);
+  background-image: -o-linear-gradient(top, #fc0008, #c90007);
+  background-image: linear-gradient(to bottom, #fc0008, #c90007);
+  text-decoration: none;
+color: #ffffff;
+}
+
+/* Ustawia styl nagłówka przed forum w postach */
+.naglowek-forum {
+
+border-color: #E40000 !important;
+border-style: solid !important;
+border-width: 10px 1px 1px 1px !important;
+padding:5px;
+margin-bottom: 10px;
+
+}
+
+.naglowek-forum-font {
+color:#E40000;
+font-weight:700;
+font-size: 18px;
+}
+
+/* Ustawia styl div-a do przykladowych obliczen w artykulach*/
+.przyklad {
+border-left: solid #E40000;
+padding-left: 10px;
+margin: 15px;
+}
+
+/* Ustawia styl ramek w postach pt jak zlozyc pit w opolu itd */
+
+.jak {
+border: solid 1px #00cc00;
+background-color: #F2FFE5;
+padding: 10px;
+margin: 5px 0px;
+}
+
+
+/* Ustawia styl ramek w stylu UWAGA */
+
+.uwaga {
+border: solid 1px #b30000;
+background-color: #ffe5e5;
+padding: 10px;
+margin: 5px 0px;
+}
+
+
+/* Ustawia styl tabelki na stronie DRUKI I FORMULARZE */
+
+.tabelka {
+border-collapse: collapse;
+border-top: solid 1px grey;
+border-bottom: solid 1px grey;
+background-color: #FAFFFA;
+padding: 10px;
+margin: 5px 0px;
+}
+
+table.tabelka > tbody > tr > td {border-bottom: solid 1px lightgrey;}
+
+/* Ustawia styl tabelki na stronie CENTRUM POBIERANIA DRUKI I FORMULARZE */
+
+.tabelka-centrum {
+border-collapse: collapse;
+border-top: solid 1px grey;
+border-bottom: solid 1px grey;
+background-color: #FAFFFA;
+padding: 5px;
+margin: 5px 0px;
+}
+
+table.tabelka-centrum > tbody > tr > td {border-bottom: solid 1px lightgrey; padding: 10px }
+
+
+/* Ustawia styl landing page PIT */
+
+#post-10238 {margin-top: -20px;}
+
+
+
+
+/* Ustawia breaking news */
+.bn-wrapper {width: 900px !important;}
+
+@import url('https://fonts.googleapis.com/css?family=PT+Mono&subset=latin-ext');
+li.bn-content a::before { content: "┋   ";}
+li.bn-content a {font-family: 'PT Mono', monospace; color:white;  }
+li.bn-content a:hover {font-family: 'PT Mono', monospace; color: white; text-decoration: underline; text-shadow: 1px 1px 1px black;  }
+
+
+/* Usuwa sidebar na stronie PIT */
+.page-id-5668 #primary {    width: 100% !important;}
+.page-id-5668 .secondary-sidebar {    display: none;}
+.page-id-5668 .entry-title {    display: none;}
+
+

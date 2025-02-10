@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="60px" height="60px" viewBox="0 0 60 60" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.4 (67378) - http://www.bohemiancoding.com/sketch -->
+    <title>Możliwość rozłożenia na raty całości lub części zadłużenia z tytułu transakcji dokonywancych kartą</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Możliwość-rozłożenia-na-raty-całości-lub-części-zadłużenia-z-tytułu-transakcji-dokonywancych-kartą" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group" fill="#F2F2F2" fill-rule="nonzero">
+            <rect id="Rectangle" x="0" y="0" width="60" height="60" rx="30"></rect>
+        </g>
+        <g id="Group-9" transform="translate(12.000000, 13.000000)" stroke="#EB1922" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+            <path d="M10.5173,20.2548 C10.9433,19.7418 12.7733,19.5368 15.1053,20.4538 C21.2573,22.8738 33.3373,18.2928 34.6533,10.3778 L10.5173,20.2548 Z M4.9053,19.5318 C7.5563,18.4288 10.0013,19.0468 10.3673,20.9128 C10.7323,22.7798 8.8783,25.1878 6.2273,26.2908 C3.5773,27.3948 1.1313,26.7758 0.7663,24.9078 C0.4003,23.0428 2.2533,20.6348 4.9053,19.5318 Z" id="Stroke-1"></path>
+            <path d="M34.653,10.3778 L17.184,18.3038" id="Stroke-3"></path>
+            <path d="M15.1188,24.8553 C15.6308,24.4293 16.0218,22.7863 15.1048,20.4543 C12.6848,14.3023 17.0808,2.0353 24.9948,0.7193 L15.1188,24.8553 Z M15.8058,30.6263 C17.0338,28.0303 16.5308,25.5573 14.6828,25.1053 C12.8368,24.6533 10.3448,26.3903 9.1178,28.9873 C7.8898,31.5833 8.3928,34.0543 10.2408,34.5073 C12.0868,34.9603 14.5788,33.2223 15.8058,30.6263 Z" id="Stroke-5"></path>
+            <path d="M24.9948,0.7196 L17.0638,18.1996" id="Stroke-7"></path>
+        </g>
+    </g>
+</svg>

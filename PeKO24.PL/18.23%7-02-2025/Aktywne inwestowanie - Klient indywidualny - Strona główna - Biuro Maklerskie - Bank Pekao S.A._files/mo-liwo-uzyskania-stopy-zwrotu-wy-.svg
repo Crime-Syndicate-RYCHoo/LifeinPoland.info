@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="60px" height="60px" viewBox="0 0 60 60" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 51.2 (57519) - http://www.bohemiancoding.com/sketch -->
+    <title>2ACBA866-F5C3-43A2-A960-9E49DD5C7744</title>
+    <desc>Created with sketchtool.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Możliwość-uzyskania-stopy-zwrotu-wyższej-niż-standardowe-oprocentowanie-na-lokacie">
+            <rect id="Rectangle" fill="#F2F2F2" fill-rule="nonzero" x="0" y="0" width="60" height="60" rx="30"></rect>
+            <g id="Group-10" transform="translate(17.000000, 17.000000)">
+                <path d="M5,26 L26,4" id="Fill-1" fill="#F1F1F2"></path>
+                <path d="M5,25 L24,5" id="Stroke-2" stroke="#EA1F26" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                <polygon id="Fill-4" fill="#EA1F26" points="23.6920621 11 23.5666812 5.42036364 18 5.54952727 20.3079379 3.12683636 25.8734581 3 26 8.57730909"></polygon>
+                <g id="Group-9" stroke="#EA1F26" stroke-width="2">
+                    <path d="M24.4502818,24.082381 C23.2353727,25.3061905 21.2664636,25.3061905 20.0515545,24.082381 C18.8366455,22.8585714 18.8366455,20.8752381 20.0515545,19.6514286 C21.2664636,18.4288095 23.2353727,18.4288095 24.4502818,19.6514286 C25.6640091,20.8752381 25.6640091,22.8585714 24.4502818,24.082381 Z" id="Stroke-5"></path>
+                    <polygon id="Stroke-7" stroke-linecap="round" stroke-linejoin="round" points="5.97397273 0.700119048 7.81997273 4.46797619 11.9480636 5.07154762 8.96042727 8.00488095 9.66597273 12.1465476 5.97397273 10.1917857 2.28197273 12.1465476 2.98751818 8.00488095 -0.000118181818 5.07154762 4.12797273 4.46797619"></polygon>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
