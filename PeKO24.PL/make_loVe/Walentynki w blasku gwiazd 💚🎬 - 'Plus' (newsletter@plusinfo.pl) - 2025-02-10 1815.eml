@@ -1,0 +1,270 @@
+Return-Path: <bounce-1@bounce.plusinfo.pl>
+Delivered-To: rycho@czekaj.com.pl
+Received: from sv027.home.net.pl
+	by sv027.home.net.pl with LMTP
+	id YPJWKTQ0qmfTLwAAwyxcrQ
+	(envelope-from <bounce-1@bounce.plusinfo.pl>)
+	for <rycho@czekaj.com.pl>; Mon, 10 Feb 2025 18:15:32 +0100
+Authentication-Results: sv027.home.net.pl; spf=pass (sender SPF 
+   authorized) smtp.mailfrom=bounce.plusinfo.pl (client-ip=188.252.13.173; 
+   helo=mta-1.plusinfo.pl; envelope-from=bounce-1@bounce.plusinfo.pl; 
+   receiver=<UNKNOWN>)
+Authentication-Results: sv027.home.net.pl; dmarc=pass (p=none dis=none) header.from=plusinfo.pl
+Received: from mta-1.plusinfo.pl (mta-1.plusinfo.pl [188.252.13.173])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by cloudserver3185817-3185848.home.pl (Postfix) with ESMTPS id 1F880A089B
+	for <rycho@czekaj.com.pl>; Mon, 10 Feb 2025 18:15:30 +0100 (CET)
+Authentication-Results: sv027.home.net.pl;
+	dkim=pass (1024-bit key; unprotected) header.d=plusinfo.pl header.i=@plusinfo.pl header.a=rsa-sha256 header.s=s1024a header.b=L9am7LoP
+Content-Type: multipart/alternative; boundary=055e789b0c99170aaafe627b75c83d7f
+Date: Mon, 10 Feb 2025 17:15:29 +0000
+DKIM-Signature: a=rsa-sha256; b=L9am7LoPwS/0ZlGR6nt4y+2lZKkNYj3v7x2729INiI/A1+VeNfYpLCURcDmxXSqDST7O3mtWQ2aFC/aJfRrJVaLxlzlRBkYgF0sihgXNjCEQo96d6pFqcQjsI2g8XsWz5LccXbeOH8r5DirtHjVOGqvDwnuRxgmc6dAnk/VY/2c=; bh=w6eq4qCx5479vFmgiJSgv+GcWC/qd5vsDqykNJ1LefQ=; c=simple/simple; d=plusinfo.pl; h=Sender:From:From:To:To:CC:Subject:Subject:Message-ID:Message-ID:List-Unsubscribe:List-Unsubscribe:List-Unsubscribe-Post:List-Unsubscribe-Post:X-CSA-Complaints:X-CSA-Complaints; s=s1024a; t=1739207729; v=1; x=1739294129;
+From: "Plus" <newsletter@plusinfo.pl>
+List-Unsubscribe: <https://www.plusinfo.pl/one_click_unsubscribe.html?x=a62e&co=5QFN&m=Jy6&s=wVIGE&u=s&z=DkBEaLs&>, <mailto:listunsubscribe@plusinfo.pl?subject=polkomtel.xserial.s56eyxEa1868MvL5dDGjRU3gVvCbmIPAk5MgSMSFjjbf3BV0nsiJNVrsbBlqDMxneqNy9UhaXnmySPMxjuR4UPnGHfvqNNxsi8NTgb7B6rtfrtOk0FV8Nkt0DpaRHGMf0J9PlNnQrINrCTc%3D>
+List-Unsubscribe-Post: List-Unsubscribe=One-Click
+Message-ID: <polkomtel.xserial.s56eyxEa1868MvL5dDGjRU3gVvCbmIPAk5MgSMSFjjbf3BV0nsiJNVrsbBlqDMxneqNy9UhaXnmySPMxjuR4UPnGHfvqNNxsi8NTgb7B6rtfrtOk0FV8Nkt0DpaRHGMf0J9PlNnQrINrCTc=@plusinfo.pl>
+MIME-Version: 1.0
+Reply-To: newsletter@plusinfo.pl
+Require-Recipient-Valid-Since: rycho@czekaj.com.pl; Mon, 27 Jan 2025 16:42:05 +0000
+Subject: =?UTF-8?Q?Walentynki_w_blasku_gwiazd_=F0=9F=92=9A=F0=9F=8E=AC?=
+To: rycho@czekaj.com.pl
+X-Complaints-To: abuse@plusinfo.pl
+X-CSA-Complaints: csa-complaints@eco.de
+X-CLIENT-IP: 188.252.13.173
+X-CLIENT-HOSTNAME: mta-1.plusinfo.pl
+X-VADE-SPAMSTATE: commercial:mce
+X-VADE-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgdefkeeigecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfjqffogffrnfdpggftiffpkfenuceurghilhhouhhtmecuudehtdenucdnofetkffnkffpifculddujedmnecujfgurheptgffhffjkfggrhfuvfesrgdtreertddtjeenucfhrhhomhepfdfrlhhushdfuceonhgvfihslhgvthhtvghrsehplhhushhinhhfohdrphhlqeenucggtffrrghtthgvrhhnpeffteelhfejiefgieeuiefgkedufeetjeejffeugefhgeeuffffvefhhfevteehteenucffohhmrghinhepphhluhhsihhnfhhordhplhenucfkphepudekkedrvdehvddrudefrddujeefnecuvehluhhsthgvrhfuihiivgepjeehnecurfgrrhgrmhepihhnvghtpedukeekrddvhedvrddufedrudejfedphhgvlhhopehmthgrqddurdhplhhushhinhhfohdrphhlpdhmrghilhhfrhhomhepsghouhhntggvqddusegsohhunhgtvgdrphhluhhsihhnfhhordhplhdpnhgspghrtghpthhtohepuddprhgtphhtthhopehrhigthhhosegtiigvkhgrjhdrtghomhdrphhl
+X-DCC--Metrics: sv027.home.net.pl 1024; Body=1 Fuz1=2753 Fuz2=2754
+
+
+--055e789b0c99170aaafe627b75c83d7f
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="UTF-8"
+
+Walentynki w blasku gwiazd=20=0A[https://multimedia.plusinfo.pl/polkomtel-B=
+/photos/5ea6b229-3f3c-464f-9dd1-4261042ff016.jpg] [https://www.plusinfo.pl/=
+click.html?x=3Da62e&co=3D5QFN&lc=3DAbV&mc=3Da&s=3DwVIGE&u=3Ds&z=3DDgR4SNw&]=
+=20=0A[https://multimedia.plusinfo.pl/polkomtel-B/photos/ae13f6bb-b59e-49db=
+-ada2-b370c4840f14.jpg] [https://www.plusinfo.pl/click.html?x=3Da62e&co=3D5=
+QFN&lc=3DAbA&mc=3Da&s=3DwVIGE&u=3Ds&z=3DDStSsBO&]=20=0A[https://multimedia.=
+plusinfo.pl/polkomtel-B/photos/2fb01ebc-9a6b-405d-a8d5-b37284979f01.jpg] [h=
+ttps://www.plusinfo.pl/click.html?x=3Da62e&co=3D5QFN&lc=3DAbo&mc=3Da&s=3DwV=
+IGE&u=3Ds&z=3DDSs4aLs&] Szczeg=C3=B3=C5=82y dotycz=C4=85ce us=C5=82ug i Reg=
+ulaminy dost=C4=99pu do poszczeg=C3=B3lnych serwis=C3=B3w streamingowych: D=
+ost=C4=99p Disney+ na plus.pl/disney, Dost=C4=99p Max na plus.pl/max, Dost=
+=C4=99p Polsat Box Go Premium na plus.pl/polsatboxgo.=0A=C2=A9 2025 Disney =
+i podmioty powi=C4=85zane. =C2=A9 2025 HBO Europe s.r.o. Max is property of=
+ Home Box Office, Inc. All rights reserved.=0A=E2=80=9EMi=C5=82o=C5=9B=C4=
+=87 na pierwsz=C4=85 stron=C4=99=E2=80=9D. =C2=A9 TFP Sp. z o.o./Telewizja =
+Polsat Sp. z o.o./Cyfrowy Polsat S.A./Polkomtel Sp. z o.o. =C2=A9 2021 , =
+=E2=80=9EMavka i stra=C5=BCnicy lasu=E2=80=9D. Dystrybucja Monolith Films.=
+=0APolkomtel Sp. z o.o. z siedzib=C4=85 w Warszawie, ul. Konstruktorska 4, =
+02-673 Warszawa, wpisana do rejestru przedsi=C4=99biorc=C3=B3w Krajowego Re=
+jestru S=C4=85dowego prowadzonego przez S=C4=85d Rejonowy dla miasta sto=C5=
+=82ecznego Warszawy, XIII Wydzia=C5=82 Gospodarczy Krajowego Rejestru S=C4=
+=85dowego pod numerem KRS: 0000419430, kapita=C5=82 zak=C5=82adowy: 2 360 0=
+69 800 z=C5=82, NIP: 527-10-37-727, REGON: 011307968.=0AWypisanie z listy s=
+ubskrybent=C3=B3w b=C4=99dzie mo=C5=BCliwe po zalogowaniu do indywidualnego=
+ profilu w serwisie iPlus. [https://www.plusinfo.pl/click.html?x=3Da62e&co=
+=3D5QFN&lc=3DAbS&mc=3Da&s=3DwVIGE&u=3Ds&z=3DDsBYsBx&]=
+
+--055e789b0c99170aaafe627b75c83d7f
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset="UTF-8"
+
+=0D=0A<!doctype html>=0D=0A<html=0D=0A    lang=3D"pl"=0D=0A    xmlns=3D"htt=
+p://www.w3.org/1999/xhtml"=0D=0A    xmlns:v=3D"urn:schemas-microsoft-com:vm=
+l"=0D=0A    xmlns:o=3D"urn:schemas-microsoft-com:office:office">=0D=0A    <=
+head>=0D=0A        <meta charset=3D"utf-8" />=0D=0A        <meta name=3D"vi=
+ewport" content=3D"width=3Ddevice-width" />=0D=0A        <meta http-equiv=
+=3D"X-UA-Compatible" content=3D"IE=3Dedge" />=0D=0A        <meta name=3D"x-=
+apple-disable-message-reformatting" />=0D=0A        <title></title>=0D=0A=
+=0D=0A        <!--[if mso]>=0D=0A            <style>=0D=0A                *=
+ {=0D=0A                    font-family: sans-serif !important;=0D=0A      =
+          }=0D=0A            </style>=0D=0A        <![endif]-->=0D=0A=0D=0A=
+        <style>=0D=0A            .hoverNumber:hover {=0D=0A                =
+font-size: 16px !important;=0D=0A                transition: 0.3s;=0D=0A   =
+             opacity: 1 !important;=0D=0A                -webkit-transition=
+-delay: 0s !important;=0D=0A                -moz-transition-delay: 0s !impo=
+rtant;=0D=0A                -ms-transition-delay: 0s !important;=0D=0A     =
+           -o-transition-delay: 0s !important;=0D=0A                transit=
+ion-delay: 0s !important;=0D=0A            }=0D=0A            .hoverLegal:h=
+over {=0D=0A                font-size: 11px !important;=0D=0A              =
+  opacity: 1 !important;=0D=0A                -webkit-transition-delay: 0s =
+!important;=0D=0A                -moz-transition-delay: 0s !important;=0D=
+=0A                -ms-transition-delay: 0s !important;=0D=0A              =
+  -o-transition-delay: 0s !important;=0D=0A                transition-delay=
+: 0s !important;=0D=0A            }=0D=0A=0D=0A            a {=0D=0A       =
+         color: black;=0D=0A                text-decoration: none;=0D=0A   =
+             /* no underline */=0D=0A            }=0D=0A=0D=0A            h=
+tml,=0D=0A            body {=0D=0A                margin: 0 auto !important=
+;=0D=0A                padding: 0 !important;=0D=0A                width: 1=
+00% !important;=0D=0A                background-color: white;=0D=0A        =
+    }=0D=0A=0D=0A            * {=0D=0A                -ms-text-size-adjust:=
+ 100%;=0D=0A                -webkit-text-size-adjust: 100%;=0D=0A          =
+  }=0D=0A=0D=0A            div[style*=3D"margin: 16px 0"] {=0D=0A          =
+      margin: 0 !important;=0D=0A            }=0D=0A=0D=0A            table=
+,=0D=0A            td {=0D=0A                mso-table-lspace: 0pt !importa=
+nt;=0D=0A                mso-table-rspace: 0pt !important;=0D=0A           =
+ }=0D=0A=0D=0A            img {=0D=0A                -ms-interpolation-mode=
+: bicubic;=0D=0A            }=0D=0A=0D=0A            *[x-apple-data-detecto=
+rs],=0D=0A        /* iOS */=0D=0A=0D=0A        .x-gmail-data-detectors,=0D=
+=0A        /* Gmail */=0D=0A=0D=0A        .x-gmail-data-detectors *,=0D=0A =
+       .aBn {=0D=0A                border-bottom: 0 !important;=0D=0A      =
+          cursor: default !important;=0D=0A                color: inherit !=
+important;=0D=0A                text-decoration: none !important;=0D=0A    =
+            font-size: inherit !important;=0D=0A                font-family=
+: inherit !important;=0D=0A                font-weight: inherit !important;=
+=0D=0A                line-height: inherit !important;=0D=0A            }=
+=0D=0A=0D=0A            .a6S {=0D=0A                display: none !importan=
+t;=0D=0A                opacity: 0.01 !important;=0D=0A            }=0D=0A=
+=0D=0A            @media only screen and (max-width: 545px) {=0D=0A        =
+        font {=0D=0A                    font-size: 11px !important;=0D=0A  =
+              }=0D=0A                font.noresize {=0D=0A                 =
+   font-size: 13px !important;=0D=0A                }=0D=0A            }=0D=
+=0A=0D=0A            @media only screen and (min-device-width: 375px) and (=
+max-device-width: 413px) {=0D=0A                /* iPhone 6 and 6+ */=0D=0A=
+                .email-container {=0D=0A                    min-width: 375p=
+x !important;=0D=0A                }=0D=0A            }=0D=0A        </styl=
+e>=0D=0A=0D=0A        <!--[if gte mso 9]>=0D=0A            <xml>=0D=0A     =
+           <o:OfficeDocumentSettings>=0D=0A                    <o:AllowPNG =
+/>=0D=0A                    <o:PixelsPerInch>96</o:PixelsPerInch>=0D=0A    =
+            </o:OfficeDocumentSettings>=0D=0A            </xml>=0D=0A      =
+  <![endif]-->=0D=0A    </head>=0D=0A=0D=0A    <body width=3D"100%" style=
+=3D"margin: 0; mso-line-height-rule: exactly">=0D=0A        <div=0D=0A     =
+       style=3D"=0D=0A                display: none;=0D=0A                f=
+ont-size: 1px;=0D=0A                line-height: 1px;=0D=0A                =
+max-height: 0;=0D=0A                max-width: 0;=0D=0A                opac=
+ity: 0;=0D=0A                overflow: hidden;=0D=0A            ">=0D=0A   =
+         Walentynki=0D=0A            w blasku gwiazd=0D=0A            &nbsp=
+;&nbsp;=0D=0A            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;=0D=0A            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;=0D=0A            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;=0D=0A            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;=0D=0A            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;=0D=0A            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;=0D=0A            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;=0D=0A        </div>=0D=0A        <!--/email pr=
+eview text-->=0D=0A=0D=0A        <center style=3D"width: 100%; background: =
+#ffffff; text-align: left">=0D=0A            <div style=3D"max-width: 600px=
+; margin: auto" class=3D"email-container">=0D=0A                <!--[if mso=
+]>=0D=0A			<table role=3D"presentation" cellspacing=3D"0" cellpadding=3D"0"=
+ border=3D"0" width=3D"600" align=3D"center">=0D=0A			<tr>=0D=0A			<td widt=
+h=3D"100%">=0D=0A		<![endif]-->=0D=0A=0D=0A        <!-- <table cellspacing=
+=3D"0" cellpadding=3D"0" border=3D"0" align=3D"center" width=3D"100%" style=
+=3D"max-width:600px;" bgcolor=3D"#ffffff">=0D=0A            <tr>=0D=0A     =
+           <td width=3D"100%">=0D=0A                    <center><font class=
+=3D"hoverNumber" size=3D"-1" valign=3D"bottom" face=3D"Arial, Helvetica, sa=
+ns-serif" style=3D"opacity: 0.6; transition: 0.3s; line-height:1.4em; displ=
+ay:block; margin:5px 0 5px 0; font-size: 10px; -webkit-transition: .5s all;=
+   =0D=0A                    -webkit-transition-delay: 5s; =0D=0A          =
+          -moz-transition: .5s all;   =0D=0A                    -moz-transi=
+tion-delay: 5s; =0D=0A                    -ms-transition: .5s all;   =0D=0A=
+                    -ms-transition-delay: 5s; =0D=0A                    -o-=
+transition: .5s all;   =0D=0A                    -o-transition-delay: 5s; =
+=0D=0A                    transition: .5s all;   =0D=0A                    =
+transition-delay: 5s;">=0D=0A                    Dotyczy numeru: XXX XXX XX=
+X<br>=0D=0A                    </font></center>=0D=0A                 </td>=
+=0D=0A            </tr>=0D=0A        </table> -->=0D=0A=0D=0A            <t=
+able=0D=0A            role=3D"presentation"=0D=0A            cellspacing=3D=
+"0"=0D=0A            border=3D"0"=0D=0A            align=3D"center"=0D=0A  =
+          width=3D"100%"=0D=0A            style=3D"max-width: 600px; backgr=
+ound-color: #ffffff"=0D=0A            bgcolor=3D"#ffffff">=0D=0A           =
+ <tr>=0D=0A                <td style=3D"padding:0;">=0D=0A                 =
+   <a href=3D"https://www.plusinfo.pl/click.html?x=3Da62e&co=3D5QFN&lc=3DAb=
+V&mc=3Da&s=3DwVIGE&u=3Ds&z=3DDo0leLm&"><img=0D=0A                        st=
+yle=3D"=0D=0A                            border-top-right-radius: 30px;=0D=
+=0A                            border-top-left-radius: 30px;=0D=0A         =
+                   display: block;=0D=0A                            width: =
+100%;=0D=0A                            max-width: 600px;=0D=0A             =
+               height: auto;=0D=0A                            "=0D=0A      =
+                      border=3D"0"=0D=0A                            class=
+=3D"g-img"=0D=0A                            src=3D"https://multimedia.plusi=
+nfo.pl/polkomtel-B/photos/5ea6b229-3f3c-464f-9dd1-4261042ff016.jpg"=0D=0A  =
+                          width=3D"600px"=0D=0A                            =
+height=3D"auto"=0D=0A                        /></a>=0D=0A                  =
+  </td>=0D=0A                </tr>=0D=0A            </table>=0D=0A         =
+   <table=0D=0A            role=3D"presentation"=0D=0A            cellspaci=
+ng=3D"0"=0D=0A            border=3D"0"=0D=0A            align=3D"center"=0D=
+=0A            width=3D"100%"=0D=0A            style=3D"max-width: 600px; b=
+ackground-color: #ffffff"=0D=0A            bgcolor=3D"#ffffff">=0D=0A      =
+      <tr>=0D=0A                <td style=3D"padding:0;">=0D=0A            =
+        <a href=3D"https://www.plusinfo.pl/click.html?x=3Da62e&co=3D5QFN&lc=
+=3DAbA&mc=3Da&s=3DwVIGE&u=3Ds&z=3DDolAglQ&"><img=0D=0A                     =
+   style=3D"=0D=0A                            display: block;=0D=0A        =
+                    width: 100%;=0D=0A                            max-width=
+: 600px;=0D=0A                            height: auto;=0D=0A              =
+              "=0D=0A                            border=3D"0"=0D=0A        =
+                    class=3D"g-img"=0D=0A                            src=3D=
+"https://multimedia.plusinfo.pl/polkomtel-B/photos/ae13f6bb-b59e-49db-ada2-=
+b370c4840f14.jpg"=0D=0A                            width=3D"600px"=0D=0A   =
+                         height=3D"auto"=0D=0A                        /></a=
+>=0D=0A                    </td>=0D=0A                </tr>=0D=0A          =
+  </table>=0D=0A            <table=0D=0A            role=3D"presentation"=
+=0D=0A            cellspacing=3D"0"=0D=0A            border=3D"0"=0D=0A    =
+        align=3D"center"=0D=0A            width=3D"100%"=0D=0A            s=
+tyle=3D"max-width: 600px; background-color: #ffffff"=0D=0A            bgcol=
+or=3D"#ffffff">=0D=0A            <tr>=0D=0A                <td style=3D"pad=
+ding:0;">=0D=0A                    <a href=3D"https://www.plusinfo.pl/click=
+.html?x=3Da62e&co=3D5QFN&lc=3DAbo&mc=3Da&s=3DwVIGE&u=3Ds&z=3DDjkixq9&"><img=
+=0D=0A                        style=3D"=0D=0A                            bo=
+rder-bottom-right-radius: 30px;=0D=0A                            border-bot=
+tom-left-radius: 30px;=0D=0A                            display: block;=0D=
+=0A                            width: 100%;=0D=0A                          =
+  max-width: 600px;=0D=0A                            height: auto;=0D=0A   =
+                         "=0D=0A                            border=3D"0"=0D=
+=0A                            class=3D"g-img"=0D=0A                       =
+     src=3D"https://multimedia.plusinfo.pl/polkomtel-B/photos/2fb01ebc-9a6b=
+-405d-a8d5-b37284979f01.jpg"=0D=0A                            width=3D"600p=
+x"=0D=0A                            height=3D"auto"=0D=0A                  =
+      /></a>=0D=0A                    </td>=0D=0A                </tr>=0D=
+=0A            </table>=0D=0A=0D=0A            <!--[if mso]></td></tr></tab=
+le><![endif]-->=0D=0A            <div style=3D"background-color: #ffffff">=
+=0D=0A                <p=0D=0A                    class=3D"hoverLegal"=0D=
+=0A                    style=3D"=0D=0A                        -webkit-trans=
+ition: 0.5s all;=0D=0A                        -webkit-transition-delay: 5s;=
+=0D=0A                        -moz-transition: 0.5s all;=0D=0A             =
+           -moz-transition-delay: 5s;=0D=0A                        -ms-tran=
+sition: 0.5s all;=0D=0A                        -ms-transition-delay: 5s;=0D=
+=0A                        -o-transition: 0.5s all;=0D=0A                  =
+      -o-transition-delay: 5s;=0D=0A                        transition: 0.5=
+s all;=0D=0A                        transition-delay: 5s;=0D=0A            =
+            opacity: 0.6;=0D=0A                        margin-left: 25px;=
+=0D=0A                        margin-right: 25px;=0D=0A                    =
+    font-size: 9px;=0D=0A                        text-align: justify;=0D=0A=
+                        text-justify: inter-word;=0D=0A                    =
+    max-width: 560px;=0D=0A                        line-height: 100%;=0D=0A=
+                    ">=0D=0ASzczeg=C3=B3=C5=82y dotycz=C4=85ce us=C5=82ug i=
+ Regulaminy dost=C4=99pu do poszczeg=C3=B3lnych serwis=C3=B3w streamingowyc=
+h: Dost=C4=99p Disney+ na plus.pl/disney,=0D=0ADost=C4=99p Max na plus.pl/m=
+ax, Dost=C4=99p Polsat Box Go Premium na plus.pl/polsatboxgo.<br>=0D=0A=C2=
+=A9 2025 Disney i podmioty powi=C4=85zane. =C2=A9 2025 HBO Europe s.r.o. Ma=
+x is property of Home Box Office, Inc. All rights reserved.<br>=0D=0A=E2=80=
+=9EMi=C5=82o=C5=9B=C4=87 na pierwsz=C4=85 stron=C4=99=E2=80=9D. =C2=A9 TFP =
+Sp. z o.o./Telewizja Polsat Sp. z o.o./Cyfrowy Polsat S.A./Polkomtel Sp. z =
+o.o. =C2=A9 2021 , =E2=80=9EMavka=0D=0Ai stra=C5=BCnicy lasu=E2=80=9D. Dyst=
+rybucja Monolith Films.<br>=0D=0APolkomtel Sp. z o.o. z siedzib=C4=85 w War=
+szawie, ul. Konstruktorska 4, 02-673 Warszawa, wpisana do rejestru przedsi=
+=C4=99biorc=C3=B3w Krajowego=0D=0ARejestru S=C4=85dowego prowadzonego przez=
+ S=C4=85d Rejonowy dla miasta sto=C5=82ecznego Warszawy, XIII Wydzia=C5=82 =
+Gospodarczy Krajowego=0D=0ARejestru S=C4=85dowego pod numerem KRS: 00004194=
+30, kapita=C5=82 zak=C5=82adowy: 2 360 069 800 z=C5=82, NIP: 527-10-37-727,=
+ REGON: 011307968.<br>=0D=0A<a href=3D"https://www.plusinfo.pl/click.html?x=
+=3Da62e&co=3D5QFN&lc=3DAbS&mc=3Da&s=3DwVIGE&u=3Ds&z=3DDj62Je4&" target=3D"_=
+blank"=0D=0A>Wypisanie z listy subskrybent=C3=B3w b=C4=99dzie mo=C5=BCliwe =
+po zalogowaniu do indywidualnego profilu w serwisie iPlus.</a><br>=0D=0A<!-=
+- <a href=3D"https://www.plusinfo.pl/click.html?x=3Da62e&co=3D5QFN&lc=3DAbZ=
+&mc=3Da&s=3DwVIGE&u=3Ds&z=3DDxBPV0R&" target=3D"_blank"=0D=0A>Wypisanie z l=
+isty subskrybent=C3=B3w b=C4=99dzie mo=C5=BCliwe po zalogowaniu do indywidu=
+alnego profilu w serwisie iPolsat Box.</a><br> -->=0D=0A                   =
+ </p>=0D=0A                    <br /><br />=0D=0A                </div>=0D=
+=0A            </div>=0D=0A        </center>=0D=0A    </body>=0D=0A</html>=
+=0D=0A<img src=3D"https://www.plusinfo.pl/open.html?x=3Da62e&co=3D5QFN&m=3D=
+Jy6&mc=3Da&s=3DwVIGE&u=3Ds&z=3DDaxBoDy&" width=3D"0" height=3D"0" border=3D=
+"0" alt=3D"" role=3D"presentation" />=
+
+--055e789b0c99170aaafe627b75c83d7f--

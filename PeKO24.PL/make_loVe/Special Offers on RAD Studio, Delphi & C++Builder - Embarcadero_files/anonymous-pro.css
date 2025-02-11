@@ -1,0 +1,102 @@
+/*!
+ *  Font Awesome 4.5.0 by @davegandy - http://fontawesome.io - @fontawesome
+ *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
+ */
+/* FONT PATH
+ * -------------------------- */
+
+ /* ------- Thin ------- */
+/*@font-face {
+    font-family: 'AnonymousPro';
+    font-weight: 100;
+    font-style: normal;
+	font-display: swap;
+    src: url('../fonts/AnonymousPro-Regular.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'AnonymousPro';
+    font-weight: 100;
+    font-style: italic;
+	font-display: swap;
+    src: url('../fonts/AnonymousPro-Italic.ttf') format('truetype');
+}*/
+
+/* ------- Thin ------- */
+/*@font-face {
+    font-family: 'AnonymousPro';
+    font-weight: 200;
+    font-style: normal;
+	font-display: swap;
+    src: url('../fonts/AnonymousPro-Thin.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'AnonymousPro';
+    font-weight: 200;
+    font-style: italic;
+	font-display: swap;
+    src: url('../fonts/AnonymousPro-ThinItalic.ttf') format('truetype');
+}*/
+
+/* ------- Regular ------- */
+@font-face {
+    font-family: 'AnonymousPro';
+    font-weight: 400;
+    font-style: normal;
+	font-display: swap;
+    src: url('../fonts/AnonymousPro-Regular.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'AnonymousPro';
+    font-weight: 400;
+    font-style: italic;
+	font-display: swap;
+    src: url('../fonts/AnonymousPro-Italic.ttf') format('truetype');
+}
+
+/* ------- SemiBold ------- */
+/*@font-face {
+    font-family: 'AnonymousPro';
+    font-weight: 500;
+    font-style: normal;
+	font-display: swap;
+    src: url('../fonts/AnonymousPro-SemiBold.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'AnonymousPro';
+    font-weight: 500;
+    font-style: italic;
+	font-display: swap;
+    src: url('../fonts/AnonymousPro-SemiBoldItalic.ttf') format('truetype');
+}*/
+
+/* ------- SemiBold ------- */
+/*@font-face {
+    font-family: 'AnonymousPro';
+    font-weight: 600;
+    font-style: normal;
+	font-display: swap;
+    src: url('../fonts/AnonymousPro-SemiBold.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'AnonymousPro';
+    font-weight: 600;
+    font-style: italic;
+	font-display: swap;
+    src: url('../fonts/AnonymousPro-SemiBoldItalic.ttf') format('truetype');
+}*/
+
+/* ------- Bold ------- */
+@font-face {
+    font-family: 'AnonymousPro';
+    font-weight: 800;
+    font-style: normal;
+	font-display: swap;
+    src: url('../fonts/AnonymousPro-Bold.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'AnonymousPro';
+    font-weight: 800;
+    font-style: italic;
+	font-display: swap;
+    src: url('../fonts/AnonymousPro-Bold.ttf') format('truetype');
+}

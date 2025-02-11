@@ -1,0 +1,377 @@
+@media (min-width: 768px) {
+  #emb-banner.products-bg-new::before {
+    background-image: url(/images/peel/Clock.png);
+    opacity: 1;
+  }
+}
+#emb-banner .btn,
+#newsbanner-cont .btn {
+  display: none;
+}
+#mainbody {
+  
+}
+#mainbody > .row:nth-child(1) {
+  display: block;
+}
+#mainbody > .row:nth-child(1) > .sidebar {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  float: none;
+  padding-bottom: 0;
+}
+@media (min-width: 768px) {
+  #mainbody > .row:nth-child(1) > .sidebar {
+    width: 767px;
+  }
+}
+@media (min-width: 992px) {
+  #mainbody > .row:nth-child(1) > .sidebar {
+    width: 991px;
+  }
+}
+@media (min-width: 1200px) {
+  #mainbody > .row:nth-child(1) > .sidebar {
+    width: 1199px;
+  }
+}
+@media (min-width: 1536px) {
+  #mainbody > .row:nth-child(1) > .sidebar {
+    width: 1535px;
+  }
+}
+@media (min-width: 1536px - 1) and (max-width: 1535px) {
+  #mainbody > .row:nth-child(1) > .sidebar {
+    width: auto !important;
+  }
+}
+#mainbody > .row:nth-child(2) {
+  
+  padding: 0;
+}
+#mainbody > .row:nth-child(2) #t3-content {
+  padding-bottom: 0;
+}
+#mainbody article {
+  text-align: center;
+  padding-top: 0;
+}
+#mainbody article h3 {
+  font-weight: 400;
+  border-bottom: none;
+  color: black;
+}
+#mainbody article .font-large {
+  font-size: 19px;
+}
+#mainbody article .terms-conditions {
+  color: #595959;
+  line-height: normal;
+  text-align: left;
+  max-width: 600px;
+  margin: 40px auto 0;
+}
+#mainbody article .terms-conditions a.terms-heading {
+  font-weight: 700;
+  display: block;
+  color: inherit;
+  text-align: center;
+  text-decoration: none;
+}
+#mainbody article .terms-conditions a.terms-heading::after,
+#mainbody article .terms-conditions a.terms-heading.collapsed::after {
+  content: ' +';
+}
+#mainbody article .terms-conditions a.terms-heading[aria-expanded="true"]::after {
+  content: ' -';
+}
+#mainbody article .terms-conditions li {
+  margin-bottom: 8px;
+  line-height: 1.3em;
+}
+#mainbody article .terms-conditions li a {
+  text-decoration: underline;
+}
+#mainbody article #content-block {
+  position: relative;
+  background: #eaeaea;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 0 0 12px 12px;
+  padding: 70px;
+  border: 1px solid #ccc;
+  margin-top: -1px;
+}
+@media all and (max-width: 767px) {
+  #mainbody article #content-block {
+    padding: 20px;
+  }
+}
+#mainbody article #content-block.waves-bottom {
+  background-image: url("/templates/t3_bs3_blank/images/waves-bg-bottom-white.png");
+  background-position: bottom center;
+  background-attachment: scroll;
+}
+#mainbody article #content-block > div {
+  position: relative;
+  z-index: 1;
+}
+#mainbody article #content-block a.offline-link {
+  font-size: 120%;
+  padding: 0 10px;
+}
+#mainbody article #delphi22 {
+  position: relative;
+  display: inline-block;
+}
+#mainbody article #delphi22 #imageLink {
+  position: absolute;
+  bottom: 43px;
+  left: 0;
+  display: block !important;
+  width: 100%;
+}
+#mainbody article #delphi22 #imageLink span {
+  width: 80%;
+  color: white;
+  font-weight: bold;
+  font-size: 90%;
+  background: red;
+  padding: 5px;
+  display: block;
+  margin: 0 auto;
+}
+#mainbody article .packages {
+  margin-top: 20px;
+}
+#mainbody article .packages h4 {
+  text-transform: uppercase;
+  font-size: 30px;
+}
+@media (max-width: 991px) {
+  #mainbody article .packages h4 {
+    font-size: 24px;
+  }
+}
+#mainbody article .packages p.small {
+  font-size: 12px;
+  text-transform: uppercase;
+}
+#mainbody article .packages label {
+  cursor: pointer;
+  display: inline;
+  margin: 0;
+  font-weight: normal;
+}
+#mainbody article .packages .package {
+  border-top: 4px solid #b21f24;
+  background: white;
+  padding: 10px;
+  text-align: left;
+  margin: 40px 0 0;
+  display: table;
+  width: 100%;
+  position: relative;
+  border-radius: 12px 12px 0 0;
+  z-index: 100000;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  
+}
+#mainbody article .packages .package.active {
+  background: #eaeaea;
+  border-bottom-color: #eaeaea;
+}
+@media (min-width: 992px) {
+  #mainbody article .packages .package {
+    min-height: 137px;
+  }
+}
+#mainbody article .packages .package img#bestvalue {
+  position: absolute;
+  top: -47px;
+  left: -16px;
+  width: 90px;
+}
+#mainbody article .packages .package .package-or {
+  position: absolute;
+  top: -26px;
+  left: -45px;
+  background: #95C93F;
+  padding: 15px;
+  line-height: 1.3em;
+  border-radius: 100%;
+  font-weight: bold;
+  font-size: 20px;
+  color: #FFF;
+}
+@media (max-width: 991px) {
+  #mainbody article .packages .package .package-or {
+    left: 44%;
+    top: -154px;
+  }
+}
+#mainbody article .packages .package > span {
+  position: absolute;
+  top: -22.5px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  height: 45px;
+}
+#mainbody article .packages .package > span img {
+  width: 45px;
+  height: 45px;
+  margin: 0;
+}
+#mainbody article .packages .package > span img + img {
+  margin-left: 5px;
+}
+@media all and (max-width: 991px) {
+  #mainbody article .packages .package > span {
+    top: -15px;
+  }
+  #mainbody article .packages .package > span img {
+    width: 30px;
+    height: 30px;
+  }
+}
+#mainbody article .packages .package > div {
+  display: table-cell;
+  text-align: center;
+  padding-top: 45px;
+  padding-bottom: 40px;
+}
+#mainbody article .packages .package > div span,
+#mainbody article .packages .package > div input {
+  display: block;
+  margin: 0 auto;
+  line-height: 1.3em;
+  font-weight: normal;
+  font-size: 24px;
+}
+#mainbody article .packages .package > div span:before,
+#mainbody article .packages .package > div input:before,
+#mainbody article .packages .package > div span:after,
+#mainbody article .packages .package > div input:after {
+  display: table;
+  content: " ";
+}
+#mainbody article .packages .package > div span:after,
+#mainbody article .packages .package > div input:after {
+  clear: both;
+}
+@media all and (max-width: 991px) {
+  #mainbody article .packages .package > div span,
+  #mainbody article .packages .package > div input {
+    font-size: 20px;
+  }
+}
+#mainbody article .packages .package > div b {
+  display: block;
+}
+#mainbody article .packages .package > div b:before,
+#mainbody article .packages .package > div b:after {
+  display: table;
+  content: " ";
+}
+#mainbody article .packages .package > div b:after {
+  clear: both;
+}
+#mainbody article .packages .package > div input {
+  margin-bottom: 10px;
+  outline: none;
+  cursor: pointer;
+}
+#mainbody article .packages .package div.active span {
+  color: #b21f24;
+}
+@media all and (max-width: 767px) {
+  #mainbody article .packages {
+    overflow-x: scroll;
+  }
+  #mainbody article .packages .row {
+    width: 500px;
+    margin-left: -5px;
+    margin-right: -5px;
+  }
+  #mainbody article .packages .col-xs-4 {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+  #mainbody article .packages .package {
+    margin-top: 20px;
+    margin-bottom: 0;
+  }
+  #mainbody article .packages .package > span {
+    top: -12.5px;
+  }
+  #mainbody article .packages .package > span img {
+    width: 30px;
+    height: 30px;
+  }
+  #mainbody article .packages .package > div span,
+  #mainbody article .packages .package > div input {
+    font-size: 20px;
+  }
+  #mainbody article .packages h4 {
+    font-size: 24px;
+  }
+}
+#mainbody article h2.small {
+  font-size: 90%;
+  font-style: italic;
+  font-weight: 400;
+}
+#mainbody article h4 {
+  font-weight: 700;
+  font-size: 18px;
+  text-transform: uppercase;
+  margin-bottom: 0;
+}
+#mainbody article ol ul,
+#mainbody article ul ul,
+#mainbody article ol ol,
+#mainbody article ul ol {
+  padding-left: 30px;
+}
+#mainbody article div[id^="terms"] {
+  text-align: left;
+  max-width: 500px;
+  margin: 0 auto;
+}
+#mainbody .overlay-wrapper {
+  display: inline-block;
+}
+#mainbody .overlay-wrapper img {
+  max-width: 350px;
+  width: 100%;
+}
+#mainbody #t3-content {
+  padding-bottom: 0;
+}
+#mainbody .panel-title {
+  margin: 0;
+}
+#mainbody .panel-title a {
+  color: #32313b;
+  font-style: normal;
+  font-weight: 300;
+  display: block;
+}
+#mainbody .panel-default > .panel-heading {
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+}
+#mainbody .panel-default > .panel-heading.alert-success {
+  background-color: #dff0d8;
+}
+#mainbody .panel-default > .panel-heading:hover {
+  background-color: #4374b5;
+}
+#mainbody .panel-default > .panel-heading:hover a {
+  color: white;
+}
