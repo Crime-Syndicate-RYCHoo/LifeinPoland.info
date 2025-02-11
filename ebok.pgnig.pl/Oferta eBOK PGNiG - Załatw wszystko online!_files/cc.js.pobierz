@@ -1,0 +1,1 @@
+if(console){var cookiedomainwarning='Error: The domain EBOK.PGNIG.PL is not authorized to show the cookie banner for domain group ID d94b9c8e-d5ef-4708-890e-b1dbe13219c8. Please add it to the domain group in the Cookiebot Manager to authorize the domain.';if(typeof console.warn === 'function'){console.warn(cookiedomainwarning)}else{console.log(cookiedomainwarning)}};
