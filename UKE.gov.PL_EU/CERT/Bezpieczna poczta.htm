@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<!-- saved from url=(0077)https://bezpiecznapoczta.cert.pl/check-email/e2674d2a4ead53d84d80c27fb2d25715 -->
+<html lang="pl-PL"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>
+    Bezpieczna poczta
+</title>
+
+    <link rel="stylesheet" href="./Bezpieczna poczta_files/bootstrap.min.css">
+    <link rel="stylesheet" href="./Bezpieczna poczta_files/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="./Bezpieczna poczta_files/index.css">
+
+    
+    <script>
+        
+        window.onload = function() {
+            let elapsedMillis = 0;
+            const displayWaitingAfterMillis = 5 * 1000;
+            const refreshIntervalMillis = 2500;
+
+            for (const elem of document.getElementsByClassName("waiting")) {
+                elem.style.display = "none";
+            }
+
+            setInterval(
+                function() {
+                    elapsedMillis += refreshIntervalMillis;
+
+                    if (elapsedMillis > displayWaitingAfterMillis) {
+                        for (const elem of document.getElementsByClassName("waiting")) {
+                            elem.style.display = "block";
+                        }
+                    }
+
+                    fetch("/api/v1/email-received?recipient_username=" + "e2674d2a4ead53d84d80c27fb2d25715")
+                        .then(response => response.json())
+                        .then(function(data) {
+                            if (data) {
+                                window.location.reload();
+                            }
+                        });
+                },
+                refreshIntervalMillis);
+        }
+    </script>
+
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+    
+    <nav class="navbar navbar-dark bg-dark">
+        <a class="navbar-brand" href="https://bezpiecznapoczta.cert.pl/">
+            <img src="./Bezpieczna poczta_files/logo.svg" alt="CERT Polska">
+            Bezpieczna poczta
+        </a>
+    </nav>
+
+
+    <div class="container-fluid">
+        
+    <div class="container">
+        <div class="card mb-4">
+            <div class="card-body">
+                
+                Zachęcamy do kontaktu pod adresem
+                <a href="mailto:bezpiecznapoczta@cert.pl">bezpiecznapoczta@cert.pl</a>
+                jeśli mają Państwo uwagi lub komentarze.
+            </div>
+        </div>
+    </div>
+
+
+        
+    <div class="container">
+        <div class="row">
+            <div class="col-lg mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Sprawdź wysyłając e-mail</h5>
+                        <div class="card-text">
+                            <label for="email">
+                                Aby zweryfikować konfigurację poczty, wyślij dowolną wiadomość e-mail na adres <b>podany poniżej</b>:
+                            </label>
+                            <div class="mailto-link-with-button">
+                                <a href="mailto:e2674d2a4ead53d84d80c27fb2d25715@bezpiecznapoczta.cert.pl">e2674d2a4ead53d84d80c27fb2d25715@bezpiecznapoczta.cert.pl</a>
+                                <div class="copy-button-wrapper">
+                                    
+    <a class="btn btn-outline-secondary" onclick="navigator.clipboard.writeText(&#39;e2674d2a4ead53d84d80c27fb2d25715@bezpiecznapoczta.cert.pl&#39;);this.innerText=&#39;Skopiowano&#39;">Skopiowano</a>
+
+                                </div>
+                            </div>
+
+                            <img class="spinner waiting" src="./Bezpieczna poczta_files/spinner.svg" alt="Oczekiwanie" style="display: block;">
+                            <h5 class="waiting" style="display: block;">Oczekiwanie na odbiór wiadomości</h5>
+
+                            <p>
+                                Jeśli wiadomość zostanie odebrana, strona odświeży się automatycznie - zobaczysz wtedy wyniki sprawdzenia mechanizmów zabezpieczeń.
+                            </p>
+                            <p>
+                                Jeśli po dłuższym czasie nie widzisz wyników, to znaczy, że nie otrzymaliśmy wiadomości. W takiej sytuacji:
+                            </p>
+                            <ul>
+                                <li>upewnij się, że wysyłasz wiadomość na poprawny adres,</li>
+                                <li>jeśli administrujesz serwerem pocztowym, sprawdź czy Twój serwer pocztowy poprawnie wysłał wiadomość,</li>
+                                
+                                    
+                                    <li>skontaktuj się z <a href="mailto:bezpiecznapoczta@cert.pl">bezpiecznapoczta@cert.pl</a> w przypadku, jeśli powyższe nie rozwiązało problemu.</li>
+                                
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+       </div>
+   </div>
+
+    </div>
+
+
+</body></html>
