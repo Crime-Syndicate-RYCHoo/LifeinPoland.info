@@ -1,0 +1,26 @@
+$("#customer_service").prepend('' +
+    '<script type="text/javascript" async src="/-/media/Additional/smart/procesy_gd/_global.js?v=100"></script>' +
+    '<script type="text/javascript" async src="/-/media/Additional/smart/procesy_gd/ochrona_fotowoltaiki_24h.js?v=100"></script>' +
+    '<script type="text/javascript" async src="/-/media/Additional/smart/procesy_gd/ochrona_fotowoltaiki_24h_bonus.js?v=100"></script>' +
+    '<script type="text/javascript" async src="/-/media/Additional/smart/procesy_gd/prad_eko.js?v=100"></script>' +
+    '<script type="text/javascript" async src="/-/media/Additional/smart/procesy_gd/prad_las.js?v=100"></script>' +
+    '<script type="text/javascript" async src="/-/media/Additional/smart/procesy_gd/prad_eko_las.js?v=100"></script>' +
+    '<script type="text/javascript" async src="/-/media/Additional/smart/procesy_gd/prad_eko_z_serwisantem_24h.js?v=100"></script>' +
+    '<script type="text/javascript" async src="/-/media/Additional/smart/procesy_gd/prad_eko_z_serwisantem_24h_plus.js?v=100"></script>' +
+    '<script type="text/javascript" async src="/-/media/Additional/smart/procesy_gd/prad_eko_z_serwisantem_komputerowym_24h.js?v=100"></script>' +
+    '<script type="text/javascript" async src="/-/media/Additional/smart/procesy_gd/prad_eko_z_usluga_zdrowie_24h.js?v=100"></script>' +
+    '<script type="text/javascript" async src="/-/media/Additional/smart/procesy_gd/prad_z_serwisantem_24h.js?v=100"></script>' +
+    '<script type="text/javascript" async src="/-/media/Additional/smart/procesy_gd/prad_z_serwisantem_24h_plus.js?v=100"></script>' +
+    '<script type="text/javascript" async src="/-/media/Additional/smart/procesy_gd/prad_z_serwisantem_komputerowym_24h.js?v=100"></script>' +
+    '<script type="text/javascript" async src="/-/media/Additional/smart/procesy_gd/prad_z_serwisantem_komputerowym_i_serwisantem_24h_plus.js?v=100"></script>' +
+    '<script type="text/javascript" async src="/-/media/Additional/smart/procesy_gd/prad_z_usluga_zdrowie_24h.js?v=100"></script>' +
+    '<script type="text/javascript" async src="/-/media/Additional/smart/procesy_gd/prosument_plus.js?v=100"></script>' +
+    '<script type="text/javascript" async src="/-/media/Additional/smart/procesy_gd/trojpak.js?v=100"></script>' +
+    '<script type="text/javascript" async src="/-/media/Additional/smart/procesy_gd/trojpak_bez_eko.js?v=100"></script>' +
+    '<script type="text/javascript" async src="/-/media/Additional/smart/procesy_gd/elektryk24h_plus.js?v=100"></script>' +
+    '<script type="text/javascript" async src="/-/media/Additional/smart/procesy_gd/prad_z_usluga_zdrowie_i_opieka_24h.js?v=100"></script>' +
+    '<script type="text/javascript" async src="/-/media/Additional/smart/procesy_gd/ochrona_fotowoltaiki_24h_plus.js?v=100"></script>' +
+    '<script type="text/javascript" async src="/-/media/Additional/smart/procesy_gd/nowa_energia.js?v=100"></script>' +
+    '<script type="text/javascript" async src="/-/media/Additional/smart/procesy_gd/ceny_dynamiczne.js?v=2"></script>' +
+    '<script type="text/javascript" async src="/-/media/Additional/smart/procesy_gd/cennik_pomocny.js?v=2"></script>'
+);

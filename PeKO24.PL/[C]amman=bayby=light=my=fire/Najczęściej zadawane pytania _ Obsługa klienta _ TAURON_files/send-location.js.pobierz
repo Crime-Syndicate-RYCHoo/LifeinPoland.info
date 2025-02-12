@@ -1,0 +1,22 @@
+// sends user location
+var sendLocation = function() {
+  return {
+    init: function() {
+      var userLoc
+      ;
+
+      googleMapsJs.getDataByNavigation(function() {
+          userLoc = cookiesJs.getCookie("City");
+
+          vJs.postAjax('/api/sitecore/test/test', userLoc, function(data) {
+            // console.log(data);
+          });
+
+      });
+
+    }
+
+  }
+}();
+
+// sendLocation.init();

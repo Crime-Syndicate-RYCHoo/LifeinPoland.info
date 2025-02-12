@@ -1,0 +1,236 @@
+var cennik_pomocny = {
+    'oferta_zmiana': {
+        name: 'Cennik pomocny',
+        prices: { // ceny danego produktu
+            'ts': '0', //cena brutto dla lokalizacji ts w PLN
+            'gze': '0', //cena brutto dla lokalizacji gze w PLN
+            'ts_netto': '0', //cena netto dla lokalizacji ts w PLN
+            'gze_netto': '0', //cena netto dla lokalizacji gze w PLN
+        },
+        documents_prices:
+            {
+                ts: {
+                    brutto: {
+                        // Ceny sprzedażowe brutto
+
+                        'g11': '0,5101 ', //G11 - Cena za prąd niezmienna przez całą dobę. (całodobowy)
+                        'g12_1': '0,6298 ',//G12 - Niższa cena za prąd w nocy oraz w wybranych godzinach w ciągu dnia.(strefa I dzienny)
+                        'g12_2': '0,3260 ',//G12 - Niższa cena za prąd w nocy oraz w wybranych godzinach w ciągu dnia.(strefa II szczytowy)
+                        'g12w_1': '0,6728 ',//G12w - Niższa cena za prąd w nocy, w wybranych godzinach w ciągu dnia oraz w weekendy.(Strefa I (nocny))
+                        'g12w_2': '0,3260 ',//G12w - Niższa cena za prąd w nocy, w wybranych godzinach w ciągu dnia oraz w weekendy.(Strefa II (pozaszczytowy))
+                        'g13_1': '0,5604 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa I)
+                        'g13_2': '0,8708 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa II)
+                        'g13_3': '0,3788 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa III)
+                        'opl_handl_1': '0 ',//opłata handlowa
+                    },
+                    netto: {
+                        // Ceny sprzedażowe netto
+
+                        'g11': '0,4147 ', //G11 - Cena za prąd niezmienna przez całą dobę. (całodobowy)
+                        'g12_1': '0,5120 ',//G12 - Niższa cena za prąd w nocy oraz w wybranych godzinach w ciągu dnia.(strefa I dzienny)
+                        'g12_2': '0,2650 ',//G12 - Niższa cena za prąd w nocy oraz w wybranych godzinach w ciągu dnia.(strefa II szczytowy)
+                        'g12w_1': '0,5470 ',//G12w - Niższa cena za prąd w nocy, w wybranych godzinach w ciągu dnia oraz w weekendy.(Strefa I (nocny))
+                        'g12w_2': '0,2650 ',//G12w - Niższa cena za prąd w nocy, w wybranych godzinach w ciągu dnia oraz w weekendy.(Strefa II (pozaszczytowy))
+                        'g13_1': '0,4556 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa I)
+                        'g13_2': '0,7080 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa II)
+                        'g13_3': '0,3080 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa III)
+                        'opl_handl_1': '0 ',//opłata handlowa
+                    },
+                },
+                gze: {
+                    brutto: {
+                        // Ceny sprzedażowe brutto
+
+                        'g11': '0,5551 ', //G11 - Cena za prąd niezmienna przez całą dobę. (całodobowy)
+                        'g12_1': '0,6433 ',//G12 - Niższa cena za prąd w nocy oraz w wybranych godzinach w ciągu dnia.(strefa I dzienny)
+                        'g12_2': '0,3862 ',//G12 - Niższa cena za prąd w nocy oraz w wybranych godzinach w ciągu dnia.(strefa II szczytowy)
+                        'g12w_1': '0,6704 ',//G12w - Niższa cena za prąd w nocy, w wybranych godzinach w ciągu dnia oraz w weekendy.(Strefa I (nocny))
+                        'g12w_2': '0,3776 ',//G12w - Niższa cena za prąd w nocy, w wybranych godzinach w ciągu dnia oraz w weekendy.(Strefa II (pozaszczytowy))
+                        'g13_1': '0,5695 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa I)
+                        'g13_2': '0,7909 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa II)
+                        'g13_3': '0,3998 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa III)
+                        'opl_handl_1': '0 ',//opłata handlowa
+                    },
+                    netto: {
+                        // Ceny sprzedażowe netto
+
+                        'g11': '0,4513 ', //G11 - Cena za prąd niezmienna przez całą dobę. (całodobowy)
+                        'g12_1': '0,5230 ',//G12 - Niższa cena za prąd w nocy oraz w wybranych godzinach w ciągu dnia.(strefa I dzienny)
+                        'g12_2': '0,3140 ',//G12 - Niższa cena za prąd w nocy oraz w wybranych godzinach w ciągu dnia.(strefa II szczytowy)
+                        'g12w_1': '0,5450 ',//G12w - Niższa cena za prąd w nocy, w wybranych godzinach w ciągu dnia oraz w weekendy.(Strefa I (nocny))
+                        'g12w_2': '0,3070 ',//G12w - Niższa cena za prąd w nocy, w wybranych godzinach w ciągu dnia oraz w weekendy.(Strefa II (pozaszczytowy))
+                        'g13_1': '0,4630 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa I)
+                        'g13_2': '0,6430 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa II)
+                        'g13_3': '0,3250 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa III)
+                        'opl_handl_1': '0 ',//opłata handlowa
+                    },
+                },
+            },
+        documents: // zbiór dokumentów indywidualnych dla danego produktu
+            {
+                ts: // dokumenty dla lokalizacji ts
+                    {
+                        'doc_cat_1':
+                            {
+                                // format: contract_invoice
+                                'label': 'Cenniki - oferta dotyczy również prosumentów', // jest to nazwa kategorii dokumentów
+                                '1_1':
+                                    {
+                                        '1': {
+                                            name: '',
+                                            href: ''
+                                        },
+                                        '2': {
+                                            name: '',
+                                            href: ''
+                                        },
+                                    },
+                                '2_1':
+                                    {
+                                        '1': {
+                                            name: 'Cennik Pomocny', // nazwa pliku która będzie wyświetlana
+                                            href: 'https://www.tauron.pl/-/media/offer-documents/produkty/2024/12-2024/dla-powodzian/ts/EE-GD-GSC-B-Powodz-S-TS-6m-Q3.ashx' // link do dokumentu
+                                        },
+                                        '2': {
+                                            name: '',
+                                            href: ''
+                                        },
+                                    },
+                            },
+                        'doc_cat_2':
+                            {
+                                'label': 'Dokumenty podstawowe i regulaminy', // jest to nazwa kategorii dokumentów
+                                1:
+                                    {
+                                        name: 'Oświadczenie o wyrażeniu zgody/rezygnacji na e-fakturę', // nazwa pliku która będzie wyświetlana
+                                        href: 'https://www.tauron.pl/-/media/offer-documents/produkty/eko/ts/2020-07-01_ts-gze_gd-msp_oswiadczeniedoefv_prad_k_edyt.ashx' // link do dokumentu
+                                    },
+                                2:
+                                    {
+                                        name: 'Umowa Operatorska EDI (dot.elektronicznej wymiany danych)', // nazwa pliku która będzie wyświetlana
+                                        href: 'https://www.tauron.pl/-/media/offer-documents/produkty/eko/ts/umowa-operatorska-edi-ts.ashx' // link do dokumentu
+                                    },
+                                3:
+                                    {
+                                        name: 'Wyciąg z Taryfy dla energii elektrycznej TAURON Dystrybucja S.A. na rok 2024', // nazwa pliku która będzie wyświetlana
+                                        href: 'https://www.tauron.pl/-/media/offer-documents/produkty/eko/ts/wyciag-typu-g-z-taryfy-td-sa-na-rok-2021.ashx' // link do dokumentu
+                                    },
+                                4:
+                                    {
+                                        name: 'Wyciąg z Taryfy dla energii elektrycznej TAURON Dystrybucja S.A. - Informacja o stawkach brutto na rok 2025', // nazwa pliku która będzie wyświetlana
+                                        href: 'https://www.tauron.pl/-/media/offer-documents/produkty/tarcza/2022_02_01_TS-GZE_InfCenyBruttoWycTarTD_G_BAZA.ashx'// link do dokumentu
+                                    },
+                                5:
+                                    {
+                                        name: 'Informacja o cenach energii w Cennikach w okresie obowiązywania rozwiązań osłonowych, tj. do 31 grudnia 2024 roku', // nazwa pliku która będzie wyświetlana
+                                        href: 'https://www.tauron.pl/-/media/offer-documents/produkty/tarcza/dokl-tarczowa-ts.ashx' // link do dokumentu
+                                    },
+                                6:
+                                    {
+                                        name: 'Zbiór Praw Konsumenta Energii Elektrycznej', // nazwa pliku która będzie wyświetlana
+                                        href: 'https://www.tauron.pl/-/media/offer-documents/produkty/eko/ts/zbior_praw_konsumenta_energii_elektrycznej.ashx' // link do dokumentu
+                                    },
+                                7:
+                                    {
+                                        name: 'Regulamin e-faktury', // nazwa pliku która będzie wyświetlana
+                                        href: 'https://www.tauron.pl/-/media/offer-documents/produkty/eko/ts/regulamin-e-faktura.ashx' // link do dokumentu
+                                    },
+                                8:
+                                    {
+                                        name: 'Zgody Klienta', // nazwa pliku która będzie wyświetlana
+                                        href: 'https://www.tauron.pl/-/media/offer-documents/produkty/eko/ts/ts_zgody_klienta_podstawowe_pdf_edyt_k.ashx' // link do dokumentu
+                                    },
+                                9:
+                                    {
+                                        name: 'Wzór formularza odstąpienia od umowy ', // nazwa pliku która będzie wyświetlana
+                                        href: 'https://www.tauron.pl/-/media/offer-documents/produkty/eko/ts/ts_formularz_odstapienia.ashx' // link do dokumentu
+                                    },
+                            },
+                    },
+                gze: // dokumenty dla lokalizacji gze
+                    {
+                        'doc_cat_1':
+                            {
+                                // format: contract_invoice
+                                'label': 'Cenniki - oferta dotyczy również prosumentów', // jest to nazwa kategorii dokumentów
+                                '1_1':
+                                    {
+                                        '1': {
+                                            name: '',
+                                            href: ''
+                                        },
+                                        '2': {
+                                            name: '',
+                                            href: ''
+                                        },
+                                    },
+                                '2_1':
+                                    {
+                                        '1': {
+                                            name: 'Cennik Pomocny', // nazwa pliku która będzie wyświetlana
+                                            href: 'https://www.tauron.pl/-/media/offer-documents/produkty/2024/12-2024/dla-powodzian/gze/EE-GD-GSC-B-Powodz-S-GZE-6m-Q3.ashx' // link do dokumentu
+                                        },
+                                        '2': {
+                                            name: '',
+                                            href: ''
+                                        },
+                                    },
+                            },
+                        'doc_cat_2':
+                            {
+                                'label': 'Dokumenty podstawowe i regulaminy', // jest to nazwa kategorii dokumentów
+                                1:
+                                    {
+                                        name: 'Oświadczenie o wyrażeniu zgody/rezygnacji na e-fakturę', // nazwa pliku która będzie wyświetlana
+                                        href: 'https://www.tauron.pl/-/media/offer-documents/produkty/eko/gze/2020-07-01_ts-gze_gd-msp_oswiadczeniedoefv_prad_k_edyt.ashx' // link do dokumentu
+                                    },
+                                2:
+                                    {
+                                        name: 'Umowa Operatorska EDI (dot.elektronicznej wymiany danych)', // nazwa pliku która będzie wyświetlana
+                                        href: 'https://www.tauron.pl/-/media/offer-documents/produkty/eko/gze/umowa-operatorska-edi.ashx' // link do dokumentu
+                                    },
+                                3:
+                                    {
+                                        name: 'Wyciąg z Taryfy dla energii elektrycznej TAURON Dystrybucja S.A. na rok 2024', // nazwa pliku która będzie wyświetlana
+                                        href: 'https://www.tauron.pl/-/media/offer-documents/produkty/eko/gze/wyciag-typu-g-z-taryfy-td-sa-na-rok-2021.ashx' // link do dokumentu
+                                    },
+                                4:
+                                    {
+                                        name: 'Wyciąg z Taryfy dla energii elektrycznej TAURON Dystrybucja S.A. - Informacja o stawkach brutto na rok 2025', // nazwa pliku która będzie wyświetlana
+                                        href: 'https://www.tauron.pl/-/media/offer-documents/produkty/tarcza/2022_02_01_TS-GZE_InfCenyBruttoWycTarTD_G_BAZA.ashx'// link do dokumentu
+                                    },
+                                5:
+                                    {
+                                        name: 'Informacja o cenach energii w Cennikach w okresie obowiązywania rozwiązań osłonowych, tj. do 31 grudnia 2024 roku', // nazwa pliku która będzie wyświetlana
+                                        href: 'https://www.tauron.pl/-/media/offer-documents/produkty/tarcza/dokl-tarczowa-gze.ashx' // link do dokumentu
+                                    },
+                                6:
+                                    {
+                                        name: 'Zbiór Praw Konsumenta Energii Elektrycznej', // nazwa pliku która będzie wyświetlana
+                                        href: 'https://www.tauron.pl/-/media/offer-documents/produkty/eko/gze/zbior_praw_konsumenta_energii_elektrycznej.ashx' // link do dokumentu
+                                    },
+                                7:
+                                    {
+                                        name: 'Regulamin e-faktury', // nazwa pliku która będzie wyświetlana
+                                        href: 'https://www.tauron.pl/-/media/offer-documents/produkty/eko/gze/regulamin-e-faktura.ashx' // link do dokumentu
+                                    },
+                                8:
+                                    {
+                                        name: 'Zgody Klienta', // nazwa pliku która będzie wyświetlana
+                                        href: 'https://www.tauron.pl/-/media/offer-documents/produkty/eko/gze/tsp_gze_zgody_klienta_podstawowe_pdf_edyt_k.ashx' // link do dokumentu
+                                    },
+                                9:
+                                    {
+                                        name: 'Wzór formularza odstąpienia od umowy ', // nazwa pliku która będzie wyświetlana
+                                        href: 'https://www.tauron.pl/-/media/offer-documents/produkty/eko/gze/gze_formularz_odstapienia.ashx' // link do dokumentu
+                                    },
+                            },
+                    },
+            },
+        // ceny za prąd dla odnowień
+        price_table_extra_information: {
+            before_price: 'opłata handlowa (stawka stała) za usługę dodatkową', // tekst wyświetlany w Tabeli Cenowej przed opłatą handlową (stawką stałą)
+            after_price: '(przez cały okres trwania cennika)' // tekst wyświetlany w Tabeli Cenowej po opłacie handlowej (stawce stałej)
+        }
+    },
+};

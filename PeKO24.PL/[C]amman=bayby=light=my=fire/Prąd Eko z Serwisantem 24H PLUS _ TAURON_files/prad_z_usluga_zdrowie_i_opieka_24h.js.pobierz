@@ -1,0 +1,259 @@
+var prad_z_usluga_zdrowie_i_opieka_24h = {
+    'oferta_zmiana':{
+        onlineActivation: 354, // bonus w zł za wybór cennika 3 letniego
+        ecoBonus: 10,
+        prices:{
+            'ts':'59,00',
+            'gze':'59,00',
+            'ts_netto':'47,97', // cena netto dla lokalizacji ts w PLN
+            'gze_netto':'47,97',// cena netto dla lokalizacji gze w PLN
+        },
+         documents_prices:
+            {
+                  ts:{
+                    brutto:{
+                        // Ceny sprzedażowe brutto
+
+                        'g11':'0,8274', //G11 - Cena za prąd niezmienna przez całą dobę. (całodobowy)
+                        'g12_1':'1,0317 ',//G12 - Niższa cena za prąd w nocy oraz w wybranych godzinach w ciągu dnia.(strefa I dzienny)
+                        'g12_2':'0,5325 ',//G12 - Niższa cena za prąd w nocy oraz w wybranych godzinach w ciągu dnia.(strefa II szczytowy)
+                        'g12w_1':'1,2653 ',//G12w - Niższa cena za prąd w nocy, w wybranych godzinach w ciągu dnia oraz w weekendy.(Strefa I (nocny))
+                        'g12w_2':'0,5325 ',//G12w - Niższa cena za prąd w nocy, w wybranych godzinach w ciągu dnia oraz w weekendy.(Strefa II (pozaszczytowy))
+                        'g13_1':'0,9421 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa I)
+                        'g13_2':'1,4546 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa II)
+                        'g13_3':'0,6255 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa III)
+                    },
+                    netto:{
+                        // Ceny sprzedażowe netto
+
+                        'g11':'0,6727', //G11 - Cena za prąd niezmienna przez całą dobę. (całodobowy)
+                        'g12_1':'0,8388 ',//G12 - Niższa cena za prąd w nocy oraz w wybranych godzinach w ciągu dnia.(strefa I dzienny)
+                        'g12_2':'0,4329 ',//G12 - Niższa cena za prąd w nocy oraz w wybranych godzinach w ciągu dnia.(strefa II szczytowy)
+                        'g12w_1':'1,0287 ',//G12w - Niższa cena za prąd w nocy, w wybranych godzinach w ciągu dnia oraz w weekendy.(Strefa I (nocny))
+                        'g12w_2':'0,4329 ',//G12w - Niższa cena za prąd w nocy, w wybranych godzinach w ciągu dnia oraz w weekendy.(Strefa II (pozaszczytowy))
+                        'g13_1':'0,7659 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa I)
+                        'g13_2':'1,1826 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa II)
+                        'g13_3':'0,5085 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa III)
+                    },
+                },
+                gze:{
+                    brutto:{
+                        // Ceny sprzedażowe brutto
+
+                        'g11':'0,8247 ', //G11 - Cena za prąd niezmienna przez całą dobę. (całodobowy)
+                        'g12_1':'0,9841 ',//G12 - Niższa cena za prąd w nocy oraz w wybranych godzinach w ciągu dnia.(strefa I dzienny)
+                        'g12_2':'0,6620 ',//G12 - Niższa cena za prąd w nocy oraz w wybranych godzinach w ciągu dnia.(strefa II szczytowy)
+                        'g12w_1':'1,0838 ',//G12w - Niższa cena za prąd w nocy, w wybranych godzinach w ciągu dnia oraz w weekendy.(Strefa I (nocny))
+                        'g12w_2':'0,6487 ',//G12w - Niższa cena za prąd w nocy, w wybranych godzinach w ciągu dnia oraz w weekendy.(Strefa II (pozaszczytowy))
+                        'g13_1':'0,9443 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa I)
+                        'g13_2':'1,2576 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa II)
+                        'g13_3':'0,6697 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa III)
+                    },
+                    netto:{
+                        // Ceny sprzedażowe netto
+
+                        'g11':'0,6705 ',//G11 - Cena za prąd niezmienna przez całą dobę. (całodobowy)
+                        'g12_1':'0,8001 ',//G12 - Niższa cena za prąd w nocy oraz w wybranych godzinach w ciągu dnia.(strefa I dzienny)
+                        'g12_2':'0,5382 ',//G12 - Niższa cena za prąd w nocy oraz w wybranych godzinach w ciągu dnia.(strefa II szczytowy)
+                        'g12w_1':'0,8811 ',//G12w - Niższa cena za prąd w nocy, w wybranych godzinach w ciągu dnia oraz w weekendy.(Strefa I (nocny))
+                        'g12w_2':'0,5274 ',//G12w - Niższa cena za prąd w nocy, w wybranych godzinach w ciągu dnia oraz w weekendy.(Strefa II (pozaszczytowy))
+                        'g13_1':'0,7677 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa I)
+                        'g13_2':'1,0224 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa II)
+                        'g13_3':'0,5445 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa III)
+                    },
+                },
+            },
+        documents: // zbiór dokumentów indywidualnych dla danego produktu
+            {
+                ts: // dokumenty dla lokalizacji ts
+                    {
+                        'doc_cat_1':
+                            {
+                                // format: contract_invoice
+                                'label':'Cenniki - oferta dotyczy również prosumentów', // jest to nazwa kategorii dokumentów
+                                '2_2':
+                                    {
+                                        name:'Cennik Prąd z usługami Zdrowie i Opieka 24H 3 lata 0,2% - faktura papierowa', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/2024/12-2024/opieka-24h/ts/EE-GD-GR02-B-Zdr24D-O24D-TS-3-Q4.ashx' // link do dokumentu
+                                    },
+                                '2_1':
+                                    {
+                                        name:'Cennik Prąd z usługami Zdrowie i Opieka 24H 3 lata 10% - e-faktura', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/2024/12-2024/opieka-24h/ts/EE-GD-GR10-O-Zdr24D-O24D-TS-3-Q4.ashx' // link do dokumentu
+                                    },
+                            },
+                        'doc_cat_2':
+                            {
+                                'label':'Dokumenty podstawowe i regulaminy', // jest to nazwa kategorii dokumentów
+                                1:
+                                    {
+                                        name:'Oświadczenie o wyrażeniu zgody/rezygnacji na e-fakturę', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/prad-z-usluga-zdrowie/ts/2020-07-01_ts-gze_gd-msp_oswiadczeniedoefv_prad_k_edyt.ashx' // link do dokumentu
+                                    },
+                                3:
+                                    {
+                                        name:'Oświadczenie o zapoznaniu się i akceptacji treści Regulaminu usługi Zdrowie 24H', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/prad-z-usluga-zdrowie/ts/2021_02_01_ts_gze_gd_msp_prad_osw_akcept_reg_uslugi_pdf_wzor_k.ashx' // link do dokumentu
+                                    },
+                                4:
+                                    {
+                                        name:'Wyciąg z Taryfy dla energii elektrycznej TAURON Dystrybucja S.A. na rok 2024', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/prad-z-usluga-zdrowie/ts/wyciag-typu-g-z-taryfy-td-sa-na-rok-2021.ashx' // link do dokumentu
+                                    },
+                                5:
+                                    {
+                                        name:'Wyciąg z Taryfy dla energii elektrycznej TAURON Dystrybucja S.A. - Informacja o stawkach brutto na rok 2025', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/tarcza/2022_02_01_TS-GZE_InfCenyBruttoWycTarTD_G_BAZA.ashx'// link do dokumentu
+                                    },
+								6:
+                                    {
+                                        name:'Informacja o cenach energii w Cennikach w okresie obowiązywania rozwiązań osłonowych, tj. do 31 grudnia 2024 roku', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/tarcza/dokl-tarczowa-ts.ashx' // link do dokumentu
+                                    },
+                                7:
+                                    {
+                                        name:'Regulamin usługi Zdrowie 24H', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/prad-z-usluga-zdrowie/ts/regulamin-zdrowie-24h-dom.ashx' // link do dokumentu
+                                    },
+                                8:
+                                    {
+                                        name:'Zbiór Praw Konsumenta Energii Elektrycznej', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/prad-z-usluga-zdrowie/ts/zbior-praw-konsumenta-energii-elektrycznej.ashx' // link do dokumentu
+                                    },
+                                9:
+                                    {
+                                        name:'Zgoda na przetwarzanie danych osobowych', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/prad-z-usluga-zdrowie/ts/zgoda-dodatkowa-z24h-dom.ashx' // link do dokumentu
+                                    },
+                                10:
+                                    {
+                                        name:'Zgody Klienta', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/prad-z-usluga-zdrowie/ts/ts_zgody_klienta_podstawowe_pdf_edyt_k.ashx' // link do dokumentu
+                                    },
+                                11:
+                                    {
+                                        name:'Wzór formularza odstąpienia od umowy ', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/prad-z-usluga-zdrowie/ts/2021-01-01-ts-gdmsp-pouczenieoprawiedoodstapieniaodumowy.ashx' // link do dokumentu
+                                    },
+                                12:
+                                    {
+                                        name:'Wykaz świadczeń w ramach usługi Pomoc medyczna 24H', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/prad-z-usluga-zdrowie/ts/wykaz-swiadczen-w-ramach-uslugi-pomoc-medyczna-24h-dom.ashx' // link do dokumentu
+                                    },
+                                13:
+                                    {
+                                        name:'Wykaz terytorialny wizyt domowych internisty lub lekarza rodzinnego', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/prad-z-usluga-zdrowie/ts/wykaz-terytorialny-internista-wizyty-domowe-pomoc-medyczna-24h-dom.ashx' // link do dokumentu
+                                    },
+                                14:
+                                    {
+                                        name:'Wykaz terytorialny wizyt domowych pielęgniarki', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/prad-z-usluga-zdrowie/ts/wykaz-terytorialny-pielegniarka-wizyty-domowe-pomoc-medyczna-24h-dom.ashx' // link do dokumentu
+                                    },
+                                15:
+                                    {
+                                        name:'Regulamin usługi Opieka 24H', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/opieka-24h/2022-07-01-TS-GZE-GD-prad-Regulamin-Opieka24H-K--BAZA-K.ashx' // link do dokumentu
+                                    },
+                            },
+                    },
+                gze: // dokumenty dla lokalizacji gze
+                    {
+                        'doc_cat_1':
+                            {
+                                'label':'Cenniki - oferta dotyczy również prosumentów', // jest to nazwa kategorii dokumentów
+                                // format: contract_invoice
+                                '2_2':
+                                    {
+                                        name:'Cennik Prąd z usługami Zdrowie i Opieka 24H 3 lata 0,2% - faktura papierowa', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/2024/12-2024/opieka-24h/gze/EE-GD-GR02-B-Zdr24D-O24D-GZE-3-Q4.ashx' // link do dokumentu
+                                    },
+                                '2_1':
+                                    {
+                                        name:'Cennik Prąd z usługami Zdrowie i Opieka 24H 3 lata 10% - e-faktura', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/2024/12-2024/opieka-24h/gze/EE-GD-GR10-O-Zdr24D-O24D-GZE-3-Q4.ashx' // link do dokumentu
+                                    },
+                            },
+                        'doc_cat_2':
+                            {
+                                'label':'Dokumenty podstawowe i regulaminy', // jest to nazwa kategorii dokumentów
+                                1:
+                                    {
+                                        name:'Oświadczenie o wyrażeniu zgody/rezygnacji na e-fakturę', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/prad-z-usluga-zdrowie/gze/2020-07-01_ts-gze_gd-msp_oswiadczeniedoefv_prad_k_edyt.ashx' // link do dokumentu
+                                    },
+                                3:
+                                    {
+                                        name:'Oświadczenie o zapoznaniu się i akceptacji treści Regulaminu usługi Zdrowie 24H', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/prad-z-usluga-zdrowie/gze/2021_02_01_ts_gze_gd_msp_prad_osw_akcept_reg_uslugi_pdf_wzor_k.ashx' // link do dokumentu
+                                    },
+                                4:
+                                    {
+                                        name:'Wyciąg z Taryfy dla energii elektrycznej TAURON Dystrybucja S.A. na rok 2024', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/prad-z-usluga-zdrowie/gze/wyciag-typu-g-z-taryfy-td-sa-na-rok-2021.ashx' // link do dokumentu
+                                    },
+                                5:
+                                    {
+                                        name:'Wyciąg z Taryfy dla energii elektrycznej TAURON Dystrybucja S.A. - Informacja o stawkach brutto na rok 2025', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/tarcza/2022_02_01_TS-GZE_InfCenyBruttoWycTarTD_G_BAZA.ashx'// link do dokumentu
+                                    },
+								6:
+                                    {
+                                        name:'Informacja o cenach energii w Cennikach w okresie obowiązywania rozwiązań osłonowych, tj. do 31 grudnia 2024 roku', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/tarcza/dokl-tarczowa-gze.ashx' // link do dokumentu
+                                    },
+                                7:
+                                    {
+                                        name:'Regulamin usługi Zdrowie 24H', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/prad-z-usluga-zdrowie/gze/regulamin-zdrowie-24h-dom.ashx' // link do dokumentu
+                                    },
+                                8:
+                                    {
+                                        name:'Zbiór Praw Konsumenta Energii Elektrycznej', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/prad-z-usluga-zdrowie/gze/zbior-praw-konsumenta-energii-elektrycznej.ashx' // link do dokumentu
+                                    },
+                                9:
+                                    {
+                                        name:'Zgoda na przetwarzanie danych osobowych', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/prad-z-usluga-zdrowie/gze/zgoda-dodatkowa-z24h-dom.ashx' // link do dokumentu
+                                    },
+                                10:
+                                    {
+                                        name:'Zgody Klienta', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/prad-z-usluga-zdrowie/gze/tsp_gze_zgody_klienta_podstawowe_pdf_edyt_k.ashx' // link do dokumentu
+                                    },
+                                11:
+                                    {
+                                        name:'Wzór formularza odstąpienia od umowy ', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/prad-z-usluga-zdrowie/gze/2021-01-01-gze-gdmsp-pouczenieoprawiedoodstapieniaodumowy.ashx' // link do dokumentu
+                                    },
+                                12:
+                                    {
+                                        name:'Wykaz świadczeń w ramach usługi Pomoc medyczna 24H', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/prad-z-usluga-zdrowie/gze/wykaz-swiadczen-w-ramach-uslugi-pomoc-medyczna-24h-dom.ashx' // link do dokumentu
+                                    },
+                                13:
+                                    {
+                                        name:'Wykaz terytorialny wizyt domowych internisty lub lekarza rodzinnego', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/prad-z-usluga-zdrowie/gze/wykaz-terytorialny-internista-wizyty-domowe-pomoc-medyczna-24h-dom.ashx' // link do dokumentu
+                                    },
+                                14:
+                                    {
+                                        name:'Wykaz terytorialny wizyt domowych pielęgniarki', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/prad-z-usluga-zdrowie/gze/wykaz-terytorialny-pielegniarka-wizyty-domowe-pomoc-medyczna-24h-dom.ashx' // link do dokumentu
+                                    },
+                                15:
+                                    {
+                                        name:'Regulamin usługi Opieka 24H', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/opieka-24h/2022-07-01-TS-GZE-GD-prad-Regulamin-Opieka24H-K--BAZA-K.ashx' // link do dokumentu
+                                    },
+                            },
+                    },
+            },
+        contractValue:1,
+        price_table_extra_information:{
+            before_price: 'opłata handlowa (stawka stała) za usługę dodatkową', // tekst wyświetlany w Tabeli Cenowej przed opłatą handlową (stawką stałą)
+            after_price: '(przez cały okres trwania cennika)' // tekst wyświetlany w Tabeli Cenowej po opłacie handlowej (stawce stałej)
+        }
+    },
+};

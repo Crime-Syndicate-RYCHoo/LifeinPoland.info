@@ -1,0 +1,14 @@
+var prosument_plus = {
+    'oferta_zmiana':{
+        onlineActivation: 100, // bonus w zł za wybór cennika 3 letniego
+        ecoBonus: 5,
+        prices:{
+            'ts':'59,00',
+            'gze':'59,00',
+        },
+        price_table_extra_information:{
+            before_price: 'opłata handlowa (stawka stała) za usługę dodatkową', // tekst wyświetlany w Tabeli Cenowej przed opłatą handlową (stawką stałą)
+            after_price: '(przez cały okres trwania cennika)' // tekst wyświetlany w Tabeli Cenowej po opłacie handlowej (stawce stałej)
+        }
+    },
+};

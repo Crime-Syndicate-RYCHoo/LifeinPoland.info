@@ -1,0 +1,150 @@
+var ceny_dynamiczne = {
+    region_ts: {
+        documents_list: [
+            {
+                document_name: 'Cennik Prąd z Ceną Dynamiczną - na czas nieokreślony TS',
+                document_link: 'https://www.tauron.pl/-/media/offer-documents/produkty/2024/08-2024/dynamiczne/ts/EE-GD-CDzcb-Bezpieczny-TS-0.ashx',
+            },
+            {
+                document_name: 'Wyciąg z Taryfy dla energii elektrycznej TAURON Dystrybucja na rok 2025',
+                document_link: 'https://www.tauron.pl/-/media/offer-documents/produkty/prad-z-serwisantem-dokumenty/ts/wyciag-typu-g-z-taryfy-td-sa-na-rok-2021.ashx',
+            },
+            {
+                document_name: 'Ogólne Warunki Umowy Kompleksowej',
+                document_link: 'https://www.tauron.pl/-/media/offer-documents/dokumenty-do-taryfy/owu-umowa-kompleksowa/gd/ts/1_01_2019_ts_gd_owu_uk_td.ashx',
+            },
+            {
+                document_name: 'Zbiór Praw Konsumenta Energii Elektrycznej',
+                document_link: 'https://www.tauron.pl/-/media/offer-documents/produkty/prad-z-serwisantem-dokumenty/ts/zbior_praw_konsumenta_energii_elektrycznej.ashx',
+            },
+            {
+                document_name: 'Klauzula informacyjna TAURON Dystrybucja S.A.',
+                document_link: 'https://www.tauron.pl/-/media/offer-documents/rodo/klauzule-informacyjne/ts/klauzula-informacyjna-tauron-dystrybucja-sa.ashx',
+            },
+            {
+                document_name: 'Klauzula informacyjna Tauron Sprzedaż',
+                document_link: 'https://www.tauron.pl/-/media/offer-documents/rodo/klauzule-informacyjne/ts/klauzula-informacyja-tauron-sprzedaz.ashx',
+            },
+            {
+                document_name: 'Wzór formularza odstąpienia od umowy',
+                document_link: 'https://www.tauron.pl/-/media/offer-documents/produkty/prad-z-serwisantem-dokumenty/ts/ts_formularz_odstapienia.ashx',
+            },
+            {
+                document_name: 'Regulamin e-faktury',
+                document_link: 'https://www.tauron.pl/-/media/offer-documents/produkty/prad-z-serwisantem-dokumenty/ts/regulamin-e-faktura.ashx',
+            },
+            {
+                document_name: 'Oświadczenie o wyrażeniu zgody/rezygnacji na e-fakturę',
+                document_link: 'https://www.tauron.pl/-/media/offer-documents/produkty/prad-z-serwisantem-dokumenty/ts/2020-07-01_ts-gze_gd-msp_oswiadczeniedoefv_prad_k_edyt.ashx',
+            },
+            {
+                document_name: 'Wyciąg z Taryfy dla energii elektrycznej TAURON Dystrybucja S.A. - Informacja o stawkach brutto na rok 2025',
+                document_link: 'https://www.tauron.pl/-/media/offer-documents/produkty/tarcza/2022_02_01_TS-GZE_InfCenyBruttoWycTarTD_G_BAZA.ashx',
+            },
+            {
+                document_name: 'Broszura informacyjna URE - Rachunki za prąd',
+                document_link: 'https://www.tauron.pl/-/media/offer-documents/produkty/cennik-dynamiczny/broszura-informacyjna-ure-rachunki-za-prad.ashx',
+            },
+            {
+                document_name: 'Oświadczenie w celu zawarcia umowy z Cennikiem Prąd z Ceną Dynamiczną',
+                document_link: 'https://www.tauron.pl/-/media/offer-documents/produkty/cennik-dynamiczny/2025-01-01_TS_GD_prad_OswCenDynam_K_Baza.ashx',
+            },
+        ],
+    },
+    region_gze: {
+        documents_list: [
+            {
+                document_name: 'Cennik Prąd z Ceną Dynamiczną - na czas nieokreślony GZE',
+                document_link: 'https://www.tauron.pl/-/media/offer-documents/produkty/2024/08-2024/dynamiczne/gze/EE-GD-CDzcb-Bezpieczny-GZE-0.ashx',
+            },
+            {
+                document_name: 'Wyciąg z Taryfy dla energii elektrycznej TAURON Dystrybucja na rok 2025',
+                document_link: 'https://www.tauron.pl/-/media/offer-documents/produkty/prad-z-serwisantem-dokumenty/gze/wyciag-typu-g-z-taryfy-td-sa-na-rok-2021.ashx',
+            },
+            {
+                document_name: 'Ogólne Warunki Umowy Kompleksowej',
+                document_link: 'https://www.tauron.pl/-/media/offer-documents/dokumenty-do-taryfy/owu-umowa-kompleksowa/gd/gze/1_01_2019_tsgze_gd_owu_uk_td.ashx',
+            },
+            {
+                document_name: 'Zbiór Praw Konsumenta Energii Elektrycznej',
+                document_link: 'https://www.tauron.pl/-/media/offer-documents/produkty/prad-z-serwisantem-dokumenty/gze/zbior_praw_konsumenta_energii_elektrycznej.ashx',
+            },
+            {
+                document_name: 'Klauzula informacyjna TAURON Dystrybucja S.A.',
+                document_link: 'https://www.tauron.pl/-/media/offer-documents/rodo/klauzule-informacyjne/gze/klauzula-informacyjna-tauron-dystrybucja-sa.ashx',
+            },
+            {
+                document_name: 'Klauzula informacyjna Tauron Sprzedaż GZE',
+                document_link: 'https://www.tauron.pl/-/media/offer-documents/rodo/klauzule-informacyjne/gze/klauzula-informacyjna-tauron-sprzedaz_gze.ashx',
+            },
+            {
+                document_name: 'Wzór formularza odstąpienia od umowy',
+                document_link: 'https://www.tauron.pl/-/media/offer-documents/produkty/prad-z-serwisantem-dokumenty/gze/gze_formularz_odstapienia.ashx',
+            },
+            {
+                document_name: 'Regulamin e-faktury',
+                document_link: 'https://www.tauron.pl/-/media/offer-documents/produkty/prad-z-serwisantem-dokumenty/gze/regulamin-e-faktura.ashx',
+            },
+            {
+                document_name: 'Oświadczenie o wyrażeniu zgody/rezygnacji na e-fakturę',
+                document_link: 'https://www.tauron.pl/-/media/offer-documents/produkty/prad-z-serwisantem-dokumenty/gze/2020-07-01_ts-gze_gd-msp_oswiadczeniedoefv_prad_k_edyt.ashx',
+            },
+            {
+                document_name: 'Wyciąg z Taryfy dla energii elektrycznej TAURON Dystrybucja S.A. - Informacja o stawkach brutto na rok 2025',
+                document_link: 'https://www.tauron.pl/-/media/offer-documents/produkty/tarcza/2022_02_01_TS-GZE_InfCenyBruttoWycTarTD_G_BAZA.ashx',
+            },
+            {
+                document_name: 'Broszura informacyjna URE - Rachunki za prąd',
+                document_link: 'https://www.tauron.pl/-/media/offer-documents/produkty/cennik-dynamiczny/broszura-informacyjna-ure-rachunki-za-prad.ashx',
+            },
+            {
+                document_name: 'Oświadczenie w celu zawarcia umowy z Cennikiem Prąd z Ceną Dynamiczną',
+                document_link: 'https://www.tauron.pl/-/media/offer-documents/produkty/cennik-dynamiczny/2025-01-01_GZE_GD_prad_OswCenDynam_K_Baza.ashx',
+            },
+        ],
+    },
+    region_expansion: {
+        documents_list: [
+            {
+                document_name: 'Cennik Prąd z Ceną Dynamiczną - na czas nieokreślony TS',
+                document_link: 'https://www.tauron.pl/-/media/offer-documents/produkty/2024/08-2024/dynamiczne/exp-ts/EE-GD-CDzcb-Bezpieczny-TS-E-0.ashx',
+            },
+            {
+                document_name: 'Cennik Prąd z Ceną Dynamiczną - na czas nieokreślony GZE',
+                document_link: 'https://www.tauron.pl/-/media/offer-documents/produkty/2024/08-2024/dynamiczne/exp-gze/EE-GD-CDzcb-Bezpieczny-GZE-E-0.ashx',
+            },
+            {
+                document_name: 'Ogólne Warunki Umowy Kompleksowej',
+                document_link: 'https://www.tauron.pl/-/media/offer-documents/dokumenty-do-taryfy/owu-umowa-kompleksowa/gd/gze/1_01_2019_tsgze_gd_owu_uk_td.ashx',
+            },
+            {
+                document_name: 'Zbiór Praw Konsumenta Energii Elektrycznej',
+                document_link: 'https://www.tauron.pl/-/media/offer-documents/produkty/prad-z-serwisantem-dokumenty/gze/zbior_praw_konsumenta_energii_elektrycznej.ashx',
+            },
+            {
+                document_name: 'Klauzula informacyjna Tauron Sprzedaż GZE',
+                document_link: 'https://www.tauron.pl/-/media/offer-documents/rodo/klauzule-informacyjne/gze/klauzula-informacyjna-tauron-sprzedaz_gze.ashx',
+            },
+            {
+                document_name: 'Wzór formularza odstąpienia od umowy',
+                document_link: 'https://www.tauron.pl/-/media/offer-documents/produkty/prad-z-serwisantem-dokumenty/gze/gze_formularz_odstapienia.ashx',
+            },
+            {
+                document_name: 'Regulamin e-faktury',
+                document_link: 'https://www.tauron.pl/-/media/offer-documents/produkty/prad-z-serwisantem-dokumenty/gze/regulamin-e-faktura.ashx',
+            },
+            {
+                document_name: 'Oświadczenie o wyrażeniu zgody/rezygnacji na e-fakturę',
+                document_link: 'https://www.tauron.pl/-/media/offer-documents/produkty/prad-z-serwisantem-dokumenty/gze/2020-07-01_ts-gze_gd-msp_oswiadczeniedoefv_prad_k_edyt.ashx',
+            },
+            {
+                document_name: 'Broszura informacyjna URE - Rachunki za prąd',
+                document_link: 'https://www.tauron.pl/-/media/offer-documents/produkty/cennik-dynamiczny/broszura-informacyjna-ure-rachunki-za-prad.ashx',
+            },
+            {
+                document_name: 'Oświadczenie w celu zawarcia umowy z Cennikiem Prąd z Ceną Dynamiczną',
+                document_link: 'https://www.tauron.pl/-/media/offer-documents/produkty/cennik-dynamiczny/2025-01-01_GZE_GD_prad_OswCenDynam_K_Baza.ashx',
+            },
+        ],
+    }
+}

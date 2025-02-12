@@ -1,0 +1,535 @@
+﻿// ogólne funkcje pomocnicze
+var helperJs = function() {
+    return {
+        statics: {
+            classes: {
+                invisible: "is-invisible",
+                hidden: "is-hidden",
+                ok: "ok",
+                error: "error",
+                open: "open",
+                hasPopup: "has-popup",
+                hasSpin: "has-spin"
+            },
+
+            attributes: {
+                dataValid: "data-valid",
+                dataGaid: "data-gaid",
+                dataIsCellPhoneInput: "data-isCellPhoneInput",
+                dataVal: "data-val",
+                dataDisabled: "data-disabled",
+                dataFor: "data-for",
+                dataForMultiAnd: "data-for-multi-and",
+                dataForMultiOr: "data-for-multi-or",
+                dataRequiresSingle: "data-requires-single",
+                disabled: "disabled",
+                hidden: "hidden",
+                style: "style",
+                readonly: "readonly"
+            },
+
+            methods: {
+                get: "GET",
+                post: "POST"
+            }
+        },
+
+
+        //returns form row of current element
+        getFormRow: function(element) {
+            var formRow = null;
+
+            if (element != null) {
+                formRow = vJs.closest(element, ".formRow");
+            }
+
+            return formRow;
+        },
+
+        //resets form row to default
+        resetFormRow: function(element, hideRow) {
+            var formRow = helperJs.getFormRow(element);
+            if (formRow != null) {
+                var classes = { removeList: [helperJs.statics.classes.ok] };
+
+                if (hideRow) {
+                    classes.addList = [helperJs.statics.classes.hidden];
+                } else {
+                    classes.removeList.push(helperJs.statics.classes.hidden);
+                }
+
+                helperJs.modifyElement(formRow, classes, null, null);
+            }
+        },
+
+        //resets form row with input to default
+        resetInputWithFormRow: function(input, hideRow) {
+            helperJs.resetInput(input, null, { removeList: [helperJs.statics.attributes.dataGaid, helperJs.statics.attributes.dataDisabled, helperJs.statics.attributes.readonly] });
+            helperJs.resetFormRow(input, hideRow);
+        },
+
+        //resets form row with select to default
+        resetSelectWithFormRow: function(select, defaultOption, hideRow) {
+            helperJs.resetSelect(select, defaultOption);
+            helperJs.resetFormRow(select, hideRow);
+        },
+
+        //modify element attributes
+        modifyAttributes: function(element, attributes) {
+            if (element != null && attributes != null) {
+                var attr;
+                var i;
+
+                if (attributes.addList != null) {
+                    for (i = 0; i < attributes.addList.length; i++) {
+                        attr = attributes.addList[i];
+
+                        if (attr != null && attr.name != null && attr.value != null) {
+                            element.setAttribute(attr.name, attr.value);
+                        }
+                    }
+                }
+
+                if (attributes.removeList != null) {
+                    for (i = 0; i < attributes.removeList.length; i++) {
+                        attr = attributes.removeList[i];
+
+                        if (attr != null) {
+                            element.removeAttribute(attr);
+                        }
+                    }
+                }
+            }
+        },
+
+        //modify element classes
+        modifyClasses: function(element, classes) {
+            if (element != null && classes != null) {
+                var cls;
+                var i;
+
+                if (classes.addList != null) {
+                    for (i = 0; i < classes.addList.length; i++) {
+                        cls = classes.addList[i];
+
+                        if (cls != null) {
+                            element.classList.add(cls);
+                        }
+                    }
+                }
+
+                if (classes.removeList != null) {
+                    for (i = 0; i < classes.removeList.length; i++) {
+                        cls = classes.removeList[i];
+
+                        if (cls != null) {
+                            element.classList.remove(cls);
+                        }
+                    }
+                }
+            }
+        },
+
+        //modify element
+        modifyElement: function(element, classes, attributes, value) {
+            if (element != null) {
+                helperJs.modifyClasses(element, classes);
+                helperJs.modifyAttributes(element, attributes);
+
+                if (value != null && value !== element.value) {
+                    element.value = value;
+                    helperJs.fireEvent(element, "change");
+                }
+            }
+        },
+        
+        fireEvent: function(element, eventName) {
+            var event;
+            
+            if (typeof(Event) === "function") {
+                event = new Event(eventName);
+            } else {
+                // IE11
+                event = document.createEvent("Event");
+                event.initEvent(eventName, false, false);
+            }
+
+            element.dispatchEvent(event);
+        },
+
+        //modify elements
+        modifyElements: function(elements, classes, attributes, value) {
+            if (elements != null) {
+                for (var i = 0; i < elements.length; i++) {
+                    var element = elements[i];
+
+                    helperJs.modifyElement(element, classes, attributes, value);
+                }
+            }
+        },
+
+        //removes hidden class
+        show: function(elements) {
+            var classes = { removeList: [helperJs.statics.classes.hidden] };
+            var attributes = { removeList: [helperJs.statics.attributes.hidden] };
+
+            helperJs.modifyElements(elements, classes, attributes, null);
+        },
+
+        //adds hidden class
+        hide: function(elements) {
+            var classes = { addList: [helperJs.statics.classes.hidden] };
+            var attributes = { addList: [{ name: helperJs.statics.attributes.hidden, value: "" }] };
+
+            helperJs.modifyElements(elements, classes, attributes, null);
+        },
+
+        //copy array
+        copyArray: function(ops) {
+            var arr = [];
+
+            if (ops != null) {
+                for (var i = 0; i < ops.length; i++) {
+                    arr[i] = ops[i];
+                }
+            }
+
+            return arr;
+        },
+
+        //iso Parser
+        isoParser: function(isoStyle) {
+            var nd = new Date();
+
+            if (isoStyle != null) {
+                var d = new Date(isoStyle);
+                var utc = d.getTime() + (d.getTimezoneOffset() * 60000);
+                nd = new Date(utc + (3600000 * 2));
+            }
+
+            return nd;
+        },
+
+        //creates text element
+        createTextNode: function(value) {
+            var element = null;
+
+            if (value != null) {
+                element = document.createTextNode(value);
+            }
+
+            return element;
+        },
+
+        //creates DOM element
+        createElement: function(type, children, classes, attributes, text, value) {
+            var element = null;
+
+            if (type != null) {
+                element = document.createElement(type);
+                helperJs.modifyElement(element, classes, attributes, null);
+
+                if (children != null) {
+                    for (var i = 0; i < children.length; i++) {
+                        var child = children[i];
+
+                        if (child != null) {
+                            element.appendChild(child);
+                        }
+                    }
+                }
+                if (text != null) {
+                    element.text = text;
+                }
+                if (value != null) {
+                    element.value = value;
+                }
+            }
+
+            return element;
+        },
+
+        //create div element
+        createDiv: function(children, classes, attributes) {
+            return helperJs.createElement("div", children, classes, attributes, null, null);
+        },
+
+        //create li element
+        createLi: function(children, classes, attributes) {
+            return helperJs.createElement("li", children, classes, attributes, null, null);
+        },
+
+        //create p element
+        createP: function(children, classes, attributes) {
+            return helperJs.createElement("p", children, classes, attributes, null, null);
+        },
+
+        //create div element
+        createSpan: function(children, classes, attributes) {
+            return helperJs.createElement("span", children, classes, attributes, null, null);
+        },
+
+        //create br element
+        createBr: function(children, classes, attributes) {
+            return helperJs.createElement("br", children, classes, attributes, null, null);
+        },
+
+        //create option element
+        createOption: function(children, classes, attributes, text, value) {
+            return helperJs.createElement("option", children, classes, attributes, text, value);
+        },
+
+        //creates button element
+        createButton: function(children, func, classes, attributes) {
+            var button = helperJs.createElement("button", children, classes, attributes, null, null);
+            helperJs.modifyAttributes(button, { addList: [{ name: "type", value: "button" }] });
+
+            if (func != null) {
+                helperJs.addListener(button, "click", func);
+            }
+
+            return button;
+        },
+
+        //generate select option
+        appendOptionCopy: function(select, optionToCopy) {
+            if (select != null) {
+                var attributes = null,
+                    text = null,
+                    value = null;
+
+                if (optionToCopy != null) {
+                    text = optionToCopy.text;
+                    value = optionToCopy.getAttribute("value");
+
+                    var len = optionToCopy.attributes.length;
+                    if (len > 0) {
+                        attributes = { addList: [], removeList: [helperJs.statics.attributes.style] };
+
+                        for (var i = 0; i < len; i++) {
+                            var attrName = optionToCopy.attributes[i].name;
+                            var attrValue = optionToCopy.attributes[i].value;
+
+                            attributes.addList.push({ name: attrName, value: attrValue });
+                        }
+                    }
+                }
+
+                var option = helperJs.createOption(null, null, attributes, text, value);
+                select.appendChild(option);
+            }
+        },
+
+        //reset input
+        resetInput: function(input, classes, attributes) {
+            if (input != null) {
+                helperJs.modifyElement(input, classes, attributes, "");
+            }
+        },
+
+        //reset ul
+        resetUl: function(ul, classes, attributes) {
+            if (ul != null) {
+                ul.innerHTML = "";
+
+                helperJs.modifyElement(ul, classes, attributes, "");
+            }
+        },
+
+        //reset checkbox
+        resetCheckbox: function(checkbox, classes, attributes, defaultState) {
+            if (checkbox != null) {
+                checkbox.checked = defaultState;
+
+                helperJs.modifyElement(checkbox, classes, attributes, null);
+            }
+        },
+
+        //reset select
+        resetSelect: function(select, defaultOption) {
+            if (select != null) {
+                select.innerHTML = "";
+
+                helperJs.modifyElement(select, null, null, "-1");
+                helperJs.appendOptionCopy(select, defaultOption);
+            }
+        },
+
+        //remove validation listener
+        removeListener: function(element, type, func) {
+            element.removeEventListener(type, func);
+        },
+
+        //add validation listener
+        addListener: function(element, type, func) {
+            if (type === "click") {
+                element.onclick = func;
+            } else {
+                element.addEventListener(type, func);
+            }
+        },
+
+        //makes request
+        makeRequest: function(method, url, queryParams, func, data, headers, async) {
+            //var header = 'text/html; charset=utf-8';
+            var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
+
+            var isAsync = true;
+            if (async === true || async === false) {
+                isAsync = async;
+            }
+
+            if (queryParams != null && queryParams.length > 0) {
+                var containsParameters = true;
+
+                if (url.indexOf("?") < 0) {
+                    url += "?";
+                    containsParameters = false;
+                }
+
+                for (var i = 0; i < queryParams.length; i++) {
+                    var name = queryParams[i].name;
+                    var value = queryParams[i].value;
+
+                    if (name != null && value != null) {
+                        if (containsParameters === true) {
+                            url += "&";
+                        }
+
+                        url += name + "=" + value;
+                        containsParameters = true;
+                    }
+                }
+            }
+
+            xhr.open(method, url, isAsync);
+
+            if (headers != null) {
+                for (var j = 0; j < headers.length; j++) {
+                    xhr.setRequestHeader(headers[j][0], headers[j][1]);
+                }
+            }
+            //ajax.setRequestHeader('Content-type', header);
+            xhr.onload = func;
+
+            if (data != null) {
+                xhr.send(data);
+            } else {
+                xhr.send();
+            }
+
+            return xhr;
+        },
+
+        //sets listeners on inputs
+        addListenersToElements: function(listeners) {
+            if (listeners != null) {
+                for (var i = 0; i < listeners.length; i++) {
+                    var listener = listeners[i];
+                    if (listener != null && listener.element != null && listener.type != null && listener.func != null) {
+                        helperJs.addListener(listener.element, listener.type, listener.func);
+                    }
+                }
+            }
+        },
+
+        //adds listeners to requiring elements
+        addListenersToRequiringElements: function(form) {
+            var requiringElements = form.querySelectorAll("[" + helperJs.statics.attributes.dataRequiresSingle + "]");
+            var attributes = {
+                removeList: [helperJs.statics.attributes.disabled]
+            };
+
+            for (var i = 0; i < requiringElements.length; i++) {
+                var requiringElement = requiringElements[i],
+                    requiredId = requiringElement.getAttribute(helperJs.statics.attributes.dataRequiresSingle);
+
+                if (requiredId == null || requiredId.length === 0) {
+                    continue;
+                }
+                var element = form.querySelector("#" + requiredId);
+                if (element != null) {
+                    var listeners = helperJs.createModel("listener", null,
+                    [
+                        [
+                            element,
+                            "click",
+                            function () {
+                                helperJs.modifyElement(requiringElement, null, attributes, null);
+                            }
+                        ],
+                        [
+                            element,
+                            "mouseup",
+                            function() {
+                                var middleClick = false;
+                                if (!e) {
+                                    var e = window.event;
+                                }
+                                if (e.which) {
+                                    middleClick = (e.which == 2);
+                                } else if (e.button) {
+                                    middleClick = (e.button == 4);
+                                }
+                                if (middleClick) {
+                                    helperJs.modifyElement(requiringElement, null, attributes, null);
+                                }
+                            }
+                        ]
+
+                    ]);
+                    helperJs.addListenersToElements(listeners);
+                }
+            }
+        },
+
+        //creates specified model
+        createModel: function(type, subtype, data) {
+            var model = {};
+
+            if (type === "regionalization") {
+                if (subtype === "region") {
+                    model = {
+                        province: data[0],
+                        district: data[1],
+                        commune: data[2],
+                        districtCityArea: data[3]
+                    };
+                } else if (subtype === "city") {
+                    model = {
+                        city: data[0],
+                        street: data[1]
+                    };
+                }
+            } else if (type === "listener") {
+                model = [];
+                for (var i = 0; i < data.length; i++) {
+                    var listenerModel = {
+                        element: data[i][0],
+                        type: data[i][1],
+                        func: data[i][2]
+                    };
+
+                    model.push(listenerModel);
+                }
+            }
+
+            return model;
+        },
+
+        //get distinct values from dataset from list of elements 
+        getDistinctValuesFromElementsDataset: function(elements, dataAttr) {
+            var arr = [];
+
+            for (var i = 0; i < elements.length; i++) {
+                var attrValue = elements[i].getAttribute("data-" + dataAttr);
+
+                if (attrValue && arr.indexOf(attrValue) < 0) {
+                    arr.push(attrValue);
+                }
+            }
+
+            return arr;
+        },
+    }
+}();

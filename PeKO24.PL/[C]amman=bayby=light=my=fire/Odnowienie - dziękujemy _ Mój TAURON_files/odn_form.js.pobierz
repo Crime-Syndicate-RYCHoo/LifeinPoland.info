@@ -1,0 +1,251 @@
+var questions = {
+    '2':{
+        id:2,
+        name:'Zamówienie',
+        desc:'Zamawiana oferta',
+    }
+}
+
+$( document ).ready(function() {
+    $('.flex_progress').css('margin-top',0)
+    $('.f_select').fancySelect();
+
+    function removeAlert(){
+        $('.alert_box').remove();
+    }
+    function generateAlert(text,kind){
+        $('#smart_form').append('<div class="alert_box '+ (( kind == 1 )? 'error_alert': 'success_error') +' "> '+ text +' </div>');
+        setTimeout(function() {
+           $('.alert_box').fadeOut(2000);
+        }, 2000);
+        setTimeout(function() {
+            removeAlert();
+        }, 4000);
+    }
+    var errmsg = '* Pole obowiązkowe';
+    var errmsgPhone = '* Niepoprawny format numeru telefonu';
+    var errmsgMail = '* Niepoprawny format adresu e-mail';
+    $(document).on('blur','#mail',function(e){
+        var input = $(this);
+        var pattern = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+        var is_email = pattern.test(input.val());
+        if (input.val().length > 0) {
+            if (is_email) {
+                input.removeClass("invalid").addClass("valid");
+                input.parent().find('.input_error').text("alert-text").removeClass("input_bad");
+                input.parent().removeClass('with_x');
+                input.parent().addClass('with_ok');
+            } else {
+                input.removeClass("valid").addClass("invalid");
+                input.parent().find('.input_error').text(errmsgMail).addClass("input_bad");
+                input.parent().addClass('with_x');
+                input.parent().removeClass('with_ok');
+            }
+        }
+        else{
+            input.removeClass("valid").addClass("invalid");
+            input.parent().find('.input_error').text(errmsg).addClass("input_bad");
+            input.parent().addClass('with_x');
+            input.parent().removeClass('with_ok');
+        }
+    });
+    $(document).on('blur', '#phone', function (e) {
+        var input = $(this);
+        var pattern = /^([0-9-+]{6,14})?([ .-]?)$/;
+        var is_phone = pattern.test(input.val());
+
+        if (input.val().length > 0) {
+            if (is_phone && input.val().length < 15) {
+                input.removeClass("invalid").addClass("valid");
+                input.parent().find('.input_error').text("alert-text").removeClass("input_bad");
+                input.parent().removeClass('with_x');
+                input.parent().addClass('with_ok');
+            } else {
+                input.removeClass("valid").addClass("invalid");
+                input.parent().find('.input_error').text(errmsgPhone).addClass("input_bad");
+                input.parent().addClass('with_x');
+                input.parent().removeClass('with_ok');
+            }
+        } else {
+            input.removeClass("valid").addClass("invalid");
+            input.parent().find('.input_error').text(errmsg).addClass("input_bad");
+            input.parent().addClass('with_x');
+            input.parent().removeClass('with_ok');
+        }
+    });
+
+    $(document).on('keyup','#phone',function(){
+        var summaryValue = $(this).val();
+        $('.summary_phone').text(summaryValue)
+    });
+    $(document).on('keyup','#mail',function(){
+        var summaryValue = $(this).val();
+        $('.summary_mail').text(summaryValue)
+    });
+    function validateObligate(){
+        var validate = true;
+        $( ".active_question .obligate").each(function( index ) {
+            $(this).trigger('blur');
+            if( $(this).hasClass('invalid')){
+                validate = false;
+            }
+        });
+        $( ".active_question .obligate_check").each(function( index ) {
+            if( $(this).prop("checked") === false){
+                validate = false;
+                $(this).parent().addClass('invalid');
+                $(this).parent().find('.c_input_error').text("* Pole obowiązkowe").addClass("c_input_bad");
+            }
+        });
+        return validate;
+    }
+
+    $(document).on('click','.next_step',function(e){
+
+        var ableToContinue = validateObligate();
+
+        if(ableToContinue){
+            var presentQuestion = parseInt($('.single_question.active_question').not('.done_question').attr('data-question'));
+            var nextQuestion = parseInt($('.single_question.active_question').not('.done_question').attr('data-question')) + 1;
+
+
+            $('.single_question[data-question="'+ presentQuestion +'"]').addClass('done_question');
+            $('.single_step[data-question="'+ presentQuestion +'"]').addClass('done').removeClass('in_progress');
+
+            $('.single_question[data-question="'+ nextQuestion +'"]').addClass('active_question');
+            $('.single_step[data-question="'+ nextQuestion +'"]').addClass('in_progress');
+
+            var nextElement = $('.single_question[data-question="'+ nextQuestion +'"]');
+
+            if(nextQuestion){
+                $('html, body').stop().animate({
+                    scrollTop: nextElement.offset().top
+                }, 500);
+            }
+
+            if(nextQuestion == 5 || presentQuestion == 5){
+
+                var fullAddress = $('#address').val().split('/');
+                var address = fullAddress[1];
+
+                var service = $('.service_desc').text();
+
+                $(this).text('ZAMÓW');
+                $(this).addClass('send_form');
+                $(this).removeClass('next_step');
+                $('.summary_address').text(address)
+                $('.summary_service_desc').text(service)
+            }
+        }
+        // else{
+        //     generateAlert('Prosimy uzupełnić wszystkie brakujące informacje',1)
+        // }
+    })
+    $(document).on('click','.change_service',function(e){
+        var parent = $(this).closest('.toggle_element');
+        parent.toggleClass('hide');
+        parent.siblings('.toggle_element').toggleClass('hide');
+    });
+    $(document).on('click','.confirm_service',function(e){
+       var serviceSelect = $('#service');
+       var serviceValue = serviceSelect.val();
+       var parent = $(this).closest('.toggle_element');
+       parent.toggleClass('hide');
+       parent.siblings('.toggle_element').toggleClass('hide');
+       $('.service_desc').text(serviceValue);
+       $('.summary_service_desc').text(serviceValue);
+    });
+    $(document).on('click','.alert_box',function(e){
+        removeAlert();
+    });
+
+    $(document).on('click','#last_term_all',function(e){
+        var parent = $(this).closest('.terms_box');
+        var checks = parent.find('input[type="checkbox"]');
+        if( $(this).prop("checked") === true ){
+            checks.each(function(index){
+                $(this).prop('checked',true);
+                $(this).parent().removeClass('invalid');
+                $(this).parent().find('.c_input_error').text("").removeClass("c_input_bad");
+            });
+        }
+        else{
+            checks.each(function(){
+                $(this).prop('checked',false);
+            });
+        }
+    });
+    $(document).on('click','.obligate_check',function(e){
+        var parent = $(this).closest('.check-box');
+        if( $(this).prop("checked") === true ){
+            parent.removeClass('invalid');
+            parent.find('.c_input_error').text("").removeClass("c_input_bad");
+        }
+        var checkParent = $('.m_terms');
+        var checks = checkParent.find('.obligate_check[type="checkbox"]');
+
+        var checkCounter = 0;
+
+        checks.each(function(index){
+            if( $(this).prop("checked") === true ){
+                checkCounter ++;
+            }
+        });
+
+        if(checkCounter == checks.length){
+            $('#last_term_all').prop({ checked: true });
+        }
+        else{
+            $('#last_term_all').prop({ checked: false });
+        }
+    });
+    $(document).on('click','.single_step ',function(e){
+       var step = $(this).attr('data-question');
+
+        var scrollQuestion = $('.single_question.active_question[data-question="'+ step +'"]');
+
+        if(scrollQuestion){
+            $('html, body').stop().animate({
+                scrollTop: scrollQuestion.offset().top
+            }, 500);
+        }
+    });
+    $(document).on('change.fs','#address',function(e){
+        var fullAddress = $(this).val().split('/');
+        var address = fullAddress[1];
+        $('.summary_address').text(address);
+    });
+
+    $(document).on('change.fs','#select_seller',function(e){
+        var seller = $(this).val();
+        $('.select_summary span').text(seller);
+    });
+
+    $(document).on('click','.send_form ',function(e){
+        var submitForm = validateObligate();
+        var form = $(this).closest('form');
+
+        if(submitForm){
+            form.trigger('submit');
+        }
+    });
+    $(document).on('click', '.scroll_btn', function (e) {
+        $('html, body').stop().animate({
+            scrollTop: $('.color_section').offset().top
+        }, 500);
+    })
+
+    $(document).on('mouseenter', '.main_label', function (e) {
+        $('.option_element ').removeClass('active_hover');
+        if( $(this).hasClass('first_label') && !$('.option_1').hasClass('active_option') ){
+            $('.option_1').addClass('active_hover');
+        }
+        if( $(this).hasClass('second_label') && !$('.option_2').hasClass('active_option') ){
+            $('.option_2').addClass('active_hover');
+        }
+    });
+    $(document).on('mouseleave', '.main_label', function (e) {
+        $('.option_element ').removeClass('active_hover');
+    })
+
+})

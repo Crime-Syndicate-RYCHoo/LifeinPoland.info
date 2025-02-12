@@ -1,0 +1,103 @@
+// funkcje odpowiedzialne za rotator
+
+var alertTopJs = function(){
+
+  var ls_alert, ls_counter, timer,
+  a_count, a_time
+;
+  
+  function checkAlert(module){
+   
+    ajax = new XMLHttpRequest();
+    ajax.open("POST", '/iapi/alert/CheckOutage', true);
+    // ajax.open("POST", '../api/alert.json', true);
+    ajax.onload = function () {
+
+      // console.log("get");
+      var response = JSON.parse(this.responseText);
+
+      //obsluga wysylki
+      // console.log(response);
+
+      if (response.success+'' == "true") {
+
+        var alert_id = response.id+'',
+            msg = response.msg+''
+        ;
+
+        module.querySelector('.alert-top__text').innerHTML = msg;
+        if (ls_alert != alert_id){
+          setLocal(alert_id, a_count);
+          vJs.addClass(module, 'show');
+        }
+        
+        ls_counter = localStorage.getItem('alert_counter') * 1;
+        if (ls_counter > 0 ) vJs.addClass(module, 'show');
+      } else {
+        vJs.removeClass(module, 'show');
+        setLocal('', '');
+      }
+
+    };
+    ajax.send();
+
+  }
+
+  function setLocal(id, counter){
+
+    localStorage.setItem('alert_id', id+'');
+    localStorage.setItem('alert_counter', counter+'');
+  }
+
+
+
+  return{
+    init:function(selector) {
+
+      var mod = document.querySelector(selector),
+          closeAlertBtns = document.querySelector('.alert-top__close')
+      ;
+
+      a_count = 3; //mod.getAttribute('data-alert-count');
+      a_time = 15; //mod.getAttribute('data-alert-time');
+      if (mod.getAttribute('data-alert-count')*1 > 1) a_count = mod.getAttribute('data-alert-count')*1;
+      if (mod.getAttribute('data-alert-time')*1 > 1) a_time = mod.getAttribute('data-alert-time')*1;
+
+      // console.log(a_count)
+
+      ls_alert = localStorage.getItem('alert_id');
+      ls_counter = localStorage.getItem('alert_counter') * 1;
+
+
+      if( cookiesJs.getCookie('OutageId') ){
+
+        setTimeout(function(){
+          checkAlert(mod);
+          timer = setInterval(function(){
+            checkAlert(mod);
+          }, a_time * 60 * 1000);
+        }, 3000);
+
+        closeAlertBtns.onclick = function() {
+          var alert_el = vJs.closest(this, selector);
+          ls_alert = localStorage.getItem('alert_id');
+
+          ls_counter--;
+          vJs.removeClass(alert_el, 'show');
+          setLocal(ls_alert, ls_counter);
+          if (ls_counter < 0) {
+            setLocal('', '');
+          }
+
+        }
+
+      }
+  
+    }
+  }
+}();
+
+// po zaladowaniu modulu odpalamy:
+if (! vJs.hasClass(document.getElementsByTagName('body')[0], 'sc-edit' ))
+  if (document.querySelectorAll('[data-js="alertTop"]').length > 0)
+    alertTopJs.init('[data-js="alertTop"]');

@@ -1,0 +1,266 @@
+// funkcje odpowiedzialne za rotator
+
+var tooltipJs = function(){
+
+  function offset(el) {
+    var rect = el.getBoundingClientRect(),
+    scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
+    scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    return { top: rect.top + scrollTop, left: rect.left + scrollLeft }
+  }
+
+
+  return{
+    init:function(selector) {
+
+    var tooptip = document.querySelector('.lmtooltip');
+    var tooptipContent = document.querySelector('[data-tooltip="tooltipContent"]');
+    var tooltipTriangle = document.querySelectorAll('[data-tooltip="triangle"]');
+    var tooltipText = document.querySelectorAll('[data-tooltip="text"]');
+
+    function removeTooltipContentClass() {
+      tooptipContent.classList.remove('lmtooltip__content--sleft');
+      tooptipContent.classList.remove('lmtooltip__content--aleft');
+      tooptipContent.classList.remove('lmtooltip__content--center');
+      tooptipContent.classList.remove('lmtooltip__content--aright');
+      tooptipContent.classList.remove('lmtooltip__content--sright');
+    }
+
+    function setTooltipContentPositionLR(left, right) {
+      tooptipContent.style.left = left;
+      tooptipContent.style.right = right;
+    }
+
+    function setTooltipContentPositionAndClass (tleft, tclass) {
+      tooptipContent.classList.add(tclass);
+      tooptipContent.style.left = tleft;
+    }
+
+    function setTooltipTriangle(left) {
+      tooltipTriangle[0].style.left = left;
+      tooltipTriangle[1].style.left = left;
+    }
+
+    function drawTooltip(isOnTop, noEbok) {
+      // console.log(tooptip);
+      // queryselectors
+      var tooltipOffset = offset(tooptip);
+      var tooptipContentOffset = offset(tooptipContent);
+      
+      
+      var left = parseInt(tooltipOffset.left.toFixed(0));
+      var tooptipContentLeft = parseInt(tooptipContentOffset.left.toFixed(0));
+      var windowWidth = window.innerWidth;
+      var right = windowWidth - left;
+
+      // set top
+      
+      tooptipContent.style.opacity = 1;
+
+      if(noEbok) {
+        tooptipContent.classList.add('lmtooltip__content--ico');
+      } else {
+        tooptipContent.classList.remove('lmtooltip__content--ico');
+      }
+
+      // set left, right
+      if (windowWidth < 580 && left <= right) {
+        setTooltipContentPositionLR('6px', '');
+        setTooltipTriangle(left - 10 + 'px');
+      } else if (windowWidth < 580 && left > right) {
+        setTooltipContentPositionLR('', '14px');
+        tooltipOffset = offset(tooptip);
+        tooptipContentOffset = offset(tooptipContent);
+
+        top = parseInt(tooltipOffset.top.toFixed(0)) + 40;
+        left = parseInt(tooltipOffset.left.toFixed(0));
+        tooptipContentLeft = parseInt(tooptipContentOffset.left.toFixed(0));
+        setTooltipTriangle(left - tooptipContentLeft - 4 + 'px');
+      }
+      if (windowWidth > 580) {
+        setTooltipContentPositionLR('','');
+        setTooltipTriangle('');
+        // console.log('left',left);
+        // console.log('right',right);
+        if(left < right) {
+          if (left < 100) {
+            
+            removeTooltipContentClass();
+            setTooltipContentPositionAndClass(parseInt(tooltipOffset.left.toFixed(0)) - 0 + (noEbok ? -2 : 0) + 'px', 'lmtooltip__content--sleft');
+          } else {
+            removeTooltipContentClass();
+            setTooltipContentPositionAndClass(parseInt(tooltipOffset.left.toFixed(0)) - 60 + (noEbok ? -8 : 0) + 'px', 'lmtooltip__content--aleft');
+          }
+
+        } else {
+          if (right < 150) {
+            removeTooltipContentClass();
+            setTooltipContentPositionAndClass(parseInt(tooltipOffset.left.toFixed(0)) + (noEbok ? 6 : 0) - tooptipContent.offsetWidth + 10 + 'px', 'lmtooltip__content--sright');
+          } else {
+            removeTooltipContentClass();
+            setTooltipContentPositionAndClass(parseInt(tooltipOffset.left.toFixed(0)) + (noEbok ? -2 : 0) - tooptipContent.offsetWidth + 38 + 16 + 'px','lmtooltip__content--aright');
+          }
+        }
+
+      }
+
+      if(isOnTop) {
+        var top = parseInt(tooltipOffset.top.toFixed(0)) -10 - tooptipContent.offsetHeight;
+        tooptipContent.style.top = top + 'px';
+        tooltipTriangle[0].style.transform = 'rotate(180deg)';
+        tooltipTriangle[1].style.transform = 'rotate(180deg)';
+        tooltipTriangle[0].style.top = '100%';
+        tooltipTriangle[1].style.top = 'calc(100% + 1px)';
+      } else {
+        var top = parseInt(tooltipOffset.top.toFixed(0)) + 40;
+        tooptipContent.style.top = top + 'px';
+        tooltipTriangle[0].style.transform = 'rotate(0)';
+        tooltipTriangle[1].style.transform = 'rotate(0)';
+        tooltipTriangle[0].style.top = '';
+        tooltipTriangle[1].style.top = '';
+      }
+
+    }
+
+    // work
+
+    var hoverTooltips = document.querySelectorAll('[data-tooltipAction="hover"]');
+    var clickTooltips = document.querySelectorAll('[data-tooltipAction="click"]');
+    var closeTooltipBtn = document.querySelector('[data-tooltip="close"]');
+    var clickState = 'no';
+    var tooltip_on = false;
+
+    window.addEventListener('onscroll', function(){
+      // closeTooltip();
+    });
+
+    window.addEventListener('touchstart', function(){
+      // closeTooltip();
+    });
+
+    function closeTooltip() {
+      clickState = 'no';
+      tooptipContent.style.opacity = 0;
+      tooptipContent.style.top = '-99999px';
+    }
+
+    function showTooltip(tthis) {
+      // console.log(tthis);
+      clickState = 'no';
+      tooptip = tthis;
+      document.querySelector('.lmtooltip__closeIcon').classList.remove('lmtooltip__closeIcon--show');
+      if(!tthis.getAttribute('aria-label')) {
+        var ttext = '';
+      } else {
+        var ttext = tthis.getAttribute('aria-label');
+      }
+      document.querySelector('[data-tooltip="text"]').innerHTML = ttext;
+      var isOnTop = tthis.getAttribute('data-directiontop');
+      var isOnTopBool;
+      if(isOnTop && isOnTop=="true"){
+        isOnTopBool = true;
+      } else {
+        isOnTopBool = false;
+      }
+      if(tthis.classList.contains('lmtooltip--fromico')){
+        drawTooltip(isOnTop, 'noEbok');
+      } else {
+        drawTooltip(isOnTop);
+      }
+      
+    }
+
+    function showClickTooltip(tthis) {
+      tooptip = tthis;
+      clickState = 'yes';
+      document.querySelector('.lmtooltip__closeIcon').classList.add('lmtooltip__closeIcon--show');
+      if(!tthis.getAttribute('aria-label')) {
+        var ttext = '';
+      } else {
+        var ttext = tthis.getAttribute('aria-label');
+      }
+      document.querySelector('[data-tooltip="text"]').innerHTML = ttext;
+      var isOnTop = tthis.getAttribute('data-directiontop');
+      var isOnTopBool;
+      if(isOnTop){
+        isOnTopBool = true;
+      } else {
+        isOnTopBool = false;
+      }
+      if(tthis.classList.contains('lmtooltip--fromico')){
+        drawTooltip(isOnTop,'noEbok');
+      } else {
+        drawTooltip(isOnTop);
+      }
+    }
+
+    var i;
+
+    for (i = 0; i < hoverTooltips.length; i ++) {
+      hoverTooltip = hoverTooltips[i];
+
+      // if (baseJs.is_touch_device()){
+      //   hoverTooltip.ontouchstart = function() {
+      //     if (tooltip_on){
+      //       closeTooltip();
+      //       tooltip_on = false;
+      //     }else{
+      //       showTooltip(this);
+      //       tooltip_on = true;
+      //     }
+      //   }
+      // }else{
+      //   hoverTooltip.onmouseover = function() {
+      //     showTooltip(this);
+      //   }
+      //   hoverTooltip.onmouseout = function() {
+      //     closeTooltip();
+      //   }
+      // }
+      hoverTooltip.onmouseover = function() {
+        showTooltip(this);
+      }
+      hoverTooltip.onmouseout = function() {
+        closeTooltip();
+      }
+
+    }
+
+    // baseJs.bodyClick(closeTooltip);
+
+    for (i = 0; i < clickTooltips.length; i ++) {
+      clickTooltip = clickTooltips[i];
+
+      clickTooltip.onclick = function() {
+        if ( (clickState === 'no' && tooptip === this) || (clickState === 'no' && tooptip !== this) || (clickState === 'yes' && tooptip !== this) ) {
+          showClickTooltip(this);
+        } else {
+          closeTooltip();
+        }
+      };
+
+
+
+
+    }
+
+    closeTooltipBtn.onclick = function() {
+      closeTooltip();
+    }
+
+    window.onresize = function(event) {
+      // if(clickState === 'yes') {
+      //   showClickTooltip(tooptip);
+      // }
+      closeTooltip();
+    };
+
+    }
+  }
+}();
+
+// po zaladowaniu modulu odpalamy:
+// if (! vJs.hasClass(document.getElementsByTagName('body')[0], 'sc-edit' ))
+if (document.querySelectorAll('[data-js="tooltip"]').length > 0){
+  tooltipJs.init('[data-js="tooltip"]');
+}

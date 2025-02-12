@@ -1,0 +1,677 @@
+var baseJs = function () {
+
+    var body = document.getElementsByTagName('body')[0],
+        flexFixClasses = ['.box', '.container--banner-404 .box-cta', '.leftsidegraphics', '.board__el', '.property__tile', '.box-border', '.graphicsbox', '[data-eqheight]'],
+        // flexFixClasses = ['[data-eqheight]']
+        desk_width
+        ;
+
+
+    return {
+
+        init: function () {
+
+            baseJs.lazy();
+
+            // do main stuff
+            baseJs.moveUp();
+            baseJs.tableFix();
+            baseJs.valForm();
+
+            setTimeout(function () {
+                if (baseJs.is_safari()) {
+                    for (var i = 0; i < flexFixClasses.length; i++) {
+                        baseJs.flexFix(flexFixClasses[i]);
+                    }
+                }
+            }, 200);
+
+            baseJs.checkContrastMode();
+            baseJs.formExtraElem();
+
+
+            setTimeout(function () { lazySizes.init(); }, 400);
+            setTimeout(function () { baseJs.imgSet(); }, 400);
+
+            desk_width = baseJs.media.desklgWidth.matches;
+            window.addEventListener('resize', function () {
+                if ((desk_width && !baseJs.media.desklgWidth.matches) || (!desk_width && baseJs.media.desklgWidth.matches)) {
+                    // console.log('laduj');
+                    baseJs.imgSet();
+                    desk_width = baseJs.media.desklgWidth.matches;
+                }
+            });
+
+
+
+            // setTimeout(function() { baseJs.grayscale(); }, 400);
+            if (window.location.hash) {
+                var hash = window.location.hash;
+                var isGa = hash.split('_ga=').length,
+                    isGac = hash.split('_gac=').length
+                    ;
+
+                if (hash && isGa <= 1 && isGac <= 1) {
+                    setTimeout(function () {
+                        baseJs.hashScroll(hash);
+                    }, 600);
+                }
+
+            }
+
+
+
+            jQuery('a[href*="#"]:not([href="#"])').click(function (e) {
+                if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+                    var hash = this.hash;
+                    if (!this.hasAttribute('data-skiplink')) {
+                        e.preventDefault();
+                        baseJs.hashScroll(hash);
+                    } else {
+                        var top_pos = jQuery(hash).offset().top - 30
+                            ;
+                        if (top_pos < 0) top_pos = 0;
+
+                        jQuery('html, body').animate({
+                            scrollTop: top_pos + 'px'
+                        }, 1000);
+                    }
+
+                }
+            });
+
+
+            // spacebar fix
+
+            if (vJs.hasClass(document.getElementsByTagName('body')[0], 'sc-edit')) {
+
+                jQuery("#main-content").off('click', 'button', btn_prevent);
+                jQuery("#main-content").on('click', 'button', btn_prevent);
+
+                var observeDOM = (function () {
+                    var MutationObserver = window.MutationObserver || window.WebKitMutationObserver,
+                        eventListenerSupported = window.addEventListener;
+
+                    return function (obj, callback) {
+                        if (MutationObserver) {
+                            // define a new observer
+                            var obs = new MutationObserver(function (mutations, observer) {
+                                if (mutations[0].addedNodes.length || mutations[0].removedNodes.length)
+                                    callback();
+                            });
+                            // have the observer observe foo for changes in children
+                            obs.observe(obj, { childList: true, subtree: true });
+                        }
+                        else if (eventListenerSupported) {
+                            obj.addEventListener('DOMNodeInserted', callback, false);
+                            obj.addEventListener('DOMNodeRemoved', callback, false);
+                        }
+                    };
+                })();
+
+                setTimeout(function () {
+                    // Observe a specific DOM element:
+                    observeDOM(document.querySelector('body'), function () {
+
+                        jQuery("#main-content").off('click', 'button', btn_prevent);
+                        jQuery("#main-content").on('click', 'button', btn_prevent);
+
+                    });
+
+                }, 1000);
+
+
+            }
+
+            function btn_prevent(event) {
+                event.preventDefault();
+                event.stopImmediatePropagation();
+            }
+
+
+
+        },
+
+        lazy: function () {
+
+            //lazysizes config
+            window.lazySizesConfig = window.lazySizesConfig || {};
+            // use .lazy instead of .lazyload
+            // window.lazySizesConfig.lazyClass = 'lazy';
+            // use data-original instead of data-src
+            // lazySizesConfig.srcAttr = 'data-original';
+            //page is optimized for fast onload event
+            lazySizesConfig.init = false;
+            // lazySizesConfig.preloadAfterLoad = true;
+
+            // lazy load plugin
+            function loadJS(u) { var r = document.getElementsByTagName("script")[0], s = document.createElement("script"); s.src = u; r.parentNode.insertBefore(s, r); }
+            if (!window.HTMLPictureElement || !('sizes' in document.createElement('img'))) {
+                loadJS(my_path + "assets/third_parts/lazysizes/plugins/respimg/ls.respimg.js");
+            }
+
+
+        },
+
+        // imgHeight: function(){
+        //   var images = document.querySelectorAll('img.imgload');     
+
+        //   for (var i=0; i< images.length; i++){
+        //     images[i].style.height = '1px';
+        //   }
+
+        // },
+
+        imgSet: function () {
+            var images = document.querySelectorAll('img.imgload');
+            var img_tab = [];
+            var counter = 0;
+
+
+
+            for (var i = 0; i < images.length; i++) {
+
+                img_tab[i] = new Image();
+                img_tab[i].mydom = images[i];
+                img_tab[i].paths = images[i].getAttribute('data-srcset').split(' | ');
+
+                img_tab[i].src = getPath(img_tab[i].paths, 0);
+                if (baseJs.media.tabWidth.matches && img_tab[i].paths.length > 1) img_tab[i].src = getPath(img_tab[i].paths, 1);
+                if (baseJs.media.desklgWidth.matches && img_tab[i].paths.length > 2) img_tab[i].src = getPath(img_tab[i].paths, 2);
+
+                img_tab[i].onload = function () {
+                    this.mydom.src = this.src;
+                    // this.mydom.style.height = '';
+                    counter++;
+                    if (counter >= images.length) {
+                        setTimeout(function () { baseJs.refreshFlexFix(); }, 200);
+                    }
+                };
+
+            }
+
+            function getPath(paths, pos) {
+                var path = '';
+                for (var j = 0; j <= pos; j++) {
+                    if (paths[j] != '') path = paths[j];
+                }
+                return path;
+
+            }
+
+        },
+
+        showMore: function () {
+
+            var showmore_btn = document.querySelectorAll('[data-js="showmore__btn"]');
+
+            for (var i = 0; i < showmore_btn.length; i++) {
+                showmore_btn[i].addEventListener('click', function (e) {
+                    e.preventDefault();
+                    vJs.addClass(this.nextElementSibling, 'show');
+                    this.style.display = "none";
+                });
+            }
+
+        },
+
+        valForm: function () {
+
+            var forms = document.querySelectorAll('form[data-validate]');
+
+            for (var i = 0; i < forms.length; i++) {
+                forms[i].onsubmit = function (e) {
+                    e.preventDefault();
+                    if (validJs.validateForm(this, false)) {
+                        this.submit();
+                    }
+                }
+            }
+
+        },
+
+        // selectHref: function(){
+
+        //   var sh = document.querySelectorAll('[data-selectHref]');
+
+        //   for (var i=0; i<sh.length; i++){
+        //     sh[i].onchange = function(){
+        //       // window.location.href = this.getAttribute('href');
+        //       window.location.href = window.location.protocol + '//' + window.location.hostname + '/' + this.value;
+        //     }
+        //   }
+
+        // },
+
+        checkContrastMode: function () {
+
+            jQuery('body').append('<div id="systemMode"></div>');
+            if (jQuery('#systemMode').css('background-image') === 'none') {
+                jQuery('body').addClass('contrast-mode');
+            }
+
+        },
+
+        formExtraElem: function () {
+
+
+            requirejs(['pikaday'], function (Pikaday) {
+
+                var dp_el = document.querySelectorAll('[data-datepicker]'),
+                    dp_arr = []
+                    ;
+
+                for (var i = 0; i < dp_el.length; i++) {
+
+                    // jQuery(dp_el[i]).mask('0000-00-00');
+
+                    var pick1_opt = {
+                        field: dp_el[i],
+                        i18n: LanguageDataPage.GetDataPikaDayLanguageFunction(),
+                    };
+
+                    jQuery.extend(pick1_opt, baseJs.pick_opt);
+                    if (dp_el[i].value == "01.01.0001 00:00:00" || dp_el[i].value == "0001-01-01") {
+                        dp_el[i].value = "";
+                    }
+                    dp_arr[i] = new Pikaday(pick1_opt);
+
+                }
+            });
+
+            requirejs(['picktime'], function () {
+
+                var dp_el = document.querySelectorAll('[data-timepicker]')
+                    ;
+
+                for (var i = 0; i < dp_el.length; i++) {
+
+                    if (jQuery(dp_el[i]).closest('.remit').length > 0) {
+                        jQuery(dp_el[i]).timepicker({
+                            'timeFormat': 'H:i',
+                            'minTime': '0:01am',
+                            'step': 30
+                        });
+                    } else {
+                        jQuery(dp_el[i]).timepicker({
+                            'timeFormat': 'H:i:s',
+                            'minTime': '0:00am',
+                            'step': 30
+                        });
+                    }
+
+                }
+            });
+
+            // requirejs(['jqmask'], function () {
+
+            //   var mask_el = document.querySelectorAll('[data-mask]')
+            //   ;
+            //     for (var i = 0; i < mask_el.length; i++) {
+            //       var opt = {};
+            //       if (mask_el[i].hasAttribute('data-reverse')){ opt = {reverse:true}; }
+            //       jQuery(mask_el[i]).mask(mask_el[i].getAttribute('data-mask'), opt);
+            //     }
+            // });
+
+            // jQuery('[data-onlynumbers]').mask('#');
+
+        },
+
+        refreshFlexFix: function () {
+
+            if (baseJs.is_safari()) {
+
+                for (var i = 0; i < flexFixClasses.length; i++) {
+                    if (document.querySelector(flexFixClasses[i])) {
+                        baseJs.checkBoxesHeight(flexFixClasses[i]);
+                    }
+                }
+            }
+
+        },
+
+        flexFix: function (selector) {
+
+            if (document.querySelector(selector)) {
+                baseJs.checkBoxesHeight(selector);
+                window.addEventListener('resize', function () {
+                    baseJs.checkBoxesHeight(selector);
+                });
+            }
+        },
+
+
+        checkBoxesHeight: function (selector) {
+            var pos_tab = [],
+                box_list = document.querySelectorAll(selector)
+                ;
+
+            // console.log(box_list);
+
+            for (var i = 0; i < box_list.length; i++) {
+                var box = box_list[i],
+                    db_box = box.hasAttribute('data-eqheight-double'),
+                    box_tpos = Math.floor(jQuery(box).offset().top / 10),
+                    box_param = null
+                    ;
+
+                box.style.height = '';
+
+                if (!pos_tab[box_tpos]) {
+                    pos_tab[box_tpos] = {
+                        "tab": [],
+                        "height": 0
+                    };
+                }
+
+                // console.log(i+':'+box_tpos+':'+pos_tab[box_tpos]);
+
+                if (box.offsetHeight > pos_tab[box_tpos].height) {
+                    if (db_box) {
+                        pos_tab[box_tpos].height = box.offsetHeight * .5;
+                    } else {
+                        pos_tab[box_tpos].height = box.offsetHeight;
+                    }
+                }
+
+                pos_tab[box_tpos].tab.push(box);
+
+            }
+            // console.log(pos_tab);
+
+            // if (baseJs.media.tabWidth.matches){
+            for (var property in pos_tab) {
+                var obj = pos_tab[property];
+                var o_tab = obj.tab;
+
+                if (o_tab.length > 1) {
+                    var o_height = obj.height;
+                    // console.log(o_height);
+                    for (var ii = 0; ii < o_tab.length; ii++) {
+                        if (o_tab[ii].hasAttribute('data-eqheight-double')) {
+                            // pos_tab[box_tpos].height = box.offsetHeight*.5;
+                            o_tab[ii].style.height = 2 * obj.height + 'px';
+                        } else {
+                            // pos_tab[box_tpos].height = box.offsetHeight;
+                            o_tab[ii].style.height = obj.height + 'px';
+                        }
+
+                    }
+                }
+            }
+            // }
+
+        },
+
+
+        tableFix: function () {
+
+            var cellpricebox = document.querySelectorAll('.cellPriceBox');
+
+            if (cellpricebox.length > 0) {
+                baseJs.checkTableHeight();
+                window.addEventListener('resize', baseJs.checkTableHeight);
+            };
+
+        },
+
+        checkTableHeight: function () {
+
+            var nrow = document.querySelectorAll('.cell__nrow');
+            for (var i = 0; i < nrow.length; i++) {
+                nrow[i].style.height = '';
+            }
+
+            var row = document.querySelectorAll('.cell__row');
+
+            for (var i = 0; i < row.length; i++) {
+                var row_el = row[i],
+                    price = row_el.querySelectorAll('.price'),
+                    desc = row_el.querySelectorAll('.desc, .desc--grey');
+
+                for (var ii = 0; ii < price.length; ii++) {
+                    price[ii].style.height = '';
+                }
+                for (var ii = 0; ii < desc.length; ii++) {
+                    desc[ii].style.height = '';
+                }
+
+                var height_p = 0;
+                for (var ii = 0; ii < price.length; ii++) {
+                    var offsetHeight = price[ii].offsetHeight;
+                    // console.log(offsetHeight);
+                    if (offsetHeight > height_p) height_p = offsetHeight;
+                }
+
+                for (var ii = 0; ii < price.length; ii++) {
+                    price[ii].style.height = height_p + 'px';
+                }
+
+                var height_d = 0;
+                for (var ii = 0; ii < desc.length; ii++) {
+                    var offsetHeight = desc[ii].offsetHeight;
+                    if (offsetHeight > height_d) height_d = offsetHeight;
+                }
+
+                for (var ii = 0; ii < desc.length; ii++) {
+                    desc[ii].style.height = height_d + 'px';
+                }
+
+            }
+
+
+            if (!baseJs.media.tabWidth.matches) {
+
+                for (var i = 0; i < nrow.length; i++) {
+                    var nrow_el = nrow[i],
+                        price = nrow_el.querySelectorAll('.price'),
+                        desc = nrow_el.querySelectorAll('.desc, .desc--grey'),
+                        height = 0;
+
+
+                    if (price.length > 0 && desc.length > 0) {
+
+                        for (var ii = 0; ii < price.length; ii++) {
+                            // console.log(price[ii].offsetHeight)
+                            height = height + price[ii].offsetHeight;
+                        }
+                        for (var ii = 0; ii < desc.length; ii++) {
+                            //  console.log(desc[ii].offsetHeight)
+                            height = height + desc[ii].offsetHeight;
+                        }
+
+                        nrow_el.style.height = height + 30 + 80 + 'px';
+
+                    }
+
+                }
+
+            }
+
+
+
+
+
+        },
+
+
+        // do podpowiedzi np na 404
+        moveUp: function () {
+
+            var movetop_btn = document.querySelectorAll('[data-targettip]'),
+                _th = this
+                ;
+
+            for (var i = 0; i < movetop_btn.length; i++) {
+                var mt_btn = movetop_btn[i]
+                    ;
+
+                mt_btn.addEventListener('click', function (e) {
+                    var mt_target_name = this.getAttribute('data-targettip'),
+                        mt_target = document.querySelectorAll('[data-tipname="' + mt_target_name + '"]')
+                        ;
+
+                    switch (mt_target_name) {
+                        case 'top-search':
+                            var el = document.getElementById("menu__search-inp");
+                            window.scroll(0, 0);
+                            el.focus();
+                            break;
+                        case 'top-menu':
+                            window.scroll(0, 0);
+                            break;
+
+                        default:
+                            break;
+                    }
+
+                });
+
+                if (!_th.media.iOS) {
+                    mt_btn.addEventListener('mouseenter', moveThis);
+                    mt_btn.addEventListener('mouseleave', moveThis);
+                } else {
+                    mt_btn.addEventListener('click', moveThis);
+                }
+
+            }
+
+            function moveThis() {
+                var that = this,
+                    docBody = document.querySelector('body'),
+                    mt_target_name = this.getAttribute('data-targettip'),
+                    mt_target = document.querySelectorAll('[data-tipname="' + mt_target_name + '"]'),
+
+                    removeLayer = function (el) {
+                        var mt_el = document.querySelectorAll('.move-top');
+                        for (var ei = 0; ei < mt_el.length; ei++) {
+                            vJs.removeClass(mt_el[ei], 'move-top');
+                        }
+                        vJs.removeClass(document.querySelector('body'), 'has-popup');
+                        docBody.removeEventListener("touchstart", removeLayer);
+                    }
+                    ;
+
+                if (!this.classList.contains('move-top')) {
+                    vJs.addClass(this, 'move-top');
+                    vJs.addClass(docBody, 'has-popup');
+
+                    for (var mi = 0; mi < mt_target.length; mi++) {
+                        vJs.addClass(mt_target[mi], 'move-top');
+                    }
+
+                    setTimeout(function () { docBody.addEventListener("touchstart", removeLayer); }, 50);
+                } else {
+                    removeLayer();
+                }
+            }
+
+
+
+        },
+
+        hashScroll: function (hash) {
+
+
+            var target = jQuery(hash);
+            target = target.length ? target : jQuery('[name=' + hash.slice(1) + ']');
+            if (target.length) {
+                var top_pos = jQuery(hash).offset().top - 80;
+                if (top_pos < 0) top_pos = 0;
+
+                jQuery('html, body').animate({
+                    scrollTop: top_pos + 'px'
+                }, 1000);
+
+                return false;
+            }
+
+
+        },
+
+        // RWD - responsive breakpoints / screen width and devices
+        media: {
+
+            tabWidth: window.matchMedia("screen and (min-width: 768px)"),
+            deskWidth: window.matchMedia("screen and (min-width: 992px)"),
+            desklgWidth: window.matchMedia("screen and (min-width: 1200px)"),
+            iOS: /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream
+
+        },
+        is_safari: function () {
+            var ua = navigator.userAgent.toLowerCase();
+            if (ua.indexOf('safari') != -1) {
+                if (ua.indexOf('chrome') == -1) {
+                    return true
+                }
+            }
+            return false
+        },
+        is_touch_device: function () {
+            return 'ontouchstart' in window        // works on most browsers
+                || navigator.maxTouchPoints;       // works on IE10/11 and Surface
+        },
+
+        baseHs_opt: {
+
+            rangeSelector: { enabled: false },    // zakres: okresy i kalendarz
+            exporting: { enabled: false },        // menu
+            legend: { enabled: false },
+            credits: { enabled: false },
+            navigator: { enabled: false },
+            scrollbar: { enabled: false },
+            colors: ['#e2007a'],
+
+        },
+
+        hStock_opt: {
+            lang: {
+                months: ['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec', 'Lipiec', 'Sierpień', 'Wrzesień', 'Październik', 'Listopad', 'Grudzień'],
+                shortMonths: ["Sty", "Lut", "Mar", "Kwi", "Maj", "Cze", "Lip", "Sie", "Wrz", "Paź", "Lis", "Gru"],
+                weekdays: ['Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'],
+                decimalPoint: ",",
+                thousandsSep: " ",
+                noData: "Brak transakcji w tym okresie"
+            },
+            chart: {
+                backgroundColor: "transparent",
+                spacingLeft: 1,
+                spacingRight: 1,
+                style: {
+                    fontFamily: '"Titillium Web", Arial, Helvetica, sans-serif',
+                    fontSize: "14px"
+                    // color: "#272727"
+                },
+                marginRight: 20
+            }
+        },
+
+        pick_opt: {
+            //   field: picker2,
+            format: 'YYYY-MM-DD',
+            toString: function (date, format) {
+                // you should do formatting based on the passed format,
+                // but we will just return 'D/M/YYYY' for simplicity
+                var day = date.getDate();
+                if (day < 10) day = '0' + day;
+                var month = date.getMonth() + 1;
+                if (month < 10) month = '0' + month;
+                var year = date.getFullYear();
+
+                return year + "-" + month + "-" + day;
+            },
+            parse: function (dateString, format) {
+                // dateString is the result of `toString` method
+                dateString = dateString.replace(/\s/g, '');
+                var parts = dateString.split('-');
+                var year = parseInt(parts[0], 10);
+                var month = parseInt(parts[1] - 1, 10);
+                var day = parseInt(parts[2], 10);
+                return new Date(year, month, day);
+            }
+        }
+
+    }
+
+}();

@@ -1,0 +1,273 @@
+var trojpak = {
+    'oferta_zmiana':{
+        onlineActivation: 100, // bonus w zł za wybór cennika 3 letniego
+        ecoBonus: 10,
+        prices:{
+            'ts':'57,50',
+            'gze':'57,50',
+            'ts_netto':'46,75', // cena netto dla lokalizacji ts w PLN
+            'gze_netto':'46,75',// cena netto dla lokalizacji gze w PLN
+        },
+        documents_prices:
+            {
+                ts:{
+                    brutto:{
+                        // Ceny sprzedażowe brutto
+
+                        'g11':'0,4529 ', //G11 - Cena za prąd niezmienna przez całą dobę. (całodobowy)
+                        'g12_1':'0,5606 ',//G12 - Niższa cena za prąd w nocy oraz w wybranych godzinach w ciągu dnia.(strefa I dzienny)
+                        'g12_2':'0,2872 ',//G12 - Niższa cena za prąd w nocy oraz w wybranych godzinach w ciągu dnia.(strefa II szczytowy)
+                        'g12w_1':'0,5994 ',//G12w - Niższa cena za prąd w nocy, w wybranych godzinach w ciągu dnia oraz w weekendy.(Strefa I (nocny))
+                        'g12w_2':'0,2872 ',//G12w - Niższa cena za prąd w nocy, w wybranych godzinach w ciągu dnia oraz w weekendy.(Strefa II (pozaszczytowy))
+                        'g13_1':'0,4982 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa I)
+                        'g13_2':'0,7776 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa II)
+                        'g13_3':'0,3348 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa III)
+                    },
+                    netto:{
+                        // Ceny sprzedażowe netto
+
+                        'g11':'0,3682 ',//G11 - Cena za prąd niezmienna przez całą dobę. (całodobowy)
+                        'g12_1':'0,4558 ',//G12 - Niższa cena za prąd w nocy oraz w wybranych godzinach w ciągu dnia.(strefa I dzienny)
+                        'g12_2':'0,2335 ',//G12 - Niższa cena za prąd w nocy oraz w wybranych godzinach w ciągu dnia.(strefa II szczytowy)
+                        'g12w_1':'0,4873 ',//G12w - Niższa cena za prąd w nocy, w wybranych godzinach w ciągu dnia oraz w weekendy.(Strefa I (nocny))
+                        'g12w_2':'0,2335 ',//G12w - Niższa cena za prąd w nocy, w wybranych godzinach w ciągu dnia oraz w weekendy.(Strefa II (pozaszczytowy))
+                        'g13_1':'0,4050 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa I)
+                        'g13_2':'0,6322 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa II)
+                        'g13_3':'0,2722 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa III)
+                    },
+                },
+                gze:{
+                    brutto:{
+                        // Ceny sprzedażowe brutto
+
+                        'g11':'0,4995 ', //G11 - Cena za prąd niezmienna przez całą dobę. (całodobowy)
+                        'g12_1':'0,5790 ',//G12 - Niższa cena za prąd w nocy oraz w wybranych godzinach w ciągu dnia.(strefa I dzienny)
+                        'g12_2':'0,3476 ',//G12 - Niższa cena za prąd w nocy oraz w wybranych godzinach w ciągu dnia.(strefa II szczytowy)
+                        'g12w_1':'0,6033 ',//G12w - Niższa cena za prąd w nocy, w wybranych godzinach w ciągu dnia oraz w weekendy.(Strefa I (nocny))
+                        'g12w_2':'0,3398 ',//G12w - Niższa cena za prąd w nocy, w wybranych godzinach w ciągu dnia oraz w weekendy.(Strefa II (pozaszczytowy))
+                        'g13_1':'0,5125 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa I)
+                        'g13_2':'0,7118 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa II)
+                        'g13_3':'0,3598 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa III)
+                    },
+                    netto:{
+                        // Ceny sprzedażowe netto
+
+                        'g11':'0,4061 ',//G11 - Cena za prąd niezmienna przez całą dobę. (całodobowy)
+                        'g12_1':'0,4707 ',//G12 - Niższa cena za prąd w nocy oraz w wybranych godzinach w ciągu dnia.(strefa I dzienny)
+                        'g12_2':'0,2826 ',//G12 - Niższa cena za prąd w nocy oraz w wybranych godzinach w ciągu dnia.(strefa II szczytowy)
+                        'g12w_1':'0,4905 ',//G12w - Niższa cena za prąd w nocy, w wybranych godzinach w ciągu dnia oraz w weekendy.(Strefa I (nocny))
+                        'g12w_2':'0,2763 ',//G12w - Niższa cena za prąd w nocy, w wybranych godzinach w ciągu dnia oraz w weekendy.(Strefa II (pozaszczytowy))
+                        'g13_1':'0,4167 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa I)
+                        'g13_2':'0,5787 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa II)
+                        'g13_3':'0,2925 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa III)
+                    },
+                },
+            },
+        documents: // zbiór dokumentów indywidualnych dla danego produktu
+            {
+                ts: // dokumenty dla lokalizacji ts
+                    {
+                        'doc_cat_1':
+                            {
+                                // format: contract_invoice
+                                'label':'Cenniki - oferta dotyczy również prosumentów', // jest to nazwa kategorii dokumentów
+                                '1_2':
+                                    {
+
+                                    },
+                                '2_2':
+                                    {
+
+                                    },
+                                '1_1':
+                                    {
+
+                                    },
+                                '2_1':
+                                    {
+                                        name:'Cennik prąd z Serwisantem komputerowym 24H i Serwisantem 24H PLUS - 3 lata - rabat nie mniej niż 10% - e-faktura', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/2024/12-2024/pakiet-eko-komputerowy-serwisant-plus/ts/EE-GD-GR10-Int-Eko-SKomp24D-S24PLD-TS-3-Q4.ashx' // link do dokumentu
+                                    },
+                                'varriant_02':
+                                    {
+                                        name:'Cennik prąd z Serwisantem komputerowym 24H i Serwisantem 24H PLUS - 3 lata - rabat nie mniej niż 0,2% - e-faktura', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/2024/12-2024/pakiet-eko-komputerowy-serwisant-plus/ts/EE-GD-GR02-Int-Eko-SKomp24D-S24PLD-TS-3-Q4.ashx' // link do dokumentu
+                                    },
+                            },
+                        'doc_cat_2':
+                            {
+                                'label':'Dokumenty podstawowe i regulaminy', // jest to nazwa kategorii dokumentów
+                                1:
+                                    {
+                                        name:'Oświadczenie o wyrażeniu zgody/rezygnacji na e-fakturę', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/serwisant-komputerowy-z-serwisantem-plusem/ts/2020-07-01_ts-gze_gd-msp_oswiadczeniedoefv_prad_k_edyt.ashx' // link do dokumentu
+                                    },
+                                2:
+                                    {
+                                        name:'Umowa Operatorska EDI (dot.elektronicznej wymiany danych)', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/serwisant-komputerowy-z-serwisantem-plusem/ts/umowa-operatorska-edi-ts.ashx' // link do dokumentu
+                                    },
+                                3:
+                                    {
+                                        name:'Certyfikat - wzór', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/eko-prad-z-serwisantem-dokumenty/ts/19601-tauroncertyfikat-v03-prev.ashx' // link do dokumentu
+                                    },
+                                4:
+                                    {
+                                        name:'Wyciąg z Taryfy dla energii elektrycznej TAURON Dystrybucja S.A. na rok 2024', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/serwisant-komputerowy-z-serwisantem-plusem/ts/wyciag-typu-g-z-taryfy-td-sa-na-rok-2021.ashx' // link do dokumentu
+                                    },
+                                5:
+                                    {
+                                        name:'Wyciąg z Taryfy dla energii elektrycznej TAURON Dystrybucja S.A. - Informacja o stawkach brutto na rok 2025', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/tarcza/2022_02_01_TS-GZE_InfCenyBruttoWycTarTD_G_BAZA.ashx'// link do dokumentu
+                                    },
+                                6:
+                                    {
+                                        name:'Informacja o cenach energii w Cennikach w okresie obowiązywania rozwiązań osłonowych, tj. do 31 grudnia 2024 roku', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/tarcza/dokl-tarczowa-ts.ashx' // link do dokumentu
+                                    },
+                                7:
+                                    {
+                                        name:'Zbiór Praw Konsumenta Energii Elektrycznej', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/serwisant-komputerowy-z-serwisantem-plusem/ts/zbior_praw_konsumenta_energii_elektrycznej.ashx' // link do dokumentu
+                                    },
+                                8:
+                                    {
+                                        name:'Regulamin e-faktury', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/serwisant-komputerowy-z-serwisantem-plusem/ts/regulamin-e-faktura.ashx' // link do dokumentu
+                                    },
+                                9:
+                                    {
+                                        name:'Zgody Klienta', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/serwisant-komputerowy-z-serwisantem-plusem/ts/ts_zgody_klienta_podstawowe_pdf_edyt_k.ashx' // link do dokumentu
+                                    },
+                                10:
+                                    {
+                                        name:'Wzór formularza odstąpienia od umowy ', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/serwisant-komputerowy-z-serwisantem-plusem/ts/ts_formularz_odstapienia.ashx' // link do dokumentu
+                                    },
+                                11:
+                                    {
+                                        name:'Oświadczenie o zapoznaniu się i akceptacji Regulaminu usługi Serwisant komputerowy 24H i Serwisant 24H PLUS', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/serwisant-komputerowy-z-serwisantem-plusem/ts/2021_02_01_ts_gze_gd_msp_prad_osw_akcept_reg_uslugi_pdf_wzor_k.ashx' // link do dokumentu
+                                    },
+                                12:
+                                    {
+                                        name:'Regulamin usługi Serwisant 24H PLUS', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/serwisant-komputerowy-z-serwisantem-plusem/ts/regulamin_serwisant24h_dom_plus.ashx' // link do dokumentu
+                                    },
+                                13:
+                                    {
+                                        name:'Regulamin usługi Serwisant komputerowy 24H', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/serwisant-komputerowy-z-serwisantem-plusem/ts/regulamin-serwisant-komputerowy24h-dom.ashx' // link do dokumentu
+                                    },
+                            },
+                    },
+                gze: // dokumenty dla lokalizacji gze
+                    {
+                        'doc_cat_1':
+                            {
+                                // format: contract_invoice
+                                'label':'Cenniki - oferta dotyczy również prosumentów', // jest to nazwa kategorii dokumentów
+                                '1_2':
+                                    {
+
+                                    },
+                                '2_2':
+                                    {
+
+                                    },
+                                '1_1':
+                                    {
+
+                                    },
+                                '2_1':
+                                    {
+                                        name:'Cennik prąd z Serwisantem komputerowym 24H i Serwisantem 24H PLUS - 3 lata - rabat nie mniej niż 10% - e-faktura', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/2024/12-2024/pakiet-eko-komputerowy-serwisant-plus/gze/EE-GD-GR10-Int-Eko-SKomp24D-S24PLD-GZE-3-Q4.ashx' // link do dokumentu
+                                    },
+                                'varriant_02':
+                                    {
+                                        name:'Cennik prąd z Serwisantem komputerowym 24H i Serwisantem 24H PLUS - 3 lata - rabat nie mniej niż 0,2% - e-faktura', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/2024/12-2024/pakiet-eko-komputerowy-serwisant-plus/gze/EE-GD-GR02-Int-Eko-SKomp24D-S24PLD-GZE-3-Q4.ashx' // link do dokumentu
+                                    },
+                            },
+                        'doc_cat_2':
+                            {
+                                'label':'Dokumenty podstawowe i regulaminy', // jest to nazwa kategorii dokumentów
+                                1:
+                                    {
+                                        name:'Oświadczenie o wyrażeniu zgody/rezygnacji na e-fakturę', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/serwisant-komputerowy-z-serwisantem-plusem/gze/2020-07-01_ts-gze_gd-msp_oswiadczeniedoefv_prad_k_edyt.ashx' // link do dokumentu
+                                    },
+                                2:
+                                    {
+                                        name:'Umowa Operatorska EDI (dot.elektronicznej wymiany danych)', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/serwisant-komputerowy-z-serwisantem-plusem/gze/umowa-operatorska-edi.ashx' // link do dokumentu
+                                    },
+                                3:
+                                    {
+                                        name:'Certyfikat - wzór', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/eko-prad-z-serwisantem-dokumenty/gze/19601-tauroncertyfikat-gze-v03-prev.ashx' // link do dokumentu
+                                    },
+                                4:
+                                    {
+                                        name:'Wyciąg z Taryfy dla energii elektrycznej TAURON Dystrybucja S.A. na rok 2024', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/serwisant-komputerowy-z-serwisantem-plusem/gze/wyciag-typu-g-z-taryfy-td-sa-na-rok-2021.ashx' // link do dokumentu
+                                    },
+                                5:
+                                    {
+                                        name:'Wyciąg z Taryfy dla energii elektrycznej TAURON Dystrybucja S.A. - Informacja o stawkach brutto na rok 2025', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/tarcza/2022_02_01_TS-GZE_InfCenyBruttoWycTarTD_G_BAZA.ashx'// link do dokumentu
+                                    },
+                                6:
+                                    {
+                                        name:'Informacja o cenach energii w Cennikach w okresie obowiązywania rozwiązań osłonowych, tj. do 31 grudnia 2024 roku', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/tarcza/dokl-tarczowa-gze.ashx' // link do dokumentu
+                                    },
+                                7:
+                                    {
+                                        name:'Zbiór Praw Konsumenta Energii Elektrycznej', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/serwisant-komputerowy-z-serwisantem-plusem/gze/zbior_praw_konsumenta_energii_elektrycznej.ashx' // link do dokumentu
+                                    },
+                                8:
+                                    {
+                                        name:'Regulamin e-faktury', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/serwisant-komputerowy-z-serwisantem-plusem/gze/regulamin-e-faktura.ashx' // link do dokumentu
+                                    },
+                                9:
+                                    {
+                                        name:'Zgody Klienta', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/serwisant-komputerowy-z-serwisantem-plusem/gze/tsp_gze_zgody_klienta_podstawowe_pdf_edyt_k.ashx' // link do dokumentu
+                                    },
+                                10:
+                                    {
+                                        name:'Wzór formularza odstąpienia od umowy ', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/serwisant-komputerowy-z-serwisantem-plusem/gze/gze_formularz_odstapienia.ashx' // link do dokumentu
+                                    },
+                                11:
+                                    {
+                                        name:'Oświadczenie o zapoznaniu się i akceptacji Regulaminu usługi Serwisant komputerowy 24H i Serwisant 24H PLUS', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/serwisant-komputerowy-z-serwisantem-plusem/gze/2021_02_01_ts_gze_gd_msp_prad_osw_akcept_reg_uslugi_pdf_wzor_k.ashx' // link do dokumentu
+                                    },
+                                12:
+                                    {
+                                        name:'Regulamin usługi Serwisant 24H PLUS', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/serwisant-komputerowy-z-serwisantem-plusem/gze/regulamin_serwisant24h_dom_plus.ashx' // link do dokumentu
+                                    },
+                                13:
+                                  {
+                                        name:'Regulamin usługi Serwisant komputerowy 24H', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/serwisant-komputerowy-z-serwisantem-plusem/gze/regulamin-serwisant-komputerowy24h-dom.ashx' // link do dokumentu
+                                    },
+                            },
+                    },
+            },
+        contractValue:3,
+        price_table_extra_information:{
+            before_price: 'opłata handlowa (stawka stała) za usługę dodatkową', // tekst wyświetlany w Tabeli Cenowej przed opłatą handlową (stawką stałą)
+            after_price: '(przez cały okres trwania cennika)' // tekst wyświetlany w Tabeli Cenowej po opłacie handlowej (stawce stałej)
+        }
+    },
+};

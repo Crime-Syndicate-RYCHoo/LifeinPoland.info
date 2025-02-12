@@ -1,0 +1,269 @@
+
+// tu wpinamy wszystkie js ktorych mozemy potrzebować
+var my_path = '/';
+
+//window.onload = function () {
+
+if (document.querySelector('body')) {
+    if (document.querySelector('body').hasAttribute('data-templates')) {
+        my_path = '../';
+    }
+}
+//}
+
+
+function CreateGuid() {
+    function _p8(s) {
+        var p = (Math.random().toString(16) + "000000000").substr(2, 8);
+        return s ? "-" + p.substr(0, 4) + "-" + p.substr(4, 4) : p;
+    }
+    return _p8() + _p8(true) + _p8(true) + _p8();
+}
+
+var guidUrl = CreateGuid();
+
+require.config({
+    baseUrl: my_path,
+    waitSeconds: 200,
+    paths: {
+        "vanilla": "assets/scripts/vanilla",
+        "base": "assets/scripts/base",
+        "lazysize": "assets/third_parts/lazysizes/lazysizes.min",
+        "ls-bgset": "assets/third_parts/lazysizes/plugins/bgset/ls.bgset.min",
+
+        "highstock": "assets/third_parts/highstock/highstock",
+        //  "angular": "assets/third_parts/angular/angular",
+        "angular": "assets/third_parts/angular16/angular16",
+        "pikaday": "assets/third_parts/pick-date/pikaday",
+        "language-data": "assets/scripts/modules/language-data/language-data.js?v=" + guidUrl,
+        "picktime": "assets/third_parts/pick-time/jquery.timepicker",
+        "jqmask": "assets/third_parts/jqmask/jquery.mask",
+        "moment": "assets/third_parts/momentjs/moment.min",
+        //  "html2canvas": "assets/third_parts/html2canvas/html2canvas",
+        //  "html2canvas_svg": "assets/third_parts/html2canvas/html2canvas.svg",
+        "quill": "assets/third_parts/quill/js/quill",
+        // "awesomplete": "assets/third_parts/awesomplete/awesomplete.min",
+        "doT": "assets/third_parts/doT/doT",
+        "whatInput": "assets/third_parts/what-input-master/what-input.min",
+        "jquery": "assets/third_parts/jquery/jquery-3.2.1.min",
+        "masonry": "assets/third_parts/masonry/masonry.pkgd.min",
+        "select2": "assets/third_parts/select2/js/select2",
+        "swiper-base": "assets/third_parts/swiper/js/swiper.min",
+        "swiper": "assets/scripts/modules/swiper",
+        "slidervideo": "assets/scripts/modules/slider-video",
+        "compare": "assets/scripts/modules/compare",
+        "compareebok": "assets/scripts/modules/compare-ebok",
+        "fiszka": "assets/scripts/modules/fiszka",
+        "newsletter": "assets/scripts/modules/newsletter",
+        "newsletter-box": "assets/scripts/modules/newsletter-box",
+        "alertTop": "assets/scripts/modules/alert-top",
+        "alertDefault": "assets/scripts/modules/alert-default",
+		"alertNice": "assets/scripts/modules/alert-nice",
+        "tooltip": "assets/scripts/modules/tooltip",
+        "login": "assets/scripts/modules/login",
+        "video": "assets/scripts/modules/video",
+        "filters": "assets/scripts/modules/filters",
+        "calc": "assets/scripts/modules/calc",
+        "yesno": "assets/scripts/modules/yesno",
+        "showhide": "assets/scripts/modules/showhide",
+        "menu": "assets/scripts/modules/menu",
+        "tabs": "assets/scripts/modules/tabs",
+        "emergency": "assets/scripts/modules/emergency",
+        "offersort": "assets/scripts/modules/offersort",
+        "knowledge": "assets/scripts/modules/knowledge",
+        "knowledge-menu": "assets/scripts/modules/knowledge-menu",
+        "knowledge-tip": "assets/scripts/modules/knowledge-tip",
+        "knowledge-headers": "assets/scripts/modules/knowledge-headers",
+        "autocomplete": "assets/scripts/modules/autocomplete",
+        "accordion": "assets/scripts/modules/accordion",
+        "validate": "assets/scripts/validate",
+        "extra": "assets/scripts/sitecore",
+        "showmore": "assets/scripts/modules/showmore",
+        "howto": "assets/scripts/modules/how_to",
+        "process-summary": "assets/scripts/modules/process-summary",
+        "submenu": "assets/scripts/modules/submenu",
+        "regio": "assets/scripts/modules/regio",
+        "maptab": "assets/scripts/modules/maptab",
+        "maptabHeat": "assets/scripts/modules/maptabHeat",
+        "flaps": "assets/scripts/modules/flaps",
+        "cookiesModule": "assets/scripts/modules/cookies",
+        "googleMaps": "assets/scripts/modules/googleMaps",
+        "offer-box": "assets/scripts/modules/offer-box",
+        "sendLocation": "assets/scripts/modules/send-location",
+        "productTable": "assets/scripts/modules/productTable",
+
+        // ponizej moduly do e3
+        "popup": "assets/scripts/modules/popup",
+        "diagrams": "assets/scripts/modules/diagrams",
+        "datepicker": "assets/scripts/modules/datepicker",
+        "stock-prices": "assets/scripts/modules/stock-prices.js?v=" + guidUrl,
+        "logotypes": "assets/scripts/modules/logotypes",
+        "boxChart": "assets/scripts/modules/box-chart",
+        "gallery": "assets/scripts/modules/gallery",
+        "gallery-single": "assets/scripts/modules/gallery-single",
+        "topTabs": "assets/scripts/modules/topTabs",
+        "tables": "assets/scripts/modules/tables",
+        "simpleMap": "assets/scripts/modules/simpleMap",
+        //  "ngArchiwe": "assets/scripts/modules/ngArchiwe",
+        "archpika": "assets/scripts/modules/arch-pika.js?v=" + guidUrl,
+        "property": "assets/scripts/modules/property",
+        "property-form": "assets/scripts/modules/property-form",
+        "propertyFilters": "assets/scripts/modules/property-filters",
+        "propertySortBtn": "assets/scripts/modules/propery-sortbtn",
+        "propertyMap": "assets/scripts/modules/property-map",
+        "propertySingle": "assets/scripts/modules/property-single",
+        "propertyLike": "assets/scripts/modules/property-like",
+        "stocks": "assets/scripts/modules/stocks",
+        "weather": "assets/scripts/modules/weather",
+        "boxBorder": "assets/scripts/modules/box-border",
+
+        "remit": "assets/scripts/modules/remit",
+        "reports_form": "assets/scripts/modules/reports_form",
+        "pokPopup": "assets/scripts/modules/pokPopup",
+        //  "print": "assets/scripts/modules/print"
+        "editor": "assets/scripts/modules/editor",
+        "setupTariff": "assets/scripts/modules/setupTariff",
+        "schedule": "assets/scripts/modules/schedule",
+        "loginPOK": "assets/scripts/modules/loginPOK",
+        "popupSchedule": "assets/scripts/modules/popupSchedule",
+        "remedit": "assets/scripts/modules/remit-edit",
+        "radio-tabs": "assets/scripts/modules/radio-tabs",
+        "em-mini": "assets/scripts/modules/emergency-mini",
+        "menu-td": "assets/scripts/modules/menu-td",
+        "menu-s": "assets/scripts/modules/menu-s",
+        "pokforms": "assets/scripts/modules/pokforms",
+        "pokedit": "assets/scripts/modules/pokedit",
+        "bwscheme": "assets/scripts/modules/bwscheme",
+        "socialShare": "assets/scripts/modules/socialShare",
+        "emergency-warm": "assets/scripts/modules/emergency-warm",
+        "knowform": "assets/scripts/modules/know-form",
+        "schedule-editpass": "assets/scripts/modules/schedule-editpass",
+        "inphidden": "assets/scripts/modules/inphidden",
+        "inphidden2": "assets/scripts/modules/inphidden2",
+        "remitEditBtn": "assets/scripts/modules/remitEditBtn",
+        "bw_tags": "assets/scripts/modules/bw_tags",
+        "remitScroll": "assets/scripts/modules/remitScroll",
+        "helper": "assets/scripts/modules/helper",
+        "remitDis": "assets/scripts/modules/remit-distribution",
+        "remDisedit": "assets/scripts/modules/remit-distribution-edit",
+        "remitDisEditBtn": "assets/scripts/modules/remit-distributionEditBtn",
+        "remitDisScroll": "assets/scripts/modules/remit-distributionScroll",
+        "remitMan": "assets/scripts/modules/remit-manufacture",
+        "remManedit": "assets/scripts/modules/remit-manufacture-edit",
+        "remitManEditBtn": "assets/scripts/modules/remit-manufactureEditBtn",
+        "remitManScroll": "assets/scripts/modules/remit-manufactureScroll"	         
+
+    },
+
+    shim: {
+        gallery: {
+            deps: ['swiper-base']
+        },
+        swiper: {
+            deps: ['swiper-base']
+        },
+        slidervideo: {
+            deps: ['swiper-base']
+        },
+        logotypes: {
+            deps: ['swiper-base']
+        },
+        compare: {
+            deps: ['swiper-base']
+        },
+        compareebok: {
+            deps: ['swiper-base']
+        },
+        maptab: {
+            deps: ['doT', 'popupSchedule']
+        },
+        maptabHeat: {
+            deps: ['doT']
+        },
+        knowledge: {
+            deps: ['masonry']
+        },
+        lazysize: {
+            deps: ['ls-bgset']
+        },
+        sendLocation: {
+            deps: ['googleMaps']
+        },
+        boxChart: {
+            deps: ['jquery', 'highstock', 'language-data']
+        },
+        stocks: {
+            deps: ['jquery', 'highstock', 'pikaday', 'language-data']
+        },
+        propertyMap: {
+            deps: ['doT']
+        },
+        datepicker: {
+            deps: ['pikaday', 'language-data']
+        },
+        // print:{
+        //   deps:['html2canvas', 'html2canvas_svg']
+        // },
+        editor: {
+            deps: ['quill']
+        },
+        schedule: {
+            deps: ['pikaday', 'popup', 'language-data']
+        },
+        popupSchedule: {
+            deps: ['popup']
+        },
+        remit: {
+            deps: ['moment', 'language-data']
+        },
+        knowform: {
+            deps: ['select2', 'editor']
+        }
+
+    }
+});
+
+
+var my_whatInput;
+
+// Now run any initialization javascript for the site
+require(['whatInput', 'vanilla', 'base', 'lazysize', 'validate', 'extra', 'cookiesModule', 'googleMaps', 'sendLocation', 'jqmask', 'helper', 'moment', 'language-data'], function (whatInput) {
+
+    vJs.domReady(function () {
+
+        // load in things that can be done at document.ready
+        processRequirements('require');
+
+        baseJs.init();
+        whatInput.ignoreKeys([8, 13, 16, 17, 18, 19, 20, 27, 33, 34, 35, 36, 37, 38, 39, 40, 45, 46, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 144, 145, 186, 187, 188, 189, 190, 191, 192, 219, 220, 221, 222])
+        my_whatInput = whatInput;
+
+    });
+
+    // load scripts that MUST be done where they appear
+    processRequirements('require-inline');
+
+    function processRequirements(selector) {
+        if (!selector) {
+            return;
+        }
+
+        var scriptList = document.querySelectorAll('[data-' + selector + ']');
+        for (var i = 0; i < scriptList.length; i++) {
+            loadScripts(scriptList[i].getAttribute('data-' + selector));
+        }
+
+    }
+
+    function loadScripts(requiredScripts) {
+        if (requiredScripts == null || requiredScripts.length == 0) {
+            return;
+        }
+        var elems = requiredScripts.split('|');
+        for (var i = 0; i < elems.length; i++) {
+            require([elems[i]]);
+        }
+    }
+
+
+});

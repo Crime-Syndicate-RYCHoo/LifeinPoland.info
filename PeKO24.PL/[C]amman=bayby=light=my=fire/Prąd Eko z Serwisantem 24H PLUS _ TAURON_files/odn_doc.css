@@ -1,0 +1,194 @@
+#SH531-SMARTHEADS-CONTENT .z_doc_content .z_doc_category > p{cursor: pointer}
+#SH531-SMARTHEADS-CONTENT .z_doc_content .z_doc_category > p .z_doc_arrow{display: inline-block;background-position: top;width: 14px;height: 9px;cursor: pointer;background-image: url(/-/media/Additional/smart/img/customer/z_arrow_sprite.png);}
+#SH531-SMARTHEADS-CONTENT .z_doc_content .z_doc_category.z_open > p .z_doc_arrow{background-position: bottom;}
+#SH531-SMARTHEADS-CONTENT .z_doc_content .z_doc_category.z_open .z_doc_flex{display: flex}
+#SH531-SMARTHEADS-CONTENT .z_doc_content .z_doc_category.z_open_a .z_doc_flex{display: flex!important;}
+
+#SH531-SMARTHEADS-CONTENT .z_documents_box{text-align: left;}
+#SH531-SMARTHEADS-CONTENT .z_documents_box p{margin-top: 0 !important;}
+#SH531-SMARTHEADS-CONTENT .z_doc_content .z_doc_field{display: none}
+#SH531-SMARTHEADS-CONTENT .z_doc_content .z_doc_field.z_active{display: block}
+
+#SH531-SMARTHEADS-CONTENT .z_documents_heads{display: flex;justify-content: space-between;flex-wrap: wrap;box-shadow: 0px 1px 10px 0px rgba(31, 31, 31, 0.25);}
+#SH531-SMARTHEADS-CONTENT .z_documents_heads .z_single_doc_head{flex-basis: 50%;position: relative;padding: 13px 5px 13px 75px;background-color: #eeeeee;color: rgba(0,0,0,.5);font-size: 24px;font-weight: 600;cursor: pointer}
+#SH531-SMARTHEADS-CONTENT .z_documents_heads .z_single_doc_head.w_33{flex-basis: 33.33%}
+#SH531-SMARTHEADS-CONTENT .z_documents_heads .z_single_doc_head .z_doc_sprite{display: block;position: absolute;left: 20px;top: 0;bottom: 0;margin: auto;background-repeat: no-repeat;background-position: bottom;}
+#SH531-SMARTHEADS-CONTENT .z_documents_heads .z_single_doc_head.z_active,#SH531-SMARTHEADS-CONTENT .z_documents_heads .z_single_doc_head:hover{color: #000;background-color: #fff;z-index: 3}
+#SH531-SMARTHEADS-CONTENT .z_documents_heads .z_single_doc_head.z_active .z_doc_sprite,#SH531-SMARTHEADS-CONTENT .z_documents_heads .z_single_doc_head:hover .z_doc_sprite{background-position: top}
+#SH531-SMARTHEADS-CONTENT .z_documents_heads .z_single_doc_head .z_doc_sprite_1{width: 31px;height: 31px;background-image: url(/-/media/Additional/smart/img/customer/z_doc_head_1.png); }
+#SH531-SMARTHEADS-CONTENT .z_documents_heads .z_single_doc_head .z_doc_sprite_2{width: 33px;height: 33px;background-image: url(/-/media/Additional/smart/img/customer/z_doc_head_2.png); }
+#SH531-SMARTHEADS-CONTENT .z_documents_heads .z_single_doc_head .z_doc_sprite_3{width: 34px;height: 34px;background-image: url(/-/media/Additional/smart/img/customer/z_doc_head_3.png); }
+#SH531-SMARTHEADS-CONTENT .z_doc_content{box-shadow: 0px 1px 10px 0px rgba(31, 31, 31, 0.25);background-color: #fff;padding: 40px;display: none}
+#SH531-SMARTHEADS-CONTENT .z_doc_content.z_active{display: block}
+#SH531-SMARTHEADS-CONTENT .z_documents_heads .z_single_doc_head{display: flex;align-items: center}
+
+#SH531-SMARTHEADS-CONTENT .z_documents_heads .z_single_doc_head.w_33{position: relative}
+#SH531-SMARTHEADS-CONTENT .z_documents_heads .z_single_doc_head.w_33:after{content: '';width: 1px;height: 80%;background-color: #b9b9b9;display: block;position: absolute;right: -1px;z-index: 2}
+#SH531-SMARTHEADS-CONTENT .z_documents_heads .z_single_doc_head.w_33.z_active:after{content: none}
+#SH531-SMARTHEADS-CONTENT .z_documents_heads .z_single_doc_head.w_33:last-child:after{content: none}
+
+
+#SH531-SMARTHEADS-CONTENT .z_doc_content .z_doc_category{margin-bottom: 20px; border-bottom: 1px solid #d5d6d9;}
+#SH531-SMARTHEADS-CONTENT .z_doc_content .z_doc_category > p{margin-bottom: 20px !important;}
+#SH531-SMARTHEADS-CONTENT .z_doc_content .z_doc_category .z_doc_flex{display: none;justify-content: space-between;flex-wrap: wrap}
+#SH531-SMARTHEADS-CONTENT .z_doc_content .z_doc_category .z_doc_flex .z_single_doc{display: block;flex-basis: 50%;margin: 10px 0;padding: 0 15px 0 30px;position: relative;color: #000;font-size: 18px;line-height: 1.5}
+#SH531-SMARTHEADS-CONTENT .z_doc_content .z_doc_category .z_doc_flex .z_single_doc img{display: block;position: absolute;left: 0;top: 1px;}
+#SH531-SMARTHEADS-CONTENT .z_doc_content .z_doc_category .z_doc_flex .z_single_doc:hover{color: #e2007e}
+
+#SH531-SMARTHEADS-CONTENT .z_doc_content .z_doc_field .z_doc_row_flex{display: flex;justify-content: space-between;flex-wrap: wrap}
+#SH531-SMARTHEADS-CONTENT .z_doc_content .z_doc_field .z_doc_row_flex .z_row_flex_column{display: flex;flex-direction: column;}
+#SH531-SMARTHEADS-CONTENT .z_doc_content .z_doc_field .z_doc_row_flex .z_row_flex_column.w20{flex-basis: 20%}
+#SH531-SMARTHEADS-CONTENT .z_doc_content .z_doc_field .z_doc_row_flex .z_row_flex_column.w25{flex-basis: 25%}
+#SH531-SMARTHEADS-CONTENT .z_doc_content .z_doc_field .z_doc_row_flex .z_row_flex_column.w35{flex-basis: 35%}
+#SH531-SMARTHEADS-CONTENT .z_doc_content .z_doc_field .z_doc_row_flex .z_row_flex_column.w45{flex-basis: 45%}
+#SH531-SMARTHEADS-CONTENT .z_doc_content .z_doc_field .z_doc_row_flex .z_row_flex_column .z_row_flex_cell{display: flex;align-items: center;padding: 0 5px 0 15px;border-width: 0 1px 1px 0px;border-style: solid;border-color: #000}
+#SH531-SMARTHEADS-CONTENT .z_doc_content .z_doc_field .z_doc_row_flex .z_row_flex_column .z_row_flex_cell.h1{height: 50px}
+#SH531-SMARTHEADS-CONTENT .z_doc_content .z_doc_field .z_doc_row_flex .z_row_flex_column .z_row_flex_cell.h2{height: 100px}
+#SH531-SMARTHEADS-CONTENT .z_doc_content .z_doc_field .z_doc_row_flex .z_row_flex_column .z_row_flex_cell.h3{height: 150px}
+#SH531-SMARTHEADS-CONTENT .z_doc_content .z_doc_field .z_doc_row_flex .z_row_flex_column .z_row_flex_cell.h4{height: 200px}
+
+#SH531-SMARTHEADS-CONTENT .z_doc_content .z_doc_field .z_doc_row_flex .z_row_flex_column.w35 .z_row_flex_cell{border-right: none}
+#SH531-SMARTHEADS-CONTENT .z_doc_content .z_doc_field .z_doc_spacer{margin: 35px auto 15px}
+#SH531-SMARTHEADS-CONTENT .z_doc_content .z_doc_field .z_doc_prime_row{margin: 30px 0}
+#SH531-SMARTHEADS-CONTENT .z_doc_content .z_doc_field .z_doc_prime_row .z_doc_row_head{margin-bottom: 25px}
+
+
+#SH531-SMARTHEADS-CONTENT .z_doc_content .z_doc_field .z_doc_row_flex.z_flex_4{display: none}
+#SH531-SMARTHEADS-CONTENT .z_doc_content .z_doc_field .z_doc_row_flex.z_flex_4.z_open{display: flex}
+#SH531-SMARTHEADS-CONTENT .z_doc_content .z_doc_field .z_doc_arrow{display: inline-block;background-position: top;width: 14px;height: 9px;cursor: pointer;background-image: url('./-/media/Additional/smart/img/customer/z_arrow_sprite.png');}
+#SH531-SMARTHEADS-CONTENT .z_doc_content .z_doc_field .z_doc_row_head .z_doc_arrow{display: inline-block;background-position: top;width: 14px;height: 9px;cursor: pointer;background-image: url('./-/media/Additional/smart/img/customer/z_arrow_sprite.png');}
+#SH531-SMARTHEADS-CONTENT .z_doc_content .z_doc_field .z_doc_row_head.z_open .z_doc_arrow{background-position: bottom;}
+#SH531-SMARTHEADS-CONTENT .z_doc_content .z_doc_field .z_doc_row_head{cursor: pointer; text-align: left;}
+
+#SH531-SMARTHEADS-CONTENT .z_doc_content .z_doc_field .z_doc_row_flex .z_row_flex_column .z_row_flex_cell .z_flex_head{cursor: pointer; color: #000}
+#SH531-SMARTHEADS-CONTENT .z_doc_content .z_doc_field .z_doc_row_flex .z_row_flex_column .z_row_flex_cell .z_flex_head.z_open .z_doc_arrow{background-position: bottom}
+
+#SH531-SMARTHEADS-CONTENT .z_doc_content .z_doc_field .z_doc_row_flex .z_row_flex_column .z_row_flex_cell.z_able_to_hide{display: none}
+#SH531-SMARTHEADS-CONTENT .z_doc_content .z_doc_field .z_doc_row_flex .z_row_flex_column .z_row_flex_cell.z_able_to_hide.z_open{display: flex}
+#SH531-SMARTHEADS-CONTENT .z_doc_content .z_sub_doc_info{margin-top: 25px}
+#SH531-SMARTHEADS-CONTENT .z_doc_content .z_sub_doc_info h5{margin: 25px 0 15px}
+#SH531-SMARTHEADS-CONTENT .z_doc_content .z_sub_doc_info .z_doc_p_dot{margin: 9px 0;position: relative;padding-left: 20px}
+#SH531-SMARTHEADS-CONTENT .z_doc_content .z_sub_doc_info .z_doc_p_dot:before{position: absolute;left: 0;top: 11px;border-radius: 50%;background-color: #e2007e;width: 6px;height: 6px;content: ''}
+#SH531-SMARTHEADS-CONTENT .z_doc_content .z_sub_doc_info .z_legal{margin-top: 20px}
+#SH531-SMARTHEADS-CONTENT .z_doc_content .z_sub_doc_info .z_legal p{line-height: 1.5}
+#SH531-SMARTHEADS-CONTENT .z_sub_doc_info .p_f0{color: #e2007a !important;}
+
+#SH531-SMARTHEADS-CONTENT .z_append_field{position: relative}
+#SH531-SMARTHEADS-CONTENT .z_append_field .z_doc_radio_boxes{position: absolute;top: -50px;right: 0;width: 220px;    display: flex;justify-content: space-between;flex-wrap: wrap;align-items: center;}
+#SH531-SMARTHEADS-CONTENT .z_doc_content .z_sub_doc_info > *{line-height: 1.5}
+#SH531-SMARTHEADS-CONTENT .z_doc_content .z_sub_doc_info p{line-height: 1.5}
+
+#SH531-SMARTHEADS-CONTENT .z_append_field .z_doc_radio_boxes .c_radio_boxes{position: relative;flex-basis: 50%;}
+#SH531-SMARTHEADS-CONTENT .z_append_field .z_doc_radio_boxes .c_radio_boxes label{display: block;color: #000;font-size: 12px;padding-left: 30px; text-align: left;}
+#SH531-SMARTHEADS-CONTENT .z_append_field .z_doc_radio_boxes [type="radio"]:not(:checked),#SH531-SMARTHEADS-CONTENT .z_append_field .z_doc_radio_boxes [type="radio"]:checked { position: absolute; left: -9999px; }
+#SH531-SMARTHEADS-CONTENT .z_append_field .z_doc_radio_boxes [type="radio"]:not(:checked) + label,#SH531-SMARTHEADS-CONTENT .z_append_field .z_doc_radio_boxes [type="radio"]:checked + label {cursor: pointer; }
+#SH531-SMARTHEADS-CONTENT .z_append_field .z_doc_radio_boxes [type="radio"]:not(:checked) + label:before,#SH531-SMARTHEADS-CONTENT .z_append_field .z_doc_radio_boxes [type="radio"]:checked + label:before { content: ''; position: absolute; left: 0; top: -2px; width: 18px; height: 18px; border: 1px solid #919191; background: #fff;border-radius: 50%}
+#SH531-SMARTHEADS-CONTENT .z_append_field .z_doc_radio_boxes [type="radio"]:not(:checked) + label:after,#SH531-SMARTHEADS-CONTENT .z_append_field .z_doc_radio_boxes  [type="radio"]:checked + label:after { content: ''; position: absolute; top: 3px; left: 5px;width: 10px;height: 10px;background-color: #e2007a;border-radius: 50%}
+#SH531-SMARTHEADS-CONTENT .z_append_field .z_doc_radio_boxes [type="radio"]:not(:checked) + label:after { opacity: 0; transform: scale(0); }
+#SH531-SMARTHEADS-CONTENT .z_append_field .z_doc_radio_boxes [type="radio"]:checked + label:before{opacity: 1; transform: scale(1); }
+
+
+#SH531-SMARTHEADS-CONTENT .sh531-no-padding{padding: 0 !important;}
+#SH531-SMARTHEADS-CONTENT .c_semibold{font-weight: 600;}
+#SH531-SMARTHEADS-CONTENT .c_f5{font-size: 2.4rem !important; color: #262626 !important; line-height: 1;}
+#SH531-SMARTHEADS-CONTENT .c_f1{font-size: 1.8rem !important; color: #262626 !important; line-height: 1;}
+#SH531-SMARTHEADS-CONTENT .p_f1{font-size: 1.8rem !important; color: #262626 !important; line-height: 1;}
+#SH531-SMARTHEADS-CONTENT .p_f0{font-size: 1.5rem !important; color: #262626 !important; line-height: 1;}
+#SH531-SMARTHEADS-CONTENT .f_0{font-size: 1.6rem !important; color: #262626 !important; line-height: 1;}
+#SH531-SMARTHEADS-CONTENT .p_f30{font-size: 2.4rem !important; color: #262626 !important; line-height: 1;}
+#SH531-SMARTHEADS-CONTENT .netto-price{display: none;}
+#SH531-SMARTHEADS-CONTENT .c_magenta{color:#e2007a}
+#SH531-SMARTHEADS-CONTENT .sh531-document-head{margin-top: 25px;}
+#SH531-SMARTHEADS-CONTENT .documents-description{font-size: 2.4rem; margin-top: 20px; margin-bottom: 30px;}
+#SH531-SMARTHEADS-CONTENT .documents-description .mix-magenta{color:#e2007a;}
+#SH531-SMARTHEADS-CONTENT .documents-description .mix-green{color:#157D0A;}
+#SH531-SMARTHEADS-CONTENT .future_date{color: #262626 !important;}
+#SH531-SMARTHEADS-CONTENT .next_month_value{color: #262626 !important;}
+#SH531-SMARTHEADS-CONTENT .present_month_value{color: #262626 !important;}
+#SH531-SMARTHEADS-CONTENT .shield_information p{font-size: 1.6rem !important;}
+#SH531-SMARTHEADS-CONTENT .fb-100{flex-basis: 100% !important;}
+#SH531-SMARTHEADS-CONTENT .doc_trigger:hover{cursor: pointer;}
+
+#SH531-SMARTHEADS-CONTENT .z_append_field .extra_information{display: flex;justify-content: space-between;flex-wrap: wrap; margin: 45px 0 0;}
+#SH531-SMARTHEADS-CONTENT .z_append_field .date_information{display: flex;justify-content: space-between;flex-wrap: wrap;margin:45px 0 15px}
+#SH531-SMARTHEADS-CONTENT .z_append_field .date_information p{flex-basis: 48%;text-align: left}
+#SH531-SMARTHEADS-CONTENT .z_append_field .date_information p.to_right{text-align: right}
+#SH531-SMARTHEADS-CONTENT .z_append_field .date_information p.to_right .doc_trigger{cursor: pointer}
+#SH531-SMARTHEADS-CONTENT .z_append_field .date_information p.to_right .doc_trigger:hover{text-decoration: underline}
+
+#SH531-SMARTHEADS-CONTENT .nl-products-changes .z_documents_heads .z_single_doc_head {flex-basis: 33.333333%; gap: 4px;}
+#SH531-SMARTHEADS-CONTENT .z_doc_content .z_doc_field .z_doc_prime_row .z_doc_row_head {touch-action: none; pointer-events: none;}
+
+@media all and (max-width: 1310px){
+    #SH531-SMARTHEADS-CONTENT .z_doc_content .inside_health_services table.new_health_table td.category_cell{padding: 10px;}
+    #SH531-SMARTHEADS-CONTENT .z_doc_content .inside_health_services table.new_health_table td.category_cell .cell_img{display: none}
+    #SH531-SMARTHEADS-CONTENT .documents-description{font-size: 1.8rem; line-height: 1.2;}
+}
+@media all and (max-width: 1100px){
+    #SH531-SMARTHEADS-CONTENT .c_f5{font-size: 2.2rem;}
+    #SH531-SMARTHEADS-CONTENT .z_documents_box{width: 100%;max-width: 100%}
+}
+@media all and (max-width: 1000px){
+    #SH531-SMARTHEADS-CONTENT .z_append_field .date_information p{flex-basis: 100%;text-align: left!important;;margin: 5px 0}
+}
+@media all and (max-width: 992px){
+    #SH531-SMARTHEADS-CONTENT .nl-products-changes .z_documents_heads .z_single_doc_head {font-size: 18px;}
+}
+@media all and (max-width: 920px){
+    #SH531-SMARTHEADS-CONTENT .z_doc_content{padding: 15px}
+    #SH531-SMARTHEADS-CONTENT .z_append_field .z_doc_radio_boxes{top: -25px}
+    #SH531-SMARTHEADS-CONTENT .z_doc_content .z_doc_field .z_doc_row_flex .z_row_flex_column .z_row_flex_cell{padding: 0 5px 0 5px}
+    #SH531-SMARTHEADS-CONTENT .z_doc_content .z_doc_field .z_doc_row_flex .z_row_flex_column .z_row_flex_cell .p_f1, #SH531-SMARTHEADS-CONTENT .z_doc_content .z_doc_field .z_doc_row_flex .z_row_flex_column .z_row_flex_cell .c_f1{font-size: 14px}
+    #SH531-SMARTHEADS-CONTENT .z_doc_content .z_doc_field .z_doc_row_flex .z_row_flex_column .z_row_flex_cell .p_f0{font-size: 12px}
+}
+@media all and (max-width: 800px){
+    #SH531-SMARTHEADS-CONTENT .z_documents_heads .z_single_doc_head .z_doc_sprite{display: none}
+    #SH531-SMARTHEADS-CONTENT .z_documents_heads .z_single_doc_head{padding: 13px 5px;text-align: center}
+    #SH531-SMARTHEADS-CONTENT .z_doc_content{padding: 20px}
+    #SH531-SMARTHEADS-CONTENT .z_doc_content .z_doc_category .z_doc_flex .z_single_doc{flex-basis: 100%;padding: 0 0 0 30px}
+    #SH531-SMARTHEADS-CONTENT h3{margin-bottom: 10px}
+    #SH531-SMARTHEADS-CONTENT .z_doc_content .z_doc_field .z_doc_row_flex.z_flex_3 .z_row_flex_column.w45{flex-basis: 33.33%}
+    #SH531-SMARTHEADS-CONTENT .z_doc_content .z_doc_field .z_doc_row_flex.z_flex_3 .z_row_flex_column.w20{flex-basis: 33.33%}
+    #SH531-SMARTHEADS-CONTENT .z_doc_content .z_doc_field .z_doc_row_flex.z_flex_3 .z_row_flex_column.w35{flex-basis: 33.33%}
+    #SH531-SMARTHEADS-CONTENT .z_doc_content {padding: 10px;}
+    #SH531-SMARTHEADS-CONTENT .z_doc_content .inside_health_services table td{font-size: 12px;padding: 5px;}
+    #SH531-SMARTHEADS-CONTENT .z_doc_content .inside_health_services table th{font-size: 12px;padding: 5px;}
+    #SH531-SMARTHEADS-CONTENT .z_doc_content .inside_health_services > p{margin:10px 0}
+    #SH531-SMARTHEADS-CONTENT .z_doc_content .inside_health_services table{margin: 5px 0}
+    #SH531-SMARTHEADS-CONTENT .z_documents_heads .z_single_doc_head{text-align: center;font-size: 22px;justify-content: center}
+    #SH531-SMARTHEADS-CONTENT .z_doc_content .inside_health_services table.new_health_table .grey{font-size: 12px}
+}
+@media all and (max-width: 768px){
+    #SH531-SMARTHEADS-CONTENT .nl-products-changes .z_documents_heads .z_single_doc_head {font-size: 16px;}
+}
+@media all and (max-width: 600px){
+    #SH531-SMARTHEADS-CONTENT .z_doc_content .z_doc_field .z_doc_row_flex .z_row_flex_column .z_row_flex_cell .p_f1{font-size: 12px}
+    #SH531-SMARTHEADS-CONTENT .z_doc_content .z_doc_field .z_doc_row_flex .z_row_flex_column .z_row_flex_cell .p_f0{font-size: 10px}
+    #SH531-SMARTHEADS-CONTENT .z_doc_content .z_doc_field .z_doc_row_flex.z_flex_4 .z_row_flex_column.w20{flex-basis: 25%}
+    #SH531-SMARTHEADS-CONTENT .z_doc_content .z_doc_field .z_doc_row_flex.z_flex_4 .z_row_flex_column.w25{flex-basis: 25%}
+    #SH531-SMARTHEADS-CONTENT .z_doc_content .z_doc_field .z_doc_row_flex.z_flex_4 .z_row_flex_column.w35{flex-basis: 25%}
+}
+
+@media all and (max-width: 550px){
+    #SH531-SMARTHEADS-CONTENT .z_doc_content.z_active{overflow-x: scroll;}
+    #SH531-SMARTHEADS-CONTENT .z_doc_content .z_doc_field.z_active{min-width: 600px;}
+    #SH531-SMARTHEADS-CONTENT .z_doc_content {padding: 15px;}
+    #SH531-SMARTHEADS-CONTENT .z_doc_content .inside_health_services table.new_health_table .blue_bg{font-size: 18px}
+    #SH531-SMARTHEADS-CONTENT .z_append_field .z_doc_radio_boxes{position: static;}
+}
+
+@media all and (max-width: 500px){
+    #SH531-SMARTHEADS-CONTENT .z_documents_heads .z_single_doc_head{flex-basis: 100%;font-size: 20px}
+    #SH531-SMARTHEADS-CONTENT .z_documents_heads .z_single_doc_head{font-size: 16px}
+    #SH531-SMARTHEADS-CONTENT .z_doc_content .inside_health_services table.new_health_table .blue_bg{font-size: 16px}
+
+    #SH531-SMARTHEADS-CONTENT .nl-products-changes .z_documents_heads .z_single_doc_head {flex-basis: 100%;}
+}
+
+#sh531-elec.sh531-eko_site .sh531-eko-bar{background-color: #157D0A !important;}
+#sh531-elec.sh531-eko_site .sh531-top-page-part h1{color: #157D0A !important;}
+#las01-elec .las01-what-you-gain .las01-main-head span{color: #157D0A !important;}
+#las01-elec.las01-health .las01-top-page-part .las01-baner-text h1 span{color: #157D0A !important;}
+#las01-eko-site #las01-eko-sub-site .las01-what-you-gain .las01-profit-box h3 span{color: #157D0A !important;}
+#las01-elec .las01-pay-less h3 span{color: #157D0A !important;}
+#sh531-eko-site #sh531-eko-sub-site .sh531-what-you-gain .sh531-profit-box h3 span{color: #157D0A !important;}

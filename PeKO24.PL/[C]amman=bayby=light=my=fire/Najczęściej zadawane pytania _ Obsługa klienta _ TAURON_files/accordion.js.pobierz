@@ -1,0 +1,190 @@
+// funkcje odpowiedzialne za rozwijaki
+
+var accordionJs = function () {
+  function clearActiveAccordionState(btn) {
+    var headers = btn.parentNode.parentNode.querySelectorAll('.accordion__header');
+    for (k = 0; k < headers.length; k++) {
+      headers[k].classList.remove("active");
+      headers[k].nextElementSibling.classList.remove("show");
+      if (openText) {
+        headers[k].querySelector('.btn_text').innerHTML = openText;
+        headers[k].querySelector('[data-js="accordion-arrow"]').classList.remove('icon-func_chevron_up');
+      }
+    }
+  }
+  return {
+    init: function (selector) {
+
+      //    var accordionButtonWhite = document.querySelectorAll('.accordion__header[data-js="accordion-white"]');
+      //    var accordionButtonGrey = document.querySelectorAll('.accordion__header[data-js="accordion-grey"]');
+      var singleAccordion = document.querySelectorAll('[data-js="accordion"]');
+
+      var i;
+      var j;
+      var k;
+      var l;
+
+      for (i = 0; i < singleAccordion.length; i++) {
+        var thisAccordion = singleAccordion[i];
+        var headers = thisAccordion.querySelectorAll('.accordion__header');
+        var conetent = thisAccordion.querySelectorAll('.accordion__content');
+        var accordionHeadersWhite = thisAccordion.querySelectorAll('.accordion__header[data-js="accordion-white"]');
+        var accordionHeadersGrey = thisAccordion.querySelectorAll('.accordion__header[data-js="accordion-grey"]');
+        openText = thisAccordion.getAttribute('data-btnOpen');
+        closeText = thisAccordion.getAttribute('data-btnClose');
+
+        if (openText) {
+          for (j = 0; j < headers.length; j++) {
+            headers[j].querySelector('.btn_text').innerHTML = openText;
+          }
+        }
+        for (j = 0; j < conetent.length; j++) {
+          conetent[j].classList.add('hide');
+        }
+
+
+        var hashtag = location.hash;
+        var isGa = hashtag.split('_ga=').length,
+            isGac = hashtag.split('_gac=').length
+        ;
+
+        if (hashtag && isGa <= 1 && isGac <= 1) {
+          var accWithID = thisAccordion.querySelector(hashtag+'.accordion__part');
+
+          if (accWithID) {
+            var thisHead = accWithID.querySelector('.accordion__header');
+
+            for (var z = 0; z < headers.length; z++) {
+              headers[z].setAttribute('data-openonstart', 'false');
+            }
+            thisHead.setAttribute('data-openonstart', 'true');
+          }
+        }
+
+
+        if (accordionHeadersWhite.length > 0) {
+
+
+          for (j = 0; j < accordionHeadersWhite.length; j++) {
+            if (accordionHeadersWhite[j].getAttribute('data-openonstart') == 'true') {
+              accordionHeadersWhite[j].classList.add("active");
+              var next = accordionHeadersWhite[j].nextElementSibling;
+              next.classList.add("show");
+              if (closeText) {
+                accordionHeadersWhite[j].querySelector('.btn_text').innerHTML = closeText;
+                accordionHeadersWhite[j].querySelector('[data-js="accordion-arrow"]').classList.add('icon-func_chevron_up');
+              }
+            }
+            accordionHeadersWhite[j].onclick = function (e) {
+              if (this.classList.contains('active')) {
+                this.classList.remove("active");
+                var next = this.nextElementSibling;
+                next.classList.remove("show");
+                if (openText) {
+                  this.querySelector('.btn_text').innerHTML = openText;
+                  this.querySelector('[data-js="accordion-arrow"]').classList.remove('icon-func_chevron_up');
+                }
+              } else {
+                clearActiveAccordionState(this);
+                this.classList.add("active");
+                var next = this.nextElementSibling;
+                if(next){
+                  next.classList.add("show");
+                }
+                if (closeText) {
+                  this.querySelector('.btn_text').innerHTML = closeText;
+                  this.querySelector('[data-js="accordion-arrow"]').classList.add('icon-func_chevron_up');
+                }
+              }
+            }
+          }
+        }
+        if (accordionHeadersGrey.length > 0) {
+
+
+
+          for (j = 0; j < accordionHeadersGrey.length; j++) {
+            // accordionHeadersGrey[j].querySelector('.btn_text').innerHTML = closeText;
+            // accordionHeadersGrey[j].querySelector('.btn_text').classList.add('icon-func_chevron_up');
+
+            // console.log(accordionHeadersGrey[j].getAttribute('data-openonstart'))
+            if (accordionHeadersGrey[j].getAttribute('data-openonstart') == 'true') {
+              accordionHeadersGrey[j].classList.add("active");
+              var next = accordionHeadersGrey[j].nextElementSibling;
+              next.classList.add("show");
+              accordionHeadersGrey[j].querySelector('.btn_text').innerHTML = closeText;
+              accordionHeadersGrey[j].querySelector('[data-js="accordion-arrow"]').classList.add('icon-func_chevron_up');
+            }else{
+              accordionHeadersGrey[j].classList.remove("active");
+              var next = accordionHeadersGrey[j].nextElementSibling;
+              if(next){
+                next.classList.remove("show");
+              }
+              accordionHeadersGrey[j].querySelector('.btn_text').innerHTML = openText;
+              accordionHeadersGrey[j].querySelector('[data-js="accordion-arrow"]').classList.remove('icon-func_chevron_up');
+            }
+
+
+            // if (vJs.hasClass(thisAccordion, 'accordion--process'))  hideAccordeon(accordionHeadersGrey[j], 400);
+
+              accordionHeadersGrey[j].onclick = function (e) {
+
+                if (this.classList.contains('active')) {
+                  this.classList.remove("active");
+                  var next = this.nextElementSibling;
+                  if(next){
+                    next.classList.remove("show");
+                  }
+                  this.querySelector('.btn_text').innerHTML = openText;
+                  this.querySelector('[data-js="accordion-arrow"]').classList.remove('icon-func_chevron_up');
+                } else {
+                  this.classList.add("active");
+                  var next = this.nextElementSibling;
+                  if(next) {
+                    next.classList.add("show");
+                  }
+                  this.querySelector('.btn_text').innerHTML = closeText;
+                  this.querySelector('[data-js="accordion-arrow"]').classList.add('icon-func_chevron_up');
+                }
+              }
+          }
+
+
+
+        }
+      }
+
+      function hideAccordeon(ac_head, time) {
+
+        var timer = setTimeout(function() {
+          ac_head.classList.remove("active");
+          var next = ac_head.nextElementSibling;
+          next.classList.remove("show");
+          ac_head.querySelector('.btn_text').innerHTML = openText;
+          ac_head.querySelector('.btn_text').classList.remove('icon-func_chevron_up');
+        }, time);
+      }
+
+      // all accordions open
+
+      if (vJs.hasClass(document.getElementsByTagName('body')[0], 'sc-edit')) {
+        var aheaders = document.querySelectorAll('.accordion__header');
+        var acontent = document.querySelectorAll('.accordion__content');
+        var i;
+        for (i = 0; i < aheaders.length; i++) {
+          aheaders[i].classList.add('active');
+          acontent[i].classList.add('show');
+          var text = aheaders[i].parentNode.parentNode.getAttribute('data-btnclose');
+          aheaders[i].querySelector('.btn_text').innerHTML = text;
+          aheaders[i].querySelector('.btn_text').classList.add('icon-func_chevron_up');
+        }
+      }
+
+    }
+  }
+}();
+
+// po zaladowaniu modulu odpalamy:
+// if (! vJs.hasClass(document.getElementsByTagName('body')[0], 'sc-edit' ))
+if (document.querySelectorAll('[data-js="accordion"]').length > 0)
+  accordionJs.init('[data-js="accordion"]');

@@ -1,0 +1,316 @@
+
+//vanill js
+var validJs = function(){
+  //var privateVar = 1;
+  // function privateFunction(){
+  //   alert('private');
+  // }
+
+
+
+  function validateEmail(email) {
+      var re = /^([\w\-\+]+)((\.([\w\-\+]){1,})+)?@([\w\-]+)((\.([\w\-]){1,65})+)?((\.(\w){2,8})+)$/;
+   
+    // console.log(re.test(email))
+    return re.test(email);
+  }
+
+  function isDate(val) {
+    var re = /\d{4}-\d{2}-\d{2}\b/;
+    return re.test(val);
+  }
+
+  function isTime(val) {
+    // var re = /\b\d{2}:\d{2}\b/;
+    var re1 = /^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$/;
+    var re2 = /^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/;
+
+    return re1.test(val) || re2.test(val);
+    }
+
+    function isDomainLogin(val) {
+        var re = /^[A-Za-z0-9\\._-]{7,}$/;
+        return re.test(val)
+    }
+
+  function isNumber(number, minnumb, maxnumb, nozero, min_len) {
+    var re = /\d/;
+
+    if ( min_len & String(number).length*1 < min_len*1) return false;
+    if ( nozero & number*1 <= 0) return false;
+    if ( maxnumb && number*1 > maxnumb*1) return false;
+    if ( minnumb && number*1 < minnumb*1) return false; 
+
+    return re.test(number);
+  }
+
+  function isCellPhone(phoneNumber) {
+      var re = /\d/;
+      var value = String(phoneNumber);
+
+      if (value.length !== 9) return false;
+      if (re.test(phoneNumber) === false) return false;
+
+      var firstDigits = value.substring(0, 2);
+      var prefixes = ["45", "50", "51", "53", "57", "60", "66", "69", "72", "73", "78", "79", "88"];
+      
+      return prefixes.indexOf(firstDigits) > -1;
+  }
+
+  function isGeo(val) {
+    var re = /^[-+]{0,1}[0-9]{1,3}([,][0-9]{1,})$/;
+    // console.log(re.test(val))
+    return re.test(val);
+    }
+
+    function isGeoZero(val) {
+        var value = val;
+        value = value.replace(/,/g, '.');
+        value = Number(value);
+        var ret = (isFinite(value) && Math.abs(value) <= 180) || val == '';
+        return ret;
+    }
+
+  function isFiled(text, min_length) {
+    // var re = /^\s+$/;
+    // return re.test(text);
+      if (text.length <= 0) return false;
+
+      if (min_length) {
+          return text.length >= min_length * 1;
+      }
+
+    return true;
+  }
+
+  function minMax(text, minLength, maxLength) {
+      if (minLength) {
+          if (text.length < minLength * 1) {
+              return false;
+          }
+      }
+
+      if (maxLength) {
+          if (text.length > maxLength * 1) {
+              return false;
+          }
+      }
+
+      return true;
+  }
+
+  function specialChars(text) {
+    // console.log(text.indexOf('<'))
+    if (text.indexOf('<')+'' != '-1') return false;
+    if (text.indexOf('../')+'' != '-1') return false;
+    return true;
+  }
+
+  function hasGaid(inpt) {
+    var gaid = inpt.getAttribute('data-gaid');
+    // return re.test(text);
+    if (gaid) {
+      if (gaid.length > 0 ) return true;
+    }
+    return false;
+  }
+
+
+
+  return{
+    //publicVar:2,
+
+    showError:function(target, global, message){
+      if (global){
+        // target == form
+        vJs.addClass(target, 'form-error');
+        target = target.querySelector('[data-js="error-globalmessage"]');
+      }
+      if (!message) message = target.getAttribute('data-message');
+      target.innerHTML = message;
+    },
+
+    validateEl:function(el, global){
+
+      var el_cont = vJs.closest(el, '[data-valid]'),
+          type = el_cont.getAttribute('data-valid'),
+          value = el.value,
+          form = vJs.closest(el, 'form'),
+          ok = false,
+          min_length = el_cont.getAttribute('data-min-length'),
+          data_val = el.getAttribute('data-val')
+            ;
+      if (data_val == 'false') {
+          ok = true;
+      }
+      else {
+          switch (type) {
+              case 'email':
+                  ok = validateEmail(value);
+                  break;
+              case 'fill':
+                  ok = isFiled(value, min_length);
+                  break;
+              case 'fill-trimmed':
+                  ok = isFiled(value.trim(), min_length);
+                  ok = ok && isFiled(value, min_length);
+                  break;
+              case 'date':
+                  ok = isDate(value);
+                  break;
+              case 'time':
+                  ok = isTime(value);
+                  break;
+              case 'domain-login':
+                  ok = isDomainLogin(value);
+                  break;
+              case 'textarea':
+                  ok = isFiled(value, min_length);
+                  break;
+              case 'characters':
+                  ok = specialChars(value);
+                  break;
+              case 'number':
+                  ok = isNumber(value, el.getAttribute('min'), el.getAttribute('max'), el.hasAttribute('data-nozero'), el.getAttribute('minlength'));
+                  break;
+              case 'cellphone':
+                  ok = isCellPhone(value);
+                  break;
+              case 'geo':
+                  ok = isGeo(value);
+                  break;
+              case 'geozero':
+                  ok = isGeoZero(value);
+                  if (value.trim() == '') {
+                      el.value = "0";
+                  }
+                  break;
+              case 'recaptcha':
+                  ok = false;
+                  if (grecaptcha.getResponse().length != "") ok = true;
+                  break;
+              case 'gaid':
+                  ok = (isFiled(value) && hasGaid(el));
+                  break;
+              case 'minMax':
+                  ok = minMax(value, el.getAttribute('minlength'), el.getAttribute('maxlength'));
+                  break;
+              case 'accept':
+                  ok = false
+                  if (el_cont.querySelector('[type="checkbox"]').checked) {
+                      ok = true;
+                  }
+                  break;
+              case 'cbox-group':
+                  var cb_group = el_cont.querySelectorAll('[type="checkbox"]');
+                  var ok = false;
+                  for (var i = 0; i < cb_group.length; i++) {
+                      if (cb_group[i].checked) {
+                          ok = true;
+                      }
+                  }
+                  break;
+              case 'select':
+                  if (value == '-1') {
+                      ok = false;
+                  } else {
+                      ok = true;
+                  }
+                  break;
+              default:
+                  // setErrors(isFiled(value));
+                  break;
+          }
+      }
+      setErrors(ok);
+
+      function setErrors(ok){
+        if (!ok){
+            //blad tylko dla pola
+            vJs.addClass(el_cont, 'error');
+            vJs.removeClass(el_cont, 'ok');
+            //pokazujemy blad ogolny dla calego form
+            if (global){
+              validJs.showError(form, true);
+              vJs.addClass(form, 'form-error');
+              form.setAttribute('data-formstatus','invalid');
+            }
+          }else{
+            vJs.removeClass(el_cont, 'error');
+            vJs.addClass(el_cont, 'ok');
+            if (global){
+              vJs.removeClass(form, 'form-error');
+              form.setAttribute('data-formstatus','valid');
+            }
+          }
+        }
+
+      // console.log('pole:'+ ok)
+      return ok;
+
+    },
+
+    validateForm: function(form, global) {
+
+        var form_rows = form.querySelectorAll('[data-valid]'),
+            ok = true;
+
+        for (var i = 0; i < form_rows.length; i++) {
+            var ftype = form_rows[i].getAttribute('data-valid'),
+                fel;
+
+            switch (ftype) {
+            case 'select':
+                fel = form_rows[i].querySelector('select');
+                break;
+            case 'recaptcha':
+                fel = form_rows[i].querySelector('.g-recaptcha');
+                break;
+            case 'textarea':
+                fel = form_rows[i].querySelector('textarea');
+                break;
+            default:
+                fel = form_rows[i].querySelector('input');
+                break;
+            }
+
+            if (!validJs.validateEl(fel, global)) {
+                ok = false;
+            }
+            // console.log(fel+'el:'+ ok)
+        }
+
+        // console.log('form:'+ ok)
+        return ok;
+
+    },
+
+
+    bindFocus:function(form, field, global) {
+
+
+      var valid_el = form.querySelectorAll('[data-valid]');
+      for (var i=0; i < valid_el.length; i++){
+
+        var el = valid_el[i],
+            inpts = el.querySelectorAll(field)
+        ;
+
+        for (var j=0; j<inpts.length; j++){
+          inpts[j].addEventListener('focusout', function(){
+            //console.log(this)
+            validJs.validateEl(this, global);
+          });
+        }
+
+
+
+      }
+
+
+    }
+
+  }
+}();
+
+// validJs.init();

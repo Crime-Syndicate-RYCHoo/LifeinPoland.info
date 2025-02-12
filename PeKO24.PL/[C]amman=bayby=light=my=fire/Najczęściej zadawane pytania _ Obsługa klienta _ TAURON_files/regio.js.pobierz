@@ -1,0 +1,234 @@
+// funkcje odpowiedzialne za rotator
+
+var regioJs = function(){
+
+  var regio_state = '',
+      regio_id = null,
+      regio_popup,
+      body = document.getElementsByTagName('body')[0],
+      main = document.querySelector('main'),
+      footer = document.querySelector('footer'),
+      pxPosition
+  ;
+
+  function submitRegio(el){
+
+    var form = vJs.closest(el, 'form');
+    var inpt = form.querySelector('input');
+
+          vJs.removeClass(form, 'form-error');
+          form.setAttribute('data-formstatus','');
+
+          if (validJs.validateForm(form, false)){
+            var val = inpt.value;
+
+            //kod pocztowy wpisany
+            if (val[0] >= '0' && val[0] <= '9') {
+              validJs.showError(form.querySelector('.error__message--global'), false, 'Bledny kod pocztowy');
+              vJs.addClass(form, 'form-error');
+              form.setAttribute('data-formstatus','invalid');
+            } else {
+
+              ajax = new XMLHttpRequest();
+              ajax.open("GET", '/iapi/region/setregion?city='+ encodeURIComponent(inpt.value) +'&gaid='+ inpt.getAttribute('data-gaid') , true);
+              ajax.onload = function() {
+
+                  // console.log("get");
+
+                  var response = JSON.parse(this.responseText);
+
+                  //obsluga wysylki
+                  if (response.success==true){
+                    location.reload();
+                    window.removeEventListener("touchmove", _th.preventEvent);
+                  }else{
+                    validJs.showError(form.querySelector('.error__message--global'), false, response.message + '('+response.code+')');
+                    vJs.addClass(form, 'form-error');
+                    form.setAttribute('data-formstatus','invalid');
+                  }
+                  // validJs.showError(form, true);
+
+              };
+              ajax.send();
+            }
+
+          }
+  }
+
+  function setLoc(el){
+
+    var form = vJs.closest(el, 'form');
+    var inpt = form.querySelector('input');
+
+    googleMapsJs.getDataByNavigation(function() {
+      inpt.value = cookiesJs.getCookie("City");
+      autocompleteJs.buildList(inpt.nextElementSibling, '/iapi/city/getcities?partName=' + encodeURIComponent(inpt.value), 'city');
+    });
+
+  }
+
+
+  return{
+
+    init:function() {
+      var _th = this;
+
+      regio_popup = document.querySelector("[data-js='regio-popup']");
+      if (regio_popup){
+        var btn_close = regio_popup.querySelector('[data-js="close-btn"]'),
+            btn_submit = regio_popup.querySelector('[data-js="submit-btn"]')
+        ;
+
+        //validJs.bindFocus(regio_popup, 'input');
+
+        btn_submit.onclick = function(e){
+          e.preventDefault(e);
+
+          submitRegio(this);
+        };
+
+        btn_submit.addEventListener("keydown", function(e) {
+          // check if key is tab
+          if (e.keyCode == 9) {
+            regio_popup.focus();
+          }
+        });
+
+        btn_close.onclick = function(e){
+          vJs.removeClass(regio_popup, 'show');
+          vJs.removeClass(body, 'has-popup');
+          window.removeEventListener("touchmove", _th.preventEvent);
+          // scroll to last position and focus on nearest regio btn
+          _th.keepFocus();
+        };
+
+        if (document.querySelector('[data-popuponstart]')){
+          vJs.addClass(regio_popup, 'show');
+          vJs.addClass(body, 'has-popup');
+          window.addEventListener("touchmove", _th.preventEvent);
+          regio_popup.focus();
+        }
+
+      }
+
+      // ustawianie przyciskow do wywolywania regio
+      if (document.querySelectorAll('[data-btn-regio]').length > 0)
+        regioJs.btnInit('[data-btn-regio]');
+
+      if (document.querySelectorAll('[data-btn-localization]').length > 0)
+        regioJs.btnLocInit('[data-btn-localization]');
+
+    },
+
+    // scroll to last position and focus on nearest regio btn
+    keepFocus: function() {
+      if (pxPosition) {
+        var regioBtns = document.querySelectorAll('[data-btn-regio]')
+        ;
+
+        for (var i = 0; i < regioBtns.length; i++) {
+          var thisBtn = regioBtns[i],
+              btnPos = thisBtn.getBoundingClientRect(),
+              windowScrollTop = window.pageYOffset,
+              btnPosTop = btnPos.top + windowScrollTop
+          ;
+
+          //console.log(i, thisBtn, btnPosTop, pxPosition);
+
+          if (btnPosTop > pxPosition) {
+            thisBtn.focus();
+            window.scrollTo(0, pxPosition);
+            i = regioBtns.length;
+          }
+        }
+
+      }
+    },
+
+    btnInit:function(selector) {
+      var _th = this;
+
+      var modules = document.querySelectorAll(selector);
+      for (var i=0; i < modules.length; i++){
+        var reg_btn = modules[i]
+        ;
+
+        // vJs.addClass(reg_btn, 'show');
+
+        reg_btn.addEventListener("click", function(e) {
+          e.preventDefault();
+
+          // jezeli element wywoluje popup
+          if (this.hasAttribute('data-regio-popup')){
+            openPopup();
+
+          } else if (this.hasAttribute('data-cookie-link')) {
+            var regionCookie = getCookie("RegionId");
+            if (!regionCookie){ 
+              openPopup();
+            }else{
+              window.location.href = window.location.protocol + '//' + window.location.hostname + '/' +this.getAttribute('href');
+            }
+
+          } else {
+            // location.reload();
+            submitRegio(this);
+          }
+        });
+      }
+
+      function openPopup() {
+        pxPosition = window.pageYOffset;
+
+        vJs.addClass(regio_popup, 'show');
+        vJs.addClass(body, 'has-popup');
+        window.addEventListener("touchmove", _th.preventEvent);
+        regio_popup.focus();
+      }
+
+      function getCookie(cname) {
+          var name = cname + "=";
+          var decodedCookie = decodeURIComponent(document.cookie);
+          var ca = decodedCookie.split(';');
+          for(var i = 0; i <ca.length; i++) {
+              var c = ca[i];
+              while (c.charAt(0) == ' ') {
+                  c = c.substring(1);
+              }
+              if (c.indexOf(name) == 0) {
+                  return c.substring(name.length, c.length);
+              }
+          }
+          return "";
+      }
+
+    },
+
+    btnLocInit:function(selector) {
+
+      var modules = document.querySelectorAll(selector);
+      for (var i=0; i < modules.length; i++){
+        var reg_btn = modules[i]
+        ;
+
+        // vJs.addClass(reg_btn, 'show');
+
+        reg_btn.onclick = function(e){
+          e.preventDefault();
+            setLoc(this);
+        };
+
+      }
+    },
+
+    preventEvent: function(e) {
+      e.preventDefault();
+    }
+
+
+  }
+}();
+
+// po zaladowaniu modulu odpalamy:
+// if (! vJs.hasClass(document.getElementsByTagName('body')[0], 'sc-edit' ))
+  regioJs.init();

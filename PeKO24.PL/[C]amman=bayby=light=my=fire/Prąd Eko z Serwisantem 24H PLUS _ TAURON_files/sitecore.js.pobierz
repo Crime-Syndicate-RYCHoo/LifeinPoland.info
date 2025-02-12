@@ -1,0 +1,35 @@
+
+var extraJs = function(){
+  //var privateVar = 1;
+  // function privateFunction(){
+  //   alert('private');
+  // }
+
+  return{
+    //publicVar:2,
+    trackGoals: function (idsArray) {
+        // idsArray example: ['{FE65DCC7-4A2A-4C31-BCA9-3BC9F1630373}', '{CC2CC47C-8CC8-469D-B8C6-C11F202FD20A}']
+
+        var parameters = {
+            ids: idsArray
+        }
+
+        vJs.postJsonAjax("/ajax/analytics/TrackGoals", parameters, function (data) { });
+    },
+
+    trackOutcome: function (outcomeDefinitionId, monetaryValue) {
+        // outcomeDefinitionId example: '{52054874-4767-47DC-8099-8C08BFA307AA}'
+        // monetaryValue example: 10
+
+        var parameters = {
+            OutcomeDefinitionId: outcomeDefinitionId,
+            MonetaryValue: monetaryValue
+        }
+
+        vJs.postJsonAjax("/ajax/analytics/TrackOutcome", parameters, function (data) { });
+    }
+    
+  }
+}();
+
+// validJs.init();

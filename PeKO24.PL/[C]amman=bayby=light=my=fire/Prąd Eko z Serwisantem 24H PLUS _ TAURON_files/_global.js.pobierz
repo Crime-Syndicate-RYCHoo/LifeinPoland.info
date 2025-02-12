@@ -1,0 +1,1284 @@
+var global_list = {
+    'oferta_zmiana': {
+        ecoBonus1: 10, // wartość % rabatu na prąd w przypadku ofert eko, e-faktury i zgód marketingowych
+        ecoBonus2: 5, // wartość % rabatu na prąd w przypadku ofert eko wariant 5 procentowy
+        noEcoBonus: 0.2, // wartość % rabatu gdy jnie ma e-faktury bądź zrezygnowana ze zgód marketingowych
+        eInvoiceBonus: 20, // bonus w zł za skorzystanie z e-faktury
+        onlineActivation: 100, // bonus w zł za wybór cennika 3 letniego
+        documents: // zbiór dokumentów
+            {
+                common: { // w tym miejscu występują dokumenty wspólne dla wszytstkich produktów
+                    ts: {
+                        'doc_cat_5':
+                            {
+                                'label': 'Gwarancja Rabatu', // jest to nazwa kategorii dokumentów
+                                1:
+                                    {
+                                        name: 'Regulamin Oferty "Włącz rabat na prąd"', // nazwa pliku która będzie wyświetlana
+                                        href: 'https://www.tauron.pl/-/media/offer-documents/produkty/gsr/ts/ts_gd_regulamin_wlacz_rabat_prad_10519_k.ashx' // link do dokumentu
+                                    },
+                                2:
+                                    {
+                                        name: 'Oświadczenie do Regulaminu Oferty „Włącz rabat na prąd”',
+                                        href: 'https://www.tauron.pl/-/media/offer-documents/produkty/gsr/ts/gze-ts-gd-oswiadczenie-do-oferty-wlacz-rabat-na-prad-k.ashx' // link do dokumentu
+                                    },
+                            },
+                        'doc_cat_6':
+                            {
+                                'label': 'Dokumenty dotyczące Ogólnych Warunków Umowy Kompleksowej', // jest to nazwa kategorii dokumentów
+                                1:
+                                    {
+                                        name: 'Ogólne Warunki Umowy Kompleksowej', // nazwa pliku która będzie wyświetlana
+                                        href: 'https://www.tauron.pl/-/media/offer-documents/dokumenty-do-taryfy/owu-umowa-kompleksowa/gd/ts/1_01_2019_ts_gd_owu_uk_td.ashx' // link do dokumentu
+                                    },
+                                2:
+                                    {
+                                        name: 'Wzór Umowy Kompleksowej', // nazwa pliku która będzie wyświetlana
+                                        href: 'https://www.tauron.pl/-/media/offer-documents/dokumenty-do-taryfy/owu-umowa-kompleksowa/gd/ts/1_01_2019_ts_gd_umowa_kompleksowa_td.ashx' // link do dokumentu
+                                    },
+                            },
+                        'doc_cat_7':
+                            {
+                                'label': 'Informacje o przetwarzaniu danych osobowych', // jest to nazwa kategorii dokumentów
+                                1:
+                                    {
+                                        name: 'Klauzula informacyjna TAURON Sprzedaż Sp. z o.o.', // nazwa pliku która będzie wyświetlana
+                                        href: 'https://www.tauron.pl/-/media/offer-documents/rodo/klauzule-informacyjne/ts/klauzula-informacyja-tauron-sprzedaz.ashx' // link do dokumentu
+                                    },
+                                2:
+                                    {
+                                        name: 'Klauzula informacyjna TAURON Dystrybucja S.A.', // nazwa pliku która będzie wyświetlana
+                                        href: 'https://www.tauron.pl/-/media/offer-documents/rodo/klauzule-informacyjne/ts/klauzula-informacyjna-tauron-dystrybucja-sa.ashx' // link do dokumentu
+                                    },
+                            },
+                    },
+                    gze: {
+                        'doc_cat_5':
+                            {
+                                'label': 'Gwarancja Rabatu', // jest to nazwa kategorii dokumentów
+                                1:
+                                    {
+                                        name: 'Regulamin Oferty "Włącz rabat na prąd"', // nazwa pliku która będzie wyświetlana
+                                        href: 'https://www.tauron.pl/-/media/offer-documents/produkty/gsr/gze/gze_gd_regulamin_wlacz_rabat_prad_10519_k.ashx' // link do dokumentu
+                                    },
+                                2:
+                                    {
+                                        name: 'Oświadczenie do Regulaminu Oferty „Włącz rabat na prąd”', // nazwa pliku która będzie wyświetlana
+                                        href: 'https://www.tauron.pl/-/media/offer-documents/produkty/gsr/gze/gze-ts-gd-oswiadczenie-do-oferty-wlacz-rabat-na-prad-k.ashx' // link do dokumentu
+                                    },
+                            },
+                        'doc_cat_6':
+                            {
+                                'label': 'Dokumenty dotyczące Ogólnych Warunków Umowy Kompleksowej ', // jest to nazwa kategorii dokumentów
+                                1:
+                                    {
+                                        name: 'Ogólne Warunki Umowy Kompleksowej', // nazwa pliku która będzie wyświetlana
+                                        href: 'https://www.tauron.pl/-/media/offer-documents/dokumenty-do-taryfy/owu-umowa-kompleksowa/gd/gze/1_01_2019_tsgze_gd_owu_uk_td.ashx' // link do dokumentu
+                                    },
+                                2:
+                                    {
+                                        name: 'Wzór Umowy Kompleksowej', // nazwa pliku która będzie wyświetlana
+                                        href: 'https://www.tauron.pl/-/media/offer-documents/dokumenty-do-taryfy/owu-umowa-kompleksowa/gd/gze/1_01_2019_tsgze_gd_umowa_kompleksowa_td.ashx' // link do dokumentu
+                                    },
+                            },
+                        'doc_cat_7':
+                            {
+                                'label': 'Informacje o przetwarzaniu danych osobowych', // jest to nazwa kategorii dokumentów
+                                1:
+                                    {
+                                        name: 'Klauzula informacyjna TAURON Sprzedaż GZE Sp. z o.o.', // nazwa pliku która będzie wyświetlana
+                                        href: 'https://www.tauron.pl/-/media/offer-documents/rodo/klauzule-informacyjne/gze/klauzula-informacyjna-tauron-sprzedaz_gze.ashx' // link do dokumentu
+                                    },
+                                2:
+                                    {
+                                        name: 'Klauzula informacyjna TAURON Dystrybucja S.A.', // nazwa pliku która będzie wyświetlana
+                                        href: 'https://www.tauron.pl/-/media/offer-documents/rodo/klauzule-informacyjne/gze/klauzula-informacyjna-tauron-dystrybucja-sa.ashx' // link do dokumentu
+                                    },
+                            },
+                    },
+                    allLocation: {
+                        'doc_cat_3':
+                            {
+                                'label': 'Dokumenty eBOK i Mój TAURON', // jest to nazwa kategorii dokumentów
+                                1:
+                                    {
+                                        name: 'Zintegrowany Regulamin', // nazwa pliku która będzie wyświetlana
+                                        href: 'https://www.tauron.pl/-/media/offer-documents/dokumenty-ebok-mt/zintegrowany-regulamin.ashx' // link do dokumentu
+                                    }
+                            },
+                        'doc_cat_4':
+                            {
+                                'label': 'Program kliencki', // jest to nazwa kategorii dokumentów
+                                1:
+                                    {
+                                        name: 'Regulamin programu – Bonus za e-fakturę', // nazwa pliku która będzie wyświetlana
+                                        href: 'https://www.tauron.pl/-/media/offer-documents/program-kliencki/RegPKBefakture_K_www.ashx' // link do dokumentu
+                                    },
+                                2:
+                                    {
+                                        name: 'Program kliencki – oferta podstawowa z Bonusem', // nazwa pliku która będzie wyświetlana
+                                        href: 'https://www.tauron.pl/-/media/offer-documents/program-kliencki/RegPKPodst_K_WWW.ashx' // link do dokumentu
+                                    },
+                                3:
+                                    {
+                                        name: 'Najczęściej zadawane pytania', // nazwa pliku która będzie wyświetlana
+                                        href: 'https://www.tauron.pl/-/media/offer-documents/program-kliencki/najczesciej-zadawane-pytania-zwrot-za-energie.ashx' // link do dokumentu
+                                    },
+                            },
+                    },
+                },
+            },
+        documents_prices: // zbiór cen
+            {
+                common: // ceny taryfy sprzedawcy + opłaty dystrybucyjne
+                    {
+                        ts: {
+                            brutto: {
+                                // Ceny sprzedaĹźowe brutto
+
+                                'g11': '0,7774', // G11 - Cena za prÄd niezmienna przez caĹÄ dobÄ. Strafa caĹodobowa , Taryfa sprzedawcy
+                                'g12_1': '0,8819', // G12 - NiĹźsza cena za prÄd w nocy oraz w wybranych godzinach w ciÄgu dnia. Strafa I , Taryfa sprzedawcy
+                                'g12_2': '0,5744', // G12 - NiĹźsza cena za prÄd w nocy oraz w wybranych godzinach w ciÄgu dnia. Strafa II , Taryfa sprzedawcy
+                                'g12w_1': '1,0443', // G12w - NiĹźsza cena za prÄd w nocy, w wybranych godzinach w ciÄgu dnia oraz w weekendy. Strafa I , Taryfa sprzedawcy
+                                'g12w_2': '0,5744', // G12w - NiĹźsza cena za prÄd w nocy, w wybranych godzinach w ciÄgu dnia oraz w weekendy. Strafa II , Taryfa sprzedawcy
+                                'g13_1': '0,8303', // G13 - NiĹźsza cena za prÄd w wybranych godzinach w ciÄgu doby. Strafa I , Taryfa sprzedawcy
+                                'g13_2': '1,1820', // G13 - NiĹźsza cena za prÄd w wybranych godzinach w ciÄgu doby. Strafa II , Taryfa sprzedawcy
+                                'g13_3': '0,6384', // G13 - NiĹźsza cena za prÄd w wybranych godzinach w ciÄgu doby. Strafa III , Taryfa sprzedawcy
+                                'fixed_rate_1': '0', // OpĹata handlowa taryfa sprzedawcy
+                                'fixed_rate_2': '0', // OpĹata handlowa taryfa sprzedawcy
+
+                                // opłaty dystrybucyjne brutto
+
+                                // opłaty zmienne G11 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna)
+                                'distibution_g11_1': ' 0,3600', // opłaty zmienne G11 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna) Strefa caĹodobowa
+                                'distibution_g11_fixed_rate_1': '8,66', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy < 500 kWh
+                                'distibution_g11_fixed_rate_2': '8,76', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy 500 - 1200 kWh
+                                'distibution_g11_fixed_rate_3': '9,04', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy > 1200 kWh
+                                'distibution_g11_fixed_rate_4': '12,74', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy < 500 kWh
+                                'distibution_g11_fixed_rate_5': '12,84', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy 500 - 1200 kWh
+                                'distibution_g11_fixed_rate_6': '13,12', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy > 1200 kWh
+                                'distibution_g11_ab_1': 'Cykl 12 miesiczny 0,47', // Abonament Cykl 12 miesięczny
+                                'distibution_g11_ab_2': 'Cykl 6 miesięczny 0,93', // Abonament Cykl 6 miesięczny
+                                'distibution_g11_ab_3': 'Cykl 2 miesięczny 2,80', // Abonament Cykl 2 miesięczny
+                                'distibution_g11_ab_4': 'Cykl 1 miesięczny 5,61', // Abonament Cykl 1 miesięczny
+
+                                // opłaty zmienne G12 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna
+                                'distibution_g12_1': '0,4041', // opłaty zmienne G12 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna (Dzeinny)
+                                'distibution_g12_2': '0,1224', // opłaty zmienne G12 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna (Szczytowy)
+                                'distibution_g12_fixed_rate_1': '8,66', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy < 500 kWh
+                                'distibution_g12_fixed_rate_2': '8,76', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy 500 - 1200 kWh
+                                'distibution_g12_fixed_rate_3': '9,04', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy > 1200 kWh
+                                'distibution_g12_fixed_rate_4': '12,74', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy < 500 kWh
+                                'distibution_g12_fixed_rate_5': '12,84', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy 500 - 1200 kWh
+                                'distibution_g12_fixed_rate_6': '13,12', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy < 500 kWh
+                                'distibution_g12_ab_1': 'Cykl 12 miesięczny 0,47', // Abonament Cykl 12 miesięczny
+                                'distibution_g12_ab_2': 'Cykl 6 miesięczny 0,93', // Abonament Cykl 6 miesięczny
+                                'distibution_g12_ab_3': 'Cykl 2 miesięczny 2,80', // Abonament Cykl 2 miesięczny
+                                'distibution_g12_ab_4': 'Cykl 1 miesięczny 5,61', // Abonament Cykl 1 miesięczny
+
+                                // opłaty zmienne G12w (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna)
+                                'distibution_g12w_1': '0,4498', // opłaty zmienne G12w (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna) (Nocny)
+                                'distibution_g12w_2': '0,1112', // opłaty zmienne G12w (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna) (Pozaszczytowy)
+                                'distibution_g12w_fixed_rate_1': '8,66', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy < 500 kWh
+                                'distibution_g12w_fixed_rate_2': '8,76', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy 500 - 1200 kWh
+                                'distibution_g12w_fixed_rate_3': '9,04', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy > 1200 kWh
+                                'distibution_g12w_fixed_rate_4': '12,74', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy < 500 kWh
+                                'distibution_g12w_fixed_rate_5': '12,84', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy 500 - 1200 kWh
+                                'distibution_g12w_fixed_rate_6': '13,12', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy > 1200 kWh
+                                'distibution_g12w_ab_1': 'Cykl 12 miesięczny 0,47', // Abonament Cykl 12 miesięczny
+                                'distibution_g12w_ab_2': 'Cykl 6 miesięczny 0,93', // Abonament Cykl 6 miesięczny
+                                'distibution_g12w_ab_3': 'Cykl 2 miesięczny 2,80 ', // Abonament Cykl 2 miesięczny
+                                'distibution_g12w_ab_4': 'Cykl 1 miesięczny 5,61', // Abonament Cykl 1 miesięczny
+
+                                // opłaty zmienne G13 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna
+                                'distibution_g13_1': '0,2791', // opłaty zmienne G13 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna (Szczyt przedpoĹudniowy)
+                                'distibution_g13_2': '0,4573', // opłaty zmienne G13 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna (Szczyt popoĹudniowy)
+                                'distibution_g13_3': '0,09041', // opłaty zmienne G13 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna (PozostaĹe godziny doby)
+                                'distibution_g13_fixed_rate_1': '8,66', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy < 500 kWh
+                                'distibution_g13_fixed_rate_2': '8,76', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy 500 - 1200 kWh
+                                'distibution_g13_fixed_rate_3': '9,04', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy > 1200 kWh
+                                'distibution_g13_fixed_rate_4': '12,74', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy < 500 kWh
+                                'distibution_g13_fixed_rate_5': '12,84', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy 500 - 1200 kWh
+                                'distibution_g13_fixed_rate_6': '13,12', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy > 1200 kWh
+                                'distibution_g13_ab_1': 'Cykl 12 miesięczny 0,47', // Abonament Cykl 12 miesięczny
+                                'distibution_g13_ab_2': 'Cykl 6 miesięczny 0,93', // Abonament Cykl 6 miesięczny
+                                'distibution_g13_ab_3': 'Cykl 2 miesięczny 2,80', // Abonament Cykl 2 miesięczny
+                                'distibution_g13_ab_4': 'Cykl 1 miesięczny 5,61', // Abonament Cykl 1 miesięczny
+                            },
+                            netto: {
+                                // Ceny sprzedaĹźowe netto
+
+                                'g11': '0,6320', // G11 - Cena za prÄd niezmienna przez caĹÄ dobÄ. Strafa caĹodobowa , Taryfa sprzedawcy
+                                'g12_1': '0,7170', // G12 - NiĹźsza cena za prÄd w nocy oraz w wybranych godzinach w ciÄgu dnia. Strafa I , Taryfa sprzedawcy
+                                'g12_2': '0,4670', // G12 - NiĹźsza cena za prÄd w nocy oraz w wybranych godzinach w ciÄgu dnia. Strafa II , Taryfa sprzedawcy
+                                'g12w_1': '0,8490', // G12w - NiĹźsza cena za prÄd w nocy, w wybranych godzinach w ciÄgu dnia oraz w weekendy. Strafa I , Taryfa sprzedawcy
+                                'g12w_2': '0,4670',// G12w - NiĹźsza cena za prÄd w nocy, w wybranych godzinach w ciÄgu dnia oraz w weekendy. Strafa II , Taryfa sprzedawcy
+                                'g13_1': '0,6750', // G13 - NiĹźsza cena za prÄd w wybranych godzinach w ciÄgu doby. Strafa I , Taryfa sprzedawcy
+                                'g13_2': '0,9610',  // G13 - NiĹźsza cena za prÄd w wybranych godzinach w ciÄgu doby. Strafa II , Taryfa sprzedawcy
+                                'g13_3': '0,5190', // G13 - NiĹźsza cena za prÄd w wybranych godzinach w ciÄgu doby. Strafa III , Taryfa sprzedawcy
+                                'fixed_rate_1': '0', // OpĹata handlowa taryfa sprzedawcy
+                                'fixed_rate_2': '0', // OpĹata handlowa taryfa sprzedawcy
+
+
+                                // opłaty dystrybucyjne netto
+
+                                // opłaty zmienne G11 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna)
+                                'distibution_g11_1': '0,2927', // opłaty zmienne G11 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna) Strefa caĹodobowa
+                                'distibution_g11_fixed_rate_1': '7,04', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy < 500 kWh
+                                'distibution_g11_fixed_rate_2': '7,12',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy 500 - 1200 kWh
+                                'distibution_g11_fixed_rate_3': '7,35', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy > 1200 kWh
+                                'distibution_g11_fixed_rate_4': '10,36',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy < 500 kWh
+                                'distibution_g11_fixed_rate_5': '10,44',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy 500 - 1200 kWh
+                                'distibution_g11_fixed_rate_6': '10,67',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy > 1200 kWh
+                                'distibution_g11_ab_1': 'Cykl 12 miesięczny 0,38 ',// Abonament Cykl 12 miesięczny
+                                'distibution_g11_ab_2': 'Cykl 6 miesięczny 0,76 ',// Abonament Cykl 6 miesięczny
+                                'distibution_g11_ab_3': 'Cykl 2 miesięczny 2,28 ',// Abonament Cykl 2 miesięczny
+                                'distibution_g11_ab_4': 'Cykl 1 miesięczny 4,56 ',// Abonament Cykl 1 miesięczny
+
+                                // opłaty zmienne G12 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna)
+                                'distibution_g12_1': '0,3285', // opłaty zmienne G12 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna) (Dzienny)
+                                'distibution_g12_2': '0,0995',// opłaty zmienne G12 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna) (Szczytowy)
+                                'distibution_g12_fixed_rate_1': '7,04', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy < 500 kWh
+                                'distibution_g12_fixed_rate_2': '7,12',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy 500 - 1200 kWh
+                                'distibution_g12_fixed_rate_3': '7,35',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy > 1200 kWh
+                                'distibution_g12_fixed_rate_4': '10,36', //opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy < 500 kWh
+                                'distibution_g12_fixed_rate_5': '10,44',//opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy 500 - 1200 kWh
+                                'distibution_g12_fixed_rate_6': '10,67',//opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy > 1200 kWh
+                                'distibution_g12_ab_1': 'Cykl 12 miesięczny 0,38 ', // Abonament Cykl 12 miesięczny
+                                'distibution_g12_ab_2': 'Cykl 6 miesięczny 0,76 ',// Abonament Cykl 6 miesięczny
+                                'distibution_g12_ab_3': 'Cykl 2 miesięczny 2,28 ',// Abonament Cykl 2 miesięczny
+                                'distibution_g12_ab_4': 'Cykl 1 miesięczny 4,56 ',// Abonament Cykl 1 miesięczny
+
+                                // opłaty zmienne G12w (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna)
+                                'distibution_g12w_1': '0,3657', //opłaty zmienne G12w (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna) (Nocny)
+                                'distibution_g12w_2': '0,0904', //opłaty zmienne G12w (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna)(Pozaszczytowy)
+                                'distibution_g12w_fixed_rate_1': '7,04 ',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy < 500 kWh
+                                'distibution_g12w_fixed_rate_2': '7,12 ',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy 500 - 1200 kWh
+                                'distibution_g12w_fixed_rate_3': '7,35 ',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy > 1200 kWh
+                                'distibution_g12w_fixed_rate_4': '10,36 ',//opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy < 500 kWh
+                                'distibution_g12w_fixed_rate_5': '10,44',//opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy 500 - 1200 kWh
+                                'distibution_g12w_fixed_rate_6': '10,67',//opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy > 1200 kWh
+                                'distibution_g12w_ab_1': 'Cykl 12 miesięczny 0,38 ',// Abonament Cykl 12 miesięczny
+                                'distibution_g12w_ab_2': 'Cykl 6 miesięczny 0,76 ',// Abonament Cykl 6 miesięczny
+                                'distibution_g12w_ab_3': 'Cykl 2 miesięczny 2,28 ',// Abonament Cykl 2 miesięczny
+                                'distibution_g12w_ab_4': 'Cykl 1 miesięczny 4,56 ',// Abonament Cykl 1 miesięczny
+
+                                // opłaty zmienne G13 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna)
+                                'distibution_g13_1': '0,2269', //opłaty zmienne G13 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna) (Szczyt przedpoĹudniowy)
+                                'distibution_g13_2': '0,3718',//opłaty zmienne G13 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna) (Szczyt popoĹudniowy)
+                                'distibution_g13_3': '0,0735',//opłaty zmienne G13 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna) (PozostaĹe godziny doby)
+                                'distibution_g13_fixed_rate_1': '7,04 ',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy < 500 kWh
+                                'distibution_g13_fixed_rate_2': '7,12 ',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy 500 - 1200 kWh
+                                'distibution_g13_fixed_rate_3': '7,35 ',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy > 1200 kWh
+                                'distibution_g13_fixed_rate_4': '10,36 ',//opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy < 500 kWh
+                                'distibution_g13_fixed_rate_5': '10,44',//opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy 500 - 1200 kWh
+                                'distibution_g13_fixed_rate_6': '10,67',//opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy > 1200 kWh
+                                'distibution_g13_ab_1': 'Cykl 12 miesięczny 0,38 ',// Abonament Cykl 12 miesięczny
+                                'distibution_g13_ab_2': 'Cykl 6 miesięczny 0,76 ',// Abonament Cykl 6 miesięczny
+                                'distibution_g13_ab_3': 'Cykl 2 miesięczny 2,28 ',// Abonament Cykl 2 miesięczny
+                                'distibution_g13_ab_4': 'Cykl 1 miesięczny 4,56 ',// Abonament Cykl 1 miesięczny
+                            },
+                        },
+                        ts_prawo: {
+                            brutto: {
+                                // Ceny sprzedaĹźowe brutto
+
+                                'g11': '0,7774', // G11 - Cena za prÄd niezmienna przez caĹÄ dobÄ. Strafa caĹodobowa , Taryfa sprzedawcy
+                                'g12_1': '0,8819', // G12 - NiĹźsza cena za prÄd w nocy oraz w wybranych godzinach w ciÄgu dnia. Strafa I , Taryfa sprzedawcy
+                                'g12_2': '0,5744', // G12 - NiĹźsza cena za prÄd w nocy oraz w wybranych godzinach w ciÄgu dnia. Strafa II , Taryfa sprzedawcy
+                                'g12w_1': '1,0443', // G12w - NiĹźsza cena za prÄd w nocy, w wybranych godzinach w ciÄgu dnia oraz w weekendy. Strafa I , Taryfa sprzedawcy
+                                'g12w_2': '0,5744', // G12w - NiĹźsza cena za prÄd w nocy, w wybranych godzinach w ciÄgu dnia oraz w weekendy. Strafa II , Taryfa sprzedawcy
+                                'g13_1': '0,8303', // G13 - NiĹźsza cena za prÄd w wybranych godzinach w ciÄgu doby. Strafa I , Taryfa sprzedawcy
+                                'g13_2': '1,1820', // G13 - NiĹźsza cena za prÄd w wybranych godzinach w ciÄgu doby. Strafa II , Taryfa sprzedawcy
+                                'g13_3': '0,6384', // G13 - NiĹźsza cena za prÄd w wybranych godzinach w ciÄgu doby. Strafa III , Taryfa sprzedawcy
+                                'fixed_rate_1': '0', // OpĹata handlowa taryfa sprzedawcy
+                                'fixed_rate_2': '0', // OpĹata handlowa taryfa sprzedawcy
+
+                                // opłaty dystrybucyjne brutto
+
+                                // opłaty zmienne G11 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna)
+                                'distibution_g11_1': ' 0,3600', // opłaty zmienne G11 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna) Strefa caĹodobowa
+                                'distibution_g11_fixed_rate_1': '8,66', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy < 500 kWh
+                                'distibution_g11_fixed_rate_2': '8,76', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy 500 - 1200 kWh
+                                'distibution_g11_fixed_rate_3': '9,04', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy > 1200 kWh
+                                'distibution_g11_fixed_rate_4': '12,74', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy < 500 kWh
+                                'distibution_g11_fixed_rate_5': '12,84', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy 500 - 1200 kWh
+                                'distibution_g11_fixed_rate_6': '13,12', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy > 1200 kWh
+                                'distibution_g11_ab_1': 'Cykl 12 miesiczny 0,47', // Abonament Cykl 12 miesięczny
+                                'distibution_g11_ab_2': 'Cykl 6 miesięczny 0,93', // Abonament Cykl 6 miesięczny
+                                'distibution_g11_ab_3': 'Cykl 2 miesięczny 2,80', // Abonament Cykl 2 miesięczny
+                                'distibution_g11_ab_4': 'Cykl 1 miesięczny 5,61', // Abonament Cykl 1 miesięczny
+
+                                // opłaty zmienne G12 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna
+                                'distibution_g12_1': '0,4041', // opłaty zmienne G12 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna (Dzeinny)
+                                'distibution_g12_2': '0,1224', // opłaty zmienne G12 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna (Szczytowy)
+                                'distibution_g12_fixed_rate_1': '8,66', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy < 500 kWh
+                                'distibution_g12_fixed_rate_2': '8,76', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy 500 - 1200 kWh
+                                'distibution_g12_fixed_rate_3': '9,04', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy > 1200 kWh
+                                'distibution_g12_fixed_rate_4': '12,74', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy < 500 kWh
+                                'distibution_g12_fixed_rate_5': '12,84', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy 500 - 1200 kWh
+                                'distibution_g12_fixed_rate_6': '13,12', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy < 500 kWh
+                                'distibution_g12_ab_1': 'Cykl 12 miesięczny 0,47', // Abonament Cykl 12 miesięczny
+                                'distibution_g12_ab_2': 'Cykl 6 miesięczny 0,93', // Abonament Cykl 6 miesięczny
+                                'distibution_g12_ab_3': 'Cykl 2 miesięczny 2,80', // Abonament Cykl 2 miesięczny
+                                'distibution_g12_ab_4': 'Cykl 1 miesięczny 5,61', // Abonament Cykl 1 miesięczny
+
+                                // opłaty zmienne G12w (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna)
+                                'distibution_g12w_1': '0,4498', // opłaty zmienne G12w (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna) (Nocny)
+                                'distibution_g12w_2': '0,1112', // opłaty zmienne G12w (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna) (Pozaszczytowy)
+                                'distibution_g12w_fixed_rate_1': '8,66', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy < 500 kWh
+                                'distibution_g12w_fixed_rate_2': '8,76', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy 500 - 1200 kWh
+                                'distibution_g12w_fixed_rate_3': '9,04', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy > 1200 kWh
+                                'distibution_g12w_fixed_rate_4': '12,74', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy < 500 kWh
+                                'distibution_g12w_fixed_rate_5': '12,84', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy 500 - 1200 kWh
+                                'distibution_g12w_fixed_rate_6': '13,12', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy > 1200 kWh
+                                'distibution_g12w_ab_1': 'Cykl 12 miesięczny 0,47', // Abonament Cykl 12 miesięczny
+                                'distibution_g12w_ab_2': 'Cykl 6 miesięczny 0,93', // Abonament Cykl 6 miesięczny
+                                'distibution_g12w_ab_3': 'Cykl 2 miesięczny 2,80 ', // Abonament Cykl 2 miesięczny
+                                'distibution_g12w_ab_4': 'Cykl 1 miesięczny 5,61', // Abonament Cykl 1 miesięczny
+
+                                // opłaty zmienne G13 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna
+                                'distibution_g13_1': '0,2791', // opłaty zmienne G13 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna (Szczyt przedpoĹudniowy)
+                                'distibution_g13_2': '0,4573', // opłaty zmienne G13 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna (Szczyt popoĹudniowy)
+                                'distibution_g13_3': '0,09041', // opłaty zmienne G13 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna (PozostaĹe godziny doby)
+                                'distibution_g13_fixed_rate_1': '8,66', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy < 500 kWh
+                                'distibution_g13_fixed_rate_2': '8,76', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy 500 - 1200 kWh
+                                'distibution_g13_fixed_rate_3': '9,04', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy > 1200 kWh
+                                'distibution_g13_fixed_rate_4': '12,74', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy < 500 kWh
+                                'distibution_g13_fixed_rate_5': '12,84', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy 500 - 1200 kWh
+                                'distibution_g13_fixed_rate_6': '13,12', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy > 1200 kWh
+                                'distibution_g13_ab_1': 'Cykl 12 miesięczny 0,47', // Abonament Cykl 12 miesięczny
+                                'distibution_g13_ab_2': 'Cykl 6 miesięczny 0,93', // Abonament Cykl 6 miesięczny
+                                'distibution_g13_ab_3': 'Cykl 2 miesięczny 2,80', // Abonament Cykl 2 miesięczny
+                                'distibution_g13_ab_4': 'Cykl 1 miesięczny 5,61', // Abonament Cykl 1 miesięczny
+                            },
+                            netto: {
+                                // Ceny sprzedaĹźowe netto
+
+                                'g11': '0,6320', // G11 - Cena za prÄd niezmienna przez caĹÄ dobÄ. Strafa caĹodobowa , Taryfa sprzedawcy
+                                'g12_1': '0,7170', // G12 - NiĹźsza cena za prÄd w nocy oraz w wybranych godzinach w ciÄgu dnia. Strafa I , Taryfa sprzedawcy
+                                'g12_2': '0,4670', // G12 - NiĹźsza cena za prÄd w nocy oraz w wybranych godzinach w ciÄgu dnia. Strafa II , Taryfa sprzedawcy
+                                'g12w_1': '0,8490', // G12w - NiĹźsza cena za prÄd w nocy, w wybranych godzinach w ciÄgu dnia oraz w weekendy. Strafa I , Taryfa sprzedawcy
+                                'g12w_2': '0,4670',// G12w - NiĹźsza cena za prÄd w nocy, w wybranych godzinach w ciÄgu dnia oraz w weekendy. Strafa II , Taryfa sprzedawcy
+                                'g13_1': '0,6750', // G13 - NiĹźsza cena za prÄd w wybranych godzinach w ciÄgu doby. Strafa I , Taryfa sprzedawcy
+                                'g13_2': '0,9610',  // G13 - NiĹźsza cena za prÄd w wybranych godzinach w ciÄgu doby. Strafa II , Taryfa sprzedawcy
+                                'g13_3': '0,5190', // G13 - NiĹźsza cena za prÄd w wybranych godzinach w ciÄgu doby. Strafa III , Taryfa sprzedawcy
+                                'fixed_rate_1': '0', // OpĹata handlowa taryfa sprzedawcy
+                                'fixed_rate_2': '0', // OpĹata handlowa taryfa sprzedawcy
+
+
+                                // opłaty dystrybucyjne netto
+
+                                // opłaty zmienne G11 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna)
+                                'distibution_g11_1': '0,2927', // opłaty zmienne G11 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna) Strefa caĹodobowa
+                                'distibution_g11_fixed_rate_1': '7,04', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy < 500 kWh
+                                'distibution_g11_fixed_rate_2': '7,12',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy 500 - 1200 kWh
+                                'distibution_g11_fixed_rate_3': '7,35', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy > 1200 kWh
+                                'distibution_g11_fixed_rate_4': '10,36',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy < 500 kWh
+                                'distibution_g11_fixed_rate_5': '10,44',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy 500 - 1200 kWh
+                                'distibution_g11_fixed_rate_6': '10,67',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy > 1200 kWh
+                                'distibution_g11_ab_1': 'Cykl 12 miesięczny 0,38 ',// Abonament Cykl 12 miesięczny
+                                'distibution_g11_ab_2': 'Cykl 6 miesięczny 0,76 ',// Abonament Cykl 6 miesięczny
+                                'distibution_g11_ab_3': 'Cykl 2 miesięczny 2,28 ',// Abonament Cykl 2 miesięczny
+                                'distibution_g11_ab_4': 'Cykl 1 miesięczny 4,56 ',// Abonament Cykl 1 miesięczny
+
+                                // opłaty zmienne G12 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna)
+                                'distibution_g12_1': '0,3285', // opłaty zmienne G12 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna) (Dzienny)
+                                'distibution_g12_2': '0,0995',// opłaty zmienne G12 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna) (Szczytowy)
+                                'distibution_g12_fixed_rate_1': '7,04', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy < 500 kWh
+                                'distibution_g12_fixed_rate_2': '7,12',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy 500 - 1200 kWh
+                                'distibution_g12_fixed_rate_3': '7,35',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy > 1200 kWh
+                                'distibution_g12_fixed_rate_4': '10,36', //opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy < 500 kWh
+                                'distibution_g12_fixed_rate_5': '10,44',//opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy 500 - 1200 kWh
+                                'distibution_g12_fixed_rate_6': '10,67',//opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy > 1200 kWh
+                                'distibution_g12_ab_1': 'Cykl 12 miesięczny 0,38 ', // Abonament Cykl 12 miesięczny
+                                'distibution_g12_ab_2': 'Cykl 6 miesięczny 0,76 ',// Abonament Cykl 6 miesięczny
+                                'distibution_g12_ab_3': 'Cykl 2 miesięczny 2,28 ',// Abonament Cykl 2 miesięczny
+                                'distibution_g12_ab_4': 'Cykl 1 miesięczny 4,56 ',// Abonament Cykl 1 miesięczny
+
+                                // opłaty zmienne G12w (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna)
+                                'distibution_g12w_1': '0,3657', //opłaty zmienne G12w (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna) (Nocny)
+                                'distibution_g12w_2': '0,0904', //opłaty zmienne G12w (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna)(Pozaszczytowy)
+                                'distibution_g12w_fixed_rate_1': '7,04 ',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy < 500 kWh
+                                'distibution_g12w_fixed_rate_2': '7,12 ',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy 500 - 1200 kWh
+                                'distibution_g12w_fixed_rate_3': '7,35 ',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy > 1200 kWh
+                                'distibution_g12w_fixed_rate_4': '10,36 ',//opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy < 500 kWh
+                                'distibution_g12w_fixed_rate_5': '10,44',//opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy 500 - 1200 kWh
+                                'distibution_g12w_fixed_rate_6': '10,67',//opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy > 1200 kWh
+                                'distibution_g12w_ab_1': 'Cykl 12 miesięczny 0,38 ',// Abonament Cykl 12 miesięczny
+                                'distibution_g12w_ab_2': 'Cykl 6 miesięczny 0,76 ',// Abonament Cykl 6 miesięczny
+                                'distibution_g12w_ab_3': 'Cykl 2 miesięczny 2,28 ',// Abonament Cykl 2 miesięczny
+                                'distibution_g12w_ab_4': 'Cykl 1 miesięczny 4,56 ',// Abonament Cykl 1 miesięczny
+
+                                // opłaty zmienne G13 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna)
+                                'distibution_g13_1': '0,2269', //opłaty zmienne G13 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna) (Szczyt przedpoĹudniowy)
+                                'distibution_g13_2': '0,3718',//opłaty zmienne G13 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna) (Szczyt popoĹudniowy)
+                                'distibution_g13_3': '0,0735',//opłaty zmienne G13 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna) (PozostaĹe godziny doby)
+                                'distibution_g13_fixed_rate_1': '7,04 ',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy < 500 kWh
+                                'distibution_g13_fixed_rate_2': '7,12 ',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy 500 - 1200 kWh
+                                'distibution_g13_fixed_rate_3': '7,35 ',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy > 1200 kWh
+                                'distibution_g13_fixed_rate_4': '10,36 ',//opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy < 500 kWh
+                                'distibution_g13_fixed_rate_5': '10,44',//opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy 500 - 1200 kWh
+                                'distibution_g13_fixed_rate_6': '10,67',//opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy > 1200 kWh
+                                'distibution_g13_ab_1': 'Cykl 12 miesięczny 0,38 ',// Abonament Cykl 12 miesięczny
+                                'distibution_g13_ab_2': 'Cykl 6 miesięczny 0,76 ',// Abonament Cykl 6 miesięczny
+                                'distibution_g13_ab_3': 'Cykl 2 miesięczny 2,28 ',// Abonament Cykl 2 miesięczny
+                                'distibution_g13_ab_4': 'Cykl 1 miesięczny 4,56 ',// Abonament Cykl 1 miesięczny
+                            },
+                        },
+                        gze: {
+                            brutto: {
+                                // Ceny sprzedaĹźowe brutto
+
+                                'g11': '0,7743', // G11 - Cena za prÄd niezmienna przez caĹÄ dobÄ. Strafa caĹodobowa , Taryfa sprzedawcy
+                                'g12_1': '0,8721', // G12 - NiĹźsza cena za prÄd w nocy oraz w wybranych godzinach w ciÄgu dnia. Strafa I , Taryfa sprzedawcy
+                                'g12_2': '0,6125', // G12 - NiĹźsza cena za prÄd w nocy oraz w wybranych godzinach w ciÄgu dnia. Strafa II , Taryfa sprzedawcy
+                                'g12w_1': '0,9656', // G12w - NiĹźsza cena za prÄd w nocy, w wybranych godzinach w ciÄgu dnia oraz w weekendy. Strafa I , Taryfa sprzedawcy
+                                'g12w_2': '0,6125', // G12w - NiĹźsza cena za prÄd w nocy, w wybranych godzinach w ciÄgu dnia oraz w weekendy. Strafa II , Taryfa sprzedawcy
+                                'g13_1': '0,8401', // G13 - NiĹźsza cena za prÄd w wybranych godzinach w ciÄgu doby. Strafa I , Taryfa sprzedawcy
+                                'g13_2': '1,1734', // G13 - NiĹźsza cena za prÄd w wybranych godzinach w ciÄgu doby. Strafa II , Taryfa sprzedawcy
+                                'g13_3': '0,6384', // G13 - NiĹźsza cena za prÄd w wybranych godzinach w ciÄgu doby. Strafa III , Taryfa sprzedawcy
+                                'fixed_rate_1': '0,00', // OpĹata handlowa taryfa sprzedawcy
+                                'fixed_rate_2': '0,00', // OpĹata handlowa taryfa sprzedawcy
+
+                                // opłaty dystrybucyjne brutto
+
+                                // opłaty zmienne G11 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna)
+                                'distibution_g11_1': ' 0,3600', // opłaty zmienne G11 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna) Strefa caĹodobowa
+                                'distibution_g11_fixed_rate_1': '8,66', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy < 500 kWh
+                                'distibution_g11_fixed_rate_2': '8,76', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy 500 - 1200 kWh
+                                'distibution_g11_fixed_rate_3': '9,04', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy > 1200 kWh
+                                'distibution_g11_fixed_rate_4': '12,74', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy < 500 kWh
+                                'distibution_g11_fixed_rate_5': '12,84', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy 500 - 1200 kWh
+                                'distibution_g11_fixed_rate_6': '13,12', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy > 1200 kWh
+                                'distibution_g11_ab_1': 'Cykl 12 miesiczny 0,47', // Abonament Cykl 12 miesięczny
+                                'distibution_g11_ab_2': 'Cykl 6 miesięczny 0,93', // Abonament Cykl 6 miesięczny
+                                'distibution_g11_ab_3': 'Cykl 2 miesięczny 2,80', // Abonament Cykl 2 miesięczny
+                                'distibution_g11_ab_4': 'Cykl 1 miesięczny 5,61', // Abonament Cykl 1 miesięczny
+
+                                // opłaty zmienne G12 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna
+                                'distibution_g12_1': '0,4041', // opłaty zmienne G12 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna (Dzeinny)
+                                'distibution_g12_2': '0,1224', // opłaty zmienne G12 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna (Szczytowy)
+                                'distibution_g12_fixed_rate_1': '8,66', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy < 500 kWh
+                                'distibution_g12_fixed_rate_2': '8,76', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy 500 - 1200 kWh
+                                'distibution_g12_fixed_rate_3': '9,04', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy > 1200 kWh
+                                'distibution_g12_fixed_rate_4': '12,74', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy < 500 kWh
+                                'distibution_g12_fixed_rate_5': '12,84', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy 500 - 1200 kWh
+                                'distibution_g12_fixed_rate_6': '13,12', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy < 500 kWh
+                                'distibution_g12_ab_1': 'Cykl 12 miesięczny 0,47', // Abonament Cykl 12 miesięczny
+                                'distibution_g12_ab_2': 'Cykl 6 miesięczny 0,93', // Abonament Cykl 6 miesięczny
+                                'distibution_g12_ab_3': 'Cykl 2 miesięczny 2,80', // Abonament Cykl 2 miesięczny
+                                'distibution_g12_ab_4': 'Cykl 1 miesięczny 5,61', // Abonament Cykl 1 miesięczny
+
+                                // opłaty zmienne G12w (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna)
+                                'distibution_g12w_1': '0,4498', // opłaty zmienne G12w (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna) (Nocny)
+                                'distibution_g12w_2': '0,1112', // opłaty zmienne G12w (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna) (Pozaszczytowy)
+                                'distibution_g12w_fixed_rate_1': '8,66', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy < 500 kWh
+                                'distibution_g12w_fixed_rate_2': '8,76', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy 500 - 1200 kWh
+                                'distibution_g12w_fixed_rate_3': '9,04', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy > 1200 kWh
+                                'distibution_g12w_fixed_rate_4': '12,74', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy < 500 kWh
+                                'distibution_g12w_fixed_rate_5': '12,84', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy 500 - 1200 kWh
+                                'distibution_g12w_fixed_rate_6': '13,12', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy > 1200 kWh
+                                'distibution_g12w_ab_1': 'Cykl 12 miesięczny 0,47', // Abonament Cykl 12 miesięczny
+                                'distibution_g12w_ab_2': 'Cykl 6 miesięczny 0,93', // Abonament Cykl 6 miesięczny
+                                'distibution_g12w_ab_3': 'Cykl 2 miesięczny 2,80 ', // Abonament Cykl 2 miesięczny
+                                'distibution_g12w_ab_4': 'Cykl 1 miesięczny 5,61', // Abonament Cykl 1 miesięczny
+
+                                // opłaty zmienne G13 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna
+                                'distibution_g13_1': '0,2791', // opłaty zmienne G13 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna (Szczyt przedpoĹudniowy)
+                                'distibution_g13_2': '0,4573', // opłaty zmienne G13 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna (Szczyt popoĹudniowy)
+                                'distibution_g13_3': '0,09041', // opłaty zmienne G13 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna (PozostaĹe godziny doby)
+                                'distibution_g13_fixed_rate_1': '8,66', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy < 500 kWh
+                                'distibution_g13_fixed_rate_2': '8,76', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy 500 - 1200 kWh
+                                'distibution_g13_fixed_rate_3': '9,04', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy > 1200 kWh
+                                'distibution_g13_fixed_rate_4': '12,74', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy < 500 kWh
+                                'distibution_g13_fixed_rate_5': '12,84', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy 500 - 1200 kWh
+                                'distibution_g13_fixed_rate_6': '13,12', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy > 1200 kWh
+                                'distibution_g13_ab_1': 'Cykl 12 miesięczny 0,47', // Abonament Cykl 12 miesięczny
+                                'distibution_g13_ab_2': 'Cykl 6 miesięczny 0,93', // Abonament Cykl 6 miesięczny
+                                'distibution_g13_ab_3': 'Cykl 2 miesięczny 2,80', // Abonament Cykl 2 miesięczny
+                                'distibution_g13_ab_4': 'Cykl 1 miesięczny 5,61', // Abonament Cykl 1 miesięczny
+                            },
+                            netto: {
+                                // Ceny sprzedaĹźowe netto
+
+                                'g11': '0,6295', // G11 - Cena za prÄd niezmienna przez caĹÄ dobÄ. Strafa caĹodobowa , Taryfa sprzedawcy
+                                'g12_1': '0,7090', // G12 - NiĹźsza cena za prÄd w nocy oraz w wybranych godzinach w ciÄgu dnia. Strafa I , Taryfa sprzedawcy
+                                'g12_2': '0,4980', // G12 - NiĹźsza cena za prÄd w nocy oraz w wybranych godzinach w ciÄgu dnia. Strafa II , Taryfa sprzedawcy
+                                'g12w_1': '0,7850', // G12w - NiĹźsza cena za prÄd w nocy, w wybranych godzinach w ciÄgu dnia oraz w weekendy. Strafa I , Taryfa sprzedawcy
+                                'g12w_2': '0,4980',// G12w - NiĹźsza cena za prÄd w nocy, w wybranych godzinach w ciÄgu dnia oraz w weekendy. Strafa II , Taryfa sprzedawcy
+                                'g13_1': '0,6830', // G13 - NiĹźsza cena za prÄd w wybranych godzinach w ciÄgu doby. Strafa I , Taryfa sprzedawcy
+                                'g13_2': '0,9540',  // G13 - NiĹźsza cena za prÄd w wybranych godzinach w ciÄgu doby. Strafa II , Taryfa sprzedawcy
+                                'g13_3': '0,5190', // G13 - NiĹźsza cena za prÄd w wybranych godzinach w ciÄgu doby. Strafa III , Taryfa sprzedawcy
+                                'fixed_rate_1': '0,00', // OpĹata handlowa taryfa sprzedawcy
+                                'fixed_rate_2': '0,00', // OpĹata handlowa taryfa sprzedawcy
+
+
+                                // opłaty dystrybucyjne netto
+
+                                // opłaty zmienne G11 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna)
+                                'distibution_g11_1': '0,2927', // opłaty zmienne G11 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna) Strefa caĹodobowa
+                                'distibution_g11_fixed_rate_1': '7,04', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy < 500 kWh
+                                'distibution_g11_fixed_rate_2': '7,12',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy 500 - 1200 kWh
+                                'distibution_g11_fixed_rate_3': '7,35', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy > 1200 kWh
+                                'distibution_g11_fixed_rate_4': '10,36',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy < 500 kWh
+                                'distibution_g11_fixed_rate_5': '10,44',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy 500 - 1200 kWh
+                                'distibution_g11_fixed_rate_6': '10,67',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy > 1200 kWh
+                                'distibution_g11_ab_1': 'Cykl 12 miesięczny 0,38 ',// Abonament Cykl 12 miesięczny
+                                'distibution_g11_ab_2': 'Cykl 6 miesięczny 0,76 ',// Abonament Cykl 6 miesięczny
+                                'distibution_g11_ab_3': 'Cykl 2 miesięczny 2,28 ',// Abonament Cykl 2 miesięczny
+                                'distibution_g11_ab_4': 'Cykl 1 miesięczny 4,56 ',// Abonament Cykl 1 miesięczny
+
+                                // opłaty zmienne G12 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna)
+                                'distibution_g12_1': '0,3285', // opłaty zmienne G12 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna) (Dzienny)
+                                'distibution_g12_2': '0,0995',// opłaty zmienne G12 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna) (Szczytowy)
+                                'distibution_g12_fixed_rate_1': '7,04', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy < 500 kWh
+                                'distibution_g12_fixed_rate_2': '7,12',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy 500 - 1200 kWh
+                                'distibution_g12_fixed_rate_3': '7,35',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy > 1200 kWh
+                                'distibution_g12_fixed_rate_4': '10,36', //opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy < 500 kWh
+                                'distibution_g12_fixed_rate_5': '10,44',//opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy 500 - 1200 kWh
+                                'distibution_g12_fixed_rate_6': '10,67',//opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy > 1200 kWh
+                                'distibution_g12_ab_1': 'Cykl 12 miesięczny 0,38 ', // Abonament Cykl 12 miesięczny
+                                'distibution_g12_ab_2': 'Cykl 6 miesięczny 0,76 ',// Abonament Cykl 6 miesięczny
+                                'distibution_g12_ab_3': 'Cykl 2 miesięczny 2,28 ',// Abonament Cykl 2 miesięczny
+                                'distibution_g12_ab_4': 'Cykl 1 miesięczny 4,56 ',// Abonament Cykl 1 miesięczny
+
+                                // opłaty zmienne G12w (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna)
+                                'distibution_g12w_1': '0,3657', //opłaty zmienne G12w (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna) (Nocny)
+                                'distibution_g12w_2': '0,0904', //opłaty zmienne G12w (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna)(Pozaszczytowy)
+                                'distibution_g12w_fixed_rate_1': '7,04 ',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy < 500 kWh
+                                'distibution_g12w_fixed_rate_2': '7,12 ',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy 500 - 1200 kWh
+                                'distibution_g12w_fixed_rate_3': '7,35 ',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy > 1200 kWh
+                                'distibution_g12w_fixed_rate_4': '10,36 ',//opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy < 500 kWh
+                                'distibution_g12w_fixed_rate_5': '10,44',//opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy 500 - 1200 kWh
+                                'distibution_g12w_fixed_rate_6': '10,67',//opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy > 1200 kWh
+                                'distibution_g12w_ab_1': 'Cykl 12 miesięczny 0,38 ',// Abonament Cykl 12 miesięczny
+                                'distibution_g12w_ab_2': 'Cykl 6 miesięczny 0,76 ',// Abonament Cykl 6 miesięczny
+                                'distibution_g12w_ab_3': 'Cykl 2 miesięczny 2,28 ',// Abonament Cykl 2 miesięczny
+                                'distibution_g12w_ab_4': 'Cykl 1 miesięczny 4,56 ',// Abonament Cykl 1 miesięczny
+
+                                // opłaty zmienne G13 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna)
+                                'distibution_g13_1': '0,2269', //opłaty zmienne G13 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna) (Szczyt przedpoĹudniowy)
+                                'distibution_g13_2': '0,3718',//opłaty zmienne G13 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna) (Szczyt popoĹudniowy)
+                                'distibution_g13_3': '0,0735',//opłaty zmienne G13 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna) (PozostaĹe godziny doby)
+                                'distibution_g13_fixed_rate_1': '7,04 ',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy < 500 kWh
+                                'distibution_g13_fixed_rate_2': '7,12 ',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy 500 - 1200 kWh
+                                'distibution_g13_fixed_rate_3': '7,35 ',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy > 1200 kWh
+                                'distibution_g13_fixed_rate_4': '10,36 ',//opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy < 500 kWh
+                                'distibution_g13_fixed_rate_5': '10,44',//opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy 500 - 1200 kWh
+                                'distibution_g13_fixed_rate_6': '10,67',//opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy > 1200 kWh
+                                'distibution_g13_ab_1': 'Cykl 12 miesięczny 0,38 ',// Abonament Cykl 12 miesięczny
+                                'distibution_g13_ab_2': 'Cykl 6 miesięczny 0,76 ',// Abonament Cykl 6 miesięczny
+                                'distibution_g13_ab_3': 'Cykl 2 miesięczny 2,28 ',// Abonament Cykl 2 miesięczny
+                                'distibution_g13_ab_4': 'Cykl 1 miesięczny 4,56 ',// Abonament Cykl 1 miesięczny
+                            },
+                        },
+                    },
+                price_02: { // cennik dla rabatu 0.2%
+                    name: 'Aby zobaczyć ceny dla rabatu 0,2% kliknij',
+                    name_february: 'Ceny sprzedażowe uwzględniające rozwiązania osłonowe znajdują się ',
+                    href_february:
+                        {
+                            'ts': 'https://www.tauron.pl/-/media/offer-documents/produkty/tarcza/dokl-tarczowa-ts.ashx',
+                            'gze': 'https://www.tauron.pl/-/media/offer-documents/produkty/tarcza/dokl-tarczowa-gze.ashx',
+                        }
+                },
+                shield:
+                    {
+                        name: 'Opłaty dystrybucyjne znajdują się ',
+                        href: 'https://www.tauron.pl/-/media/offer-documents/produkty/tarcza/2022_02_01_TS-GZE_InfCenyBruttoWycTarTD_G_BAZA.ashx',
+                    },
+                price_03:
+                    {
+                        name: 'Ceny sprzedażowe w Taryfie Sprzedawcy uwzględniające rozwiązania osłonowe znajdują się ',
+                        href: 'https://www.tauron.pl/dla-domu/prad/taryfa-sprzedawcy'
+                    },
+                // treść disclaimerów pod cennikami
+                price_disclaimer_magenta:
+                    {
+                        all: '<p style="font-weight:bold;color:#e2007a;" class="p_f0">Przedstawione w tabeli ceny nie uwzględniają rozwiązań osłonowych.</br>Ceny wynikające z wprowadzonych rozwiązań osłonowych uwzględnimy w rozliczeniach.</p>',
+                        ts: '<p style="font-weight:bold;color:#e2007a;" class="p_f0">Przedstawione w tabeli ceny nie uwzględniają rozwiązań osłonowych.</br>Ceny wynikające z wprowadzonych rozwiązań osłonowych uwzględnimy w rozliczeniach.</p>',
+                        gze: '<p style="font-weight:bold;color:#e2007a;" class="p_f0">Przedstawione w tabeli ceny nie uwzględniają rozwiązań osłonowych.</br>Ceny wynikające z wprowadzonych rozwiązań osłonowych uwzględnimy w rozliczeniach.</p>',
+                    },
+                price_disclaimer:
+                    {
+                        all: '' +
+                            '<p class="c_f2">Informujemy, że od 1 stycznia 2025 do 30 czerwca 2025:</p>' +
+                            '<p class="c_f2 z_doc_p_dot">obowiązuje nowa stawka opłaty mocowej w wysokości 0 zł/MWh [1]</p>' +
+                            '<div class="z_legal">' +
+                            '<p class="c_f1">Podstawa prawna:<br>' +
+                            '[1] Ustawa z dnia 27 listopada 2024 r. o zmianie ustawy o środkach nadzwyczajnych mających na celu ograniczenie wysokości cen energii elektrycznej oraz wsparciu niektórych odbiorców w 2023 roku oraz w 2024 roku oraz niektórych innych ustaw. (Dz. U. z 2024 r. poz. 1831)' +
+                            '</p>',
+                        ts: '<p class="c_f1">' +
+                            'Od 1 stycznia 2025 roku, na podstawie decyzji Prezesa URE z 16 grudnia 2024 roku (znak DRE.WRE.4211.47.9.2024.ASa1) obowiązuje "Taryfa dla usług dystrybucji energii elektrycznej TAURON Dystrybucja S.A. na rok 2025".<br><br>' +
+                            'Prezes Urzędu Regulacji Energetyki zatwierdził w dniu 28 czerwca 2024r. zmianę Taryfy dla energii elektrycznej dla Odbiorców z grup taryfowych G” TAURON Sprzedaż sp. z o.o.(decyzja nr DRE.WRE.4211.29.11.2024.AKr3 z dnia 28.06.2024 r.). Taryfa będzie obowiązywać do 31 grudnia 2025 r. Treść decyzji została opublikowana w Biuletynie Branżowym URE Nr 163 (4407).<br><br>Dodatkowo informujemy, że ceny stosowane w rozliczeniach z Państwem będą uwzględniać rozwiązania osłonowe. Zasady działania tych rozwiązań osłonowych zostały określone w następujących ustawach:<br><br>1) Ustawy z 7 października 2022 r. o szczególnych rozwiązaniach służących ochronie odbiorców energii elektrycznej w 2023 roku oraz w 2024 roku w związku z sytuacją na rynku energii elektrycznej (Dz. U. z 2023 r. poz. 1704 t.j.)<br><br>2) Ustawy z 27 października 2022 r. o środkach nadzwyczajnych mających na celu ograniczenie wysokości cen energii elektrycznej oraz wsparciu niektórych odbiorców w 2023 roku oraz w 2024 roku (Dz. U. z 2024 r. poz. 190 t.j.)<br><br>3) Ustawy z 23 maja 2024 r. o bonie energetycznym oraz o zmianie niektórych ustaw w celu ograniczenia cen energii elektrycznej, gazu ziemnego i ciepła systemowego (Dz. U. z 2024 r. poz. 859)<br><br>4) Ustawy z dnia 27 listopada 2024 r. o zmianie stawy o środkach nadzwyczajnych mających na celu ograniczenie wysokości cen energii elektrycznej oraz wsparciu niektórych odbiorców w 2023 roku oraz w 2024 roku oraz niektórych innych ustaw. (Dz. U. z 2024 r. poz. 1831).<br><br>Więcej informacji znajdą Państwo na <a href="https://www.tauron.pl/zamrozenie-pradu">tauron.pl/zamrozenie-pradu</a>.<br><br>Cena maksymalna energii elektrycznej stosowana w rozliczeniach z odbiorcami za zużycie energii elektrycznej w punkcie poboru w okresie od 1 stycznia 2025 do 30 września 2025 roku wynosi (0,5050 zł/kWh netto) - 0,6212 zł/kWh brutto, z wyłączeniem odbiorców, którzy zawarli umowę z ceną dynamiczną energii elektrycznej w rozumieniu art. 3 pkt 6d ustawy Prawo energetyczne, który wchodzi w życie z dniem 24 sierpnia 2024 r. W przypadku, gdy cena energii elektrycznej wynikająca z Taryfy albo z umowy zawartej z odbiorcą jest niższa niż cena maksymalna, w rozliczeniach z odbiorcą będziemy stosować tę niższą cenę.' +
+                            '</p>',
+                        ts_prawo: '<p class="c_f1">' +
+                            'Od 1 stycznia 2025 roku, na podstawie decyzji Prezesa URE z 16 grudnia 2024 roku (znak DRE.WRE.4211.47.9.2024.ASa1) obowiązuje "Taryfa dla usług dystrybucji energii elektrycznej TAURON Dystrybucja S.A. na rok 2025".<br><br>' +
+                            'Prezes Urzędu Regulacji Energetyki zatwierdził w dniu 28 czerwca 2024r. zmianę Taryfy dla energii elektrycznej dla Odbiorców z grup taryfowych G” TAURON Sprzedaż sp. z o.o.(decyzja nr DRE.WRE.4211.29.11.2024.AKr3 z dnia 28.06.2024 r.). Taryfa będzie obowiązywać do 31 grudnia 2025 r. Treść decyzji została opublikowana w Biuletynie Branżowym URE Nr 163 (4407).<br><br>Dodatkowo informujemy, że ceny stosowane w rozliczeniach z Państwem będą uwzględniać rozwiązania osłonowe. Zasady działania tych rozwiązań osłonowych zostały określone w następujących ustawach:<br><br>1) Ustawy z 7 października 2022 r. o szczególnych rozwiązaniach służących ochronie odbiorców energii elektrycznej w 2023 roku oraz w 2024 roku w związku z sytuacją na rynku energii elektrycznej (Dz. U. z 2023 r. poz. 1704 t.j.)<br><br>2) Ustawy z 27 października 2022 r. o środkach nadzwyczajnych mających na celu ograniczenie wysokości cen energii elektrycznej oraz wsparciu niektórych odbiorców w 2023 roku oraz w 2024 roku (Dz. U. z 2024 r. poz. 190 t.j.)<br><br>3) Ustawy z 23 maja 2024 r. o bonie energetycznym oraz o zmianie niektórych ustaw w celu ograniczenia cen energii elektrycznej, gazu ziemnego i ciepła systemowego (Dz. U. z 2024 r. poz. 859)<br><br>4) Ustawy z dnia 27 listopada 2024 r. o zmianie stawy o środkach nadzwyczajnych mających na celu ograniczenie wysokości cen energii elektrycznej oraz wsparciu niektórych odbiorców w 2023 roku oraz w 2024 roku oraz niektórych innych ustaw. (Dz. U. z 2024 r. poz. 1831).<br><br>Więcej informacji znajdą Państwo na <a href="https://www.tauron.pl/zamrozenie-pradu">tauron.pl/zamrozenie-pradu</a>.<br><br>Cena maksymalna energii elektrycznej stosowana w rozliczeniach z odbiorcami za zużycie energii elektrycznej w punkcie poboru w okresie od 1 stycznia 2025 do 30 września 2025 roku wynosi (0,5050 zł/kWh netto) - 0,6212 zł/kWh brutto, z wyłączeniem odbiorców, którzy zawarli umowę z ceną dynamiczną energii elektrycznej w rozumieniu art. 3 pkt 6d ustawy Prawo energetyczne, który wchodzi w życie z dniem 24 sierpnia 2024 r. W przypadku, gdy cena energii elektrycznej wynikająca z Taryfy albo z umowy zawartej z odbiorcą jest niższa niż cena maksymalna, w rozliczeniach z odbiorcą będziemy stosować tę niższą cenę.' +
+                            '</p>',
+                        gze: '<p class="c_f1">' +
+                            'Od 1 stycznia 2025 roku, na podstawie decyzji Prezesa URE z 16 grudnia 2024 roku (znak DRE.WRE.4211.47.9.2024.ASa1) obowiązuje "Taryfa dla usług dystrybucji energii elektrycznej TAURON Dystrybucja S.A. na rok 2025".<br><br>' +
+                            'Prezes Urzędu Regulacji Energetyki zatwierdził w dniu 28 czerwca 2024r. zmianę Taryfy dla energii elektrycznej dla Odbiorców z grup taryfowych G” TAURON Sprzedaż GZE sp. z o.o.(decyzja nr DRE.WRE.4211.30.11.2024.AKr3/ASa1 z dnia 28 czerwca 2024 r.). Taryfa będzie obowiązywać do 31 grudnia 2025 r. Treść decyzji została opublikowana w Biuletynie Branżowym URE Nr 164 (4408).<br><br> Dodatkowo informujemy, że ceny stosowane w rozliczeniach z Państwem będą uwzględniać rozwiązania osłonowe. Zasady działania tych rozwiązań osłonowych zostały określone w następujących ustawach:<br><br>1) Ustawy z 7 października 2022 r. o szczególnych rozwiązaniach służących ochronie odbiorców energii elektrycznej w 2023 roku oraz w 2024 roku w związku z sytuacją na rynku energii elektrycznej (Dz. U. z 2023 r. poz. 1704 t.j.<br><br>2) Ustawy z 27 października 2022 r. o środkach nadzwyczajnych mających na celu ograniczenie wysokości cen energii elektrycznej oraz wsparciu niektórych odbiorców w 2023 roku oraz w 2024 roku (Dz. U. z 2024 r. poz. 190 t.j.)<br><br>3) Ustawy z 23 maja 2024 r. o bonie energetycznym oraz o zmianie niektórych ustaw w celu ograniczenia cen energii elektrycznej, gazu ziemnego i ciepła systemowego (Dz. U. z 2024 r. poz. 859)<br><br>4) Ustawy z dnia 27 listopada 2024 r. o zmianie stawy o środkach nadzwyczajnych mających na celu ograniczenie wysokości cen energii elektrycznej oraz wsparciu niektórych odbiorców w 2023 roku oraz w 2024 roku oraz niektórych innych ustaw. (Dz. U. z 2024 r. poz. 1831).<br><br>Szczegółowe informacje w tym zakresie znajdują się na stronach <a href="https://www.tauron.pl/zamrozenie-pradu">tauron.pl/zamrozenie-pradu</a>.<br><br>Cena maksymalna energii elektrycznej stosowana w rozliczeniach z odbiorcami za zużycie energii elektrycznej w punkcie poboru w okresie od 1 stycznia 2025 do 30 września 2025 roku wynosi (0,5050 zł/kWh netto) - 0,6212 zł/kWh brutto, z wyłączeniem odbiorców, którzy zawarli umowę z ceną dynamiczną energii elektrycznej, w rozumieniu art. 3 pkt 6d ustawy Prawo energetyczne, który wchodzi w życie z dniem 24 sierpnia 2024. W przypadku, gdy cena energii elektrycznej wynikająca z Taryfy albo z umowy zawartej z odbiorcą jest niższa niż cena maksymalna, w rozliczeniach z odbiorcą będziemy stosować tę niższą cenę.' +
+                            '</p>'
+                    },
+                shield_information:
+                    {
+                        ts: '<p style="font-weight:bold;color:#e2007a;">Niżej znajdziesz dokumenty dotyczące ofert, które prezentujemy. Przedstawione w  nich ceny nie uwzględniają mechanizmów Rządowej Tarczy Solidarnościowej, tj.<br>\n' +
+                            '• obniżenia stawki podatku VAT na dostawy energii elektrycznej z 23% do 5% – za okres od 1.01 do 31.12.2022 r.,<br>\n' +
+                            'Regulacje dotyczące cen, wynikające z wprowadzanych przepisów, uwzględnimy w wyznaczonych terminach w rozliczeniach z Tobą. Ze stawkami, które uwzględniają mechanizmy Rządowej Tarczy Solidarnościowej, możesz się zapoznać <a href="https://www.tauron.pl/-/media/offer-documents/odnowienia/2022/tarcza-ts/dokl-tarczowa.ashx">TUTAJ</a>.</p>',
+                        gze: '<p style="font-weight:bold;color:#e2007a;">Niżej znajdziesz dokumenty dotyczące ofert, które prezentujemy. Przedstawione w  nich ceny nie uwzględniają mechanizmów Rządowej Tarczy Solidarnościowej, tj.<br>\n' +
+                            '• obniżenia stawki podatku VAT na dostawy energii elektrycznej z 23% do 5% – za okres od 1.01 do 31.12.2022 r.,<br>\n' +
+                            '• zwolnienia z akcyzy na energię elektryczną odbiorców w gospodarstwach domowych – za okres od 1.01 do 31.12.2022 r.<br>\n' +
+                            'Ceny w cennikach dotyczących ofert Gwarancja Ceny, nie uwzględniają obniżenia stawki podatku VAT na dostawy energii elektrycznej z 23% do 5% – od dnia obowiązywania cennika do 31.12.2022 r.,<br><br>\n' +
+                            'Regulacje dotyczące cen, wynikające z wprowadzanych przepisów, uwzględnimy w wyznaczonych terminach w rozliczeniach z Tobą. Ze stawkami, które uwzględniają mechanizmy Rządowej Tarczy Solidarnościowej, możesz się zapoznać <a href="https://www.tauron.pl/-/media/offer-documents/odnowienia/2022/tarcza-gze-bez-zmian/dokl-tarczowa.ashx">TUTAJ</a>.</p>'
+                    },
+                price_table_extra_information:
+                    {
+                        top_information: '', //'Prezentowane ceny nie uwzględniają rozwiązań Rządowej Tarczy Solidarnościowej. Ceny uwzględniające rozwiązania Rządowej Tarczy Solidarnościowej znajdują się pod tabelami. ', // Treść dodawana w Tabeli Cenowej pod tytułem "Ceny sprzedażowe"
+                        bottom_information: '', //'Prezentowane ceny nie uwzględniają rozwiązań Rządowej Tarczy Solidarnościowej. Ceny uwzględniające rozwiązania Rządowej Tarczy Solidarnościowej znajdują się pod tabelami. ' // Treść dodawana w Tabeli Cenowej pod tytułem "Opłaty dystrybucyjne"
+                    }
+            },
+    },
+    'oferta_zmiana_nowa_zakladka': {
+        ecoBonus1: 10, // wartość % rabatu na prąd w przypadku ofert eko, e-faktury i zgód marketingowych
+        ecoBonus2: 5, // wartość % rabatu na prąd w przypadku ofert eko wariant 5 procentowy
+        noEcoBonus: 0.2, // wartość % rabatu gdy jnie ma e-faktury bądź zrezygnowana ze zgód marketingowych
+        eInvoiceBonus: 20, // bonus w zł za skorzystanie z e-faktury
+        onlineActivation: 100, // bonus w zł za wybór cennika 3 letniego
+        documents: // zbiór dokumentów
+            {
+                common: { // w tym miejscu występują dokumenty wspólne dla wszytstkich produktów
+                    ts: {
+                        'doc_cat_5':
+                            {
+                                'label': 'Gwarancja Rabatu', // jest to nazwa kategorii dokumentów
+                                1:
+                                    {
+                                        name: 'Regulamin Oferty "Włącz rabat na prąd"', // nazwa pliku która będzie wyświetlana
+                                        href: 'https://www.tauron.pl/-/media/offer-documents/produkty/gsr/ts/ts_gd_regulamin_wlacz_rabat_prad_10519_k.ashx' // link do dokumentu
+                                    },
+                                2:
+                                    {
+                                        name: 'Oświadczenie do Regulaminu Oferty „Włącz rabat na prąd”',
+                                        href: 'https://www.tauron.pl/-/media/offer-documents/produkty/gsr/ts/gze-ts-gd-oswiadczenie-do-oferty-wlacz-rabat-na-prad-k.ashx' // link do dokumentu
+                                    },
+                            },
+                        'doc_cat_6':
+                            {
+                                'label': 'Dokumenty dotyczące Ogólnych Warunków Umowy Kompleksowej', // jest to nazwa kategorii dokumentów
+                                1:
+                                    {
+                                        name: 'Ogólne Warunki Umowy Kompleksowej', // nazwa pliku która będzie wyświetlana
+                                        href: 'https://www.tauron.pl/-/media/offer-documents/dokumenty-do-taryfy/owu-umowa-kompleksowa/gd/ts/1_01_2019_ts_gd_owu_uk_td.ashx' // link do dokumentu
+                                    },
+                                2:
+                                    {
+                                        name: 'Wzór Umowy Kompleksowej', // nazwa pliku która będzie wyświetlana
+                                        href: 'https://www.tauron.pl/-/media/offer-documents/dokumenty-do-taryfy/owu-umowa-kompleksowa/gd/ts/1_01_2019_ts_gd_umowa_kompleksowa_td.ashx' // link do dokumentu
+                                    },
+                            },
+                        'doc_cat_7':
+                            {
+                                'label': 'Informacje o przetwarzaniu danych osobowych', // jest to nazwa kategorii dokumentów
+                                1:
+                                    {
+                                        name: 'Klauzula informacyjna TAURON Sprzedaż Sp. z o.o.', // nazwa pliku która będzie wyświetlana
+                                        href: 'https://www.tauron.pl/-/media/offer-documents/rodo/klauzule-informacyjne/ts/klauzula-informacyja-tauron-sprzedaz.ashx' // link do dokumentu
+                                    },
+                                2:
+                                    {
+                                        name: 'Klauzula informacyjna TAURON Dystrybucja S.A.', // nazwa pliku która będzie wyświetlana
+                                        href: 'https://www.tauron.pl/-/media/offer-documents/rodo/klauzule-informacyjne/ts/klauzula-informacyjna-tauron-dystrybucja-sa.ashx' // link do dokumentu
+                                    },
+                            },
+                    },
+                    gze: {
+                        'doc_cat_5':
+                            {
+                                'label': 'Gwarancja Rabatu', // jest to nazwa kategorii dokumentów
+                                1:
+                                    {
+                                        name: 'Regulamin Oferty "Włącz rabat na prąd"', // nazwa pliku która będzie wyświetlana
+                                        href: 'https://www.tauron.pl/-/media/offer-documents/produkty/gsr/gze/gze_gd_regulamin_wlacz_rabat_prad_10519_k.ashx' // link do dokumentu
+                                    },
+                                2:
+                                    {
+                                        name: 'Oświadczenie do Regulaminu Oferty „Włącz rabat na prąd”', // nazwa pliku która będzie wyświetlana
+                                        href: 'https://www.tauron.pl/-/media/offer-documents/produkty/gsr/gze/gze-ts-gd-oswiadczenie-do-oferty-wlacz-rabat-na-prad-k.ashx' // link do dokumentu
+                                    },
+                            },
+                        'doc_cat_6':
+                            {
+                                'label': 'Dokumenty dotyczące Ogólnych Warunków Umowy Kompleksowej ', // jest to nazwa kategorii dokumentów
+                                1:
+                                    {
+                                        name: 'Ogólne Warunki Umowy Kompleksowej', // nazwa pliku która będzie wyświetlana
+                                        href: 'https://www.tauron.pl/-/media/offer-documents/dokumenty-do-taryfy/owu-umowa-kompleksowa/gd/gze/1_01_2019_tsgze_gd_owu_uk_td.ashx' // link do dokumentu
+                                    },
+                                2:
+                                    {
+                                        name: 'Wzór Umowy Kompleksowej', // nazwa pliku która będzie wyświetlana
+                                        href: 'https://www.tauron.pl/-/media/offer-documents/dokumenty-do-taryfy/owu-umowa-kompleksowa/gd/gze/1_01_2019_tsgze_gd_umowa_kompleksowa_td.ashx' // link do dokumentu
+                                    },
+                            },
+                        'doc_cat_7':
+                            {
+                                'label': 'Informacje o przetwarzaniu danych osobowych', // jest to nazwa kategorii dokumentów
+                                1:
+                                    {
+                                        name: 'Klauzula informacyjna TAURON Sprzedaż GZE Sp. z o.o.', // nazwa pliku która będzie wyświetlana
+                                        href: 'https://www.tauron.pl/-/media/offer-documents/rodo/klauzule-informacyjne/gze/klauzula-informacyjna-tauron-sprzedaz_gze.ashx' // link do dokumentu
+                                    },
+                                2:
+                                    {
+                                        name: 'Klauzula informacyjna TAURON Dystrybucja S.A.', // nazwa pliku która będzie wyświetlana
+                                        href: 'https://www.tauron.pl/-/media/offer-documents/rodo/klauzule-informacyjne/gze/klauzula-informacyjna-tauron-dystrybucja-sa.ashx' // link do dokumentu
+                                    },
+                            },
+                    },
+                    allLocation: {
+                        'doc_cat_3':
+                            {
+                                'label': 'Dokumenty eBOK i Mój TAURON', // jest to nazwa kategorii dokumentów
+                                1:
+                                    {
+                                        name: 'Zintegrowany Regulamin', // nazwa pliku która będzie wyświetlana
+                                        href: 'https://www.tauron.pl/-/media/offer-documents/dokumenty-ebok-mt/zintegrowany-regulamin.ashx' // link do dokumentu
+                                    }
+                            },
+                        'doc_cat_4':
+                            {
+                                'label': 'Program kliencki', // jest to nazwa kategorii dokumentów
+                                1:
+                                    {
+                                        name: 'Regulamin programu – Bonus za e-fakturę', // nazwa pliku która będzie wyświetlana
+                                        href: 'https://www.tauron.pl/-/media/offer-documents/program-kliencki/RegPKBefakture_K_www.ashx' // link do dokumentu
+                                    },
+                                2:
+                                    {
+                                        name: 'Program kliencki – oferta podstawowa z Bonusem', // nazwa pliku która będzie wyświetlana
+                                        href: 'https://www.tauron.pl/-/media/offer-documents/program-kliencki/RegPKPodst_K_WWW.ashx' // link do dokumentu
+                                    },
+                                3:
+                                    {
+                                        name: 'Najczęściej zadawane pytania', // nazwa pliku która będzie wyświetlana
+                                        href: 'https://www.tauron.pl/-/media/offer-documents/program-kliencki/najczesciej-zadawane-pytania-zwrot-za-energie.ashx' // link do dokumentu
+                                    },
+                            },
+                    },
+                },
+            },
+        documents_prices: // zbiór cen
+            {
+                common: // ceny taryfy sprzedawcy + opłaty dystrybucyjne
+                    {
+                        ts: {
+                            brutto: {
+                                // Ceny sprzedaĹźowe brutto
+
+                                'g11': '0,7774', // G11 - Cena za prÄd niezmienna przez caĹÄ dobÄ. Strafa caĹodobowa , Taryfa sprzedawcy
+                                'g12_1': '0,8819', // G12 - NiĹźsza cena za prÄd w nocy oraz w wybranych godzinach w ciÄgu dnia. Strafa I , Taryfa sprzedawcy
+                                'g12_2': '0,5744', // G12 - NiĹźsza cena za prÄd w nocy oraz w wybranych godzinach w ciÄgu dnia. Strafa II , Taryfa sprzedawcy
+                                'g12w_1': '1,0443', // G12w - NiĹźsza cena za prÄd w nocy, w wybranych godzinach w ciÄgu dnia oraz w weekendy. Strafa I , Taryfa sprzedawcy
+                                'g12w_2': '0,5744', // G12w - NiĹźsza cena za prÄd w nocy, w wybranych godzinach w ciÄgu dnia oraz w weekendy. Strafa II , Taryfa sprzedawcy
+                                'g13_1': '0,8303', // G13 - NiĹźsza cena za prÄd w wybranych godzinach w ciÄgu doby. Strafa I , Taryfa sprzedawcy
+                                'g13_2': '1,1820', // G13 - NiĹźsza cena za prÄd w wybranych godzinach w ciÄgu doby. Strafa II , Taryfa sprzedawcy
+                                'g13_3': '0,6384', // G13 - NiĹźsza cena za prÄd w wybranych godzinach w ciÄgu doby. Strafa III , Taryfa sprzedawcy
+                                'fixed_rate_1': '0', // OpĹata handlowa taryfa sprzedawcy
+                                'fixed_rate_2': '0', // OpĹata handlowa taryfa sprzedawcy
+
+                                // opłaty dystrybucyjne brutto
+
+                                // opłaty zmienne G11 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna)
+                                'distibution_g11_1': ' 0,3600', // opłaty zmienne G11 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna) Strefa caĹodobowa
+                                'distibution_g11_fixed_rate_1': '8,66', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy < 500 kWh
+                                'distibution_g11_fixed_rate_2': '8,76', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy 500 - 1200 kWh
+                                'distibution_g11_fixed_rate_3': '9,04', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy > 1200 kWh
+                                'distibution_g11_fixed_rate_4': '12,74', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy < 500 kWh
+                                'distibution_g11_fixed_rate_5': '12,84', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy 500 - 1200 kWh
+                                'distibution_g11_fixed_rate_6': '13,12', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy > 1200 kWh
+                                'distibution_g11_ab_1': 'Cykl 12 miesiczny 0,47', // Abonament Cykl 12 miesięczny
+                                'distibution_g11_ab_2': 'Cykl 6 miesięczny 0,93', // Abonament Cykl 6 miesięczny
+                                'distibution_g11_ab_3': 'Cykl 2 miesięczny 2,80', // Abonament Cykl 2 miesięczny
+                                'distibution_g11_ab_4': 'Cykl 1 miesięczny 5,61', // Abonament Cykl 1 miesięczny
+
+                                // opłaty zmienne G12 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna
+                                'distibution_g12_1': '0,4041', // opłaty zmienne G12 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna (Dzeinny)
+                                'distibution_g12_2': '0,1224', // opłaty zmienne G12 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna (Szczytowy)
+                                'distibution_g12_fixed_rate_1': '8,66', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy < 500 kWh
+                                'distibution_g12_fixed_rate_2': '8,76', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy 500 - 1200 kWh
+                                'distibution_g12_fixed_rate_3': '9,04', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy > 1200 kWh
+                                'distibution_g12_fixed_rate_4': '12,74', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy < 500 kWh
+                                'distibution_g12_fixed_rate_5': '12,84', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy 500 - 1200 kWh
+                                'distibution_g12_fixed_rate_6': '13,12', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy < 500 kWh
+                                'distibution_g12_ab_1': 'Cykl 12 miesięczny 0,47', // Abonament Cykl 12 miesięczny
+                                'distibution_g12_ab_2': 'Cykl 6 miesięczny 0,93', // Abonament Cykl 6 miesięczny
+                                'distibution_g12_ab_3': 'Cykl 2 miesięczny 2,80', // Abonament Cykl 2 miesięczny
+                                'distibution_g12_ab_4': 'Cykl 1 miesięczny 5,61', // Abonament Cykl 1 miesięczny
+
+                                // opłaty zmienne G12w (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna)
+                                'distibution_g12w_1': '0,4498', // opłaty zmienne G12w (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna) (Nocny)
+                                'distibution_g12w_2': '0,1112', // opłaty zmienne G12w (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna) (Pozaszczytowy)
+                                'distibution_g12w_fixed_rate_1': '8,66', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy < 500 kWh
+                                'distibution_g12w_fixed_rate_2': '8,76', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy 500 - 1200 kWh
+                                'distibution_g12w_fixed_rate_3': '9,04', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy > 1200 kWh
+                                'distibution_g12w_fixed_rate_4': '12,74', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy < 500 kWh
+                                'distibution_g12w_fixed_rate_5': '12,84', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy 500 - 1200 kWh
+                                'distibution_g12w_fixed_rate_6': '13,12', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy > 1200 kWh
+                                'distibution_g12w_ab_1': 'Cykl 12 miesięczny 0,47', // Abonament Cykl 12 miesięczny
+                                'distibution_g12w_ab_2': 'Cykl 6 miesięczny 0,93', // Abonament Cykl 6 miesięczny
+                                'distibution_g12w_ab_3': 'Cykl 2 miesięczny 2,80 ', // Abonament Cykl 2 miesięczny
+                                'distibution_g12w_ab_4': 'Cykl 1 miesięczny 5,61', // Abonament Cykl 1 miesięczny
+
+                                // opłaty zmienne G13 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna
+                                'distibution_g13_1': '0,2791', // opłaty zmienne G13 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna (Szczyt przedpoĹudniowy)
+                                'distibution_g13_2': '0,4573', // opłaty zmienne G13 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna (Szczyt popoĹudniowy)
+                                'distibution_g13_3': '0,09041', // opłaty zmienne G13 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna (PozostaĹe godziny doby)
+                                'distibution_g13_fixed_rate_1': '8,66', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy < 500 kWh
+                                'distibution_g13_fixed_rate_2': '8,76', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy 500 - 1200 kWh
+                                'distibution_g13_fixed_rate_3': '9,04', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy > 1200 kWh
+                                'distibution_g13_fixed_rate_4': '12,74', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy < 500 kWh
+                                'distibution_g13_fixed_rate_5': '12,84', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy 500 - 1200 kWh
+                                'distibution_g13_fixed_rate_6': '13,12', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy > 1200 kWh
+                                'distibution_g13_ab_1': 'Cykl 12 miesięczny 0,47', // Abonament Cykl 12 miesięczny
+                                'distibution_g13_ab_2': 'Cykl 6 miesięczny 0,93', // Abonament Cykl 6 miesięczny
+                                'distibution_g13_ab_3': 'Cykl 2 miesięczny 2,80', // Abonament Cykl 2 miesięczny
+                                'distibution_g13_ab_4': 'Cykl 1 miesięczny 5,61', // Abonament Cykl 1 miesięczny
+                            },
+                            netto: {
+                                // Ceny sprzedaĹźowe netto
+
+                                'g11': '0,6320', // G11 - Cena za prÄd niezmienna przez caĹÄ dobÄ. Strafa caĹodobowa , Taryfa sprzedawcy
+                                'g12_1': '0,7170', // G12 - NiĹźsza cena za prÄd w nocy oraz w wybranych godzinach w ciÄgu dnia. Strafa I , Taryfa sprzedawcy
+                                'g12_2': '0,4670', // G12 - NiĹźsza cena za prÄd w nocy oraz w wybranych godzinach w ciÄgu dnia. Strafa II , Taryfa sprzedawcy
+                                'g12w_1': '0,8490', // G12w - NiĹźsza cena za prÄd w nocy, w wybranych godzinach w ciÄgu dnia oraz w weekendy. Strafa I , Taryfa sprzedawcy
+                                'g12w_2': '0,4670',// G12w - NiĹźsza cena za prÄd w nocy, w wybranych godzinach w ciÄgu dnia oraz w weekendy. Strafa II , Taryfa sprzedawcy
+                                'g13_1': '0,6750', // G13 - NiĹźsza cena za prÄd w wybranych godzinach w ciÄgu doby. Strafa I , Taryfa sprzedawcy
+                                'g13_2': '0,9610',  // G13 - NiĹźsza cena za prÄd w wybranych godzinach w ciÄgu doby. Strafa II , Taryfa sprzedawcy
+                                'g13_3': '0,5190', // G13 - NiĹźsza cena za prÄd w wybranych godzinach w ciÄgu doby. Strafa III , Taryfa sprzedawcy
+                                'fixed_rate_1': '0', // OpĹata handlowa taryfa sprzedawcy
+                                'fixed_rate_2': '0', // OpĹata handlowa taryfa sprzedawcy
+
+
+                                // opłaty dystrybucyjne netto
+
+                                // opłaty zmienne G11 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna)
+                                'distibution_g11_1': '0,2927', // opłaty zmienne G11 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna) Strefa caĹodobowa
+                                'distibution_g11_fixed_rate_1': '7,04', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy < 500 kWh
+                                'distibution_g11_fixed_rate_2': '7,12',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy 500 - 1200 kWh
+                                'distibution_g11_fixed_rate_3': '7,35', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy > 1200 kWh
+                                'distibution_g11_fixed_rate_4': '10,36',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy < 500 kWh
+                                'distibution_g11_fixed_rate_5': '10,44',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy 500 - 1200 kWh
+                                'distibution_g11_fixed_rate_6': '10,67',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy > 1200 kWh
+                                'distibution_g11_ab_1': 'Cykl 12 miesięczny 0,38 ',// Abonament Cykl 12 miesięczny
+                                'distibution_g11_ab_2': 'Cykl 6 miesięczny 0,76 ',// Abonament Cykl 6 miesięczny
+                                'distibution_g11_ab_3': 'Cykl 2 miesięczny 2,28 ',// Abonament Cykl 2 miesięczny
+                                'distibution_g11_ab_4': 'Cykl 1 miesięczny 4,56 ',// Abonament Cykl 1 miesięczny
+
+                                // opłaty zmienne G12 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna)
+                                'distibution_g12_1': '0,3285', // opłaty zmienne G12 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna) (Dzienny)
+                                'distibution_g12_2': '0,0995',// opłaty zmienne G12 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna) (Szczytowy)
+                                'distibution_g12_fixed_rate_1': '7,04', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy < 500 kWh
+                                'distibution_g12_fixed_rate_2': '7,12',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy 500 - 1200 kWh
+                                'distibution_g12_fixed_rate_3': '7,35',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy > 1200 kWh
+                                'distibution_g12_fixed_rate_4': '10,36', //opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy < 500 kWh
+                                'distibution_g12_fixed_rate_5': '10,44',//opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy 500 - 1200 kWh
+                                'distibution_g12_fixed_rate_6': '10,67',//opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy > 1200 kWh
+                                'distibution_g12_ab_1': 'Cykl 12 miesięczny 0,38 ', // Abonament Cykl 12 miesięczny
+                                'distibution_g12_ab_2': 'Cykl 6 miesięczny 0,76 ',// Abonament Cykl 6 miesięczny
+                                'distibution_g12_ab_3': 'Cykl 2 miesięczny 2,28 ',// Abonament Cykl 2 miesięczny
+                                'distibution_g12_ab_4': 'Cykl 1 miesięczny 4,56 ',// Abonament Cykl 1 miesięczny
+
+                                // opłaty zmienne G12w (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna)
+                                'distibution_g12w_1': '0,3657', //opłaty zmienne G12w (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna) (Nocny)
+                                'distibution_g12w_2': '0,0904', //opłaty zmienne G12w (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna)(Pozaszczytowy)
+                                'distibution_g12w_fixed_rate_1': '7,04 ',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy < 500 kWh
+                                'distibution_g12w_fixed_rate_2': '7,12 ',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy 500 - 1200 kWh
+                                'distibution_g12w_fixed_rate_3': '7,35 ',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy > 1200 kWh
+                                'distibution_g12w_fixed_rate_4': '10,36 ',//opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy < 500 kWh
+                                'distibution_g12w_fixed_rate_5': '10,44',//opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy 500 - 1200 kWh
+                                'distibution_g12w_fixed_rate_6': '10,67',//opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy > 1200 kWh
+                                'distibution_g12w_ab_1': 'Cykl 12 miesięczny 0,38 ',// Abonament Cykl 12 miesięczny
+                                'distibution_g12w_ab_2': 'Cykl 6 miesięczny 0,76 ',// Abonament Cykl 6 miesięczny
+                                'distibution_g12w_ab_3': 'Cykl 2 miesięczny 2,28 ',// Abonament Cykl 2 miesięczny
+                                'distibution_g12w_ab_4': 'Cykl 1 miesięczny 4,56 ',// Abonament Cykl 1 miesięczny
+
+                                // opłaty zmienne G13 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna)
+                                'distibution_g13_1': '0,2269', //opłaty zmienne G13 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna) (Szczyt przedpoĹudniowy)
+                                'distibution_g13_2': '0,3718',//opłaty zmienne G13 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna) (Szczyt popoĹudniowy)
+                                'distibution_g13_3': '0,0735',//opłaty zmienne G13 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna) (PozostaĹe godziny doby)
+                                'distibution_g13_fixed_rate_1': '7,04 ',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy < 500 kWh
+                                'distibution_g13_fixed_rate_2': '7,12 ',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy 500 - 1200 kWh
+                                'distibution_g13_fixed_rate_3': '7,35 ',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy > 1200 kWh
+                                'distibution_g13_fixed_rate_4': '10,36 ',//opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy < 500 kWh
+                                'distibution_g13_fixed_rate_5': '10,44',//opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy 500 - 1200 kWh
+                                'distibution_g13_fixed_rate_6': '10,67',//opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy > 1200 kWh
+                                'distibution_g13_ab_1': 'Cykl 12 miesięczny 0,38 ',// Abonament Cykl 12 miesięczny
+                                'distibution_g13_ab_2': 'Cykl 6 miesięczny 0,76 ',// Abonament Cykl 6 miesięczny
+                                'distibution_g13_ab_3': 'Cykl 2 miesięczny 2,28 ',// Abonament Cykl 2 miesięczny
+                                'distibution_g13_ab_4': 'Cykl 1 miesięczny 4,56 ',// Abonament Cykl 1 miesięczny
+                            },
+                        },
+                        ts_prawo: {
+                            brutto: {
+                                // Ceny sprzedaĹźowe brutto
+
+                                'g11': '0,7774', // G11 - Cena za prÄd niezmienna przez caĹÄ dobÄ. Strafa caĹodobowa , Taryfa sprzedawcy
+                                'g12_1': '0,8819', // G12 - NiĹźsza cena za prÄd w nocy oraz w wybranych godzinach w ciÄgu dnia. Strafa I , Taryfa sprzedawcy
+                                'g12_2': '0,5744', // G12 - NiĹźsza cena za prÄd w nocy oraz w wybranych godzinach w ciÄgu dnia. Strafa II , Taryfa sprzedawcy
+                                'g12w_1': '1,0443', // G12w - NiĹźsza cena za prÄd w nocy, w wybranych godzinach w ciÄgu dnia oraz w weekendy. Strafa I , Taryfa sprzedawcy
+                                'g12w_2': '0,5744', // G12w - NiĹźsza cena za prÄd w nocy, w wybranych godzinach w ciÄgu dnia oraz w weekendy. Strafa II , Taryfa sprzedawcy
+                                'g13_1': '0,8303', // G13 - NiĹźsza cena za prÄd w wybranych godzinach w ciÄgu doby. Strafa I , Taryfa sprzedawcy
+                                'g13_2': '1,1820', // G13 - NiĹźsza cena za prÄd w wybranych godzinach w ciÄgu doby. Strafa II , Taryfa sprzedawcy
+                                'g13_3': '0,6384', // G13 - NiĹźsza cena za prÄd w wybranych godzinach w ciÄgu doby. Strafa III , Taryfa sprzedawcy
+                                'fixed_rate_1': '0', // OpĹata handlowa taryfa sprzedawcy
+                                'fixed_rate_2': '0', // OpĹata handlowa taryfa sprzedawcy
+
+                                // opłaty dystrybucyjne brutto
+
+                                // opłaty zmienne G11 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna)
+                                'distibution_g11_1': ' 0,3600', // opłaty zmienne G11 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna) Strefa caĹodobowa
+                                'distibution_g11_fixed_rate_1': '8,66', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy < 500 kWh
+                                'distibution_g11_fixed_rate_2': '8,76', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy 500 - 1200 kWh
+                                'distibution_g11_fixed_rate_3': '9,04', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy > 1200 kWh
+                                'distibution_g11_fixed_rate_4': '12,74', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy < 500 kWh
+                                'distibution_g11_fixed_rate_5': '12,84', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy 500 - 1200 kWh
+                                'distibution_g11_fixed_rate_6': '13,12', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy > 1200 kWh
+                                'distibution_g11_ab_1': 'Cykl 12 miesiczny 0,47', // Abonament Cykl 12 miesięczny
+                                'distibution_g11_ab_2': 'Cykl 6 miesięczny 0,93', // Abonament Cykl 6 miesięczny
+                                'distibution_g11_ab_3': 'Cykl 2 miesięczny 2,80', // Abonament Cykl 2 miesięczny
+                                'distibution_g11_ab_4': 'Cykl 1 miesięczny 5,61', // Abonament Cykl 1 miesięczny
+
+                                // opłaty zmienne G12 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna
+                                'distibution_g12_1': '0,4041', // opłaty zmienne G12 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna (Dzeinny)
+                                'distibution_g12_2': '0,1224', // opłaty zmienne G12 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna (Szczytowy)
+                                'distibution_g12_fixed_rate_1': '8,66', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy < 500 kWh
+                                'distibution_g12_fixed_rate_2': '8,76', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy 500 - 1200 kWh
+                                'distibution_g12_fixed_rate_3': '9,04', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy > 1200 kWh
+                                'distibution_g12_fixed_rate_4': '12,74', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy < 500 kWh
+                                'distibution_g12_fixed_rate_5': '12,84', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy 500 - 1200 kWh
+                                'distibution_g12_fixed_rate_6': '13,12', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy < 500 kWh
+                                'distibution_g12_ab_1': 'Cykl 12 miesięczny 0,47', // Abonament Cykl 12 miesięczny
+                                'distibution_g12_ab_2': 'Cykl 6 miesięczny 0,93', // Abonament Cykl 6 miesięczny
+                                'distibution_g12_ab_3': 'Cykl 2 miesięczny 2,80', // Abonament Cykl 2 miesięczny
+                                'distibution_g12_ab_4': 'Cykl 1 miesięczny 5,61', // Abonament Cykl 1 miesięczny
+
+                                // opłaty zmienne G12w (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna)
+                                'distibution_g12w_1': '0,4498', // opłaty zmienne G12w (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna) (Nocny)
+                                'distibution_g12w_2': '0,1112', // opłaty zmienne G12w (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna) (Pozaszczytowy)
+                                'distibution_g12w_fixed_rate_1': '8,66', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy < 500 kWh
+                                'distibution_g12w_fixed_rate_2': '8,76', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy 500 - 1200 kWh
+                                'distibution_g12w_fixed_rate_3': '9,04', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy > 1200 kWh
+                                'distibution_g12w_fixed_rate_4': '12,74', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy < 500 kWh
+                                'distibution_g12w_fixed_rate_5': '12,84', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy 500 - 1200 kWh
+                                'distibution_g12w_fixed_rate_6': '13,12', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy > 1200 kWh
+                                'distibution_g12w_ab_1': 'Cykl 12 miesięczny 0,47', // Abonament Cykl 12 miesięczny
+                                'distibution_g12w_ab_2': 'Cykl 6 miesięczny 0,93', // Abonament Cykl 6 miesięczny
+                                'distibution_g12w_ab_3': 'Cykl 2 miesięczny 2,80 ', // Abonament Cykl 2 miesięczny
+                                'distibution_g12w_ab_4': 'Cykl 1 miesięczny 5,61', // Abonament Cykl 1 miesięczny
+
+                                // opłaty zmienne G13 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna
+                                'distibution_g13_1': '0,2791', // opłaty zmienne G13 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna (Szczyt przedpoĹudniowy)
+                                'distibution_g13_2': '0,4573', // opłaty zmienne G13 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna (Szczyt popoĹudniowy)
+                                'distibution_g13_3': '0,09041', // opłaty zmienne G13 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna (PozostaĹe godziny doby)
+                                'distibution_g13_fixed_rate_1': '8,66', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy < 500 kWh
+                                'distibution_g13_fixed_rate_2': '8,76', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy 500 - 1200 kWh
+                                'distibution_g13_fixed_rate_3': '9,04', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy > 1200 kWh
+                                'distibution_g13_fixed_rate_4': '12,74', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy < 500 kWh
+                                'distibution_g13_fixed_rate_5': '12,84', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy 500 - 1200 kWh
+                                'distibution_g13_fixed_rate_6': '13,12', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy > 1200 kWh
+                                'distibution_g13_ab_1': 'Cykl 12 miesięczny 0,47', // Abonament Cykl 12 miesięczny
+                                'distibution_g13_ab_2': 'Cykl 6 miesięczny 0,93', // Abonament Cykl 6 miesięczny
+                                'distibution_g13_ab_3': 'Cykl 2 miesięczny 2,80', // Abonament Cykl 2 miesięczny
+                                'distibution_g13_ab_4': 'Cykl 1 miesięczny 5,61', // Abonament Cykl 1 miesięczny
+                            },
+                            netto: {
+                                // Ceny sprzedaĹźowe netto
+
+                                'g11': '0,6320', // G11 - Cena za prÄd niezmienna przez caĹÄ dobÄ. Strafa caĹodobowa , Taryfa sprzedawcy
+                                'g12_1': '0,7170', // G12 - NiĹźsza cena za prÄd w nocy oraz w wybranych godzinach w ciÄgu dnia. Strafa I , Taryfa sprzedawcy
+                                'g12_2': '0,4670', // G12 - NiĹźsza cena za prÄd w nocy oraz w wybranych godzinach w ciÄgu dnia. Strafa II , Taryfa sprzedawcy
+                                'g12w_1': '0,8490', // G12w - NiĹźsza cena za prÄd w nocy, w wybranych godzinach w ciÄgu dnia oraz w weekendy. Strafa I , Taryfa sprzedawcy
+                                'g12w_2': '0,4670',// G12w - NiĹźsza cena za prÄd w nocy, w wybranych godzinach w ciÄgu dnia oraz w weekendy. Strafa II , Taryfa sprzedawcy
+                                'g13_1': '0,6750', // G13 - NiĹźsza cena za prÄd w wybranych godzinach w ciÄgu doby. Strafa I , Taryfa sprzedawcy
+                                'g13_2': '0,9610',  // G13 - NiĹźsza cena za prÄd w wybranych godzinach w ciÄgu doby. Strafa II , Taryfa sprzedawcy
+                                'g13_3': '0,5190', // G13 - NiĹźsza cena za prÄd w wybranych godzinach w ciÄgu doby. Strafa III , Taryfa sprzedawcy
+                                'fixed_rate_1': '0', // OpĹata handlowa taryfa sprzedawcy
+                                'fixed_rate_2': '0', // OpĹata handlowa taryfa sprzedawcy
+
+
+                                // opłaty dystrybucyjne netto
+
+                                // opłaty zmienne G11 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna)
+                                'distibution_g11_1': '0,2927', // opłaty zmienne G11 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna) Strefa caĹodobowa
+                                'distibution_g11_fixed_rate_1': '7,04', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy < 500 kWh
+                                'distibution_g11_fixed_rate_2': '7,12',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy 500 - 1200 kWh
+                                'distibution_g11_fixed_rate_3': '7,35', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy > 1200 kWh
+                                'distibution_g11_fixed_rate_4': '10,36',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy < 500 kWh
+                                'distibution_g11_fixed_rate_5': '10,44',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy 500 - 1200 kWh
+                                'distibution_g11_fixed_rate_6': '10,67',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy > 1200 kWh
+                                'distibution_g11_ab_1': 'Cykl 12 miesięczny 0,38 ',// Abonament Cykl 12 miesięczny
+                                'distibution_g11_ab_2': 'Cykl 6 miesięczny 0,76 ',// Abonament Cykl 6 miesięczny
+                                'distibution_g11_ab_3': 'Cykl 2 miesięczny 2,28 ',// Abonament Cykl 2 miesięczny
+                                'distibution_g11_ab_4': 'Cykl 1 miesięczny 4,56 ',// Abonament Cykl 1 miesięczny
+
+                                // opłaty zmienne G12 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna)
+                                'distibution_g12_1': '0,3285', // opłaty zmienne G12 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna) (Dzienny)
+                                'distibution_g12_2': '0,0995',// opłaty zmienne G12 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna) (Szczytowy)
+                                'distibution_g12_fixed_rate_1': '7,04', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy < 500 kWh
+                                'distibution_g12_fixed_rate_2': '7,12',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy 500 - 1200 kWh
+                                'distibution_g12_fixed_rate_3': '7,35',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy > 1200 kWh
+                                'distibution_g12_fixed_rate_4': '10,36', //opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy < 500 kWh
+                                'distibution_g12_fixed_rate_5': '10,44',//opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy 500 - 1200 kWh
+                                'distibution_g12_fixed_rate_6': '10,67',//opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy > 1200 kWh
+                                'distibution_g12_ab_1': 'Cykl 12 miesięczny 0,38 ', // Abonament Cykl 12 miesięczny
+                                'distibution_g12_ab_2': 'Cykl 6 miesięczny 0,76 ',// Abonament Cykl 6 miesięczny
+                                'distibution_g12_ab_3': 'Cykl 2 miesięczny 2,28 ',// Abonament Cykl 2 miesięczny
+                                'distibution_g12_ab_4': 'Cykl 1 miesięczny 4,56 ',// Abonament Cykl 1 miesięczny
+
+                                // opłaty zmienne G12w (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna)
+                                'distibution_g12w_1': '0,3657', //opłaty zmienne G12w (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna) (Nocny)
+                                'distibution_g12w_2': '0,0904', //opłaty zmienne G12w (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna)(Pozaszczytowy)
+                                'distibution_g12w_fixed_rate_1': '7,04 ',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy < 500 kWh
+                                'distibution_g12w_fixed_rate_2': '7,12 ',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy 500 - 1200 kWh
+                                'distibution_g12w_fixed_rate_3': '7,35 ',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy > 1200 kWh
+                                'distibution_g12w_fixed_rate_4': '10,36 ',//opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy < 500 kWh
+                                'distibution_g12w_fixed_rate_5': '10,44',//opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy 500 - 1200 kWh
+                                'distibution_g12w_fixed_rate_6': '10,67',//opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy > 1200 kWh
+                                'distibution_g12w_ab_1': 'Cykl 12 miesięczny 0,38 ',// Abonament Cykl 12 miesięczny
+                                'distibution_g12w_ab_2': 'Cykl 6 miesięczny 0,76 ',// Abonament Cykl 6 miesięczny
+                                'distibution_g12w_ab_3': 'Cykl 2 miesięczny 2,28 ',// Abonament Cykl 2 miesięczny
+                                'distibution_g12w_ab_4': 'Cykl 1 miesięczny 4,56 ',// Abonament Cykl 1 miesięczny
+
+                                // opłaty zmienne G13 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna)
+                                'distibution_g13_1': '0,2269', //opłaty zmienne G13 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna) (Szczyt przedpoĹudniowy)
+                                'distibution_g13_2': '0,3718',//opłaty zmienne G13 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna) (Szczyt popoĹudniowy)
+                                'distibution_g13_3': '0,0735',//opłaty zmienne G13 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna) (PozostaĹe godziny doby)
+                                'distibution_g13_fixed_rate_1': '7,04 ',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy < 500 kWh
+                                'distibution_g13_fixed_rate_2': '7,12 ',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy 500 - 1200 kWh
+                                'distibution_g13_fixed_rate_3': '7,35 ',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy > 1200 kWh
+                                'distibution_g13_fixed_rate_4': '10,36 ',//opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy < 500 kWh
+                                'distibution_g13_fixed_rate_5': '10,44',//opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy 500 - 1200 kWh
+                                'distibution_g13_fixed_rate_6': '10,67',//opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy > 1200 kWh
+                                'distibution_g13_ab_1': 'Cykl 12 miesięczny 0,38 ',// Abonament Cykl 12 miesięczny
+                                'distibution_g13_ab_2': 'Cykl 6 miesięczny 0,76 ',// Abonament Cykl 6 miesięczny
+                                'distibution_g13_ab_3': 'Cykl 2 miesięczny 2,28 ',// Abonament Cykl 2 miesięczny
+                                'distibution_g13_ab_4': 'Cykl 1 miesięczny 4,56 ',// Abonament Cykl 1 miesięczny
+                            },
+                        },
+                        gze: {
+                            brutto: {
+                                // Ceny sprzedaĹźowe brutto
+
+                                'g11': '0,7743', // G11 - Cena za prÄd niezmienna przez caĹÄ dobÄ. Strafa caĹodobowa , Taryfa sprzedawcy
+                                'g12_1': '0,8721', // G12 - NiĹźsza cena za prÄd w nocy oraz w wybranych godzinach w ciÄgu dnia. Strafa I , Taryfa sprzedawcy
+                                'g12_2': '0,6125', // G12 - NiĹźsza cena za prÄd w nocy oraz w wybranych godzinach w ciÄgu dnia. Strafa II , Taryfa sprzedawcy
+                                'g12w_1': '0,9656', // G12w - NiĹźsza cena za prÄd w nocy, w wybranych godzinach w ciÄgu dnia oraz w weekendy. Strafa I , Taryfa sprzedawcy
+                                'g12w_2': '0,6125', // G12w - NiĹźsza cena za prÄd w nocy, w wybranych godzinach w ciÄgu dnia oraz w weekendy. Strafa II , Taryfa sprzedawcy
+                                'g13_1': '0,8401', // G13 - NiĹźsza cena za prÄd w wybranych godzinach w ciÄgu doby. Strafa I , Taryfa sprzedawcy
+                                'g13_2': '1,1734', // G13 - NiĹźsza cena za prÄd w wybranych godzinach w ciÄgu doby. Strafa II , Taryfa sprzedawcy
+                                'g13_3': '0,6384', // G13 - NiĹźsza cena za prÄd w wybranych godzinach w ciÄgu doby. Strafa III , Taryfa sprzedawcy
+                                'fixed_rate_1': '0,00', // OpĹata handlowa taryfa sprzedawcy
+                                'fixed_rate_2': '0,00', // OpĹata handlowa taryfa sprzedawcy
+
+                                // opłaty dystrybucyjne brutto
+
+                                // opłaty zmienne G11 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna)
+                                'distibution_g11_1': ' 0,3600', // opłaty zmienne G11 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna) Strefa caĹodobowa
+                                'distibution_g11_fixed_rate_1': '8,66', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy < 500 kWh
+                                'distibution_g11_fixed_rate_2': '8,76', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy 500 - 1200 kWh
+                                'distibution_g11_fixed_rate_3': '9,04', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy > 1200 kWh
+                                'distibution_g11_fixed_rate_4': '12,74', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy < 500 kWh
+                                'distibution_g11_fixed_rate_5': '12,84', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy 500 - 1200 kWh
+                                'distibution_g11_fixed_rate_6': '13,12', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy > 1200 kWh
+                                'distibution_g11_ab_1': 'Cykl 12 miesiczny 0,47', // Abonament Cykl 12 miesięczny
+                                'distibution_g11_ab_2': 'Cykl 6 miesięczny 0,93', // Abonament Cykl 6 miesięczny
+                                'distibution_g11_ab_3': 'Cykl 2 miesięczny 2,80', // Abonament Cykl 2 miesięczny
+                                'distibution_g11_ab_4': 'Cykl 1 miesięczny 5,61', // Abonament Cykl 1 miesięczny
+
+                                // opłaty zmienne G12 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna
+                                'distibution_g12_1': '0,4041', // opłaty zmienne G12 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna (Dzeinny)
+                                'distibution_g12_2': '0,1224', // opłaty zmienne G12 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna (Szczytowy)
+                                'distibution_g12_fixed_rate_1': '8,66', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy < 500 kWh
+                                'distibution_g12_fixed_rate_2': '8,76', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy 500 - 1200 kWh
+                                'distibution_g12_fixed_rate_3': '9,04', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy > 1200 kWh
+                                'distibution_g12_fixed_rate_4': '12,74', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy < 500 kWh
+                                'distibution_g12_fixed_rate_5': '12,84', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy 500 - 1200 kWh
+                                'distibution_g12_fixed_rate_6': '13,12', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy < 500 kWh
+                                'distibution_g12_ab_1': 'Cykl 12 miesięczny 0,47', // Abonament Cykl 12 miesięczny
+                                'distibution_g12_ab_2': 'Cykl 6 miesięczny 0,93', // Abonament Cykl 6 miesięczny
+                                'distibution_g12_ab_3': 'Cykl 2 miesięczny 2,80', // Abonament Cykl 2 miesięczny
+                                'distibution_g12_ab_4': 'Cykl 1 miesięczny 5,61', // Abonament Cykl 1 miesięczny
+
+                                // opłaty zmienne G12w (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna)
+                                'distibution_g12w_1': '0,4498', // opłaty zmienne G12w (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna) (Nocny)
+                                'distibution_g12w_2': '0,1112', // opłaty zmienne G12w (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna) (Pozaszczytowy)
+                                'distibution_g12w_fixed_rate_1': '8,66', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy < 500 kWh
+                                'distibution_g12w_fixed_rate_2': '8,76', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy 500 - 1200 kWh
+                                'distibution_g12w_fixed_rate_3': '9,04', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy > 1200 kWh
+                                'distibution_g12w_fixed_rate_4': '12,74', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy < 500 kWh
+                                'distibution_g12w_fixed_rate_5': '12,84', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy 500 - 1200 kWh
+                                'distibution_g12w_fixed_rate_6': '13,12', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy > 1200 kWh
+                                'distibution_g12w_ab_1': 'Cykl 12 miesięczny 0,47', // Abonament Cykl 12 miesięczny
+                                'distibution_g12w_ab_2': 'Cykl 6 miesięczny 0,93', // Abonament Cykl 6 miesięczny
+                                'distibution_g12w_ab_3': 'Cykl 2 miesięczny 2,80 ', // Abonament Cykl 2 miesięczny
+                                'distibution_g12w_ab_4': 'Cykl 1 miesięczny 5,61', // Abonament Cykl 1 miesięczny
+
+                                // opłaty zmienne G13 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna
+                                'distibution_g13_1': '0,2791', // opłaty zmienne G13 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna (Szczyt przedpoĹudniowy)
+                                'distibution_g13_2': '0,4573', // opłaty zmienne G13 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna (Szczyt popoĹudniowy)
+                                'distibution_g13_3': '0,09041', // opłaty zmienne G13 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna (PozostaĹe godziny doby)
+                                'distibution_g13_fixed_rate_1': '8,66', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy < 500 kWh
+                                'distibution_g13_fixed_rate_2': '8,76', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy 500 - 1200 kWh
+                                'distibution_g13_fixed_rate_3': '9,04', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy > 1200 kWh
+                                'distibution_g13_fixed_rate_4': '12,74', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy < 500 kWh
+                                'distibution_g13_fixed_rate_5': '12,84', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy 500 - 1200 kWh
+                                'distibution_g13_fixed_rate_6': '13,12', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy > 1200 kWh
+                                'distibution_g13_ab_1': 'Cykl 12 miesięczny 0,47', // Abonament Cykl 12 miesięczny
+                                'distibution_g13_ab_2': 'Cykl 6 miesięczny 0,93', // Abonament Cykl 6 miesięczny
+                                'distibution_g13_ab_3': 'Cykl 2 miesięczny 2,80', // Abonament Cykl 2 miesięczny
+                                'distibution_g13_ab_4': 'Cykl 1 miesięczny 5,61', // Abonament Cykl 1 miesięczny
+                            },
+                            netto: {
+                                // Ceny sprzedaĹźowe netto
+
+                                'g11': '0,6295', // G11 - Cena za prÄd niezmienna przez caĹÄ dobÄ. Strafa caĹodobowa , Taryfa sprzedawcy
+                                'g12_1': '0,7090', // G12 - NiĹźsza cena za prÄd w nocy oraz w wybranych godzinach w ciÄgu dnia. Strafa I , Taryfa sprzedawcy
+                                'g12_2': '0,4980', // G12 - NiĹźsza cena za prÄd w nocy oraz w wybranych godzinach w ciÄgu dnia. Strafa II , Taryfa sprzedawcy
+                                'g12w_1': '0,7850', // G12w - NiĹźsza cena za prÄd w nocy, w wybranych godzinach w ciÄgu dnia oraz w weekendy. Strafa I , Taryfa sprzedawcy
+                                'g12w_2': '0,4980',// G12w - NiĹźsza cena za prÄd w nocy, w wybranych godzinach w ciÄgu dnia oraz w weekendy. Strafa II , Taryfa sprzedawcy
+                                'g13_1': '0,6830', // G13 - NiĹźsza cena za prÄd w wybranych godzinach w ciÄgu doby. Strafa I , Taryfa sprzedawcy
+                                'g13_2': '0,9540',  // G13 - NiĹźsza cena za prÄd w wybranych godzinach w ciÄgu doby. Strafa II , Taryfa sprzedawcy
+                                'g13_3': '0,5190', // G13 - NiĹźsza cena za prÄd w wybranych godzinach w ciÄgu doby. Strafa III , Taryfa sprzedawcy
+                                'fixed_rate_1': '0,00', // OpĹata handlowa taryfa sprzedawcy
+                                'fixed_rate_2': '0,00', // OpĹata handlowa taryfa sprzedawcy
+
+
+                                // opłaty dystrybucyjne netto
+
+                                // opłaty zmienne G11 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna)
+                                'distibution_g11_1': '0,2927', // opłaty zmienne G11 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna) Strefa caĹodobowa
+                                'distibution_g11_fixed_rate_1': '7,04', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy < 500 kWh
+                                'distibution_g11_fixed_rate_2': '7,12',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy 500 - 1200 kWh
+                                'distibution_g11_fixed_rate_3': '7,35', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy > 1200 kWh
+                                'distibution_g11_fixed_rate_4': '10,36',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy < 500 kWh
+                                'distibution_g11_fixed_rate_5': '10,44',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy 500 - 1200 kWh
+                                'distibution_g11_fixed_rate_6': '10,67',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy > 1200 kWh
+                                'distibution_g11_ab_1': 'Cykl 12 miesięczny 0,38 ',// Abonament Cykl 12 miesięczny
+                                'distibution_g11_ab_2': 'Cykl 6 miesięczny 0,76 ',// Abonament Cykl 6 miesięczny
+                                'distibution_g11_ab_3': 'Cykl 2 miesięczny 2,28 ',// Abonament Cykl 2 miesięczny
+                                'distibution_g11_ab_4': 'Cykl 1 miesięczny 4,56 ',// Abonament Cykl 1 miesięczny
+
+                                // opłaty zmienne G12 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna)
+                                'distibution_g12_1': '0,3285', // opłaty zmienne G12 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna) (Dzienny)
+                                'distibution_g12_2': '0,0995',// opłaty zmienne G12 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna) (Szczytowy)
+                                'distibution_g12_fixed_rate_1': '7,04', // opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy < 500 kWh
+                                'distibution_g12_fixed_rate_2': '7,12',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy 500 - 1200 kWh
+                                'distibution_g12_fixed_rate_3': '7,35',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy > 1200 kWh
+                                'distibution_g12_fixed_rate_4': '10,36', //opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy < 500 kWh
+                                'distibution_g12_fixed_rate_5': '10,44',//opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy 500 - 1200 kWh
+                                'distibution_g12_fixed_rate_6': '10,67',//opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy > 1200 kWh
+                                'distibution_g12_ab_1': 'Cykl 12 miesięczny 0,38 ', // Abonament Cykl 12 miesięczny
+                                'distibution_g12_ab_2': 'Cykl 6 miesięczny 0,76 ',// Abonament Cykl 6 miesięczny
+                                'distibution_g12_ab_3': 'Cykl 2 miesięczny 2,28 ',// Abonament Cykl 2 miesięczny
+                                'distibution_g12_ab_4': 'Cykl 1 miesięczny 4,56 ',// Abonament Cykl 1 miesięczny
+
+                                // opłaty zmienne G12w (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna)
+                                'distibution_g12w_1': '0,3657', //opłaty zmienne G12w (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna) (Nocny)
+                                'distibution_g12w_2': '0,0904', //opłaty zmienne G12w (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna)(Pozaszczytowy)
+                                'distibution_g12w_fixed_rate_1': '7,04 ',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy < 500 kWh
+                                'distibution_g12w_fixed_rate_2': '7,12 ',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy 500 - 1200 kWh
+                                'distibution_g12w_fixed_rate_3': '7,35 ',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy > 1200 kWh
+                                'distibution_g12w_fixed_rate_4': '10,36 ',//opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy < 500 kWh
+                                'distibution_g12w_fixed_rate_5': '10,44',//opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy 500 - 1200 kWh
+                                'distibution_g12w_fixed_rate_6': '10,67',//opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy > 1200 kWh
+                                'distibution_g12w_ab_1': 'Cykl 12 miesięczny 0,38 ',// Abonament Cykl 12 miesięczny
+                                'distibution_g12w_ab_2': 'Cykl 6 miesięczny 0,76 ',// Abonament Cykl 6 miesięczny
+                                'distibution_g12w_ab_3': 'Cykl 2 miesięczny 2,28 ',// Abonament Cykl 2 miesięczny
+                                'distibution_g12w_ab_4': 'Cykl 1 miesięczny 4,56 ',// Abonament Cykl 1 miesięczny
+
+                                // opłaty zmienne G13 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna)
+                                'distibution_g13_1': '0,2269', //opłaty zmienne G13 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna) (Szczyt przedpoĹudniowy)
+                                'distibution_g13_2': '0,3718',//opłaty zmienne G13 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna) (Szczyt popoĹudniowy)
+                                'distibution_g13_3': '0,0735',//opłaty zmienne G13 (skĹadnik zmiennystawki sieciowej + stawka jakoĹciowa + opĹata OZE + opĹata kogeneracyjna) (PozostaĹe godziny doby)
+                                'distibution_g13_fixed_rate_1': '7,04 ',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy < 500 kWh
+                                'distibution_g13_fixed_rate_2': '7,12 ',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy 500 - 1200 kWh
+                                'distibution_g13_fixed_rate_3': '7,35 ',// opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad jednofazowy > 1200 kWh
+                                'distibution_g13_fixed_rate_4': '10,36 ',//opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy < 500 kWh
+                                'distibution_g13_fixed_rate_5': '10,44',//opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy 500 - 1200 kWh
+                                'distibution_g13_fixed_rate_6': '10,67',//opłaty staĹe (skĹadnik staĹy + opĹata przejĹciowa)- ukĹad trĂłjfazowy > 1200 kWh
+                                'distibution_g13_ab_1': 'Cykl 12 miesięczny 0,38 ',// Abonament Cykl 12 miesięczny
+                                'distibution_g13_ab_2': 'Cykl 6 miesięczny 0,76 ',// Abonament Cykl 6 miesięczny
+                                'distibution_g13_ab_3': 'Cykl 2 miesięczny 2,28 ',// Abonament Cykl 2 miesięczny
+                                'distibution_g13_ab_4': 'Cykl 1 miesięczny 4,56 ',// Abonament Cykl 1 miesięczny
+                            },
+                        },
+                    },
+                price_02: { // cennik dla rabatu 0.2%
+                    name: 'Aby zobaczyć ceny dla rabatu 0,2% kliknij',
+                    name_february: 'Ceny sprzedażowe uwzględniające rozwiązania osłonowe znajdują się ',
+                    href_february:
+                        {
+                            'ts': 'https://www.tauron.pl/-/media/offer-documents/produkty/tarcza/dokl-tarczowa-ts.ashx',
+                            'gze': 'https://www.tauron.pl/-/media/offer-documents/produkty/tarcza/dokl-tarczowa-gze.ashx',
+                        }
+                },
+                shield:
+                    {
+                        name: 'Opłaty dystrybucyjne znajdują się ',
+                        href: 'https://www.tauron.pl/-/media/offer-documents/produkty/tarcza/2022_02_01_TS-GZE_InfCenyBruttoWycTarTD_G_BAZA.ashx',
+                    },
+                price_03:
+                    {
+                        name: 'Ceny sprzedażowe w Taryfie Sprzedawcy uwzględniające rozwiązania osłonowe znajdują się ',
+                        href: 'https://www.tauron.pl/dla-domu/prad/taryfa-sprzedawcy'
+                    },
+                // treść disclaimerów pod cennikami
+                price_disclaimer_magenta:
+                    {
+                        all: '<p style="font-weight:bold;color:#e2007a;" class="p_f0">Przedstawione w tabeli ceny nie uwzględniają rozwiązań osłonowych.</br>Ceny wynikające z wprowadzonych rozwiązań osłonowych uwzględnimy w rozliczeniach.</p>',
+                        ts: '<p style="font-weight:bold;color:#e2007a;" class="p_f0">Przedstawione w tabeli ceny nie uwzględniają rozwiązań osłonowych.</br>Ceny wynikające z wprowadzonych rozwiązań osłonowych uwzględnimy w rozliczeniach.</p>',
+                        gze: '<p style="font-weight:bold;color:#e2007a;" class="p_f0">Przedstawione w tabeli ceny nie uwzględniają rozwiązań osłonowych.</br>Ceny wynikające z wprowadzonych rozwiązań osłonowych uwzględnimy w rozliczeniach.</p>',
+                    },
+                price_disclaimer:
+                    {
+                        all: '' +
+                            '<p class="c_f2">Informujemy, że od 1 stycznia 2025 do 30 czerwca 2025:</p>' +
+                            '<p class="c_f2 z_doc_p_dot">obowiązuje nowa stawka opłaty mocowej w wysokości 0 zł/MWh [1]</p>' +
+                            '<div class="z_legal">' +
+                            '<p class="c_f1">Podstawa prawna:<br>' +
+                            '[1] Ustawa z dnia 27 listopada 2024 r. o zmianie ustawy o środkach nadzwyczajnych mających na celu ograniczenie wysokości cen energii elektrycznej oraz wsparciu niektórych odbiorców w 2023 roku oraz w 2024 roku oraz niektórych innych ustaw. (Dz. U. z 2024 r. poz. 1831)' +
+                            '</p>',
+                        ts: '<p class="c_f1">' +
+                            'Od 1 stycznia 2025 roku, na podstawie decyzji Prezesa URE z 16 grudnia 2024 roku (znak DRE.WRE.4211.47.9.2024.ASa1) obowiązuje "Taryfa dla usług dystrybucji energii elektrycznej TAURON Dystrybucja S.A. na rok 2025".<br><br>' +
+                            'Prezes Urzędu Regulacji Energetyki zatwierdził w dniu 28 czerwca 2024r. zmianę Taryfy dla energii elektrycznej dla Odbiorców z grup taryfowych G” TAURON Sprzedaż sp. z o.o.(decyzja nr DRE.WRE.4211.29.11.2024.AKr3 z dnia 28.06.2024 r.). Taryfa będzie obowiązywać do 31 grudnia 2025 r. Treść decyzji została opublikowana w Biuletynie Branżowym URE Nr 163 (4407).<br><br>Dodatkowo informujemy, że ceny stosowane w rozliczeniach z Państwem będą uwzględniać rozwiązania osłonowe. Zasady działania tych rozwiązań osłonowych zostały określone w następujących ustawach:<br><br>1) Ustawy z 7 października 2022 r. o szczególnych rozwiązaniach służących ochronie odbiorców energii elektrycznej w 2023 roku oraz w 2024 roku w związku z sytuacją na rynku energii elektrycznej (Dz. U. z 2023 r. poz. 1704 t.j.)<br><br>2) Ustawy z 27 października 2022 r. o środkach nadzwyczajnych mających na celu ograniczenie wysokości cen energii elektrycznej oraz wsparciu niektórych odbiorców w 2023 roku oraz w 2024 roku (Dz. U. z 2024 r. poz. 190 t.j.)<br><br>3) Ustawy z 23 maja 2024 r. o bonie energetycznym oraz o zmianie niektórych ustaw w celu ograniczenia cen energii elektrycznej, gazu ziemnego i ciepła systemowego (Dz. U. z 2024 r. poz. 859)<br><br>4) Ustawy z dnia 27 listopada 2024 r. o zmianie stawy o środkach nadzwyczajnych mających na celu ograniczenie wysokości cen energii elektrycznej oraz wsparciu niektórych odbiorców w 2023 roku oraz w 2024 roku oraz niektórych innych ustaw. (Dz. U. z 2024 r. poz. 1831).<br><br>Więcej informacji znajdą Państwo na <a href="https://www.tauron.pl/zamrozenie-pradu">tauron.pl/zamrozenie-pradu</a>.<br><br>Cena maksymalna energii elektrycznej stosowana w rozliczeniach z odbiorcami za zużycie energii elektrycznej w punkcie poboru w okresie od 1 stycznia 2025 do 30 września 2025 roku wynosi (0,5050 zł/kWh netto) - 0,6212 zł/kWh brutto, z wyłączeniem odbiorców, którzy zawarli umowę z ceną dynamiczną energii elektrycznej w rozumieniu art. 3 pkt 6d ustawy Prawo energetyczne, który wchodzi w życie z dniem 24 sierpnia 2024 r. W przypadku, gdy cena energii elektrycznej wynikająca z Taryfy albo z umowy zawartej z odbiorcą jest niższa niż cena maksymalna, w rozliczeniach z odbiorcą będziemy stosować tę niższą cenę.' +
+                            '</p>',
+                        ts_prawo: '<p class="c_f1">' +
+                            'Od 1 stycznia 2025 roku, na podstawie decyzji Prezesa URE z 16 grudnia 2024 roku (znak DRE.WRE.4211.47.9.2024.ASa1) obowiązuje "Taryfa dla usług dystrybucji energii elektrycznej TAURON Dystrybucja S.A. na rok 2025".<br><br>' +
+                            'Prezes Urzędu Regulacji Energetyki zatwierdził w dniu 28 czerwca 2024r. zmianę Taryfy dla energii elektrycznej dla Odbiorców z grup taryfowych G” TAURON Sprzedaż sp. z o.o.(decyzja nr DRE.WRE.4211.29.11.2024.AKr3 z dnia 28.06.2024 r.). Taryfa będzie obowiązywać do 31 grudnia 2025 r. Treść decyzji została opublikowana w Biuletynie Branżowym URE Nr 163 (4407).<br><br>Dodatkowo informujemy, że ceny stosowane w rozliczeniach z Państwem będą uwzględniać rozwiązania osłonowe. Zasady działania tych rozwiązań osłonowych zostały określone w następujących ustawach:<br><br>1) Ustawy z 7 października 2022 r. o szczególnych rozwiązaniach służących ochronie odbiorców energii elektrycznej w 2023 roku oraz w 2024 roku w związku z sytuacją na rynku energii elektrycznej (Dz. U. z 2023 r. poz. 1704 t.j.)<br><br>2) Ustawy z 27 października 2022 r. o środkach nadzwyczajnych mających na celu ograniczenie wysokości cen energii elektrycznej oraz wsparciu niektórych odbiorców w 2023 roku oraz w 2024 roku (Dz. U. z 2024 r. poz. 190 t.j.)<br><br>3) Ustawy z 23 maja 2024 r. o bonie energetycznym oraz o zmianie niektórych ustaw w celu ograniczenia cen energii elektrycznej, gazu ziemnego i ciepła systemowego (Dz. U. z 2024 r. poz. 859)<br><br>4) Ustawy z dnia 27 listopada 2024 r. o zmianie stawy o środkach nadzwyczajnych mających na celu ograniczenie wysokości cen energii elektrycznej oraz wsparciu niektórych odbiorców w 2023 roku oraz w 2024 roku oraz niektórych innych ustaw. (Dz. U. z 2024 r. poz. 1831).<br><br>Więcej informacji znajdą Państwo na <a href="https://www.tauron.pl/zamrozenie-pradu">tauron.pl/zamrozenie-pradu</a>.<br><br>Cena maksymalna energii elektrycznej stosowana w rozliczeniach z odbiorcami za zużycie energii elektrycznej w punkcie poboru w okresie od 1 stycznia 2025 do 30 września 2025 roku wynosi (0,5050 zł/kWh netto) - 0,6212 zł/kWh brutto, z wyłączeniem odbiorców, którzy zawarli umowę z ceną dynamiczną energii elektrycznej w rozumieniu art. 3 pkt 6d ustawy Prawo energetyczne, który wchodzi w życie z dniem 24 sierpnia 2024 r. W przypadku, gdy cena energii elektrycznej wynikająca z Taryfy albo z umowy zawartej z odbiorcą jest niższa niż cena maksymalna, w rozliczeniach z odbiorcą będziemy stosować tę niższą cenę.' +
+                            '</p>',
+                        gze: '<p class="c_f1">' +
+                            'Od 1 stycznia 2025 roku, na podstawie decyzji Prezesa URE z 16 grudnia 2024 roku (znak DRE.WRE.4211.47.9.2024.ASa1) obowiązuje "Taryfa dla usług dystrybucji energii elektrycznej TAURON Dystrybucja S.A. na rok 2025".<br><br>' +
+                            'Prezes Urzędu Regulacji Energetyki zatwierdził w dniu 28 czerwca 2024r. zmianę Taryfy dla energii elektrycznej dla Odbiorców z grup taryfowych G” TAURON Sprzedaż GZE sp. z o.o.(decyzja nr DRE.WRE.4211.30.11.2024.AKr3/ASa1 z dnia 28 czerwca 2024 r.). Taryfa będzie obowiązywać do 31 grudnia 2025 r. Treść decyzji została opublikowana w Biuletynie Branżowym URE Nr 164 (4408).<br><br> Dodatkowo informujemy, że ceny stosowane w rozliczeniach z Państwem będą uwzględniać rozwiązania osłonowe. Zasady działania tych rozwiązań osłonowych zostały określone w następujących ustawach:<br><br>1) Ustawy z 7 października 2022 r. o szczególnych rozwiązaniach służących ochronie odbiorców energii elektrycznej w 2023 roku oraz w 2024 roku w związku z sytuacją na rynku energii elektrycznej (Dz. U. z 2023 r. poz. 1704 t.j.<br><br>2) Ustawy z 27 października 2022 r. o środkach nadzwyczajnych mających na celu ograniczenie wysokości cen energii elektrycznej oraz wsparciu niektórych odbiorców w 2023 roku oraz w 2024 roku (Dz. U. z 2024 r. poz. 190 t.j.)<br><br>3) Ustawy z 23 maja 2024 r. o bonie energetycznym oraz o zmianie niektórych ustaw w celu ograniczenia cen energii elektrycznej, gazu ziemnego i ciepła systemowego (Dz. U. z 2024 r. poz. 859)<br><br>4) Ustawy z dnia 27 listopada 2024 r. o zmianie stawy o środkach nadzwyczajnych mających na celu ograniczenie wysokości cen energii elektrycznej oraz wsparciu niektórych odbiorców w 2023 roku oraz w 2024 roku oraz niektórych innych ustaw. (Dz. U. z 2024 r. poz. 1831).<br><br>Szczegółowe informacje w tym zakresie znajdują się na stronach <a href="https://www.tauron.pl/zamrozenie-pradu">tauron.pl/zamrozenie-pradu</a>.<br><br>Cena maksymalna energii elektrycznej stosowana w rozliczeniach z odbiorcami za zużycie energii elektrycznej w punkcie poboru w okresie od 1 stycznia 2025 do 30 września 2025 roku wynosi (0,5050 zł/kWh netto) - 0,6212 zł/kWh brutto, z wyłączeniem odbiorców, którzy zawarli umowę z ceną dynamiczną energii elektrycznej, w rozumieniu art. 3 pkt 6d ustawy Prawo energetyczne, który wchodzi w życie z dniem 24 sierpnia 2024. W przypadku, gdy cena energii elektrycznej wynikająca z Taryfy albo z umowy zawartej z odbiorcą jest niższa niż cena maksymalna, w rozliczeniach z odbiorcą będziemy stosować tę niższą cenę.' +
+                            '</p>'
+                    },
+                shield_information:
+                    {
+                        ts: '<p style="font-weight:bold;color:#e2007a;">Niżej znajdziesz dokumenty dotyczące ofert, które prezentujemy. Przedstawione w  nich ceny nie uwzględniają mechanizmów Rządowej Tarczy Solidarnościowej, tj.<br>\n' +
+                            '• obniżenia stawki podatku VAT na dostawy energii elektrycznej z 23% do 5% – za okres od 1.01 do 31.12.2022 r.,<br>\n' +
+                            'Regulacje dotyczące cen, wynikające z wprowadzanych przepisów, uwzględnimy w wyznaczonych terminach w rozliczeniach z Tobą. Ze stawkami, które uwzględniają mechanizmy Rządowej Tarczy Solidarnościowej, możesz się zapoznać <a href="https://www.tauron.pl/-/media/offer-documents/odnowienia/2022/tarcza-ts/dokl-tarczowa.ashx">TUTAJ</a>.</p>',
+                        gze: '<p style="font-weight:bold;color:#e2007a;">Niżej znajdziesz dokumenty dotyczące ofert, które prezentujemy. Przedstawione w  nich ceny nie uwzględniają mechanizmów Rządowej Tarczy Solidarnościowej, tj.<br>\n' +
+                            '• obniżenia stawki podatku VAT na dostawy energii elektrycznej z 23% do 5% – za okres od 1.01 do 31.12.2022 r.,<br>\n' +
+                            '• zwolnienia z akcyzy na energię elektryczną odbiorców w gospodarstwach domowych – za okres od 1.01 do 31.12.2022 r.<br>\n' +
+                            'Ceny w cennikach dotyczących ofert Gwarancja Ceny, nie uwzględniają obniżenia stawki podatku VAT na dostawy energii elektrycznej z 23% do 5% – od dnia obowiązywania cennika do 31.12.2022 r.,<br><br>\n' +
+                            'Regulacje dotyczące cen, wynikające z wprowadzanych przepisów, uwzględnimy w wyznaczonych terminach w rozliczeniach z Tobą. Ze stawkami, które uwzględniają mechanizmy Rządowej Tarczy Solidarnościowej, możesz się zapoznać <a href="https://www.tauron.pl/-/media/offer-documents/odnowienia/2022/tarcza-gze-bez-zmian/dokl-tarczowa.ashx">TUTAJ</a>.</p>'
+                    },
+                price_table_extra_information:
+                    {
+                        top_information: '', // Treść dodawana w Tabeli Cenowej pod tytułem "Ceny sprzedażowe"
+                        bottom_information: '' // Treść dodawana w Tabeli Cenowej pod tytułem "Opłaty dystrybucyjne"
+                    }
+            },
+    }
+};

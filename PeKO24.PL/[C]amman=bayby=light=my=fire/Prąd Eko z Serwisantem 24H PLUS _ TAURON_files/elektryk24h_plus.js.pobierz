@@ -1,0 +1,220 @@
+var elektryk24h_plus = {
+    'oferta_zmiana':{
+        onlineActivation: 90, // bonus w zł za wybór cennika 3 letniego
+        ecoBonus: 5,
+        prices:{
+            'ts':'22,50', //cena brutto dla lokalizacji ts w PLN
+            'gze':'22,50',// cena brutto dla lokalizacji gze w PLN
+            'ts_netto':'18,29', // cena netto dla lokalizacji ts w PLN
+            'gze_netto':'18,29',// cena netto dla lokalizacji gze w PLN
+        },
+        documents_prices:
+            {
+                 ts:{
+                    brutto:{
+                        // Ceny sprzedażowe brutto
+
+                        'g11': '0,7385 ', //G11 - Cena za prąd niezmienna przez całą dobę. (całodobowy)
+                        'g12_1': '0,8378 ',//G12 - Niższa cena za prąd w nocy oraz w wybranych godzinach w ciągu dnia.(strefa I dzienny)
+                        'g12_2': '0,5456 ',//G12 - Niższa cena za prąd w nocy oraz w wybranych godzinach w ciągu dnia.(strefa II szczytowy)
+                        'g12w_1': '0,9920 ',//G12w - Niższa cena za prąd w nocy, w wybranych godzinach w ciągu dnia oraz w weekendy.(Strefa I (nocny))
+                        'g12w_2': '0,5456 ',//G12w - Niższa cena za prąd w nocy, w wybranych godzinach w ciągu dnia oraz w weekendy.(Strefa II (pozaszczytowy))
+                        'g13_1': '0,7887 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa I)
+                        'g13_2': '1,1229 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa II)
+                        'g13_3': '0,6064 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa III)
+                    },
+                    netto:{
+                        // Ceny sprzedażowe netto
+
+                        'g11': '0,6004 ',//G11 - Cena za prąd niezmienna przez całą dobę. (całodobowy)
+                        'g12_1': '0,6811 ',//G12 - Niższa cena za prąd w nocy oraz w wybranych godzinach w ciągu dnia.(strefa I dzienny)
+                        'g12_2': '0,4436 ',//G12 - Niższa cena za prąd w nocy oraz w wybranych godzinach w ciągu dnia.(strefa II szczytowy)
+                        'g12w_1': '0,8065 ',//G12w - Niższa cena za prąd w nocy, w wybranych godzinach w ciągu dnia oraz w weekendy.(Strefa I (nocny))
+                        'g12w_2': '0,4436 ',//G12w - Niższa cena za prąd w nocy, w wybranych godzinach w ciągu dnia oraz w weekendy.(Strefa II (pozaszczytowy))
+                        'g13_1': '0,6412 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa I)
+                        'g13_2': '0,9129 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa II)
+                        'g13_3': '0,4930 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa III)
+                    },
+                },
+                gze:{
+                    brutto:{
+                        // Ceny sprzedażowe brutto
+
+                        'g11': '0,7355 ', //G11 - Cena za prąd niezmienna przez całą dobę. (całodobowy)
+                        'g12_1': '0,8284 ',//G12 - Niższa cena za prąd w nocy oraz w wybranych godzinach w ciągu dnia.(strefa I dzienny)
+                        'g12_2': '0,5819 ',//G12 - Niższa cena za prąd w nocy oraz w wybranych godzinach w ciągu dnia.(strefa II szczytowy)
+                        'g12w_1': '0,9172 ',//G12w - Niższa cena za prąd w nocy, w wybranych godzinach w ciągu dnia oraz w weekendy.(Strefa I (nocny))
+                        'g12w_2': '0,5819 ',//G12w - Niższa cena za prąd w nocy, w wybranych godzinach w ciągu dnia oraz w weekendy.(Strefa II (pozaszczytowy))
+                        'g13_1': '0,7980 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa I)
+                        'g13_2': '1,1147 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa II)
+                        'g13_3': '0,6064 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa III)
+                    },
+                    netto:{
+                        // Ceny sprzedażowe netto
+
+                        'g11': '0,5980 ',//G11 - Cena za prąd niezmienna przez całą dobę. (całodobowy)
+                        'g12_1': '0,6735 ',//G12 - Niższa cena za prąd w nocy oraz w wybranych godzinach w ciągu dnia.(strefa I dzienny)
+                        'g12_2': '0,4731 ',//G12 - Niższa cena za prąd w nocy oraz w wybranych godzinach w ciągu dnia.(strefa II szczytowy)
+                        'g12w_1': '0,7457 ',//G12w - Niższa cena za prąd w nocy, w wybranych godzinach w ciągu dnia oraz w weekendy.(Strefa I (nocny))
+                        'g12w_2': '0,4731 ',//G12w - Niższa cena za prąd w nocy, w wybranych godzinach w ciągu dnia oraz w weekendy.(Strefa II (pozaszczytowy))
+                        'g13_1': '0,6488 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa I)
+                        'g13_2': '0,9063 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa II)
+                        'g13_3': '0,4930 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa III)
+                    },
+                },
+            },
+        documents: // zbiór dokumentów indywidualnych dla danego produktu
+            {
+                ts: // dokumenty dla lokalizacji ts
+                    {
+                        'doc_cat_1':
+                            {
+                                // format: contract_invoice
+                                'label':'Cenniki - oferta dotyczy również prosumentów', // jest to nazwa kategorii dokumentów
+                                '2_1':
+                                    {
+                                        '1':{
+                                            name:'Cennik Elektryk 24H PLUS 3 lata 5% - e-faktura', // nazwa pliku która będzie wyświetlana
+                                            href:'https://www.tauron.pl/-/media/offer-documents/produkty/2025/02-2025/elektryk-plus/ts/EE-GD-GR5-O-E24PLD-TS-3-Q1.ashx' // link do dokumentu
+                                        },
+                                        '2':{
+                                            name:'Cennik Elektryk 24H PLUS 3 lata 0,2% - faktura papierowa', // nazwa pliku która będzie wyświetlana
+                                            href:'https://www.tauron.pl/-/media/offer-documents/produkty/2025/02-2025/elektryk-plus/ts/EE-GD-GR02-B-E24PLD-TS-3-Q1.ashx' // link do dokumentu
+                                        },
+                                    },
+                            },
+                        'doc_cat_2':
+                            {
+                                'label':'Dokumenty podstawowe i regulaminy', // jest to nazwa kategorii dokumentów
+                                1:
+                                    {
+                                        name:'Oświadczenie o wyrażeniu zgody/rezygnacji na e-fakturę', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/prad-z-serwisantem-dokumenty/ts/2020-07-01_ts-gze_gd-msp_oswiadczeniedoefv_prad_k_edyt.ashx' // link do dokumentu
+                                    },
+                                2:
+                                    {
+                                        name:'Oświadczenie o zapoznaniu się i akceptacji treści Regulaminu usługi Elektryk 24H PLUS', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/prad-z-serwisantem-dokumenty/ts/2021-04-01-ts-gze-gd-msp-prad-os-akcept-reg-uslugi-pdf-wzor-k.ashx' // link do dokumentu
+                                    },
+                                3:
+                                    {
+                                        name:'Wyciąg z Taryfy dla energii elektrycznej TAURON Dystrybucja S.A. na rok 2025', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/prad-z-serwisantem-dokumenty/ts/wyciag-typu-g-z-taryfy-td-sa-na-rok-2021.ashx' // link do dokumentu
+                                    },
+                                4:
+                                    {
+                                        name:'Wyciąg z Taryfy dla energii elektrycznej TAURON Dystrybucja S.A. - Informacja o stawkach brutto na rok 2025', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/tarcza/2022_02_01_TS-GZE_InfCenyBruttoWycTarTD_G_BAZA.ashx'// link do dokumentu
+                                    },
+                                5:
+                                    {
+                                        name:'Informacja o cenach energii w Cennikach w okresie obowiązywania rozwiązań osłonowych, tj. do 30 września 2025 roku', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/tarcza/dokl-tarczowa-ts.ashx' // link do dokumentu
+                                    },
+                                6:
+                                    {
+                                        name:'Regulamin usługi Elektryk 24H PLUS', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/prad-z-elektrykiem-plus-dokumenty/ts/2021-12-01_TS-GZE_GD_prad_Regulamin-Elektryk24H-PLUS_K_BAZA.ashx' // link do dokumentu
+                                    },
+                                7:
+                                    {
+                                        name:'Zbiór Praw Konsumenta Energii Elektrycznej', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/prad-z-serwisantem-dokumenty/ts/zbior_praw_konsumenta_energii_elektrycznej.ashx' // link do dokumentu
+                                    },
+                                8:
+                                    {
+                                        name:'Regulamin e-faktury', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/prad-z-serwisantem-dokumenty/ts/regulamin-e-faktura.ashx' // link do dokumentu
+                                    },
+                                9:
+                                    {
+                                        name:'Zgody Klienta', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/prad-z-serwisantem-dokumenty/ts/ts_zgody_klienta_podstawowe_pdf_edyt_k.ashx' // link do dokumentu
+                                    },
+                                10:
+                                    {
+                                        name:'Wzór formularza odstąpienia od umowy ', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/prad-z-serwisantem-dokumenty/ts/ts_formularz_odstapienia.ashx' // link do dokumentu
+                                    },
+                            },
+                    },
+                gze: // dokumenty dla lokalizacji gze
+                    {
+                        'doc_cat_1':
+                            {
+                                'label':'Cenniki - oferta dotyczy również prosumentów', // jest to nazwa kategorii dokumentów
+                                // format: contract_invoice
+                                '2_1':
+                                    {
+                                        '1':{
+                                            name:'Cennik Elektryk 24H PLUS 3 lata 5% - e-faktura', // nazwa pliku która będzie wyświetlana
+                                            href:'https://www.tauron.pl/-/media/offer-documents/produkty/2025/02-2025/elektryk-plus/gze/EE-GD-GR5-O-E24PLD-GZE-3-Q1.ashx' // link do dokumentu
+                                        },
+                                        '2':{
+                                            name:'Cennik Elektryk 24H PLUS 3 lata 0,2% - faktura papierowa', // nazwa pliku która będzie wyświetlana
+                                            href:'https://www.tauron.pl/-/media/offer-documents/produkty/2025/02-2025/elektryk-plus/gze/EE-GD-GR02-B-E24PLD-GZE-3-Q1.ashx  ' // link do dokumentu
+                                        },
+                                    },
+                            },
+                        'doc_cat_2':
+                            {
+                                'label':'Dokumenty podstawowe i regulaminy', // jest to nazwa kategorii dokumentów
+                                1:
+                                    {
+                                        name:'Oświadczenie o wyrażeniu zgody/rezygnacji na e-fakturę', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/prad-z-serwisantem-dokumenty/gze/2020-07-01_ts-gze_gd-msp_oswiadczeniedoefv_prad_k_edyt.ashx' // link do dokumentu
+                                    },
+                                2:
+                                    {
+                                        name:'Oświadczenie o zapoznaniu się i akceptacji treści Regulaminu usługi Elektryk 24H PLUS', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/prad-z-serwisantem-dokumenty/gze/2021-04-01-ts-gze-gd-msp-prad-os-akcept-reg-uslugi-pdf-wzor-k.ashx' // link do dokumentu
+                                    },
+                                3:
+                                    {
+                                        name:'Wyciąg z Taryfy dla energii elektrycznej TAURON Dystrybucja S.A. na rok 2025', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/prad-z-serwisantem-dokumenty/gze/wyciag-typu-g-z-taryfy-td-sa-na-rok-2021.ashx' // link do dokumentu
+                                    },
+                                4:
+                                    {
+                                        name:'Wyciąg z Taryfy dla energii elektrycznej TAURON Dystrybucja S.A. - Informacja o stawkach brutto na rok 2025', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/tarcza/2022_02_01_TS-GZE_InfCenyBruttoWycTarTD_G_BAZA.ashx'// link do dokumentu
+                                    },
+                                5:
+                                    {
+                                        name:'Informacja o cenach energii w Cennikach w okresie obowiązywania rozwiązań osłonowych, tj. do 30 września 2025 roku', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/tarcza/dokl-tarczowa-gze.ashx' // link do dokumentu
+                                    },
+                                6:
+                                    {
+                                        name:'Regulamin usługi Elektryk 24H PLUS', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/prad-z-elektrykiem-plus-dokumenty/gze/2021-12-01_TS-GZE_GD_prad_Regulamin-Elektryk24H-PLUS_K_BAZA.ashx' // link do dokumentu
+                                    },
+                                7:
+                                    {
+                                        name:'Zbiór Praw Konsumenta Energii Elektrycznej', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/prad-z-serwisantem-dokumenty/gze/zbior_praw_konsumenta_energii_elektrycznej.ashx' // link do dokumentu
+                                    },
+                                8:
+                                    {
+                                        name:'Regulamin e-faktury', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/prad-z-serwisantem-dokumenty/gze/regulamin-e-faktura.ashx' // link do dokumentu
+                                    },
+                                9:
+                                    {
+                                        name:'Zgody Klienta', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/prad-z-serwisantem-dokumenty/gze/tsp_gze_zgody_klienta_podstawowe_pdf_edyt_k.ashx' // link do dokumentu
+                                    },
+                                10:
+                                    {
+                                        name:'Wzór formularza odstąpienia od umowy ', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/prad-z-serwisantem-dokumenty/gze/gze_formularz_odstapienia.ashx' // link do dokumentu
+                                    },
+                            },
+                    },
+            },
+        price_table_extra_information:{
+            before_price: 'opłata handlowa (stawka stała) za usługę dodatkową', // tekst wyświetlany w Tabeli Cenowej przed opłatą handlową (stawką stałą)
+            after_price: '(przez cały okres trwania cennika)' // tekst wyświetlany w Tabeli Cenowej po opłacie handlowej (stawce stałej)
+        }
+    },
+};

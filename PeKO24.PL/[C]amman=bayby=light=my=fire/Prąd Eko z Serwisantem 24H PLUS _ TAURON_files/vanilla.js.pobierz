@@ -1,0 +1,142 @@
+
+//vanill js
+var vJs = function(){
+  //var privateVar = 1;
+  // function privateFunction(){
+  //   alert('private');
+  // }
+  return{
+    //publicVar:2,
+    domReady:function(callback) {
+      document.readyState === "interactive" || document.readyState === "complete" ? callback() : document.addEventListener("DOMContentLoaded", callback);
+    },
+    hasClass:function(el, className) {
+      return el.classList ? el.classList.contains(className) : new RegExp('\\b'+ className+'\\b').test(el.className);
+    },
+    addClass:function(el, className) {
+      if (el.classList) el.classList.add(className);
+      else if (!vJs.hasClass(el, className)) el.className += ' ' + className;
+    },
+    removeClass:function(el, className) {
+      if (el.classList) el.classList.remove(className);
+      else el.className = el.className.replace(new RegExp('\\b'+ className+'\\b', 'g'), '');
+    },
+    dynamicSort:function(property) {
+      var sortOrder = 1;
+      if(property[0] === "-") {
+        sortOrder = -1;
+        property = property.substr(1);
+      }
+      return function (a,b) {
+        var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+        return result * sortOrder;
+      }
+    },
+    show: function (el) {
+        el.style.display = 'block';
+    },
+    hide: function(el) {
+        el.style.display = 'none';
+    },
+    closest:function ( elem, selector ) {
+
+        // Element.matches() polyfill
+        if (!Element.prototype.matches) {
+            Element.prototype.matches =
+                Element.prototype.matchesSelector ||
+                Element.prototype.mozMatchesSelector ||
+                Element.prototype.msMatchesSelector ||
+                Element.prototype.oMatchesSelector ||
+                Element.prototype.webkitMatchesSelector ||
+                function(s) {
+                    var matches = (this.document || this.ownerDocument).querySelectorAll(s),
+                        i = matches.length;
+                    while (--i >= 0 && matches.item(i) !== this) {}
+                    return i > -1;
+                };
+        }
+
+        // Get closest match
+        for ( ; elem && elem !== document; elem = elem.parentNode ) {
+            if ( elem.matches( selector ) ) return elem;
+        }
+
+        return null;
+
+    },
+    getAjax: function (url, callback) {
+        var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                callback(xhr.responseText);
+            }
+        }
+        xhr.open("GET", url, true);
+        xhr.send();
+    },
+    postAjax:function(url, data, success, fail ) {
+            var params = typeof data == 'string' ? data : Object.keys(data).map(
+                    function (k) { return encodeURIComponent(k) + '=' + encodeURIComponent(data[k]) }
+                ).join('&');
+
+            var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
+            xhr.open('POST', url);
+            xhr.onreadystatechange = function () {
+                if (xhr.status == 200){
+                    if (xhr.readyState > 3) { 
+                        success(xhr.responseText); 
+                    }
+                }else{
+                    if (fail) fail(xhr.responseText);
+                }
+            };
+            xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.send(params);
+            return xhr;
+    },
+    postJsonAjax: function (url, data, success, fail) {
+
+        var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
+        xhr.open('POST', url);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState > 3 && xhr.status == 200) { success(xhr.responseText); }else{
+                if (xhr.status == 200){
+                    if (xhr.readyState > 3) { 
+                        success(xhr.responseText); 
+                    }
+                }else{
+                    if (fail) fail(xhr.responseText);
+                }
+            }
+        };
+        xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+        xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+        xhr.send(JSON.stringify(data));
+        return xhr;
+    },
+    getQueryVariable:function(variable) {
+      var query = window.location.search.substring(1);
+      var vars = query.split("&");
+      for (var i = 0; i < vars.length; i++) {
+        var pair = vars[i].split("=");
+        if (pair[0] == variable) {
+          return pair[1];
+        }
+      }
+      return (false);
+    }
+    // ,
+    // findPos:function(obj) {
+	  //   var curtop = 0;
+    //   if (obj.offsetParent) {
+    //     do {
+    //       curtop += obj.offsetTop;
+    //     } while (obj = obj.offsetParent);
+    //   return [curtop];
+    //   }
+    // }
+}
+}();
+
+//vanillaJs.hasClass();

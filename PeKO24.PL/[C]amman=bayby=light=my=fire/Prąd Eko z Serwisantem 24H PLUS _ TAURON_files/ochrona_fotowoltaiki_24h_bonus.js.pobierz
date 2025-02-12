@@ -1,0 +1,260 @@
+var ochrona_fotowoltaiki_24h_bonus = {
+  'oferta_zmiana': {
+    onlineActivation: 594, // bonus w zł za wybór cennika 3 letniego
+    prosumerServiceFeeRefund: 236,
+    noProsumerServiceFeeRefund: 708,
+    ecoBonus: 5,
+    prices: {
+      'ts': '59,00',//cena brutto dla lokalizacji ts w PLN
+      'gze': '59,00',//cena brutto dla lokalizacji gze w PLN
+      'ts_netto': '47,97', // cena netto dla lokalizacji ts w PLN
+      'gze_netto': '47,97',// cena netto dla lokalizacji gze w PLN
+    },
+    documents_prices:
+    {
+                ts:{
+                    brutto:{
+                        // Ceny sprzedażowe brutto
+
+                        'g11':'0,8734 ', //G11 - Cena za prąd niezmienna przez całą dobę. (całodobowy)
+                        'g12_1':'1,089 ',//G12 - Niższa cena za prąd w nocy oraz w wybranych godzinach w ciągu dnia.(strefa I dzienny)
+                        'g12_2':'0,5620 ',//G12 - Niższa cena za prąd w nocy oraz w wybranych godzinach w ciągu dnia.(strefa II szczytowy)
+                        'g12w_1':'1,3355 ',//G12w - Niższa cena za prąd w nocy, w wybranych godzinach w ciągu dnia oraz w weekendy.(Strefa I (nocny))
+                        'g12w_2':'0,5620 ',//G12w - Niższa cena za prąd w nocy, w wybranych godzinach w ciągu dnia oraz w weekendy.(Strefa II (pozaszczytowy))
+                        'g13_1':'0,9943 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa I)
+                        'g13_2':'1,5354 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa II)
+                        'g13_3':'0,6601 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa III)
+                    },
+                    netto:{
+                        // Ceny sprzedażowe netto
+
+                        'g11':'0,7101 ',//G11 - Cena za prąd niezmienna przez całą dobę. (całodobowy)
+                        'g12_1':'0,8854 ',//G12 - Niższa cena za prąd w nocy oraz w wybranych godzinach w ciągu dnia.(strefa I dzienny)
+                        'g12_2':'0,4569 ',//G12 - Niższa cena za prąd w nocy oraz w wybranych godzinach w ciągu dnia.(strefa II szczytowy)
+                        'g12w_1':'1,0858 ',//G12w - Niższa cena za prąd w nocy, w wybranych godzinach w ciągu dnia oraz w weekendy.(Strefa I (nocny))
+                        'g12w_2':'0,4569 ',//G12w - Niższa cena za prąd w nocy, w wybranych godzinach w ciągu dnia oraz w weekendy.(Strefa II (pozaszczytowy))
+                        'g13_1':'0,8084 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa I)
+                        'g13_2':'1,2483 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa II)
+                        'g13_3':'0,5367 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa III)
+                    },
+                },
+                gze:{
+                    brutto:{
+                        // Ceny sprzedażowe brutto
+
+                        'g11':'0,8705 ', //G11 - Cena za prąd niezmienna przez całą dobę. (całodobowy)
+                        'g12_1':'1,0387 ',//G12 - Niższa cena za prąd w nocy oraz w wybranych godzinach w ciągu dnia.(strefa I dzienny)
+                        'g12_2':'0,6988 ',//G12 - Niższa cena za prąd w nocy oraz w wybranych godzinach w ciągu dnia.(strefa II szczytowy)
+                        'g12w_1':'1,1439 ',//G12w - Niższa cena za prąd w nocy, w wybranych godzinach w ciągu dnia oraz w weekendy.(Strefa I (nocny))
+                        'g12w_2':'0,6847 ',//G12w - Niższa cena za prąd w nocy, w wybranych godzinach w ciągu dnia oraz w weekendy.(Strefa II (pozaszczytowy))
+                        'g13_1':'0,9967 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa I)
+                        'g13_2':'1,3274 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa II)
+                        'g13_3':'0,7069 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa III)
+                    },
+                    netto:{
+                        // Ceny sprzedażowe netto
+
+                        'g11':'0,7077 ',//G11 - Cena za prąd niezmienna przez całą dobę. (całodobowy)
+                        'g12_1':'0,8445 ',//G12 - Niższa cena za prąd w nocy oraz w wybranych godzinach w ciągu dnia.(strefa I dzienny)
+                        'g12_2':'0,5681 ',//G12 - Niższa cena za prąd w nocy oraz w wybranych godzinach w ciągu dnia.(strefa II szczytowy)
+                        'g12w_1':'0,9300 ',//G12w - Niższa cena za prąd w nocy, w wybranych godzinach w ciągu dnia oraz w weekendy.(Strefa I (nocny))
+                        'g12w_2':'0,5567 ',//G12w - Niższa cena za prąd w nocy, w wybranych godzinach w ciągu dnia oraz w weekendy.(Strefa II (pozaszczytowy))
+                        'g13_1':'0,8103 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa I)
+                        'g13_2':'1,0792 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa II)
+                        'g13_3':'0,5747 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa III)
+                    },
+                },
+    },
+    documents: // zbiór dokumentów indywidualnych dla danego produktu
+    {
+      ts: // dokumenty dla lokalizacji ts
+      {
+        'doc_cat_1':
+        {
+          // format: contract_invoice
+          'label': 'Cenniki - oferta dotyczy również prosumentów', // jest to nazwa kategorii dokumentów
+          '1_2':
+          {
+            name: 'Cennik Prąd z Ochroną fotowoltaiki 24H - 3 lata - rabat nie mniej niż 0,2% - faktura papierowa', // nazwa pliku która będzie wyświetlana
+            href: 'https://www.tauron.pl/-/media/offer-documents/produkty/2024/12-2024/fotowoltaika/ts/ee-gd-gr02-b-prosof24d-u-ts-3-Q4.ashx' // link do dokumentu
+          },
+          '2_2':
+          {
+            name: 'Cennik Prąd z Ochroną fotowoltaiki 24H - 3 lata - rabat nie mniej niż 0,2% - faktura papierowa', // nazwa pliku która będzie wyświetlana
+            href: 'https://www.tauron.pl/-/media/offer-documents/produkty/2024/12-2024/fotowoltaika/ts/ee-gd-gr02-b-prosof24d-u-ts-3-Q4.ashx' // link do dokumentu
+          },
+          '1_1':
+          {
+            name: 'Cennik Prąd z Ochroną fotowoltaiki 24H - 3 lata - rabat nie mniej niż 5% - e-faktura', // nazwa pliku która będzie wyświetlana
+            href: 'https://www.tauron.pl/-/media/offer-documents/produkty/2024/12-2024/fotowoltaika/ts/ee-gd-gr5-o-prosof24d-u-ts-3-Q4.ashx' // link do dokumentu
+          },
+          '2_1':
+          {
+            name: 'Cennik Prąd z Ochroną fotowoltaiki 24H - 3 lata - rabat nie mniej niż 5% - e-faktura', // nazwa pliku która będzie wyświetlana
+            href: 'https://www.tauron.pl/-/media/offer-documents/produkty/2024/12-2024/fotowoltaika/ts/ee-gd-gr5-o-prosof24d-u-ts-3-Q4.ashx' // link do dokumentu
+          },
+        },
+        'doc_cat_2':
+        {
+          'label': 'Dokumenty podstawowe i regulaminy', // jest to nazwa kategorii dokumentów
+          1:
+          {
+            name: 'Regulamin usługi Ochrona fotowoltaiki 24H', // nazwa pliku która będzie wyświetlana
+            href: 'https://www.tauron.pl/-/media/offer-documents/produkty/prad-ochrona-fotowoltaiki/ts/2022-12-01_ts-gze_gd_regulaminochronafotowoltaiki24h_k_baza.ashx' // link do dokumentu
+          },
+          2:
+          {
+            name: 'Regulamin oferty Ochrona fotowoltaiki 24H z bonusem', // nazwa pliku która będzie wyświetlana
+            href: 'https://www.tauron.pl/-/media/offer-documents/produkty/prad-ochrona-fotowoltaiki/ts/2021-06-01_ts_ts_gze_gd_prad_regulaminofertyochronafotowoltaikizbonusem.ashx' // link do dokumentu
+          },
+          3:
+          {
+            name: 'Wyciąg z Taryfy dla energii elektrycznej TAURON Dystrybucja S.A. na rok 2024', // nazwa pliku która będzie wyświetlana
+            href: 'https://www.tauron.pl/-/media/offer-documents/produkty/prad-ochrona-fotowoltaiki/ts/wyciag-typu-g-z-taryfy-td-sa-na-rok-2021.ashx' // link do dokumentu
+          },
+          4:
+          {
+            name: 'Wyciąg z Taryfy dla energii elektrycznej TAURON Dystrybucja S.A. - Informacja o stawkach brutto na rok 2025', // nazwa pliku która będzie wyświetlana
+            href: 'https://www.tauron.pl/-/media/offer-documents/produkty/prad-ochrona-fotowoltaiki/ts/2022_02_01_ts-gze_infcenybruttowyctartd_g_baza.ashx' // link do dokumentu
+          },
+          5:
+          {
+            name: 'Informacja o cenach energii w Cennikach w okresie obowiązywania rozwiązań osłonowych, tj. do 31 grudnia 2024 roku', // nazwa pliku która będzie wyświetlana
+            href: 'https://www.tauron.pl/-/media/offer-documents/produkty/prad-ochrona-fotowoltaiki/ts/dokl-tarczowa-ts.ashx' // link do dokumentu
+          },
+          6:
+          {
+            name: 'Zbiór Praw Konsumenta Energii Elektrycznej', // nazwa pliku która będzie wyświetlana
+            href: 'https://www.tauron.pl/-/media/offer-documents/produkty/prad-ochrona-fotowoltaiki/ts/zbior_praw_konsumenta_energii_elektrycznej.ashx' // link do dokumentu
+          },
+          7:
+          {
+            name: 'Oświadczenie o zapoznaniu się i akceptacji treści Regulaminu usługi Ochrona fotowoltaiki 24H', // nazwa pliku która będzie wyświetlana
+            href: 'https://www.tauron.pl/-/media/offer-documents/produkty/prad-ochrona-fotowoltaiki/ts/2021_06_01_ts_gze_gd_msp_prad_osw_akcept_reg_uslugi_baza_k.ashx' // link do dokumentu
+          },
+          8:
+          {
+            name: 'Regulamin e-faktury', // nazwa pliku która będzie wyświetlana
+            href: 'https://www.tauron.pl/-/media/offer-documents/produkty/prad-ochrona-fotowoltaiki/ts/regulamin-e-faktura.ashx' // link do dokumentu
+          },
+          9:
+          {
+            name: 'Oświadczenie o wyrażeniu zgody/rezygnacji na e-fakturę', // nazwa pliku która będzie wyświetlana
+            href: 'https://www.tauron.pl/-/media/offer-documents/produkty/prad-ochrona-fotowoltaiki/ts/2020-07-01_ts-gze_gd-msp_oswiadczeniedoefv_prad_k_edyt.ashx' // link do dokumentu
+          },
+          10:
+          {
+            name: 'Umowa Operatorska EDI (dot. elektronicznej wymiany danych)', // nazwa pliku która będzie wyświetlana
+            href: 'https://www.tauron.pl/-/media/offer-documents/produkty/prad-ochrona-fotowoltaiki/ts/umowa-operatorska-edi-ts.ashx' // link do dokumentu
+          },
+          11:
+          {
+            name: 'Wzór formularza odstąpienia od umowy', // nazwa pliku która będzie wyświetlana
+            href: 'https://www.tauron.pl/-/media/offer-documents/produkty/prad-ochrona-fotowoltaiki/ts/ts_formularz_odstapienia.ashx' // link do dokumentu
+          },
+          12:
+          {
+            name: 'Zgody Klienta', // nazwa pliku która będzie wyświetlana
+            href: 'https://www.tauron.pl/-/media/offer-documents/produkty/prad-ochrona-fotowoltaiki/ts/ts_zgody_klienta_podstawowe_pdf_edyt_k.ashx' // link do dokumentu
+          },
+        },
+      },
+      gze: // dokumenty dla lokalizacji gze
+      {
+        'doc_cat_1':
+        {
+          'label': 'Cenniki - oferta dotyczy również prosumentów', // jest to nazwa kategorii dokumentów
+          // format: contract_invoice
+          '1_2':
+          {
+            name: 'Cennik Prąd z Ochroną fotowoltaiki 24H - 3 lata - rabat nie mniej niż 0,2% - faktura papierowa', // nazwa pliku która będzie wyświetlana
+            href: 'https://www.tauron.pl/-/media/offer-documents/produkty/2024/12-2024/fotowoltaika/gze/ee-gd-gr02-b-prosof24d-u-gze-3-Q4.ashx' // link do dokumentu
+          },
+          '2_2':
+          {
+            name: 'Cennik Prąd z Ochroną fotowoltaiki 24H - 3 lata - rabat nie mniej niż 0,2% - faktura papierowa', // nazwa pliku która będzie wyświetlana
+            href: 'https://www.tauron.pl/-/media/offer-documents/produkty/2024/12-2024/fotowoltaika/gze/ee-gd-gr02-b-prosof24d-u-gze-3-Q4.ashx' // link do dokumentu
+          },
+          '1_1':
+          {
+            name: 'Cennik Prąd z Ochroną fotowoltaiki 24H - 3 lata - rabat nie mniej niż 5% - e-faktura', // nazwa pliku która będzie wyświetlana
+            href: 'https://www.tauron.pl/-/media/offer-documents/produkty/2024/12-2024/fotowoltaika/gze/ee-gd-gr5-o-prosof24d-u-gze-3-Q4.ashx' // link do dokumentu
+          },
+          '2_1':
+          {
+            name: 'Cennik Prąd z Ochroną fotowoltaiki 24H - 3 lata - rabat nie mniej niż 5% - e-faktura', // nazwa pliku która będzie wyświetlana
+            href: 'https://www.tauron.pl/-/media/offer-documents/produkty/2024/12-2024/fotowoltaika/gze/ee-gd-gr5-o-prosof24d-u-gze-3-Q4.ashx' // link do dokumentu
+          },
+        },
+        'doc_cat_2':
+        {
+          'label': 'Dokumenty podstawowe i regulaminy', // jest to nazwa kategorii dokumentów
+          1:
+          {
+            name: 'Regulamin usługi Ochrona fotowoltaiki 24H', // nazwa pliku która będzie wyświetlana
+            href: 'https://www.tauron.pl/-/media/offer-documents/produkty/prad-ochrona-fotowoltaiki/gze/2022-12-01_ts-gze_gd_regulaminochronafotowoltaiki24h_k_baza.ashx' // link do dokumentu
+          },
+          2:
+          {
+            name: 'Regulamin oferty Ochrona fotowoltaiki 24H z bonusem', // nazwa pliku która będzie wyświetlana
+            href: 'https://www.tauron.pl/-/media/offer-documents/produkty/prad-ochrona-fotowoltaiki/gze/2021-06-01_ts_ts_gze_gd_prad_regulaminofertyochronafotowoltaikizbonusem.ashx' // link do dokumentu
+          },
+          3:
+          {
+            name: 'Wyciąg z Taryfy dla energii elektrycznej TAURON Dystrybucja S.A. na rok 2024', // nazwa pliku która będzie wyświetlana
+            href: 'https://www.tauron.pl/-/media/offer-documents/produkty/prad-ochrona-fotowoltaiki/gze/wyciag-typu-g-z-taryfy-td-sa-na-rok-2021.ashx' // link do dokumentu
+          },
+          4:
+          {
+            name: 'Wyciąg z Taryfy dla energii elektrycznej TAURON Dystrybucja S.A. - Informacja o stawkach brutto na rok 2025', // nazwa pliku która będzie wyświetlana
+            href: 'https://www.tauron.pl/-/media/offer-documents/produkty/prad-ochrona-fotowoltaiki/gze/2022_02_01_ts-gze_infcenybruttowyctartd_g_baza.ashx' // link do dokumentu
+          },
+          5:
+          {
+            name: 'Informacja o cenach energii w Cennikach w okresie obowiązywania rozwiązań osłonowych, tj. do 31 grudnia 2024 roku', // nazwa pliku która będzie wyświetlana
+            href: 'https://www.tauron.pl/-/media/offer-documents/produkty/prad-ochrona-fotowoltaiki/gze/dokl-tarczowa-gze.ashx' // link do dokumentu
+          },
+          6:
+          {
+            name: 'Zbiór Praw Konsumenta Energii Elektrycznej', // nazwa pliku która będzie wyświetlana
+            href: 'https://www.tauron.pl/-/media/offer-documents/produkty/prad-ochrona-fotowoltaiki/gze/zbior_praw_konsumenta_energii_elektrycznej.ashx' // link do dokumentu
+          },
+          7:
+          {
+            name: 'Oświadczenie o zapoznaniu się i akceptacji treści Regulaminu usługi Ochrona fotowoltaiki 24H', // nazwa pliku która będzie wyświetlana
+            href: 'https://www.tauron.pl/-/media/offer-documents/produkty/prad-ochrona-fotowoltaiki/gze/2021_06_01_ts_gze_gd_msp_prad_osw_akcept_reg_uslugi_baza_k.ashx'// link do dokumentu
+          },
+          8:
+          {
+            name: 'Regulamin e-faktury', // nazwa pliku która będzie wyświetlana
+            href: 'https://www.tauron.pl/-/media/offer-documents/produkty/prad-ochrona-fotowoltaiki/gze/regulamin-e-faktura.ashx' // link do dokumentu
+          },
+          9:
+          {
+            name: 'Oświadczenie o wyrażeniu zgody/rezygnacji na e-fakturę', // nazwa pliku która będzie wyświetlana
+            href: 'https://www.tauron.pl/-/media/offer-documents/produkty/prad-ochrona-fotowoltaiki/gze/2020-07-01_ts-gze_gd-msp_oswiadczeniedoefv_prad_k_edyt.ashx' // link do dokumentu
+          },
+          10:
+          {
+            name: 'Umowa Operatorska EDI (dot. elektronicznej wymiany danych)', // nazwa pliku która będzie wyświetlana
+            href: 'https://www.tauron.pl/-/media/offer-documents/produkty/prad-ochrona-fotowoltaiki/gze/umowa-operatorska-edi.ashx' // link do dokumentu
+          },
+          11:
+          {
+            name: 'Wzór formularza odstąpienia od umowy ', // nazwa pliku która będzie wyświetlana
+            href: 'https://www.tauron.pl/-/media/offer-documents/produkty/prad-ochrona-fotowoltaiki/gze/gze_formularz_odstapienia.ashx' // link do dokumentu
+          },
+          12:
+          {
+            name: 'Zgody Klienta', // nazwa pliku która będzie wyświetlana
+            href: 'https://www.tauron.pl/-/media/offer-documents/produkty/prad-ochrona-fotowoltaiki/gze/tsp_gze_zgody_klienta_podstawowe_pdf_edyt_k.ashx' // link do dokumentu
+          },
+        },
+      },
+    },
+    price_table_extra_information: {
+      before_price: 'opłata handlowa (stawka stała) za usługę dodatkową', // tekst wyświetlany w Tabeli Cenowej przed opłatą handlową (stawką stałą)
+      after_price: '(przez cały okres trwania cennika)' // tekst wyświetlany w Tabeli Cenowej po opłacie handlowej (stawce stałej)
+    }
+  },
+};

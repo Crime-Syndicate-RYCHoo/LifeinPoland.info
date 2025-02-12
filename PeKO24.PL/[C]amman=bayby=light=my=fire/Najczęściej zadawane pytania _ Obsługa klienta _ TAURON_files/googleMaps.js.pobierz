@@ -1,0 +1,116 @@
+var googleMapsJs = function() {
+    return {
+        //result object
+        userCoordinates: {
+            Latitude: null,
+            Longitude: null,
+            Zipcode: null,
+            City: null,
+            Street: null
+        },
+        getDataByGeoIpAddress: function(callback) { 
+            var oGetGeoIpReq;
+
+                //get geoip
+                oGetGeoIpReq = new XMLHttpRequest();
+                oGetGeoIpReq.open("GET", "/iapi/geoip/city", true);
+                oGetGeoIpReq.onload = function() {
+                    if(oGetGeoIpReq.status === 200) {
+                        var data = JSON.parse(oGetGeoIpReq.response);
+                        //store in cookies
+                        for(var p in data) {
+                            if(data.hasOwnProperty(p)) {
+                                //set new value
+                                cookiesJs.setCookie(p, data[p]);
+                            }
+                        }
+                        //custom action
+                        if(callback) {
+                            callback();
+                        }
+                    }
+                };
+                oGetGeoIpReq.send();
+
+
+
+        },
+        //function for filling userCoordinates object,
+        //callback - custom action that rise after userCoordinates is filled
+        getDataByNavigation: function(callback) {
+            if(navigator.geolocation) {
+                //binding to the returned object
+                var self = this;
+                navigator.geolocation.getCurrentPosition(function(pos) {
+                        //success
+
+                        //reset user coordinates
+                        self.userCoordinates.Latitude = null;
+                        self.userCoordinates.Longitude = null;
+
+                        //get postal and city
+                        self.userCoordinates.Latitude = pos.coords.latitude;
+                        self.userCoordinates.Longitude = pos.coords.longitude;
+
+                        //geocoder
+                        var geocoder = new google.maps.Geocoder();
+                        //structure latlng
+                        var latlng = new google.maps.LatLng(self.userCoordinates.Latitude,
+                            self.userCoordinates.Longitude);
+                        //geocode
+                        geocoder.geocode({ 'location': latlng },
+                            function(results, status) {
+                                if(status === google.maps.GeocoderStatus.OK) {
+                                    //reset user coordinates
+                                    self.userCoordinates.Zipcode = null;
+                                    self.userCoordinates.City = null;
+                                    self.userCoordinates.Street = null;
+
+                                    //get zipcode
+                                    for(var i = 0; i < results.length; i++) {
+                                        for(var j = 0; j < results[i].address_components.length; j++) {
+                                            for(var k = 0; k < results[i].address_components[j].types.length; k++) {
+                                                if(results[i].address_components[j].types[k] === "postal_code") {
+                                                    self.userCoordinates
+                                                        .Zipcode = results[i].address_components[j].short_name;
+                                                }
+                                                if(results[i].address_components[j].types[k] === "locality") {
+                                                    self.userCoordinates
+                                                        .City = results[i].address_components[j].long_name;
+                                                }
+                                                if(results[i].address_components[j].types[k] === "route") {
+                                                    self.userCoordinates
+                                                        .Street = results[i].address_components[j].long_name;
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    //store in cookies
+                                    for(var prop in self.userCoordinates) {
+                                        if(self.userCoordinates.hasOwnProperty(prop)) {
+                                            //set new value
+                                            cookiesJs.setCookie(prop, self.userCoordinates[prop]);
+                                        }
+                                    }
+
+                                    //custom action
+                                    if(callback) {
+                                        callback();
+                                    }
+                                } else {
+                                    self.getDataByGeoIpAddress(callback);
+                                    //window.alert("Geocoder failed due to: " + status);
+                                }
+                            });
+                    },
+                    function() {
+                        self.getDataByGeoIpAddress(callback);
+                        //window.alert("Geocoder failed");
+                    });
+            } else {
+                this.getDataByGeoIpAddress(callback);
+            }
+        }
+    };
+}();

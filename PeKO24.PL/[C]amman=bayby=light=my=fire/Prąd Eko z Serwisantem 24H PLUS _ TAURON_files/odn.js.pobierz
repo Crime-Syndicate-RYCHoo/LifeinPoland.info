@@ -1,0 +1,1078 @@
+var odn = {
+    products_files: {
+        'id_1': prad_eko_z_serwisantem_24h,
+        'id_2': prad_eko_z_serwisantem_24h_plus,
+        'id_3': prad_eko_z_serwisantem_komputerowym_24h,
+        'id_4': prad_z_serwisantem_komputerowym_24h,
+        'id_5': prad_z_serwisantem_24h_plus,
+        'id_6': prad_eko_z_usluga_zdrowie_24h,
+        'id_7': prad_z_serwisantem_24h,
+        'id_8': prad_z_usluga_zdrowie_24h,
+        'id_9': trojpak_bez_eko,
+        'id_10': prosument_plus,
+        'id_11': prad_eko,
+        'id_12': prad_z_usluga_zdrowie_i_opieka_24h,
+        'id_13': ochrona_fotowoltaiki_24h,
+        'id_16': trojpak,
+        'id_17': elektryk24h_plus,
+        'id_22': prad_las,
+        'id_23': prad_eko_las,
+        // 'id_24': ochrona_pv_24h,
+        'id_25': ochrona_fotowoltaiki_24h_plus,
+        'id_26': nowa_energia
+    },
+    pricesBuilder: function(prdRegion, id,kind){
+        var term_time = 'Umowa na 3&nbsp;lata';
+        var prdName = false;
+        var present_offert = 'oferta_zmiana_nowa_zakladka';
+        switch(id) {
+            case 'id_1':
+                prdName = 'Cennik Prąd Eko z Serwisantem 24H - e-faktura - rabat nie mniej niż 10%';
+                term_time = 'Umowa na 3&nbsp;lata';
+                break;
+            case 'id_2':
+                prdName = 'Cennik Prąd Eko z Serwisantem 24H PLUS - e-faktura - rabat nie mniej niż 10%';
+                term_time = 'Umowa na 3&nbsp;lata';
+                break;
+            case 'id_3':
+                prdName = 'Cennik Prąd Eko z Serwisantem komputerowym 24H - e-faktura - rabat nie mniej niż 10%';
+                term_time = 'Umowa na 3&nbsp;lata';
+                break;
+            case 'id_4':
+                prdName = 'Cennik Prąd z Serwisantem Komputerowym 24H - e-faktura - rabat nie mniej niż 5%';
+                term_time = 'Umowa na 3&nbsp;lata';
+                break;
+            case 'id_5':
+                prdName = 'Cennik Prąd z Serwisantem 24H PLUS - e-faktura - rabat nie mniej niż 5%';
+                term_time = 'Umowa na 3&nbsp;lata';
+                break;
+            case 'id_6':
+                prdName = 'Cennik Prąd Eko z usługą Zdrowie 24H - e-faktura - rabat nie mniej niż 10%';
+                term_time = 'Umowa na 3&nbsp;lata';
+                break;
+            case 'id_7':
+                prdName = 'Cennik Prąd z Serwisantem 24H - e-faktura - rabat nie mniej niż 5%';
+                term_time = 'Umowa na 3&nbsp;lata';
+                break;
+            case 'id_8':
+                prdName = 'Cennik Prąd z usługą Zdrowie 24H dla domu - e-faktura - rabat nie mniej niż 5%';
+                term_time = 'Umowa na 3&nbsp;lata';
+                break;
+            case 'id_9':
+                prdName = 'Cennik Prąd z Serwisantem komputerowym 24H i Serwisantem 24H PLUS - e-faktura - rabat nie mniej niż 10%';
+                term_time = 'Umowa na 3&nbsp;lata';
+                break;
+            case 'id_10':
+                prdName = '';
+                break;
+            case 'id_11':
+                prdName = 'Cennik Prąd z Eko - e-faktura - rabat nie mniej niż 5%';
+                term_time = 'Umowa na 3&nbsp;lata';
+                break;
+            case 'id_12':
+                prdName = 'Cennik Prąd z usługami Zdrowie i Opieka 24H - rabat nie mniej niż 10%';
+                term_time = 'Umowa na 3&nbsp;lata';
+                break;
+            case 'id_13':
+                prdName = 'Cennik Prąd z Ochroną fotowoltaiki 24H - rabat nie mniej niż 5%';
+                term_time = 'Umowa na 3&nbsp;lata';
+                break;
+            case 'id_16':
+                prdName = 'Cennik Prąd EKO z Serwisantem komputerowym 24H i Serwisantem 24H PLUS - e-faktura - rabat nie mniej niż 10%';
+                term_time = 'Umowa na 3&nbsp;lata';
+                break;
+            case 'id_17':
+                prdName = 'Cennik Prąd z Elektrykiem 24H PLUS - rabat nie mniej niż 5%';
+                term_time = 'Umowa na 3&nbsp;lata';
+                break;
+            case 'id_22':
+                prdName = 'Cennik Prąd + LAS - rabat nie mniej niż 5%';
+                term_time = 'Umowa na 3&nbsp;lata';
+                break;
+            case 'id_23':
+                prdName = 'Cennik Prąd z Eko + LAS - rabat nie mniej niż 10%';
+                term_time = 'Umowa na 3&nbsp;lata';
+                break;
+            case 'id_25':
+                prdName = 'Cennik Prąd z Ochroną fotowoltaiki z Serwisantem 24H PLUS - rabat nie mniej niż 10%';
+                term_time = 'Umowa na 3&nbsp;lata';
+                break;
+            case 'id_26':
+                prdName = 'Cennik TAURON Nowa Energia (e-faktura, cennik na 9 lat)';
+                term_time = '';
+                break;
+            default:
+            // code block
+        }
+
+        var t = this;
+        $('.z_doc_field_old_tab').empty();
+        var tax = (kind == 1)?'brutto':'netto';
+        var localTax = '';
+        if(tax == 'brutto'){
+            localTax = prdRegion;
+        }
+        else{
+            localTax = prdRegion + '_' + tax;
+        }
+
+        if(prdRegion == 'ts_prawo'){
+            prdRegion = 'ts';
+            var newTs = 'ts_prawo';
+            var documents_prices_common = global_list[present_offert].documents_prices.common[newTs][tax];
+            if(tax == 'brutto'){
+                localTax = prdRegion;
+            } else {
+                localTax = prdRegion + '_' + tax;
+            }
+        } else {
+            var documents_prices_common = global_list[present_offert].documents_prices.common[prdRegion][tax];
+        }
+
+        var documents_prices = t.products_files[id][present_offert].odn_documents_prices[prdRegion][tax];
+
+        var pricePrd = t.products_files[id][present_offert].odn_prices[localTax];
+
+        var after_header_description = global_list[present_offert].documents_prices.price_table_extra_information.top_information;
+        var second_after_header_description = global_list[present_offert].documents_prices.price_table_extra_information.bottom_information;
+
+        var docContent = $('.z_doc_field_old_tab');
+        if(id === "id_26"){
+            docContent.append('<div class="z_doc_prime_row">' +
+                '<div class="z_doc_single_row">' +
+                '<div class="z_doc_row_head z_open">' +
+                '<p class="c_semibold c_f5">Ceny sprzedażowe <span class="c_f1">(opłata za prąd za kWh)</span> <span class="z_doc_arrow"></span> </p>' +
+                '<p class="f_0" style="margin-top: 10px !important; margin-bottom: 10px !important; font-weight: bold;">'+ after_header_description +'</p>' +
+                '<p class="f_0">Opłata handlowa (stawka stała) obejmuje opłatę za gwarancję niezmienności ceny prądu i&nbsp;stawek opłat oraz opłatę za gwarancję pochodzenia z&nbsp;odnawialnych źródeł energii.</p>' +
+                '</div>' +
+                '<div class="z_doc_row_flex z_flex_4 z_open">' +
+                //Grupa taryfowa
+                '<div class="single_row z_row_flex_column w100">' +
+                '<div class="w20">' +
+                '<div class="z_row_flex_cell h2"><p class="p_f1 c_semibold">Grupa taryfowa</p></div>' +
+                '</div>' +
+                '<div class="w20">' +
+                '<div class="z_row_flex_cell h2"><p class="p_f1 c_semibold">Strefa</p></div>' +
+                '</div>' +
+                '<div class="w25">' +
+                '<div class="z_row_flex_cell h2"><p class="p_f1 c_semibold">Taryfa sprzedawcy<br> <span class="p_f0">(e-faktura lub faktura papierowa)</span></p></div>' +
+                '</div>' +
+                '<div class="w35">' +
+                '<div class="z_row_flex_cell h2"><p class="p_f1 c_semibold">' + prdName + '</p></div>' +
+                '</div>' +
+                '</div>'+
+                '<div class="single_row z_row_flex_column w100">' +
+                '   <div class="w20">' +
+                '   <div class="z_row_flex_cell h2"><p class="p_f1 c_semibold">G11 <span class="p_f0">- Cena za prąd niezmienna przez całą dobę.</span> </p></div>' +
+                '   </div>' +
+                '   <div class="w20">' +
+                '       <div class="z_row_flex_cell h2"><p class="p_f0">Całodobowy </p></div>' +
+                '   </div>' +
+                '   <div class="w25">' +
+                '       <div class="z_row_flex_cell h2"><p class="p_f0">'+ documents_prices_common['g11'] +' zł/kWh</p></div>' +
+                '   </div>' +
+                '   <div class="w35">' +
+                '       <div class="z_row_flex_cell h2"><p class="p_f0">'+ documents_prices['g11'] +' zł/kWh</p></div>' +
+                '   </div>' +
+                '</div>'+
+                '<div class="single_row z_row_flex_column w100">' +
+                '   <div class="w20">' +
+                '       <div class="z_row_flex_cell h2"><p class="p_f1 c_semibold">G12 <span class="p_f0">- Niższa cena za prąd w nocy oraz w wybranych godzinach w ciągu dnia.</span> </p></div>' +
+                '   </div>' +
+                '   <div class="w20">' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">Strefa I (dzienny) </p></div>' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">Strefa II (szczytowy) </p></div>' +
+                '   </div>' +
+                '   <div class="w25">' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">'+ documents_prices_common['g12_1'] +' zł/kWh</p></div>' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">'+ documents_prices_common['g12_2'] +' zł/kWh</p></div>' +
+                '   </div>' +
+                '   <div class="w35">' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">'+ documents_prices['g12_1'] +' zł/kWh</p></div>' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">'+ documents_prices['g12_2'] +' zł/kWh</p></div>' +
+                '   </div>' +
+                '</div>'+
+                '<div class="single_row z_row_flex_column w100">' +
+                '   <div class="w20">' +
+                '       <div class="z_row_flex_cell h2"><p class="p_f1 c_semibold">G12w <span class="p_f0">- Niższa cena za prąd w nocy, w wybranych godzinach w ciągu dnia oraz w weekendy.</span> </p></div>' +
+                '   </div>' +
+                '   <div class="w20">' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">Strefa I (nocny) </p></div>' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">Strefa II (pozaszczytowy) </p></div>' +
+                '   </div>' +
+                '   <div class="w25">' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">'+ documents_prices_common['g12w_1'] +' zł/kWh</p></div>' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">'+ documents_prices_common['g12w_2'] +' zł/kWh</p></div>' +
+                '   </div>' +
+                '   <div class="w35">' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">'+ documents_prices['g12w_1'] +' zł/kWh</p></div>' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">'+ documents_prices['g12w_2'] +' zł/kWh</p></div>' +
+                '   </div>' +
+                '</div>'+
+                '<div class="single_row z_row_flex_column w100">' +
+                '   <div class="w20">' +
+                '     <div class="z_row_flex_cell h3"><p class="p_f1 c_semibold">G13 <span class="p_f0">- Niższa cena za prąd w wybranych godzinach w ciągu doby.</span> </p></div>' +
+                '   </div>' +
+                '   <div class="w20">' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">Strefa I (szczyt przedpołudniowy) </p></div>' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">Strefa II (szczyt popołudniowy) </p></div>' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">Strefa III (pozostałegodziny doby) </p></div>' +
+                '   </div>' +
+                '   <div class="w25">' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">'+ documents_prices_common['g13_1'] +' zł/kWh</p></div>' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">'+ documents_prices_common['g13_2'] +' zł/kWh</p></div>' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">'+ documents_prices_common['g13_3'] +' zł/kWh</p></div>' +
+                '   </div>' +
+                '   <div class="w35">' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">'+ documents_prices['g13_1'] +' zł/kWh</p></div>' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">'+ documents_prices['g13_2'] +' zł/kWh</p></div>' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">'+ documents_prices['g13_3'] +' zł/kWh</p></div>' +
+                '   </div>' +
+                '</div>'+
+                '<div class="single_row z_row_flex_column w100">' +
+                '   <div class="w20">' +
+                '      <div class="z_row_flex_cell h1"><p class="p_f1 c_semibold">'+ ((prdRegion == 'ts') ? 'Opłata handlowa' : 'Stawka stała') +' </p></div>' +
+                '   </div>' +
+                '   <div class="w20">' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">- </p></div>' +
+                '   </div>' +
+                '   <div class="w25">' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">'+ documents_prices_common['fixed_rate_1'] +' zł/mc</p></div>' +
+                '   </div>' +
+                '   <div class="w35">' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">' + documents_prices['opl_handl_1'] + ' zł/mc </p></div>' +
+                '   </div>' +
+                '</div>'+
+                '</div>' +
+                '</div>' +
+                '</div>');
+        } else {
+            docContent.append('<div class="z_doc_prime_row">' +
+                '<div class="z_doc_single_row">' +
+                '<div class="z_doc_row_head z_open">' +
+                '<p class="c_semibold c_f5">Ceny sprzedażowe <span class="c_f1">(opłata za prąd za kWh)</span> <span class="z_doc_arrow"></span> </p>' +
+                '<p class="f_0" style="margin-top: 10px !important; margin-bottom: 10px !important; font-weight: bold;">'+ after_header_description +'</p>' +
+                '<p class="f_0">Za usługę dodatkową pobierana jest opłata handlowa (stawka stała) określona w&nbsp;Cenniku. Z&nbsp;Cennikiem można zapoznać się w&nbsp;szczegółach oferty.</p>' +
+                '</div>' +
+                '<div class="z_doc_row_flex z_flex_4 z_open">' +
+                //Grupa taryfowa
+                '<div class="single_row z_row_flex_column w100">' +
+                '<div class="w20">' +
+                '<div class="z_row_flex_cell h2"><p class="p_f1 c_semibold">Grupa taryfowa</p></div>' +
+                '</div>' +
+                '<div class="w20">' +
+                '<div class="z_row_flex_cell h2"><p class="p_f1 c_semibold">Strefa</p></div>' +
+                '</div>' +
+                '<div class="w25">' +
+                '<div class="z_row_flex_cell h2"><p class="p_f1 c_semibold">Taryfa sprzedawcy<br> <span class="p_f0">(e-faktura lub faktura papierowa)</span></p></div>' +
+                '</div>' +
+                '<div class="w35">' +
+                '<div class="z_row_flex_cell h2"><p class="p_f1 c_semibold">' + prdName + '</p></div>' +
+                '</div>' +
+                '</div>'+
+                '<div class="single_row z_row_flex_column w100">' +
+                '   <div class="w20">' +
+                '   <div class="z_row_flex_cell h2"><p class="p_f1 c_semibold">G11 <span class="p_f0">- Cena za prąd niezmienna przez całą dobę.</span> </p></div>' +
+                '   </div>' +
+                '   <div class="w20">' +
+                '       <div class="z_row_flex_cell h2"><p class="p_f0">Całodobowy </p></div>' +
+                '   </div>' +
+                '   <div class="w25">' +
+                '       <div class="z_row_flex_cell h2"><p class="p_f0">'+ documents_prices_common['g11'] +' zł/kWh</p></div>' +
+                '   </div>' +
+                '   <div class="w35">' +
+                '       <div class="z_row_flex_cell h2"><p class="p_f0">'+ documents_prices['g11'] +' zł/kWh</p></div>' +
+                '   </div>' +
+                '</div>'+
+                '<div class="single_row z_row_flex_column w100">' +
+                '   <div class="w20">' +
+                '       <div class="z_row_flex_cell h2"><p class="p_f1 c_semibold">G12 <span class="p_f0">- Niższa cena za prąd w nocy oraz w wybranych godzinach w ciągu dnia.</span> </p></div>' +
+                '   </div>' +
+                '   <div class="w20">' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">Strefa I (dzienny) </p></div>' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">Strefa II (szczytowy) </p></div>' +
+                '   </div>' +
+                '   <div class="w25">' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">'+ documents_prices_common['g12_1'] +' zł/kWh</p></div>' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">'+ documents_prices_common['g12_2'] +' zł/kWh</p></div>' +
+                '   </div>' +
+                '   <div class="w35">' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">'+ documents_prices['g12_1'] +' zł/kWh</p></div>' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">'+ documents_prices['g12_2'] +' zł/kWh</p></div>' +
+                '   </div>' +
+                '</div>'+
+                '<div class="single_row z_row_flex_column w100">' +
+                '   <div class="w20">' +
+                '       <div class="z_row_flex_cell h2"><p class="p_f1 c_semibold">G12w <span class="p_f0">- Niższa cena za prąd w nocy, w wybranych godzinach w ciągu dnia oraz w weekendy.</span> </p></div>' +
+                '   </div>' +
+                '   <div class="w20">' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">Strefa I (nocny) </p></div>' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">Strefa II (pozaszczytowy) </p></div>' +
+                '   </div>' +
+                '   <div class="w25">' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">'+ documents_prices_common['g12w_1'] +' zł/kWh</p></div>' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">'+ documents_prices_common['g12w_2'] +' zł/kWh</p></div>' +
+                '   </div>' +
+                '   <div class="w35">' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">'+ documents_prices['g12w_1'] +' zł/kWh</p></div>' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">'+ documents_prices['g12w_2'] +' zł/kWh</p></div>' +
+                '   </div>' +
+                '</div>'+
+                '<div class="single_row z_row_flex_column w100">' +
+                '   <div class="w20">' +
+                '     <div class="z_row_flex_cell h3"><p class="p_f1 c_semibold">G13 <span class="p_f0">- Niższa cena za prąd w wybranych godzinach w ciągu doby.</span> </p></div>' +
+                '   </div>' +
+                '   <div class="w20">' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">Strefa I (szczyt przedpołudniowy) </p></div>' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">Strefa II (szczyt popołudniowy) </p></div>' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">Strefa III (pozostałegodziny doby) </p></div>' +
+                '   </div>' +
+                '   <div class="w25">' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">'+ documents_prices_common['g13_1'] +' zł/kWh</p></div>' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">'+ documents_prices_common['g13_2'] +' zł/kWh</p></div>' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">'+ documents_prices_common['g13_3'] +' zł/kWh</p></div>' +
+                '   </div>' +
+                '   <div class="w35">' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">'+ documents_prices['g13_1'] +' zł/kWh</p></div>' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">'+ documents_prices['g13_2'] +' zł/kWh</p></div>' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">'+ documents_prices['g13_3'] +' zł/kWh</p></div>' +
+                '   </div>' +
+                '</div>'+
+                '<div class="single_row z_row_flex_column w100">' +
+                '   <div class="w20">' +
+                '      <div class="z_row_flex_cell h2"><p class="p_f1 c_semibold">'+ ((prdRegion == 'ts') ? 'Opłata handlowa' : 'Stawka stała') +' </p></div>' +
+                '   </div>' +
+                '   <div class="w20">' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">- </p></div>' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">- </p></div>' +
+                '   </div>' +
+                '   <div class="w25">' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">'+ documents_prices_common['fixed_rate_1'] +' zł/mc</p></div>' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">'+ documents_prices_common['fixed_rate_2'] +' zł/mc</p></div>' +
+                '   </div>' +
+                '   <div class="w35">' +
+                '       <div class="z_row_flex_cell h2"><p class="p_f0"> <span style="font-size: 12px; color: #000;">'+ term_time +', '+ t.products_files[id][present_offert].price_table_extra_information.before_price +'</span> <br> '+ pricePrd + ' zł/m-c <span style="font-size: 12px; color: #000;"> '+ t.products_files[id][present_offert].price_table_extra_information.after_price +'</span> </p></div>' +
+                '   </div>' +
+                '</div>'+
+                '</div>' +
+                '</div>' +
+                '</div>');
+        }
+        docContent.append('<h4 class="p_f30 c_semibold z_doc_spacer">Opłaty dystrybucyjne</h4> <p class="f_0" style="margin-top: 10px !important; margin-bottom: 10px !important; font-weight: bold;">' + second_after_header_description +'</p>');
+        docContent.append('<div class="z_doc_prime_row">' +
+            '<div class="z_doc_single_row">' +
+            '<div class="z_doc_row_flex z_flex_3">' +
+            // Opłaty dystrybucyjne g11
+            '<div class="z_row_flex_column z_row_flex w45">' +
+            '<div class="z_row_flex_cell h2"><p class="p_f1 c_semibold z_flex_head">Opłaty zmienne G11 <span class="c_f1">(składnik zmienny stawki sieciowej + stawka jakościowa + opłata OZE + opłata kogeneracyjna)</span> <span class="z_doc_arrow"></span> </p></div>' +
+            '<div class="z_row_flex_cell h3 z_able_to_hide"><p class="p_f1 c_semibold">Opłaty stałe<br> <span class="p_f0">(składnik stały + opłata przejściowa)- układ jednofazowy</span> </p></div>' +
+            '<div class="z_row_flex_cell h3 z_able_to_hide"><p class="p_f1 c_semibold">Opłaty stałe<br> <span class="p_f0">(składnik stały + opłata przejściowa)- układ trójfazowy</span> </p></div>' +
+            '<div class="z_row_flex_cell h4 z_able_to_hide"><p class="p_f1 c_semibold">Abonament</p></div>' +
+            '</div> ' +
+            // Opłaty dystrybucyjne całodobowa ceny
+            '<div class="z_row_flex_column z_row_flex w20">' +
+            '<div class="z_row_flex_cell h2"><p class="p_f0 c_semibold">Całodobowa</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">< 500 kWh </p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">500-1200 kWh </p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">> 1200 kWh</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">< 500 kWh </p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">500-1200 kWh </p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">> 1200 kWh</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">- </p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">- </p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">- </p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">- </p></div>' +
+            '</div>' +
+            // Opłaty dystrybucyjne Całodobowa
+            '<div class="z_row_flex_column z_row_flex w35">' +
+            '<div class="z_row_flex_cell h2"><p class="p_f1 c_semibold">'+ documents_prices_common['distibution_g11_1'] +' zł/kWh</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common['distibution_g11_fixed_rate_1'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common['distibution_g11_fixed_rate_2'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common['distibution_g11_fixed_rate_3'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common['distibution_g11_fixed_rate_4'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common['distibution_g11_fixed_rate_5'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common['distibution_g11_fixed_rate_6'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common['distibution_g11_ab_1'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common['distibution_g11_ab_2'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common['distibution_g11_ab_3'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common['distibution_g11_ab_4'] +' (zł/mc)</p></div>' +
+            '</div>' +
+
+            '</div>' +
+            '</div>' +
+            '</div>');
+
+        docContent.append('<div class="z_doc_prime_row">' +
+            '<div class="z_doc_single_row">' +
+            '<div class="z_doc_row_flex z_flex_3">' +
+            // Opłaty dystrybucyjne g12
+            '<div class="z_row_flex_column z_row_flex w45">' +
+            '<div class="z_row_flex_cell h2"><p class="p_f1 c_semibold z_flex_head">Opłaty zmienne G12 <span class="c_f1">(składnik zmienny stawki sieciowej + stawka jakościowa + opłata OZE + opłata kogeneracyjna)</span> <span class="z_doc_arrow"></span> </p></div>' +
+            '<div class="z_row_flex_cell h3 z_able_to_hide"><p class="p_f1 c_semibold">Opłaty stałe<br> <span class="p_f0">(składnik stały + opłata przejściowa)- układ jednofazowy</span> </p></div>' +
+            '<div class="z_row_flex_cell h3 z_able_to_hide"><p class="p_f1 c_semibold">Opłaty stałe<br> <span class="p_f0">(składnik stały + opłata przejściowa)- układ trójfazowy</span> </p></div>' +
+            '<div class="z_row_flex_cell h4 z_able_to_hide"><p class="p_f1 c_semibold">Abonament</p></div>' +
+            '</div> ' +
+            // Opłaty dystrybucyjne całodobowa ceny
+            '<div class="z_row_flex_column z_row_flex w20">' +
+            '<div class="z_row_flex_cell h2"><p class="p_f0 c_semibold">Dzienny/ Szczytowy <br> Nocny/ pozaszczytowy</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">< 500 kWh </p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">500-1200 kWh </p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">> 1200 kWh</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">< 500 kWh </p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">500-1200 kWh </p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">> 1200 kWh</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">- </p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">- </p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">- </p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">- </p></div>' +
+            '</div>' +
+            // Opłaty dystrybucyjne Całodobowa
+            '<div class="z_row_flex_column z_row_flex w35">' +
+            '<div class="z_row_flex_cell h2"><p class="p_f1 c_semibold">'+ documents_prices_common['distibution_g12_1'] +' zł/kWh <br> '+ documents_prices_common['distibution_g12_2'] +' zł/kWh</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common['distibution_g12_fixed_rate_1'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common['distibution_g12_fixed_rate_2'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common['distibution_g12_fixed_rate_3'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common['distibution_g12_fixed_rate_4'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common['distibution_g12_fixed_rate_5'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common['distibution_g12_fixed_rate_6'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common['distibution_g12_ab_1'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common['distibution_g12_ab_2'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common['distibution_g12_ab_3'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common['distibution_g12_ab_4'] +' (zł/mc)</p></div>' +
+            '</div>' +
+
+            '</div>' +
+            '</div>' +
+            '</div>');
+
+        docContent.append('<div class="z_doc_prime_row">' +
+            '<div class="z_doc_single_row">' +
+            '<div class="z_doc_row_flex z_flex_3">' +
+            // Opłaty dystrybucyjne g12w
+            '<div class="z_row_flex_column z_row_flex w45">' +
+            '<div class="z_row_flex_cell h2"><p class="p_f1 c_semibold z_flex_head">Opłaty zmienne G12w <span class="c_f1">(składnik zmienny stawki sieciowej + stawka jakościowa + opłata OZE + opłata kogeneracyjna)</span> <span class="z_doc_arrow"></span> </p></div>' +
+            '<div class="z_row_flex_cell h3 z_able_to_hide"><p class="p_f1 c_semibold">Opłaty stałe<br> <span class="p_f0">(składnik stały + opłata przejściowa)- układ jednofazowy</span> </p></div>' +
+            '<div class="z_row_flex_cell h3 z_able_to_hide"><p class="p_f1 c_semibold">Opłaty stałe<br> <span class="p_f0">(składnik stały + opłata przejściowa)- układ trójfazowy</span> </p></div>' +
+            '<div class="z_row_flex_cell h4 z_able_to_hide"><p class="p_f1 c_semibold">Abonament</p></div>' +
+            '</div> ' +
+            // Opłaty dystrybucyjne całodobowa ceny
+            '<div class="z_row_flex_column z_row_flex w20">' +
+            '<div class="z_row_flex_cell h2"><p class="p_f0 c_semibold">Dzienny/ Szczytowy<br> Nocny/ Pozaszczytowy</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">< 500 kWh </p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">500-1200 kWh </p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">> 1200 kWh</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">< 500 kWh </p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">500-1200 kWh </p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">> 1200 kWh</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">- </p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">- </p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">- </p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">- </p></div>' +
+            '</div>' +
+            // Opłaty dystrybucyjne Całodobowa
+            '<div class="z_row_flex_column z_row_flex w35">' +
+            '<div class="z_row_flex_cell h2"><p class="p_f1 c_semibold">'+ documents_prices_common['distibution_g12w_1'] +' zł/kWh <br> '+ documents_prices_common['distibution_g12w_2'] +' zł/kWh</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common['distibution_g12w_fixed_rate_1'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common['distibution_g12w_fixed_rate_2'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common['distibution_g12w_fixed_rate_3'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common['distibution_g12w_fixed_rate_4'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common['distibution_g12w_fixed_rate_5'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common['distibution_g12w_fixed_rate_6'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common['distibution_g12w_ab_1'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common['distibution_g12w_ab_2'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common['distibution_g12w_ab_3'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common['distibution_g12w_ab_4'] +' (zł/mc)</p></div>' +
+            '</div>' +
+
+            '</div>' +
+            '</div>' +
+            '</div>');
+
+        docContent.append('<div class="z_doc_prime_row">' +
+            '<div class="z_doc_single_row">' +
+            '<div class="z_doc_row_flex z_flex_3">' +
+            // Opłaty dystrybucyjne g13
+            '<div class="z_row_flex_column z_row_flex w45">' +
+            '<div class="z_row_flex_cell h3"><p class="p_f1 c_semibold z_flex_head">Opłaty zmienne G13 <span class="c_f1">(składnik zmienny stawki sieciowej + stawka jakościowa + opłata OZE + opłata kogeneracyjna)</span> <span class="z_doc_arrow"></span> </p></div>' +
+            '<div class="z_row_flex_cell h3 z_able_to_hide"><p class="p_f1 c_semibold">Opłaty stałe<br> <span class="p_f0">(składnik stały + opłata przejściowa)- układ jednofazowy</span> </p></div>' +
+            '<div class="z_row_flex_cell h3 z_able_to_hide"><p class="p_f1 c_semibold">Opłaty stałe<br> <span class="p_f0">(składnik stały + opłata przejściowa)- układ trójfazowy</span> </p></div>' +
+            '<div class="z_row_flex_cell h4 z_able_to_hide"><p class="p_f1 c_semibold">Abonament</p></div>' +
+            '</div> ' +
+            // Opłaty dystrybucyjne całodobowa ceny
+            '<div class="z_row_flex_column z_row_flex w20">' +
+            '<div class="z_row_flex_cell h3"><p class="p_f0 c_semibold">Szczyt przedpołudniowy<br> Szczyt popołudniowy <br> Pozostałe godziny doby</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">< 500 kWh </p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">500-1200 kWh </p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">> 1200 kWh</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">< 500 kWh </p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">500-1200 kWh </p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">> 1200 kWh</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">- </p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">- </p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">- </p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">- </p></div>' +
+            '</div>' +
+            // Opłaty dystrybucyjne Całodobowa
+            '<div class="z_row_flex_column z_row_flex w35">' +
+            '<div class="z_row_flex_cell h3"><p class="p_f1 c_semibold">'+ documents_prices_common['distibution_g13_1'] +' zł/kWh<br> '+ documents_prices_common['distibution_g13_2'] +' zł/kWh<br> '+ documents_prices_common['distibution_g13_3'] +' zł/kWh</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common['distibution_g13_fixed_rate_1'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common['distibution_g13_fixed_rate_2'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common['distibution_g13_fixed_rate_3'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common['distibution_g13_fixed_rate_4'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common['distibution_g13_fixed_rate_5'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common['distibution_g13_fixed_rate_6'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common['distibution_g13_ab_1'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common['distibution_g13_ab_2'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common['distibution_g13_ab_3'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common['distibution_g13_ab_4'] +' (zł/mc)</p></div>' +
+            '</div>' +
+            '</div>' +
+            '</div>' +
+            '</div>');
+
+        var docDisclaimer = global_list[present_offert].documents_prices;
+
+        docContent.append('<div class="z_sub_doc_info page-disclaimers-old-tab">' +
+            '<div style="margin-top: 10px">' + docDisclaimer.price_disclaimer_magenta[prdRegion] + '</div>' +
+            '<h5 class="c_semibold c_f5">'+ docDisclaimer.price_02.name +'  <a href="" class="c_magenta c_semibold other_price_link">tutaj</a> </h5>' +
+            ((prdRegion == 'ts' || prdRegion == 'ts_prawo') ? '<h6 class="c_semibold p_f2">' + docDisclaimer.price_02.name_february + '  <a href="' + docDisclaimer.price_02.href_february['ts'] + '" class="c_magenta c_semibold" target="_blank">tutaj</a> </h6>' : '<h6 class="c_semibold p_f2">' + docDisclaimer.price_02.name_february + '  <a href="' + docDisclaimer.price_02.href_february['gze'] + '" class="c_magenta c_semibold" target="_blank">tutaj</a> </h6>') +
+            ((docDisclaimer.shield) ? '<h6 class="c_semibold p_f2" style="margin: 5px 0 0">' + docDisclaimer.shield.name + '  <a href="' + docDisclaimer.shield.href + '" class="c_magenta c_semibold">tutaj</a> </h6>' : '') +
+            ((docDisclaimer.price_03) ? '<h6 class="c_semibold p_f2" style="margin: 5px 0 20px">' + docDisclaimer.price_03.name + '  <a href="' + docDisclaimer.price_03.href + '" class="c_magenta c_semibold">tutaj</a> </h6>' : '') +
+            '</div>' +
+            '</div>');
+
+        if(id === 'id_26') {
+            $('.z_sub_doc_info').find('.c_semibold.c_f5').remove();
+        }
+    },
+    pricesBuilderNewTab: function(prdRegion, id,kindNewTab){
+        var term_time = 'Umowa na 3&nbsp;lata';
+        var prdName = false;
+        var present_offert = 'oferta_zmiana_nowa_zakladka';
+        switch(id) {
+            case 'id_1':
+                prdName = 'Cennik Prąd Eko z Serwisantem 24H - e-faktura - rabat nie mniej niż 10%';
+                term_time = 'Umowa na 3&nbsp;lata';
+                break;
+            case 'id_2':
+                prdName = 'Cennik Prąd Eko z Serwisantem 24H PLUS - e-faktura - rabat nie mniej niż 10%';
+                term_time = 'Umowa na 3&nbsp;lata';
+                break;
+            case 'id_3':
+                prdName = 'Cennik Prąd Eko z Serwisantem komputerowym 24H - e-faktura - rabat nie mniej niż 10%';
+                term_time = 'Umowa na 3&nbsp;lata';
+                break;
+            case 'id_4':
+                prdName = 'Cennik Prąd z Serwisantem Komputerowym 24H - e-faktura - rabat nie mniej niż 5%';
+                term_time = 'Umowa na 3&nbsp;lata';
+                break;
+            case 'id_5':
+                prdName = 'Cennik Prąd z Serwisantem 24H PLUS - e-faktura - rabat nie mniej niż 5%';
+                term_time = 'Umowa na 3&nbsp;lata';
+                break;
+            case 'id_6':
+                prdName = 'Cennik Prąd Eko z usługą Zdrowie 24H - e-faktura - rabat nie mniej niż 10%';
+                term_time = 'Umowa na 3&nbsp;lata';
+                break;
+            case 'id_7':
+                prdName = 'Cennik Prąd z Serwisantem 24H - e-faktura - rabat nie mniej niż 5%';
+                term_time = 'Umowa na 3&nbsp;lata';
+                break;
+            case 'id_8':
+                prdName = 'Cennik Prąd z usługą Zdrowie 24H dla domu - e-faktura - rabat nie mniej niż 5%';
+                term_time = 'Umowa na 3&nbsp;lata';
+                break;
+            case 'id_9':
+                prdName = 'Cennik Prąd z Serwisantem komputerowym 24H i Serwisantem 24H PLUS - e-faktura - rabat nie mniej niż 10%';
+                term_time = 'Umowa na 3&nbsp;lata';
+                break;
+            case 'id_10':
+                prdName = '';
+                break;
+            case 'id_11':
+                prdName = 'Cennik Prąd z Eko - e-faktura - rabat nie mniej niż 5%';
+                term_time = 'Umowa na 3&nbsp;lata';
+                break;
+            case 'id_12':
+                prdName = 'Cennik Prąd z usługami Zdrowie i Opieka 24H - rabat nie mniej niż 10%';
+                term_time = 'Umowa na 3&nbsp;lata';
+                break;
+            case 'id_13':
+                prdName = 'Cennik Prąd z Ochroną fotowoltaiki 24H - rabat nie mniej niż 5%';
+                term_time = 'Umowa na 3&nbsp;lata';
+                break;
+            case 'id_16':
+                prdName = 'Cennik Prąd EKO z Serwisantem komputerowym 24H i Serwisantem 24H PLUS - e-faktura - rabat nie mniej niż 10%';
+                term_time = 'Umowa na 3&nbsp;lata';
+                break;
+            case 'id_17':
+                prdName = 'Cennik Prąd z Elektrykiem 24H PLUS - rabat nie mniej niż 5%';
+                term_time = 'Umowa na 3&nbsp;lata';
+                break;
+            case 'id_22':
+                prdName = 'Cennik Prąd + LAS - rabat nie mniej niż 5%';
+                term_time = 'Umowa na 3&nbsp;lata';
+                break;
+            case 'id_23':
+                prdName = 'Cennik Prąd z Eko + LAS - rabat nie mniej niż 10%';
+                term_time = 'Umowa na 3&nbsp;lata';
+                break;
+            case 'id_24':
+                prdName = 'Cennik Prąd z Ochroną fotowoltaiki 24H - rabat nie mniej niż 5%';
+                term_time = 'Umowa na 3&nbsp;lata';
+                break;
+            case 'id_25':
+                prdName = 'Cennik Prąd z Ochroną fotowoltaiki z Serwisantem 24H PLUS - rabat nie mniej niż 10%';
+                term_time = 'Umowa na 3&nbsp;lata';
+                break;
+            case 'id_26':
+                prdName = 'Cennik TAURON Nowa Energia (e-faktura, cennik na 9 lat)';
+                term_time = '';
+                break;
+            default:
+            // code block
+        }
+
+        var t = this;
+        $('.z_doc_field_new_tab').empty();
+        var tax = (kindNewTab == 1)?'brutto':'netto';
+        var localTax = '';
+        if(tax == 'brutto'){
+            localTax = prdRegion;
+        }
+        else{
+            localTax = prdRegion + '_' + tax;
+        }
+
+        if(prdRegion == 'ts_prawo'){
+            prdRegion = 'ts';
+            var newTs = 'ts_prawo';
+            var documents_prices_common_new_tab = global_list[present_offert].documents_prices.common[newTs][tax];
+            if(tax == 'brutto'){
+                localTax = prdRegion;
+            } else {
+                localTax = prdRegion + '_' + tax;
+            }
+        } else {
+            var documents_prices_common_new_tab = global_list[present_offert].documents_prices.common[prdRegion][tax];
+        }
+
+        var documents_prices = t.products_files[id][present_offert].odn_documents_prices[prdRegion][tax];
+
+        var pricePrd = t.products_files[id][present_offert].odn_prices[localTax];
+
+        var after_header_description = global_list[present_offert].documents_prices.price_table_extra_information.top_information;
+        var second_after_header_description = global_list[present_offert].documents_prices.price_table_extra_information.bottom_information;
+
+        var docContentNewTab = $('.z_doc_field_new_tab');
+        if(id === "id_26") {
+            docContentNewTab.append('<div class="z_doc_prime_row">' +
+                '<div class="z_doc_single_row">' +
+                '<div class="z_doc_row_head z_open">' +
+                '<p class="c_semibold c_f5">Ceny sprzedażowe <span class="c_f1">(opłata za prąd za kWh)</span> <span class="z_doc_arrow"></span> </p>' +
+                '<p class="f_0" style="margin-top: 10px !important; margin-bottom: 10px !important; font-weight: bold;">'+ after_header_description +'</p>' +
+                '<p class="f_0">Opłata handlowa (stawka stała) obejmuje opłatę za gwarancję niezmienności ceny prądu i&nbsp;stawek opłat oraz opłatę za gwarancję pochodzenia z&nbsp;odnawialnych źródeł energii.</p>' +
+                '</div>' +
+                '<div class="z_doc_row_flex z_flex_4 z_open">' +
+                //Grupa taryfowa
+                '<div class="single_row z_row_flex_column w100">' +
+                '<div class="w20">' +
+                '<div class="z_row_flex_cell h2"><p class="p_f1 c_semibold">Grupa taryfowa</p></div>' +
+                '</div>' +
+                '<div class="w20">' +
+                '<div class="z_row_flex_cell h2"><p class="p_f1 c_semibold">Strefa</p></div>' +
+                '</div>' +
+                '<div class="w25">' +
+                '<div class="z_row_flex_cell h2"><p class="p_f1 c_semibold">Taryfa sprzedawcy<br> <span class="p_f0">(e-faktura lub faktura papierowa)</span></p></div>' +
+                '</div>' +
+                '<div class="w35">' +
+                '<div class="z_row_flex_cell h2"><p class="p_f1 c_semibold">'+ prdName +'</p></div>' +
+                '</div>' +
+                '</div>'+
+                '<div class="single_row z_row_flex_column w100">' +
+                '   <div class="w20">' +
+                '   <div class="z_row_flex_cell h2"><p class="p_f1 c_semibold">G11 <span class="p_f0">- Cena za prąd niezmienna przez całą dobę.</span> </p></div>' +
+                '   </div>' +
+                '   <div class="w20">' +
+                '       <div class="z_row_flex_cell h2"><p class="p_f0">Całodobowy </p></div>' +
+                '   </div>' +
+                '   <div class="w25">' +
+                '       <div class="z_row_flex_cell h2"><p class="p_f0">'+ documents_prices_common_new_tab['g11'] +' zł/kWh</p></div>' +
+                '   </div>' +
+                '   <div class="w35">' +
+                '       <div class="z_row_flex_cell h2"><p class="p_f0">'+ documents_prices['g11'] +' zł/kWh</p></div>' +
+                '   </div>' +
+                '</div>'+
+                '<div class="single_row z_row_flex_column w100">' +
+                '   <div class="w20">' +
+                '       <div class="z_row_flex_cell h2"><p class="p_f1 c_semibold">G12 <span class="p_f0">- Niższa cena za prąd w nocy oraz w wybranych godzinach w ciągu dnia.</span> </p></div>' +
+                '   </div>' +
+                '   <div class="w20">' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">Strefa I (dzienny) </p></div>' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">Strefa II (szczytowy) </p></div>' +
+                '   </div>' +
+                '   <div class="w25">' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">'+ documents_prices_common_new_tab['g12_1'] +' zł/kWh</p></div>' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">'+ documents_prices_common_new_tab['g12_2'] +' zł/kWh</p></div>' +
+                '   </div>' +
+                '   <div class="w35">' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">'+ documents_prices['g12_1'] +' zł/kWh</p></div>' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">'+ documents_prices['g12_2'] +' zł/kWh</p></div>' +
+                '   </div>' +
+                '</div>'+
+                '<div class="single_row z_row_flex_column w100">' +
+                '   <div class="w20">' +
+                '       <div class="z_row_flex_cell h2"><p class="p_f1 c_semibold">G12w <span class="p_f0">- Niższa cena za prąd w nocy, w wybranych godzinach w ciągu dnia oraz w weekendy.</span> </p></div>' +
+                '   </div>' +
+                '   <div class="w20">' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">Strefa I (nocny) </p></div>' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">Strefa II (pozaszczytowy) </p></div>' +
+                '   </div>' +
+                '   <div class="w25">' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">'+ documents_prices_common_new_tab['g12w_1'] +' zł/kWh</p></div>' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">'+ documents_prices_common_new_tab['g12w_2'] +' zł/kWh</p></div>' +
+                '   </div>' +
+                '   <div class="w35">' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">'+ documents_prices['g12w_1'] +' zł/kWh</p></div>' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">'+ documents_prices['g12w_2'] +' zł/kWh</p></div>' +
+                '   </div>' +
+                '</div>'+
+                '<div class="single_row z_row_flex_column w100">' +
+                '   <div class="w20">' +
+                '     <div class="z_row_flex_cell h3"><p class="p_f1 c_semibold">G13 <span class="p_f0">- Niższa cena za prąd w wybranych godzinach w ciągu doby.</span> </p></div>' +
+                '   </div>' +
+                '   <div class="w20">' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">Strefa I (szczyt przedpołudniowy) </p></div>' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">Strefa II (szczyt popołudniowy) </p></div>' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">Strefa III (pozostałegodziny doby) </p></div>' +
+                '   </div>' +
+                '   <div class="w25">' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">'+ documents_prices_common_new_tab['g13_1'] +' zł/kWh</p></div>' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">'+ documents_prices_common_new_tab['g13_2'] +' zł/kWh</p></div>' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">'+ documents_prices_common_new_tab['g13_3'] +' zł/kWh</p></div>' +
+                '   </div>' +
+                '   <div class="w35">' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">'+ documents_prices['g13_1'] +' zł/kWh</p></div>' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">'+ documents_prices['g13_2'] +' zł/kWh</p></div>' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">'+ documents_prices['g13_3'] +' zł/kWh</p></div>' +
+                '   </div>' +
+                '</div>'+
+                '<div class="single_row z_row_flex_column w100">' +
+                '   <div class="w20">' +
+                '      <div class="z_row_flex_cell h1"><p class="p_f1 c_semibold">'+ ((prdRegion == 'ts') ? 'Opłata handlowa' : 'Stawka stała') +' </p></div>' +
+                '   </div>' +
+                '   <div class="w20">' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">- </p></div>' +
+                '   </div>' +
+                '   <div class="w25">' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">'+ documents_prices_common_new_tab['fixed_rate_1'] +' zł/mc</p></div>' +
+                '   </div>' +
+                '   <div class="w35">' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">' + documents_prices['opl_handl_1'] + ' zł/mc </p></div>' +
+                '   </div>' +
+                '</div>'+
+                '</div>' +
+                '</div>' +
+                '</div>');
+        } else {
+            docContentNewTab.append('<div class="z_doc_prime_row">' +
+                '<div class="z_doc_single_row">' +
+                '<div class="z_doc_row_head z_open">' +
+                '<p class="c_semibold c_f5">Ceny sprzedażowe <span class="c_f1">(opłata za prąd za kWh)</span> <span class="z_doc_arrow"></span> </p>' +
+                '<p class="f_0" style="margin-top: 10px !important; margin-bottom: 10px !important; font-weight: bold;">'+ after_header_description +'</p>' +
+                '<p class="f_0">Za usługę dodatkową pobierana jest opłata handlowa (stawka stała) określona w&nbsp;Cenniku. Z&nbsp;Cennikiem można zapoznać się w&nbsp;szczegółach oferty.</p>' +
+                '</div>' +
+                '<div class="z_doc_row_flex z_flex_4 z_open">' +
+                //Grupa taryfowa
+                '<div class="single_row z_row_flex_column w100">' +
+                '<div class="w20">' +
+                '<div class="z_row_flex_cell h2"><p class="p_f1 c_semibold">Grupa taryfowa</p></div>' +
+                '</div>' +
+                '<div class="w20">' +
+                '<div class="z_row_flex_cell h2"><p class="p_f1 c_semibold">Strefa</p></div>' +
+                '</div>' +
+                '<div class="w25">' +
+                '<div class="z_row_flex_cell h2"><p class="p_f1 c_semibold">Taryfa sprzedawcy<br> <span class="p_f0">(e-faktura lub faktura papierowa)</span></p></div>' +
+                '</div>' +
+                '<div class="w35">' +
+                '<div class="z_row_flex_cell h2"><p class="p_f1 c_semibold">'+ prdName +'</p></div>' +
+                '</div>' +
+                '</div>'+
+                '<div class="single_row z_row_flex_column w100">' +
+                '   <div class="w20">' +
+                '   <div class="z_row_flex_cell h2"><p class="p_f1 c_semibold">G11 <span class="p_f0">- Cena za prąd niezmienna przez całą dobę.</span> </p></div>' +
+                '   </div>' +
+                '   <div class="w20">' +
+                '       <div class="z_row_flex_cell h2"><p class="p_f0">Całodobowy </p></div>' +
+                '   </div>' +
+                '   <div class="w25">' +
+                '       <div class="z_row_flex_cell h2"><p class="p_f0">'+ documents_prices_common_new_tab['g11'] +' zł/kWh</p></div>' +
+                '   </div>' +
+                '   <div class="w35">' +
+                '       <div class="z_row_flex_cell h2"><p class="p_f0">'+ documents_prices['g11'] +' zł/kWh</p></div>' +
+                '   </div>' +
+                '</div>'+
+                '<div class="single_row z_row_flex_column w100">' +
+                '   <div class="w20">' +
+                '       <div class="z_row_flex_cell h2"><p class="p_f1 c_semibold">G12 <span class="p_f0">- Niższa cena za prąd w nocy oraz w wybranych godzinach w ciągu dnia.</span> </p></div>' +
+                '   </div>' +
+                '   <div class="w20">' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">Strefa I (dzienny) </p></div>' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">Strefa II (szczytowy) </p></div>' +
+                '   </div>' +
+                '   <div class="w25">' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">'+ documents_prices_common_new_tab['g12_1'] +' zł/kWh</p></div>' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">'+ documents_prices_common_new_tab['g12_2'] +' zł/kWh</p></div>' +
+                '   </div>' +
+                '   <div class="w35">' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">'+ documents_prices['g12_1'] +' zł/kWh</p></div>' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">'+ documents_prices['g12_2'] +' zł/kWh</p></div>' +
+                '   </div>' +
+                '</div>'+
+                '<div class="single_row z_row_flex_column w100">' +
+                '   <div class="w20">' +
+                '       <div class="z_row_flex_cell h2"><p class="p_f1 c_semibold">G12w <span class="p_f0">- Niższa cena za prąd w nocy, w wybranych godzinach w ciągu dnia oraz w weekendy.</span> </p></div>' +
+                '   </div>' +
+                '   <div class="w20">' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">Strefa I (nocny) </p></div>' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">Strefa II (pozaszczytowy) </p></div>' +
+                '   </div>' +
+                '   <div class="w25">' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">'+ documents_prices_common_new_tab['g12w_1'] +' zł/kWh</p></div>' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">'+ documents_prices_common_new_tab['g12w_2'] +' zł/kWh</p></div>' +
+                '   </div>' +
+                '   <div class="w35">' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">'+ documents_prices['g12w_1'] +' zł/kWh</p></div>' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">'+ documents_prices['g12w_2'] +' zł/kWh</p></div>' +
+                '   </div>' +
+                '</div>'+
+                '<div class="single_row z_row_flex_column w100">' +
+                '   <div class="w20">' +
+                '     <div class="z_row_flex_cell h3"><p class="p_f1 c_semibold">G13 <span class="p_f0">- Niższa cena za prąd w wybranych godzinach w ciągu doby.</span> </p></div>' +
+                '   </div>' +
+                '   <div class="w20">' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">Strefa I (szczyt przedpołudniowy) </p></div>' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">Strefa II (szczyt popołudniowy) </p></div>' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">Strefa III (pozostałegodziny doby) </p></div>' +
+                '   </div>' +
+                '   <div class="w25">' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">'+ documents_prices_common_new_tab['g13_1'] +' zł/kWh</p></div>' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">'+ documents_prices_common_new_tab['g13_2'] +' zł/kWh</p></div>' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">'+ documents_prices_common_new_tab['g13_3'] +' zł/kWh</p></div>' +
+                '   </div>' +
+                '   <div class="w35">' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">'+ documents_prices['g13_1'] +' zł/kWh</p></div>' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">'+ documents_prices['g13_2'] +' zł/kWh</p></div>' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">'+ documents_prices['g13_3'] +' zł/kWh</p></div>' +
+                '   </div>' +
+                '</div>'+
+                '<div class="single_row z_row_flex_column w100">' +
+                '   <div class="w20">' +
+                '      <div class="z_row_flex_cell h2"><p class="p_f1 c_semibold">'+ ((prdRegion == 'ts') ? 'Opłata handlowa' : 'Stawka stała') +' </p></div>' +
+                '   </div>' +
+                '   <div class="w20">' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">- </p></div>' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">- </p></div>' +
+                '   </div>' +
+                '   <div class="w25">' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">'+ documents_prices_common_new_tab['fixed_rate_1'] +' zł/mc</p></div>' +
+                '       <div class="z_row_flex_cell h1"><p class="p_f0">'+ documents_prices_common_new_tab['fixed_rate_2'] +' zł/mc</p></div>' +
+                '   </div>' +
+                '   <div class="w35">' +
+                '       <div class="z_row_flex_cell h2"><p class="p_f0"> <span style="font-size: 12px; color: #000;">'+ term_time +', '+ t.products_files[id][present_offert].price_table_extra_information.before_price +'</span> <br> '+ pricePrd + ' zł/m-c <span style="font-size: 12px; color: #000;"> '+ t.products_files[id][present_offert].price_table_extra_information.after_price +'</span> </p></div>' +
+                '   </div>' +
+                '</div>'+
+                '</div>' +
+                '</div>' +
+                '</div>');
+        }
+
+
+        docContentNewTab.append('<h4 class="p_f30 c_semibold z_doc_spacer">Opłaty dystrybucyjne</h4> <p class="f_0" style="margin-top: 10px !important; margin-bottom: 10px !important; font-weight: bold;">' + second_after_header_description +'</p>');
+        docContentNewTab.append('<div class="z_doc_prime_row">' +
+            '<div class="z_doc_single_row">' +
+            '<div class="z_doc_row_flex z_flex_3">' +
+            // Opłaty dystrybucyjne g11
+            '<div class="z_row_flex_column z_row_flex w45">' +
+            '<div class="z_row_flex_cell h2"><p class="p_f1 c_semibold z_flex_head">Opłaty zmienne G11 <span class="c_f1">(składnik zmienny stawki sieciowej + stawka jakościowa + opłata OZE + opłata kogeneracyjna)</span> <span class="z_doc_arrow"></span> </p></div>' +
+            '<div class="z_row_flex_cell h3 z_able_to_hide"><p class="p_f1 c_semibold">Opłaty stałe<br> <span class="p_f0">(składnik stały + opłata przejściowa)- układ jednofazowy</span> </p></div>' +
+            '<div class="z_row_flex_cell h3 z_able_to_hide"><p class="p_f1 c_semibold">Opłaty stałe<br> <span class="p_f0">(składnik stały + opłata przejściowa)- układ trójfazowy</span> </p></div>' +
+            '<div class="z_row_flex_cell h4 z_able_to_hide"><p class="p_f1 c_semibold">Abonament</p></div>' +
+            '</div> ' +
+            // Opłaty dystrybucyjne całodobowa ceny
+            '<div class="z_row_flex_column z_row_flex w20">' +
+            '<div class="z_row_flex_cell h2"><p class="p_f0 c_semibold">Całodobowa</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">< 500 kWh </p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">500-1200 kWh </p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">> 1200 kWh</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">< 500 kWh </p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">500-1200 kWh </p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">> 1200 kWh</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">- </p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">- </p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">- </p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">- </p></div>' +
+            '</div>' +
+            // Opłaty dystrybucyjne Całodobowa
+            '<div class="z_row_flex_column z_row_flex w35">' +
+            '<div class="z_row_flex_cell h2"><p class="p_f1 c_semibold">'+ documents_prices_common_new_tab['distibution_g11_1'] +' zł/kWh</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common_new_tab['distibution_g11_fixed_rate_1'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common_new_tab['distibution_g11_fixed_rate_2'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common_new_tab['distibution_g11_fixed_rate_3'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common_new_tab['distibution_g11_fixed_rate_4'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common_new_tab['distibution_g11_fixed_rate_5'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common_new_tab['distibution_g11_fixed_rate_6'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common_new_tab['distibution_g11_ab_1'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common_new_tab['distibution_g11_ab_2'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common_new_tab['distibution_g11_ab_3'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common_new_tab['distibution_g11_ab_4'] +' (zł/mc)</p></div>' +
+            '</div>' +
+
+            '</div>' +
+            '</div>' +
+            '</div>');
+
+        docContentNewTab.append('<div class="z_doc_prime_row">' +
+            '<div class="z_doc_single_row">' +
+            '<div class="z_doc_row_flex z_flex_3">' +
+            // Opłaty dystrybucyjne g12
+            '<div class="z_row_flex_column z_row_flex w45">' +
+            '<div class="z_row_flex_cell h2"><p class="p_f1 c_semibold z_flex_head">Opłaty zmienne G12 <span class="c_f1">(składnik zmienny stawki sieciowej + stawka jakościowa + opłata OZE + opłata kogeneracyjna)</span> <span class="z_doc_arrow"></span> </p></div>' +
+            '<div class="z_row_flex_cell h3 z_able_to_hide"><p class="p_f1 c_semibold">Opłaty stałe<br> <span class="p_f0">(składnik stały + opłata przejściowa)- układ jednofazowy</span> </p></div>' +
+            '<div class="z_row_flex_cell h3 z_able_to_hide"><p class="p_f1 c_semibold">Opłaty stałe<br> <span class="p_f0">(składnik stały + opłata przejściowa)- układ trójfazowy</span> </p></div>' +
+            '<div class="z_row_flex_cell h4 z_able_to_hide"><p class="p_f1 c_semibold">Abonament</p></div>' +
+            '</div> ' +
+            // Opłaty dystrybucyjne całodobowa ceny
+            '<div class="z_row_flex_column z_row_flex w20">' +
+            '<div class="z_row_flex_cell h2"><p class="p_f0 c_semibold">Dzienny/ Szczytowy <br> Nocny/ pozaszczytowy</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">< 500 kWh </p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">500-1200 kWh </p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">> 1200 kWh</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">< 500 kWh </p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">500-1200 kWh </p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">> 1200 kWh</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">- </p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">- </p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">- </p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">- </p></div>' +
+            '</div>' +
+            // Opłaty dystrybucyjne Całodobowa
+            '<div class="z_row_flex_column z_row_flex w35">' +
+            '<div class="z_row_flex_cell h2"><p class="p_f1 c_semibold">'+ documents_prices_common_new_tab['distibution_g12_1'] +' zł/kWh <br> '+ documents_prices_common_new_tab['distibution_g12_2'] +' zł/kWh</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common_new_tab['distibution_g12_fixed_rate_1'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common_new_tab['distibution_g12_fixed_rate_2'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common_new_tab['distibution_g12_fixed_rate_3'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common_new_tab['distibution_g12_fixed_rate_4'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common_new_tab['distibution_g12_fixed_rate_5'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common_new_tab['distibution_g12_fixed_rate_6'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common_new_tab['distibution_g12_ab_1'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common_new_tab['distibution_g12_ab_2'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common_new_tab['distibution_g12_ab_3'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common_new_tab['distibution_g12_ab_4'] +' (zł/mc)</p></div>' +
+            '</div>' +
+
+            '</div>' +
+            '</div>' +
+            '</div>');
+
+        docContentNewTab.append('<div class="z_doc_prime_row">' +
+            '<div class="z_doc_single_row">' +
+            '<div class="z_doc_row_flex z_flex_3">' +
+            // Opłaty dystrybucyjne g12w
+            '<div class="z_row_flex_column z_row_flex w45">' +
+            '<div class="z_row_flex_cell h2"><p class="p_f1 c_semibold z_flex_head">Opłaty zmienne G12w <span class="c_f1">(składnik zmienny stawki sieciowej + stawka jakościowa + opłata OZE + opłata kogeneracyjna)</span> <span class="z_doc_arrow"></span> </p></div>' +
+            '<div class="z_row_flex_cell h3 z_able_to_hide"><p class="p_f1 c_semibold">Opłaty stałe<br> <span class="p_f0">(składnik stały + opłata przejściowa)- układ jednofazowy</span> </p></div>' +
+            '<div class="z_row_flex_cell h3 z_able_to_hide"><p class="p_f1 c_semibold">Opłaty stałe<br> <span class="p_f0">(składnik stały + opłata przejściowa)- układ trójfazowy</span> </p></div>' +
+            '<div class="z_row_flex_cell h4 z_able_to_hide"><p class="p_f1 c_semibold">Abonament</p></div>' +
+            '</div> ' +
+            // Opłaty dystrybucyjne całodobowa ceny
+            '<div class="z_row_flex_column z_row_flex w20">' +
+            '<div class="z_row_flex_cell h2"><p class="p_f0 c_semibold">Dzienny/ Szczytowy<br> Nocny/ Pozaszczytowy</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">< 500 kWh </p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">500-1200 kWh </p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">> 1200 kWh</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">< 500 kWh </p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">500-1200 kWh </p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">> 1200 kWh</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">- </p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">- </p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">- </p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">- </p></div>' +
+            '</div>' +
+            // Opłaty dystrybucyjne Całodobowa
+            '<div class="z_row_flex_column z_row_flex w35">' +
+            '<div class="z_row_flex_cell h2"><p class="p_f1 c_semibold">'+ documents_prices_common_new_tab['distibution_g12w_1'] +' zł/kWh <br> '+ documents_prices_common_new_tab['distibution_g12w_2'] +' zł/kWh</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common_new_tab['distibution_g12w_fixed_rate_1'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common_new_tab['distibution_g12w_fixed_rate_2'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common_new_tab['distibution_g12w_fixed_rate_3'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common_new_tab['distibution_g12w_fixed_rate_4'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common_new_tab['distibution_g12w_fixed_rate_5'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common_new_tab['distibution_g12w_fixed_rate_6'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common_new_tab['distibution_g12w_ab_1'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common_new_tab['distibution_g12w_ab_2'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common_new_tab['distibution_g12w_ab_3'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common_new_tab['distibution_g12w_ab_4'] +' (zł/mc)</p></div>' +
+            '</div>' +
+
+            '</div>' +
+            '</div>' +
+            '</div>');
+
+        docContentNewTab.append('<div class="z_doc_prime_row">' +
+            '<div class="z_doc_single_row">' +
+            '<div class="z_doc_row_flex z_flex_3">' +
+            // Opłaty dystrybucyjne g13
+            '<div class="z_row_flex_column z_row_flex w45">' +
+            '<div class="z_row_flex_cell h3"><p class="p_f1 c_semibold z_flex_head">Opłaty zmienne G13 <span class="c_f1">(składnik zmienny stawki sieciowej + stawka jakościowa + opłata OZE + opłata kogeneracyjna)</span> <span class="z_doc_arrow"></span> </p></div>' +
+            '<div class="z_row_flex_cell h3 z_able_to_hide"><p class="p_f1 c_semibold">Opłaty stałe<br> <span class="p_f0">(składnik stały + opłata przejściowa)- układ jednofazowy</span> </p></div>' +
+            '<div class="z_row_flex_cell h3 z_able_to_hide"><p class="p_f1 c_semibold">Opłaty stałe<br> <span class="p_f0">(składnik stały + opłata przejściowa)- układ trójfazowy</span> </p></div>' +
+            '<div class="z_row_flex_cell h4 z_able_to_hide"><p class="p_f1 c_semibold">Abonament</p></div>' +
+            '</div> ' +
+            // Opłaty dystrybucyjne całodobowa ceny
+            '<div class="z_row_flex_column z_row_flex w20">' +
+            '<div class="z_row_flex_cell h3"><p class="p_f0 c_semibold">Szczyt przedpołudniowy<br> Szczyt popołudniowy <br> Pozostałe godziny doby</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">< 500 kWh </p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">500-1200 kWh </p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">> 1200 kWh</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">< 500 kWh </p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">500-1200 kWh </p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">> 1200 kWh</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">- </p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">- </p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">- </p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">- </p></div>' +
+            '</div>' +
+            // Opłaty dystrybucyjne Całodobowa
+            '<div class="z_row_flex_column z_row_flex w35">' +
+            '<div class="z_row_flex_cell h3"><p class="p_f1 c_semibold">'+ documents_prices_common_new_tab['distibution_g13_1'] +' zł/kWh<br> '+ documents_prices_common_new_tab['distibution_g13_2'] +' zł/kWh<br> '+ documents_prices_common_new_tab['distibution_g13_3'] +' zł/kWh</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common_new_tab['distibution_g13_fixed_rate_1'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common_new_tab['distibution_g13_fixed_rate_2'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common_new_tab['distibution_g13_fixed_rate_3'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common_new_tab['distibution_g13_fixed_rate_4'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common_new_tab['distibution_g13_fixed_rate_5'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common_new_tab['distibution_g13_fixed_rate_6'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common_new_tab['distibution_g13_ab_1'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common_new_tab['distibution_g13_ab_2'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common_new_tab['distibution_g13_ab_3'] +' (zł/mc)</p></div>' +
+            '<div class="z_row_flex_cell h1 z_able_to_hide"><p class="p_f0">'+ documents_prices_common_new_tab['distibution_g13_ab_4'] +' (zł/mc)</p></div>' +
+            '</div>' +
+            '</div>' +
+            '</div>' +
+            '</div>');
+
+        var docDisclaimer = global_list['oferta_zmiana'].documents_prices;
+
+        docContentNewTab.append('<div class="z_sub_doc_info page-disclaimers-old-tab">' +
+            '<div style="margin-top: 10px">' + docDisclaimer.price_disclaimer_magenta[prdRegion] + '</div>' +
+            '<h5 class="c_semibold c_f5">'+ docDisclaimer.price_02.name +'  <a href="" class="c_magenta c_semibold other_price_link">tutaj</a> </h5>' +
+            ((prdRegion == 'ts' || prdRegion == 'ts_prawo') ? '<h6 class="c_semibold p_f2">' + docDisclaimer.price_02.name_february + '  <a href="' + docDisclaimer.price_02.href_february['ts'] + '" class="c_magenta c_semibold" target="_blank">tutaj</a> </h6>' : '<h6 class="c_semibold p_f2">' + docDisclaimer.price_02.name_february + '  <a href="' + docDisclaimer.price_02.href_february['gze'] + '" class="c_magenta c_semibold" target="_blank">tutaj</a> </h6>') +
+            ((docDisclaimer.shield) ? '<h6 class="c_semibold p_f2" style="margin: 5px 0 0">' + docDisclaimer.shield.name + '  <a href="' + docDisclaimer.shield.href + '" class="c_magenta c_semibold">tutaj</a> </h6>' : '') +
+            ((docDisclaimer.price_03) ? '<h6 class="c_semibold p_f2" style="margin: 5px 0 20px">' + docDisclaimer.price_03.name + '  <a href="' + docDisclaimer.price_03.href + '" class="c_magenta c_semibold">tutaj</a> </h6>' : '') +
+            '</div>' +
+            '</div>');
+
+        if(id === 'id_26') {
+            $('.z_sub_doc_info').find('.c_semibold.c_f5').remove();
+        }
+    }
+}

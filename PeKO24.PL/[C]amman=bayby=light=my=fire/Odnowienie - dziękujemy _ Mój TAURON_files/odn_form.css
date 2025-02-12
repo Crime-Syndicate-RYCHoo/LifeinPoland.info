@@ -1,0 +1,567 @@
+#smart_content h1,#smart_content h2,#smart_content h3,#smart_content h4,#smart_content h5,#smart_content h6,#smart_content ul,#smart_content li,#smart_content p{margin: 0;padding: 0;font-weight: normal;line-height: 1}
+#smart_content a{text-decoration: none;}
+#smart_content button{cursor: pointer;}
+*{box-sizing: border-box;outline: none;font-family: "Titillium Web", Arial, sans-serif;-webkit-tap-highlight-color: transparent;}
+html{font-size: 10px}
+html.zoom2{font-size: 12px}
+html.zoom4{font-size: 14px}
+body{margin: 0;}
+form{padding: 0;margin: 0}
+#smart_content ul{list-style: none;}
+#smart_content img{border:none;max-width: 100%;}
+#smart_content textarea{resize: none;}
+#smart_content .f_btn{ border: none; width: 100%;max-width: 230px;display: inline-block;text-align: center;background-color: #e2007a;color: #fff;font-weight: 600;border-radius: 4px;padding: 12px 5px 13px}
+#smart_content .f_btn:hover{background-color: #aa036c}
+#smart_content .f_btn.s_white_btn{color:#e2007a;background-color: #fff;}
+#smart_content .f_btn.s_white_btn:hover{background-color: #f6f6f6;}
+
+#smart_content .f_12{font-size: 1.2rem}
+#smart_content .f_14{font-size: 1.4rem}
+#smart_content .f_16{font-size: 1.6rem}
+#smart_content .f_18{font-size: 1.8rem}
+#smart_content .f_20{font-size: 2rem}
+#smart_content .f_22{font-size: 2.2rem}
+#smart_content .f_24{font-size: 2.4rem}
+#smart_content .f_26{font-size: 2.6rem}
+#smart_content .f_32{font-size: 3.2rem}
+#smart_content .f_36{font-size: 3.6rem}
+#smart_content .f_40{font-size: 4rem}
+
+#smart_content .uppercase{text-transform: uppercase}
+#smart_content .bold{font-weight: bold;}
+#smart_content .semibold{font-weight: 600;}
+#smart_content .light{font-weight: 300;}
+#smart_content .magenta{color: #e2007e}
+#smart_content .grey{color: #828282}
+#smart_content .green{color: #75bd39}
+#smart_content .center{text-align: center}
+#smart_content .page{max-width: 1430px;padding: 0 15px;width: 100%;margin: 0 auto}
+#smart_content sup{font-size: 10px}
+
+#smart_content #smart_form .page_content{position: relative}
+#smart_content #smart_form .page_content.page_with_bg{min-height: 1000px;background-image: url(/-/media/Additional/smart/img/odn_form/form_bg.webp);background-repeat: repeat-y;padding: 70px 0 0;background-position: center;}
+
+#smart_content #smart_form .fake_header{height: 140px;background-color: #e2007e}
+#smart_content #smart_form .fake_footer{height: 410px;background-color: #e2007e}
+
+#smart_content #smart_form .page_content .page_flex{display: flex;justify-content: space-between;}
+#smart_content #smart_form .page_content .page_flex .flex_element{}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form{flex-basis: calc(100% - 440px)}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_progress{flex-basis: 380px;display: flex;justify-content: space-between;z-index: 2;flex-wrap: wrap;align-content: start;}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_progress h3{flex-basis: 100%;margin-bottom: 30px;}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_progress .progress_bar{flex-basis: 20px;position: relative;}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_progress .progress_bar span{height: 310px;width: 5px;background-color: #fff;position: absolute;display: block;left: 26px;top: 4px;transition: 250ms ease;}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_progress .progress_steps{flex-basis: calc(100% - 25px);}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_progress .progress_steps .single_step{cursor: pointer;display: flex;margin-bottom: 40px;position: relative;justify-content: left;align-items: center;padding-left: 45px;}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_progress .progress_steps .single_step .progress_status{position: absolute;left: -10px;height: 27px;width: 27px;background-color: #dcf3f4;border: 5px solid #fff;border-radius: 50%;    transition: 250ms ease;}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_progress .progress_steps .single_step.in_progress  .progress_status{width: 42px;height: 42px;border: 12px solid #cf2c88;left: -17px;top: -2px;box-shadow: 0px 1px 10px 0px rgb(31 31 31 / 30%);}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_progress .progress_steps .single_step .step_number{font-size: 32px;flex-basis: 35px;color: #fff;font-weight: 600;line-height: 1}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_progress .progress_steps .single_step.in_progress .step_number{color: #cf2c88;}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_progress .progress_steps .single_step .step_name{flex-basis: calc(100% - 40px);color: #676767;margin-top: 2px;}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_progress .progress_steps .single_step.in_progress .step_name{color: #cf2c88;font-weight: 600;}
+
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_progress .progress_steps .single_step.done{}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_progress .progress_steps .single_step.done:before{display: block;position: absolute;content: '';background-image:url(/-/media/Additional/smart/img/odn_form/progress_bar_check.png);width: 21px;height: 15px;left: -6px;z-index: 3;top: 11px;}
+
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_progress .progress_steps .single_step.done .progress_status{width: 42px;height: 42px;border: 4px solid #cf2c88;left: -17px;top: -2px;;box-shadow: 0px 1px 10px 0px rgba(31, 31, 31, 0.3);background-color: #fff;}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_progress .progress_steps .single_step.done p.step_name{color: #000}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_progress .progress_steps .single_step.done p.step_number{color: #cf2c88}
+
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section{background-color: #fff;box-shadow: 0px 1px 10px 0px rgb(31 31 31 / 25%);padding: 35px;margin: 0px 0 45px;position: relative;z-index: 2}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question{display: none;position: relative;width: 100%;margin-bottom: 45px}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question.active_question{display: block}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .form_btn{display: flex;align-items: center;margin-top: 10px;}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .form_btn.to_end{justify-content: flex-end}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .form_btn .f_btn{cursor: pointer}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .question_head{}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .question_desc{margin: 25px 0;line-height: 1.2;}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .question_desc span{display: block;text-transform: initial;margin-top: 5px}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .select_box{display: flex;justify-content: space-between;flex-wrap: wrap;align-items: center;}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .select_box > label {flex-basis: 100%;position: relative;margin-bottom: 10px;display: block}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .select_box div.fancy-select{width: 100%}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .select_box div.fancy-select div.trigger {background: #fff;border: 1px solid #000;border-radius: 4px;color: #000;box-shadow: none;width: 100%;padding: 13px 24px 13px 9px;text-transform: initial;font-size: 18px;font-weight: normal;}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .select_box div.fancy-select ul.options {min-width: 1px;width: 100%;border-radius: 0;top: 47px;}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .select_box div.fancy-select ul.options li {text-transform: capitalize;color: #000;background-color: #fff;padding: 14px 12px;}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .select_box div.fancy-select ul.options li.selected {color: #fff;background-color: #e2007a;}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .select_box div.fancy-select ul.options li.hover {color: #fff;background-color: #e2007a;}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question  label.required{position: relative}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question  label.required:after{content: ' *'}
+
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .select_flex{display: flex;flex-wrap: wrap;justify-content: space-between;align-items: center;}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .service_flex{display: flex;flex-wrap: wrap;justify-content: space-between;align-items: center}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .select_flex.hide{display: none;}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .service_flex.hide{display: none;}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .select_box{flex-basis: 100%}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .select_box.w_85{flex-basis: calc(100% - 115px)}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .select_box.w_70{flex-basis: calc(100% - 230px)}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .select_box.w_50{flex-basis: 49%}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .tooltip_trigger {background-image: url(/-/media/Additional/smart/img/odn_form/tooltip_sprite.png);width: 20px;height: 20px;background-position: top;background-repeat: no-repeat;display: inline-block!important;cursor: pointer;vertical-align: -3px;margin-left: 15px;position: relative;z-index: 10;}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .tooltip {min-height: 48px;position: absolute;display: none!important;padding: 15px;background-color: #fff;border: 1px solid #959595;font-size: 14px;line-height: 1.2;text-align: left;z-index: 100;max-width: 70%;width: 100%;bottom: auto;left: 0;right: 0;margin: auto;top: 33px;box-shadow: 0px 1px 10px 0px rgb(31 31 31 / 30%);}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .tooltip_trigger:hover ~ .tooltip{display: block!important;}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .tooltip_parent{position: relative}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .select_flex .select_summary{flex-basis: 49%;    display: flex;align-items: center;flex-wrap: wrap;justify-content: center;}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .select_flex .select_summary span {display: block;font-weight: normal}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .select_flex label.w_100{flex-basis: 100%;margin-bottom: 10px}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .inputs_flex{display: flex;flex-wrap: wrap;justify-content: space-between;position: relative}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .inputs_flex .input_box{flex-basis: 49%;position: relative;margin-bottom: 15px}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .inputs_flex .input_box input{    display: block;width: 100%;border: 1px solid #000000;border-radius: 4px;height: 52px;padding: 5px 10px;font-size: 18px;}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .inputs_flex .input_box .input_error{position: absolute;bottom: -14px;font-size: 12px;color: red;left: 0;display: none;}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .inputs_flex .input_box .input_error.input_bad{display: block}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .inputs_flex .input_box input.invalid{border-color: red;}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .inputs_flex .input_box label{margin-bottom: 10px;display: block}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .inputs_flex .input_box.with_x:after {display: block;position: absolute;content: '';background-image: url(/-/media/Additional/smart/img/odn_form/no.png);width: 16px;height: 16px;right: 10px;top: 55px;bottom: auto;margin: auto;}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .inputs_flex .input_box.with_ok:after {display: block;position: absolute;content: '';background-image: url(/-/media/Additional/smart/img/odn_form/ok_check.png);width: 17px;height: 13px;right: 10px;top: 55px;bottom: auto;margin: auto;}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .service_box .present_service{display: flex;align-items: center;flex-wrap: wrap}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .fake_label{display: block;margin-bottom: 20px;flex-basis: 100%}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .service_box.w_85{flex-basis: calc(100% - 115px)}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .service_box .present_service .img_box{flex-basis: 70px;}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .service_box .present_service .service_desc{flex-basis: calc(100% - 70px)}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .service_flex .change_service{flex-basis: 100px;cursor: pointer;text-align: right;color: #959595}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .service_flex .change_service:hover{text-decoration: underline}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .confirm_service{flex-basis: 100px;cursor: pointer;text-align: right;display: flex;align-items: center;justify-content: flex-end}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .confirm_service:hover{text-decoration: underline}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .confirm_service img{margin-right: 5px;display: block}
+#smart_content #smart_form .alert_box{    display: block;position: fixed;right: 10%;top: 10vh;width: 270px;font-size: 18px;color: #fff;padding: 10px;z-index: 100}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_progress .progress_steps .single_step.done .step_number{color: #e2007e}
+#smart_content #smart_form .alert_box.error_alert{background-color: #FF0000}
+
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_progress .progress_bar span.present_progress_1{background: linear-gradient(180deg, rgba(207,44,136,1) 8%, rgba(255,255,255,1) 16%)!important;}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_progress .progress_bar span.present_progress_2{background: linear-gradient(180deg, rgba(207,44,136,1) 24%, rgba(255,255,255,1) 36%)!important;}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_progress .progress_bar span.present_progress_3{background: linear-gradient(180deg, rgba(207,44,136,1) 36%, rgba(255,255,255,1) 54%)!important;}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_progress .progress_bar span.present_progress_4{background: linear-gradient(180deg, rgba(207,44,136,1) 48%, rgba(255,255,255,1) 72%)!important;}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_progress .progress_bar span.present_progress_5{background: linear-gradient(180deg, rgba(207,44,136,1) 60%, rgba(255,255,255,1) 100%)!important;}
+
+
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .terms_box{}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .terms_box .check-box{position: relative;min-height: 35px;margin: 5px 0}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .terms_box .check-box.c_only_check{margin-bottom: 50px}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .terms_box .check-box.with_x{padding-right: 30px}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .terms_box .check-box.with_x:after{display: block;position: absolute;content: '';background-image: url(/-/media/Additional/smart/img/odn_form/no.png);width: 16px;height: 16px;right: 10px;top: 0px;bottom: auto;margin: auto;}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .terms_box .check-box label{display: inline-block;padding-left: 70px;font-size: 20px;line-height: 19px;}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .terms_box [type="checkbox"]:not(:checked),#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .terms_box [type="checkbox"]:checked { position: absolute; left: -9999px; }
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .terms_box [type="checkbox"]:not(:checked) + label,#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .terms_box [type="checkbox"]:checked + label {cursor: pointer; }
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .terms_box [type="checkbox"]:not(:checked) + label:before,#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .terms_box [type="checkbox"]:checked + label:before { content: ''; position: absolute; left: 0; top: -7px; width: 33px; height: 33px; border: 1px solid #919191; background: #fff;border-radius: 4px}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .terms_box [type="checkbox"]:not(:checked) + label:after,#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .terms_box  [type="checkbox"]:checked + label:after { content: ''; position: absolute; top: 3px; left: 8px;width: 19px;height: 15px;background-image: url(/-/media/Additional/smart/img/odn_form/check.png);}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .terms_box [type="checkbox"]:not(:checked) + label:after { opacity: 0; transform: scale(0); }
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .terms_box [type="checkbox"]:checked + label:before{opacity: 1; transform: scale(1); }
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .terms_box .c_input_error {position: absolute;bottom: -14px;font-size: 12px;color: red;left: 0;display: none;}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .terms_box .c_input_error.c_input_bad{display: block;}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .terms_box .c_inside_container {padding-left: 70px;}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .terms_box .term_text {border-radius: 4px;padding: 10px;line-height: 1.2;border: 1px solid #959595;font-size: 16px;margin: 20px 0;}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .terms_box .check-box.invalid{}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .terms_box .check-box.invalid .c_input_error{}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .terms_box .c_inside_container a{display: block;margin: 10px 0}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .summary_flex{display: flex;justify-content: space-between;flex-wrap: wrap;padding-bottom: 15px;border-bottom: 1px solid #000;margin: 30px 0}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .summary_flex .summary_element{flex-basis: 49%;display: flex;flex-wrap: wrap;margin-bottom: 10px}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .summary_flex .summary_element .summary_label{flex-basis: 185px}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .summary_flex .summary_element .summary_value{flex-basis: calc(100% - 190px);font-weight: normal}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .summary_service{display: flex;flex-wrap: wrap;}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .summary_service > p{flex-basis: 90px;}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .summary_service .summary_present_service{display: flex;align-items: center;flex-wrap: wrap;flex-basis: calc(100% - 100px)}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .summary_service .summary_present_service .img_box{    flex-basis: 70px;}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .summary_service .summary_present_service .summary_service_desc{flex-basis: calc(100% - 70px);}
+#smart_content #smart_form .page_content.page_with_bg .circle{position: absolute;top: 100px;bottom: auto;margin: auto;left: 0;z-index: 1}
+#smart_content #smart_form .page_content .page_flex .flex_element.flex_progress{}
+#smart_content #smart_form .page_content.process_content .main_text_box .scroll_btn{cursor: pointer}
+
+
+#smart_content #smart_form .page_content.thanks_content{}
+#smart_content #smart_form .page_content.thanks_content .page_flex{height: 100%;display: flex;justify-content: space-between;align-items: center}
+#smart_content #smart_form .page_content.thanks_content .page_baner{background-color: #d6f4f5;position: relative;height: 240px}
+#smart_content #smart_form .page_content.thanks_content .page_baner .baner_image{background-image: url(/-/media/Additional/smart/img/odn_form/thanks_baner.png);width: 721px;height: 238px;background-repeat: no-repeat;background-position: center;position: absolute;right: 0;top: auto;bottom: 0}
+#smart_content #smart_form .page_content.thanks_content .page_baner h1{margin-bottom: 15px}
+#smart_content #smart_form .page_content.thanks_content .page_baner p{line-height: 1.4}
+#smart_content #smart_form .page_content.thanks_content .page_body{padding: 45px 0}
+#smart_content #smart_form .page_content.thanks_content .page_body .acc_box{transition: 250ms ease;}
+#smart_content #smart_form .page_content.thanks_content .page_body .acc_box .acc_head{display: flex;justify-content: space-between;align-items: center;padding: 10px 0;cursor: pointer}
+#smart_content #smart_form .page_content.thanks_content .page_body .acc_box .acc_head p{flex-basis: auto}
+#smart_content #smart_form .page_content.thanks_content .page_body .acc_box .acc_head p.to_right{text-align: right;cursor: pointer}
+#smart_content #smart_form .page_content.thanks_content .page_body .acc_box .acc_head p.to_right .acc_trigger{display: none;font-weight: 600}
+#smart_content #smart_form .page_content.thanks_content .page_body .acc_box .acc_head p.to_right .acc_trigger.active{display: flex;justify-content: center;align-items: center;}
+#smart_content #smart_form .page_content.thanks_content .page_body .acc_box .acc_head p.to_right .acc_trigger.active img{display: block;margin-left: 10px}
+#smart_content #smart_form .page_content.thanks_content .page_body .acc_box .acc_body{opacity: 0;height: 0;transition: 250ms ease;overflow: hidden;}
+#smart_content #smart_form .page_content.thanks_content .page_body .acc_box .acc_body.active{opacity: 1;height: auto}
+#smart_content #smart_form .page_content.thanks_content .page_body .acc_box .acc_body p{line-height: 1.3}
+#smart_content #smart_form .page_content.thanks_content .page_body .acc_box .acc_body .acc_link{display: flex;margin: 15px 0;color: #000;align-items: center;}
+#smart_content #smart_form .page_content.thanks_content .page_body .acc_box .acc_body .acc_link img{display: block;margin-right: 5px}
+#smart_content #smart_form .page_content.thanks_content .page_body .acc_box .acc_body p.with_number{position: relative;padding-left: 20px;margin: 5px 0}
+#smart_content #smart_form .page_content.thanks_content .page_body .acc_box .acc_body p.with_number .number{position: absolute;left: 0;top: 0px;}
+#smart_content #smart_form .page_content.thanks_content .page_body .acc_box .acc_body p.grey{color: #727272}
+#smart_content #smart_form .page_content.thanks_content .page_body .acc_box .acc_body p sup{font-size: 16px}
+#smart_content #smart_form .page_content.thanks_content .page_body .acc_box .acc_body .acc_link:hover{color: #e2007e}
+#smart_content #smart_form .page_content.thanks_content .page_body .acc_box .acc_head p.to_right .acc_trigger:hover{text-decoration: underline}
+
+#smart_content #smart_form .page_content.process_content{}
+#smart_content #smart_form .page_content.process_content .page_breadcrumps{display: flex;justify-content: left;align-items: center;z-index: 2;margin-bottom: 35px;flex-wrap: wrap;margin-top: 20px}
+#smart_content #smart_form .page_content.process_content .page_breadcrumps .bread_element{color: black;line-height: 1;}
+#smart_content #smart_form .page_content.process_content .page_breadcrumps .bread_element:hover{color: #e2007e}
+#smart_content #smart_form .page_content.process_content .page_breadcrumps .non_link_element {margin: 0 10px;line-height: 1;font-size: 14px}
+#smart_content #smart_form .page_content.process_content .page_breadcrumps .non_link_element.present_element {margin: 0;line-height: 1}
+
+#smart_content #smart_form .page_content.process_content .main_text_box{width: 100%;text-align: center;margin-bottom: 25px}
+#smart_content #smart_form .page_content.process_content .main_text_box h1{}
+#smart_content #smart_form .page_content.process_content .main_text_box p{margin: 25px 0;line-height: 1.5}
+#smart_content #smart_form .page_content.process_content .main_text_box a{display: block;margin: 0 auto}
+#smart_content #smart_form .page_content.process_content a.p_btn{max-width: 300px}
+#smart_content #smart_form .page_content.process_content .localisation_box{display: flex;justify-content: flex-end;margin-bottom: 25px}
+
+#smart_content #smart_form .odn_popup_bg{width: 100%;height: 100%;position: fixed;background-color: rgba(39, 39, 39, 0.4);top: 0;z-index: 2;display: none}
+#smart_content #smart_form .odn_popup_bg.active{display: block}
+
+#smart_content #smart_form .page_content.process_content .options_flex .option_element.active_hover{filter:grayscale(0)}
+#smart_content #smart_form .page_content.process_content .options_flex .option_element.active_hover .bulb_span{filter:grayscale(1)}
+#smart_content #smart_form .page_content.process_content .options_flex .option_element.active_hover h3 span{color: #e2007e}
+#smart_content #smart_form .page_content.process_content .options_flex .option_element.active_hover h3 span.green{color: #75bd39}
+
+
+/*regionalization popup*/
+.regionalization {display: inline-block;font-size: 12px;border-radius: 5px;border: 0;cursor: pointer;padding: 0 20px;line-height: 23px;}
+.regionalization .regionalization__city {font-weight: 600;}
+.regionalization .regionalization__link {margin-left: 10px;text-decoration: none;color: #e2007a;font-weight: 700;}
+.regionalization__form {display: block;width: 100%;background: white;border-radius: 0;font-size: 1.4rem;padding: 20px 0;font-weight: 400;}
+.regionalization__form--half {padding: 0;}
+@media screen and (min-width: 768px) {  .regionalization__form--half {margin-top: 30px;}  }
+@media screen and (min-width: 992px) {  .regionalization__form--half .regionalization__row {display: block;}  }
+@media screen and (min-width: 768px) {  .regionalization__form {padding: 20px 10px 40px 0;}  }
+@media screen and (min-width: 992px) {  .regionalization__form {padding: 20px 10px 20px 0;}  }
+.regionalization__row .cta, .regionalization__row .pink_ul li > a:not([class]), .pink_ul .regionalization__row li > a:not([class]), .regionalization__row .box ul li > a:not([class]), .box ul .regionalization__row li > a:not([class]), .regionalization__row .graphicsbox ul li > a:not([class]), .graphicsbox ul .regionalization__row li > a:not([class]), .regionalization__row .biggraphics ul li > a:not([class]), .biggraphics ul .regionalization__row li > a:not([class]), .regionalization__row .box-border ul li > a:not([class]), .box-border ul .regionalization__row li > a:not([class]), .regionalization__row .pink_ul li > a[class=""], .pink_ul .regionalization__row li > a[class=""], .regionalization__row .box ul li > a[class=""], .box ul .regionalization__row li > a[class=""], .regionalization__row .graphicsbox ul li > a[class=""], .graphicsbox ul .regionalization__row li > a[class=""], .regionalization__row .biggraphics ul li > a[class=""], .biggraphics ul .regionalization__row li > a[class=""], .regionalization__row .box-border ul li > a[class=""], .box-border ul .regionalization__row li > a[class=""], .regionalization__row .knowledge-menu__2lvl li a, .knowledge-menu__2lvl li .regionalization__row a, .regionalization__row .maptab__txt--imp, .regionalization__row .sitemap__list a:not([class]), .sitemap__list .regionalization__row a:not([class]), .regionalization__row .topTabs__moreList .topTabs__tab, .topTabs__moreList .regionalization__row .topTabs__tab {position: absolute;top: 110%;left: 0;font-size: 1.2rem;}
+@media screen and (min-width: 992px) {  .regionalization__row {display: -ms-flexbox;display: flex;-ms-flex-align: center;align-items: center;padding-bottom: 20px;}  }
+@media screen and (min-width: 768px) {  .regionalization__submitBox {display: -ms-flexbox;display: flex;-ms-flex-pack: end;justify-content: flex-end;}  }
+.regionalization__label {display: block;margin-bottom: 10px;}
+@media screen and (min-width: 992px) {  .regionalization__label {width: 380px;margin-top: 6px;-ms-flex-item-align: start;align-self: flex-start;}  }
+.regionalization__inputBox {position: relative;}
+.regionalization__input {width: 100%;}
+@media screen and (min-width: 768px) {  .regionalization__input {width: 80%;}  }
+@media screen and (min-width: 992px) {  .regionalization__input {width: 500px;}  }
+.regionalization__input--long {width: 100%;}
+.regionalization__input--submit {margin: 30px 0 0;}
+@media screen and (min-width: 768px) {  .regionalization__input--submit {position: absolute;top: 30px;margin-top: 20px;right: 20px;}  }
+@media screen and (min-width: 992px) {  .regionalization__input--submit {position: static;margin: 0 20px;}  }
+@media screen and (min-width: 768px) {  .regionalization__input--bottom {position: static;margin: 40px 0 0 0;}  }
+.regionalization .hide {display: none;}
+.regionalization-popup {position: fixed;top: 50%;left: 50%;-ms-transform: translate(-50%, -50%);transform: translate(-50%, -50%);z-index: 999;width: 94%;max-width: 470px;min-height: 200px;background: white;border: 1px solid #dadada;padding: 25px 15px;display: none;}
+.regionalization-popup.show, .regionalization__submitBox button.regionalization-popup {display: block;}
+@media screen and (min-width: 480px) {  .regionalization-popup:before, .regionalization-popup:after {top: 99999px;left: -99999px;}  }
+@media screen and (min-width: 480px) {  .regionalization-popup {width: 470px;}  }
+.regionalization-popup__close {position: absolute;font-size: 2.4rem;top: 0px;right: 5px;cursor: pointer;}
+.regionalization-popup .heading:before {font-size: 3rem;color: #c1c1c1;}
+.regionalization-popup__info {font-size: 1.6rem;margin: 10px 0;line-height: 1.2;}
+.regionalization-popup__form {position: relative;}
+.heading--small {font-weight: 600;}
+.regionalization-popup__input {width: 100%;padding: 0 5px;}
+@media screen and (min-width: 768px) {  .regionalization-popup__input {padding: 0 15px;}  }
+.regionalization-popup__input--submit {position: absolute;top: 0;right: -3px;height: 48px;font-size: 20px;padding: 8px 8px 10px 8px;}
+.wcag_hide {clip: rect(1px, 1px, 1px, 1px);display: block;position: absolute;}
+.error__message {color: #f12e2c;font-size: 1.4rem;line-height: 1;display: none;}
+@media screen and (min-width: 768px) {  .regionalization-popup__input--submit {padding: 8px 20px 10px 20px;}  }
+.regionalization-popup .cta, .regionalization-popup .pink_ul li > a:not([class]), .pink_ul .regionalization-popup li > a:not([class]), .regionalization-popup .box ul li > a:not([class]), .box ul .regionalization-popup li > a:not([class]), .regionalization-popup .graphicsbox ul li > a:not([class]), .graphicsbox ul .regionalization-popup li > a:not([class]), .regionalization-popup .biggraphics ul li > a:not([class]), .biggraphics ul .regionalization-popup li > a:not([class]), .regionalization-popup .box-border ul li > a:not([class]), .box-border ul .regionalization-popup li > a:not([class]), .regionalization-popup .pink_ul li > a[class=""], .pink_ul .regionalization-popup li > a[class=""], .regionalization-popup .box ul li > a[class=""], .box ul .regionalization-popup li > a[class=""], .regionalization-popup .graphicsbox ul li > a[class=""], .graphicsbox ul .regionalization-popup li > a[class=""], .regionalization-popup .biggraphics ul li > a[class=""], .biggraphics ul .regionalization-popup li > a[class=""], .regionalization-popup .box-border ul li > a[class=""], .box-border ul .regionalization-popup li > a[class=""], .regionalization-popup .knowledge-menu__2lvl li a, .knowledge-menu__2lvl li .regionalization-popup a, .regionalization-popup .maptab__txt--imp, .regionalization-popup .sitemap__list a:not([class]), .sitemap__list .regionalization-popup a:not([class]), .regionalization-popup .topTabs__moreList .topTabs__tab, .topTabs__moreList .regionalization-popup .topTabs__tab {display: block;margin: 10px 0;}
+.regionalization__inputBox {width: 100%}
+/* nd regionalization popup*/
+
+
+
+
+#smart_content #smart_form .page_content.process_content .color_section{background-color: #f3f9f9;position:relative;padding-bottom: 45px}
+#smart_content #smart_form .page_content.process_content .color_section .ab_img{position: absolute;left: 0;top: 50px}
+#smart_content #smart_form .page_content.process_content .section_head{text-align: center;padding-top: 55px}
+#smart_content #smart_form .page_content.process_content .section_subhead{text-align: center;margin-top: 10px;}
+#smart_content #smart_form .page_content.process_content .options_flex{display: flex;justify-content: space-between;align-items: center;position: relative}
+#smart_content #smart_form .page_content.process_content .options_flex .radio_box{flex-basis: 260px;    display: flex;justify-content: center;}
+#smart_content #smart_form .page_content.process_content .options_flex .option_element{flex-basis: calc(50% - 130px);display: flex;justify-content: center;align-items: flex-start;height: 470px;position: relative;filter: grayscale(1);}
+#smart_content #smart_form .page_content.process_content .options_flex .radio_box .switch{width: 190px;height: 90px;display: inline-block;margin: 0 10px;text-align: center;vertical-align: middle;position: relative;cursor: pointer;}
+#smart_content #smart_form .page_content.process_content .options_flex .radio_box .switch input {position: absolute;left: -999999px;opacity: 0;display: block;}
+
+#smart_content #smart_form .page_content.process_content .options_flex .radio_box .switch label:before {box-shadow: 0px 1px 20px 0px rgba(7, 83, 86, 0.2);content: "";display: block;width: 100%;border-radius: 50px;position: absolute;top: 0.05555556em;right: 0.05555556em;bottom: 0.05555556em;left: 0.05555556em;background-color: #fff;-webkit-transition: background 0.4s;cursor: pointer;}
+#smart_content #smart_form .page_content.process_content .options_flex .radio_box .switch .first+label:after {display: block;position: absolute;top: 5px;left: 0;bottom: 0;content: "";box-sizing: border-box;width: 62px;height: 62px;background-color: #7bdadc;border: none;border-radius: 50%;z-index: 10;margin: 11px 0 0 60%;pointer-events: none;transition: 250ms ease;}
+#smart_content #smart_form .page_content.process_content .options_flex .radio_box .switch  input.first:checked + label:after {margin: 11px 0 0 12px;}
+#smart_content #smart_form .page_content.process_content .options_flex .radio_box  .main_label{display: block;width: 50%;height: 450px;position: absolute;top: 0;bottom: 0;margin: auto;z-index: 5;cursor: pointer}
+#smart_content #smart_form .page_content.process_content .options_flex .radio_box  .main_label.first_label{left: 0;}
+#smart_content #smart_form .page_content.process_content .options_flex .radio_box  .main_label.second_label{right: 0;}
+
+#smart_content #smart_form .page_content.process_content .options_flex .option_element h3{text-align: center;z-index: 2;margin-top: 120px;color: #a0a0a0}
+#smart_content #smart_form .page_content.process_content .options_flex .option_element h3 span{font-size: 50px;display: block;margin-top: 5px;color: #a0a0a0}
+#smart_content #smart_form .page_content.process_content .options_flex .option_element .bulb_span{width: 185px;height: 345px;background-repeat: space;background-position: center;background-size: contain;position: absolute;display: block;left: 0;right: 0;top: 0;bottom: 0;margin: auto;opacity: .5}
+#smart_content #smart_form .page_content.process_content .options_flex .option_element .bulb_span.normal_bulb{background-image: url(/-/media/Additional/smart/img/odn_form/normal_bulb.png);}
+#smart_content #smart_form .page_content.process_content .options_flex .option_element .bulb_span.eko_bulb{background-image: url(/-/media/Additional/smart/img/odn_form/eko_bulb.png);}
+#smart_content #smart_form .page_content.process_content .options_flex .option_element.active_option{background-image: url(/-/media/Additional/smart/img/odn_form/active_option.png);    background-repeat: no-repeat;background-position: center;background-size: contain;filter:unset}
+#smart_content #smart_form .page_content.process_content .options_flex .option_element.active_option h3{color: #000}
+#smart_content #smart_form .page_content.process_content .options_flex .option_element.active_option h3 span{color: #e2007e}
+#smart_content #smart_form .page_content.process_content .options_flex .option_element.active_option h3 span.green{color: #75bd39}
+#smart_content #smart_form .page_content.process_content .options_flex .option_element.active_option .bulb_span{opacity: 1}
+#smart_content #smart_form .page_content.process_content .option_text_box{width: 100%;box-shadow: 0px 1px 20px 0px rgba(7, 83, 86, 0.2);border-radius: 30px;background-color: #fff;padding: 15px;text-align: center;    margin-top: -40px;z-index: 10;position: relative;min-height: 132px}
+#smart_content #smart_form .page_content.process_content .option_text_box .option_text{display: none;}
+#smart_content #smart_form .page_content.process_content .option_text_box .option_text.active{display: block}
+#smart_content #smart_form .page_content.process_content .option_text_box .option_text p{margin: 10px 0;line-height: 1.5}
+#smart_content #smart_form .page_content.process_content .products_space{margin-top: 50px}
+#smart_content #smart_form .page_content.process_content .products_box{display: none;justify-content: flex-start;flex-wrap: wrap}
+#smart_content #smart_form .page_content.process_content .products_box.active_box{display: flex;}
+#smart_content #smart_form .page_content.process_content .products_box .single_product{flex-basis: 31%;margin-bottom: 2%;padding: 15px;border-radius: 10px;border:1px solid #ebebeb;margin-right: 3%;opacity: 0}
+#smart_content #smart_form .page_content.process_content .products_box.active_box .single_product{animation: show 1s forwards}
+#smart_content #smart_form .page_content.process_content .products_box .single_product:nth-child(3n){margin-right: 0}
+#smart_content #smart_form .page_content.process_content .products_box .single_product.recc_prd{border-color: #e2007e;position: relative}
+#smart_content #smart_form .page_content.process_content .products_box .single_product.recc_prd:before{    content: 'Polecane';display: block;width: 50%;font-size: 18px;color: #fff;border-radius: 5px;background-color: #e2007e;position: absolute;top: -15px;left: 0;right: 0;margin: auto;text-align: center;z-index: 2;padding: 3px 0;}
+#smart_content #smart_form .page_content.process_content .products_box .single_product .inside_prd{border-radius: 10px;box-shadow: 0px 1px 16px 0px rgba(9, 193, 199, 0.23);}
+#smart_content #smart_form .page_content.process_content .products_box .single_product .inside_prd .prd_img{background-position: center;background-repeat: no-repeat;min-height: 150px;width: 100%;border-top-right-radius: 10px;border-top-left-radius: 10px;filter:grayscale(1)}
+#smart_content #smart_form .page_content.process_content .products_box .single_product .inside_prd .prd_img.prd_img_1{background-image: url(/-/media/Additional/smart/img/odn_form/prd_1.png);}
+#smart_content #smart_form .page_content.process_content .products_box .single_product .inside_prd .prd_img.prd_img_2{background-image: url(/-/media/Additional/smart/img/odn_form/prd_2.png);}
+#smart_content #smart_form .page_content.process_content .products_box .single_product .inside_prd .prd_img.prd_img_3{background-image: url(/-/media/Additional/smart/img/odn_form/prd_3.png);}
+#smart_content #smart_form .page_content.process_content .products_box .single_product .inside_prd .prd_img.prd_img_4{background-image: url(/-/media/Additional/smart/img/odn_form/prd_4.png);}
+#smart_content #smart_form .page_content.process_content .products_box .single_product .inside_prd .prd_img.prd_img_5{background-image: url(/-/media/Additional/smart/img/odn_form/prd_5.png);}
+#smart_content #smart_form .page_content.process_content .products_box .single_product .inside_prd .prd_img.prd_img_6{background-image: url(/-/media/Additional/smart/img/odn_form/prd_6.png);}
+
+
+#smart_content #smart_form .page_content.process_content .products_box .single_product .inside_prd .prd_img.prd_img_1a{background-image: url(/-/media/Additional/smart/img/odn_form/prd_1a.png);}
+#smart_content #smart_form .page_content.process_content .products_box .single_product .inside_prd .prd_img.prd_img_2a{background-image: url(/-/media/Additional/smart/img/odn_form/prd_2a.png);}
+#smart_content #smart_form .page_content.process_content .products_box .single_product .inside_prd .prd_img.prd_img_3a{background-image: url(/-/media/Additional/smart/img/odn_form/prd_3a.png);}
+#smart_content #smart_form .page_content.process_content .products_box .single_product .inside_prd .prd_img.prd_img_4a{background-image: url(/-/media/Additional/smart/img/odn_form/prd_4a.png);}
+#smart_content #smart_form .page_content.process_content .products_box .single_product .inside_prd .prd_img.prd_img_5a{background-image: url(/-/media/Additional/smart/img/odn_form/prd_5a.png);}
+#smart_content #smart_form .page_content.process_content .products_box .single_product .inside_prd .prd_img.prd_img_6a{background-image: url(/-/media/Additional/smart/img/odn_form/prd_6a.png);}
+
+
+
+
+#smart_content #smart_form .page_content.process_content .products_box .single_product .inside_prd .prd_body{padding:20px}
+#smart_content #smart_form .page_content.process_content .products_box .single_product .inside_prd .prd_body .prd_head{text-align: left;min-height: 60px;margin-bottom: 5px}
+#smart_content #smart_form .page_content.process_content .products_box .single_product .inside_prd .prd_text{min-height: 240px}
+#smart_content #smart_form .page_content.process_content .products_box .single_product .inside_prd .prd_text p.with_dot{position: relative;padding-left: 20px;line-height: 1.5;margin-bottom: 10px}
+#smart_content #smart_form .page_content.process_content .products_box .single_product .inside_prd .prd_text p.with_dot:before{position: absolute;display: block;border-radius: 50%;left: 0;top: 9px;content: '';background-color: #77dade;width: 8px;height: 8px;}
+#smart_content #smart_form .page_content.process_content .products_box .single_product .inside_prd .prd_link{display: flex;text-align: center;align-items: center;justify-content: center;color: #000}
+#smart_content #smart_form .page_content.process_content .products_box .single_product .inside_prd .prd_link img{display: block;margin-right: 5px}
+#smart_content #smart_form .page_content.process_content .products_box .single_product .inside_prd .prd_link:hover{color: #e2007e}
+#smart_content #smart_form .page_content.process_content .products_box .single_product .inside_prd .f_btn{margin: 15px auto 0;display: block}
+#smart_content #smart_form .page_content.process_content .products_box .single_product.recc_prd .inside_prd .prd_img,#smart_content #smart_form .page_content.process_content .products_box .single_product:hover .inside_prd .prd_img{filter: grayscale(0)}
+#smart_content #smart_form .page_content.process_content .doc_legend{margin-top: 40px}
+#smart_content #smart_form .page_content.process_content .products_box .single_product:hover{border-color: #e2007e}
+#smart_content #smart_form .page_content.process_content .doc_legend p{text-align: center;margin-bottom: 25px;line-height: 1.5}
+
+#smart_content #smart_form .page_content.process_content .expand_box{margin-top: 35px;box-shadow: 0px 1px 10px 0px rgb(31 31 31 / 25%);padding: 75px 25px;max-width: 1400px;z-index: 2;position: relative;background-color: #fff;}
+#smart_content #smart_form .page_content.process_content .expand_box .exp_localisation_box{margin: 0 auto 50px;text-align: center;}
+#smart_content #smart_form .page_content.process_content .expand_box h1{text-align: center}
+#smart_content #smart_form .page_content.process_content .expand_box p{text-align: center;line-height: 1.5}
+#smart_content #smart_form .page_content.process_content .expand_box p a:hover{text-decoration: underline}
+#smart_content #smart_form .page_content.process_content .expand_section .back_to{display: block;color: #000;margin: 30px 0;}
+#smart_content #smart_form .page_content.process_content .expand_section .back_to:hover{color: #e2007e}
+#smart_content #smart_form .page_content.process_content .options_flex .option_element.active_option{background-size: 0}
+#smart_content #smart_form .page_content.process_content .options_flex .option_element.active_option{animation: showBg .5s forwards}
+
+.doc_box{margin-top: 40px}
+.accordion--process{overflow: unset}
+.accordion--process .accordion__part{border-radius: 20px;background-color: #fff;box-shadow: 0px 1px 20px 0px rgba(7, 83, 86, 0.2);margin-bottom:20px!important;border: none}
+.accordion--process .accordion__part .accordion__header {border-radius: 20px;background-color: #fff;}
+.accordion--process .accordion__content:before{content: none}
+.accordion--process .accordion__content {padding: 20px 20px 0px 20px;background-color: #fff;}
+.doc-list > h3{margin: 25px 0!important;font-weight: 600!important;}
+.doc-list{padding: 0}
+.doc-list__cta{margin-bottom: 25px!important;line-height: 1.2}
+.accordion--process .accordion__header .accordion__question{padding-right: 80px}
+.accordion--process .accordion__part:first-of-type .accordion__header {border-radius: 20px!important;}
+.accordion__icon {line-height: 1!important;height: auto!important;font-size: 16px!important;}
+@keyframes show {
+    0%{opacity: 0}
+    100%{opacity: 1}
+}
+
+@keyframes showBg {
+    0%{background-size: 0}
+    100%{background-size: 470px}
+}
+
+@media all and (max-width: 1500px){
+    #smart_content #smart_form .page_content.page_with_bg .circle{opacity: 0}
+    #smart_content #smart_form .page_content .page_flex .flex_element.flex_progress{flex-basis: 300px}
+    #smart_content #smart_form .page_content .page_flex .flex_element.flex_form {flex-basis: calc(100% - 340px);}
+    #smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .summary_flex .summary_element{flex-basis: 100%}
+}
+@media all and (max-width: 1400px){
+    #smart_content #smart_form .page_content.thanks_content .page_baner .baner_image {width: 471px;background-size: cover;background-position: left;}
+}
+@media all and (max-width: 1300px){
+    #smart_content #smart_form .page_content.page_with_bg{background-size: contain}
+    #smart_content #smart_form .page_content.process_content .products_box .single_product .inside_prd .prd_text {min-height: 300px;}
+    @keyframes showBg {
+        0%{background-size: 0}
+        100%{background-size: 420px}
+    }
+}
+
+@media all and (max-width: 1150px){
+    #smart_content #smart_form .page_content.thanks_content .page_baner .baner_image {width: 370px;}
+    #smart_content #smart_form .page_content.process_content .options_flex .radio_box .switch .first+label:after{width: 40px;height: 40px;    margin: 5px 0 0 60%;}
+    #smart_content #smart_form .page_content.process_content .options_flex .radio_box .switch{width: 130px;height: 60px}
+    #smart_content #smart_form .page_content.process_content .options_flex .radio_box .switch input.first:checked + label:after {margin: 5px 0 0 12px;}
+    #smart_content #smart_form .page_content.process_content .options_flex .radio_box{flex-basis: 150px}
+    #smart_content #smart_form .page_content.process_content .options_flex .option_element{    flex-basis: calc(50% - 75px);}
+    #smart_content #smart_form .page_content.process_content .products_box .single_product .inside_prd .prd_text {min-height: 310px;}
+}
+
+
+@media all and (max-width: 1080px){
+    #smart_content #smart_form .page_content .page_flex .flex_element.flex_progress{margin-top: 0!important;}
+    #smart_content #smart_form .page_content .page_flex .flex_element.flex_progress h3{display: none;}
+    #smart_content #smart_form .page_content .page_flex .flex_element.flex_progress .progress_steps .single_step p.step_name{display: none}
+    #smart_content #smart_form .page_content .page_flex .flex_element.flex_progress .progress_steps .single_step .progress_status{position: relative;left: auto;top: auto;}
+    #smart_content #smart_form .page_content .page_flex .flex_element.flex_progress .progress_steps .single_step.in_progress .progress_status,#smart_content #smart_form .page_content .page_flex .flex_element.flex_progress .progress_steps .single_step.done .progress_status{left: auto;top: auto}
+    #smart_content #smart_form .page_content .page_flex .flex_element.flex_progress .progress_steps .single_step{padding: 0;flex-wrap: wrap;justify-content: center;flex-basis: 14%;margin: 0}
+    #smart_content #smart_form .page_content .page_flex .flex_element.flex_progress .progress_steps .single_step p.c_step_number{    display: block;flex-basis: 100%;text-align: center;}
+    #smart_content #smart_form .page_content .page_flex .flex_element.flex_progress .progress_steps .single_step{position: relative}
+    #smart_content #smart_form .page_content .page_flex .flex_element.flex_progress .progress_steps .single_step.done:before {left: 0px;top: 15px;right: 0;margin: auto;}
+    #smart_content #smart_form .page_content .page_flex .flex_element.flex_progress{position: fixed;width: 100%;top: 140px!important;left: 0;}
+    #smart_content #smart_form .page_content .page_flex .flex_element.flex_progress .progress_steps .single_step.in_progress .progress_status{width: 27px;height: 27px;border-width: 5px}
+    #smart_content #smart_form .page_content .page_flex .flex_element.flex_progress .progress_steps .single_step.done .progress_status{width: 27px;height: 27px;}
+    #smart_content #smart_form .page_content .page_flex .flex_element.flex_progress .progress_steps .single_step.done:before {left: 7px;top: 11px;right: auto;margin: auto;width: 12px;height: 9px;background-repeat: no-repeat;background-size: cover;}
+    #smart_content #smart_form .page_content .page_flex .flex_element.flex_progress .progress_steps .single_step p.c_step_number{font-size: 19px}
+    #smart_content #smart_form .page_content .page_flex .flex_element.flex_progress .progress_bar span.present_progress_1{background: linear-gradient(90deg, rgba(207,44,136,1) 8%, rgba(255,255,255,1) 16%)!important;}
+    #smart_content #smart_form .page_content .page_flex .flex_element.flex_progress .progress_bar span.present_progress_2{background: linear-gradient(90deg, rgba(207,44,136,1) 24%, rgba(255,255,255,1) 36%)!important;}
+    #smart_content #smart_form .page_content .page_flex .flex_element.flex_progress .progress_bar span.present_progress_3{background: linear-gradient(90deg, rgba(207,44,136,1) 36%, rgba(255,255,255,1) 54%)!important;}
+    #smart_content #smart_form .page_content .page_flex .flex_element.flex_progress .progress_bar span.present_progress_4{background: linear-gradient(90deg, rgba(207,44,136,1) 48%, rgba(255,255,255,1) 72%)!important;}
+    #smart_content #smart_form .page_content .page_flex .flex_element.flex_progress .progress_bar span.present_progress_5{background: linear-gradient(90deg, rgba(207,44,136,1) 60%, rgba(255,255,255,1) 90%)!important;}
+    #smart_content #smart_form .page_content .page_flex .flex_element.flex_progress .progress_bar span.present_progress_6{background: linear-gradient(90deg, rgba(207,44,136,1) 72%, rgba(255,255,255,1) 108%)!important;}
+    #smart_content #smart_form .page_content .page_flex .flex_element.flex_progress .progress_bar span{height: 5px!important;display: block;width: calc(100% - 180px);left: 0;margin: auto;right: 0;top: 10px;}
+    #smart_content #smart_form .page_content .page_flex .flex_element.flex_progress .progress_bar{display: block;}
+    #smart_content #smart_form .page_content .page_flex .flex_element.flex_progress .progress_bar{left: 0}
+    #smart_content #smart_form .page_content .page_flex .flex_element.flex_progress .progress_steps .single_step p.c_step_number{margin-top: 3px}
+    #smart_content #smart_form .page_content .page_flex .flex_element.flex_form{flex-basis: 100%}
+    #smart_content #smart_form .page_content .page_flex .flex_element.flex_progress .progress_steps .single_step {padding: 0;flex-wrap: wrap;justify-content: flex-start;flex-basis: 14%;margin: 0;}
+    #smart_content #smart_form .page_content .page_flex .flex_element.flex_progress .progress_steps {display: flex;flex-basis: 100%;justify-content: center;    background-color: #dcf3f4;padding: 10px;}
+    #smart_content #smart_form .page_content.thanks_content .page_baner .baner_image{height: 170px}
+    #smart_content #smart_form .page_content.process_content .products_box .single_product .inside_prd .prd_text {min-height: 340px;}
+    @keyframes showBg {
+        0%{background-size: 0}
+        100%{background-size: 380px}
+    }
+}
+
+@media all and (max-width: 1000px){
+    #smart_content #smart_form .page_content.process_content .products_box .single_product .inside_prd .prd_text {
+        min-height: 365px;
+    }
+}
+
+@media all and (max-width: 950px){
+    #smart_content #smart_form .page_content.process_content .products_box .single_product{flex-basis: 49%;margin-right: 0!important;}
+    #smart_content #smart_form .page_content.process_content .products_box{justify-content: space-between}
+    #smart_content #smart_form .page_content.process_content .products_box .single_product .inside_prd .prd_text {min-height: 240px;}
+    #smart_content #smart_form .page_content.process_content .products_box .single_product .inside_prd .prd_img{background-size: cover}
+    #smart_content #smart_form .page_content.process_content .section_head {padding-top: 25px;}
+    @keyframes showBg {
+        0%{background-size: 0}
+        100%{background-size: 340px}
+    }
+}
+@media all and (max-width: 930px){
+    #smart_content #smart_form .page_content.process_content .option_text_box .option_text p br{display: none}
+}
+
+@media all and (max-width: 900px){
+    #smart_content #smart_form .page_content.thanks_content .page_baner .baner_image{display: none}
+    #smart_content #smart_form .page_content.thanks_content .page_flex{justify-content: center}
+    #smart_content #smart_form .page_content.thanks_content .page_flex .baner_text{text-align: center}
+    #smart_content #smart_form .page_content.thanks_content .page_baner{height: auto;padding: 20px 0px}
+    #smart_content #smart_form .page_content.process_content .options_flex .option_element h3 span{font-size: 38px}
+    #smart_content #smart_form .page_content.process_content .options_flex .option_element .bulb_span{width: 135px;height: 235px;}
+    #smart_content #smart_form .page_content.process_content .options_flex .option_element{height: 370px}
+    #smart_content #smart_form .page_content.process_content .options_flex .option_element h3{margin-top: 90px}
+    #smart_content #smart_form .page_content.process_content .options_flex .radio_box .main_label{height: 330px}
+    #smart_content #smart_form .page_content.process_content .color_section .ab_img{display: none}
+    @keyframes showBg {
+        0%{background-size: 0}
+        100%{background-size: 330px}
+    }
+}
+
+@media all and (max-width: 850px){
+    #smart_content #smart_form .page_content.process_content .products_box .single_product .inside_prd .prd_text {min-height: 270px;}
+    @keyframes showBg {
+        0%{background-size: 0}
+        100%{background-size: 270px}
+    }
+}
+
+@media all and (max-width: 750px){
+    #smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .select_box.w_70{flex-basis: 100%}
+    #smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .select_box.w_50 {flex-basis: 100%;}
+    #smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .select_flex .select_summary {flex-basis: 100%;justify-content: flex-start;margin-top: 10px;}
+    #smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .inputs_flex .input_box{flex-basis: 100%}
+    #smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .select_box.w_85 {flex-basis: 100%;}
+    #smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .confirm_service {flex-basis: 100px;justify-content: flex-start;margin-top: 20px;}
+    #smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .service_flex .change_service {flex-basis: 100%;cursor: pointer;text-align: left;margin-top: 20px;}
+    #smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .service_box.w_85 {flex-basis: 100%;}
+    #smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .summary_service .summary_present_service{flex-basis: 100%}
+    #smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .summary_service > p {flex-basis: auto;margin-bottom: 20px;}
+    #smart_content #smart_form .page_content.process_content .options_flex .option_element {height: 300px;}
+    @keyframes showBg {
+        0%{background-size: 0}
+        100%{background-size: 250px}
+    }
+    #smart_content #smart_form .page_content.process_content .options_flex .radio_box .main_label {height: 250px;}
+    #smart_content #smart_form .page_content.process_content .option_text_box{margin-top: -20px}
+    #smart_content #smart_form .page_content.process_content .products_box .single_product .inside_prd .prd_text {min-height: 310px;}
+}
+
+@media all and (max-width: 700px){
+    #smart_content #smart_form .page_content.process_content .options_flex .option_element .bulb_span{display: none}
+    #smart_content #smart_form .page_content.process_content .options_flex .option_element.active_option{background-image: none}
+    #smart_content #smart_form .page_content.process_content .options_flex .option_element{align-items: center}
+    #smart_content #smart_form .page_content.process_content .options_flex .option_element h3{margin-top: 0}
+    #smart_content #smart_form .page_content.process_content .options_flex .option_element{height: 220px}
+    @keyframes showBg {
+        0%{background-size: 0}
+        100%{background-size: 200px}
+    }
+    #smart_content #smart_form .page_content.process_content .options_flex .radio_box .main_label {height: 180px;}
+    #smart_content #smart_form .page_content.process_content .options_flex .option_element h3 span {font-size: 22px;}
+    #smart_content #smart_form .page_content.process_content .options_flex .option_element h3{font-size: 20px}
+}
+@media all and (max-width: 640px){
+    #smart_content #smart_form .page_content .page_flex .flex_element.flex_progress .progress_steps .single_step{flex-basis: 19%}
+    #smart_content #smart_form .page_content .page_flex .flex_element.flex_progress .progress_steps{justify-content: space-between}
+    #smart_content .f_12{font-size: 1.2rem}
+    #smart_content .f_14{font-size: 1.4rem}
+    #smart_content .f_16{font-size: 1.4rem}
+    #smart_content .f_18{font-size: 1.6rem}
+    #smart_content .f_20{font-size: 1.8rem}
+    #smart_content .f_22{font-size: 2.0rem}
+    #smart_content .f_24{font-size: 2.0rem}
+    #smart_content .f_26{font-size: 2.4rem}
+    #smart_content .f_32{font-size: 3.0rem}
+    #smart_content .f_36{font-size: 3.2rem}
+    #smart_content .f_40{font-size: 3.2rem}
+    #smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .inputs_flex .input_box.with_x:after,#smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .inputs_flex .input_box.with_ok:after{top:52px}
+    #smart_content #smart_form .page_content.thanks_content .page_body {padding: 25px 0;}
+}
+
+@media all and (max-width: 600px){
+    #smart_content #smart_form .page_content.process_content .products_box .single_product{flex-basis: 100%}
+    #smart_content #smart_form .page_content.process_content .products_box .single_product .inside_prd .prd_text{min-height: 1px}
+    #smart_content #smart_form .page_content.process_content .products_box .single_product .inside_prd .prd_body .prd_head{text-align: center}
+}
+
+@media all and (max-width: 500px){
+    #smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section{padding: 35px 15px}
+    #smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .terms_box .c_inside_container {padding-left: 0;}
+    #smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .terms_box .check-box label{padding-left: 50px}
+    #smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .summary_flex .summary_element .summary_label {flex-basis: 100%;}
+    #smart_content #smart_form .page_content .page_flex .flex_element.flex_form .form_section .single_question .summary_flex .summary_element .summary_value {flex-basis: 100%;font-weight: normal;margin-top: 5px;margin-bottom: 20px;}
+    #smart_content #smart_form .page_content.process_content .option_text_box {margin-top: 0;}
+    #smart_content #smart_form .page_content.process_content .options_flex .radio_box .main_label {height: 140px;}
+    #smart_content #smart_form .page_content.process_content .options_flex .option_element {height: 160px;}
+    @keyframes showBg {
+        0%{background-size: 0}
+        100%{background-size: 140px}
+    }
+    #smart_content #smart_form .page_content.process_content .options_flex .radio_box .switch .first+label:after{width: 25px;height: 25px;}
+    #smart_content #smart_form .page_content.process_content .options_flex .option_element{flex-basis: calc(50% - 25px);}
+    #smart_content #smart_form .page_content.process_content .options_flex .radio_box .switch {width: 90px;height: 45px;}
+    #smart_content #smart_form .page_content.process_content .options_flex .radio_box {flex-basis: 100px;}
+    #smart_content #smart_form .page_content.process_content .options_flex .option_element h3 {font-size: 18px;}
+    #smart_content #smart_form .page_content.process_content .options_flex .option_element h3 span{font-size:18px;}
+    #smart_content #smart_form .page_content.process_content .main_text_box p br{display: none}
+}
+@media all and (max-width: 400px){
+    #smart_content .f_40{font-size: 3rem}
+    #smart_content #smart_form .page_content.process_content .options_flex .option_element h3 span {font-size: 14px;}
+}
+
+
+
+

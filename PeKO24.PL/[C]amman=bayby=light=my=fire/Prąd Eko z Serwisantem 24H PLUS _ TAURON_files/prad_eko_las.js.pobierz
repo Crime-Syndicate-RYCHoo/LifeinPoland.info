@@ -1,0 +1,992 @@
+var prad_eko_las = {
+    'oferta_zmiana':{
+        name:'Prąd EKO + LAS',
+        onlineActivation: 189, // bonus w zł za wybór cennika 3 letniego
+        ecoBonus: 10,
+        prices:{ // ceny danego produktu
+            'ts':'31,50', //cena brutto dla lokalizacji ts w PLN
+            'gze':'31,50', //cena brutto dla lokalizacji gze w PLN
+            'ts_netto':'25,61', //cena netto dla lokalizacji ts w PLN
+            'gze_netto':'25,61', //cena netto dla lokalizacji gze w PLN
+        },
+        odnPageDisclaimers: {
+            ts: `
+                <div>
+                  <p class="c_f2" style="font-size: 1.6rem;margin:0!important;">Informujemy, że od 1 stycznia 2025 do 30 czerwca 2025:</p>
+                  <p class="c_f2 z_doc_p_dot" style="font-size: 1.6rem;margin:0!important;">obowiązuje nowa stawka opłaty mocowej w wysokości 0 zł/MWh [1]</p>
+                  <div class="z_legal" style="font-size: 1.6rem;"><p class="c_f1" style="font-size: 1.6rem!important;margin:0!important;max-width: 100%!important">Podstawa prawna:<br>[1] Ustawa z dnia 27 listopada 2024 r. o zmianie ustawy o środkach nadzwyczajnych mających na celu ograniczenie wysokości cen energii elektrycznej oraz wsparciu niektórych odbiorców w 2023 roku oraz w 2024 roku oraz niektórych innych ustaw. (Dz. U. z 2024 r. poz. 1831).</p></div>
+                  <div style="margin-top: 15px">
+                      Od 1 stycznia 2025 roku, na podstawie decyzji Prezesa URE z 16 grudnia 2024 roku (znak DRE.WRE.4211.47.9.2024.ASa1) obowiązuje ,,Taryfa dla usług dystrybucji energii elektrycznej TAURON Dystrybucja S.A. na rok 2025".
+                      <br><br>Prezes Urzędu Regulacji Energetyki zatwierdził w dniu 28 czerwca 2024r. zmianę Taryfy dla energii elektrycznej dla Odbiorców z grup taryfowych G TAURON Sprzedaż sp. z o.o. (decyzja nr DRE.WRE.4211.29.11.2024.AKr3 z dnia 28 czerwca 2024 r.). Taryfa będzie obowiązywać do 31 grudnia 2025 r. Treść decyzji została opublikowana w Biuletynie Branżowym URE Nr 164 (4407).
+                      <br><br>Dodatkowo informujemy, że ceny stosowane w rozliczeniach z Państwem będą uwzględniać rozwiązania osłonowe. Zasady działania tych rozwiązań osłonowych zostały określone w następujących ustawach:<br><br>1) Ustawy z 7 października 2022 r. o szczególnych rozwiązaniach służących ochronie odbiorców energii elektrycznej w 2023 roku oraz w 2024 roku w związku z sytuacją na rynku energii elektrycznej (Dz. U. z 2023 r. poz. 1704 t.j.)<br><br>2) Ustawy z 27 października 2022 r. o środkach nadzwyczajnych mających na celu ograniczenie wysokości cen energii elektrycznej oraz wsparciu niektórych odbiorców w 2023 roku oraz w 2024 roku (Dz. U. z 2024 r. poz. 190 t.j.)<br><br>3) Ustawy z 23 maja 2024 r. o bonie energetycznym oraz o zmianie niektórych ustaw w celu ograniczenia cen energii elektrycznej, gazu ziemnego i ciepła systemowego (Dz. U. z 2024 r. poz. 859)<br><br>4) Ustawy z dnia 27 listopada 2024 r. o zmianie ustawy o środkach nadzwyczajnych mających na celu ograniczenie wysokości cen energii elektrycznej oraz wsparciu niektórych odbiorców w 2023 roku oraz w 2024 roku oraz niektórych innych ustaw. (Dz. U. z 2024 r. poz. 1831).<br><br>Szczegółowe informacje w tym zakresie znajdują się na stronie
+                      <a href="https://www.tauron.pl/zamrozenie-pradu">tauron.pl/zamrozenie-pradu.</a>
+                      <br><br>Cena maksymalna energii elektrycznej stosowana w rozliczeniach z odbiorcami za zużycie energii elektrycznej w punkcie poboru w okresie od 1 stycznia 2025 do 30 września 2025 roku wynosi (0,5050 zł/kWh netto) - 0,6212 zł/kWh brutto, z wyłączeniem odbiorców, którzy zawarli umowę z ceną dynamiczną energii elektrycznej w rozumieniu art. 3 pkt 6d ustawy Prawo energetyczne, który wchodzi w życie z dniem 24 sierpnia 2024 r. W przypadku, gdy cena energii elektrycznej wynikająca z Taryfy albo z umowy zawartej z odbiorcą jest niższa niż cena maksymalna, w rozliczeniach z odbiorcą będziemy stosować tę niższą cenę.
+                    </p>
+                  </div>
+                  <br>
+          * W okresie, kiedy obowiązuje Cię cennik, dajemy Ci
+                                    rabat:<br> • nie mniejszy niż 10% - jeśli udzielisz nam zgód marketingowych,
+                                    zaktualizujesz swoje dane kontaktowe i wybierzesz e-fakturę,<br> • nie mniejszy niż
+                                    0.2% - jeśli nie udzielisz nam zgód marketingowych, wycofasz je albo zrezygnujesz z
+                                    e-faktury.<br> <strong>Ważna informacja</strong><br> Rabat gwarantuje:<br> • niższą
+                                    cenę energii elektrycznej w porównaniu do tej ceny w Taryfie TAURON Sprzedaż – gdy
+                                    jesteś klientem TAURON Sprzedaż,<br> • niższą stawkę zmienną ceny energii
+                                    elektrycznej w porównaniu do tej stawki w taryfie TAURON Sprzedaż GZE – gdy jesteś
+                                    klientem TAURON Sprzedaż GZE.<br>
+
+                                    Rabat obowiązuje przez cały okres trwania cennika, z wyjątkiem okresu od 01.01.2025 do 30.09.2025 roku, kiedy obowiązują rozwiązania osłonowe, dzięki którym ceny są jeszcze niższe. Więcej na <a class="magenta" href="https://www.tauron.pl/zamrozenie-pradu" title="Kliknij aby dowiedzieć się więcje">tauron.pl/zamrozenie-pradu</a> i&nbsp;na <a class="magenta" href="https://www.tauron.pl/ceny" title="Kliknij aby dowiedzieć się więcje">tauron.pl/ceny</a>.
+                                    
+                                    <br><br> ** Aby otrzymać bonus na konto
+                                    rozliczeniowe w TAURONIE, zamów w serwisie Mój TAURON, wybierz opcję cennika na 3
+                                    lata oraz zarejestruj zakup w Programie Klienckim. Szczegóły promocji dostępne są w
+                                    <a href="https://www.tauron.pl/dla-domu/prad/zwrot-za-prad#id_0d6a8586-48ef-459d-8879-86e233c1dc77">regulaminie</a><br><br>
+                                    *** W ramach oferty „Prąd EKO” otrzymasz certyfikat, który potwierdzi, że TAURON
+                                    zakupił Gwarancje Pochodzenia w ilości, która odpowiada Twojemu zużyciu energii.
+                                    Jest to dokument, który poświadcza, że zakupiona energia została wytworzona w
+                                    odnawialnych źródłach energii (OZE), a Ty przyczyniłeś się do rozwoju OZE.
+                </div>
+            `,
+            gze: `
+                <div>
+                  <p class="c_f2" style="font-size: 1.6rem;margin:0!important;">Informujemy, że od 1 stycznia 2025 do 30 czerwca 2025:</p>
+                  <p class="c_f2 z_doc_p_dot" style="font-size: 1.6rem;margin:0!important;">obowiązuje nowa stawka opłaty mocowej w wysokości 0 zł/MWh [1]</p>
+                  <div class="z_legal" style="font-size: 1.6rem;"><p class="c_f1" style="font-size: 1.6rem!important;margin:0!important;max-width: 100%!important">Podstawa prawna:<br>[1] Ustawa z dnia 27 listopada 2024 r. o zmianie ustawy o środkach nadzwyczajnych mających na celu ograniczenie wysokości cen energii elektrycznej oraz wsparciu niektórych odbiorców w 2023 roku oraz w 2024 roku oraz niektórych innych ustaw. (Dz. U. z 2024 r. poz. 1831).</p></div>
+                  <div style="margin-top: 15px">
+                      Od 1 stycznia 2025 roku, na podstawie decyzji Prezesa URE z 16 grudnia 2024 roku (znak DRE.WRE.4211.47.9.2024.ASa1) obowiązuje ,,Taryfa dla usług dystrybucji energii elektrycznej TAURON Dystrybucja S.A. na rok 2025".
+                      <br><br>Prezes Urzędu Regulacji Energetyki zatwierdził w dniu 28 czerwca 2024r. zmianę Taryfy dla energii elektrycznej dla Odbiorców z grup taryfowych G TAURON Sprzedaż GZE sp. z o.o. (decyzja nr DRE.WRE.4211.30.11.2024.AKr3/ASa1 z dnia 28 czerwca 2024 r.). Taryfa będzie obowiązywać do 31 grudnia 2025 r. Treść decyzji została opublikowana w Biuletynie Branżowym URE Nr 164 (4408).
+                      <br><br>Dodatkowo informujemy, że ceny stosowane w rozliczeniach z Państwem będą uwzględniać rozwiązania osłonowe. Zasady działania tych rozwiązań osłonowych zostały określone w następujących ustawach:<br><br>1) Ustawy z 7 października 2022 r. o szczególnych rozwiązaniach służących ochronie odbiorców energii elektrycznej w 2023 roku oraz w 2024 roku w związku z sytuacją na rynku energii elektrycznej (Dz. U. z 2023 r. poz. 1704 t.j.)<br><br>2) Ustawy z 27 października 2022 r. o środkach nadzwyczajnych mających na celu ograniczenie wysokości cen energii elektrycznej oraz wsparciu niektórych odbiorców w 2023 roku oraz w 2024 roku (Dz. U. z 2024 r. poz. 190 t.j.)<br><br>3) Ustawy z 23 maja 2024 r. o bonie energetycznym oraz o zmianie niektórych ustaw w celu ograniczenia cen energii elektrycznej, gazu ziemnego i ciepła systemowego (Dz. U. z 2024 r. poz. 859)<br><br>4) Ustawy z dnia 27 listopada 2024 r. o zmianie ustawy o środkach nadzwyczajnych mających na celu ograniczenie wysokości cen energii elektrycznej oraz wsparciu niektórych odbiorców w 2023 roku oraz w 2024 roku oraz niektórych innych ustaw. (Dz. U. z 2024 r. poz. 1831).<br><br>Szczegółowe informacje w tym zakresie znajdują się na stronie
+                      <a href="https://www.tauron.pl/zamrozenie-pradu">tauron.pl/zamrozenie-pradu.</a>
+                      <br><br>Cena maksymalna energii elektrycznej stosowana w rozliczeniach z odbiorcami za zużycie energii elektrycznej w punkcie poboru w okresie od 1 stycznia 2025 do 30 września 2025 roku wynosi (0,5050 zł/kWh netto) - 0,6212 zł/kWh brutto, z wyłączeniem odbiorców, którzy zawarli umowę z ceną dynamiczną energii elektrycznej w rozumieniu art. 3 pkt 6d ustawy Prawo energetyczne, który wchodzi w życie z dniem 24 sierpnia 2024 r. W przypadku, gdy cena energii elektrycznej wynikająca z Taryfy albo z umowy zawartej z odbiorcą jest niższa niż cena maksymalna, w rozliczeniach z odbiorcą będziemy stosować tę niższą cenę.
+                    </p>
+                  </div>
+                  <br>
+          * W okresie, kiedy obowiązuje Cię cennik, dajemy Ci
+                                    rabat:<br> • nie mniejszy niż 10% - jeśli udzielisz nam zgód marketingowych,
+                                    zaktualizujesz swoje dane kontaktowe i wybierzesz e-fakturę,<br> • nie mniejszy niż
+                                    0.2% - jeśli nie udzielisz nam zgód marketingowych, wycofasz je albo zrezygnujesz z
+                                    e-faktury.<br> <strong>Ważna informacja</strong><br> Rabat gwarantuje:<br> • niższą
+                                    cenę energii elektrycznej w porównaniu do tej ceny w Taryfie TAURON Sprzedaż – gdy
+                                    jesteś klientem TAURON Sprzedaż,<br> • niższą stawkę zmienną ceny energii
+                                    elektrycznej w porównaniu do tej stawki w taryfie TAURON Sprzedaż GZE – gdy jesteś
+                                    klientem TAURON Sprzedaż GZE.<br>
+
+                                    Rabat obowiązuje przez cały okres trwania cennika, z wyjątkiem okresu od 01.01.2025 do 30.09.2025 roku, kiedy obowiązują rozwiązania osłonowe, dzięki którym ceny są jeszcze niższe. Więcej na <a class="magenta" href="https://www.tauron.pl/zamrozenie-pradu" title="Kliknij aby dowiedzieć się więcje">tauron.pl/zamrozenie-pradu</a> i&nbsp;na <a class="magenta" href="https://www.tauron.pl/ceny" title="Kliknij aby dowiedzieć się więcje">tauron.pl/ceny</a>.
+                                    
+                                    <br><br> ** Aby otrzymać bonus na konto
+                                    rozliczeniowe w TAURONIE, zamów w serwisie Mój TAURON, wybierz opcję cennika na 3
+                                    lata oraz zarejestruj zakup w Programie Klienckim. Szczegóły promocji dostępne są w
+                                    <a href="https://www.tauron.pl/dla-domu/prad/zwrot-za-prad#id_0d6a8586-48ef-459d-8879-86e233c1dc77">regulaminie</a><br><br>
+                                    *** W ramach oferty „Prąd EKO” otrzymasz certyfikat, który potwierdzi, że TAURON
+                                    zakupił Gwarancje Pochodzenia w ilości, która odpowiada Twojemu zużyciu energii.
+                                    Jest to dokument, który poświadcza, że zakupiona energia została wytworzona w
+                                    odnawialnych źródłach energii (OZE), a Ty przyczyniłeś się do rozwoju OZE.
+                </div>
+            `,
+        },
+        documents_prices:
+            {
+                ts: {
+                    brutto: {
+                        // Ceny sprzedaĹźowe brutto
+
+                        'g11': '0,6996 ', //G11 - Cena za prÄd niezmienna przez caĹÄ dobÄ. (caĹodobowy)
+                        'g12_1': '0,7937 ',//G12 - NiĹźsza cena za prÄd w nocy oraz w wybranych godzinach w ciÄgu dnia.(strefa I dzienny)
+                        'g12_2': '0,5170 ',//G12 - NiĹźsza cena za prÄd w nocy oraz w wybranych godzinach w ciÄgu dnia.(strefa II szczytowy)
+                        'g12w_1': '0,9398 ',//G12w - NiĹźsza cena za prÄd w nocy, w wybranych godzinach w ciÄgu dnia oraz w weekendy.(Strefa I (nocny))
+                        'g12w_2': '0,5170 ',//G12w - NiĹźsza cena za prÄd w nocy, w wybranych godzinach w ciÄgu dnia oraz w weekendy.(Strefa II (pozaszczytowy))
+                        'g13_1': '0,7472 ',//G13 - NiĹźsza cena za prÄd w wybranych godzinach w ciÄgu doby.(strefa I)
+                        'g13_2': '1,0638 ',//G13 - NiĹźsza cena za prÄd w wybranych godzinach w ciÄgu doby.(strefa II)
+                        'g13_3': '0,5745 ',//G13 - NiĹźsza cena za prÄd w wybranych godzinach w ciÄgu doby.(strefa III)
+                    },
+                    netto: {
+                        // Ceny sprzedaĹźowe netto
+
+                        'g11': '0,5688 ', //G11 - Cena za prÄd niezmienna przez caĹÄ dobÄ. (caĹodobowy)
+                        'g12_1': '0,6453 ',//G12 - NiĹźsza cena za prÄd w nocy oraz w wybranych godzinach w ciÄgu dnia.(strefa I dzienny)
+                        'g12_2': '0,4203 ',//G12 - NiĹźsza cena za prÄd w nocy oraz w wybranych godzinach w ciÄgu dnia.(strefa II szczytowy)
+                        'g12w_1': '0,7641 ',//G12w - NiĹźsza cena za prÄd w nocy, w wybranych godzinach w ciÄgu dnia oraz w weekendy.(Strefa I (nocny))
+                        'g12w_2': '0,4203 ',//G12w - NiĹźsza cena za prÄd w nocy, w wybranych godzinach w ciÄgu dnia oraz w weekendy.(Strefa II (pozaszczytowy))
+                        'g13_1': '0,6075 ',//G13 - NiĹźsza cena za prÄd w wybranych godzinach w ciÄgu doby.(strefa I)
+                        'g13_2': '0,8649 ',//G13 - NiĹźsza cena za prÄd w wybranych godzinach w ciÄgu doby.(strefa II)
+                        'g13_3': '0,4671 ',//G13 - NiĹźsza cena za prÄd w wybranych godzinach w ciÄgu doby.(strefa III)
+                    },
+                },
+                gze:{
+                    brutto:{
+                        // Ceny sprzedażowe brutto
+
+                        'g11': '0,6968 ', //G11 - Cena za prąd niezmienna przez całą dobę. (całodobowy)
+                        'g12_1': '0,7849 ',//G12 - Niższa cena za prąd w nocy oraz w wybranych godzinach w ciągu dnia.(strefa I dzienny)
+                        'g12_2': '0,5513 ',//G12 - Niższa cena za prąd w nocy oraz w wybranych godzinach w ciągu dnia.(strefa II szczytowy)
+                        'g12w_1': '0,8690 ',//G12w - Niższa cena za prąd w nocy, w wybranych godzinach w ciągu dnia oraz w weekendy.(Strefa I (nocny))
+                        'g12w_2': '0,5513 ',//G12w - Niższa cena za prąd w nocy, w wybranych godzinach w ciągu dnia oraz w weekendy.(Strefa II (pozaszczytowy))
+                        'g13_1': '0,7561 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa I)
+                        'g13_2': '1,0561 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa II)
+                        'g13_3': '0,5745 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa III)
+                    },
+                    netto:{
+                        // Ceny sprzedażowe netto
+
+                        'g11': '0,5665 ',//G11 - Cena za prąd niezmienna przez całą dobę. (całodobowy)
+                        'g12_1': '0,6381 ',//G12 - Niższa cena za prąd w nocy oraz w wybranych godzinach w ciągu dnia.(strefa I dzienny)
+                        'g12_2': '0,4482 ',//G12 - Niższa cena za prąd w nocy oraz w wybranych godzinach w ciągu dnia.(strefa II szczytowy)
+                        'g12w_1': '0,7065 ',//G12w - Niższa cena za prąd w nocy, w wybranych godzinach w ciągu dnia oraz w weekendy.(Strefa I (nocny))
+                        'g12w_2': '0,4482 ',//G12w - Niższa cena za prąd w nocy, w wybranych godzinach w ciągu dnia oraz w weekendy.(Strefa II (pozaszczytowy))
+                        'g13_1': '0,6147 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa I)
+                        'g13_2': '0,8586 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa II)
+                        'g13_3': '0,4671 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa III)
+                    },
+                },
+            },
+        documents: // zbiór dokumentów indywidualnych dla danego produktu
+            {
+                ts: // dokumenty dla lokalizacji ts
+                    {
+                        'doc_cat_1':
+                            {
+                                // format: contract_invoice
+                                'label':'Cenniki - oferta dotyczy również prosumentów', // jest to nazwa kategorii dokumentów
+                                '2_1':
+                                    {
+                                        '1':{
+                                            name:'Cennik Prąd Eko + Las 3 lata 10% - e-faktura', // nazwa pliku która będzie wyświetlana
+                                            href: 'https://www.tauron.pl/-/media/offer-documents/produkty/2025/02-2025/eko-las/ts/EE-GD-GR10-Int-Eko-las-TS-3-Q1.ashx' // link do dokumentu
+                                        },
+                                        '2':{
+                                            name:'Cennik Prąd Eko + Las 3 lata 0,2% - e-faktura', // nazwa pliku która będzie wyświetlana
+                                            href: 'https://www.tauron.pl/-/media/offer-documents/produkty/2025/02-2025/eko-las/ts/EE-GD-GR02-Int-Eko-las-TS-3-Q1.ashx' // link do dokumentu
+                                        },
+                                    },
+                            },
+                        'doc_cat_2':
+                            {
+                                'label':'Dokumenty podstawowe i regulaminy', // jest to nazwa kategorii dokumentów
+                                1:
+                                    {
+                                        name:'Oświadczenie o wyrażeniu zgody/rezygnacji na e-fakturę', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/eko/ts/2020-07-01_ts-gze_gd-msp_oswiadczeniedoefv_prad_k_edyt.ashx' // link do dokumentu
+                                    },
+                                2:
+                                    {
+                                        name:'Regulamin produktu LAS', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/prad-las/2022-05-01-TS-TSGZE-GD-prad-Regulamin-LAS-BAZA-K.ashx' // link do dokumentu
+                                    },
+                                3:
+                                    {
+                                        name:'Oświadczenie o zapoznaniu się i akceptacji treści Regulaminu usługi Prąd EKO + LAS', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/eko-plus-zdrowie-dokumenty/ts/2021_02_01_ts_gze_gd_msp_prad_osw_akcept_reg_uslugi_pdf_wzor_k.ashx' // link do dokumentu
+                                    },
+                                4:
+                                    {
+                                        name:'Certyfikat - wzór', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/eko/ts/19601-tauroncertyfikat-v03-prev.ashx' // link do dokumentu
+                                    },
+                                5:
+                                    {
+                                        name: 'Wyciąg z Taryfy dla energii elektrycznej TAURON Dystrybucja S.A. na rok 2025', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/eko/ts/wyciag-typu-g-z-taryfy-td-sa-na-rok-2021.ashx' // link do dokumentu
+                                    },
+                                6:
+                                    {
+                                        name: 'Wyciąg z Taryfy dla energii elektrycznej TAURON Dystrybucja S.A. - Informacja o stawkach brutto na rok 2025', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/tarcza/2022_02_01_TS-GZE_InfCenyBruttoWycTarTD_G_BAZA.ashx'// link do dokumentu
+                                    },
+                                7:
+                                    {
+                                        name: 'Informacja o cenach energii w Cennikach w okresie obowiązywania rozwiązań osłonowych, tj. do 30 września 2025 roku', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/tarcza/dokl-tarczowa-ts.ashx' // link do dokumentu
+                                    },
+                                8:
+                                    {
+                                        name:'Zbiór Praw Konsumenta Energii Elektrycznej', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/eko/ts/zbior_praw_konsumenta_energii_elektrycznej.ashx' // link do dokumentu
+                                    },
+                                9:
+                                    {
+                                        name:'Regulamin e-faktury', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/eko/ts/regulamin-e-faktura.ashx' // link do dokumentu
+                                    },
+                                10:
+                                    {
+                                        name:'Zgody Klienta', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/eko/ts/ts_zgody_klienta_podstawowe_pdf_edyt_k.ashx' // link do dokumentu
+                                    },
+                                11:
+                                    {
+                                        name:'Wzór formularza odstąpienia od umowy ', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/eko/ts/ts_formularz_odstapienia.ashx' // link do dokumentu
+                                    },
+                            },
+                    },
+                gze: // dokumenty dla lokalizacji gze
+                    {
+                        'doc_cat_1':
+                            {
+                                // format: contract_invoice
+                                'label':'Cenniki - oferta dotyczy również prosumentów', // jest to nazwa kategorii dokumentów
+                                '2_1':
+                                    {
+                                        '1':{
+                                            name:'Cennik Prąd Eko + Las 3 lata 10% - e-faktura', // nazwa pliku która będzie wyświetlana
+                                            href: 'https://www.tauron.pl/-/media/offer-documents/produkty/2025/02-2025/eko-las/gze/EE-GD-GR10-Int-Eko-las-GZE-3-Q1.ashx' // link do dokumentu
+                                        },
+                                        '2':{
+                                            name:'Cennik Prąd Eko + Las 3 lata 0,2% - e-faktura', // nazwa pliku która będzie wyświetlana
+                                            href: 'https://www.tauron.pl/-/media/offer-documents/produkty/2025/02-2025/eko-las/gze/EE-GD-GR02-Int-Eko-las-GZE-3-Q1.ashx' // link do dokumentu
+                                        },
+                                    },
+                            },
+                        'doc_cat_2':
+                            {
+                                'label':'Dokumenty podstawowe i regulaminy', // jest to nazwa kategorii dokumentów
+                                1:
+                                    {
+                                        name:'Oświadczenie o wyrażeniu zgody/rezygnacji na e-fakturę', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/eko/gze/2020-07-01_ts-gze_gd-msp_oswiadczeniedoefv_prad_k_edyt.ashx' // link do dokumentu
+                                    },
+                                2:
+                                    {
+                                        name:'Regulamin produktu LAS', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/prad-las/2022-05-01-TS-TSGZE-GD-prad-Regulamin-LAS-BAZA-K.ashx' // link do dokumentu
+                                    },
+                                3:
+                                    {
+                                        name:'Oświadczenie o zapoznaniu się i akceptacji treści Regulaminu usługi Prąd EKO + LAS', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/eko-plus-zdrowie-dokumenty/ts/2021_02_01_ts_gze_gd_msp_prad_osw_akcept_reg_uslugi_pdf_wzor_k.ashx' // link do dokumentu
+                                    },
+                                4:
+                                    {
+                                        name:'Certyfikat - wzór', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/eko/gze/19601-tauroncertyfikat-gze-v03-prev.ashx' // link do dokumentu
+                                    },
+                                5:
+                                    {
+                                        name: 'Wyciąg z Taryfy dla energii elektrycznej TAURON Dystrybucja S.A. na rok 2025', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/eko/gze/wyciag-typu-g-z-taryfy-td-sa-na-rok-2021.ashx' // link do dokumentu
+                                    },
+                                6:
+                                    {
+                                        name: 'Wyciąg z Taryfy dla energii elektrycznej TAURON Dystrybucja S.A. - Informacja o stawkach brutto na rok 2025', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/tarcza/2022_02_01_TS-GZE_InfCenyBruttoWycTarTD_G_BAZA.ashx'// link do dokumentu
+                                    },
+                                7:
+                                    {
+                                        name: 'Informacja o cenach energii w Cennikach w okresie obowiązywania rozwiązań osłonowych, tj. do 30 września 2025 roku', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/tarcza/dokl-tarczowa-gze.ashx' // link do dokumentu
+                                    },
+                                8:
+                                    {
+                                        name:'Zbiór Praw Konsumenta Energii Elektrycznej', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/eko/gze/zbior_praw_konsumenta_energii_elektrycznej.ashx' // link do dokumentu
+                                    },
+                                9:
+                                    {
+                                        name:'Regulamin e-faktury', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/eko/gze/regulamin-e-faktura.ashx' // link do dokumentu
+                                    },
+                                10:
+                                    {
+                                        name:'Zgody Klienta', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/eko/gze/tsp_gze_zgody_klienta_podstawowe_pdf_edyt_k.ashx' // link do dokumentu
+                                    },
+                                11:
+                                    {
+                                        name:'Wzór formularza odstąpienia od umowy ', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/eko/gze/gze_formularz_odstapienia.ashx' // link do dokumentu
+                                    },
+                            },
+                    },
+            },
+        regexParam:'eko-las',
+		regexParam2:'errata',
+        // ceny dla odnowień
+        odn_prices:{
+            'ts':'31,50', //cena brutto dla lokalizacji ts w PLN
+            'gze':'31,50', //cena brutto dla lokalizacji gze w PLN
+            'ts_netto':'25,61', //cena netto dla lokalizacji ts w PLN
+            'gze_netto':'25,61', //cena netto dla lokalizacji gze w PLN
+        },
+        // ceny za prąd dla odnowień
+        odn_documents_prices:{
+            ts: {
+                brutto: {
+                    // Ceny sprzedaĹźowe brutto
+
+                    'g11': '0,6996 ', //G11 - Cena za prÄd niezmienna przez caĹÄ dobÄ. (caĹodobowy)
+                    'g12_1': '0,7937 ',//G12 - NiĹźsza cena za prÄd w nocy oraz w wybranych godzinach w ciÄgu dnia.(strefa I dzienny)
+                    'g12_2': '0,5170 ',//G12 - NiĹźsza cena za prÄd w nocy oraz w wybranych godzinach w ciÄgu dnia.(strefa II szczytowy)
+                    'g12w_1': '0,9398 ',//G12w - NiĹźsza cena za prÄd w nocy, w wybranych godzinach w ciÄgu dnia oraz w weekendy.(Strefa I (nocny))
+                    'g12w_2': '0,5170 ',//G12w - NiĹźsza cena za prÄd w nocy, w wybranych godzinach w ciÄgu dnia oraz w weekendy.(Strefa II (pozaszczytowy))
+                    'g13_1': '0,7472 ',//G13 - NiĹźsza cena za prÄd w wybranych godzinach w ciÄgu doby.(strefa I)
+                    'g13_2': '1,0638 ',//G13 - NiĹźsza cena za prÄd w wybranych godzinach w ciÄgu doby.(strefa II)
+                    'g13_3': '0,5745 ',//G13 - NiĹźsza cena za prÄd w wybranych godzinach w ciÄgu doby.(strefa III)
+                    },
+                netto: {
+                    // Ceny sprzedaĹźowe netto
+
+                    'g11': '0,5688 ', //G11 - Cena za prÄd niezmienna przez caĹÄ dobÄ. (caĹodobowy)
+                    'g12_1': '0,6453 ',//G12 - NiĹźsza cena za prÄd w nocy oraz w wybranych godzinach w ciÄgu dnia.(strefa I dzienny)
+                    'g12_2': '0,4203 ',//G12 - NiĹźsza cena za prÄd w nocy oraz w wybranych godzinach w ciÄgu dnia.(strefa II szczytowy)
+                    'g12w_1': '0,7641 ',//G12w - NiĹźsza cena za prÄd w nocy, w wybranych godzinach w ciÄgu dnia oraz w weekendy.(Strefa I (nocny))
+                    'g12w_2': '0,4203 ',//G12w - NiĹźsza cena za prÄd w nocy, w wybranych godzinach w ciÄgu dnia oraz w weekendy.(Strefa II (pozaszczytowy))
+                    'g13_1': '0,6075 ',//G13 - NiĹźsza cena za prÄd w wybranych godzinach w ciÄgu doby.(strefa I)
+                    'g13_2': '0,8649 ',//G13 - NiĹźsza cena za prÄd w wybranych godzinach w ciÄgu doby.(strefa II)
+                    'g13_3': '0,4671 ',//G13 - NiĹźsza cena za prÄd w wybranych godzinach w ciÄgu doby.(strefa III)
+                    },
+                },
+                gze:{
+                    brutto:{
+                        // Ceny sprzedażowe brutto
+
+                        'g11': '0,6968 ', //G11 - Cena za prąd niezmienna przez całą dobę. (całodobowy)
+                        'g12_1': '0,7849 ',//G12 - Niższa cena za prąd w nocy oraz w wybranych godzinach w ciągu dnia.(strefa I dzienny)
+                        'g12_2': '0,5513 ',//G12 - Niższa cena za prąd w nocy oraz w wybranych godzinach w ciągu dnia.(strefa II szczytowy)
+                        'g12w_1': '0,8690 ',//G12w - Niższa cena za prąd w nocy, w wybranych godzinach w ciągu dnia oraz w weekendy.(Strefa I (nocny))
+                        'g12w_2': '0,5513 ',//G12w - Niższa cena za prąd w nocy, w wybranych godzinach w ciągu dnia oraz w weekendy.(Strefa II (pozaszczytowy))
+                        'g13_1': '0,7561 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa I)
+                        'g13_2': '1,0561 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa II)
+                        'g13_3': '0,5745 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa III)
+                    },
+                    netto:{
+                        // Ceny sprzedażowe netto
+
+                        'g11': '0,5665 ',//G11 - Cena za prąd niezmienna przez całą dobę. (całodobowy)
+                        'g12_1': '0,6381 ',//G12 - Niższa cena za prąd w nocy oraz w wybranych godzinach w ciągu dnia.(strefa I dzienny)
+                        'g12_2': '0,4482 ',//G12 - Niższa cena za prąd w nocy oraz w wybranych godzinach w ciągu dnia.(strefa II szczytowy)
+                        'g12w_1': '0,7065 ',//G12w - Niższa cena za prąd w nocy, w wybranych godzinach w ciągu dnia oraz w weekendy.(Strefa I (nocny))
+                        'g12w_2': '0,4482 ',//G12w - Niższa cena za prąd w nocy, w wybranych godzinach w ciągu dnia oraz w weekendy.(Strefa II (pozaszczytowy))
+                        'g13_1': '0,6147 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa I)
+                        'g13_2': '0,8586 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa II)
+                        'g13_3': '0,4671 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa III)
+                    },
+                },
+        },
+        // zbiór dokumentów dla odnowień
+        odn_documents: // zbiór dokumentów indywidualnych dla danego produktu
+            {
+                ts: // dokumenty dla lokalizacji ts
+                    {
+                        'doc_cat_2':
+                            {
+                                'label':'Dokumenty podstawowe i regulaminy', // jest to nazwa kategorii dokumentów
+                                1:
+                                    {
+                                        name:'Oświadczenie o wyrażeniu zgody/rezygnacji na e-fakturę', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/eko-prad-z-serwisantem-plus-dokumenty/ts/2020-07-01_ts-gze_gd-msp_oswiadczeniedoefv_prad_k_edyt.ashx' // link do dokumentu
+                                    },
+                                2:
+                                    {
+                                        name:'Certyfikat - wzór', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/eko-prad-z-serwisantem-plus-dokumenty/ts/19601-tauroncertyfikat-v03-prev.ashx' // link do dokumentu
+                                    },
+                                3:
+                                    {
+                                        name: 'Wyciąg z Taryfy dla energii elektrycznej TAURON Dystrybucja S.A. na rok 2025', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/eko-prad-z-serwisantem-plus-dokumenty/ts/wyciag-typu-g-z-taryfy-td-sa-na-rok-2021.ashx' // link do dokumentu
+                                    },
+                                4:
+                                    {
+                                        name: 'Wyciąg z Taryfy dla energii elektrycznej TAURON Dystrybucja S.A. na rok 2025 -  Informacje o cenach w okresie obowiązywania rozwiązań osłonowych', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/tarcza/2022_02_01_TS-GZE_InfCenyBruttoWycTarTD_G_BAZA.ashx'// link do dokumentu
+                                    },
+                                5:
+                                    {
+                                        name: 'Informacja o cenach energii w Cennikach w okresie obowiązywania rozwiązań osłonowych, tj. do 30 września 2025 roku', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/tarcza/dokl-tarczowa-ts.ashx' // link do dokumentu
+                                    },
+                                6:
+                                    {
+                                        name:'Zbiór Praw Konsumenta Energii Elektrycznej', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/eko-prad-z-serwisantem-plus-dokumenty/ts/zbior_praw_konsumenta_energii_elektrycznej.ashx' // link do dokumentu
+                                    },
+                                7:
+                                    {
+                                        name:'Regulamin e-faktury', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/eko-prad-z-serwisantem-plus-dokumenty/ts/regulamin-e-faktura.ashx' // link do dokumentu
+                                    },
+                                8:
+                                    {
+                                        name:'Zgody Klienta', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/eko-prad-z-serwisantem-plus-dokumenty/ts/ts_zgody_klienta_podstawowe_pdf_edyt_k.ashx' // link do dokumentu
+                                    },
+                                9:
+                                    {
+                                        name:'Wzór formularza odstąpienia od umowy ', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/eko-prad-z-serwisantem-plus-dokumenty/ts/ts_formularz_odstapienia.ashx' // link do dokumentu
+                                    },
+                                10:
+                                    {
+                                        name:'Oświadczenie o zapoznaniu się i akceptacji treści Regulaminu usługi Serwisant 24H PLUS', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/eko-prad-z-serwisantem-plus-dokumenty/ts/2021_02_01_ts_gze_gd_msp_prad_osw_akcept_reg_uslugi_pdf_wzor_k.ashx' // link do dokumentu
+                                    },
+                                11:
+                                    {
+                                        name:'Regulamin usługi Serwisant 24H PLUS', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/eko-prad-z-serwisantem-plus-dokumenty/ts/regulamin_serwisant24h_dom_plus.ashx' // link do dokumentu
+                                    },
+                            },
+                    },
+                gze: // dokumenty dla lokalizacji gze
+                    {
+                        'doc_cat_2':
+                            {
+                                'label':'Dokumenty podstawowe i regulaminy', // jest to nazwa kategorii dokumentów
+                                1:
+                                    {
+                                        name:'Oświadczenie o wyrażeniu zgody/rezygnacji na e-fakturę', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/eko-prad-z-serwisantem-plus-dokumenty/gze/2021_02_01_ts_gze_gd_msp_prad_osw_akcept_reg_uslugi_pdf_wzor_k.ashx' // link do dokumentu
+                                    },
+                                2:
+                                    {
+                                        name:'Certyfikat - wzór', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/eko-prad-z-serwisantem-plus-dokumenty/gze/19601-tauroncertyfikat-gze-v03-prev.ashx' // link do dokumentu
+                                    },
+                                3:
+                                    {
+                                        name: 'Wyciąg z Taryfy dla energii elektrycznej TAURON Dystrybucja S.A. na rok 2025', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/eko-prad-z-serwisantem-plus-dokumenty/gze/wyciag-typu-g-z-taryfy-td-sa-na-rok-2021.ashx' // link do dokumentu
+                                    },
+                                4:
+                                    {
+                                        name: 'Wyciąg z Taryfy dla energii elektrycznej TAURON Dystrybucja S.A. - Informacja o stawkach brutto na rok 2025', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/tarcza/2022_02_01_TS-GZE_InfCenyBruttoWycTarTD_G_BAZA.ashx'// link do dokumentu
+                                    },
+                                5:
+                                    {
+                                        name: 'Informacja o cenach energii w Cennikach w okresie obowiązywania rozwiązań osłonowych, tj. do 30 września 2025 roku', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/tarcza/dokl-tarczowa-gze.ashx' // link do dokumentu
+                                    },
+                                6:
+                                    {
+                                        name:'Zbiór Praw Konsumenta Energii Elektrycznej', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/eko-prad-z-serwisantem-plus-dokumenty/gze/zbior_praw_konsumenta_energii_elektrycznej.ashx' // link do dokumentu
+                                    },
+                                7:
+                                    {
+                                        name:'Regulamin e-faktury', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/eko-prad-z-serwisantem-plus-dokumenty/gze/regulamin-e-faktura.ashx' // link do dokumentu
+                                    },
+                                8:
+                                    {
+                                        name:'Zgody Klienta', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/eko-prad-z-serwisantem-plus-dokumenty/gze/tsp_gze_zgody_klienta_podstawowe_pdf_edyt_k.ashx' // link do dokumentu
+                                    },
+                                9:
+                                    {
+                                        name:'Wzór formularza odstąpienia od umowy ', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/eko-prad-z-serwisantem-plus-dokumenty/gze/gze_formularz_odstapienia.ashx' // link do dokumentu
+                                    },
+                                10:
+                                    {
+                                        name:'Oświadczenie o zapoznaniu się i akceptacji treści Regulaminu usługi Serwisant 24H PLUS', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/eko-prad-z-serwisantem-plus-dokumenty/gze/2021_02_01_ts_gze_gd_msp_prad_osw_akcept_reg_uslugi_pdf_wzor_k.ashx' // link do dokumentu
+                                    },
+                                11:
+                                    {
+                                        name:'Regulamin usługi Serwisant 24H PLUS', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/eko-prad-z-serwisantem-plus-dokumenty/gze/regulamin_serwisant24h_dom_plus.ashx' // link do dokumentu
+                                    },
+                            },
+                    },
+            },
+        price_table_extra_information:{
+            before_price: 'opłata handlowa (stawka stała) za usługę dodatkową', // tekst wyświetlany w Tabeli Cenowej przed opłatą handlową (stawką stałą)
+            after_price: '(przez cały okres trwania cennika)' // tekst wyświetlany w Tabeli Cenowej po opłacie handlowej (stawce stałej)
+        }
+    },
+    'oferta_zmiana_nowa_zakladka': {
+        name:'Prąd EKO + LAS',
+        onlineActivation: 189, // bonus w zł za wybór cennika 3 letniego
+        ecoBonus: 10,
+        prices:{ // ceny danego produktu
+            'ts':'31,50', //cena brutto dla lokalizacji ts w PLN
+            'gze':'31,50', //cena brutto dla lokalizacji gze w PLN
+            'ts_netto':'25,61', //cena netto dla lokalizacji ts w PLN
+            'gze_netto':'25,61', //cena netto dla lokalizacji gze w PLN
+        },
+        odnPageDisclaimers: {
+            ts: `
+                <div>
+                  <p class="c_f2" style="font-size: 1.6rem;margin:0!important;">Informujemy, że od 1 stycznia 2025 do 30 czerwca 2025:</p>
+                  <p class="c_f2 z_doc_p_dot" style="font-size: 1.6rem;margin:0!important;">obowiązuje nowa stawka opłaty mocowej w wysokości 0 zł/MWh [1]</p>
+                  <div class="z_legal" style="font-size: 1.6rem;"><p class="c_f1" style="font-size: 1.6rem!important;margin:0!important;max-width: 100%!important">Podstawa prawna:<br>[1] Ustawa z dnia 27 listopada 2024 r. o zmianie ustawy o środkach nadzwyczajnych mających na celu ograniczenie wysokości cen energii elektrycznej oraz wsparciu niektórych odbiorców w 2023 roku oraz w 2024 roku oraz niektórych innych ustaw. (Dz. U. z 2024 r. poz. 1831).</p></div>
+                  <div style="margin-top: 15px">
+                      Od 1 stycznia 2025 roku, na podstawie decyzji Prezesa URE z 16 grudnia 2024 roku (znak DRE.WRE.4211.47.9.2024.ASa1) obowiązuje ,,Taryfa dla usług dystrybucji energii elektrycznej TAURON Dystrybucja S.A. na rok 2025".
+                      <br><br>Prezes Urzędu Regulacji Energetyki zatwierdził w dniu 28 czerwca 2024r. zmianę Taryfy dla energii elektrycznej dla Odbiorców z grup taryfowych G TAURON Sprzedaż sp. z o.o. (decyzja nr DRE.WRE.4211.29.11.2024.AKr3 z dnia 28 czerwca 2024 r.). Taryfa będzie obowiązywać do 31 grudnia 2025 r. Treść decyzji została opublikowana w Biuletynie Branżowym URE Nr 164 (4407).
+                      <br><br>Dodatkowo informujemy, że ceny stosowane w rozliczeniach z Państwem będą uwzględniać rozwiązania osłonowe. Zasady działania tych rozwiązań osłonowych zostały określone w następujących ustawach:<br><br>1) Ustawy z 7 października 2022 r. o szczególnych rozwiązaniach służących ochronie odbiorców energii elektrycznej w 2023 roku oraz w 2024 roku w związku z sytuacją na rynku energii elektrycznej (Dz. U. z 2023 r. poz. 1704 t.j.)<br><br>2) Ustawy z 27 października 2022 r. o środkach nadzwyczajnych mających na celu ograniczenie wysokości cen energii elektrycznej oraz wsparciu niektórych odbiorców w 2023 roku oraz w 2024 roku (Dz. U. z 2024 r. poz. 190 t.j.)<br><br>3) Ustawy z 23 maja 2024 r. o bonie energetycznym oraz o zmianie niektórych ustaw w celu ograniczenia cen energii elektrycznej, gazu ziemnego i ciepła systemowego (Dz. U. z 2024 r. poz. 859)<br><br>4) Ustawy z dnia 27 listopada 2024 r. o zmianie ustawy o środkach nadzwyczajnych mających na celu ograniczenie wysokości cen energii elektrycznej oraz wsparciu niektórych odbiorców w 2023 roku oraz w 2024 roku oraz niektórych innych ustaw. (Dz. U. z 2024 r. poz. 1831).<br><br>Szczegółowe informacje w tym zakresie znajdują się na stronie
+                      <a href="https://www.tauron.pl/zamrozenie-pradu">tauron.pl/zamrozenie-pradu.</a>
+                      <br><br>Cena maksymalna energii elektrycznej stosowana w rozliczeniach z odbiorcami za zużycie energii elektrycznej w punkcie poboru w okresie od 1 stycznia 2025 do 30 września 2025 roku wynosi (0,5050 zł/kWh netto) - 0,6212 zł/kWh brutto, z wyłączeniem odbiorców, którzy zawarli umowę z ceną dynamiczną energii elektrycznej w rozumieniu art. 3 pkt 6d ustawy Prawo energetyczne, który wchodzi w życie z dniem 24 sierpnia 2024 r. W przypadku, gdy cena energii elektrycznej wynikająca z Taryfy albo z umowy zawartej z odbiorcą jest niższa niż cena maksymalna, w rozliczeniach z odbiorcą będziemy stosować tę niższą cenę.
+                    </p>
+                  </div>
+                  <br>
+          * W okresie, kiedy obowiązuje Cię cennik, dajemy Ci
+                                    rabat:<br> • nie mniejszy niż 10% - jeśli udzielisz nam zgód marketingowych,
+                                    zaktualizujesz swoje dane kontaktowe i wybierzesz e-fakturę,<br> • nie mniejszy niż
+                                    0.2% - jeśli nie udzielisz nam zgód marketingowych, wycofasz je albo zrezygnujesz z
+                                    e-faktury.<br> <strong>Ważna informacja</strong><br> Rabat gwarantuje:<br> • niższą
+                                    cenę energii elektrycznej w porównaniu do tej ceny w Taryfie TAURON Sprzedaż – gdy
+                                    jesteś klientem TAURON Sprzedaż,<br> • niższą stawkę zmienną ceny energii
+                                    elektrycznej w porównaniu do tej stawki w taryfie TAURON Sprzedaż GZE – gdy jesteś
+                                    klientem TAURON Sprzedaż GZE.<br>
+
+                                    Rabat obowiązuje przez cały okres trwania cennika, z wyjątkiem okresu od 01.01.2025 do 30.09.2025 roku, kiedy obowiązują rozwiązania osłonowe, dzięki którym ceny są jeszcze niższe. Więcej na <a class="magenta" href="https://www.tauron.pl/zamrozenie-pradu" title="Kliknij aby dowiedzieć się więcje">tauron.pl/zamrozenie-pradu</a> i&nbsp;na <a class="magenta" href="https://www.tauron.pl/ceny" title="Kliknij aby dowiedzieć się więcje">tauron.pl/ceny</a>.
+                                    
+                                    <br><br> ** Aby otrzymać bonus na konto
+                                    rozliczeniowe w TAURONIE, zamów w serwisie Mój TAURON, wybierz opcję cennika na 3
+                                    lata oraz zarejestruj zakup w Programie Klienckim. Szczegóły promocji dostępne są w
+                                    <a href="https://www.tauron.pl/dla-domu/prad/zwrot-za-prad#id_0d6a8586-48ef-459d-8879-86e233c1dc77">regulaminie</a><br><br>
+                                    *** W ramach oferty „Prąd EKO” otrzymasz certyfikat, który potwierdzi, że TAURON
+                                    zakupił Gwarancje Pochodzenia w ilości, która odpowiada Twojemu zużyciu energii.
+                                    Jest to dokument, który poświadcza, że zakupiona energia została wytworzona w
+                                    odnawialnych źródłach energii (OZE), a Ty przyczyniłeś się do rozwoju OZE.
+                </div>
+            `,
+            gze: `
+                <div>
+                  <p class="c_f2" style="font-size: 1.6rem;margin:0!important;">Informujemy, że od 1 stycznia 2025 do 30 czerwca 2025:</p>
+                  <p class="c_f2 z_doc_p_dot" style="font-size: 1.6rem;margin:0!important;">obowiązuje nowa stawka opłaty mocowej w wysokości 0 zł/MWh [1]</p>
+                  <div class="z_legal" style="font-size: 1.6rem;"><p class="c_f1" style="font-size: 1.6rem!important;margin:0!important;max-width: 100%!important">Podstawa prawna:<br>[1] Ustawa z dnia 27 listopada 2024 r. o zmianie ustawy o środkach nadzwyczajnych mających na celu ograniczenie wysokości cen energii elektrycznej oraz wsparciu niektórych odbiorców w 2023 roku oraz w 2024 roku oraz niektórych innych ustaw. (Dz. U. z 2024 r. poz. 1831).</p></div>
+                  <div style="margin-top: 15px">
+                      Od 1 stycznia 2025 roku, na podstawie decyzji Prezesa URE z 16 grudnia 2024 roku (znak DRE.WRE.4211.47.9.2024.ASa1) obowiązuje ,,Taryfa dla usług dystrybucji energii elektrycznej TAURON Dystrybucja S.A. na rok 2025".
+                      <br><br>Prezes Urzędu Regulacji Energetyki zatwierdził w dniu 28 czerwca 2024r. zmianę Taryfy dla energii elektrycznej dla Odbiorców z grup taryfowych G TAURON Sprzedaż GZE sp. z o.o. (decyzja nr DRE.WRE.4211.30.11.2024.AKr3/ASa1 z dnia 28 czerwca 2024 r.). Taryfa będzie obowiązywać do 31 grudnia 2025 r. Treść decyzji została opublikowana w Biuletynie Branżowym URE Nr 164 (4408).
+                      <br><br>Dodatkowo informujemy, że ceny stosowane w rozliczeniach z Państwem będą uwzględniać rozwiązania osłonowe. Zasady działania tych rozwiązań osłonowych zostały określone w następujących ustawach:<br><br>1) Ustawy z 7 października 2022 r. o szczególnych rozwiązaniach służących ochronie odbiorców energii elektrycznej w 2023 roku oraz w 2024 roku w związku z sytuacją na rynku energii elektrycznej (Dz. U. z 2023 r. poz. 1704 t.j.)<br><br>2) Ustawy z 27 października 2022 r. o środkach nadzwyczajnych mających na celu ograniczenie wysokości cen energii elektrycznej oraz wsparciu niektórych odbiorców w 2023 roku oraz w 2024 roku (Dz. U. z 2024 r. poz. 190 t.j.)<br><br>3) Ustawy z 23 maja 2024 r. o bonie energetycznym oraz o zmianie niektórych ustaw w celu ograniczenia cen energii elektrycznej, gazu ziemnego i ciepła systemowego (Dz. U. z 2024 r. poz. 859)<br><br>4) Ustawy z dnia 27 listopada 2024 r. o zmianie ustawy o środkach nadzwyczajnych mających na celu ograniczenie wysokości cen energii elektrycznej oraz wsparciu niektórych odbiorców w 2023 roku oraz w 2024 roku oraz niektórych innych ustaw. (Dz. U. z 2024 r. poz. 1831).<br><br>Szczegółowe informacje w tym zakresie znajdują się na stronie
+                      <a href="https://www.tauron.pl/zamrozenie-pradu">tauron.pl/zamrozenie-pradu.</a>
+                      <br><br>Cena maksymalna energii elektrycznej stosowana w rozliczeniach z odbiorcami za zużycie energii elektrycznej w punkcie poboru w okresie od 1 stycznia 2025 do 30 września 2025 roku wynosi (0,5050 zł/kWh netto) - 0,6212 zł/kWh brutto, z wyłączeniem odbiorców, którzy zawarli umowę z ceną dynamiczną energii elektrycznej w rozumieniu art. 3 pkt 6d ustawy Prawo energetyczne, który wchodzi w życie z dniem 24 sierpnia 2024 r. W przypadku, gdy cena energii elektrycznej wynikająca z Taryfy albo z umowy zawartej z odbiorcą jest niższa niż cena maksymalna, w rozliczeniach z odbiorcą będziemy stosować tę niższą cenę.
+                    </p>
+                  </div>
+                  <br>
+          * W okresie, kiedy obowiązuje Cię cennik, dajemy Ci
+                                    rabat:<br> • nie mniejszy niż 10% - jeśli udzielisz nam zgód marketingowych,
+                                    zaktualizujesz swoje dane kontaktowe i wybierzesz e-fakturę,<br> • nie mniejszy niż
+                                    0.2% - jeśli nie udzielisz nam zgód marketingowych, wycofasz je albo zrezygnujesz z
+                                    e-faktury.<br> <strong>Ważna informacja</strong><br> Rabat gwarantuje:<br> • niższą
+                                    cenę energii elektrycznej w porównaniu do tej ceny w Taryfie TAURON Sprzedaż – gdy
+                                    jesteś klientem TAURON Sprzedaż,<br> • niższą stawkę zmienną ceny energii
+                                    elektrycznej w porównaniu do tej stawki w taryfie TAURON Sprzedaż GZE – gdy jesteś
+                                    klientem TAURON Sprzedaż GZE.<br>
+
+                                    Rabat obowiązuje przez cały okres trwania cennika, z wyjątkiem okresu od 01.01.2025 do 30.09.2025 roku, kiedy obowiązują rozwiązania osłonowe, dzięki którym ceny są jeszcze niższe. Więcej na <a class="magenta" href="https://www.tauron.pl/zamrozenie-pradu" title="Kliknij aby dowiedzieć się więcje">tauron.pl/zamrozenie-pradu</a> i&nbsp;na <a class="magenta" href="https://www.tauron.pl/ceny" title="Kliknij aby dowiedzieć się więcje">tauron.pl/ceny</a>.
+                                    
+                                    <br><br> ** Aby otrzymać bonus na konto
+                                    rozliczeniowe w TAURONIE, zamów w serwisie Mój TAURON, wybierz opcję cennika na 3
+                                    lata oraz zarejestruj zakup w Programie Klienckim. Szczegóły promocji dostępne są w
+                                    <a href="https://www.tauron.pl/dla-domu/prad/zwrot-za-prad#id_0d6a8586-48ef-459d-8879-86e233c1dc77">regulaminie</a><br><br>
+                                    *** W ramach oferty „Prąd EKO” otrzymasz certyfikat, który potwierdzi, że TAURON
+                                    zakupił Gwarancje Pochodzenia w ilości, która odpowiada Twojemu zużyciu energii.
+                                    Jest to dokument, który poświadcza, że zakupiona energia została wytworzona w
+                                    odnawialnych źródłach energii (OZE), a Ty przyczyniłeś się do rozwoju OZE.
+                </div>
+            `,
+        },
+        documents_prices:
+            {
+                ts: {
+                    brutto: {
+                        // Ceny sprzedaĹźowe brutto
+
+                        'g11': '0,6996 ', //G11 - Cena za prÄd niezmienna przez caĹÄ dobÄ. (caĹodobowy)
+                        'g12_1': '0,7937 ',//G12 - NiĹźsza cena za prÄd w nocy oraz w wybranych godzinach w ciÄgu dnia.(strefa I dzienny)
+                        'g12_2': '0,5170 ',//G12 - NiĹźsza cena za prÄd w nocy oraz w wybranych godzinach w ciÄgu dnia.(strefa II szczytowy)
+                        'g12w_1': '0,9398 ',//G12w - NiĹźsza cena za prÄd w nocy, w wybranych godzinach w ciÄgu dnia oraz w weekendy.(Strefa I (nocny))
+                        'g12w_2': '0,5170 ',//G12w - NiĹźsza cena za prÄd w nocy, w wybranych godzinach w ciÄgu dnia oraz w weekendy.(Strefa II (pozaszczytowy))
+                        'g13_1': '0,7472 ',//G13 - NiĹźsza cena za prÄd w wybranych godzinach w ciÄgu doby.(strefa I)
+                        'g13_2': '1,0638 ',//G13 - NiĹźsza cena za prÄd w wybranych godzinach w ciÄgu doby.(strefa II)
+                        'g13_3': '0,5745 ',//G13 - NiĹźsza cena za prÄd w wybranych godzinach w ciÄgu doby.(strefa III)
+                    },
+                    netto: {
+                        // Ceny sprzedaĹźowe netto
+
+                        'g11': '0,5688 ', //G11 - Cena za prÄd niezmienna przez caĹÄ dobÄ. (caĹodobowy)
+                        'g12_1': '0,6453 ',//G12 - NiĹźsza cena za prÄd w nocy oraz w wybranych godzinach w ciÄgu dnia.(strefa I dzienny)
+                        'g12_2': '0,4203 ',//G12 - NiĹźsza cena za prÄd w nocy oraz w wybranych godzinach w ciÄgu dnia.(strefa II szczytowy)
+                        'g12w_1': '0,7641 ',//G12w - NiĹźsza cena za prÄd w nocy, w wybranych godzinach w ciÄgu dnia oraz w weekendy.(Strefa I (nocny))
+                        'g12w_2': '0,4203 ',//G12w - NiĹźsza cena za prÄd w nocy, w wybranych godzinach w ciÄgu dnia oraz w weekendy.(Strefa II (pozaszczytowy))
+                        'g13_1': '0,6075 ',//G13 - NiĹźsza cena za prÄd w wybranych godzinach w ciÄgu doby.(strefa I)
+                        'g13_2': '0,8649 ',//G13 - NiĹźsza cena za prÄd w wybranych godzinach w ciÄgu doby.(strefa II)
+                        'g13_3': '0,4671 ',//G13 - NiĹźsza cena za prÄd w wybranych godzinach w ciÄgu doby.(strefa III)
+                    },
+                },
+                gze:{
+                    brutto:{
+                        // Ceny sprzedażowe brutto
+
+                        'g11': '0,6968 ', //G11 - Cena za prąd niezmienna przez całą dobę. (całodobowy)
+                        'g12_1': '0,7849 ',//G12 - Niższa cena za prąd w nocy oraz w wybranych godzinach w ciągu dnia.(strefa I dzienny)
+                        'g12_2': '0,5513 ',//G12 - Niższa cena za prąd w nocy oraz w wybranych godzinach w ciągu dnia.(strefa II szczytowy)
+                        'g12w_1': '0,8690 ',//G12w - Niższa cena za prąd w nocy, w wybranych godzinach w ciągu dnia oraz w weekendy.(Strefa I (nocny))
+                        'g12w_2': '0,5513 ',//G12w - Niższa cena za prąd w nocy, w wybranych godzinach w ciągu dnia oraz w weekendy.(Strefa II (pozaszczytowy))
+                        'g13_1': '0,7561 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa I)
+                        'g13_2': '1,0561 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa II)
+                        'g13_3': '0,5745 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa III)
+                    },
+                    netto:{
+                        // Ceny sprzedażowe netto
+
+                        'g11': '0,5665 ',//G11 - Cena za prąd niezmienna przez całą dobę. (całodobowy)
+                        'g12_1': '0,6381 ',//G12 - Niższa cena za prąd w nocy oraz w wybranych godzinach w ciągu dnia.(strefa I dzienny)
+                        'g12_2': '0,4482 ',//G12 - Niższa cena za prąd w nocy oraz w wybranych godzinach w ciągu dnia.(strefa II szczytowy)
+                        'g12w_1': '0,7065 ',//G12w - Niższa cena za prąd w nocy, w wybranych godzinach w ciągu dnia oraz w weekendy.(Strefa I (nocny))
+                        'g12w_2': '0,4482 ',//G12w - Niższa cena za prąd w nocy, w wybranych godzinach w ciągu dnia oraz w weekendy.(Strefa II (pozaszczytowy))
+                        'g13_1': '0,6147 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa I)
+                        'g13_2': '0,8586 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa II)
+                        'g13_3': '0,4671 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa III)
+                    },
+                },
+            },
+        documents: // zbiór dokumentów indywidualnych dla danego produktu
+            {
+                ts: // dokumenty dla lokalizacji ts
+                    {
+                        'doc_cat_1':
+                            {
+                                // format: contract_invoice
+                                'label':'Cenniki - oferta dotyczy również prosumentów', // jest to nazwa kategorii dokumentów
+                                '2_1':
+                                    {
+                                        '1':{
+                                            name:'Cennik Prąd Eko + Las 3 lata 10% - e-faktura', // nazwa pliku która będzie wyświetlana
+                                            href: 'https://www.tauron.pl/-/media/offer-documents/produkty/2025/02-2025/eko-las/ts/EE-GD-GR10-Int-Eko-las-TS-3-Q1.ashx' // link do dokumentu
+                                        },
+                                        '2':{
+                                            name:'Cennik Prąd Eko + Las 3 lata 0,2% - e-faktura', // nazwa pliku która będzie wyświetlana
+                                            href: 'https://www.tauron.pl/-/media/offer-documents/produkty/2025/02-2025/eko-las/ts/EE-GD-GR02-Int-Eko-las-TS-3-Q1.ashx' // link do dokumentu
+                                        },
+                                    },
+                            },
+                        'doc_cat_2':
+                            {
+                                'label':'Dokumenty podstawowe i regulaminy', // jest to nazwa kategorii dokumentów
+                                1:
+                                    {
+                                        name:'Oświadczenie o wyrażeniu zgody/rezygnacji na e-fakturę', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/eko/ts/2020-07-01_ts-gze_gd-msp_oswiadczeniedoefv_prad_k_edyt.ashx' // link do dokumentu
+                                    },
+                                2:
+                                    {
+                                        name:'Regulamin produktu LAS', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/prad-las/2022-05-01-TS-TSGZE-GD-prad-Regulamin-LAS-BAZA-K.ashx' // link do dokumentu
+                                    },
+                                3:
+                                    {
+                                        name:'Oświadczenie o zapoznaniu się i akceptacji treści Regulaminu usługi Prąd EKO + LAS', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/eko-plus-zdrowie-dokumenty/ts/2021_02_01_ts_gze_gd_msp_prad_osw_akcept_reg_uslugi_pdf_wzor_k.ashx' // link do dokumentu
+                                    },
+                                4:
+                                    {
+                                        name:'Certyfikat - wzór', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/eko/ts/19601-tauroncertyfikat-v03-prev.ashx' // link do dokumentu
+                                    },
+                                5:
+                                    {
+                                        name: 'Wyciąg z Taryfy dla energii elektrycznej TAURON Dystrybucja S.A. na rok 2025', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/eko/ts/wyciag-typu-g-z-taryfy-td-sa-na-rok-2021.ashx' // link do dokumentu
+                                    },
+                                6:
+                                    {
+                                        name: 'Wyciąg z Taryfy dla energii elektrycznej TAURON Dystrybucja S.A. na rok 2025 -  Informacje o cenach w okresie obowiązywania rozwiązań osłonowych', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/tarcza/2022_02_01_TS-GZE_InfCenyBruttoWycTarTD_G_BAZA.ashx'// link do dokumentu
+                                    },
+                                7:
+                                    {
+                                        name: 'Informacja o cenach energii w Cennikach w okresie obowiązywania rozwiązań osłonowych, tj. do 30 września 2025 roku', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/tarcza/dokl-tarczowa-ts.ashx' // link do dokumentu
+                                    },
+                                8:
+                                    {
+                                        name:'Zbiór Praw Konsumenta Energii Elektrycznej', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/eko/ts/zbior_praw_konsumenta_energii_elektrycznej.ashx' // link do dokumentu
+                                    },
+                                9:
+                                    {
+                                        name:'Regulamin e-faktury', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/eko/ts/regulamin-e-faktura.ashx' // link do dokumentu
+                                    },
+                                10:
+                                    {
+                                        name:'Zgody Klienta', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/eko/ts/ts_zgody_klienta_podstawowe_pdf_edyt_k.ashx' // link do dokumentu
+                                    },
+                                11:
+                                    {
+                                        name:'Wzór formularza odstąpienia od umowy ', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/eko/ts/ts_formularz_odstapienia.ashx' // link do dokumentu
+                                    },
+                            },
+                    },
+                gze: // dokumenty dla lokalizacji gze
+                    {
+                        'doc_cat_1':
+                            {
+                                // format: contract_invoice
+                                'label':'Cenniki - oferta dotyczy również prosumentów', // jest to nazwa kategorii dokumentów
+                                '2_1':
+                                    {
+                                        '1':{
+                                            name:'Cennik Prąd Eko + Las 3 lata 10% - e-faktura', // nazwa pliku która będzie wyświetlana
+                                            href: 'https://www.tauron.pl/-/media/offer-documents/produkty/2025/02-2025/eko-las/gze/EE-GD-GR10-Int-Eko-las-GZE-3-Q1.ashx' // link do dokumentu
+                                        },
+                                        '2':{
+                                            name:'Cennik Prąd Eko + Las 3 lata 0,2% - e-faktura', // nazwa pliku która będzie wyświetlana
+                                            href: 'https://www.tauron.pl/-/media/offer-documents/produkty/2025/02-2025/eko-las/gze/EE-GD-GR02-Int-Eko-las-GZE-3-Q1.ashx' // link do dokumentu
+                                        },
+                                    },
+                            },
+                        'doc_cat_2':
+                            {
+                                'label':'Dokumenty podstawowe i regulaminy', // jest to nazwa kategorii dokumentów
+                                1:
+                                    {
+                                        name:'Oświadczenie o wyrażeniu zgody/rezygnacji na e-fakturę', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/eko/gze/2020-07-01_ts-gze_gd-msp_oswiadczeniedoefv_prad_k_edyt.ashx' // link do dokumentu
+                                    },
+                                2:
+                                    {
+                                        name:'Regulamin produktu LAS', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/prad-las/2022-05-01-TS-TSGZE-GD-prad-Regulamin-LAS-BAZA-K.ashx' // link do dokumentu
+                                    },
+                                3:
+                                    {
+                                        name:'Oświadczenie o zapoznaniu się i akceptacji treści Regulaminu usługi Prąd EKO + LAS', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/eko-plus-zdrowie-dokumenty/ts/2021_02_01_ts_gze_gd_msp_prad_osw_akcept_reg_uslugi_pdf_wzor_k.ashx' // link do dokumentu
+                                    },
+                                4:
+                                    {
+                                        name:'Certyfikat - wzór', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/eko/gze/19601-tauroncertyfikat-gze-v03-prev.ashx' // link do dokumentu
+                                    },
+                                5:
+                                    {
+                                        name: 'Wyciąg z Taryfy dla energii elektrycznej TAURON Dystrybucja S.A. na rok 2025', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/eko/gze/wyciag-typu-g-z-taryfy-td-sa-na-rok-2021.ashx' // link do dokumentu
+                                    },
+                                6:
+                                    {
+                                        name: 'Wyciąg z Taryfy dla energii elektrycznej TAURON Dystrybucja S.A. - Informacja o stawkach brutto na rok 2025', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/tarcza/2022_02_01_TS-GZE_InfCenyBruttoWycTarTD_G_BAZA.ashx'// link do dokumentu
+                                    },
+                                7:
+                                    {
+                                        name: 'Informacja o cenach energii w Cennikach w okresie obowiązywania rozwiązań osłonowych, tj. do 30 września 2025 roku', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/tarcza/dokl-tarczowa-gze.ashx' // link do dokumentu
+                                    },
+                                8:
+                                    {
+                                        name:'Zbiór Praw Konsumenta Energii Elektrycznej', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/eko/gze/zbior_praw_konsumenta_energii_elektrycznej.ashx' // link do dokumentu
+                                    },
+                                9:
+                                    {
+                                        name:'Regulamin e-faktury', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/eko/gze/regulamin-e-faktura.ashx' // link do dokumentu
+                                    },
+                                10:
+                                    {
+                                        name:'Zgody Klienta', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/eko/gze/tsp_gze_zgody_klienta_podstawowe_pdf_edyt_k.ashx' // link do dokumentu
+                                    },
+                                11:
+                                    {
+                                        name:'Wzór formularza odstąpienia od umowy ', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/eko/gze/gze_formularz_odstapienia.ashx' // link do dokumentu
+                                    },
+                            },
+                    },
+            },
+        regexParam:'eko-las',
+        regexParam2:'errata',
+        // ceny dla odnowień
+        odn_prices:{
+            'ts':'31,50', //cena brutto dla lokalizacji ts w PLN
+            'gze':'31,50', //cena brutto dla lokalizacji gze w PLN
+            'ts_netto':'25,61', //cena netto dla lokalizacji ts w PLN
+            'gze_netto':'25,61', //cena netto dla lokalizacji gze w PLN
+        },
+        // ceny za prąd dla odnowień
+        odn_documents_prices:{
+            ts: {
+                brutto: {
+                    // Ceny sprzedaĹźowe brutto
+
+                    'g11': '0,6996 ', //G11 - Cena za prÄd niezmienna przez caĹÄ dobÄ. (caĹodobowy)
+                    'g12_1': '0,7937 ',//G12 - NiĹźsza cena za prÄd w nocy oraz w wybranych godzinach w ciÄgu dnia.(strefa I dzienny)
+                    'g12_2': '0,5170 ',//G12 - NiĹźsza cena za prÄd w nocy oraz w wybranych godzinach w ciÄgu dnia.(strefa II szczytowy)
+                    'g12w_1': '0,9398 ',//G12w - NiĹźsza cena za prÄd w nocy, w wybranych godzinach w ciÄgu dnia oraz w weekendy.(Strefa I (nocny))
+                    'g12w_2': '0,5170 ',//G12w - NiĹźsza cena za prÄd w nocy, w wybranych godzinach w ciÄgu dnia oraz w weekendy.(Strefa II (pozaszczytowy))
+                    'g13_1': '0,7472 ',//G13 - NiĹźsza cena za prÄd w wybranych godzinach w ciÄgu doby.(strefa I)
+                    'g13_2': '1,0638 ',//G13 - NiĹźsza cena za prÄd w wybranych godzinach w ciÄgu doby.(strefa II)
+                    'g13_3': '0,5745 ',//G13 - NiĹźsza cena za prÄd w wybranych godzinach w ciÄgu doby.(strefa III)
+                    },
+                netto: {
+                    // Ceny sprzedaĹźowe netto
+
+                    'g11': '0,5688 ', //G11 - Cena za prÄd niezmienna przez caĹÄ dobÄ. (caĹodobowy)
+                    'g12_1': '0,6453 ',//G12 - NiĹźsza cena za prÄd w nocy oraz w wybranych godzinach w ciÄgu dnia.(strefa I dzienny)
+                    'g12_2': '0,4203 ',//G12 - NiĹźsza cena za prÄd w nocy oraz w wybranych godzinach w ciÄgu dnia.(strefa II szczytowy)
+                    'g12w_1': '0,7641 ',//G12w - NiĹźsza cena za prÄd w nocy, w wybranych godzinach w ciÄgu dnia oraz w weekendy.(Strefa I (nocny))
+                    'g12w_2': '0,4203 ',//G12w - NiĹźsza cena za prÄd w nocy, w wybranych godzinach w ciÄgu dnia oraz w weekendy.(Strefa II (pozaszczytowy))
+                    'g13_1': '0,6075 ',//G13 - NiĹźsza cena za prÄd w wybranych godzinach w ciÄgu doby.(strefa I)
+                    'g13_2': '0,8649 ',//G13 - NiĹźsza cena za prÄd w wybranych godzinach w ciÄgu doby.(strefa II)
+                    'g13_3': '0,4671 ',//G13 - NiĹźsza cena za prÄd w wybranych godzinach w ciÄgu doby.(strefa III)
+                    },
+                },
+                gze:{
+                    brutto:{
+                        // Ceny sprzedażowe brutto
+
+                        'g11': '0,6968 ', //G11 - Cena za prąd niezmienna przez całą dobę. (całodobowy)
+                        'g12_1': '0,7849 ',//G12 - Niższa cena za prąd w nocy oraz w wybranych godzinach w ciągu dnia.(strefa I dzienny)
+                        'g12_2': '0,5513 ',//G12 - Niższa cena za prąd w nocy oraz w wybranych godzinach w ciągu dnia.(strefa II szczytowy)
+                        'g12w_1': '0,8690 ',//G12w - Niższa cena za prąd w nocy, w wybranych godzinach w ciągu dnia oraz w weekendy.(Strefa I (nocny))
+                        'g12w_2': '0,5513 ',//G12w - Niższa cena za prąd w nocy, w wybranych godzinach w ciągu dnia oraz w weekendy.(Strefa II (pozaszczytowy))
+                        'g13_1': '0,7561 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa I)
+                        'g13_2': '1,0561 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa II)
+                        'g13_3': '0,5745 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa III)
+                    },
+                    netto:{
+                        // Ceny sprzedażowe netto
+
+                        'g11': '0,5665 ',//G11 - Cena za prąd niezmienna przez całą dobę. (całodobowy)
+                        'g12_1': '0,6381 ',//G12 - Niższa cena za prąd w nocy oraz w wybranych godzinach w ciągu dnia.(strefa I dzienny)
+                        'g12_2': '0,4482 ',//G12 - Niższa cena za prąd w nocy oraz w wybranych godzinach w ciągu dnia.(strefa II szczytowy)
+                        'g12w_1': '0,7065 ',//G12w - Niższa cena za prąd w nocy, w wybranych godzinach w ciągu dnia oraz w weekendy.(Strefa I (nocny))
+                        'g12w_2': '0,4482 ',//G12w - Niższa cena za prąd w nocy, w wybranych godzinach w ciągu dnia oraz w weekendy.(Strefa II (pozaszczytowy))
+                        'g13_1': '0,6147 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa I)
+                        'g13_2': '0,8586 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa II)
+                        'g13_3': '0,4671 ',//G13 - Niższa cena za prąd w wybranych godzinach w ciągu doby.(strefa III)
+                    },
+                },
+        },
+        // zbiór dokumentów dla odnowień
+        odn_documents: // zbiór dokumentów indywidualnych dla danego produktu
+            {
+                ts: // dokumenty dla lokalizacji ts
+                    {
+                        'doc_cat_2':
+                            {
+                                'label':'Dokumenty podstawowe i regulaminy', // jest to nazwa kategorii dokumentów
+                                1:
+                                    {
+                                        name:'Oświadczenie o wyrażeniu zgody/rezygnacji na e-fakturę', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/eko-prad-z-serwisantem-plus-dokumenty/ts/2020-07-01_ts-gze_gd-msp_oswiadczeniedoefv_prad_k_edyt.ashx' // link do dokumentu
+                                    },
+                                2:
+                                    {
+                                        name:'Certyfikat - wzór', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/eko-prad-z-serwisantem-plus-dokumenty/ts/19601-tauroncertyfikat-v03-prev.ashx' // link do dokumentu
+                                    },
+                                3:
+                                    {
+                                        name: 'Wyciąg z Taryfy dla energii elektrycznej TAURON Dystrybucja S.A. na rok 2025', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/eko-prad-z-serwisantem-plus-dokumenty/ts/wyciag-typu-g-z-taryfy-td-sa-na-rok-2021.ashx' // link do dokumentu
+                                    },
+                                4:
+                                    {
+                                        name: 'Wyciąg z Taryfy dla energii elektrycznej TAURON Dystrybucja S.A. - Informacja o stawkach brutto na rok 2025', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/tarcza/2022_02_01_TS-GZE_InfCenyBruttoWycTarTD_G_BAZA.ashx'// link do dokumentu
+                                    },
+                                5:
+                                    {
+                                        name: 'Informacja o cenach energii w Cennikach w okresie obowiązywania rozwiązań osłonowych, tj. do 30 września 2025 roku', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/tarcza/dokl-tarczowa-ts.ashx' // link do dokumentu
+                                    },
+                                6:
+                                    {
+                                        name:'Zbiór Praw Konsumenta Energii Elektrycznej', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/eko-prad-z-serwisantem-plus-dokumenty/ts/zbior_praw_konsumenta_energii_elektrycznej.ashx' // link do dokumentu
+                                    },
+                                7:
+                                    {
+                                        name:'Regulamin e-faktury', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/eko-prad-z-serwisantem-plus-dokumenty/ts/regulamin-e-faktura.ashx' // link do dokumentu
+                                    },
+                                8:
+                                    {
+                                        name:'Zgody Klienta', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/eko-prad-z-serwisantem-plus-dokumenty/ts/ts_zgody_klienta_podstawowe_pdf_edyt_k.ashx' // link do dokumentu
+                                    },
+                                9:
+                                    {
+                                        name:'Wzór formularza odstąpienia od umowy ', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/eko-prad-z-serwisantem-plus-dokumenty/ts/ts_formularz_odstapienia.ashx' // link do dokumentu
+                                    },
+                                10:
+                                    {
+                                        name:'Oświadczenie o zapoznaniu się i akceptacji treści Regulaminu usługi Serwisant 24H PLUS', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/eko-prad-z-serwisantem-plus-dokumenty/ts/2021_02_01_ts_gze_gd_msp_prad_osw_akcept_reg_uslugi_pdf_wzor_k.ashx' // link do dokumentu
+                                    },
+                                11:
+                                    {
+                                        name:'Regulamin usługi Serwisant 24H PLUS', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/eko-prad-z-serwisantem-plus-dokumenty/ts/regulamin_serwisant24h_dom_plus.ashx' // link do dokumentu
+                                    },
+                            },
+                    },
+                gze: // dokumenty dla lokalizacji gze
+                    {
+                        'doc_cat_2':
+                            {
+                                'label':'Dokumenty podstawowe i regulaminy', // jest to nazwa kategorii dokumentów
+                                1:
+                                    {
+                                        name:'Oświadczenie o wyrażeniu zgody/rezygnacji na e-fakturę', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/eko-prad-z-serwisantem-plus-dokumenty/gze/2021_02_01_ts_gze_gd_msp_prad_osw_akcept_reg_uslugi_pdf_wzor_k.ashx' // link do dokumentu
+                                    },
+                                2:
+                                    {
+                                        name:'Certyfikat - wzór', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/eko-prad-z-serwisantem-plus-dokumenty/gze/19601-tauroncertyfikat-gze-v03-prev.ashx' // link do dokumentu
+                                    },
+                                3:
+                                    {
+                                        name: 'Wyciąg z Taryfy dla energii elektrycznej TAURON Dystrybucja S.A. na rok 2025', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/eko-prad-z-serwisantem-plus-dokumenty/gze/wyciag-typu-g-z-taryfy-td-sa-na-rok-2021.ashx' // link do dokumentu
+                                    },
+                                4:
+                                    {
+                                        name: 'Wyciąg z Taryfy dla energii elektrycznej TAURON Dystrybucja S.A. - Informacja o stawkach brutto na rok 2025', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/tarcza/2022_02_01_TS-GZE_InfCenyBruttoWycTarTD_G_BAZA.ashx'// link do dokumentu
+                                    },
+                                5:
+                                    {
+                                        name: 'Informacja o cenach energii w Cennikach w okresie obowiązywania rozwiązań osłonowych, tj. do 30 września 2025 roku', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/tarcza/dokl-tarczowa-gze.ashx' // link do dokumentu
+                                    },
+                                6:
+                                    {
+                                        name:'Zbiór Praw Konsumenta Energii Elektrycznej', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/eko-prad-z-serwisantem-plus-dokumenty/gze/zbior_praw_konsumenta_energii_elektrycznej.ashx' // link do dokumentu
+                                    },
+                                7:
+                                    {
+                                        name:'Regulamin e-faktury', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/eko-prad-z-serwisantem-plus-dokumenty/gze/regulamin-e-faktura.ashx' // link do dokumentu
+                                    },
+                                8:
+                                    {
+                                        name:'Zgody Klienta', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/eko-prad-z-serwisantem-plus-dokumenty/gze/tsp_gze_zgody_klienta_podstawowe_pdf_edyt_k.ashx' // link do dokumentu
+                                    },
+                                9:
+                                    {
+                                        name:'Wzór formularza odstąpienia od umowy ', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/eko-prad-z-serwisantem-plus-dokumenty/gze/gze_formularz_odstapienia.ashx' // link do dokumentu
+                                    },
+                                10:
+                                    {
+                                        name:'Oświadczenie o zapoznaniu się i akceptacji treści Regulaminu usługi Serwisant 24H PLUS', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/eko-prad-z-serwisantem-plus-dokumenty/gze/2021_02_01_ts_gze_gd_msp_prad_osw_akcept_reg_uslugi_pdf_wzor_k.ashx' // link do dokumentu
+                                    },
+                                11:
+                                    {
+                                        name:'Regulamin usługi Serwisant 24H PLUS', // nazwa pliku która będzie wyświetlana
+                                        href:'https://www.tauron.pl/-/media/offer-documents/produkty/eko-prad-z-serwisantem-plus-dokumenty/gze/regulamin_serwisant24h_dom_plus.ashx' // link do dokumentu
+                                    },
+                            },
+                    },
+            },
+        price_table_extra_information:{
+            before_price: 'opłata handlowa (stawka stała) za usługę dodatkową', // tekst wyświetlany w Tabeli Cenowej przed opłatą handlową (stawką stałą)
+            after_price: '(przez cały okres trwania cennika)' // tekst wyświetlany w Tabeli Cenowej po opłacie handlowej (stawce stałej)
+        }
+    },
+};

@@ -1,0 +1,465 @@
+// funkcje odpowiedzialne za rotator
+
+var autocompleteJs = function() {
+    //stworzyc obiekt ze sciezkami i wartosciami
+
+    var self = this;
+    var control_sum;
+
+    self.timeout = 500;
+    self.shortTimeout = 100;
+	self.lastFocusedInputID = null;
+	self.focusedAutocompleteInputID = null;
+	self.showAutocompleteTimeoutID = null;
+    
+    //find selected parent and add new parameter
+    self.pushParentGaid = function (input, selector, parameters) {
+        var form = vJs.closest(input, "form");
+        if (form != null) {
+            var parentInput = form.querySelector("[data-autocomplete='" + selector + "'] input");
+            if (parentInput != null) {
+                var parentGaid = parentInput.getAttribute(helperJs.statics.attributes.dataGaid);
+                parameters.push({ name: "ownerGaid", value: parentGaid });
+            }
+        }
+    };
+
+    //adds part name parameter to array
+    self.pushPartName = function (val, parameters) {
+        parameters.push({ name: "partName", value: encodeURIComponent(val) });
+    };
+	
+    return {
+        buildList: function(ul, url, type, autoBtn) {
+            //sendReq = true;
+            var buildListRequestFunc = function() {
+                var response = JSON.parse(this.responseText),
+                    list;
+
+                if (response.CallId) {
+                    if (response.CallId == control_sum) {
+                        if (response.List) {
+                            response = response.List;
+                        } else if (response.Cities) {
+                            response = response.Cities;
+                        } else {
+                            response = [];
+                        }
+                    } else {
+                        return false;
+                    }
+                }
+
+                //var list = JSON.parse(this.responseText);
+                var isGaidFieldPresent = response.length > 0 && response[0].Gaid;
+
+                if (type === "city") {
+                    list = isGaidFieldPresent
+                        ? response.map(function(i) { return { Name: i.Name, Gaid: i.Gaid, ProvinceName: i.ProvinceName, DistrictName: i.DistrictName } })
+                        : response.map(function(i) { return i.Name; });
+                } else {
+                    list = isGaidFieldPresent
+                        ? response.map(function(i) { return { Name: i.Name, Gaid: i.Gaid } })
+                        : response.map(function(i) { return i.Name; });
+                }
+
+                if (isGaidFieldPresent) {
+                    //  aw_complete[ind].list = list.map(function(i) { return i.name; });
+                    var dataCompleteContainer = vJs.closest(ul, "[data-autocomplete]"),
+                        inputElement = dataCompleteContainer.querySelector("input");
+
+                    if (inputElement) {
+                        inputElement.gaidList = list;
+                    }
+                }
+
+                helperJs.resetUl(ul, null, null);
+
+                for (var i = 0; i < list.length; i++) {
+                    var listItem = list[i],
+                        buttonChildren = [];
+
+                    var buttonOnClickFunc = function (e) {
+                        var boss = vJs.closest(this, "[data-autocomplete]"),
+                            inpt = boss.querySelector("input"),
+                            li = vJs.closest(this, "li"),
+                            ul = vJs.closest(this, "ul"),
+                            gaid = li.getAttribute(helperJs.statics.attributes.dataGaid),
+                            nextInput = null,
+                            requestFunc = null,
+                            url = null,
+                            queryParams = [],
+                            innerText = this.querySelector("." + type).innerText;
+
+                        if (type === "city") {
+                            if (inpt.getAttribute("id") === "ucity") {
+                                nextInput = document.getElementById("ustreet");
+                            } else {
+                                nextInput = document.getElementById("ulica");
+                            }
+
+                            if ((inpt.getAttribute("id") === "miejscowosc" || inpt.getAttribute("id") === "ucity") && nextInput) {
+                                requestFunc = autocompleteJs.checkStreetsRequestFunc(nextInput);
+                                url = "/iapi/street/GetStreets";
+                                queryParams.push({ name: "ownerGaid", value: gaid });
+                            }
+                        } else if (type === "province") {
+                            nextInput = document.getElementById("powiat");
+
+                            if (inpt.getAttribute("id") === "wojewodztwo" && nextInput) {
+                                requestFunc = function () {
+                                    if (this.status === 200) {
+                                        var response = JSON.parse(this.responseText),
+                                            index = -1,
+                                            attributes = { removeList: [], addList: [] },
+                                            value = null;
+
+                                        if (response.List && response.List.length === 1) {
+                                            index = 0;
+                                        }
+
+                                        if (index === 0) {
+                                            var item = response.List[index];
+                                            value = item.Name;
+
+                                            attributes.addList.push({ name: helperJs.statics.attributes.dataGaid, value: item.Gaid });
+                                            attributes.addList.push({ name: helperJs.statics.attributes.readonly, value: true });
+                                            attributes.addList.push({ name: helperJs.statics.attributes.dataDisabled, value: true });
+                                        } else {
+                                            attributes.removeList.push(helperJs.statics.attributes.dataDisabled);
+                                            attributes.removeList.push(helperJs.statics.attributes.readonly);
+                                        }
+
+                                        helperJs.modifyElement(nextInput, null, attributes, value);
+                                        if (index === 0) {
+                                            validJs.validateEl(nextInput, false);
+                                        }
+                                    }
+                                };
+                                url = "/iapi/district/GetDistricts";
+                                queryParams.push({ name: "ownerGaid", value: gaid });
+                            }
+                        }
+
+                        var inptGaidBefore = inpt.getAttribute(helperJs.statics.attributes.dataGaid);
+                        var inptValueBefore = inpt.value;
+						
+                        helperJs.modifyElement(inpt, null, { addList: [{ name: helperJs.statics.attributes.dataGaid, value: gaid }] }, innerText);
+
+                        if (type === "district" && inptValueBefore === innerText && inptGaidBefore !== gaid) {
+                            helperJs.fireEvent(inpt, "change");
+                        }
+						
+                        if (requestFunc != null && url != null && nextInput != null && nextInput.offsetParent != null) {
+                            helperJs.makeRequest(helperJs.statics.methods.get, url, queryParams, requestFunc, null, [["Content-type", "text/html; charset=utf-8"]], true);
+                        }
+						
+						self.focusedAutocompleteInputID = null;
+						helperJs.fireEvent(inpt, "focusout");
+						
+                        validJs.validateEl(inpt, false);
+                    };
+					
+                    var buttonFocusInFunc = function (e) {
+						var boss = vJs.closest(this, "[data-autocomplete]"),
+						inpt = boss.querySelector("input");
+						self.focusedAutocompleteInputID = inpt.id;
+					};
+					
+					var buttonFocusOutFunc = function (e) {
+						var boss = vJs.closest(this, "[data-autocomplete]"),
+						inpt = boss.querySelector("input");
+						self.focusedAutocompleteInputID = null;
+						helperJs.fireEvent(inpt, "focusout");
+					};
+					
+                    buttonChildren.push(helperJs.createSpan([helperJs.createTextNode(listItem.Name)], { addList: [type] }, null));
+
+                    if (type === "city") {
+                        buttonChildren.push(helperJs.createBr(null, null, null, null));
+                        buttonChildren.push(helperJs.createSpan([helperJs.createTextNode(listItem.ProvinceName + ", " + listItem.DistrictName)], { addList: ["details"] }, null));
+                    }
+                    var button = helperJs.createButton(buttonChildren, null, null, null);
+					var buttonListeners = helperJs.createModel("listener", null,
+					[
+						[
+							button,
+							"click",
+							buttonOnClickFunc
+						],
+						[
+							button,
+							"focusin",
+							buttonFocusInFunc
+						],
+						[
+							button,
+							"focusout",
+							buttonFocusOutFunc
+						]
+					]);
+
+					helperJs.addListenersToElements(buttonListeners);
+					
+                    var li = helperJs.createLi([button], null, { addList: [{ name: helperJs.statics.attributes.dataGaid, value: listItem.Gaid }] });
+
+                    ul.appendChild(li);
+                }
+
+                if (list.length > 0) {
+					helperJs.show([ul, autoBtn]);
+                }
+            };
+
+            helperJs.makeRequest(helperJs.statics.methods.get, url, null, buildListRequestFunc, null, [["Content-type", "text/html; charset=utf-8"]], true);
+        },
+
+        checkStreetsRequestFunc: function(streetInput) {
+            return function() {
+                if (this.status === 200) {
+                    var response = JSON.parse(this.responseText),
+                        index = -1,
+                        attributes = { removeList: [], addList: [] },
+                        value = null;
+
+                    if (response.length === 1) {
+                        index = 0;
+                    } else if (response.length === 2) {
+                        try {
+                            var name0 = response[0].Name.trim();
+                            var name1 = response[1].Name.trim();
+
+                            if (name0 === "skr. pocztowa" && name1 !== "skr. pocztowa") {
+                                index = 1;
+                            } else if (name1 === "skr. pocztowa" && name0 !== "skr. pocztowa") {
+                                index = 0;
+                            }
+                        } catch (err) {
+                            index = -1;
+                        }
+                    }
+
+                    if (index >= 0) {
+                        var item = response[index];
+                        value = item.Name;
+
+                        attributes.addList.push({ name: helperJs.statics.attributes.dataGaid, value: item.Gaid });
+                        attributes.addList.push({ name: helperJs.statics.attributes.dataDisabled, value: true });
+                        attributes.addList.push({ name: helperJs.statics.attributes.readonly, value: true });
+                    } else {
+                        attributes.removeList.push(helperJs.statics.attributes.dataDisabled);
+                        attributes.removeList.push(helperJs.statics.attributes.readonly);
+                    }
+
+                    helperJs.modifyElement(streetInput, null, attributes, value);
+                    if (index >= 0) {
+                        validJs.validateEl(streetInput, false);
+                    }
+                }
+            };
+        },
+
+        processSearch: function(input, val, ul, searchBtn, autoBtn, auto_c) {
+            var minLength = auto_c.getAttribute("data-min-length");
+
+            if (val.length >= minLength) {
+                vJs.getAjax("/iapi/search/getkeywords?inputPhrase=" + val,
+                    function(responseText) {
+                        var response = JSON.parse(responseText);
+
+                        if (response.success && response.keywords && response.keywords.length) {
+                            helperJs.resetUl(ul, null, null);
+
+                            for (var i = 0; i < response.keywords.length; i++) {
+                                var keyword = response.keywords[i];
+
+                                var func = function(e) {
+                                    input.value = this.parentNode.getAttribute("data-val");
+                                    searchBtn.click();
+                                };
+                                var button = helperJs.createButton([helperJs.createTextNode(keyword)], func, null, null);
+
+                                var li = helperJs.createLi([button], null, { addList: [{ name: helperJs.statics.attributes.dataVal, value: keyword }] });
+                                ul.appendChild(li);
+                            }
+                            helperJs.show([ul, autoBtn]);
+                        } else {
+                            helperJs.hide([ul, autoBtn]);
+                        }
+                    },
+                    function (responseText) {
+                        helperJs.hide([ul, autoBtn]);
+                    }
+                );
+            }
+        },
+
+        init: function(selector) {
+            // form 2
+            var modules = document.querySelectorAll(selector);
+            for (var i = 0; i < modules.length; i++) {
+                var inpt = modules[i].querySelector("input");
+                var inputsListeners = helperJs.createModel("listener", null,
+                [
+                    [
+                        inpt,
+                        "focusin",
+                        function() {
+                            var val = this.value,
+                                autoComplete = vJs.closest(this, "[data-autocomplete]"),
+                                ul = autoComplete.querySelector("ul"),
+                                autoBtn = autoComplete.querySelector("[data-autocomplete-btn]"),
+                                type = autoComplete.getAttribute("data-autocomplete"),
+                                searchBtn = autoComplete.querySelector("[data-search-btn]");
+
+                            if (type === "search-keywords") {
+                                autocompleteJs.processSearch(this, val, ul, searchBtn, autoBtn, autoComplete);
+                                return;
+                            }
+
+							self.lastFocusedInputID = this.id;
+                            if (val.length >= 3 && this.getAttribute(helperJs.statics.attributes.dataDisabled) !== "true") {
+								helperJs.show([ul, autoBtn]);
+                            }
+                        }
+                    ],
+                    [
+                        inpt,
+                        "focusout",
+                        function() {
+                            var autoComplete = vJs.closest(this, "[data-autocomplete]"),
+                                ul = autoComplete.querySelector("ul"),
+                                autoBtn = autoComplete.querySelector("[data-autocomplete-btn]"),
+								currentId = this.id;
+							self.lastFocusedInputID = null;
+							
+                            var func = function() {
+								var lastFocusedInputID = self.lastFocusedInputID;
+								
+								if (lastFocusedInputID == currentId){
+									self.lastFocusedInputID = null;
+								}
+								if (self.lastFocusedInputID != currentId && self.focusedAutocompleteInputID != currentId) {
+									helperJs.hide([ul, autoBtn]);
+								}
+                            };
+							
+							setTimeout(func, self.shortTimeout);
+                        }
+                    ],
+                    [
+                        inpt,
+                        "input",
+                        function() {
+                            var input = this,
+								val = input.value,
+                                autoComplete = vJs.closest(input, "[data-autocomplete]"),
+                                ul = autoComplete.querySelector("ul"),
+                                autoBtn = autoComplete.querySelector("[data-autocomplete-btn]"),
+                                type = autoComplete.getAttribute("data-autocomplete"),
+                                searchBtn = autoComplete.querySelector("[data-search-btn]");
+
+                            if (type === "search-keywords") {
+                                autocompleteJs.processSearch(input, val, ul, searchBtn, autoBtn, autoComplete);
+                                return;
+                            }
+							
+							if (self.showAutocompleteTimeoutID != null) {
+								clearTimeout(self.showAutocompleteTimeoutID);
+								self.showAutocompleteTimeoutID = null;
+							}
+							
+                            helperJs.modifyElement(input, null, { removeList: [helperJs.statics.attributes.dataGaid] }, null);
+
+                            if (val.length >= 3) {								
+								var showAutocompleteTimeoutFunc = function() {
+									var searchType,
+										methodName,
+										parameters = [],
+										isOk = true;
+
+									control_sum = Math.round(Math.random() * 10000);
+
+									if (type === "province") {
+										searchType = "province";
+										methodName = "GetProvinces";
+
+										self.pushPartName(val, parameters);
+									} else if (type === "district") {
+										searchType = "district";
+										methodName = "GetDistricts";
+
+										self.pushPartName(val, parameters);
+										self.pushParentGaid(input, "province", parameters);
+									} else if (type === "commune") {
+										searchType = "commune";
+										methodName = "GetCommunes";
+
+										self.pushPartName(val, parameters);
+										self.pushParentGaid(input, "district", parameters);
+									} else if (type === "street") {
+										searchType = "street";
+										methodName = "GetStreets";
+
+										self.pushPartName(val, parameters);
+										self.pushParentGaid(input, "city", parameters);
+									} else {
+										searchType = "city";
+
+										if (val[0] >= "0" && val[0] <= "9" && val[1] >= "0" && val[1] <= "9") {
+											methodName = "GetPostal";
+
+											parameters.push({ name: "partPostal", value: val.replace(/-/g, "") });
+										} else {
+											methodName = "GetCities";
+
+											self.pushPartName(val, parameters);
+										}
+									}
+
+									parameters.push({ name: "callid", value: control_sum });
+
+									if (searchType && methodName) {
+										var url = "/iapi/" + searchType + "/" + methodName;
+
+										for (var i = 0; i < parameters.length; i++) {
+											var paramValue = parameters[i].value;
+
+											if (i === 0) {
+												url += "?";
+											} else {
+												url += "&";
+											}
+
+											if (paramValue == null) {
+												isOk = false;
+												break;
+											}
+
+											url += parameters[i].name + "=" + paramValue;
+										}
+
+										if (isOk) {
+											autocompleteJs.buildList(ul, url, searchType, autoBtn);
+										}
+									}
+								};
+								self.showAutocompleteTimeoutID = setTimeout(showAutocompleteTimeoutFunc, self.shortTimeout * 3);
+                            } else {
+                                helperJs.resetUl(ul, null, null);
+                                helperJs.hide([ul, autoBtn]);
+                            }
+                        }
+                    ]
+                ]);
+
+                helperJs.addListenersToElements(inputsListeners);
+            }
+        }
+    };
+}();
+
+// po zaladowaniu modulu odpalamy:
+// if (! vJs.hasClass(document.getElementsByTagName('body')[0], 'sc-edit' ))
+//if (document.querySelectorAll("[data-autocomplete]").length > 0)
+autocompleteJs.init("[data-autocomplete]");

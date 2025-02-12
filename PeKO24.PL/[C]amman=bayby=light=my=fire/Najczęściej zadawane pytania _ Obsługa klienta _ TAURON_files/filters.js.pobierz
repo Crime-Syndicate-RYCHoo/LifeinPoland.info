@@ -1,0 +1,192 @@
+
+var filtersJs = function(){
+
+  return{
+    init:function(selector) {
+
+      function sortFunction(valToSort) {
+        var ai;
+        switch (valToSort.value) {
+          case 'asc':
+            for (ai=0; ai < el_arr.length; ai++){
+              el_arr[ai]['dom_el'].style.order = ai*2;
+            }
+            break;
+          case 'desc':
+            for (ai=0; ai < el_arr.length; ai++){
+              el_arr[ai]['dom_el'].style.order = 1000 - ai*2;
+            }
+            break;
+          default:
+            for (ai=0; ai < el_arr.length; ai++){
+              el_arr[ai]['dom_el'].style.order = null;
+            }
+            break;
+        };
+      }
+
+      var modules = document.querySelectorAll(selector);
+      for (var i=0; i < modules.length; i++){
+        var mod = modules[i],
+            btns = mod.querySelector('[data-js="filters-btns"]'),
+            btn_list = btns.querySelectorAll('[data-js="filters-btn"]'),
+            cont = mod.querySelector('[data-js="filters-cont"]'),
+            sort = mod.querySelector('[data-js="filters-sort"]'),
+            radio,
+            el = cont.querySelectorAll('[data-js="filters-el"]'),
+            el_arr = [],
+            filters_list = []
+        ;
+
+        if (sort){
+
+          radio = sort.querySelectorAll('input[type="radio"]');
+          
+          // na starcie przyporzadkowac flexowe ordery do elementów w celu sortowanie
+          // sortowanie
+          for (var ei=0; ei < el.length; ei++){
+            var value_to_sort = el[ei].querySelector('[data-js="sort"]').innerHTML.trim()
+            ;
+            el_arr.push({'value': value_to_sort, 'dom_el': el[ei] });
+          }
+          el_arr.sort(vJs.dynamicSort('value'));
+
+          //sort
+          var sortOnStart = mod.querySelector('[checked]');
+
+          for (var si=0; si < radio.length; si++){
+
+            if (sortOnStart) {
+              sortFunction(sortOnStart);
+              sortOnStart.checked = true;
+            }
+
+            radio[si].addEventListener('change', function(){
+              sortFunction(this);
+            });
+
+          }
+
+        }
+
+        //filtruejmy po klasach
+        var btn_all = btns.querySelector('[data-filter="all"]');
+        for (var bi=0; bi < btn_list.length; bi++){
+
+          var btn = btn_list[bi],
+              numb,
+              type
+          ;
+          // if (sort){
+            numb = btn.querySelector('[data-js="number"]');
+            type = btn.getAttribute('data-filter');
+            type_el = cont.querySelectorAll('.f-'+type)
+
+            if ( type_el ) {
+              numb.innerHTML = type_el.length;
+            }else{
+              numb.innerHTML = '0'
+            }
+            if ( type == 'all') numb.innerHTML = el.length;
+
+            if (numb.innerHTML  == '0') btn.style.display = 'none';
+          // }
+
+          filters_list[bi] = type+'';
+
+          // console.log(filters_list)
+
+          btn.addEventListener('click', function(e){
+            e.preventDefault();
+
+            var value = this.getAttribute('data-filter');
+
+            if (vJs.hasClass(this, 'search-url')){
+            } else {
+
+                if(el) {
+                  for (var fli=0; fli < filters_list.length; fli++) {
+                    vJs.addClass(btn_list[fli], 'btn--off');
+                  }
+
+                }
+
+
+  //               if (this.hasAttribute('data-href')){
+  //                 var btnLink = this.getAttribute('data-href');
+
+  //                 if (btnLink !== '') {
+  // //                  console.log(btnLink);
+  //                   location.href = btnLink;
+  //                 }
+  //               }
+
+
+                vJs.removeClass(this, 'btn--off');
+
+                if (!vJs.hasClass(document.getElementsByTagName('body')[0], 'sc-preview' )){
+                  var windowLocation = window.location.pathname;
+                  window.history.pushState("object or string", "", windowLocation+'?filters='+value);
+                }
+
+                var el_llist = cont.querySelectorAll('[data-js="filters-el"]');
+                console.log(el_llist)
+                for (var flii=0; flii < el_llist.length; flii++) {
+                    vJs.addClass(el_llist[flii], 'hide');
+                }
+                for (var flii=0; flii < el_llist.length; flii++) {
+                  vJs.addClass(el_llist[flii], 'hide');
+                    if (el_llist[flii].classList.contains('f-'+value)) {
+                      vJs.removeClass(el_llist[flii], 'hide');
+                    }
+                    if (value === 'all') {
+                      vJs.removeClass(el_llist[flii], 'hide');
+                    }
+                }
+                if (value === 'all') {
+                  for (var flii=0; flii < el_llist.length; flii++) {
+                    vJs.removeClass(el_llist[flii], 'hide');
+                  }
+                }
+
+
+
+                // var to_show = cont.querySelectorAll('[data-js="filters-el"]')
+
+            }
+
+          });
+        }
+
+
+      }
+      //end module for
+
+      var windowFilter = vJs.getQueryVariable('filters');
+
+      for (var i = 0; i < btn_list.length; i++) {
+        var btnSingle = btn_list[i];
+        var filterCategorys = btnSingle.getAttribute('data-filter');
+        if (windowFilter == filterCategorys) {
+          vJs.addClass(btn_list[0], 'btn--off');
+          vJs.removeClass(btnSingle, 'btn--off');
+          if (el) {
+            for (var j = 0; j < el.length; j++) {
+              vJs.addClass(el[j], 'hide');
+              if (el[j].classList.contains('f-'+windowFilter) || windowFilter == 'all') {
+                vJs.removeClass(el[j], 'hide');
+              }
+            }
+          }
+        }
+      }
+
+    }
+
+  }
+}();
+
+// po zaladowaniu modulu odpalamy:
+if (! vJs.hasClass(document.getElementsByTagName('body')[0], 'sc-edit' ))
+  if (document.querySelectorAll('[data-js="filters"]').length > 0)
+    filtersJs.init('[data-js="filters"]');

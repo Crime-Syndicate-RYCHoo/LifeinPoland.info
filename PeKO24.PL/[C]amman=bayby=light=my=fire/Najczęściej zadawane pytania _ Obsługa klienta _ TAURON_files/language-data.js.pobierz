@@ -1,0 +1,143 @@
+
+
+var LanguageDataPage = function () {
+
+    var dataPikaDayEnglish = {
+        previousMonth: 'Previous Month',
+        nextMonth: 'Next Month',
+        months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+        weekdays: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+        weekdaysShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+    };
+
+    var dataPikaDayPolish = {
+        previousMonth: 'Poprzedni miesiąc',
+        nextMonth: 'Następny miesiąc',
+        months: ['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec', 'Lipiec', 'Sierpień', 'Wrzesień', 'Październik', 'Listopad', 'Grudzień'],
+        weekdays: ['Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota',],
+        weekdaysShort: ['Nd', 'Pon', 'Wt', 'Śr', 'Czw', 'Pt', 'Sob']
+    };
+
+    function GetDataPikaDayLanguageFunction() {
+
+        var isPolishLanguage = jQuery("body").data("language");
+
+        if (isPolishLanguage == true) {
+            return dataPikaDayPolish;
+        }
+        else {
+            return dataPikaDayEnglish;
+        }
+    }
+
+    var dataStockEnglish = {
+        months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+        shortMonths: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        weekdays: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+        decimalPoint: ".",
+        thousandsSep: " ",
+        noData: "No transactions in this period"
+    };
+
+    var dataStockPolish = {
+        months: ['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec', 'Lipiec', 'Sierpień', 'Wrzesień', 'Październik', 'Listopad', 'Grudzień'],
+        shortMonths: ["Sty", "Lut", "Mar", "Kwi", "Maj", "Cze", "Lip", "Sie", "Wrz", "Paź", "Lis", "Gru"],
+        weekdays: ['Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'],
+        decimalPoint: ",",
+        thousandsSep: " ",
+        noData: "Brak transakcji w tym okresie"
+    };
+
+    function GetDataStockLanguageFunction() {
+
+        var isPolishLanguage = jQuery("body").data("language");
+
+        if (isPolishLanguage == true) {
+            return dataStockPolish;
+        }
+        else {
+            return dataStockEnglish;
+        }
+    }
+
+    var dataMonthsEnglish = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    var dataMonthsPolish = ['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec', 'Lipiec', 'Sierpień', 'Wrzesień', 'Październik', 'Listopad', 'Grudzień'];
+
+    function GetDataMonthsFunction() {
+        var isPolishLanguage = jQuery("body").data("language");
+
+        if (isPolishLanguage == true) {
+            return dataMonthsPolish;
+        }
+        else {
+            return dataMonthsEnglish;
+        }
+    }
+
+    function GetDataCurrencyFunction() {
+        var dataCurrency = jQuery("#stockMain").attr('data-currency');
+        if (typeof dataCurrency !== "undefined" && dataCurrency !== null) {
+            return dataCurrency;
+        }
+        else {
+            return "zł";
+        }
+    }
+
+    var dataPiecesEnglish = 'pcs.';
+    var dataPiecesPolish = 'szt.';
+
+    function GetDataPiecesFunction() {
+        var isPolishLanguage = $("body").data("language");
+        var dataPieces = $("body").data("pieces");
+        if (isPolishLanguage == true) {
+            return dataPiecesPolish;
+        }
+        else {
+            return dataPiecesEnglish;
+        }
+    }
+
+    var dataDateEnglish = 'Date';
+    var dataDatePolish = 'Data';
+
+    function GetDataDateFunction() {
+        var isPolishLanguage = $("body").data("language");
+
+        if (isPolishLanguage == true) {
+            return dataDatePolish;
+        }
+        else {
+            return dataDateEnglish;
+        }
+    }
+
+    
+    return {
+        //main function to initiate the module
+
+        GetDataPikaDayLanguageFunction: function () {
+            return GetDataPikaDayLanguageFunction();
+        },
+
+        GetDataStockLanguageFunction: function () {
+            return GetDataStockLanguageFunction();
+        },
+
+        GetDataCurrencyFunction: function () {
+            return GetDataCurrencyFunction();
+        },
+
+        GetDataMonthFunction: function () {
+            return GetDataMonthsFunction();
+        },
+
+        GetDataPiecesFunction: function () {
+            return GetDataPiecesFunction();
+        },
+
+        GetDataDateFunction: function () {
+            return GetDataDateFunction();
+        },
+    };
+}();
