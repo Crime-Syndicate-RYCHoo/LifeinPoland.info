@@ -1,0 +1,621 @@
+Return-Path: <relacje@info.pekao.com.pl>
+Delivered-To: ABUSE@CZEKAJ.COM.PL
+Received: from sv027.home.net.pl
+	by sv027.home.net.pl with LMTP
+	id 6EN4Bp5xr2dPdwAAwyxcrQ
+	(envelope-from <relacje@info.pekao.com.pl>)
+	for <ABUSE@CZEKAJ.COM.PL>; Fri, 14 Feb 2025 17:38:54 +0100
+Authentication-Results: sv027.home.net.pl; spf=pass (sender SPF 
+   authorized) smtp.mailfrom=info.pekao.com.pl (client-ip=193.111.166.174; 
+   helo=green.info.pekao.com.pl; envelope-from=relacje@info.pekao.com.pl; 
+   receiver=<UNKNOWN>)
+Authentication-Results: sv027.home.net.pl; dmarc=pass (p=quarantine dis=none) header.from=info.pekao.com.pl
+Received: from green.info.pekao.com.pl (green.info.pekao.com.pl [193.111.166.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by cloudserver3185817-3185848.home.pl (Postfix) with ESMTPS id 7D8FAA0217
+	for <ABUSE@CZEKAJ.COM.PL>; Fri, 14 Feb 2025 17:38:53 +0100 (CET)
+Received: from ebmmtdep1.ebm.pekao.com.pl (10.2.104.24) by
+ EXMM101.cn.in.pekao.com.pl (10.196.64.140) with Microsoft SMTP Server id
+ 15.1.2507.39; Fri, 14 Feb 2025 17:38:52 +0100
+From: Bank Pekao S.A. <relacje@info.pekao.com.pl>
+Reply-To: <relacje@info.pekao.com.pl>
+To: <ABUSE@CZEKAJ.COM.PL>
+Message-ID: <1967500239.2679381.1739551132969.JavaMail.sas@ebmmtdep1.ebm.pekao.com.pl>
+Subject: =?UTF-8?Q?Nowo=C5=9Bci_w_Twojej_bankowo=C5=9Bci?=
+MIME-Version: 1.0
+Content-Type: multipart/signed;
+	boundary="--MSM_ID=_ee0e0262-8dae-4d4c-9da9-1e81ee9eaf36";
+	protocol="application/x-pkcs7-signature"; micalg=SHA1
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 14 Feb 2025 17:38:52 +0100
+X-CLIENT-IP: 193.111.166.174
+X-CLIENT-HOSTNAME: green.info.pekao.com.pl
+X-VADE-SPAMSTATE: clean
+X-VADE-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgdehtdduhecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfjqffogffrnfdpggftiffpkfenuceurghilhhouhhtmecuudehtdenucenucfjughrpefhrhfvkffugggtgfffsehgqhgtredttdejnecuhfhrohhmpeeurghnkhcurfgvkhgrohcuufdrtedruceorhgvlhgrtghjvgesihhnfhhordhpvghkrghordgtohhmrdhplheqnecuggftrfgrthhtvghrnheptefhgfetgfduvdekhfeiheeuhefftefhtddvudevueelhfevvddvtddvkedtffejnecuffhomhgrihhnpehmohgsihhlvghtrhgvnhgushgrfigrrhgushdrphhlpdhpvghkrghordgtohhmrdhplhdpkhgrrhhivghrrghnrggsrghnkhdrphhlnecukfhppeduleefrdduuddurdduieeirddujeegnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehinhgvthepudelfedrudduuddrudeiiedrudejgedphhgvlhhopehgrhgvvghnrdhinhhfohdrphgvkhgrohdrtghomhdrphhlpdhmrghilhhfrhhomheprhgvlhgrtghjvgesihhnfhhordhpvghkrghordgtohhmrdhplhdpnhgspghrtghpthhtohepuddprhgtphhtthhopeetuegfuffgseevkgfgmfetlfdrvefqofdrrffn
+X-DCC--Metrics: sv027.home.net.pl 1024; Body=1 Fuz1=393 Fuz2=18721
+
+----MSM_ID=_ee0e0262-8dae-4d4c-9da9-1e81ee9eaf36
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.=
+w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns=3D"http://www.w3.org/1999/xhtml">
+  <head><meta http-equiv=3D"Content-type" Content=3D"text/html; charset=3Du=
+tf-8"/>
+    <meta http-equiv=3D"Content-type" content=3D"text/html; charset=3Dutf-8=
+" />
+    <meta name=3D"generator" content=3D"HTML Tidy for Java (vers. 2009-12-0=
+1), see jtidy.sourceforge.net" />
+    <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8=
+" />
+    <meta name=3D"viewport" content=3D"width=3Ddevice-width" />
+    <title>
+      Nowo=C5=9Bci w Twojej bankowo=C5=9Bci - Bank Pekao S.A.
+    </title>
+    <meta name=3D"description" content=3D"Bank Pekao S.A." />
+    <meta http-equiv=3D"X-UA-Compatible" content=3D"IE=3Dedge" />
+  </head>
+  <!-- szablon mailingu Pekao-v1-2021-02-24 -->
+  <body style=3D"margin: 0 auto; padding: 0; width: 100%; max-width:600px;"=
+>
+    <center>
+      <!--[if mso]><table id=3D"Table_00" width=3D"600" cellpadding=3D"0" c=
+ellspacing=3D"0"><tr><td><![endif]-->
+      <table id=3D"Table_01" width=3D"600" cellpadding=3D"0" cellspacing=3D=
+"0">
+        <tr>
+          <td style=3D"background-color: #ffffff;">
+            <!--banner mailingu - top.jpg-->
+            <img src=3D"http://pekao.com.pl/dam/ROOT-EXTERNAL/MAILING/20250=
+204-mailing/baner_600x443_nowosci_2v2.jpg" width=3D"100%" height=3D"auto" s=
+tyle=3D"display:block" border=3D"0" alt=3D"Bank Pekao S.A." />
+          </td>
+        </tr>
+        <!--sekcja 1.-->
+        <tr>
+          <td width=3D"100%" style=3D"background-color: #ffffff; padding: 3=
+0px 0 30px 0; margin:0;">
+            <table id=3D"Table_03" width=3D"100%" cellpadding=3D"0" cellspa=
+cing=3D"0">
+              <tr>
+                <td width=3D"6.67%" style=3D"padding: 0; margin:0;">
+                </td>
+                <td width=3D"0.48%" height=3D"100%" style=3D"padding: 0; ma=
+rgin:0; background:#d1050c;">
+                </td>
+                <td width=3D"2.84%" style=3D"padding: 0; margin:0;">
+                </td>
+                <td width=3D"83.34%" valign=3D"middle" style=3D"padding: 0;=
+ margin:0;">
+                  <p style=3D"font-family: Arial !important; font-size: 20p=
+x; line-height: 22px; color: #000000; padding: 0; margin:0;">
+                    <b>Zag=C5=82osuj na PeoPay</b>
+                  </p>
+                </td>
+                <td width=3D"6.67%" style=3D"padding: 0; margin:0;">
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td width=3D"100%" style=3D"background-color: #f0f0f0; padding: 3=
+5px 0 35px 0; margin: 0;">
+            <table id=3D"Table_04" width=3D"100%" cellpadding=3D"0" cellspa=
+cing=3D"0">
+              <tr>
+                <td width=3D"6.67%" style=3D"padding: 0; margin:0;">
+                </td>
+                <td width=3D"40%" valign=3D"middle" style=3D"padding: 0; ma=
+rgin:0;">
+                  <img src=3D"https://pekao.com.pl/dam/ROOT-EXTERNAL/MAILIN=
+G/20250204-mailing/MTA.jpg" width=3D"100%" height=3D"auto" style=3D"display=
+: block" border=3D"0" alt=3D"FOTO" />
+                </td>
+                <td width=3D"6.66%" style=3D"padding: 0; margin:0;">
+                </td>
+                <td width=3D"40%" valign=3D"middle" style=3D"padding: 0; ma=
+rgin:0;">
+                  <p style=3D"font-family: Arial !important; padding: 0 0 0=
+ 0; margin: 0 0 10px 0; font-size: 15px; line-height: 19px;">
+                    Oddaj sw=C3=B3j g=C5=82os na aplikacj=C4=99 PeoPay w ko=
+nkursie Mobile Trends Awards w kategorii bankowo=C5=9B=C4=87 mobilna.
+                  </p>
+                  <a href=3D"https://mobiletrendsawards.pl/mta/glosowanie#1=
+" target=3D"_blank" style=3D"cursor: pointer;"><img border=3D"0" width=3D"1=
+24px" height=3D"auto" src=3D"https://www.pekao.com.pl/dam/ROOT-EXTERNAL/MAI=
+LING/img/cta.png" alt=3D"Sprawd=C5=BA" /></a>
+                </td>
+                <td width=3D"6.67%" style=3D"padding: 0; margin:0;">
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <!--sekcja 2.-->
+        <tr>
+          <td width=3D"100%" style=3D"background-color: #ffffff; padding: 3=
+0px 0 30px 0; margin: 0;">
+            <table id=3D"Table_07" width=3D"100%" cellpadding=3D"0" cellspa=
+cing=3D"0">
+              <tr>
+                <td width=3D"6.67%" style=3D"padding: 0; margin:0;">
+                </td>
+                <td width=3D"0.48%" height=3D"100%" style=3D"padding: 0; ma=
+rgin:0; background:#d1050c;">
+                </td>
+                <td width=3D"2.84%" style=3D"padding: 0; margin:0;">
+                </td>
+                <td width=3D"83.34%" valign=3D"middle" style=3D"padding: 0;=
+ margin:0;">
+                  <p style=3D"font-family: Arial; font-size: 20px; line-hei=
+ght: 22px; color: #000000; padding: 0; margin:0;">
+                    <b>Wniosek 800+ ju=C5=BC jest!</b>
+                  </p>
+                </td>
+                <td width=3D"6.67%" style=3D"padding: 0; margin:0;">
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td width=3D"100%" style=3D"background-color: #f0f0f0; padding: 3=
+5px 0 35px 0; margin:0;">
+            <table id=3D"Table_08" width=3D"100%" cellpadding=3D"0" cellspa=
+cing=3D"0">
+              <tr>
+                <td width=3D"10%" style=3D"padding: 0; margin:0;">
+                </td>
+                <td width=3D"36.67%" valign=3D"middle" style=3D"padding: 0;=
+ margin:0;">
+                  <p style=3D"font-family: Arial !important; padding: 0; ma=
+rgin: 0 0 10px 0; font-size: 15px; line-height: 19px;">
+                    Z=C5=82=C3=B3=C5=BC ju=C5=BC dzi=C5=9B wniosek Rodzina =
+800+ na nowy okres =C5=9Bwiadczenia od czerwca 2025 r. do maja 2026 r. =E2=
+=80=93 prosto i szybko w serwisie Pekao24 lub aplikacji PeoPay.
+                  </p>
+                  <a href=3D"https://www.pekao.com.pl/o-banku/stopka/rodzin=
+a-800.html?utm_source=3Dmailing&utm_medium=3De-mail&utm_campaign=3Dnewslett=
+er-02-2025" target=3D"_blank" style=3D"cursor: pointer;"><img border=3D"0" =
+width=3D"124px" height=3D"auto" src=3D"https://www.pekao.com.pl/dam/ROOT-EX=
+TERNAL/MAILING/img/cta.png" alt=3D"Zobacz koszt karty" /></a>
+                </td>
+                <td width=3D"6.66%" style=3D"padding: 0; margin:0;">
+                </td>
+                <td width=3D"40%" valign=3D"middle" style=3D"padding: 0; ma=
+rgin:0;">
+                  <img src=3D"https://pekao.com.pl/dam/ROOT-EXTERNAL/MAILIN=
+G/20250204-mailing/800.jpg" width=3D"100%" height=3D"auto" style=3D"display=
+: block" border=3D"0" alt=3D"FOTO" />
+                </td>
+                <td width=3D"6.66%" style=3D"padding: 0; margin:0;">
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <!--sekcja 3.-->
+        <tr>
+          <td width=3D"100%" style=3D"background-color: #ffffff; padding: 3=
+0px 0 30px 0; margin:0;">
+            <table id=3D"Table_03" width=3D"100%" cellpadding=3D"0" cellspa=
+cing=3D"0">
+              <tr>
+                <td width=3D"6.67%" style=3D"padding: 0; margin:0;">
+                </td>
+                <td width=3D"0.48%" height=3D"100%" style=3D"padding: 0; ma=
+rgin:0; background:#d1050c;">
+                </td>
+                <td width=3D"2.84%" style=3D"padding: 0; margin:0;">
+                </td>
+                <td width=3D"83.34%" valign=3D"middle" style=3D"padding: 0;=
+ margin:0;">
+                  <p style=3D"font-family: Arial !important; font-size: 20p=
+x; line-height: 22px; color: #000000; padding: 0; margin:0;">
+                    <b>Nawet 200 z=C5=82 dla dziecka</b>
+                  </p>
+                </td>
+                <td width=3D"6.67%" style=3D"padding: 0; margin:0;">
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td width=3D"100%" style=3D"background-color: #f0f0f0; padding: 3=
+5px 0 35px 0; margin: 0;">
+            <table id=3D"Table_04" width=3D"100%" cellpadding=3D"0" cellspa=
+cing=3D"0">
+              <tr>
+                <td width=3D"6.67%" style=3D"padding: 0; margin:0;">
+                </td>
+                <td width=3D"40%" valign=3D"middle" style=3D"padding: 0; ma=
+rgin:0;">
+                  <img src=3D"https://pekao.com.pl/dam/ROOT-EXTERNAL/MAILIN=
+G/20250204-mailing/kids.jpg" width=3D"100%" height=3D"auto" style=3D"displa=
+y: block" border=3D"0" alt=3D"FOTO" />
+                </td>
+                <td width=3D"6.66%" style=3D"padding: 0; margin:0;">
+                </td>
+                <td width=3D"40%" valign=3D"middle" style=3D"padding: 0; ma=
+rgin:0;">
+                  <p style=3D"font-family: Arial !important; padding: 0 0 0=
+ 0; margin: 0 0 10px 0; font-size: 15px; line-height: 19px;">
+                    Masz dziecko w wieku 0-17 lat? Za=C5=82=C3=B3=C5=BC mu =
+Konto Przekorzystne, spe=C5=82nijcie warunki promocji, a dziecko zyska nawe=
+t 200 z=C5=82. Promocja trwa do 31.03.2025 r.
+                  </p>
+                  <a href=3D"http://www.pekao.com.pl/promocje-dla-dzieci?ut=
+m_source=3Dmailing&utm_medium=3De-mail&utm_campaign=3Dnewsletter-02-2025" t=
+arget=3D"_blank" style=3D"cursor: pointer;"><img border=3D"0" width=3D"124p=
+x" height=3D"auto" src=3D"https://www.pekao.com.pl/dam/ROOT-EXTERNAL/MAILIN=
+G/img/cta.png" alt=3D"Sprawd=C5=BA" /></a>
+                </td>
+                <td width=3D"6.67%" style=3D"padding: 0; margin:0;">
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <!--sekcja 4.-->
+        <tr>
+          <td width=3D"100%" style=3D"background-color: #ffffff; padding: 3=
+0px 0 30px 0; margin: 0;">
+            <table id=3D"Table_04" width=3D"100%" cellpadding=3D"0" cellspa=
+cing=3D"0">
+              <tr>
+                <td width=3D"6.67%" style=3D"padding: 0; margin:0;">
+                </td>
+                <td width=3D"0.48%" height=3D"100%" style=3D"padding: 0; ma=
+rgin:0; background:#d1050c;">
+                </td>
+                <td width=3D"2.84%" style=3D"padding: 0; margin:0;">
+                </td>
+                <td width=3D"83.34%" valign=3D"middle" style=3D"padding: 0;=
+ margin:0;">
+                  <p style=3D"font-family: Arial; font-size: 20px; line-hei=
+ght: 22px; color: #000000; padding: 0; margin:0;">
+                    <b>5% na koncie oszcz=C4=99dno=C5=9Bciowym dziecka</b>
+                  </p>
+                </td>
+                <td width=3D"6.67%" style=3D"padding: 0; margin:0;">
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td width=3D"100%" style=3D"background-color: #f0f0f0; padding: 3=
+5px 0 35px 0; margin:0;">
+            <table id=3D"Table_08" width=3D"100%" cellpadding=3D"0" cellspa=
+cing=3D"0">
+              <tr>
+                <td width=3D"10%" style=3D"padding: 0; margin:0;">
+                </td>
+                <td width=3D"36.67%" valign=3D"middle" style=3D"padding: 0;=
+ margin:0;">
+                  <p style=3D"font-family: Arial !important; padding: 0; ma=
+rgin: 0 0 10px 0; font-size: 15px; line-height: 19px;">
+                    Dziecko mo=C5=BCe zyska=C4=87 5% w skali roku na koncie=
+ oszcz=C4=99dno=C5=9Bciowym M=C3=B3j Skarb do kwoty 5000 z=C5=82. Za=C5=82=
+=C3=B3=C5=BC w Panelu rodzica ju=C5=BC dzi=C5=9B! Promocja trwa do 31.03.20=
+25 r.
+                  </p>
+                  <a href=3D"http://www.pekao.com.pl/promocje-dla-dzieci?ut=
+m_source=3Dmailing&utm_medium=3De-mail&utm_campaign=3Dnewsletter-02-2025" t=
+arget=3D"_blank" style=3D"cursor: pointer;"><img border=3D"0" width=3D"124p=
+x" height=3D"auto" src=3D"https://www.pekao.com.pl/dam/ROOT-EXTERNAL/MAILIN=
+G/img/cta.png" alt=3D"Zobacz koszt karty" /></a>
+                </td>
+                <td width=3D"6.66%" style=3D"padding: 0; margin:0;">
+                </td>
+                <td width=3D"40%" valign=3D"middle" style=3D"padding: 0; ma=
+rgin:0;">
+                  <img src=3D"https://pekao.com.pl/dam/ROOT-EXTERNAL/MAILIN=
+G/20250204-mailing/skarbonki.jpg" width=3D"100%" height=3D"auto" style=3D"d=
+isplay: block" border=3D"0" alt=3D"FOTO" />
+                </td>
+                <td width=3D"6.66%" style=3D"padding: 0; margin:0;">
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <!--sekcja 5.-->
+        <tr>
+          <td width=3D"100%" style=3D"background-color: #ffffff; padding: 3=
+0px 0 30px 0; margin:0;">
+            <table id=3D"Table_03" width=3D"100%" cellpadding=3D"0" cellspa=
+cing=3D"0">
+              <tr>
+                <td width=3D"6.67%" style=3D"padding: 0; margin:0;">
+                </td>
+                <td width=3D"0.48%" height=3D"100%" style=3D"padding: 0; ma=
+rgin:0; background:#d1050c;">
+                </td>
+                <td width=3D"2.84%" style=3D"padding: 0; margin:0;">
+                </td>
+                <td width=3D"83.34%" valign=3D"middle" style=3D"padding: 0;=
+ margin:0;">
+                  <p style=3D"font-family: Arial !important; font-size: 20p=
+x; line-height: 22px; color: #000000; padding: 0; margin:0;">
+                    <b>Nowa ods=C5=82ona strony pekao.com.pl</b>
+                  </p>
+                </td>
+                <td width=3D"6.67%" style=3D"padding: 0; margin:0;">
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td width=3D"100%" style=3D"background-color: #f0f0f0; padding: 3=
+5px 0 35px 0; margin: 0;">
+            <table id=3D"Table_04" width=3D"100%" cellpadding=3D"0" cellspa=
+cing=3D"0">
+              <tr>
+                <td width=3D"6.67%" style=3D"padding: 0; margin:0;">
+                </td>
+                <td width=3D"40%" valign=3D"middle" style=3D"padding: 0; ma=
+rgin:0;">
+                  <img src=3D"http://pekao.com.pl/dam/ROOT-EXTERNAL/MAILING=
+/20250204-mailing/portal2.jpg" width=3D"100%" height=3D"auto" style=3D"disp=
+lay: block" border=3D"0" alt=3D"FOTO" />
+                </td>
+                <td width=3D"6.66%" style=3D"padding: 0; margin:0;">
+                </td>
+                <td width=3D"40%" valign=3D"middle" style=3D"padding: 0; ma=
+rgin:0;">
+                  <p style=3D"font-family: Arial !important; padding: 0 0 0=
+ 0; margin: 0 0 10px 0; font-size: 15px; line-height: 19px;">
+                    Od=C5=9Bwie=C5=BCony wygl=C4=85d, intuicyjne menu i =C5=
+=82atwiejsza nawigacja - to tylko niekt=C3=B3re z efekt=C3=B3w aktualizacji=
+ pekao.com.pl.
+                  </p>
+                  <a href=3D"https://www.pekao.com.pl/o-banku/aktualnosci/6=
+127814b-d618-4d98-ab2b-44c5821cfc71/strona-internetowa-pekao-com-pl-w-nowej=
+-odsonie.html?utm_source=3Dmailing&utm_medium=3De-mail&utm_campaign=3Dnewsl=
+etter-02-2025" target=3D"_blank" style=3D"cursor: pointer;"><img border=3D"=
+0" width=3D"124px" height=3D"auto" src=3D"https://www.pekao.com.pl/dam/ROOT=
+-EXTERNAL/MAILING/img/cta.png" alt=3D"Sprawd=C5=BA" /></a>
+                </td>
+                <td width=3D"6.67%" style=3D"padding: 0; margin:0;">
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <!--sekcja: podpis-->
+        <tr>
+          <td width=3D"100%" style=3D"padding: 20px 0 25px 0; margin:0;">
+            <table id=3D"Table_07" width=3D"100%" cellpadding=3D"0" cellspa=
+cing=3D"0">
+              <tr>
+                <td width=3D"6.67%" style=3D"padding:0; margin:0;">
+                </td>
+                <td width=3D"0.49%" height=3D"100%" style=3D"padding: 0; ma=
+rgin:0; background:#d1050c;">
+                </td>
+                <td width=3D"2.84%" style=3D"padding: 0; margin:0;">
+                </td>
+                <td width=3D"90%" valign=3D"top" style=3D"padding: 0; margi=
+n: 0;">
+                  <p style=3D"font-family: Arial; font-size: 15px; line-hei=
+ght: 19px; color: #000000; margin:0; padding:0;">
+                    Z pozdrowieniami<br />
+                     <b>zesp=C3=B3=C5=82 Banku Pekao S.A.</b>
+                  </p>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <!--sekcja: kontakt-->
+        <tr>
+          <td width=3D"100%" style=3D"background-color: #d1050c; padding: 2=
+5px 0 30px 0; margin:0;">
+            <table id=3D"Table_12" width=3D"100%" cellpadding=3D"0" cellspa=
+cing=3D"0">
+              <tr>
+                <td width=3D"6.67%" style=3D"padding:0; margin:0;">
+                </td>
+                <td width=3D"0.49%" height=3D"100%" style=3D"padding: 0; ma=
+rgin:0; background:#ffffff;">
+                </td>
+                <td width=3D"2.84%" style=3D"padding: 0; margin:0;">
+                </td>
+                <td width=3D"90%" valign=3D"middle" style=3D"padding: 0; ma=
+rgin: 0;">
+                  <p style=3D"font-family: Arial; font-size: 24px; line-hei=
+ght: 26px; color: #ffffff; margin:0; padding:0;">
+                    <b>Ch=C4=99tnie odpowiemy na Twoje pytania:</b>
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td width=3D"6.67%" style=3D"padding:0; margin:0;">
+                </td>
+                <td width=3D"0.49%" style=3D"padding: 0; margin:0;">
+                </td>
+                <td width=3D"2.84%" style=3D"padding: 0; margin:0;">
+                </td>
+                <td width=3D"90%" valign=3D"middle" style=3D"padding: 20px =
+0 0 0; margin: 0;">
+                  <table id=3D"Table_13" width=3D"100%" cellpadding=3D"0" c=
+ellspacing=3D"0">
+                    <tr>
+                      <td width=3D"10.55%">
+                        <img src=3D"https://www.pekao.com.pl/dam/ROOT-EXTER=
+NAL/MAILING/img/ico_tel.png" width=3D"100%" height=3D"auto" style=3D"displa=
+y: block; max-width:47px; min-width:36px;" alt=3D"Infolinia" border=3D"0" /=
+>
+                      </td>
+                      <td width=3D"31.48%" style=3D"min-width:130px;">
+                        <p style=3D"font-family: Arial; font-size: 14px; li=
+ne-height: 19px; color: #ffffff; padding:0; margin:0;">
+                          <b>Kontakt z infolini=C4=85:</b><br />
+                           <a href=3D"https://www.pekao.com.pl/kontakt.html=
+#kontakt-z-infolinia" target=3D"_blank" style=3D"cursor: pointer; color: #f=
+fffff !important; text-decoration: none !important; font-size: 20px; font-w=
+eight: bold;">TUTAJ</a>
+                        </p>
+                      </td>
+                      <td width=3D"10.56%">
+                        <img src=3D"https://www.pekao.com.pl/dam/ROOT-EXTER=
+NAL/MAILING/img/ico_pkt.png" width=3D"100%" height=3D"auto" style=3D"displa=
+y: block; max-width:47px; min-width:36px;" alt=3D"Wykaz plac=C3=B3wek" bord=
+er=3D"0" />
+                      </td>
+                      <td width=3D"47.41%" style=3D"min-width:111px;">
+                        <p style=3D"font-family: Arial; font-size: 14px; li=
+ne-height: 19px; color: #ffffff; padding:0; margin:0;">
+                          <b>Wykaz plac=C3=B3wek</b><br />
+                           <a href=3D"https://www.pekao.com.pl/placowki-i-b=
+ankomaty.html" target=3D"_blank" style=3D"color: #ffffff !important; cursor=
+: pointer;">pekao.com.pl</a>
+                        </p>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td width=3D"100%" style=3D"width: 100%; background-color: #d1050=
+c; margin:0; border-top: 1px solid #ffffff;">
+            <table id=3D"Table_12a" style=3D"width: 100%;" width=3D"100%" c=
+ellpadding=3D"0" cellspacing=3D"0">
+              <tr>
+                <!-- <td width=3D"4.5%" style=3D"width: 4.5%; padding:0; ma=
+rgin:0;">&nbsp;</td>                  -->
+                <td width=3D"35%" style=3D"width: 35%; text-align: center;"=
+>
+                  <a href=3D"https://www.pekao.com.pl/o-banku/aktualnosci.h=
+tml" style=3D"display: block; font-family: Arial; font-size: 14px; color: #=
+ffffff; padding:0; margin:0;"><img src=3D"https://www.pekao.com.pl/dam/ROOT=
+-EXTERNAL/MAILING/AT/Newsletter/1.png" width=3D"100%" height=3D"auto" style=
+=3D"display: block; max-width:180px; min-width:36px;" alt=3D"Aktualno=C5=9B=
+ci" border=3D"0" /></a>
+                </td>
+                <td width=3D"30%" style=3D"width: 30%; text-align: center;"=
+>
+                  <a href=3D"https://www.pekao.com.pl/klient-indywidualny/b=
+ankowosc-elektroniczna/bezpieczenstwo.html" style=3D"display: block; width:=
+ 100%; font-family: Arial; font-size: 14px; line-height: 19px; color: #ffff=
+ff; padding:0; margin:0;"><img src=3D"https://www.pekao.com.pl/dam/ROOT-EXT=
+ERNAL/MAILING/AT/Newsletter/2.png" width=3D"100%" height=3D"auto" style=3D"=
+display: block; max-width:180px; min-width:36px;" alt=3D"Bezpiecze=C5=84stw=
+o" border=3D"0" /></a>
+                </td>
+                <td width=3D"35%" style=3D"width: 35%; text-align: center;"=
+>
+                  <a href=3D"https://karieranabank.pl/" style=3D"display: b=
+lock; width: 100%; font-family: Arial; font-size: 14px; line-height: 19px; =
+color: #ffffff; padding:0; margin:0;"><img src=3D"https://www.pekao.com.pl/=
+dam/ROOT-EXTERNAL/MAILING/AT/Newsletter/3.png" width=3D"100%" height=3D"aut=
+o" style=3D"display: block; max-width:180px; min-width:36px;" alt=3D"Karier=
+a" border=3D"0" /></a>
+                </td>
+                <!-- <td width=3D"5.5%" style=3D"width: 5.5%; padding:0; ma=
+rgin:0;">&nbsp;</td>  -->
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td style=3D"background-color: #ffffff;">
+            <a href=3D"https://www.pekao.com.pl/o-banku/nagrody-i-wyroznien=
+ia.html" target=3D"_blank" style=3D"cursor: pointer;"><img src=3D"https://w=
+ww.pekao.com.pl/dam/ROOT-EXTERNAL/MAILING/AT/Newsletter/btm.jpg" width=3D"1=
+00%" height=3D"auto" style=3D"display:block" border=3D"0" alt=3D"Bank Pekao=
+ S.A." /></a>
+          </td>
+        </tr>
+        <!--sekcja: stopka banku-->
+        <tr>
+          <td width=3D"100%" style=3D"padding: 0; margin: 0; background-col=
+or: #f0f0f0">
+            <p style=3D"font-family: Arial !important; font-size: 10px; lin=
+e-height: 13px; color: #6a6a6a; padding: 20px; margin: 0; justify">
+              Bank Polska Kasa Opieki Sp=C3=B3=C5=82ka Akcyjna z&nbsp;siedz=
+ib=C4=85 w Warszawie, ul.&nbsp;=C5=BBubra&nbsp;1, 01-066&nbsp;Warszawa, wpi=
+sany do&nbsp;rejestru przedsi=C4=99biorc=C3=B3w w&nbsp;S=C4=85dzie Rejonowy=
+m dla&nbsp;m.st.&nbsp;Warszawy w&nbsp;Warszawie, XIII&nbsp;Wydzia=C5=82 Gos=
+podarczy Krajowego Rejestru S=C4=85dowego, KRS:&nbsp;0000014843, NIP:&nbsp;=
+526-00-06-841, REGON:&nbsp;000010205, wysoko=C5=9B=C4=87 kapita=C5=82u zak=
+=C5=82adowego i&nbsp;kapita=C5=82u wp=C5=82aconego: 262&nbsp;470&nbsp;034&n=
+bsp;z=C5=82. Cz=C5=82onek Grupy VAT Pekao dzia=C5=82aj=C4=85cej od 1.03.202=
+4&nbsp;r. pod numerem NIP:&nbsp;1070047763.
+            </p>
+            <p style=3D"font-family: Arial !important; font-size: 10px; lin=
+e-height: 13px; color: #6a6a6a; padding: 20px; margin: 0; justify">
+              Ten e-mail zosta=C5=82 wygenerowany automatycznie. Prosimy na=
+ niego nie odpowiada=C4=87. Je=C5=9Bli chcesz si=C4=99 z nami skontaktowa=
+=C4=87 odwied=C5=BA nasz=C4=85 stron=C4=99 internetow=C4=85 lub zadzwo=C5=
+=84.
+            </p>
+          </td>
+        </tr>
+      </table>
+      <!--[if mso]></td></tr></table><![endif]-->
+    </center>
+  </body>
+</html>
+
+
+----MSM_ID=_ee0e0262-8dae-4d4c-9da9-1e81ee9eaf36
+Content-Type: application/x-pkcs7-signature; name="smime.p7s"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Descriptione: smime.p7s
+
+MIIItwYJKoZIhvcNAQcCoIIIqDCCCKQCAQExCzAJBgUrDgMCGgUAMAsGCSqGSIb3DQEHAaCCBpcw
+ggaTMIIEe6ADAgECAhBENgW2WPJ/ZhhAi/0tzqPYMA0GCSqGSIb3DQEBCwUAME4xCzAJBgNVBAYT
+AlBMMSEwHwYDVQQKDBhBc3NlY28gRGF0YSBTeXN0ZW1zIFMuQS4xHDAaBgNVBAMME0NlcnR1bSBT
+TUlNRSBSU0EgQ0EwHhcNMjUwMjEwMDk0MDQ5WhcNMjcwMjEwMDk0MDQ4WjCB+jEZMBcGA1UEYRMQ
+TlRSUEwtMDAwMDAxNDg0MzELMAkGA1UEBhMCUEwxFDASBgNVBAgMC21hem93aWVja2llMREwDwYD
+VQQHDAhXYXJzemF3YTExMC8GA1UECgwoQmFuayBQb2xza2EgS2FzYSBPcGlla2kgU3DDs8WCa2Eg
+QWtjeWpuYTETMBEGA1UEBAwKR29yY2h5bnNrYTERMA8GA1UEKgwIVmFsZXJpaWExIjAgBgNVBAMM
+GXJlbGFjamVAaW5mby5wZWthby5jb20ucGwxKDAmBgkqhkiG9w0BCQEWGXJlbGFjamVAaW5mby5w
+ZWthby5jb20ucGwwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCoOcrKPKxgPCJOmuRh
+0BsnDdKllPLZFlfwrkZEw8JP+IdKfo55TAbSzVK7hNBZ0BGitzbrOIMSl2HqoW54SBm5UjpSR6Dm
+GiFNSz3LxNHhqd2Ccy3emTUr1V8lKAZLwfcC/IyhTtYXDPjZyUe1tYUdmM3286Br9w3uxlOPcO6c
++3vTR7Nvkg7UUUInXJYpplmHsVCDP6eRhLQVveUOEZw29bOKkRYj7WJGtlFmOesh7ht0C+xYvYE0
+mucejfydcG9XFCpwSUGPtywaX5J12h21EUeC9CQcGYKmPHpDJqOf1egF5SgCLLN9XsnIYyuaMAW9
+9g9xlyPIpv3AjMenEl/pAgMBAAGjggG+MIIBujAMBgNVHRMBAf8EAjAAMEEGA1UdHwQ6MDgwNqA0
+oDKGMGh0dHA6Ly9jc21pbWVyc2FjYS5jcmwuY2VydHVtLnBsL2NzbWltZXJzYWNhLmNybDCBgwYI
+KwYBBQUHAQEEdzB1MC4GCCsGAQUFBzABhiJodHRwOi8vY3NtaW1lcnNhY2Eub2NzcC1jZXJ0dW0u
+Y29tMEMGCCsGAQUFBzAChjdodHRwOi8vY3NtaW1lcnNhY2EucmVwb3NpdG9yeS5jZXJ0dW0ucGwv
+Y3NtaW1lcnNhY2EuY2VyMB8GA1UdIwQYMBaAFGb7ww++9L/gnMmrTd5HGb3AyqZoMB0GA1UdDgQW
+BBSfSZIWtTeFg1shNR0v7cFzClsWYTBMBgNVHSAERTBDMAkGB2eBDAEFAwIwNgYLKoRoAYb2dwJk
+BAEwJzAlBggrBgEFBQcCARYZaHR0cHM6Ly93d3cuY2VydHVtLnBsL0NQUzAdBgNVHSUEFjAUBggr
+BgEFBQcDBAYIKwYBBQUHAwIwDgYDVR0PAQH/BAQDAgTwMCQGA1UdEQQdMBuBGXJlbGFjamVAaW5m
+by5wZWthby5jb20ucGwwDQYJKoZIhvcNAQELBQADggIBAGULXeyGkZip2BhFB6mU56jOymt3xB04
+Rqv6tScWWC3q3cXCW8OHswI3Ab+7Pu3WNxW3RzVSA01//yaMrwkhckT3zPZAMv7a/7Y+3QPwblbH
+QSEcJEUinpEMNmuOlVaoeQJx+UowYRX1NeDib1BJskdw4tY8cQYrDPT/jaMhH+qZ1ODj+nPtj1ga
+51Tl3OjIXQkFpArl/Z5FKD7CibWoj+CFS89q15mOZ5Va/f6HOrAkLimRtUdMFwzlgzryrb6GW7eC
+caL0utCcxEvxXbj/xVv0OJm4R+XznNjWUJJtfa2+B88kkvBFiNLWi6zCZcAqeSy3lKot/crfq69R
+ZlK+KEUGKDEtXAvYPpAT5FvDyJ1c+g3l/hrLLhw2y05wQaF4kt0HA75fIdWwe7bV4+idi1s6rkDj
+dM2CnFomVHkx0q1St7zfAJdJ/feKCwahzCLtReHNcNeTKr3iaPgerfrm2TSINHS2uUmDKLva96pF
+OqyuXJ9w9z7ZHZI8VlVzaaqMsbibcSbM8zwNrsa9Otclqc3hnrd/eTHMmlQzPqJTqlWjHaqManQJ
+r5Z+k9ccUHQ/TIqXCI9ZhQFvxBGCfii3Jod1enokIpUqxvQW+9Tp3JlO1ZgwHSFr9SFCMmnERJCk
+h0Sq1/wfAl9+Upk/vu3Mn91ESn4GMa/G7FhZSGcMeMg8MYIB6DCCAeQCAQEwYjBOMQswCQYDVQQG
+EwJQTDEhMB8GA1UECgwYQXNzZWNvIERhdGEgU3lzdGVtcyBTLkEuMRwwGgYDVQQDDBNDZXJ0dW0g
+U01JTUUgUlNBIENBAhBENgW2WPJ/ZhhAi/0tzqPYMAkGBSsOAwIaBQCgXTAYBgkqhkiG9w0BCQMx
+CwYJKoZIhvcNAQcBMBwGCSqGSIb3DQEJBTEPFw0yNTAyMTQxNjM4NTJaMCMGCSqGSIb3DQEJBDEW
+BBTKCQV8Tk9S4aH1DwdORcxXFcEjBTANBgkqhkiG9w0BAQEFAASCAQBG6QwkwQczfTne61VtpAHj
+NIK6uT/FU5AP/uU4GOi1r1MGp0eAwXS4WHRTH/v6qEjhz36pXXq5R3p8BASU/65aT1EZYeS7cih9
+xhLTxScy+A4yWiU5xNScznyX+hZ/c1dfsfvgJcc+c4KPP1E+xbs5ks5k2KGYP5RslqsTUJLuTNIS
+wdink9QGCsVjvcodsSSepDFCy3ygy2iALaF2fb68pHqYdFZqotilt7muQF/lBxaWN8i5PTjRsQ2Q
+WoneXBPbGNHpQa0wjQhALALNJPOEXMuMP8LXfuQSOtKLi1ooEwgm8knzLKO4zeQ72DcEWdV2UgTn
+w5L36QHBUnCfp728
+
+----MSM_ID=_ee0e0262-8dae-4d4c-9da9-1e81ee9eaf36--
