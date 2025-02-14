@@ -1,0 +1,131 @@
+function RiuJezyk() {
+  
+  this.PL = 'pl';
+  this.UA = 'ua';
+  
+  this.kod = 'pl';
+  this.url = '';
+  
+  this.obsluga = false;
+  
+  this.obwWyborTypuPotwierdzeniaDialogJezyk = 'pl';
+  this.obwKreatorJezyk                      = null;
+  
+  this.zasob = null;
+  
+  this.konstruktor = function() {
+    
+    $.getJSON( 
+      '/portal/js/riu/riuJezyk.json?ts=' + new Date().getTime(),
+        function( dane ){
+
+          riuJezyk.zasob = dane;
+    } );
+  };
+
+  this.inicjalizuj = function( kod, url ) {
+    
+    riuJezyk.kod = kod;
+    riuJezyk.url = url;
+    
+    riuJezyk.uaktualnij();
+  };
+
+  this.uaktualnij = function(){
+    
+    let label = document.getElementById( 'riuJezykZmienLabel' );
+    let image = document.getElementById( 'riuJezykZmienImg'   );
+    
+    if( !label || !image ) {
+
+      setTimeout(
+        function() {
+
+          riuJezyk.uaktualnij();
+        }, 100 );
+
+      return;
+    }
+
+    label.textContent = ( riuJezyk.kod === riuJezyk.PL ? 'Мова': 'Język' );
+    
+    image.src   = '/portal/css/img/flaga_' + ( riuJezyk.kod === riuJezyk.PL ? riuJezyk.UA: riuJezyk.PL ) + '_24.png';
+    image.title = ( riuJezyk.kod === riuJezyk.PL ? 'Український': 'Polski' );
+  };
+  
+  this.przelacz = function() { 
+
+    riuJezyk.kod = 
+      ( riuJezyk.kod === riuJezyk.PL ? riuJezyk.UA: riuJezyk.PL );
+    
+    var przelaczUrl =
+      ( !riuJezyk.url || riuJezyk.url === '' ) ?
+        new URL( window.location.href ):
+          new URL( riuJezyk.url );
+
+    przelaczUrl.searchParams.delete( 'jezyk' );
+    przelaczUrl.searchParams.append( 'jezyk', riuJezyk.kod );
+    
+    riu.redirect( przelaczUrl );
+  };
+  
+  this.zwrocTekst = function( tekstPL, tekstUA, jezyk ) {
+    
+    let kod4Obsluga = jezyk || riuJezyk.dajKod4Obsluga();
+    
+    if( kod4Obsluga === riuJezyk.PL ) return tekstPL;
+    if( kod4Obsluga === riuJezyk.UA ) return tekstUA;
+    
+    return '';
+  };
+  
+  this.zwrocTekstZasobu = function( nazwa, jezyk, zasob ) {
+    
+    jezyk = jezyk || riuJezyk.dajKod4Obsluga();
+    zasob = zasob || riuJezyk.zasob;
+    
+    if( zasob[nazwa] ) {
+      
+      if( zasob[nazwa][jezyk] ) {
+        
+        return zasob[nazwa][jezyk];
+      }
+    }
+    
+    return nazwa;
+  };
+
+  this.dajKod = function() {
+
+    return riuJezyk.kod;
+  };
+
+  this.dajKod4Obsluga = function() {
+
+    if( riuJezyk.obsluga === false ) return riuJezyk.PL;
+    
+    return ( riuJezyk.obwKreatorJezyk !== null ) ? riuJezyk.obwKreatorJezyk: riuJezyk.dajKod();
+  };
+  
+  this.wlaczWylacz = function( wartosc ) {
+    
+    let element = document.getElementById( 'li_menu_jezyk_przelacz' );
+    
+    element.style.pointerEvents = wartosc ? 'auto': 'none';
+    element.style.opacity       = wartosc ? 1     : 0.5;
+  };
+  
+  this.jestPolski = function() {
+    
+    return ( riuJezyk.dajKod() === riuJezyk.PL );
+  };
+  
+  this.jestPolski4Obsluga = function() {
+    
+    return ( riuJezyk.dajKod4Obsluga() === riuJezyk.PL );
+  };
+  
+  this.konstruktor();
+}
+
+var riuJezyk = new RiuJezyk();

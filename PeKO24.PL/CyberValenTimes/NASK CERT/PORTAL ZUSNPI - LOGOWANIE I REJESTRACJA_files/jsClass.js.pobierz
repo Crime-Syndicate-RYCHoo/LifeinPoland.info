@@ -1,0 +1,1 @@
+define(["require","jsface"],function(a,c){var b={version:c.version,Class:c.Class,extend:c.extend,isMap:c.isMap,isArray:c.isArray,isFunction:c.isFunction,isString:c.isString,isClass:c.isClass};return b});
