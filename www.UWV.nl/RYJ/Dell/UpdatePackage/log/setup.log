@@ -1,0 +1,64 @@
+======================================================================================================================================
+              Realtek PCIE Card Reader Driver update package
+======================================================================================================================================
+Command : "C:\ProgramData\Dell\drivers\be2ca01a-eeca-47c7-b316-85cb1a7598fe\setup.exe" /s /v" FORCE=true  LOGFILE="C:\ProgramData\dell\drivers\be2ca01a-eeca-47c7-b316-85cb1a7598fe\DUPLogDir\DUPD6E3.tmp""
+Date : 2025-1-22  24:59:50.778
+User : SYSTEM 
+======================================================================================================================================
+Starting to get initial ...
+[OS] : 6.2
+    -Build : 9200
+    -Service Pack : 0
+    -x64 system : 0
+    -MCE system : 0
+    -Server system : 0
+    -System Language ID : 0x0415
+    -User Language ID : 0x0415
+[Default Path] :
+    IS Setup Package Path : C:\ProgramData\Dell\drivers\be2ca01a-eeca-47c7-b316-85cb1a7598fe\Install
+
+Collecting inventory ...
+Checking driver version...
+    The version of this update driver is older than the currently installed version .
+      [Realtek PCIE Card Reader Driver : RtsPer.sys]
+        Installed version : 6.2.26100.21374
+        Package version : 10.0.26100.21374
+
+Executing update ...    [2025-1-22  24:59:50.796]
+    Run Setup Command : C:\ProgramData\Dell\drivers\be2ca01a-eeca-47c7-b316-85cb1a7598fe\Install\Setup.exe  /s
+
+    -------- Realtek Installer response : C:\ProgramData\Dell\drivers\be2ca01a-eeca-47c7-b316-85cb1a7598fe\Install\Setup.log --------
+
+    [InstallShield Silent]
+
+    Version=v7.00
+
+    File=Log File
+
+    [ResponseResult]
+
+    ResultCode=0
+
+    [Application]
+
+    Name=Realtek Card Reader
+
+    Version=1.00.0000
+
+    Company=Realtek Semiconductor Corp.
+
+    Lang=0415
+
+    -------- Realtek Installer response end --------
+
+Execution update completed    [2025-1-22  24:59:55.378]
+======================================================================================================================================
+
+[Update Result]...
+    Rtk Code = 0x00000000
+    IS Code = 0x00000000
+    Install Result = 1
+
+Exit Code = 0000 ( Success )
+======================================================================================================================================
+End : 2025-1-22  24:59:55.378

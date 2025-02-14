@@ -1,0 +1,47 @@
+head	1.2;
+access;
+symbols;
+locks; strict;
+comment	@# @;
+
+
+1.2
+date	2024.12.20.18.59.15;	author ryc;	state Exp;
+branches;
+next	1.1;
+
+1.1
+date	2024.12.20.18.57.39;	author ryc;	state Exp;
+branches;
+next	;
+
+
+desc
+@2a03:6600:6:6b01::1001
+Bonifacy
+@
+
+
+1.2
+log
+@lets play
+@
+text
+@#!/bin/sh -
+# rychOO Ryszard CZEKAJ @@<sp8ryc>#
+# $Id: fair-play,v 1.1 2024/12/20 18:57:39 ryc Exp ryc $
+echo "2a03:6600:6:6b01::1001$1$2$3&Path=$0"
+
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@d3 2
+a4 2
+# $Id:$
+echo "Simond CmoniX RoCky $1 $2 $3 $0"
+@

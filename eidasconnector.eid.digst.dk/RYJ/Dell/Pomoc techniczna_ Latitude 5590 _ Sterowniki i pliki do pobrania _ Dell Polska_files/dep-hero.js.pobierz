@@ -1,0 +1,133 @@
+var primaryWarrantyElement = document.querySelectorAll(".primaryWarrantyName");
+var warrantyModelAlreadyIn = false;
+// Loop through the NodeList and attach a click event listener
+primaryWarrantyElement.forEach(element => {
+    element.addEventListener('click', function () {
+        openDdsModel();
+    });
+});
+
+
+window.modelElement = document.getElementById("divViewDetails");
+if (window.modelElement) {
+    window.apiModel = DDS.Modal(window.modelElement);
+}
+
+function openDdsModel() {
+    window.apiModel.open();
+    document.querySelector("body").classList.add("warranty-modal-open");
+
+    if (!warrantyModelAlreadyIn) {
+
+        window.modelElement.addEventListener("ddsModalClosedEvent", function () {
+            document.querySelector("body").classList.remove("warranty-modal-open");
+        });
+
+        const viewWarrantyDetailsUrl = `${warrantyBaseUrl}/entitlement/details`;
+        var model = {
+            assetId: encryptedAssetId,
+            appName: appName,
+            loadScript: true,
+            useDds: true
+        };
+        let dataObj = JSON.stringify(model);
+        fetch(viewWarrantyDetailsUrl,
+            {
+                method: "POST",
+                body: dataObj,
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json', 'X-Robots-Tag': 'noindex'
+                }
+            })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.text();
+            })
+            .then((data) => {
+                let eleDivContainer = document.getElementById("dds-warrantyViewDetails");
+                SetInnerHtmls(eleDivContainer, data);
+                warrantyModelAlreadyIn = true;
+            })
+            .catch((ex) => {
+                console.error(`call failed ${ex}`);
+            });
+    }
+}
+
+var SetInnerHtmls = (elm, html) => {
+    elm.innerHTML = html;
+    Array.from(elm.querySelectorAll("script")).forEach((oldScript) => {
+        //console.log(oldScript);
+        const newScript = document.createElement("script");
+
+        Array.from(oldScript.attributes)
+            .forEach((attr) => newScript.setAttribute(attr.name, attr.value));
+        newScript.appendChild(document.createTextNode(oldScript.innerHTML));
+        oldScript.parentNode.replaceChild(newScript, oldScript);
+    });
+
+    Array.from(elm.querySelectorAll("link")).forEach((oldLink) => {
+        //console.log(oldLink);
+        if (oldLink.href.includes("warranty-view-details-dds.min.css") || oldLink.href.includes("warranty-view-details-dds.css")) {
+            const newLink = document.createElement("link");
+
+            Array.from(oldLink.attributes)
+                .forEach((attr) => newLink.setAttribute(attr.name, attr.value));
+            document.getElementsByTagName("head")[0].appendChild(newLink);
+        }
+    });
+};
+
+var statusText = document.getElementById("tooltip-status-text");
+DDS.Tooltip(statusText, { trigger: "#tooltip-status-text-trigger" });
+
+//var pendingText = document.getElementById("tooltip-pending-text");
+//DDS.Tooltip(pendingText, { trigger: "#tooltip-pending-text-trigger" });
+
+//var processingText = document.getElementById("tooltip-processing-text");
+//DDS.Tooltip(processingText, { trigger: "#tooltip-processing-text-trigger" });
+
+var processingText = document.getElementById("tt_warstatus_text");
+DDS.Tooltip(processingText, { trigger: "#tt_warstatus_reginprocess_trig" });
+
+var processingText = document.getElementById("tt_warstatus_text");
+DDS.Tooltip(processingText, { trigger: "#tt_warstatus_regrequired_trig" });
+
+var processingText = document.getElementById("tt_warstatus_text");
+DDS.Tooltip(processingText, { trigger: "#tt_warstatus_trig" });
+
+var dep_retail_register_device_event = new CustomEvent("dep_retail_register_device_event", {
+    detail: {
+        isRetailAsset: sIsRetailAsset,
+        isUnRegisteredRetailAsset: sIsUnRegisteredRetailAsset,
+        isRetailRegistrationPending: sIsRetailRegistrationPending,
+        retailRegisterLink: sRetailRegisterLink,
+        isWarrantyHealthCardAvailable: warrantyHealthCardAvailable,
+        warrantyHealthCardDiv: 'warrantyHealthCard'
+    }
+});
+document.dispatchEvent(dep_retail_register_device_event);
+//const element = document.getElementById("accWHCard");
+//console.log(element);
+//ddsElem = DDS.Accordion(element, { independent: true });
+//console.log(ddsElem);
+// var arwElem = document.getElementsByClassName('dds__icon dds__accordion__icon');
+// if (arwElem.length > 0)
+//     arwElem[0].remove();
+
+var accWarHealCardElem = document.querySelectorAll(".accWarHealCardMetric");
+accWarHealCardElem.forEach(element => {
+    element.addEventListener('ddsAccordionExpandedEvent', function (e) {
+        warHealthCardHeaderDataMetric(e);
+    });
+});
+var warHealthCardHeaderDataMetric = function (e) {
+    if (e.target.id == 'accWHCard') {
+        if (typeof (window.dellmetricsTrack) === "function") {
+            window.dellmetricsTrack("222.901.200.021", warHealthCardAnalyticPev2);
+        }
+    }
+}

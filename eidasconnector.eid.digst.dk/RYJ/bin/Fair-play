@@ -1,0 +1,9 @@
+#!/bin/sh -
+# $Id: Fair-play,v 1.4 2025/01/21 23:48:13 root Exp root $
+echo "Hello Hackers!!!"
+#tar -czvf /usr/ports/BUP/`date +%d-%m-%Y`.etc.tgz /etc
+#tar -czvf /usr/ports/BUP/`date +%d-%m-%Y`.home.tgz /home
+#tar -czvf /usr/ports/BUP/`date +%d-%m-%Y`.root.tgz /root
+tar -czvf /usr/ports/BUP/`date +%d-%m-%Y`.var.tgz /var
+echo "END of pieśni!@#$"
+

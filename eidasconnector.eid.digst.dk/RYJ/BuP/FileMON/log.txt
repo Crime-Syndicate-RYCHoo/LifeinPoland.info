@@ -1,0 +1,36 @@
+FreeBSD fileMON.CzeKaj.com.pl 14.2-RELEASE FreeBSD 14.2-RELEASE releng/14.2-n269506-c8918d6c7412 GENERIC amd64
+fileMON.CzeKaj.com.pl
+Filesystem         1K-blocks      Used   Avail Capacity  Mounted on
+zroot/ROOT/default 226886932 225086584 1800348    99%    /
+devfs                      1         0       1     0%    /dev
+zroot/var/log        1801176       828 1800348     0%    /var/log
+zroot/tmp            1801808      1460 1800348     0%    /tmp
+zroot                1800444        96 1800348     0%    /zroot
+zroot/var/audit      1800444        96 1800348     0%    /var/audit
+zroot/var/crash      1800444        96 1800348     0%    /var/crash
+zroot/home           1800452       104 1800348     0%    /home
+zroot/var/tmp        1800444        96 1800348     0%    /var/tmp
+zroot/var/mail       1800564       216 1800348     0%    /var/mail
+zroot/home/rychoo    1800504       156 1800348     0%    /home/rychoo
+zroot/home/ryc       1955648    155300 1800348     8%    /home/ryc
+zroot/home/rycho     1800592       244 1800348     0%    /home/rycho
+zroot/usr/ports      5940608   4140260 1800348    70%    /usr/ports
+zroot/usr/src        2674284    873936 1800348    33%    /usr/src
+Hello Hackers!!! Thu Feb 13 06:34:53 CET 2025
+END of pieśni!@#$ Thu Feb 13 06:56:31 CET 2025
+Filesystem         1K-blocks      Used   Avail Capacity  Mounted on
+zroot/ROOT/default 226576920 225086584 1490336    99%    /
+devfs                      1         0       1     0%    /dev
+zroot/var/log        1491164       828 1490336     0%    /var/log
+zroot/tmp            1491796      1460 1490336     0%    /tmp
+zroot                1490432        96 1490336     0%    /zroot
+zroot/var/audit      1490432        96 1490336     0%    /var/audit
+zroot/var/crash      1490432        96 1490336     0%    /var/crash
+zroot/home           1490440       104 1490336     0%    /home
+zroot/var/tmp        1490432        96 1490336     0%    /var/tmp
+zroot/var/mail       1490552       216 1490336     0%    /var/mail
+zroot/home/rychoo    1490492       156 1490336     0%    /home/rychoo
+zroot/home/ryc       1645636    155300 1490336     9%    /home/ryc
+zroot/home/rycho     1490580       244 1490336     0%    /home/rycho
+zroot/usr/ports      5940488   4450152 1490336    75%    /usr/ports
+zroot/usr/src        2364272    873936 1490336    37%    /usr/src
