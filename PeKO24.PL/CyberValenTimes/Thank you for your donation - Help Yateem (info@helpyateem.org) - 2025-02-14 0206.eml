@@ -1,0 +1,1176 @@
+Return-Path: <info@helpyateem.org>
+Delivered-To: abuse@CzeKaj.com.pl
+Received: from sv027.home.net.pl
+	by sv027.home.net.pl with LMTP
+	id WKu2MRaXrmcPDAAAwyxcrQ
+	(envelope-from <info@helpyateem.org>)
+	for <abuse@CzeKaj.com.pl>; Fri, 14 Feb 2025 02:06:30 +0100
+Authentication-Results: sv027.home.net.pl; spf=none (no SPF record) 
+   smtp.mailfrom=helpyateem.org (client-ip=40.107.162.99; 
+   helo=mail-francecentralazon11023099.outbound.protection.outlook.com; 
+   envelope-from=info@helpyateem.org; receiver=<UNKNOWN>)
+Authentication-Results: sv027.home.net.pl; dmarc=none (p=none dis=none) header.from=helpyateem.org
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11023099.outbound.protection.outlook.com [40.107.162.99])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-384) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by cloudserver3185817-3185848.home.pl (Postfix) with ESMTPS id 32A86A08E2
+	for <abuse@CzeKaj.com.pl>; Fri, 14 Feb 2025 02:06:30 +0100 (CET)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=d+kAy0A1sHcJsSuKnsEr7p4YNGK7Vigv3AVo1gxeQxUui12sh+skHJ/wZ4NfMdBblsxX1FLab11hG7mrIxbh4oul3ylPOi81GD8TZbX3/WtRhIzT8pDunKtzTfl1jMZXOdQPaJFz2foKD+BVuDgswRPXjWXFMrTq6njeaYSYRaB0UBjWmGeAd3c9rxNuhOqDF/21yIyY37EsMUDzM4SKivEgXCuzklMj5eHdLl38EOBSL547Iu37ZprkfHqolzhY6b57jBsFMWx6AO0fFoJ8ndyXfUfokediBc9PYbOBgzeNCZyG1VkrWW+0lda2C5essZSFibW3uOpfvQE1fj21Og==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=yA9MWVmAUcaWs9iKXA+8zHf1IHIIuqdxKpFhunbPgxY=;
+ b=wZHxTASaZ4La3g98DrZccZzN/M83h76GhmWN2em1Rhzh7DoVEXMI0vxc21JipqyGmm3Fs8ZWjMAmbY7eBprsPehwPgdrbaW6pIoDJ4lHKngupZBsVeSYqRV+qIXco/l3pHjN7sryxc4dqIU+0yibZN+3CIrGaRzwEeXyyXeE2H42Pfv93Mgq9dLLL3ZoInq5ojPjEYDZWY5rYvcx/c7FGR14kDBDucobXY42bQNIif10Kxg77lCokvvGakr+vyZvYU/xddqmrn0fPKLUu4ie4FNyQO+Ll/ESdzQ/qONdXn+4h74K02wLh9TDP+2pkpzit6UWlUw7QBxbByQlQ+5m3A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=helpyateem.org; dmarc=pass action=none
+ header.from=helpyateem.org; dkim=pass header.d=helpyateem.org; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=helpyateem.org;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=yA9MWVmAUcaWs9iKXA+8zHf1IHIIuqdxKpFhunbPgxY=;
+ b=dT9UfkU+WKYb40etNJANeKsZbNLldx8nncQz3klRAdVm/Bje/buXdYKgK19EtPLr90v1I74/GarRKrgUkmNBui0SrfLv9sdwrpoTMYHrYDMZsc35ZrhFzDLAC+X5+rC/P4A1vhwo9X9GlBrhxD/1HO2NlXP/24nf515SqfGtsZ8=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=helpyateem.org;
+Received: from AS8PR02MB7031.eurprd02.prod.outlook.com (2603:10a6:20b:2e0::15)
+ by GV1PR02MB10489.eurprd02.prod.outlook.com (2603:10a6:150:166::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8445.13; Fri, 14 Feb
+ 2025 01:06:27 +0000
+Received: from AS8PR02MB7031.eurprd02.prod.outlook.com
+ ([fe80::dd23:32f4:b634:2f47]) by AS8PR02MB7031.eurprd02.prod.outlook.com
+ ([fe80::dd23:32f4:b634:2f47%6]) with mapi id 15.20.8445.015; Fri, 14 Feb 2025
+ 01:06:27 +0000
+To: Ryszard CZEKAJ <abuse@CzeKaj.com.pl>
+Subject: Thank you for your donation
+List-Unsubscribe: <https://partner.helpyateem.org/unsubscribe?e=YWJ1c2VAQ3plS2FqLmNvbS5wbA&s=G8Blfo5C2n>
+Date: Fri, 14 Feb 2025 01:06:26 +0000
+From: Help Yateem <info@helpyateem.org>
+Content-Type: multipart/alternative;
+ boundary="=_49ec8c7f80d84ab6fd5d4ea08027dc0c"
+X-ClientProxiedBy: AS9PR06CA0632.eurprd06.prod.outlook.com
+ (2603:10a6:20b:46f::6) To AS8PR02MB7031.eurprd02.prod.outlook.com
+ (2603:10a6:20b:2e0::15)
+Message-ID:
+ <AS8PR02MB7031FC79AF61B98FB926CBFBB0FE2@AS8PR02MB7031.eurprd02.prod.outlook.com>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AS8PR02MB7031:EE_|GV1PR02MB10489:EE_
+X-MS-Office365-Filtering-Correlation-Id: 10a98eca-c19d-4e0d-f8fa-08dd4c93ce74
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|4022899009|366016|52116014|1032899013|1800799024|376014|69100299015|13003099007|38350700014|8096899003|2066899003;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?cG1sYW80M3FybTVtc1JMdkRjWTkyc0VNRExGdEsraFAxQmlwNjYyTGgzQnNt?=
+ =?utf-8?B?c1M2S3BqV0doMmpreTJMRFdqdWhFN0dmdFp4MVVzMWdMdE4yRWJvVVdsWDJP?=
+ =?utf-8?B?dmJNL0lTSTJhSWtjcjg2QlVtUi9jVFZod1ZTMGdKSlh4QUtSZlFPaU1HNDl3?=
+ =?utf-8?B?cThGdmR0eXRvb01pZkZwcHo4YU1jY1JLUGw4bDJabFFCRWJwVUdGUEhacWwy?=
+ =?utf-8?B?dllVT293V0pCYk10clBvQVJQTmZra1F1ZjVLTEhrSWpXdkFJUTFkcEIvUWpv?=
+ =?utf-8?B?Qnk3c3FZK1RsTzRrYUVkWWZhTTlTaVFoZlk4dlVyWWJBKzZxOUYxOFdZcGhK?=
+ =?utf-8?B?YVF3UmJrZ2dudGdXR2JlS3hSSmRLT3oyaW85RWxPb01YS3pOSWpmZzhMUWFC?=
+ =?utf-8?B?M004cXcrL3pQa2R1ZGZSdURsQnhjUFd6SVFvR09HMDhHVVdpOFJRdmhwQVBr?=
+ =?utf-8?B?bDlPMThYNDJLWnBPK1V6NDZLS0ovTEkrTERwK2xOT3FlQmwrTnFsRnRkMkxo?=
+ =?utf-8?B?bjBxM3N0d01RVlpobitWK1E4MzR3QWF5ZWZyVmFoaDM5RUVyM1R6N3hrRTc0?=
+ =?utf-8?B?MFpyWHVVeUVyY2ZpWnFLWUNKQkFLMm5kQVRTemNTV2d6Q0hHU0RoVUZ6LzBm?=
+ =?utf-8?B?SlZkUW1GL3Jvb05SZDVhNElQMERxUWlUR2pQV2ZvN0Y3aVBYYXp5ZmdQby9L?=
+ =?utf-8?B?Zkx1ektwTXJPYnYzRDFmaFM0SytCeUtmaHEzU25mQ2s4OG9MTWY0NWNHRmRV?=
+ =?utf-8?B?RHNybDVtOGpER2tUZ0ZzUktFZkhOZ1FzL0tPLzAwRHAycTVlWitzMEdwc2dP?=
+ =?utf-8?B?SHY2TE80b0lVUjdzbmU2aTRxNzRSZ0NLR2U2NXIxRjhDL2tXbE90SFAvcUgx?=
+ =?utf-8?B?KzcvRWRDVWM3YWNGdXZMNUdzY1psL2RnME5BcjBiYm9CcitYWWdqcGNwZ05w?=
+ =?utf-8?B?VHIvNERMTW9hTUpGWm9pNDRhYmFqUWRCQ3FBS21wQTB1WlFpNXVYZXNQcjI1?=
+ =?utf-8?B?RHUrbWxyVjV5QlNKMnVrcnJRd2krMEs2U3VvSkV1UXFCUlJEbE0yZ2NYdExI?=
+ =?utf-8?B?d0M4ZjlkVlNzK1V6RkxxVWVhQXNNMjdLS2IybDh1TlBmVXZ1TjdtOW81RTBJ?=
+ =?utf-8?B?TGZGSEVkaUhSNjJqajVLZmtXejNhOG05V0VEVC9nOXhoeWlQZHVJZ0tLdVpm?=
+ =?utf-8?B?d1ZpSlR6MUJRRmpjWDFGR0RuZWdCWHVsTWpEOXBZZElqOFFJQUgvbDlRSFZD?=
+ =?utf-8?B?SDVHSmFodWNMWVRWUThVWVNtd1BLQVhMV3RTS2dtMzYweDNlRjN3M2I2M0tU?=
+ =?utf-8?B?YlhmdlUxL1ZFcUU0Mk9FandBb0V1NWk2VEtkR3FVb0VTZEpNUVFMdWRHS0Fm?=
+ =?utf-8?B?cVA4U3NaS3Z2OWNTdXRjRUQ0ckN5cjdZTTgvZUw3a0Y2Y2hBWG5TVkNOVDhY?=
+ =?utf-8?B?YU40bno2bkZWUzNsVVJQNVU1NHFObWp6MC9Od2JXOVNJVitWY2NhYzJMUDY3?=
+ =?utf-8?B?SjZPbXEzdnNRMHd2U1JPdWVzQldXQjFYNXdoRk4yNlhzNkh3N2dPQjl2eGlZ?=
+ =?utf-8?B?NnF4aDVPa2EyeGZhdXducENBV0dnZXZPdnkzV0FSbXVWYlAwcjNZd0xQSXV0?=
+ =?utf-8?B?M3p1WTdDWmVYZHUyNGZiVUJLSFhVZUUvd2dhRDVzVUdNem9xMHQ3bGY3UXlp?=
+ =?utf-8?B?U3laaW92UktIZzhEcmltM2RHNFgrSGdVc2YxRksrNWQ5Z0Y3WE5mU2xaeWlL?=
+ =?utf-8?B?ZDNseGs3VEFWbXlqdmc0OHk2a2x1YjRFK0xNcmdxU0xtSy9KZVBRcnliaW9I?=
+ =?utf-8?B?YTUvY1grTzVoRm1KQzFyTVhHeXZaeGZWQkZINzNuU25vZ0hjL0g5WllNbTNi?=
+ =?utf-8?Q?wgEzKq4LWpVik?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR02MB7031.eurprd02.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(4022899009)(366016)(52116014)(1032899013)(1800799024)(376014)(69100299015)(13003099007)(38350700014)(8096899003)(2066899003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?OG5aeVdlb2xpMGZUVHVsWk51ZnNWS3FFbnNWOVlaa2owVnlFUlA3MVNFVXZ2?=
+ =?utf-8?B?blV5VmFCQUFTM3ppeWVaSDNQU2tuSERWRzBOMTA2OWtIZzM4djVYSC8xNnlz?=
+ =?utf-8?B?elZNNGlvcjF1Tmw5K1VVZ0h2SVlyWmd3MGZQb2t2S08rNG52dUJNdTBwendJ?=
+ =?utf-8?B?dWxaQzA2NUFZbVgreUp0SzRLWGdQSy8wT0haVWpGY0Z6Z24yOHhJNzdaT2ls?=
+ =?utf-8?B?eWtDL2ZjVEI2Q29ZK0RnRWk1WVFES3RZb213M0FybmlyNDdDRktaaDNuS1Jh?=
+ =?utf-8?B?TnFyTHI3SCtvUHRvNUhmMzRTNTFpRW80UXYwVWIrUDIrOGlHTkZJSXNsWExm?=
+ =?utf-8?B?TUtQbHI4UkpYNUN3ZkFKZVNYdHBIby93T0NxNHlaZXZIcTZKR0tEMzJFbGJv?=
+ =?utf-8?B?QUU4LysxWVlGZ2R0OFliN1RXYmp2aDV4OWVuVWk0eGZHYkFiamxTaWorTG1S?=
+ =?utf-8?B?ZHlvOFB2c0F0dnNuR1JDbEYzSlBoUEZrb3VzZ0JQbFNBRkx2NWRXdUVKZ1Iw?=
+ =?utf-8?B?eVRDRnpsdk5QRG5lRHU0RnhQZnE1YkJudURPNGtrR2ZlaWE1SFdjWjNkVzA4?=
+ =?utf-8?B?TlFxK29HVk00dTZKZ3NlamRKNGRsaEhDeC9BZ3liMjl1UnRwa1dMSk9pb1lz?=
+ =?utf-8?B?MmhnNjAyeHVORmNDamVxcUtUaTBnQmx6NmZiclVRcjdaVWdEVTN3ejFLS3hn?=
+ =?utf-8?B?SHNSVVV3cjlUYUIzS2x5RndvVUlYQ0ducGltSGtMN0hnUEYxNzN3a1BTcGpC?=
+ =?utf-8?B?bW5kTy9JZEFDa2N4Ti93aXZzODhCWnVZaEkrOURmOGFVOG1sZkF2QlRKN0pE?=
+ =?utf-8?B?eS9ZVW9lZitRUi93cEIyWEZsTzNxd1dzajkyK0xNZ1FrMmVtekhuQ28zbmZG?=
+ =?utf-8?B?RU96UU84T2R3ZUx4Q284RDhrK2hGb29uQ0g2c0ZrbWVQU1Vjbzh6VFlpQzlm?=
+ =?utf-8?B?Sk1ldmFrOEZ1YlpYY1U0RXlsbTZ6MXB0cXo1VHFJZ0REY2d1YVU0SEhZWElV?=
+ =?utf-8?B?RDA1Vk9Qcnd0NmtjdTd5ZnhSOE9NMFhSZGxxcGVUdWNEY21Uc21GZUo1THRM?=
+ =?utf-8?B?NmNYc01wMGtoSXlwNU1rdEtVSmQ1YnJZYUNTb1pOaUdKZHAybXM2WXBuanpw?=
+ =?utf-8?B?dVp2a3M5ZEExMzBsd3BLRTVUNHkvcUpFREZvb0JBSmJKTmFMVUwyTnVIM0hX?=
+ =?utf-8?B?Z3krR1pnNUpaV1lZUUtDZFdCdWo0L3NMc0J4UGxldlh2MUoyWUtGVTNEWkhS?=
+ =?utf-8?B?dmlWUVE2VkhhVlE4YUY0d0hnMU83Z2VUd1pML1N4K1A2S0RaOVZSRkloOGhy?=
+ =?utf-8?B?TnpudGxvRVBtT0FmQlFpQkthWC9SYSt3cW9zdy9kWStSVHF4VFpIU01UR2lE?=
+ =?utf-8?B?SHZseW0yNGprc0M4SGluN1d5UXRYK3RJZlR6S3F4c01QTG4vNGtqYTlnU3hs?=
+ =?utf-8?B?UFhyR3ViNFI0UWw0VjZtckNzNjlacDg3ckV2M1RrY21adWxwUk04L3gvbkw0?=
+ =?utf-8?B?SUI1U0s5T3dVWm9MSEdvOVlxMDkzOUROaHQ1MzRoQmNrN0hqaG9ZR2RXZ3Zk?=
+ =?utf-8?B?cEp2MTkzQWgvdUEvSTdrZlVTTkZwV1FKNStNdEhNcjFlVkRBWkNPQ1pmdTE3?=
+ =?utf-8?B?VUxmQWZPNVVqMFJ6S3FvYVMzbGsvNWVzck0rWVNxeUtCTFN4RXgxS3NySXhB?=
+ =?utf-8?B?d0tyL0JnT29xVTdVSmVEcjd4MVNFSEE5ZXM4c0NkQzFSL2ZHdWh4MFNRZjZX?=
+ =?utf-8?B?RkJMWlJ1Z0IvYXZlVjl2WXZYVEM4M0p4U2hKZWJCQWZSZ3pWWWxzbHlnbVc1?=
+ =?utf-8?B?eFRJUEU3S3VBVVBjTEk5S25oaVRPRXRmemRzQzJsT284UHlPQU81UXRzUXdC?=
+ =?utf-8?B?K3ZtbjRNSEFpc0ZkNUwvUXd0a2V2UWhuWWx5dERpS1daR2xUbVZ5VkxjMzZQ?=
+ =?utf-8?B?NVdBamFMTHptS1dxaGFCd3BWR1BkY1NiSWFyNkVmUFkwUUllcmZka1k1YXlS?=
+ =?utf-8?B?M21WRGNoRWwrSGJERVZQUjM3b3VReUhyQ2dIcjRvUGhNbHFRbFgzNmQrT2Vl?=
+ =?utf-8?B?UkhsZkh3SHoxZ0FoLzZLRXJ0TnIzTUgwSkVWTG1vVzlGNEZYN2xwTUVocFdp?=
+ =?utf-8?Q?cknhX10vpPSXabml8zzvRah4W?=
+X-OriginatorOrg: helpyateem.org
+X-MS-Exchange-CrossTenant-Network-Message-Id: 10a98eca-c19d-4e0d-f8fa-08dd4c93ce74
+X-MS-Exchange-CrossTenant-AuthSource: AS8PR02MB7031.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Feb 2025 01:06:26.5321
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 63993cef-e9ad-40b6-9d6e-61e0ca184473
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Jw5SEIws1dRtzQr4QE1liugFj4/1315Sw7WjNHJCrfEW29OY+gIlpOINK/ISSjORxD3s4mCX32D1ujXhNbtNBw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR02MB10489
+X-CLIENT-IP: 40.107.162.99
+X-CLIENT-HOSTNAME: mail-francecentralazon11023099.outbound.protection.outlook.com
+X-VADE-SPAMSTATE: commercial:mce
+X-VADE-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgdegkedvlecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfjqffogffrnfdpggftiffpkfenuceurghilhhouhhtmecuudehtdenucdnofetkffnkffpifculddujedmnecujfgurhepvffujfffhfgtkfggsegrtddtredttdejnecuhfhrohhmpefjvghlphcujggrthgvvghmuceoihhnfhhosehhvghlphihrghtvggvmhdrohhrgheqnecuggftrfgrthhtvghrnhepieelffffhfekkeelkeehvefhteffffdtleetudeuheetleefhffgfedtfeejffetnecuffhomhgrihhnpehtfihithhtvghrrdgtohhmpdhfrggtvggsohhokhdrtghomhdphihouhhtuhgsvgdrtghomhdphhgvlhhphigrthgvvghmrdhorhhgnecukfhppeegtddruddtjedrudeivddrleelpddviedtfeemuddtrgeimedvtdgsmedvvgdtmeemudehnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehinhgvthepgedtrddutdejrdduiedvrdelledphhgvlhhopefrteegrffttdegvegftddtuddrohhuthgsohhunhgurdhprhhothgvtghtihhonhdrohhuthhlohhokhdrtghomhdpmhgrihhlfhhrohhmpehinhhfoheshhgvlhhphigrthgvvghmrdhorhhgpdhnsggprhgtphhtthhopedupdhrtghpthhtoheprggsuhhsvgesveiivgfmrghjrdgtohhmrdhplh
+X-DCC--Metrics: sv027.home.net.pl 1024; Body=1 Fuz1=1 Fuz2=1
+
+--=_49ec8c7f80d84ab6fd5d4ea08027dc0c
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+Asalaamu Alaikum Ryszard=0A&nbsp;=0A=0A=0A=0A=0A=0A=0A=0A=0A=0A=0AI hope=
+ this email finds you in the best of health by the grace and mercy of Al=
+lah (SWT).=0A=0A=0A=0AWe would like to thank you for your invaluable con=
+tribution and we hope you will continue to support Help Yateem. We pray=
+ that Allah (SWT) rewards you and increases your sustenance in this worl=
+d and in the hereafter. =0A=0A=0A=0AIf you have any enquiry please do no=
+t hesitate to get in touch with us. =0A&nbsp;=0A=0A=0A=0AJazakallah Khai=
+r=0A=0ABazi Bassuri=0A=0A=0A=0A=0A=0A=0A=0A=0A=0A=0A=0D=0A=0D=0A--------=
+-----------------------------------------------------------=0D=0ATo unsu=
+bscribe from our periodic e-mail messages, please click the=0D=0Afollowi=
+ng link:=0D=0A  https://partner.helpyateem.org/unsubscribe?e=3DYWJ1c2VAQ=
+3plS2FqLmNvbS5wbA&s=3DG8Blfo5C2n=0D=0A----------------------------------=
+---------------------------------
+
+--=_49ec8c7f80d84ab6fd5d4ea08027dc0c
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+<!doctype html><html xmlns=3D"http://www.w3.org/1999/xhtml" xmlns:v=3D"urn:=
+schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-microsoft-com:office:offi=
+ce"><head><!-- NAME: 1 COLUMN --><!--[if gte mso 15]>
+		<xml>
+			<o:OfficeDocumentSettings>
+			<o:AllowPNG/>
+			<o:PixelsPerInch>96</o:PixelsPerInch>
+			</o:OfficeDocumentSettings>
+		</xml>
+		<![endif]-->
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8">
+        <meta http-equiv=3D"X-UA-Compatible" content=3D"IE=3Dedge">
+        <meta name=3D"viewport" content=3D"width=3Ddevice-width, initial-sc=
+ale=3D1">
+		<title>*|MC:SUBJECT|*</title>
+       =20
+    <style type=3D"text/css">
+		p{
+			margin:10px 0;
+			padding:0;
+		}
+		table{
+			border-collapse:collapse;
+		}
+		h1,h2,h3,h4,h5,h6{
+			display:block;
+			margin:0;
+			padding:0;
+		}
+		img,a img{
+			border:0;
+			height:auto;
+			outline:none;
+			text-decoration:none;
+		}
+		body,#bodyTable,#bodyCell{
+			height:100%;
+			margin:0;
+			padding:0;
+			width:100%;
+		}
+		#outlook a{
+			padding:0;
+		}
+		img{
+			-ms-interpolation-mode:bicubic;
+		}
+		table{
+			mso-table-lspace:0pt;
+			mso-table-rspace:0pt;
+		}
+		.ReadMsgBody{
+			width:100%;
+		}
+		.ExternalClass{
+			width:100%;
+		}
+		p,a,li,td,blockquote{
+			mso-line-height-rule:exactly;
+		}
+		a[href^=3Dtel],a[href^=3Dsms]{
+			color:inherit;
+			cursor:default;
+			text-decoration:none;
+		}
+		p,a,li,td,body,table,blockquote{
+			-ms-text-size-adjust:100%;
+			-webkit-text-size-adjust:100%;
+		}
+		.ExternalClass,.ExternalClass p,.ExternalClass td,.ExternalClass div,.Ext=
+ernalClass span,.ExternalClass font{
+			line-height:100%;
+		}
+		a[x-apple-data-detectors]{
+			color:inherit !important;
+			text-decoration:none !important;
+			font-size:inherit !important;
+			font-family:inherit !important;
+			font-weight:inherit !important;
+			line-height:inherit !important;
+		}
+		#bodyCell{
+			padding:10px;
+		}
+		.templateContainer{
+			max-width:600px !important;
+		}
+		a.mcnButton{
+			display:block;
+		}
+		.mcnImage{
+			vertical-align:bottom;
+		}
+		.mcnTextContent{
+			word-break:break-word;
+		}
+		.mcnTextContent img{
+			height:auto !important;
+		}
+		.mcnDividerBlock{
+			table-layout:fixed !important;
+		}
+	/*
+	@tab Page
+	@section Background Style
+	@tip Set the background color and top border for your email. You may want =
+to choose colors that match your company's branding.
+	*/
+		body,#bodyTable{
+			/*@editable*/background-color:#FAFAFA;
+		}
+	/*
+	@tab Page
+	@section Background Style
+	@tip Set the background color and top border for your email. You may want =
+to choose colors that match your company's branding.
+	*/
+		#bodyCell{
+			/*@editable*/border-top:0;
+		}
+	/*
+	@tab Page
+	@section Email Border
+	@tip Set the border for your email.
+	*/
+		.templateContainer{
+			/*@editable*/border:0;
+		}
+	/*
+	@tab Page
+	@section Heading 1
+	@tip Set the styling for all first-level headings in your emails. These sh=
+ould be the largest of your headings.
+	@style heading 1
+	*/
+		h1{
+			/*@editable*/color:#202020;
+			/*@editable*/font-family:Helvetica;
+			/*@editable*/font-size:26px;
+			/*@editable*/font-style:normal;
+			/*@editable*/font-weight:bold;
+			/*@editable*/line-height:125%;
+			/*@editable*/letter-spacing:normal;
+			/*@editable*/text-align:left;
+		}
+	/*
+	@tab Page
+	@section Heading 2
+	@tip Set the styling for all second-level headings in your emails.
+	@style heading 2
+	*/
+		h2{
+			/*@editable*/color:#202020;
+			/*@editable*/font-family:Helvetica;
+			/*@editable*/font-size:22px;
+			/*@editable*/font-style:normal;
+			/*@editable*/font-weight:bold;
+			/*@editable*/line-height:125%;
+			/*@editable*/letter-spacing:normal;
+			/*@editable*/text-align:left;
+		}
+	/*
+	@tab Page
+	@section Heading 3
+	@tip Set the styling for all third-level headings in your emails.
+	@style heading 3
+	*/
+		h3{
+			/*@editable*/color:#202020;
+			/*@editable*/font-family:Helvetica;
+			/*@editable*/font-size:20px;
+			/*@editable*/font-style:normal;
+			/*@editable*/font-weight:bold;
+			/*@editable*/line-height:125%;
+			/*@editable*/letter-spacing:normal;
+			/*@editable*/text-align:left;
+		}
+	/*
+	@tab Page
+	@section Heading 4
+	@tip Set the styling for all fourth-level headings in your emails. These s=
+hould be the smallest of your headings.
+	@style heading 4
+	*/
+		h4{
+			/*@editable*/color:#202020;
+			/*@editable*/font-family:Helvetica;
+			/*@editable*/font-size:18px;
+			/*@editable*/font-style:normal;
+			/*@editable*/font-weight:bold;
+			/*@editable*/line-height:125%;
+			/*@editable*/letter-spacing:normal;
+			/*@editable*/text-align:left;
+		}
+	/*
+	@tab Preheader
+	@section Preheader Style
+	@tip Set the background color and borders for your email's preheader area.
+	*/
+		#templatePreheader{
+			/*@editable*/background-color:#FAFAFA;
+			/*@editable*/background-image:none;
+			/*@editable*/background-repeat:no-repeat;
+			/*@editable*/background-position:center;
+			/*@editable*/background-size:cover;
+			/*@editable*/border-top:0;
+			/*@editable*/border-bottom:0;
+			/*@editable*/padding-top:9px;
+			/*@editable*/padding-bottom:9px;
+		}
+	/*
+	@tab Preheader
+	@section Preheader Text
+	@tip Set the styling for your email's preheader text. Choose a size and co=
+lor that is easy to read.
+	*/
+		#templatePreheader .mcnTextContent,#templatePreheader .mcnTextContent p{
+			/*@editable*/color:#656565;
+			/*@editable*/font-family:Helvetica;
+			/*@editable*/font-size:12px;
+			/*@editable*/line-height:150%;
+			/*@editable*/text-align:left;
+		}
+	/*
+	@tab Preheader
+	@section Preheader Link
+	@tip Set the styling for your email's preheader links. Choose a color that=
+ helps them stand out from your text.
+	*/
+		#templatePreheader .mcnTextContent a,#templatePreheader .mcnTextContent p=
+ a{
+			/*@editable*/color:#656565;
+			/*@editable*/font-weight:normal;
+			/*@editable*/text-decoration:underline;
+		}
+	/*
+	@tab Header
+	@section Header Style
+	@tip Set the background color and borders for your email's header area.
+	*/
+		#templateHeader{
+			/*@editable*/background-color:#FFFFFF;
+			/*@editable*/background-image:none;
+			/*@editable*/background-repeat:no-repeat;
+			/*@editable*/background-position:center;
+			/*@editable*/background-size:cover;
+			/*@editable*/border-top:0;
+			/*@editable*/border-bottom:0;
+			/*@editable*/padding-top:9px;
+			/*@editable*/padding-bottom:0;
+		}
+	/*
+	@tab Header
+	@section Header Text
+	@tip Set the styling for your email's header text. Choose a size and color=
+ that is easy to read.
+	*/
+		#templateHeader .mcnTextContent,#templateHeader .mcnTextContent p{
+			/*@editable*/color:#202020;
+			/*@editable*/font-family:Helvetica;
+			/*@editable*/font-size:16px;
+			/*@editable*/line-height:150%;
+			/*@editable*/text-align:left;
+		}
+	/*
+	@tab Header
+	@section Header Link
+	@tip Set the styling for your email's header links. Choose a color that he=
+lps them stand out from your text.
+	*/
+		#templateHeader .mcnTextContent a,#templateHeader .mcnTextContent p a{
+			/*@editable*/color:#2BAADF;
+			/*@editable*/font-weight:normal;
+			/*@editable*/text-decoration:underline;
+		}
+	/*
+	@tab Body
+	@section Body Style
+	@tip Set the background color and borders for your email's body area.
+	*/
+		#templateBody{
+			/*@editable*/background-color:#FFFFFF;
+			/*@editable*/background-image:none;
+			/*@editable*/background-repeat:no-repeat;
+			/*@editable*/background-position:center;
+			/*@editable*/background-size:cover;
+			/*@editable*/border-top:0;
+			/*@editable*/border-bottom:2px solid #EAEAEA;
+			/*@editable*/padding-top:0;
+			/*@editable*/padding-bottom:9px;
+		}
+	/*
+	@tab Body
+	@section Body Text
+	@tip Set the styling for your email's body text. Choose a size and color t=
+hat is easy to read.
+	*/
+		#templateBody .mcnTextContent,#templateBody .mcnTextContent p{
+			/*@editable*/color:#202020;
+			/*@editable*/font-family:Helvetica;
+			/*@editable*/font-size:16px;
+			/*@editable*/line-height:150%;
+			/*@editable*/text-align:left;
+		}
+	/*
+	@tab Body
+	@section Body Link
+	@tip Set the styling for your email's body links. Choose a color that help=
+s them stand out from your text.
+	*/
+		#templateBody .mcnTextContent a,#templateBody .mcnTextContent p a{
+			/*@editable*/color:#2BAADF;
+			/*@editable*/font-weight:normal;
+			/*@editable*/text-decoration:underline;
+		}
+	/*
+	@tab Footer
+	@section Footer Style
+	@tip Set the background color and borders for your email's footer area.
+	*/
+		#templateFooter{
+			/*@editable*/background-color:#FAFAFA;
+			/*@editable*/background-image:none;
+			/*@editable*/background-repeat:no-repeat;
+			/*@editable*/background-position:center;
+			/*@editable*/background-size:cover;
+			/*@editable*/border-top:0;
+			/*@editable*/border-bottom:0;
+			/*@editable*/padding-top:9px;
+			/*@editable*/padding-bottom:9px;
+		}
+	/*
+	@tab Footer
+	@section Footer Text
+	@tip Set the styling for your email's footer text. Choose a size and color=
+ that is easy to read.
+	*/
+		#templateFooter .mcnTextContent,#templateFooter .mcnTextContent p{
+			/*@editable*/color:#656565;
+			/*@editable*/font-family:Helvetica;
+			/*@editable*/font-size:12px;
+			/*@editable*/line-height:150%;
+			/*@editable*/text-align:center;
+		}
+	/*
+	@tab Footer
+	@section Footer Link
+	@tip Set the styling for your email's footer links. Choose a color that he=
+lps them stand out from your text.
+	*/
+		#templateFooter .mcnTextContent a,#templateFooter .mcnTextContent p a{
+			/*@editable*/color:#656565;
+			/*@editable*/font-weight:normal;
+			/*@editable*/text-decoration:underline;
+		}
+	@media only screen and (min-width:768px){
+		.templateContainer{
+			width:600px !important;
+		}
+
+}	@media only screen and (max-width: 480px){
+		body,table,td,p,a,li,blockquote{
+			-webkit-text-size-adjust:none !important;
+		}
+
+}	@media only screen and (max-width: 480px){
+		body{
+			width:100% !important;
+			min-width:100% !important;
+		}
+
+}	@media only screen and (max-width: 480px){
+		#bodyCell{
+			padding-top:10px !important;
+		}
+
+}	@media only screen and (max-width: 480px){
+		.mcnImage{
+			width:100% !important;
+		}
+
+}	@media only screen and (max-width: 480px){
+		.mcnCartContainer,.mcnCaptionTopContent,.mcnRecContentContainer,.mcnCapti=
+onBottomContent,.mcnTextContentContainer,.mcnBoxedTextContentContainer,.mcn=
+ImageGroupContentContainer,.mcnCaptionLeftTextContentContainer,.mcnCaptionR=
+ightTextContentContainer,.mcnCaptionLeftImageContentContainer,.mcnCaptionRi=
+ghtImageContentContainer,.mcnImageCardLeftTextContentContainer,.mcnImageCar=
+dRightTextContentContainer{
+			max-width:100% !important;
+			width:100% !important;
+		}
+
+}	@media only screen and (max-width: 480px){
+		.mcnBoxedTextContentContainer{
+			min-width:100% !important;
+		}
+
+}	@media only screen and (max-width: 480px){
+		.mcnImageGroupContent{
+			padding:9px !important;
+		}
+
+}	@media only screen and (max-width: 480px){
+		.mcnCaptionLeftContentOuter .mcnTextContent,.mcnCaptionRightContentOuter =
+.mcnTextContent{
+			padding-top:9px !important;
+		}
+
+}	@media only screen and (max-width: 480px){
+		.mcnImageCardTopImageContent,.mcnCaptionBlockInner .mcnCaptionTopContent:=
+last-child .mcnTextContent{
+			padding-top:18px !important;
+		}
+
+}	@media only screen and (max-width: 480px){
+		.mcnImageCardBottomImageContent{
+			padding-bottom:9px !important;
+		}
+
+}	@media only screen and (max-width: 480px){
+		.mcnImageGroupBlockInner{
+			padding-top:0 !important;
+			padding-bottom:0 !important;
+		}
+
+}	@media only screen and (max-width: 480px){
+		.mcnImageGroupBlockOuter{
+			padding-top:9px !important;
+			padding-bottom:9px !important;
+		}
+
+}	@media only screen and (max-width: 480px){
+		.mcnTextContent,.mcnBoxedTextContentColumn{
+			padding-right:18px !important;
+			padding-left:18px !important;
+		}
+
+}	@media only screen and (max-width: 480px){
+		.mcnImageCardLeftImageContent,.mcnImageCardRightImageContent{
+			padding-right:18px !important;
+			padding-bottom:0 !important;
+			padding-left:18px !important;
+		}
+
+}	@media only screen and (max-width: 480px){
+		.mcpreview-image-uploader{
+			display:none !important;
+			width:100% !important;
+		}
+
+}	@media only screen and (max-width: 480px){
+	/*
+	@tab Mobile Styles
+	@section Heading 1
+	@tip Make the first-level headings larger in size for better readability o=
+n small screens.
+	*/
+		h1{
+			/*@editable*/font-size:22px !important;
+			/*@editable*/line-height:125% !important;
+		}
+
+}	@media only screen and (max-width: 480px){
+	/*
+	@tab Mobile Styles
+	@section Heading 2
+	@tip Make the second-level headings larger in size for better readability =
+on small screens.
+	*/
+		h2{
+			/*@editable*/font-size:20px !important;
+			/*@editable*/line-height:125% !important;
+		}
+
+}	@media only screen and (max-width: 480px){
+	/*
+	@tab Mobile Styles
+	@section Heading 3
+	@tip Make the third-level headings larger in size for better readability o=
+n small screens.
+	*/
+		h3{
+			/*@editable*/font-size:18px !important;
+			/*@editable*/line-height:125% !important;
+		}
+
+}	@media only screen and (max-width: 480px){
+	/*
+	@tab Mobile Styles
+	@section Heading 4
+	@tip Make the fourth-level headings larger in size for better readability =
+on small screens.
+	*/
+		h4{
+			/*@editable*/font-size:16px !important;
+			/*@editable*/line-height:150% !important;
+		}
+
+}	@media only screen and (max-width: 480px){
+	/*
+	@tab Mobile Styles
+	@section Boxed Text
+	@tip Make the boxed text larger in size for better readability on small sc=
+reens. We recommend a font size of at least 16px.
+	*/
+		.mcnBoxedTextContentContainer .mcnTextContent,.mcnBoxedTextContentContain=
+er .mcnTextContent p{
+			/*@editable*/font-size:14px !important;
+			/*@editable*/line-height:150% !important;
+		}
+
+}	@media only screen and (max-width: 480px){
+	/*
+	@tab Mobile Styles
+	@section Preheader Visibility
+	@tip Set the visibility of the email's preheader on small screens. You can=
+ hide it to save space.
+	*/
+		#templatePreheader{
+			/*@editable*/display:block !important;
+		}
+
+}	@media only screen and (max-width: 480px){
+	/*
+	@tab Mobile Styles
+	@section Preheader Text
+	@tip Make the preheader text larger in size for better readability on smal=
+l screens.
+	*/
+		#templatePreheader .mcnTextContent,#templatePreheader .mcnTextContent p{
+			/*@editable*/font-size:14px !important;
+			/*@editable*/line-height:150% !important;
+		}
+
+}	@media only screen and (max-width: 480px){
+	/*
+	@tab Mobile Styles
+	@section Header Text
+	@tip Make the header text larger in size for better readability on small s=
+creens.
+	*/
+		#templateHeader .mcnTextContent,#templateHeader .mcnTextContent p{
+			/*@editable*/font-size:16px !important;
+			/*@editable*/line-height:150% !important;
+		}
+
+}	@media only screen and (max-width: 480px){
+	/*
+	@tab Mobile Styles
+	@section Body Text
+	@tip Make the body text larger in size for better readability on small scr=
+eens. We recommend a font size of at least 16px.
+	*/
+		#templateBody .mcnTextContent,#templateBody .mcnTextContent p{
+			/*@editable*/font-size:16px !important;
+			/*@editable*/line-height:150% !important;
+		}
+
+}	@media only screen and (max-width: 480px){
+	/*
+	@tab Mobile Styles
+	@section Footer Text
+	@tip Make the footer content text larger in size for better readability on=
+ small screens.
+	*/
+		#templateFooter .mcnTextContent,#templateFooter .mcnTextContent p{
+			/*@editable*/font-size:14px !important;
+			/*@editable*/line-height:150% !important;
+		}
+
+}</style></head>
+    <body>
+        <center>
+            <table align=3D"center" border=3D"0" cellpadding=3D"0" cellspac=
+ing=3D"0" height=3D"100%" width=3D"100%" id=3D"bodyTable">
+                <tr>
+                    <td align=3D"center" valign=3D"top" id=3D"bodyCell">
+                        <!-- BEGIN TEMPLATE // -->
+						<!--[if gte mso 9]>
+						<table align=3D"center" border=3D"0" cellspacing=3D"0" cellpadding=3D=
+"0" width=3D"600" style=3D"width:600px;">
+						<tr>
+						<td align=3D"center" valign=3D"top" width=3D"600" style=3D"width:600p=
+x;">
+						<![endif]-->
+                        <table border=3D"0" cellpadding=3D"0" cellspacing=
+=3D"0" width=3D"100%" class=3D"templateContainer">
+                            <tr>
+                                <td valign=3D"top" id=3D"templatePreheader"=
+><table class=3D"mcnImageBlock" style=3D"min-width:100%;" width=3D"100%" ce=
+llspacing=3D"0" cellpadding=3D"0" border=3D"0">
+    <tbody class=3D"mcnImageBlockOuter">
+            <tr>
+                <td style=3D"padding:9px" class=3D"mcnImageBlockInner" vali=
+gn=3D"top">
+                    <table class=3D"mcnImageContentContainer" style=3D"min-=
+width:100%;" width=3D"100%" cellspacing=3D"0" cellpadding=3D"0" border=3D"0=
+" align=3D"left">
+                        <tbody><tr>
+                            <td class=3D"mcnImageContent" style=3D"padding-=
+right: 9px; padding-left: 9px; padding-top: 0; padding-bottom: 0; text-alig=
+n:center;" valign=3D"top">
+                               =20
+                                   =20
+                                        <img alt=3D"" src=3D"https://galler=
+y.mailchimp.com/fbbb1a538c9bff96747eab34d/images/c9411982-0a43-4a4f-9e74-45=
+8b3aa6bf26.png" style=3D"max-width:500px; padding-bottom: 0; display: inlin=
+e !important; vertical-align: bottom;" class=3D"mcnImage" width=3D"250" ali=
+gn=3D"middle">
+                                   =20
+                               =20
+                            </td>
+                        </tr>
+                    </tbody></table>
+                </td>
+            </tr>
+    </tbody>
+</table></td>
+                            </tr>
+                            <tr>
+                                <td valign=3D"top" id=3D"templateHeader"></=
+td>
+                            </tr>
+                            <tr>
+                                <td valign=3D"top" id=3D"templateBody"><tab=
+le class=3D"mcnTextBlock" style=3D"min-width:100%;" border=3D"0" cellpaddin=
+g=3D"0" cellspacing=3D"0" width=3D"100%">
+    <tbody class=3D"mcnTextBlockOuter">
+        <tr>
+            <td class=3D"mcnTextBlockInner" style=3D"padding-top:9px;" vali=
+gn=3D"top">
+              	<!--[if mso]>
+				<table align=3D"left" border=3D"0" cellspacing=3D"0" cellpadding=3D"0" =
+width=3D"100%" style=3D"width:100%;">
+				<tr>
+				<![endif]-->
+			   =20
+				<!--[if mso]>
+				<td valign=3D"top" width=3D"600" style=3D"width:600px;">
+				<![endif]-->
+                <table style=3D"max-width:100%; min-width:100%;" class=3D"m=
+cnTextContentContainer" align=3D"left" border=3D"0" cellpadding=3D"0" cells=
+pacing=3D"0" width=3D"100%">
+                    <tbody><tr>
+                       =20
+                        <td class=3D"mcnTextContent" style=3D"padding-top:0=
+; padding-right:18px; padding-bottom:9px; padding-left:18px;" valign=3D"top=
+">
+                       =20
+                            <div style=3D"margin-top:0;margin-bottom:0;"><s=
+pan style=3D"font-size:16px;">Asalaamu Alaikum Ryszard</span><br>=0A=
+&nbsp;</div>=0A=
+=0A=
+<div style=3D"margin-top:0;margin-bottom:0;"></div>=0A=
+=0A=
+<div style=3D"margin-top:0;margin-bottom:0;"></div>=0A=
+=0A=
+<div>=0A=
+<div>=0A=
+<div id=3D"divtagdefaultwrapper">=0A=
+<div style=3D"margin-top:0;margin-bottom:0;"></div>=0A=
+=0A=
+<div style=3D"margin-top:0;margin-bottom:0;"><span style=3D"font-size:16px;=
+"><font face=3D"Calibri,Arial,Helvetica,sans-serif">I hope this email finds=
+
+ you in the best of health by the grace and mercy of Allah (SWT).</font></s=
+pan></div>=0A=
+=0A=
+<div style=3D"margin-top:0;margin-bottom:0;"></div>=0A=
+=0A=
+<div style=3D"margin-top:0;margin-bottom:0;"><span style=3D"font-size:16px;=
+"><font face=3D"Calibri,Arial,Helvetica,sans-serif">We would like to thank =
+you for your invaluable contribution and we hope you will continue to suppo=
+rt Help Yateem. We pray that Allah (SWT) rewards you and increases your sus=
+tenance in this world and in the hereafter. </font></span></div>=0A=
+=0A=
+<div style=3D"margin-top:0;margin-bottom:0;"></div>=0A=
+=0A=
+<div style=3D"margin-top:0;margin-bottom:0;"><span style=3D"font-size:16px;=
+"><font face=3D"Calibri,Arial,Helvetica,sans-serif">If you have any enquiry=
+ please do not hesitate to get in touch with us. </font></span><br>=0A=
+&nbsp;</div>=0A=
+=0A=
+<div style=3D"margin-top:0;margin-bottom:0;"></div>=0A=
+=0A=
+<div style=3D"margin-top:0;margin-bottom:0;"><span style=3D"font-size:16px;=
+"><font face=3D"Calibri,Arial,Helvetica,sans-serif">Jazakallah Khair</font>=
+</span></div>=0A=
+=0A=
+<div style=3D"margin-top:0;margin-bottom:0;"><span style=3D"font-size:18px;=
+"><em><strong><font face=3D"Calibri,Arial,Helvetica,sans-serif">Bazi Bassur=
+i</font></strong></em></span></div>=0A=
+=0A=
+<div style=3D"margin-top:0;margin-bottom:0;"></div>=0A=
+=0A=
+<div style=3D"margin-top:0;margin-bottom:0;">=0A=
+<p style=3D"background:white"></p>=0A=
+=0A=
+<p class=3D"x_MsoNormal" style=3D"background:white"></p>=0A=
+</div>=0A=
+</div>=0A=
+</div>=0A=
+</div>
+                        </td>
+                    </tr>
+                </tbody></table>
+				<!--[if mso]>
+				</td>
+				<![endif]-->
+               =20
+				<!--[if mso]>
+				</tr>
+				</table>
+				<![endif]-->
+            </td>
+        </tr>
+    </tbody>
+</table></td>
+                            </tr>
+                            <tr>
+                                <td valign=3D"top" id=3D"templateFooter"><t=
+able class=3D"mcnFollowBlock" style=3D"min-width:100%;" border=3D"0" cellpa=
+dding=3D"0" cellspacing=3D"0" width=3D"100%">
+    <tbody class=3D"mcnFollowBlockOuter">
+        <tr>
+            <td style=3D"padding:9px" class=3D"mcnFollowBlockInner" align=
+=3D"center" valign=3D"top">
+                <table class=3D"mcnFollowContentContainer" style=3D"min-wid=
+th:100%;" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"100%">
+    <tbody><tr>
+        <td style=3D"padding-left:9px;padding-right:9px;" align=3D"center">
+            <table style=3D"min-width:100%;" class=3D"mcnFollowContent" bor=
+der=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"100%">
+                <tbody><tr>
+                    <td style=3D"padding-top:9px; padding-right:9px; paddin=
+g-left:9px;" align=3D"center" valign=3D"top">
+                        <table align=3D"center" border=3D"0" cellpadding=3D=
+"0" cellspacing=3D"0">
+                            <tbody><tr>
+                                <td align=3D"center" valign=3D"top">
+                                    <!--[if mso]>
+                                    <table align=3D"center" border=3D"0" ce=
+llspacing=3D"0" cellpadding=3D"0">
+                                    <tr>
+                                    <![endif]-->
+                                   =20
+                                        <!--[if mso]>
+                                        <td align=3D"center" valign=3D"top"=
+>
+                                        <![endif]-->
+                                       =20
+                                       =20
+                                            <table style=3D"display:inline;=
+" align=3D"left" border=3D"0" cellpadding=3D"0" cellspacing=3D"0">
+                                                <tbody><tr>
+                                                    <td style=3D"padding-ri=
+ght:10px; padding-bottom:9px;" class=3D"mcnFollowContentItemContainer" vali=
+gn=3D"top">
+                                                        <table class=3D"mcn=
+FollowContentItem" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=
+=3D"100%">
+                                                            <tbody><tr>
+                                                                <td style=
+=3D"padding-top:5px; padding-right:10px; padding-bottom:5px; padding-left:9=
+px;" align=3D"left" valign=3D"middle">
+                                                                    <table =
+align=3D"left" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"">
+                                                                        <tb=
+ody><tr>
+                                                                           =
+=20
+                                                                           =
+     <td class=3D"mcnFollowIconContent" align=3D"center" valign=3D"middle" =
+width=3D"24">
+                                                                           =
+         <a href=3D"https://twitter.com/helpyateem" target=3D"_blank"><img =
+src=3D"https://cdn-images.mailchimp.com/icons/social-block-v2/color-twitter=
+-48.png" style=3D"display:block;" class=3D"" width=3D"24" height=3D"24"></a=
+>
+                                                                           =
+     </td>
+                                                                           =
+=20
+                                                                           =
+=20
+                                                                        </t=
+r>
+                                                                    </tbody=
+></table>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody></table>
+                                                    </td>
+                                                </tr>
+                                            </tbody></table>
+                                       =20
+                                        <!--[if mso]>
+                                        </td>
+                                        <![endif]-->
+                                   =20
+                                        <!--[if mso]>
+                                        <td align=3D"center" valign=3D"top"=
+>
+                                        <![endif]-->
+                                       =20
+                                       =20
+                                            <table style=3D"display:inline;=
+" align=3D"left" border=3D"0" cellpadding=3D"0" cellspacing=3D"0">
+                                                <tbody><tr>
+                                                    <td style=3D"padding-ri=
+ght:10px; padding-bottom:9px;" class=3D"mcnFollowContentItemContainer" vali=
+gn=3D"top">
+                                                        <table class=3D"mcn=
+FollowContentItem" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=
+=3D"100%">
+                                                            <tbody><tr>
+                                                                <td style=
+=3D"padding-top:5px; padding-right:10px; padding-bottom:5px; padding-left:9=
+px;" align=3D"left" valign=3D"middle">
+                                                                    <table =
+align=3D"left" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"">
+                                                                        <tb=
+ody><tr>
+                                                                           =
+=20
+                                                                           =
+     <td class=3D"mcnFollowIconContent" align=3D"center" valign=3D"middle" =
+width=3D"24">
+                                                                           =
+         <a href=3D"https://www.facebook.com/helpyateem" target=3D"_blank">=
+<img src=3D"https://cdn-images.mailchimp.com/icons/social-block-v2/color-fa=
+cebook-48.png" style=3D"display:block;" class=3D"" width=3D"24" height=3D"2=
+4"></a>
+                                                                           =
+     </td>
+                                                                           =
+=20
+                                                                           =
+=20
+                                                                        </t=
+r>
+                                                                    </tbody=
+></table>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody></table>
+                                                    </td>
+                                                </tr>
+                                            </tbody></table>
+                                       =20
+                                        <!--[if mso]>
+                                        </td>
+                                        <![endif]-->
+                                   =20
+                                        <!--[if mso]>
+                                        <td align=3D"center" valign=3D"top"=
+>
+                                        <![endif]-->
+                                       =20
+                                       =20
+                                            <table style=3D"display:inline;=
+" align=3D"left" border=3D"0" cellpadding=3D"0" cellspacing=3D"0">
+                                                <tbody><tr>
+                                                    <td style=3D"padding-ri=
+ght:10px; padding-bottom:9px;" class=3D"mcnFollowContentItemContainer" vali=
+gn=3D"top">
+                                                        <table class=3D"mcn=
+FollowContentItem" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=
+=3D"100%">
+                                                            <tbody><tr>
+                                                                <td style=
+=3D"padding-top:5px; padding-right:10px; padding-bottom:5px; padding-left:9=
+px;" align=3D"left" valign=3D"middle">
+                                                                    <table =
+align=3D"left" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"">
+                                                                        <tb=
+ody><tr>
+                                                                           =
+=20
+                                                                           =
+     <td class=3D"mcnFollowIconContent" align=3D"center" valign=3D"middle" =
+width=3D"24">
+                                                                           =
+         <a href=3D"https://www.youtube.com/channel/UCBr7aFY8fQg8fwKB9KK3Yf=
+A" target=3D"_blank"><img src=3D"https://cdn-images.mailchimp.com/icons/soc=
+ial-block-v2/color-youtube-48.png" style=3D"display:block;" class=3D"" widt=
+h=3D"24" height=3D"24"></a>
+                                                                           =
+     </td>
+                                                                           =
+=20
+                                                                           =
+=20
+                                                                        </t=
+r>
+                                                                    </tbody=
+></table>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody></table>
+                                                    </td>
+                                                </tr>
+                                            </tbody></table>
+                                       =20
+                                        <!--[if mso]>
+                                        </td>
+                                        <![endif]-->
+                                   =20
+                                        <!--[if mso]>
+                                        <td align=3D"center" valign=3D"top"=
+>
+                                        <![endif]-->
+                                       =20
+                                       =20
+                                            <table style=3D"display:inline;=
+" align=3D"left" border=3D"0" cellpadding=3D"0" cellspacing=3D"0">
+                                                <tbody><tr>
+                                                    <td style=3D"padding-ri=
+ght:0; padding-bottom:9px;" class=3D"mcnFollowContentItemContainer" valign=
+=3D"top">
+                                                        <table class=3D"mcn=
+FollowContentItem" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=
+=3D"100%">
+                                                            <tbody><tr>
+                                                                <td style=
+=3D"padding-top:5px; padding-right:10px; padding-bottom:5px; padding-left:9=
+px;" align=3D"left" valign=3D"middle">
+                                                                    <table =
+align=3D"left" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" width=3D"">
+                                                                        <tb=
+ody><tr>
+                                                                           =
+=20
+                                                                           =
+     <td class=3D"mcnFollowIconContent" align=3D"center" valign=3D"middle" =
+width=3D"24">
+                                                                           =
+         <a href=3D"http://www.helpyateem.org/" target=3D"_blank"><img src=
+=3D"https://cdn-images.mailchimp.com/icons/social-block-v2/color-link-48.pn=
+g" style=3D"display:block;" class=3D"" width=3D"24" height=3D"24"></a>
+                                                                           =
+     </td>
+                                                                           =
+=20
+                                                                           =
+=20
+                                                                        </t=
+r>
+                                                                    </tbody=
+></table>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody></table>
+                                                    </td>
+                                                </tr>
+                                            </tbody></table>
+                                       =20
+                                        <!--[if mso]>
+                                        </td>
+                                        <![endif]-->
+                                   =20
+                                    <!--[if mso]>
+                                    </tr>
+                                    </table>
+                                    <![endif]-->
+                                </td>
+                            </tr>
+                        </tbody></table>
+                    </td>
+                </tr>
+            </tbody></table>
+        </td>
+    </tr>
+</tbody></table>
+
+            </td>
+        </tr>
+    </tbody>
+</table></td>
+                            </tr>
+                        </table>
+						<!--[if gte mso 9]>
+						</td>
+						</tr>
+						</table>
+						<![endif]-->
+                        <!-- // END TEMPLATE -->
+                    </td>
+                </tr>
+            </table>
+        </center>
+   =20
+<br>
+<font color=3D"gray">To unsubscribe from our periodic e-mail messages, plea=
+se click the following <a href=3D"https://partner.helpyateem.org/unsubscrib=
+e?e=3DYWJ1c2VAQ3plS2FqLmNvbS5wbA&amp;s=3DG8Blfo5C2n">link</a></font>
+<br></body>
+</html>
+
+--=_49ec8c7f80d84ab6fd5d4ea08027dc0c--
