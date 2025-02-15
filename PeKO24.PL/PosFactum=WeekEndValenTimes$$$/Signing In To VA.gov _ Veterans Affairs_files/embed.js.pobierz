@@ -1,0 +1,173 @@
+"use strict";
+(function() {
+  // src/embed.js
+  (function() {
+    if (!window.KAMPYLE_EMBED) {
+      if ({
+        "isOnPremEnabled": false,
+        "isCooladataEnabled": false,
+        "isCooladataUpgradeEnabled": false,
+        "isCooladataOldEnabled": false,
+        "isDigitalAnalyticsEnabled": false,
+        "isCustomEventsEnabled": true,
+        "isScreenCaptureEnabled": false,
+        "isModalNewDialogEnabled": true,
+        "isPropertyMessageEnabled": true,
+        "isWCAGEnabled": true,
+        "isAdobeAEnabled": false,
+        "isGAEnabled": false,
+        "isDecibelEnabled": false,
+        "isThermoFisherTeaLeafEnabled": false
+      }.isOnPremEnabled) {
+        var onPremEmbedRegex = /\/[a-zA-Z\d-]+\/\d+\/onsite\/medallia-digital-embed\.js$/;
+        var genericPathRegex = /\/[a-zA-Z\d-]+\/\d+\/onsite\/generic\d{13}\.js$/;
+        var onsiteDataPathRegex = /\/[a-zA-Z\d-]+\/\d+\/onsite\/onsiteData\d{13}\.json$/;
+      }
+      window.KAMPYLE_EMBED = {
+        kampyleInit: function kampyleInit() {
+          var t = document.createElement("script");
+          t.type = "text/javascript";
+          t.async = true;
+          t.src = KAMPYLE_EMBED.getGenericLocation();
+          t.charset = "UTF-8";
+          document.body.appendChild(t);
+        },
+        kampyleLoadLogger: function kampyleLoadLogger() {
+        },
+        kampyleEventHandler: function kampyleEventHandler(elem, eventType, handler) {
+          if (elem.addEventListener) {
+            elem.addEventListener(eventType, handler, false);
+          } else if (elem.attachEvent) {
+            elem.attachEvent("on" + eventType, handler);
+          }
+        },
+        /* eslint-disable */
+        isSupported: function isSupported() {
+          var trident = window.KAMPYLE_EMBED.getUserAgent().match(/Trident\/(\d+)/);
+          var msie = navigator.userAgent.match(/MSIE (\d+)/);
+          return !(trident || msie);
+        },
+        getUserAgent: function getUserAgent() {
+          return navigator.userAgent;
+        },
+        getGenericLocation: function getGenericLocation() {
+          var genericLocation = location.protocol + "//" + {
+            "USERSNAP_HOST_PREFIX": "//screencapture.kampyle.com/",
+            "USER_AGENT_CLIENT_HINTS_LIST": '["brands", "mobile", "platform", "architecture", "model", "bitness", "platformVersion", "fullVersionList", "wow64", "uaFullVersion"]',
+            "ONSITE_DATA_PATH": "resource.digital.voice.va.gov/wdcvoice/2/onsite/onsiteData1734636652605.json",
+            "SUBMIT_URL_PREFIX": "https://feedback.digital.voice.va.gov/",
+            "JS_SITE_CODE": "resource.digital.voice.va.gov/wdcvoice/2/onsite/generic1731941049831.js",
+            "COOLADATA_API_HOST": "udc-neb.kampyle.com/",
+            "COOLADATA_SRC_PREFIX": "https://resource.digital.voice.va.gov/",
+            "ONSITE_VERSION": "1.64.1",
+            "USERSNAP_V4_HOST_PREFIX": "//scp.kampyle.com",
+            "URL_PREFIX": "https://resource.digital.voice.va.gov/",
+            "USERSNAP_ONPREM_HOST_PREFIX": "https://md-scp.kampyle.com/"
+          }.JS_SITE_CODE;
+          if ({
+            "isOnPremEnabled": false,
+            "isCooladataEnabled": false,
+            "isCooladataUpgradeEnabled": false,
+            "isCooladataOldEnabled": false,
+            "isDigitalAnalyticsEnabled": false,
+            "isCustomEventsEnabled": true,
+            "isScreenCaptureEnabled": false,
+            "isModalNewDialogEnabled": true,
+            "isPropertyMessageEnabled": true,
+            "isWCAGEnabled": true,
+            "isAdobeAEnabled": false,
+            "isGAEnabled": false,
+            "isDecibelEnabled": false,
+            "isThermoFisherTeaLeafEnabled": false
+          }.isOnPremEnabled) {
+            var genericPath = (genericLocation.match(genericPathRegex) || [])[0];
+            genericLocation = window.KAMPYLE_EMBED.getResourcesPrefix() + genericPath;
+          }
+          return genericLocation;
+        },
+        getOnsiteDataLocation: function getOnsiteDataLocation(isDhh) {
+          var onsiteDataLocation = location.protocol + "//" + {
+            "USERSNAP_HOST_PREFIX": "//screencapture.kampyle.com/",
+            "USER_AGENT_CLIENT_HINTS_LIST": '["brands", "mobile", "platform", "architecture", "model", "bitness", "platformVersion", "fullVersionList", "wow64", "uaFullVersion"]',
+            "ONSITE_DATA_PATH": "resource.digital.voice.va.gov/wdcvoice/2/onsite/onsiteData1734636652605.json",
+            "SUBMIT_URL_PREFIX": "https://feedback.digital.voice.va.gov/",
+            "JS_SITE_CODE": "resource.digital.voice.va.gov/wdcvoice/2/onsite/generic1731941049831.js",
+            "COOLADATA_API_HOST": "udc-neb.kampyle.com/",
+            "COOLADATA_SRC_PREFIX": "https://resource.digital.voice.va.gov/",
+            "ONSITE_VERSION": "1.64.1",
+            "USERSNAP_V4_HOST_PREFIX": "//scp.kampyle.com",
+            "URL_PREFIX": "https://resource.digital.voice.va.gov/",
+            "USERSNAP_ONPREM_HOST_PREFIX": "https://md-scp.kampyle.com/"
+          }.ONSITE_DATA_PATH;
+          if ({
+            "isOnPremEnabled": false,
+            "isCooladataEnabled": false,
+            "isCooladataUpgradeEnabled": false,
+            "isCooladataOldEnabled": false,
+            "isDigitalAnalyticsEnabled": false,
+            "isCustomEventsEnabled": true,
+            "isScreenCaptureEnabled": false,
+            "isModalNewDialogEnabled": true,
+            "isPropertyMessageEnabled": true,
+            "isWCAGEnabled": true,
+            "isAdobeAEnabled": false,
+            "isGAEnabled": false,
+            "isDecibelEnabled": false,
+            "isThermoFisherTeaLeafEnabled": false
+          }.isOnPremEnabled && !isDhh) {
+            var onsiteDataPath = (onsiteDataLocation.match(onsiteDataPathRegex) || [])[0];
+            onsiteDataLocation = window.KAMPYLE_EMBED.getResourcesPrefix() + onsiteDataPath;
+          }
+          return onsiteDataLocation;
+        },
+        getResourcesPrefix: function getResourcesPrefix() {
+          if ({
+            "isOnPremEnabled": false,
+            "isCooladataEnabled": false,
+            "isCooladataUpgradeEnabled": false,
+            "isCooladataOldEnabled": false,
+            "isDigitalAnalyticsEnabled": false,
+            "isCustomEventsEnabled": true,
+            "isScreenCaptureEnabled": false,
+            "isModalNewDialogEnabled": true,
+            "isPropertyMessageEnabled": true,
+            "isWCAGEnabled": true,
+            "isAdobeAEnabled": false,
+            "isGAEnabled": false,
+            "isDecibelEnabled": false,
+            "isThermoFisherTeaLeafEnabled": false
+          }.isOnPremEnabled) {
+            if (window.MDIGITAL_ON_PREM_PREFIX) {
+              return window.MDIGITAL_ON_PREM_PREFIX;
+            }
+            var scripts = document.getElementsByTagName("script");
+            var neededSrcPath = null;
+            var i = 0;
+            while (scripts && !neededSrcPath && i < scripts.length) {
+              if (scripts[i].src && onPremEmbedRegex && onPremEmbedRegex.test(scripts[i].src)) {
+                neededSrcPath = scripts[i].src;
+              }
+              i++;
+            }
+            if (neededSrcPath) {
+              window.MDIGITAL_ON_PREM_PREFIX = neededSrcPath.replace(onPremEmbedRegex, "");
+              return window.MDIGITAL_ON_PREM_PREFIX;
+            }
+            if (window.location && window.location.origin) {
+              return window.location.origin;
+            }
+            return "";
+          }
+        }
+      };
+      if (window.KAMPYLE_EMBED.isSupported()) {
+        if (document.readyState === "complete") {
+          window.KAMPYLE_EMBED.kampyleInit();
+        } else {
+          window.KAMPYLE_EMBED.kampyleEventHandler(window, "load", window.KAMPYLE_EMBED.kampyleInit);
+        }
+      }
+    }
+  })();
+})();
+//# sourceMappingURL=embed.js.map

@@ -1,0 +1,13 @@
+var hideQueryLabel = 'Ukryj wyszukiwanie';
+var interStyleGuideLabel = 'Mi\u0119dzyinstytucjonalny przewodnik redakcyjny';
+var viewQueryLabel = '[Zobacz wyszukiwanie]';
+var zoomingErrorLabel = 'Podczas powi\u0119kszenia metadanych tekstowych wyst\u0105pi\u0142 b\u0142\u0105d.';
+var fileTooBigLabel = 'Wybrany plik jest za du\u017Cy. Wielko\u015B\u0107 pliku nie mo\u017Ce przekracza\u0107 10\u00A0240 KB.';
+var allTheseWordsLabel = 'Wszystkie te s\u0142owa';
+var otherLinksLabel = 'Linki';
+var zoomingTextMetadataLabel = 'Powi\u0119ksz tekst metadanych';
+var noResults = 'Brak wynik\u00F3w';
+var fullTextLabel = 'Wyszukiwanie tekstowe';
+var legDraftLabel = 'Technika prawodawcza';
+var celexBasicActLabel = 'The Celex id must begin with at least 5 numbers and a letter.';
+var relationInvalidLabel = 'W wyszukiwaniu powi\u0105za\u0144 elementy CELEX ani adnotacja nie mog\u0105 si\u0119 zaczyna\u0107 od operatora zast\u0119pczego (*,?, +).';
