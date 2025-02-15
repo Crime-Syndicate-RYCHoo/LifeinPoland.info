@@ -1,0 +1,23 @@
+header {
+  display: none !important;
+}
+
+.main-navigation {
+  display: none;
+}
+
+.breadcrumbs {
+  display: none;
+}
+
+.article-attributes {
+  display: none;
+}
+
+.rail-products {
+  display: none;
+}
+
+footer {
+  display: none;
+}

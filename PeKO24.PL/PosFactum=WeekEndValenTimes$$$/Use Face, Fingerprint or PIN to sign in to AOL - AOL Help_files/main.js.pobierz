@@ -1,0 +1,530 @@
+// for JSHint
+/* global AolHelpGlobals,Modernizr,userAgent */
+
+
+// TODO: Break these into their own files and concatenate.
+
+
+if (!AolHelpGlobals) {
+	window.AolHelpGlobals = {};
+}
+
+AolHelpGlobals.idp.include = (AolHelpGlobals.idp.denylist.indexOf(AolHelpGlobals.brandId) === -1);
+
+jQuery.extend(AolHelpGlobals, {
+	isMobile: function() {
+		return Modernizr.mq('(max-width: 744px)');
+	},
+	removeStyles: function(elem) {
+		if (!elem) {
+			elem = this;
+		}
+		$(elem).removeAttr('style');
+	},
+	getCookie: function(name) {
+				var start=0,end=0,ck = document.cookie;
+				if (ck.length>0) {
+						start=ck.indexOf(name + '=');
+						if (start!==-1) {
+								start = start + name.length+1 ;
+								end=ck.indexOf(';',start);
+								if (end===-1) {
+									end=ck.length;
+								}
+										return unescape(ck.substring(start,end));
+						}
+				}
+				return '';
+		}
+	}
+);
+
+
+
+//---------------------
+// Search Bar Behaviors
+//---------------------
+
+(function(window, document, $, AH) {
+
+	var $desktopHeader = $('.header-content'),
+		$desktopSearch = $('.search-bar'),
+		$mobileHeader = $('header'),
+		$mobileSearchOpener = $mobileHeader.find('.open-search'),
+		$mobileSearch = $mobileHeader.find('.mobile-search-bar'),
+		toggleMobileSearch = function(expanded) {
+			if (expanded) {
+				$mobileSearch
+						.clearQueue()
+						.slideUp('fast', function() {
+							AH.removeStyles(this);
+							$mobileHeader.removeClass('search-active');
+						})
+				;
+			}
+			else {
+				$mobileSearch
+						.clearQueue()
+						.slideDown('fast', function() {
+							AH.removeStyles(this);
+							$mobileSearch.find('input').focus();
+						})
+				;
+				$mobileHeader.addClass('search-active');
+			}
+		};
+
+	$desktopHeader.find('input').on('focus', function() {
+		$desktopHeader
+				.clearQueue()
+				.animate({width: '200%'}, 'fast')
+		;
+		$desktopSearch.addClass('search-active');
+	});
+
+	$desktopSearch.find('input').on('mouseenter', function() {
+		$(this).closest('.search-bar').addClass('search-hover');
+	});
+
+	$desktopSearch.find('input').on('focus', function() {
+		$(this).closest('.search-bar').addClass('search-active');
+	});
+
+	$desktopHeader.find('input').on('blur', function() {
+		setTimeout(function() {
+			$desktopHeader
+					.clearQueue()
+					.animate({width: '100%'}, 'fast', AH.removeStyles)
+			;
+		}, 250);
+	});
+
+	$desktopSearch.find('input').on('mouseleave', function() {
+		$(this).closest('.search-bar').removeClass('search-hover');
+	});
+
+	$desktopSearch.find('input').on('blur', function() {
+		$(this).closest('.search-bar').removeClass('search-active');
+	});
+
+	$mobileSearchOpener.on('click', function(evt) {
+		evt.preventDefault();
+		if (AH.isMobile()) {
+			toggleMobileSearch($mobileHeader.hasClass('search-active'));
+		}
+	});
+
+})(this, document, jQuery, AolHelpGlobals);
+
+
+
+//---------------------------------------------------------
+// Header Show/Hide on Scroll, Smart Scrolling for Subpanel
+//---------------------------------------------------------
+
+(function(window, document, $, AH) {
+
+	var $window = $(window),
+		windowHeight,
+		$mainNavigation = $('.main-navigation'),
+		$desktopHeader = $mainNavigation.find('.header-panel'),
+		// $mobileHeader = $('header'),
+		$header,
+		headerHeight,
+		$subpanel = $mainNavigation.find('.sub-panel'),
+		subpanelHeight,
+		scrollTop,
+		previousScrollTop = $window.scrollTop(),
+		scrollDiff,
+		scrollDirectionUp,
+		previousScrollDirectionUp = false,
+
+		slideHeaderDown = function() {
+			if (!$header.hasClass('sticky')) {
+				$header
+						.clearQueue()
+						.addClass('sticky')
+						.css('top', -headerHeight)
+						.animate({top: 0}, 'fast')
+				;
+			}
+		},
+
+		slideHeaderUp = function() {
+			if ($header.hasClass('sticky')) {
+				$header
+						.clearQueue()
+						.animate({top: -headerHeight}, 'fast', resetHeader)
+				;
+			}
+		},
+
+		resetHeader = function() {
+			$header
+					.clearQueue()
+					.removeClass('sticky')
+			;
+			AH.removeStyles($header);
+		},
+
+		scrollSubpanel = function() {
+			var subpanelTop = parseInt($subpanel.css('top')),
+				subpanelBottom = subpanelTop + subpanelHeight,
+				isScrolling = $subpanel.hasClass('scrolling'),
+				isFixedAtTop = !isScrolling && subpanelTop >= 0,
+				isFixedAtBottom = !isScrolling && subpanelTop + subpanelHeight <= windowHeight,
+				withinBounds = scrollDiff < subpanelHeight - windowHeight,
+				isNearTop = scrollTop < subpanelTop + scrollDiff,
+				isNearBottom = scrollTop + windowHeight > subpanelBottom - scrollDiff;
+
+/*
+			console.log('----------' + (scrollDirectionUp ? 'UP' : 'DOWN'));
+			console.log(previousScrollTop + ' to ' + scrollTop + ' diff ' + scrollDiff);
+			console.log('subpanelHeight', subpanelHeight);
+			console.log('windowHeight', windowHeight);
+			console.log('subpanelTop', subpanelTop);
+			console.log('subpanelBottom', subpanelBottom);
+			console.log('isScrolling', isScrolling);
+			console.log('isFixedAtTop', isFixedAtTop);
+			console.log('isFixedAtBottom', isFixedAtBottom);
+			console.log('withinBounds', withinBounds);
+			console.log('isNearTop', isNearTop);
+			console.log('isNearBottom', isNearBottom);
+*/
+
+			if (scrollDirectionUp) {
+				// With throttled scrolling, it's possible for a single big
+				// scroll to take us right to the fully scrolled position.
+				if (!withinBounds && !isFixedAtTop) {
+					resetSubpanel();
+				}
+
+				// Subpanel is fixed to bottom; allow it to scroll.
+				else if (isFixedAtBottom) {
+					$subpanel
+							.addClass('scrolling')
+							.css('top', scrollTop - subpanelHeight + windowHeight)
+					;
+				}
+
+				// Subpanel is almost fully scrolled; fix to top.
+				else if (!isFixedAtTop && isNearTop) {
+					resetSubpanel();
+				}
+			}
+			else {
+				// With throttled scrolling, it's possible for a single big
+				// scroll to take us right to the fully scrolled position.
+				if (!withinBounds && !isFixedAtBottom) {
+					$subpanel
+							.removeClass('scrolling')
+							.css('top', windowHeight - subpanelHeight)
+					;
+				}
+
+				// Subpanel is fixed to top; allow it to scroll.
+				else if (isFixedAtTop) {
+					$subpanel
+							.addClass('scrolling')
+							.css('top', previousScrollTop)
+					;
+				}
+
+				// Subpanel is almost fully scrolled; fix it to bottom.
+				else if (!isFixedAtBottom && isNearBottom) {
+					$subpanel
+							.removeClass('scrolling')
+							.css('top', windowHeight - subpanelHeight)
+					;
+				}
+			}
+		},
+
+		resetSubpanel = function() {
+			$subpanel
+					.removeClass('scrolling')
+					.css('top', '')
+			;
+		};
+
+	// Only do this on desktop for now.
+	if (!AH.isMobile()) {
+		$window.on('throttledscroll', function() {
+			var headerScrollFunc;
+
+			scrollTop = $window.scrollTop();
+
+			// Somehow this happens sometimes. Do nothing.
+			if (scrollTop === previousScrollTop) {
+				return;
+			}
+
+			// We've returned to the top.
+			if (scrollTop === 0) {
+				// Reset everything.
+				previousScrollDirectionUp = scrollDirectionUp = false;
+				resetHeader();
+				return;
+			}
+
+			scrollDiff = Math.abs(scrollTop - previousScrollTop);
+			scrollDirectionUp = (scrollTop < previousScrollTop);
+
+			// Header...
+			// $header = (AH.isMobile() ? $mobileHeader : $desktopHeader); // Use this if we ever include mobile.
+			$header = $desktopHeader;
+			headerHeight = $header.outerHeight();
+			// Do nothing on scroll up if we're still near the header.
+			if (scrollTop > (headerHeight * 4) && scrollDirectionUp) {
+				headerScrollFunc = slideHeaderDown;
+			}
+			else if (!scrollDirectionUp) {
+				headerScrollFunc = slideHeaderUp;
+			}
+			// Don't repeat the animation if we're still scrolling in the same direction.
+			if (scrollDirectionUp !== previousScrollDirectionUp && headerScrollFunc) {
+				headerScrollFunc();
+			}
+
+			// Subpanel...
+			if ($mainNavigation.hasClass('expanded')) {
+				windowHeight = $window.height();
+				subpanelHeight = $subpanel.find('section:visible').outerHeight();
+				// If subpanel fits in window do nothing.
+				if (subpanelHeight < windowHeight) {
+					resetSubpanel();
+				}
+				// Otherwise apply smart scrolling.
+				else {
+					scrollSubpanel();
+				}
+			}
+			else {
+				// TODO: does this fire too often?
+				resetSubpanel();
+			}
+
+			previousScrollTop = scrollTop;
+			previousScrollDirectionUp = scrollDirectionUp;
+	    });
+
+		$window.on('navigationsubpanelopened', resetSubpanel);
+	}
+
+})(this, document, jQuery, AolHelpGlobals);
+
+
+
+//------------------
+// Form Submit Links
+//------------------
+
+(function(window, document, $) {
+
+	$('form').on('click', 'a.submit', function(evt) {
+		evt.preventDefault();
+		$(this).closest('form').submit();
+	});
+
+})(this, document, jQuery);
+
+
+
+//-----------------------
+// Directory Scroll Links
+//-----------------------
+
+(function(window, document, $, AH) {
+
+	$('.product-navigation').on('click', 'a', function(evt) {
+		evt.preventDefault();
+		var targetId = $(this).attr('href'),
+			$target = $(targetId),
+			offset = (AH.isMobile() ? 0 : $('.main-navigation').outerHeight());
+		$('html, body').animate({
+				scrollTop: $target.offset().top - offset
+		}, 500);
+		$target.find('a').first().focus(); // Accessibility.
+	});
+
+})(this, document, jQuery, AolHelpGlobals);
+
+
+
+//-----------------------
+// Clickable Module Items
+//-----------------------
+
+(function(window, document, $) {
+
+	// TODO: decide if we want to attempt this with HTML only
+	// (older browsers don't like block level elements inside links)
+
+	$('#recommended, #help-by-product').on('click', 'li', function(evt) {
+		if (evt.target.nodeName !== 'A') {
+			// Redirect click events on non-links to first link.
+			var $link = $(this).closest('li').find('a').first();
+			// This is the only way to trigger native click events...
+			if ($link[0].click) {
+				evt.stopPropagation();
+				$link[0].click();
+			}
+			// ...but not all browsers support it.
+			else {
+				window.location = $link.attr('href');
+			}
+		}
+	});
+
+})(this, document, jQuery);
+
+
+
+//------------------------
+// Mobile Option Dropdowns
+//------------------------
+
+(function(window, document, $, AH) {
+
+	$('.options-dropdown .options-label').on('click', function() {
+		var $label = $(this),
+			$dropdown = $label.closest('.options-dropdown'),
+			$body = $dropdown.find('.options-body');
+		if ($dropdown.hasClass('expanded')) {
+			$body
+					.clearQueue()
+					.slideUp('fast', function() {
+						AH.removeStyles(this);
+						$dropdown.removeClass('expanded');
+					})
+			;
+		}
+		else {
+			$body
+					.clearQueue()
+					.slideDown('fast', AH.removeStyles)
+			;
+			$dropdown.addClass('expanded');
+		}
+	});
+
+})(this, document, jQuery, AolHelpGlobals);
+
+
+
+//----------------------
+// AOL Client detection
+//----------------------
+
+(function(window, document, $, AH) {
+
+	// Borrowed from the auth plugin
+    var isOldAolClient = window.navigator.userAgent.indexOf('aol'),
+    	isNewAolClient = typeof window.external !== 'undefined'&& typeof window.external.jsWindow !== 'undefined' && typeof window.external.jsWindow.authState !== 'undefined' ? window.external.jsWindow.authState() : -1;
+
+	AH.isAolClient = isOldAolClient !== -1 || isNewAolClient !== -1;
+
+})(this, document, jQuery, AolHelpGlobals);
+
+
+
+//------------------
+// Throttling Plugin
+//------------------
+
+// Debounce source: http://www.paulirish.com/2009/throttled-smartresize-jquery-event-handler/
+
+(function(window, document, $){
+
+	var sr = 'smartresize',
+		ss = 'smartscroll',
+		$window = $(window),
+
+		debounce = function (func, threshold, execAsap) {
+			var timeout,
+				defaultThreshold = 100;
+
+			return function debounced () {
+				var obj = this, args = arguments;
+				function delayed () {
+					if (!execAsap)
+						func.apply(obj, args);
+					timeout = null;
+				}
+
+				if (timeout)
+					clearTimeout(timeout);
+				else if (execAsap)
+					func.apply(obj, args);
+
+				timeout = setTimeout(delayed, threshold || defaultThreshold);
+			};
+		};
+
+	// Trigger throttled window resize events.
+	jQuery.fn[sr] = function(fn) {
+		return fn ? this.bind('resize', debounce(fn, 250)) : this.trigger(sr);
+	};
+	$window[sr](function() {
+		$window.trigger('throttledresize');
+	});
+
+	// Trigger throttled scroll events.
+	jQuery.fn[ss] = function(fn) {
+		return fn ? this.bind('scroll', debounce(fn, 50)) : this.trigger(ss);
+	};
+	$window[ss](function() {
+		$window.trigger('throttledscroll');
+	});
+
+})(this, document, jQuery);
+
+//------------------------
+// CCTS module for Canada 
+//------------------------
+
+(function(window, document, $){
+	var ccts = document.querySelector('.ccts-layout');
+
+	function toggleExpanded(e) {
+		var target = e.target;
+		if(target && target.classList.contains('ccts__button')) {
+			ccts.classList.toggle('ccts--is-expanded');
+		}
+	}
+
+	if(ccts) {
+		ccts.addEventListener('click', toggleExpanded);
+	}
+
+})(this, document, jQuery);
+
+//------------------
+// Email Support
+//------------------
+(function(window, document, $) {
+	var $selectEl = $('#hvcSelectDropdow');
+	var $emailContainer = $('.hvc-input-container');
+
+	if (!$('#hvcForm').length) {
+		return;
+	}
+
+	if ($selectEl.length) {
+		window.onload = function() {
+			// Show email container if select field  equals `access`
+			if ($selectEl.val() === 'access') {
+				$emailContainer.show();
+			}
+    	};
+
+		//recheck the email input field display when select input field changes
+		$selectEl.on('change', function() {
+			if ($(this).val() === "access") {
+				return $emailContainer.show();
+			}
+
+			$emailContainer.hide();
+		});
+	}
+})(this, document, jQuery)
