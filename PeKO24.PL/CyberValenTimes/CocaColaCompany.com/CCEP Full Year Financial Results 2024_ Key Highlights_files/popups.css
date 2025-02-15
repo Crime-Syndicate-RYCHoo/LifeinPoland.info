@@ -1,0 +1,1 @@
+.popup{padding:var(--spacing-gutters-medium)}.popup__main,.popup__denied{display:none}.popup__main.-active,.popup__denied.-active{display:flex}.popup__main>*:not(:last-of-type){margin-bottom:var(--spacing-gutters-medium)}.popup__content{max-width:47rem}.popup__btn{margin-left:1rem;margin-right:1rem}.popup__checkbox,.popup__checkbox-label{cursor:pointer}

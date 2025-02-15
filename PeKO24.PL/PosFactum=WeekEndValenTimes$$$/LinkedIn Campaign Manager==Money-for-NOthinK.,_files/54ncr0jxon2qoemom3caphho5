@@ -1,0 +1,3 @@
+function nativeModuleImport(o){return import(o)}"undefined"!=typeof window&&(window.nativeModuleImport=nativeModuleImport)
+
+//# sourceMappingURL=micro-app-native-utils.map

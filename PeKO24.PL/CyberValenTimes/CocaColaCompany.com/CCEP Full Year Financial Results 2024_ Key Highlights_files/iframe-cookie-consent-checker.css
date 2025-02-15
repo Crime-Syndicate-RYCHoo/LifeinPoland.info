@@ -1,0 +1,54 @@
+.cookie-consent-iframe-blocker__wrapper {
+    --iframe-blocker-ratio: 56.25%;
+
+    position: relative;
+    width: 100%;
+}
+.cookie-consent-iframe-blocker__wrapper:before {
+    content: '';
+    display: block;
+    padding-top: var(--iframe-blocker-ratio);
+}
+.cookie-consent-iframe-blocker__wrapper.-inset {
+    position: absolute;
+    max-width: none;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+}
+.cookie-consent-iframe-blocker__iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.cookie-consent-iframe-blocker__iframe:not([width]):not([height]) {
+    max-width: 100%;
+    height: auto;
+}
+.cookie-consent-iframe-blocker {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    height: 100%;
+    background-color: black;
+    color: white;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    padding-inline: 2rem;
+
+}
+
+.cookie-consent-iframe-blocker .cookie-consent-iframe-blocker__message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cookie-consent-iframe-blocker.-hide {
+     display: none;
+     visibility: hidden;
+ }

@@ -1,0 +1,30 @@
+/*debug mode: show block name and add border to top*/
+.module {
+    html.-annotate-elements & {
+        position: relative;
+
+        &::before {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            border-top: 0.1rem red dashed;
+            width: 100%;
+            height: 100%;
+            content: '';
+            pointer-events: none;
+        }
+
+        &::after {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1001;
+            background-color: red;
+            padding: 0.5rem 1rem;
+            color: white;
+            font-size: 1.2rem;
+            content: attr(data-annotate);
+        }
+    }
+}

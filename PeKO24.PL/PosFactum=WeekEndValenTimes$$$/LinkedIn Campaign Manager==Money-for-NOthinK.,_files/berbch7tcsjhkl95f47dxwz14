@@ -1,0 +1,3 @@
+"undefined"!=typeof window&&window&&window.performance&&window.performance.mark&&(window.performance.mark("mark_vendor_end"),window.performance.getEntriesByName("mark_vendor_start").length>0&&window.performance.measure("mark_vendor_eval","mark_vendor_start","mark_vendor_end"))
+
+//# sourceMappingURL=vendor-suffix.map

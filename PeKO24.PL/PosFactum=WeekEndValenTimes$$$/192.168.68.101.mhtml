@@ -1,0 +1,508 @@
+From: <Saved by Blink>
+Snapshot-Content-Location: http://192.168.68.101/
+Subject: 
+Date: Sat, 15 Feb 2025 07:58:11 +0100
+MIME-Version: 1.0
+Content-Type: multipart/related;
+	type="text/html";
+	boundary="----MultipartBoundary--A3uaWsowfh9txZztw3ejVJkF6LaxY1LTi93lTKsiUG----"
+
+
+------MultipartBoundary--A3uaWsowfh9txZztw3ejVJkF6LaxY1LTi93lTKsiUG----
+Content-Type: text/html
+Content-ID: <frame-8C523ADD3AA8DA23E36DDED5968BC918@mhtml.blink>
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://192.168.68.101/
+
+<html><head><meta http-equiv=3D"Content-Type" content=3D"text/html; charset=
+=3Dwindows-1250"><link rel=3D"stylesheet" type=3D"text/css" href=3D"cid:css=
+-34a5ab55-46ac-46bd-9dc8-b2079445c09a@mhtml.blink" />
+
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered)">
+
+
+</head>
+
+<body lang=3D"PL" link=3D"#467886" vlink=3D"#96607D" style=3D"word-wrap:bre=
+ak-word">
+
+<div class=3D"WordSection1">
+
+<p class=3D"MsoNormal"><b>Creating a Web Server with Apache and PHP on Free=
+BSD</b></p>
+
+<p class=3D"MsoNormal"><b>Table of Contents</b></p>
+
+<ol style=3D"margin-top:0cm" start=3D"1" type=3D"1">
+ <li class=3D"MsoNormal"><b>Introduction to FreeBSD</b></li>
+ <ul style=3D"margin-top:0cm" type=3D"disc">
+  <li class=3D"MsoNormal">1.1 What is FreeBSD?</li>
+  <li class=3D"MsoNormal">1.2 Key Features of FreeBSD</li>
+  <li class=3D"MsoNormal">1.3 Use Cases for FreeBSD</li>
+ </ul>
+ <li class=3D"MsoNormal"><b>Installing FreeBSD</b></li>
+ <ul style=3D"margin-top:0cm" type=3D"disc">
+  <li class=3D"MsoNormal">2.1 System Requirements</li>
+  <li class=3D"MsoNormal">2.2 Downloading FreeBSD</li>
+  <li class=3D"MsoNormal">2.3 Installation Steps</li>
+  <li class=3D"MsoNormal">2.4 Post-Installation Configuration</li>
+ </ul>
+ <li class=3D"MsoNormal"><b>Understanding UNIX=AE Basics</b></li>
+ <ul style=3D"margin-top:0cm" type=3D"disc">
+  <li class=3D"MsoNormal">3.1 Introduction to UNIX=AE Philosophy</li>
+  <li class=3D"MsoNormal">3.2 Navigating the File System</li>
+  <li class=3D"MsoNormal">3.3 Basic Commands</li>
+  <li class=3D"MsoNormal">3.4 File Permissions and Ownership</li>
+ </ul>
+ <li class=3D"MsoNormal"><b>Installing Apache on FreeBSD</b></li>
+ <ul style=3D"margin-top:0cm" type=3D"disc">
+  <li class=3D"MsoNormal">4.1 Overview of Apache</li>
+  <li class=3D"MsoNormal">4.2 Installing Apache using pkg</li>
+  <li class=3D"MsoNormal">4.3 Configuring Apache</li>
+  <li class=3D"MsoNormal">4.4 Starting and Stopping Apache</li>
+ </ul>
+ <li class=3D"MsoNormal"><b>Installing PHP on FreeBSD</b></li>
+ <ul style=3D"margin-top:0cm" type=3D"disc">
+  <li class=3D"MsoNormal">5.1 Overview of PHP</li>
+  <li class=3D"MsoNormal">5.2 Installing PHP using pkg</li>
+  <li class=3D"MsoNormal">5.3 Configuring PHP with Apache</li>
+  <li class=3D"MsoNormal">5.4 Testing PHP Installation</li>
+ </ul>
+ <li class=3D"MsoNormal"><b>Enhancing Your Web Server with Third-Party Appl=
+ications</b></li>
+ <ul style=3D"margin-top:0cm" type=3D"disc">
+  <li class=3D"MsoNormal">6.1 Popular Third-Party Applications</li>
+  <li class=3D"MsoNormal">6.2 Installing MySQL/MariaDB</li>
+  <li class=3D"MsoNormal">6.3 Installing phpMyAdmin</li>
+  <li class=3D"MsoNormal">6.4 Setting Up SSL with Let's Encrypt</li>
+ </ul>
+ <li class=3D"MsoNormal"><b>Troubleshooting and Best Practices</b></li>
+ <ul style=3D"margin-top:0cm" type=3D"disc">
+  <li class=3D"MsoNormal">7.1 Common Issues and Solutions</li>
+  <li class=3D"MsoNormal">7.2 Best Practices for Security</li>
+  <li class=3D"MsoNormal">7.3 Performance Tuning Tips</li>
+ </ul>
+ <li class=3D"MsoNormal"><b>Conclusion</b></li>
+ <ul style=3D"margin-top:0cm" type=3D"disc">
+  <li class=3D"MsoNormal">8.1 Recap of Key Points</li>
+  <li class=3D"MsoNormal">8.2 Next Steps for Web Development</li>
+ </ul>
+</ol>
+
+<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
+
+<hr size=3D"0" width=3D"100%" align=3D"center">
+
+</div>
+
+<p class=3D"MsoNormal"><b>Chapter 1: Introduction to FreeBSD</b></p>
+
+<p class=3D"MsoNormal"><b>1.1 What is FreeBSD?</b></p>
+
+<p class=3D"MsoNormal">FreeBSD is an advanced operating system derived from=
+ the
+Berkeley Software Distribution (BSD). It is known for its robustness,
+performance, and advanced networking features. FreeBSD is widely used in
+servers, embedded systems, and desktop applications.</p>
+
+<p class=3D"MsoNormal"><b>1.2 Key Features of FreeBSD</b></p>
+
+<ul style=3D"margin-top:0cm" type=3D"disc">
+ <li class=3D"MsoNormal"><b>Performance</b>: FreeBSD is designed for high
+     performance and efficiency.</li>
+ <li class=3D"MsoNormal"><b>Stability</b>: It is known for its reliability =
+and long
+     uptime.</li>
+ <li class=3D"MsoNormal"><b>Advanced Networking</b>: FreeBSD supports advan=
+ced
+     networking features such as IPsec, Jails, and more.</li>
+ <li class=3D"MsoNormal"><b>Rich Documentation</b>: FreeBSD has extensive
+     documentation and community support.</li>
+</ul>
+
+<p class=3D"MsoNormal"><b>1.3 Use Cases for FreeBSD</b></p>
+
+<p class=3D"MsoNormal">FreeBSD is suitable for various applications includi=
+ng:</p>
+
+<ul style=3D"margin-top:0cm" type=3D"disc">
+ <li class=3D"MsoNormal">Web servers</li>
+ <li class=3D"MsoNormal">File servers</li>
+ <li class=3D"MsoNormal">Network appliances</li>
+ <li class=3D"MsoNormal">Virtualization hosts</li>
+</ul>
+
+<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
+
+<hr size=3D"0" width=3D"100%" align=3D"center">
+
+</div>
+
+<p class=3D"MsoNormal"><b>Chapter 2: Installing FreeBSD</b></p>
+
+<p class=3D"MsoNormal"><b>2.1 System Requirements</b></p>
+
+<p class=3D"MsoNormal">Before installing FreeBSD, ensure your system meets =
+the
+following requirements:</p>
+
+<ul style=3D"margin-top:0cm" type=3D"disc">
+ <li class=3D"MsoNormal">Minimum 512 MB RAM (1 GB recommended)</li>
+ <li class=3D"MsoNormal">Minimum 1 GB disk space (more for additional appli=
+cations)</li>
+ <li class=3D"MsoNormal">A compatible processor (x86 or ARM)</li>
+</ul>
+
+<p class=3D"MsoNormal"><b>2.2 Downloading FreeBSD</b></p>
+
+<ol style=3D"margin-top:0cm" start=3D"1" type=3D"1">
+ <li class=3D"MsoNormal">Visit the&nbsp;<a href=3D"https://www.freebsd.org/=
+downloads/">FreeBSD
+     website</a>.</li>
+ <li class=3D"MsoNormal">Choose the appropriate version and architecture.</=
+li>
+ <li class=3D"MsoNormal">Download the ISO image.</li>
+</ol>
+
+<p class=3D"MsoNormal"><b>2.3 Installation Steps</b></p>
+
+<ol style=3D"margin-top:0cm" start=3D"1" type=3D"1">
+ <li class=3D"MsoNormal">Create a bootable USB drive using tools like&nbsp;=
+Rufus&nbsp;or&nbsp;Etcher.</li>
+ <li class=3D"MsoNormal">Boot your system from the USB drive.</li>
+ <li class=3D"MsoNormal">Follow the on-screen instructions to install FreeB=
+SD:</li>
+ <ul style=3D"margin-top:0cm" type=3D"disc">
+  <li class=3D"MsoNormal">Choose the installation mode (e.g., guided).</li>
+  <li class=3D"MsoNormal">Partition your disk.</li>
+  <li class=3D"MsoNormal">Select the base system and additional components.=
+</li>
+ </ul>
+</ol>
+
+<p class=3D"MsoNormal"><b>2.4 Post-Installation Configuration</b></p>
+
+<p class=3D"MsoNormal">After installation, perform the following configurat=
+ions:</p>
+
+<ul style=3D"margin-top:0cm" type=3D"disc">
+ <li class=3D"MsoNormal">Set the root password.</li>
+ <li class=3D"MsoNormal">Configure network settings (DHCP or static).</li>
+ <li class=3D"MsoNormal">Update the package repository using:</li>
+ <li class=3D"MsoNormal">pkg update</li>
+</ul>
+
+<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
+
+<hr size=3D"0" width=3D"100%" align=3D"center">
+
+</div>
+
+<p class=3D"MsoNormal"><b>Chapter 3: Understanding UNIX=AE Basics</b></p>
+
+<p class=3D"MsoNormal"><b>3.1 Introduction to UNIX=AE Philosophy</b></p>
+
+<p class=3D"MsoNormal">UNIX=AE is built on a set of principles that emphasi=
+ze
+simplicity and modularity. Understanding these principles will help you
+navigate FreeBSD effectively.</p>
+
+<p class=3D"MsoNormal"><b>3.2 Navigating the File System</b></p>
+
+<ul style=3D"margin-top:0cm" type=3D"disc">
+ <li class=3D"MsoNormal"><b>Root Directory</b>:&nbsp;/</li>
+ <li class=3D"MsoNormal"><b>Home Directory</b>:&nbsp;/home/username</li>
+ <li class=3D"MsoNormal"><b>Common Directories</b>:</li>
+ <ul style=3D"margin-top:0cm" type=3D"disc">
+  <li class=3D"MsoNormal">/etc: Configuration files</li>
+  <li class=3D"MsoNormal">/usr: User programs and data</li>
+  <li class=3D"MsoNormal">/var: Variable files (logs, databases)</li>
+ </ul>
+</ul>
+
+<p class=3D"MsoNormal"><b>3.3 Basic Commands</b></p>
+
+<ul style=3D"margin-top:0cm" type=3D"disc">
+ <li class=3D"MsoNormal">ls: List directory contents</li>
+ <li class=3D"MsoNormal">cd: Change directory</li>
+ <li class=3D"MsoNormal">cp: Copy files</li>
+ <li class=3D"MsoNormal">mv: Move or rename files</li>
+ <li class=3D"MsoNormal">rm: Remove files</li>
+</ul>
+
+<p class=3D"MsoNormal"><b>3.4 File Permissions and Ownership</b></p>
+
+<p class=3D"MsoNormal">Understanding file permissions is crucial in UNIX=AE=
+.
+Use&nbsp;ls -l&nbsp;to view permissions. Permissions are set for the owner,
+group, and others. Use&nbsp;chmod,&nbsp;chown, and&nbsp;chgrp&nbsp;to manag=
+e
+permissions.</p>
+
+<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
+
+<hr size=3D"0" width=3D"100%" align=3D"center">
+
+</div>
+
+<p class=3D"MsoNormal"><b>Chapter 4: Installing Apache on FreeBSD</b></p>
+
+<p class=3D"MsoNormal"><b>4.1 Overview of Apache</b></p>
+
+<p class=3D"MsoNormal">Apache HTTP Server is the most widely used web serve=
+r. It is
+open-source and supports various modules for extended functionality.</p>
+
+<p class=3D"MsoNormal"><b>4.2 Installing Apache using pkg</b></p>
+
+<p class=3D"MsoNormal">To install Apache, use the following command:</p>
+
+<p class=3D"MsoNormal">pkg install apache24</p>
+
+<p class=3D"MsoNormal"><b>4.3 Configuring Apache</b></p>
+
+<ol style=3D"margin-top:0cm" start=3D"1" type=3D"1">
+ <li class=3D"MsoNormal">Edit the Apache configuration file located at&nbsp=
+;/usr/local/etc/apache24/httpd.conf.</li>
+ <li class=3D"MsoNormal">Set the&nbsp;ServerRoot,&nbsp;Listen, and&nbsp;Doc=
+umentRoot&nbsp;directives
+     according to your needs.</li>
+ <li class=3D"MsoNormal">Enable the Apache service to start at boot:</li>
+ <li class=3D"MsoNormal">sysrc apache24_enable=3D"YES"</li>
+</ol>
+
+<p class=3D"MsoNormal"><b>4.4 Starting and Stopping Apache</b></p>
+
+<p class=3D"MsoNormal">Start Apache using:</p>
+
+<p class=3D"MsoNormal">service apache24 start</p>
+
+<p class=3D"MsoNormal">Stop it with:</p>
+
+<p class=3D"MsoNormal">service apache24 stop</p>
+
+<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
+
+<hr size=3D"0" width=3D"100%" align=3D"center">
+
+</div>
+
+<p class=3D"MsoNormal"><b>Chapter 5: Installing PHP on FreeBSD</b></p>
+
+<p class=3D"MsoNormal"><b>5.1 Overview of PHP</b></p>
+
+<p class=3D"MsoNormal">PHP is a popular server-side scripting language desi=
+gned for
+web development. It can be embedded into HTML.</p>
+
+<p class=3D"MsoNormal"><b>5.2 Installing PHP using pkg</b></p>
+
+<p class=3D"MsoNormal">To install PHP, run:</p>
+
+<p class=3D"MsoNormal">pkg install php82 php82-mysqli php82-xml</p>
+
+<p class=3D"MsoNormal"><b>5.3 Configuring PHP with Apache</b></p>
+
+<ol style=3D"margin-top:0cm" start=3D"1" type=3D"1">
+ <li class=3D"MsoNormal">Edit the Apache configuration file to add the foll=
+owing
+     lines:</li>
+ <li class=3D"MsoNormal">AddType application/x-httpd-php .php</li>
+ <li class=3D"MsoNormal">Ensure the PHP module is enabled in Apache.</li>
+</ol>
+
+<p class=3D"MsoNormal"><b>5.4 Testing PHP Installation</b></p>
+
+<p class=3D"MsoNormal">Create a test PHP file in your document root:</p>
+
+<p class=3D"MsoNormal">&lt;?php</p>
+
+<p class=3D"MsoNormal">phpinfo();</p>
+
+<p class=3D"MsoNormal">?&gt;</p>
+
+<p class=3D"MsoNormal">Access this file via your web browser to see the PHP
+configuration.</p>
+
+<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
+
+<hr size=3D"0" width=3D"100%" align=3D"center">
+
+</div>
+
+<p class=3D"MsoNormal"><b>Chapter 6: Enhancing Your Web Server with Third-P=
+arty
+Applications</b></p>
+
+<p class=3D"MsoNormal"><b>6.1 Popular Third-Party Applications</b></p>
+
+<p class=3D"MsoNormal">FreeBSD supports numerous applications that can enha=
+nce your
+web server. Some popular choices include:</p>
+
+<ul style=3D"margin-top:0cm" type=3D"disc">
+ <li class=3D"MsoNormal"><b>MySQL/MariaDB</b>: Database management systems.=
+</li>
+ <li class=3D"MsoNormal"><b>phpMyAdmin</b>: A web interface for managing My=
+SQL
+     databases.</li>
+</ul>
+
+<p class=3D"MsoNormal"><b>6.2 Installing MySQL/MariaDB</b></p>
+
+<p class=3D"MsoNormal">To install MariaDB, use:</p>
+
+<p class=3D"MsoNormal">pkg install mariadb104-server mariadb104-client</p>
+
+<p class=3D"MsoNormal">Initialize the database:</p>
+
+<p class=3D"MsoNormal">mysql_install_db --user=3Dmysql --basedir=3D/usr/loc=
+al
+--datadir=3D/var/db/mysql</p>
+
+<p class=3D"MsoNormal">Start the MariaDB service:</p>
+
+<p class=3D"MsoNormal">service mysql-server start</p>
+
+<p class=3D"MsoNormal"><b>6.3 Installing phpMyAdmin</b></p>
+
+<p class=3D"MsoNormal">To install phpMyAdmin:</p>
+
+<p class=3D"MsoNormal">pkg install php82-phpmyadmin</p>
+
+<p class=3D"MsoNormal">Configure phpMyAdmin by editing the configuration fi=
+le
+located in&nbsp;/usr/local/www/phpMyAdmin/config.inc.php.</p>
+
+<p class=3D"MsoNormal"><b>6.4 Setting Up SSL with Let's Encrypt</b></p>
+
+<p class=3D"MsoNormal">For secure connections, use Let's Encrypt. Install&n=
+bsp;certbot:</p>
+
+<p class=3D"MsoNormal">pkg install py39-certbot</p>
+
+<p class=3D"MsoNormal">Follow the instructions to obtain and install SSL
+certificates.</p>
+
+<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
+
+<hr size=3D"0" width=3D"100%" align=3D"center">
+
+</div>
+
+<p class=3D"MsoNormal"><b>Chapter 7: Troubleshooting and Best Practices</b>=
+</p>
+
+<p class=3D"MsoNormal"><b>7.1 Common Issues and Solutions</b></p>
+
+<ul style=3D"margin-top:0cm" type=3D"disc">
+ <li class=3D"MsoNormal"><b>Apache not starting</b>: Check the error log lo=
+cated
+     at&nbsp;/var/log/httpd-error.log.</li>
+ <li class=3D"MsoNormal"><b>PHP not working</b>: Ensure the PHP module is l=
+oaded in
+     Apache configuration.</li>
+</ul>
+
+<p class=3D"MsoNormal"><b>7.2 Best Practices for Security</b></p>
+
+<ul style=3D"margin-top:0cm" type=3D"disc">
+ <li class=3D"MsoNormal">Regularly update your system and applications.</li=
+>
+ <li class=3D"MsoNormal">Use strong passwords and change them periodically.=
+</li>
+ <li class=3D"MsoNormal">Limit access to your server using firewalls.</li>
+</ul>
+
+<p class=3D"MsoNormal"><b>7.3 Performance Tuning Tips</b></p>
+
+<ul style=3D"margin-top:0cm" type=3D"disc">
+ <li class=3D"MsoNormal">Optimize Apache configuration to handle more conne=
+ctions.</li>
+ <li class=3D"MsoNormal">Use caching mechanisms like Varnish or Redis for b=
+etter
+     performance.</li>
+</ul>
+
+<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
+
+<hr size=3D"0" width=3D"100%" align=3D"center">
+
+</div>
+
+<p class=3D"MsoNormal"><b>Chapter 8: Conclusion</b></p>
+
+<p class=3D"MsoNormal"><b>8.1 Recap of Key Points</b></p>
+
+<p class=3D"MsoNormal">In this handbook, you learned how to install FreeBSD=
+, set up
+Apache and PHP, and enhance your web server with additional applications. Y=
+ou
+also gained insights into UNIX=AE basics and best practices for maintaining=
+ a
+secure and efficient server.</p>
+
+<p class=3D"MsoNormal"><b>8.2 Next Steps for Web Development</b></p>
+
+<p class=3D"MsoNormal">Continue exploring FreeBSD by diving into advanced t=
+opics
+such as performance tuning, security hardening, and application development=
+.
+Experiment with different configurations and applications to find what best
+suits your needs.</p>
+
+<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
+
+<hr size=3D"0" width=3D"100%" align=3D"center">
+
+</div>
+
+<p class=3D"MsoNormal">This concludes your comprehensive guide to creating =
+a web
+server with Apache and PHP on FreeBSD. With this knowledge, you are
+well-equipped to deploy and manage a robust web server environment. Happy
+coding!</p>
+
+<p class=3D"MsoNormal">&nbsp;</p>
+
+</div>
+<pre><font size=3D"+6" color=3D"GrEEn">
+NeXT lessons at: <a href=3D"http://filemon.czekaj.com.pl/">http://CzeKaj.CO=
+M.pl/FileMON/index.html</a>
+or WAIT.mil for reload to localHOST!
+(C) 2025 CybeRV@lenTimes with sp9ryc#792466* Richard CZEKAJ 8-)
+</font></pre>
+
+
+
+
+</body></html>
+------MultipartBoundary--A3uaWsowfh9txZztw3ejVJkF6LaxY1LTi93lTKsiUG----
+Content-Type: text/css
+Content-Transfer-Encoding: quoted-printable
+Content-Location: cid:css-34a5ab55-46ac-46bd-9dc8-b2079445c09a@mhtml.blink
+
+@charset "windows-1250";
+
+@font-face { font-family: Wingdings; }
+
+@font-face { font-family: "Cambria Math"; }
+
+@font-face { font-family: Aptos; }
+
+p.MsoNormal, li.MsoNormal, div.MsoNormal { margin: 0cm 0cm 8pt; line-height=
+: 115%; font-size: 12pt; font-family: Aptos, sans-serif; }
+
+a:link, span.MsoHyperlink { color: rgb(70, 120, 134); text-decoration: unde=
+rline; }
+
+.MsoPapDefault { margin-bottom: 8pt; line-height: 115%; }
+
+@page WordSection1 { size: 595.3pt 841.9pt; margin: 70.85pt; }
+
+div.WordSection1 { page: WordSection1; }
+
+ol { margin-bottom: 0cm; }
+
+ul { margin-bottom: 0cm; }
+------MultipartBoundary--A3uaWsowfh9txZztw3ejVJkF6LaxY1LTi93lTKsiUG------
