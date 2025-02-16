@@ -1,0 +1,259 @@
+:root {
+    --canvas_design_width : 1136px;
+    --canvas_design_height : 610px;
+
+    --canvas_max_width : 99999px;
+    --canvas_min_width : 400px;
+
+    --canvas_horizontal_padding : 30px;
+    --canvas_vertical_padding : 60px;
+}
+
+* {
+    margin : 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 스크롤바만 안 보이게 설정 */
+html {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE, Edge */
+}
+/* 스크롤바만 안 보이게 설정 */
+html::-webkit-scrollbar {
+    display: none; /* Chrome, Safari */
+}
+
+body{
+    margin: 0px;
+    padding: 0px;
+    background-color: #030129;
+    /*height: 800px;*/
+    background-image: url("/canvas/images/bg.jpg");
+    /*background-image: url("https://t1.daumcdn.net/cfile/blog/172B303A50DA157A33");*/
+    background-position: center top;
+    background-repeat: no-repeat;
+}
+
+a{
+    text-decoration: none;
+}
+a:visited {
+    text-decoration: none;
+}
+
+a.test_button {
+    border: none;
+    color: white;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 24px;
+}
+
+button.test_button {
+    background-color: transparent;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    color: white;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 24px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    margin: 0 auto;
+    max-width: var(--canvas_max_width);
+    min-width:  var(--canvas_min_width);
+}
+
+.header_left {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width : 33%;
+    padding-left: 0px;
+}
+
+.header_left .gotooldlobby {
+    display : none;
+    margin: 5px 0 0 0;
+}
+.header_left .gotooldlobby img {
+    height: 46px;
+    width:  128px;
+}
+
+
+
+
+/**********************************/
+/* GotoOldLobby 버튼 화살표 애니메이션*/
+@-webkit-keyframes prop-arrow {
+    0% {
+        -webkit-transform: translateY(30px);
+    }
+    50% {
+        -webkit-transform: translateY(50px);
+    }
+    100% {
+        -webkit-transform: translateY(30px);
+    }
+}
+.header_left .arrowForOldLobby{
+    display: none;
+    height: 0;
+    width:  0;
+    -webkit-animation-name: prop-arrow;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-iteration-count: infinite;
+    z-index: 1;
+
+}
+.header_left .arrowForOldLobby img{
+    margin-left: 3px;
+}
+/**********************************/
+
+.header_left .crossPromo {
+    display: flex;
+    margin: 0 0 10px 1px;
+    padding: 0 0 0 0;
+    width: 232px;
+    height: 45px;
+    /*background-size: contain;*/
+    background-position: left;
+    background-image: url("/canvas/images/crossPromoBaseBg.png");
+    background-repeat: no-repeat;
+}
+.header_left .crossPromo .item{
+    margin: 9px 0 0 3px;
+}
+.header_left .crossPromo .icon{
+    object-fit: none;
+}
+.header_left .crossPromo .over{
+    display: none;
+}
+
+@-webkit-keyframes prop-promo {
+    0% {
+        -webkit-transform: translateY(-10px);
+    }
+    100% {
+        -webkit-transform: translateY(0px);
+    }
+}
+.header_left .crossPromoRewardTooltip{
+    display: none;
+    margin: 45px 0 0 0;
+    width: 0px;
+    height: 0px;
+    z-index: 1;
+    pointer-events: none;
+
+    -webkit-animation-name: prop-promo;
+    -webkit-animation-duration: 0.5s;
+    -webkit-animation-iteration-count: 1;
+}
+
+
+.header_right {
+
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width : 33%;
+    padding-right: 0px;
+}
+
+
+.header_right .rightButtons {
+    padding: 2px 0 0 5px;
+}
+.header_right .freecoin {
+    padding: 2px 10px 0 5px;
+}
+.header_right .fullscreenbutton{
+    display: none;
+}
+
+.header_title {
+    display: flex;
+    justify-content: center;
+    width : 33%;
+}
+
+.header_title > img {
+    object-fit: cover;
+    width: 419px;
+    height: 55px;
+}
+.main {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+}
+
+.canvascontainer {
+    margin: 0px 10px 10px 10px;
+    height : var(--canvas_design_height);
+    width : 100%;
+    min-width:  var(--canvas_min_width);
+    max-width: var(--canvas_max_width);
+    background-color: #000000;
+    /*box-shadow: 0px 0px 2px 4px #7100b9;*/
+}
+
+canvas {
+    outline: none;
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0); /* mobile webkit */
+}
+
+.footer{
+    text-align: center;
+}
+
+.footerlist {
+    display: flex;
+    justify-content: center;
+    margin: 0 0 5px 0;
+    font-size: 15px;
+}
+
+.footeritem {
+    margin: 0 20px 0 0;
+    color : #5243ad;
+}
+
+.footerlist a {
+    /*font-weight : bold;*/
+    color : #5243ad;
+}
+
+.footer .copyright {
+    /*font-weight : bold;*/
+    color : #5243ad;
+    font-size: 13px;
+}
+
+.footer .mobile_qrcode {
+    display: flex;
+    justify-content: center;
+    margin: 18px 0 10px 0;
+}
+
+.footer .mobile_qrcode .qrcode{
+    margin: 0 20px 0 20px;
+}

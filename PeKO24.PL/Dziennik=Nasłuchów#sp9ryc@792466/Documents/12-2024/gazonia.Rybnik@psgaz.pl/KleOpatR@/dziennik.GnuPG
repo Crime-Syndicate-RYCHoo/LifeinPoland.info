@@ -1,0 +1,9 @@
+<html><head>
+<title>Przegl¹darka dziennika GnuPG</title>
+</head><body>
+<div><b>C:/Users/rycho/OneDrive/Obrazy/Zaimportowane z aparatu/2024-12-12+ChVoroŒCi@NY-antSS.zip (zaimportowano przy u¿yciu gpg)</b></div><pre>gpg: nie odnaleziono poprawnych danych w formacie OpenPGP.
+gpg: Ogó³em przetworzonych kluczy: 0
+</pre><hr><div><b>C:/Users/rycho/OneDrive/Obrazy/Zaimportowane z aparatu/2024-12-12+ChVoroŒCi@NY-antSS.zip (zaimportowano przy u¿yciu gpgsm)</b></div><pre>gpgsm: ca³kowita liczba przetworzonych: 0
+gpgsm: b³¹d importu certyfikatu: Koniec pliku
+</pre>
+</body></html>

@@ -1,0 +1,16 @@
+Jak zainstalowaæ jêzyk polski w programie IrfanView?
+
+  1) Odszukaj katalog programu IrfanView.
+     Domyœlnie jest to:
+		C:\Program Files\IrfanView
+
+  2) Wypakuj wszystkie pliki z archiwum ZIP
+     zawieraj¹cego polskie pliki jêzykowe
+     do podkatalogu "Languages"
+
+  3) Uruchom program IrfanView, przejdŸ do menu:
+		Options -> Change language...
+     i wybierz jêzyk Polski
+
+
+Mi³ej pracy!

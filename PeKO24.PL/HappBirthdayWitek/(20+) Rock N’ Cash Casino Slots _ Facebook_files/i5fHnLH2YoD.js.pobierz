@@ -1,0 +1,3 @@
+;/*FB_PKG_DELIM*/
+
+__d("PlatformDialogResponseBlueCompatUtils",["Arbiter","BlueCompatBroker"],(function(a,b,c,d,e,f,g){function a(a){a=a.eventAllowlist;c("BlueCompatBroker").init();c("Arbiter").subscribe(a,function(a,b){c("BlueCompatBroker").sendMessage({compatAction:"platform-dialog-response",event:a,response:b}),c("BlueCompatBroker").sendMessage({compatAction:"dialog-hide"})})}g.initializePassthroughEvents=a}),98);

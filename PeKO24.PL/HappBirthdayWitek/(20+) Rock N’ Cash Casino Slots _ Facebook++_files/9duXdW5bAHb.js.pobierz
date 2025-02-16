@@ -1,0 +1,5 @@
+;/*FB_PKG_DELIM*/
+
+__d("BizkitWebRedirectFalcoEvent",["FalcoLoggerInternal","getFalcoLogPolicy_DO_NOT_USE"],(function(a,b,c,d,e,f,g){"use strict";a=c("getFalcoLogPolicy_DO_NOT_USE")("2232");b=d("FalcoLoggerInternal").create("bizkit_web_redirect",a);e=b;g["default"]=e}),98);
+__d("WebBookmarkClickFalcoEvent",["FalcoLoggerInternal","getFalcoLogPolicy_DO_NOT_USE"],(function(a,b,c,d,e,f,g){"use strict";a=c("getFalcoLogPolicy_DO_NOT_USE")("1868428");b=d("FalcoLoggerInternal").create("web_bookmark_click",a);e=b;g["default"]=e}),98);
+__d("WebBookmarkImpressionFalcoEvent",["FalcoLoggerInternal","getFalcoLogPolicy_DO_NOT_USE"],(function(a,b,c,d,e,f,g){"use strict";a=c("getFalcoLogPolicy_DO_NOT_USE")("1868429");b=d("FalcoLoggerInternal").create("web_bookmark_impression",a);e=b;g["default"]=e}),98);

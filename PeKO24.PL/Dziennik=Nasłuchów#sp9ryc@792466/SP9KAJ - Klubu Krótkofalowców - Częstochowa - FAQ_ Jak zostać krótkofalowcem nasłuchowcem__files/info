@@ -1,0 +1,10 @@
+
+			var callWidget;
+			if(typeof setWidgetData === 'function') {
+				callWidget = setWidgetData;
+			} else {
+				callWidget = setWidgetData_
+			}
+		
+				callWidget({ "results": [ { "widget_type":"11", "gparams":"0", "html_code":" <div class=\"booked-weather-120x100 w100-bg\" style=\"color:#000000; border-radius:4px; -moz-border-radius:4px; width:118px !important; border:none\"> <a target=\"_blank\" style=\"color:#000000;\" href=\"https://booked.com.pl/weather/czestochowa-33131\" class=\"booked-weather-120x100-city smolest\">Częstochowa</a> <a target=\"_blank\" class=\"booked-weather-120x100-bottom\" href=\"https://www.booked.net/\"><img src=\"//s.bookcdn.com/images/letter/s5.gif\" alt=\"www booked net\" /></a> <div class=\"booked-weather-120x100-degree w22\">-3&deg;<sub class=\"booked-weather-120x100-type\">C</sub></div> <div class=\"booked-weather-120x100-high-low\"> <p>Max.: -2&deg;</p> <p>Min.: -5&deg;</p> </div> <div style=\"color:#000000;\" class=\"booked-weather-120x100-date\">Nie, 16.02.2025</div> </div> " } ] });
+			

@@ -1,0 +1,28 @@
+<html><head>
+<title>Przegl¹darka dziennika GnuPG</title>
+</head><body>
+<div><b>D:/DoDruku/ant/etc/gazonia.Rybnik@psgaz.pl/KleOpatR@/PGP.asc (zaimportowano przy u¿yciu gpg)</b></div><pre>gpg: Uwaga: podpisy kluczami osób trzecich wykorzystuj¹ce algorytm SHA1 s¹ odrzucane
+gpg: (opcj¹ „--allow-weak-key-signatures” mo¿na to obejœæ)
+gpg: klucz AB2F5A5B15256990: 169 podpisy nie zosta³y sprawdzone z powodu braku klucza
+gpg: klucz AB2F5A5B15256990: 137 niepoprawne podpisy
+gpg: klucz AB2F5A5B15256990: „Erwin Lansing &lt;erwin@lansing.dk&gt;” bez zmian
+gpg: klucz BFE4387E54E278F8: 62 podpisy nie zosta³y sprawdzone z powodu braku klucza
+gpg: klucz BFE4387E54E278F8: 8 niepoprawne podpisy
+gpg: klucz BFE4387E54E278F8: „Henrik Brix Andersen &lt;henrik@brixandersen.dk&gt;” bez zmian
+gpg: klucz 22ABF0ECF9561C31: 24 podpisy nie zosta³y sprawdzone z powodu braku klucza
+gpg: klucz 22ABF0ECF9561C31: „Jesper Skriver &lt;jesper@FreeBSD.org&gt;” bez zmian
+gpg: klucz 1CA95A6356B0CA08: „Lars Thegler &lt;lth@FreeBSD.org&gt;” bez zmian
+gpg: klucz 7B0A52120F55F6BE: 32 podpisy nie zosta³y sprawdzone z powodu braku klucza
+gpg: klucz 7B0A52120F55F6BE: 35 niepoprawne podpisy
+gpg: klucz 7B0A52120F55F6BE: „Michael L. Hostbaek &lt;mich@freebsdcluster.org&gt;” bez zmian
+gpg: klucz 049C7480FF7490AB: 2 niepoprawne podpisy
+gpg: klucz 049C7480FF7490AB: „Simon L. Nielsen &lt;simon@FreeBSD.org&gt;” bez zmian
+gpg: klucz 0DBC3408E683AD40: „Soeren Straarup &lt;xride@xride.dk&gt;” bez zmian
+gpg: klucz 049C7480FF7490AB: 2 niepoprawne podpisy
+gpg: klucz 049C7480FF7490AB: „Simon L. Nielsen &lt;simon@FreeBSD.org&gt;” bez zmian
+gpg: Ogó³em przetworzonych kluczy: 8
+gpg:                    bez zmian: 8
+</pre><hr><div><b>D:/DoDruku/ant/etc/gazonia.Rybnik@psgaz.pl/KleOpatR@/PGP.asc (zaimportowano przy u¿yciu gpgsm)</b></div><pre>gpgsm: ca³kowita liczba przetworzonych: 0
+gpgsm: b³¹d importu certyfikatu: Koniec pliku
+</pre>
+</body></html>
