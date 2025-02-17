@@ -1,0 +1,1 @@
+"use strict";setInterval(function(){if(top!=self){try{top.onbeforeunload=function(){}}catch(a){}top.location.replace(self.location.href)}},500);
